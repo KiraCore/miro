@@ -10,10 +10,9 @@ import 'package:miro/providers/network_provider.dart';
 import 'package:miro/shared/models/network_model.dart';
 import 'package:miro/shared/models/network_status.dart';
 import 'package:miro/shared/router/router.gr.dart';
-import 'package:miro/views/widgets/center_load_spinner.dart';
+import 'package:miro/views/pages/connection_page/network_status_list_tile.dart';
+import 'package:miro/views/widgets/generic/center_load_spinner.dart';
 import 'package:provider/provider.dart';
-
-import 'network_status_list_tile.dart';
 
 class ConnectionPage extends StatefulWidget {
   const ConnectionPage({Key? key}) : super(key: key);
@@ -86,8 +85,7 @@ class _ConnectionPage extends State<ConnectionPage> {
                       );
                     }
                     return NetworkStatusListTile(
-                      networkModel: _selectNetwork(
-                          networkProvider.currentNetwork, networkListState.networkList[index]),
+                      networkModel: _selectNetwork(networkProvider.currentNetwork, networkListState.networkList[index]),
                     );
                   },
                 );
