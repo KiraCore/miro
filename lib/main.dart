@@ -18,6 +18,7 @@ Future<void> main() async {
   setPathUrlStrategy();
 
   runApp(
+    // ignore: always_specify_types
     ChangeNotifierProvider.value(
       value: globalLocator<AppConfigProvider>(),
       child: MultiProvider(
