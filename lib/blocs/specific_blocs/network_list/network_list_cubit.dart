@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:miro/infra/services/interx_status_service.dart';
+import 'package:miro/infra/services/api/query_interx_status_service.dart';
 import 'package:miro/shared/constants/network_health.dart';
 import 'package:miro/shared/models/network_model.dart';
 import 'package:miro/shared/models/network_status.dart';
@@ -9,10 +9,10 @@ import 'package:miro/shared/utils/assets_manager.dart';
 part 'network_list_state.dart';
 
 class NetworkListCubit extends Cubit<NetworkListState> {
-  final InterxStatusService interxStatusService;
+  final QueryInterxStatusService queryInterxStatusService;
   List<NetworkModel> networkList = List<NetworkModel>.empty(growable: true);
 
-  NetworkListCubit({required this.interxStatusService}) : super(NetworkListInitialState()) {
+  NetworkListCubit({required this.queryInterxStatusService}) : super(NetworkListInitialState()) {
     getNetworks();
   }
 
@@ -42,5 +42,5 @@ class NetworkListCubit extends Cubit<NetworkListState> {
   }
 
   Future<NetworkHealthStatus> _checkNetworkHealth(NetworkModel networkModel) async =>
-      await interxStatusService.getHealth(networkModel.parsedUri);
+      await queryInterxStatusService.getHealth(networkModel.parsedUri);
 }

@@ -11,4 +11,9 @@ class PubKey {
         type: json['type'] as String,
         value: json['value'] as String,
       );
+
+  @override
+  String toString() {
+    return 'PubKey{type: $type, value: $value}';
+  }
 }

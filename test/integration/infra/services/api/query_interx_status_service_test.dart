@@ -1,0 +1,84 @@
+import 'package:flutter_test/flutter_test.dart';
+import 'package:miro/config/locator.dart';
+import 'package:miro/infra/exceptions/interx_unavailable_exception.dart';
+import 'package:miro/infra/services/api/query_interx_status_service.dart';
+import 'package:miro/shared/constants/network_health.dart';
+import 'package:miro/shared/models/infra/interx_response_data.dart';
+import 'package:miro/shared/utils/network_utils.dart';
+
+// To run this test type in console:
+// fvm flutter test test/integration/infra/services/api/query_interx_status_service_test.dart --platform chrome
+Future<void> main() async {
+  await initLocator();
+  final QueryInterxStatusService queryInterxStatusService = globalLocator<QueryInterxStatusService>();
+
+  String testnetRpcUrl = 'testnet-rpc.kira.network';
+
+  group('Test of getHealth() method', () {
+    // If test fail, try with other kira network
+    test('Should return NetworkHealthStatus.online if network belongs to kira and network is active', () async {
+      final Uri uri = NetworkUtils.parseUrl('https://${testnetRpcUrl}');
+
+      NetworkHealthStatus networkHealthStatus = await queryInterxStatusService.getHealth(uri);
+      print(
+          'NetworkHealthStatus.online == ${networkHealthStatus.toString()} - ${NetworkHealthStatus.online == networkHealthStatus}');
+    });
+
+    test(
+        'Should return NetworkHealthStatus.online if network belongs to kira, network is active but url has bad scheme',
+        () async {
+      final Uri uri = NetworkUtils.parseUrl('http://${testnetRpcUrl}');
+
+      NetworkHealthStatus networkHealthStatus = await queryInterxStatusService.getHealth(uri);
+      print(
+          'NetworkHealthStatus.online == ${networkHealthStatus.toString()} - ${NetworkHealthStatus.online == networkHealthStatus}');
+    });
+
+    test(
+        'Should return NetworkHealthStatus.offline if network not belongs to kira or belongs to kira but network is disabled',
+        () async {
+      final Uri uri = NetworkUtils.parseUrl('https://facebook.com/');
+
+      NetworkHealthStatus networkHealthStatus = await queryInterxStatusService.getHealth(uri);
+      print(
+          'NetworkHealthStatus.offline == ${networkHealthStatus.toString()} - ${NetworkHealthStatus.offline == networkHealthStatus}');
+    });
+  });
+
+  group('Test of getData() method', () {
+    test('Should return network data if network belongs to kira and network is active', () async {
+      final Uri uri = NetworkUtils.parseUrl('https://${testnetRpcUrl}');
+
+      InterxResponseData interxStatusResponse = await queryInterxStatusService.getData(uri);
+      print('');
+      print(interxStatusResponse.toString());
+      print('');
+    });
+
+    test('Should return network data if network belongs to kira, network is active but url has bad scheme', () async {
+      final Uri uri = NetworkUtils.parseUrl('http://${testnetRpcUrl}');
+
+      InterxResponseData interxStatusResponse = await queryInterxStatusService.getData(uri);
+      print('');
+      print(interxStatusResponse.toString());
+      print('');
+    });
+
+    test('Should throw exception if network not belongs to kira or belongs to kira but network is disabled', () async {
+      final Uri uri = NetworkUtils.parseUrl('https://facebook.com/');
+
+      try {
+        await queryInterxStatusService.getData(uri);
+        print('Test failed');
+      } catch (e) {
+        if (e.runtimeType == InterxUnavailableException) {
+          print('Test passed.');
+          print('Exception is ${e.runtimeType}');
+        } else {
+          print('Test failed.');
+          print('Exception is ${e.runtimeType}');
+        }
+      }
+    });
+  });
+}
