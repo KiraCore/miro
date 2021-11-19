@@ -14,4 +14,9 @@ class ProtocolVersion {
         block: json['block'] as String,
         p2p: json['p2p'] as String,
       );
+
+  @override
+  String toString() {
+    return 'ProtocolVersion{app: $app, block: $block, p2p: $p2p}';
+  }
 }

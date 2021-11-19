@@ -1,4 +1,4 @@
-import 'package:miro/infra/dto/api/interx_status/protocol_version.dart';
+import 'package:miro/infra/dto/api/query_interx_status/protocol_version.dart';
 
 class NodeInfo {
   final String channels;
@@ -36,5 +36,11 @@ class NodeInfo {
       protocolVersion: ProtocolVersion.fromJson(json['protocol_version'] as Map<String, dynamic>),
       version: json['version'] as String,
     );
+  }
+
+  @override
+  String toString() {
+    return 'NodeInfo{channels: $channels, id: $id, listenAddress: $listenAddress, moniker: $moniker, network: '
+        '$network, rpcAddress: $rpcAddress, txIndex: $txIndex, protocolVersion: $protocolVersion, version: $version}';
   }
 }

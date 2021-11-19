@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/specific_blocs/network_connector/network_connector_cubit.dart';
 import 'package:miro/blocs/specific_blocs/network_list/network_list_cubit.dart';
 import 'package:miro/config/locator.dart';
-import 'package:miro/infra/services/interx_status_service.dart';
+import 'package:miro/infra/services/api/query_interx_status_service.dart';
 import 'package:miro/providers/network_provider.dart';
 import 'package:miro/providers/wallet_provider.dart';
 import 'package:provider/provider.dart';
@@ -19,13 +19,13 @@ List<SingleChildWidget> appListProviders = <SingleChildWidget>[
   BlocProvider<NetworkConnectorCubit>(
     lazy: false,
     create: (BuildContext context) => NetworkConnectorCubit(
-      interxStatusService: globalLocator<InterxStatusService>(),
+      queryInterxStatusService: globalLocator<QueryInterxStatusService>(),
     ),
   ),
   BlocProvider<NetworkListCubit>(
     lazy: false,
     create: (BuildContext context) => NetworkListCubit(
-      interxStatusService: globalLocator<InterxStatusService>(),
+      queryInterxStatusService: globalLocator<QueryInterxStatusService>(),
     ),
   ),
 ];

@@ -29,4 +29,9 @@ class SyncInfo {
         latestBlockHeight: json['latest_block_height'] as String,
         latestBlockTime: json['latest_block_time'] as String,
       );
+
+  @override
+  String toString() {
+    return 'SyncInfo{earliestAppHash: $earliestAppHash, earliestBlockHash: $earliestBlockHash, earliestBlockHeight: $earliestBlockHeight, earliestBlockTime: $earliestBlockTime, latestAppHash: $latestAppHash, latestBlockHash: $latestBlockHash, latestBlockHeight: $latestBlockHeight, latestBlockTime: $latestBlockTime}';
+  }
 }

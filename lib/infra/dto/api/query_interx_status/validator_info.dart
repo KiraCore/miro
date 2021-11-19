@@ -1,4 +1,4 @@
-import 'package:miro/infra/dto/api/interx_status/pub_key.dart';
+import 'package:miro/infra/dto/api/query_interx_status/pub_key.dart';
 
 class ValidatorInfo {
   final String address;
@@ -16,4 +16,9 @@ class ValidatorInfo {
         pubKey: PubKey.fromJson(json['pub_key'] as Map<String, dynamic>),
         votingPower: json['voting_power'] as String,
       );
+
+  @override
+  String toString() {
+    return 'ValidatorInfo{address: $address, pubKey: $pubKey, votingPower: $votingPower}';
+  }
 }

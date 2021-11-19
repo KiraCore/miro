@@ -20,4 +20,9 @@ class Node {
         snapshotNodeId: json['snapshot_node_id'] as String,
         validatorNodeId: json['validator_node_id'] as String,
       );
+
+  @override
+  String toString() {
+    return 'Node{nodeType: $nodeType, seedNodeId: $seedNodeId, sentryNodeId: $sentryNodeId, snapshotNodeId: $snapshotNodeId, validatorNodeId: $validatorNodeId}';
+  }
 }
