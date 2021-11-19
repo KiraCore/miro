@@ -104,7 +104,7 @@ class _ConnectionPage extends State<ConnectionPage> {
         url: currentNetwork.url,
         name: newNetwork.name,
         status: currentNetwork.status,
-        interxStatus: currentNetwork.interxStatus,
+        queryInterxStatus: currentNetwork.queryInterxStatus,
       );
     }
     return newNetwork;

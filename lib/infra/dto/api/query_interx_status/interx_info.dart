@@ -1,5 +1,5 @@
-import 'package:miro/infra/dto/api/interx_status/node.dart';
-import 'package:miro/infra/dto/api/interx_status/pub_key.dart';
+import 'package:miro/infra/dto/api/query_interx_status/node.dart';
+import 'package:miro/infra/dto/api/query_interx_status/pub_key.dart';
 
 class InterxInfo {
   final String faucetAddress;
@@ -41,4 +41,9 @@ class InterxInfo {
         pubKey: PubKey.fromJson(json['pub_key'] as Map<String, dynamic>),
         version: json['version'] as String,
       );
+
+  @override
+  String toString() {
+    return 'InterxInfo{faucetAddress: $faucetAddress, catchingUp: $catchingUp, chainId: $chainId, genesisChecksum: $genesisChecksum, kiraAddress: $kiraAddress, kiraPubKey: $kiraPubKey, latestBlockHeight: $latestBlockHeight, moniker: $moniker, node: $node, pubKey: $pubKey, version: $version}';
+  }
 }
