@@ -74,7 +74,6 @@ class Wallet extends Equatable {
     );
   }
   
-  // TODO(dominik): For future use. Elliptic Curve public key, probably can be used in transactions
   /// Returns the associated [publicKey] as an [ECPublicKey] instance.
   ECPublicKey get ecPublicKey {
     final ECCurve_secp256k1 secp256k1 = ECCurve_secp256k1();
@@ -82,8 +81,7 @@ class Wallet extends Equatable {
     final ECPoint? curvePoint = point * ecPrivateKey.d;
     return ECPublicKey(curvePoint, ECCurve_secp256k1());
   }
-
-  // TODO(dominik): For future use. Elliptic Curve private key, probably can be used in transactions
+  
   /// Returns the associated [privateKey] as an [ECPrivateKey] instance.
   ECPrivateKey get ecPrivateKey {
     final BigInt privateKeyInt = BigInt.parse(HEX.encode(privateKey), radix: 16);
