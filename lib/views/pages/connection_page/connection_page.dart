@@ -44,7 +44,7 @@ class _ConnectionPage extends State<ConnectionPage> {
                   itemCount: networkListLength + extraItems,
                   itemBuilder: (_, int index) {
                     if (index == networkListLength + 1) {
-                      return Text('${networkProvider.currentNetwork}');
+                      return Text('${networkProvider.networkModel}');
                     }
                     if (index == networkListLength) {
                       return Row(
@@ -85,7 +85,7 @@ class _ConnectionPage extends State<ConnectionPage> {
                       );
                     }
                     return NetworkStatusListTile(
-                      networkModel: _selectNetwork(networkProvider.currentNetwork, networkListState.networkList[index]),
+                      networkModel: _selectNetwork(networkProvider.networkModel, networkListState.networkList[index]),
                     );
                   },
                 );

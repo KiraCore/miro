@@ -1,6 +1,5 @@
 import 'dart:html' as html;
 
-// ignore_for_file: unsafe_html
 class BrowserUtils {
   static void downloadFile(List<dynamic> content, String name) {
     final html.Blob blob = html.Blob(content);
