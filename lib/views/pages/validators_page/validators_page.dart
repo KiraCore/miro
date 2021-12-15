@@ -15,7 +15,7 @@ class ValidatorsPage extends StatelessWidget {
         children: <Widget>[
           Consumer<NetworkProvider>(
             builder: (_, NetworkProvider networkProvider, Widget? child) {
-              return Text('${networkProvider.currentNetwork}');
+              return Text('${networkProvider.networkModel}');
             },
           ),
           ElevatedButton(

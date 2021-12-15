@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:miro/config/theme/index.dart';
-import 'package:miro/shared/app_logger.dart';
-import 'package:miro/shared/utils/enums.dart';
+import 'package:miro/shared/utils/app_logger.dart';
+import 'package:miro/shared/utils/enum_utils.dart';
 
 abstract class AppConfigProvider extends ChangeNotifier {
   String get locale;
+
   bool get isDarkTheme;
+
   ThemeData get themeData;
+
   void initConfig();
 
   Future<void> updateLang(String? lang);
@@ -38,11 +41,11 @@ class AppConfigProviderImpl extends AppConfigProvider {
     try {
       _prefs = Hive.box<String>('configuration');
       _locale = _prefs.get('language', defaultValue: 'en')!;
-      _themeMode = enumFromString(
+      _themeMode = EnumUtils.parseFromString(
         ThemeMode.values,
         _prefs.get(
           'theme_mode',
-          defaultValue: enumToString(ThemeMode.system),
+          defaultValue: EnumUtils.parseToString(ThemeMode.system),
         )!,
       );
       notifyListeners();
@@ -64,7 +67,7 @@ class AppConfigProviderImpl extends AppConfigProvider {
   @override
   Future<void> updateTheme(ThemeMode mode) async {
     try {
-      await _prefs.put('theme_mode', enumToString(mode));
+      await _prefs.put('theme_mode', EnumUtils.parseToString(mode));
       _themeMode = mode;
       notifyListeners();
     } on Exception catch (error) {
