@@ -23,9 +23,6 @@ analyzer:
 
     - lib/test/mocks/**
 
-    #    - lib/client.dart
-    #    - lib/server/*.g.dart
-    #    - test/_data/**
   # If you want stricter static checks than the Dart type system requires, consider using the implicit-casts and implicit-dynamic flags
   strong-mode:
     implicit-casts: false # value of false ensures that the type inference engine never implicitly casts to a more specific type
@@ -53,7 +50,7 @@ analyzer:
     # prefer_relative_imports: ignore # // effective_dart
     prefer_void_to_null: error # recommended flutter
     unrelated_type_equality_checks: error # core recommended flutter // pedantic
-    unsafe_html: error # // pedantic
+    # unsafe_html: error # // pedantic
     use_key_in_widget_constructors: error # flutter
     valid_regexps: error # core recommended flutter // pedantic
 
@@ -327,7 +324,7 @@ linter:
     # Dart SDK: >= 2.3.2-dev.0.1 • (Linter v0.1.90)
     # Avoid unsafe HTML APIs.
     # // pedantic
-    - unsafe_html
+    # - unsafe_html
 
     # Dart SDK: unreleased.
     # Do not use BuildContexts across async gaps.

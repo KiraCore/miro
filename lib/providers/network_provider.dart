@@ -4,21 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:miro/shared/models/network_model.dart';
 
 class NetworkProvider extends ChangeNotifier {
-  NetworkModel? _currentNetwork;
+  NetworkModel? _currentNetworkModel;
 
-  NetworkModel? get currentNetwork => _currentNetwork;
+  NetworkModel? get networkModel => _currentNetworkModel;
 
-  bool get isConnected => _currentNetwork != null;
+  bool get isConnected => _currentNetworkModel != null;
 
   String? get networkUrl {
     if (isConnected) {
-      return _currentNetwork!.url;
+      return _currentNetworkModel!.url;
     }
     return null;
   }
 
   void changeCurrentNetwork(NetworkModel? newNetwork) {
-    _currentNetwork = newNetwork;
+    _currentNetworkModel = newNetwork;
     _updateUrlParams(newNetwork);
     notifyListeners();
   }

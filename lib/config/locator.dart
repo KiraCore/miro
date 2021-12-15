@@ -10,7 +10,7 @@ final GetIt globalLocator = GetIt.I;
 Future<void> initLocator() async {
   globalLocator
     ..registerLazySingleton<AppConfigProvider>(() => AppConfigProviderImpl())
-    ..registerLazySingleton(() => NetworkProvider())
+    ..registerLazySingleton<NetworkProvider>(() => NetworkProvider())
     ..registerLazySingleton<WalletProvider>(() => WalletProvider())
     ..registerFactory<ApiRepository>(() => RemoteApiRepository())
     ..registerFactory<InterxStatusService>(() => InterxStatusService());

@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:miro/shared/api_manager.dart';
+import 'package:miro/shared/utils/api_manager.dart';
 
 abstract class ApiRepository {
   /// throws [DioError]

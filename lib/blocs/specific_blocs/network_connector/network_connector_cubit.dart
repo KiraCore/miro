@@ -7,7 +7,7 @@ import 'package:miro/infra/services/interx_status_service.dart';
 import 'package:miro/providers/network_provider.dart';
 import 'package:miro/shared/models/network_model.dart';
 import 'package:miro/shared/models/network_status.dart';
-import 'package:miro/shared/utils/network_tools.dart';
+import 'package:miro/shared/utils/network_utils.dart';
 
 part 'network_connector_state.dart';
 
@@ -20,7 +20,7 @@ class NetworkConnectorCubit extends Cubit<NetworkConnectorState> {
   }
 
   Future<void> connectFromUrl({String? url}) async {
-    final Uri baseUri = url != null ? NetworkTools.parseUrl(url) : Uri.base;
+    final Uri baseUri = url != null ? NetworkUtils.parseUrl(url) : Uri.base;
     final String? networkSrc = baseUri.queryParameters['rpc'];
 
     if (networkSrc != null) {

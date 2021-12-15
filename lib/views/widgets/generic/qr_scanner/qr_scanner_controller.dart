@@ -5,8 +5,8 @@ import 'dart:typed_data';
 import 'dart:ui' as ui;
 
 import 'package:flutter/material.dart';
-import 'package:miro/shared/app_logger.dart';
-import 'package:miro/shared/utils/enums.dart';
+import 'package:miro/shared/utils/app_logger.dart';
+import 'package:miro/shared/utils/enum_utils.dart';
 import 'package:miro/views/widgets/generic/qr_scanner/constants/index.dart';
 
 // Note: only work over https or localhost
@@ -69,7 +69,7 @@ class QrScannerController {
   }
 
   Future<MediaStream> _getUserMedia({FacingMode facingMode = FacingMode.environment}) async {
-    String finalFacingMode = enumToString(facingMode);
+    String finalFacingMode = EnumUtils.parseToString(facingMode);
     MediaStream userMedia = await window.navigator.getUserMedia(
       video: <String, String>{'facingMode': finalFacingMode},
     );
@@ -105,7 +105,7 @@ class QrScannerController {
     InversionAttempts inversionAttempts = InversionAttempts.dontInvert,
   }) {
     js.JsObject? code = _jsQR(videoFrame.data, videoFrame.width, videoFrame.height, <String, String>{
-      'inversionAttempts': enumToString(inversionAttempts),
+      'inversionAttempts': EnumUtils.parseToString(inversionAttempts),
     });
     return code;
   }

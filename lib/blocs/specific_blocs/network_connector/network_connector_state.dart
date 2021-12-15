@@ -15,15 +15,7 @@ class NetworkConnectorConnectedState extends NetworkConnectorState {
   NetworkConnectorConnectedState({required this.currentNetwork});
 
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      super == other &&
-          other is NetworkConnectorConnectedState &&
-          runtimeType == other.runtimeType &&
-          currentNetwork == other.currentNetwork;
-
-  @override
-  int get hashCode => super.hashCode ^ currentNetwork.hashCode;
+  List<Object> get props => <Object>[currentNetwork];
 }
 
 class NetworkConnectorErrorState extends NetworkConnectorState {}
