@@ -7,7 +7,7 @@ class NetworkUtils {
       Uri uriFromUrl = _parseStringToUriWithSchema(urlToParse);
       String finalUrl = '${uriFromUrl.scheme.isNotEmpty ? uriFromUrl.scheme : 'http'}://${uriFromUrl.host}';
       if (_isIpAddress(uriFromUrl.host)) {
-        if (!<int>[0, 80, 443].contains(uriFromUrl.port)) {
+        if (!_hasDefaultPort(uriFromUrl.port)) {
           finalUrl += ':${uriFromUrl.port}';
         } else {
           finalUrl += ':11000';
@@ -15,10 +15,16 @@ class NetworkUtils {
       }
       Uri resultUri = Uri.parse(finalUrl);
       return resultUri.replace(
-          queryParameters: uriFromUrl.queryParameters.isNotEmpty ? uriFromUrl.queryParameters : null);
+        queryParameters: uriFromUrl.queryParameters.isNotEmpty ? uriFromUrl.queryParameters : null,
+      );
     } on FormatException {
       rethrow;
     }
+  }
+
+  static bool _hasDefaultPort(int port) {
+    final List<int> defaultPorts = <int>[0, 80, 443];
+    return defaultPorts.contains(port);
   }
 
   static bool _isIpAddress(String text) {
