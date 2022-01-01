@@ -20,7 +20,7 @@ Future<void> main() async {
       expect(networkProvider.isConnected, false);
       expect(networkProvider.networkModel, null);
 
-      networkProvider = NetworkProvider()..changeCurrentNetwork(networkModel);
+      networkProvider.changeCurrentNetwork(networkModel);
 
       expect(networkProvider.isConnected, true);
       expect(networkProvider.networkModel, networkModel);
