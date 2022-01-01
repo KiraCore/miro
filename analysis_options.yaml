@@ -20,8 +20,8 @@ analyzer:
     - lib/generated/**
     - lib/**.g.dart
     - lib/**.gr.dart
-
     - lib/test/mocks/**
+    - test/integration/**
 
   # If you want stricter static checks than the Dart type system requires, consider using the implicit-casts and implicit-dynamic flags
   strong-mode:
