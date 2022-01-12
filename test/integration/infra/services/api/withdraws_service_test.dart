@@ -8,8 +8,8 @@ import 'package:miro/shared/utils/network_utils.dart';
 // To run this test type in console:
 // fvm flutter test test/integration/infra/services/api/withdraws_service_test.dart --platform chrome
 void main() {
-  group('Test of service', () {
-    test('check withdraws', () async {
+  group('Tests of getAccountWithdraws() method', () {
+    test('Should return specific account withdraws list', () async {
       await initLocator();
 
       final WithdrawsService withdrawsService = globalLocator<WithdrawsService>();
