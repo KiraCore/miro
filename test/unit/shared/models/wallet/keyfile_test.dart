@@ -21,7 +21,7 @@ void main() {
       '    "defaultTokenName": null\n'
       '  },\n'
       '  "version": "1.0.0",\n'
-      '  "secretData": "am7wY9b4L5XqcZdTAiCqK8IWmy1AkVgfCle2oUCmdtwea0H7r88BnA2o65eZeeVFSrJCaIYcGFgrHTOSLYdmgtYh+D465uT8WRQ+cZI1x89nztlecgjB+OxhP4ksbHdV"\n'
+      '  "secretData": "aUDAzfuGC1fB8ACYylYy5Fdqj2upwotYNwuBrb7koYUxmhJaRA8jn8qLXWbFbjbQ/q2mIBtJW5O3clFog+GM2DxiR/1baD00eVOIoZ1Q3IkVcxOSJlYTprV5NsGEQ5mOwjFX3fIHHpqUY0CGCMG7+NBmDPQ="\n'
       '}';
 
   // Actual Values for tests
@@ -44,10 +44,13 @@ void main() {
   // @formatter:on
 
   group('Tests of method encode()', () {
-    test('Should build valid JSON file and encode secret data', () async {
+    // Because AES256.encode() always gives random String we cannot match the hardcoded expected result.
+    // That`s why we check whether it is possible to encode and decode KeyFile
+    test('Should encode() secret data, build valid JSON file and check it via decode() JSON back to KeyFile', () async {
+      String encodedKeyFile = actualKeyfile.encode(actualPassword);
       expect(
-        actualKeyfile.encode(actualPassword),
-        keyFileJSONString,
+        KeyFile.decode(encodedKeyFile, actualPassword),
+        actualKeyfile,
       );
     });
   });
