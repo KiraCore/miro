@@ -8,8 +8,8 @@ import 'package:miro/shared/utils/network_utils.dart';
 // To run this test type in console:
 // fvm flutter test test/integration/infra/services/api/deposits_service_test.dart --platform chrome
 void main() {
-  group('Test of service', () {
-    test('check deposits', () async {
+  group('Tests of getAccountDeposits() method', () {
+    test('Should return specific account deposits list', () async {
       await initLocator();
 
       final DepositsService depositsService = globalLocator<DepositsService>();

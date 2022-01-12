@@ -14,7 +14,7 @@ Future<void> main() async {
 
   String testnetRpcUrl = 'testnet-rpc.kira.network';
 
-  group('Test of getHealth() method', () {
+  group('Tests of getHealth() method', () {
     // If test fail, try with other kira network
     test('Should return NetworkHealthStatus.online if network belongs to kira and network is active', () async {
       final Uri uri = NetworkUtils.parseUrl('https://${testnetRpcUrl}');
@@ -45,7 +45,7 @@ Future<void> main() async {
     });
   });
 
-  group('Test of getData() method', () {
+  group('Tests of getData() method', () {
     test('Should return network data if network belongs to kira and network is active', () async {
       final Uri uri = NetworkUtils.parseUrl('https://${testnetRpcUrl}');
 
