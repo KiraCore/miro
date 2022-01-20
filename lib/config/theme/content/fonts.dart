@@ -5,10 +5,10 @@ TextTheme kTextTheme(TextTheme? theme, String? language) {
   /// Please change the font you look according to the langage.
   switch (language) {
     case 'en':
-      return GoogleFonts.redHatTextTextTheme(theme);
+      return GoogleFonts.interTextTheme(theme);
     case 'pl':
-      return GoogleFonts.redHatTextTextTheme(theme);
+      return GoogleFonts.interTextTheme(theme);
     default:
-      return GoogleFonts.redHatTextTextTheme(theme);
+      return GoogleFonts.interTextTheme(theme);
   }
 }
