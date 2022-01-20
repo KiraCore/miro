@@ -2,6 +2,13 @@
 class Assets {
   Assets._();
 
+  static const String assetsLogoDark = 'assets/logo_dark.svg';
+  static const String assetsLogoLight = 'assets/logo_light.svg';
   static const String assetsNetworkListConfig = 'assets/network_list_config.json';
+  static const String fontsIconsFont = 'assets/fonts/IconsFont.ttf';
+  static const String fontsIconsFontConfig = 'assets/fonts/icons_font_config.json';
+  static const String iconsNetworkStatus = 'assets/icons/network_status.svg';
+  static const String imagesAppstore = 'assets/images/appstore.png';
+  static const String imagesGoogleplay = 'assets/images/googleplay.png';
 
 }
