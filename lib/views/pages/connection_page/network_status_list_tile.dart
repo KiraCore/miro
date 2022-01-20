@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:miro/blocs/specific_blocs/network_connector/network_connector_cubit.dart';
-import 'package:miro/shared/constants/network_health.dart';
+import 'package:miro/shared/constants/network_health_status.dart';
 import 'package:miro/shared/models/network_model.dart';
 import 'package:miro/shared/router/router.gr.dart';
 import 'package:provider/provider.dart';
@@ -30,15 +30,17 @@ class NetworkStatusListTile extends StatefulWidget {
 
 class _NetworkStatusListTile extends State<NetworkStatusListTile> {
   NetworkStatusEnum _selectedNetworkStatus = NetworkStatusEnum.disconnected;
-
+  late NetworkModel currentNetworkModel;
   @override
   void initState() {
+    currentNetworkModel = widget.networkModel;
     _setInitialItemStatus();
     super.initState();
   }
 
   @override
   void didUpdateWidget(covariant NetworkStatusListTile oldWidget) {
+    currentNetworkModel = widget.networkModel;
     _setInitialItemStatus();
     super.didUpdateWidget(oldWidget);
   }
@@ -49,7 +51,7 @@ class _NetworkStatusListTile extends State<NetworkStatusListTile> {
       onTap: _onTap,
       onHover: (bool val) => _onHover(status: val),
       child: ListTile(
-        title: Text(widget.networkModel.name),
+        title: Text(currentNetworkModel.name),
         leading: _buildNetworkHealthStatusWidget(),
         trailing: _buildNetworkConnectionStatusWidget(),
       ),
@@ -57,7 +59,7 @@ class _NetworkStatusListTile extends State<NetworkStatusListTile> {
   }
 
   void _setInitialItemStatus() {
-    if (widget.networkModel.isConnected) {
+    if (currentNetworkModel.isConnected) {
       _selectedNetworkStatus = NetworkStatusEnum.connected;
     } else {
       _selectedNetworkStatus = NetworkStatusEnum.disconnected;
@@ -65,7 +67,7 @@ class _NetworkStatusListTile extends State<NetworkStatusListTile> {
   }
 
   Future<void> _onTap() async {
-    if (widget.networkModel.isConnected) {
+    if (currentNetworkModel.isConnected) {
       _disconnectFromNetwork();
     } else {
       await _connectToNetwork();
@@ -93,9 +95,11 @@ class _NetworkStatusListTile extends State<NetworkStatusListTile> {
 
   Future<void> _connectToNetwork() async {
     _setConnectingStatus(NetworkStatusEnum.connecting);
-    bool status = await context.read<NetworkConnectorCubit>().connect(widget.networkModel);
+    bool status = await context.read<NetworkConnectorCubit>().connect(currentNetworkModel);
     if (!status) {
-      widget.networkModel.status.status = NetworkHealthStatus.offline;
+      setState(() {
+        currentNetworkModel = currentNetworkModel.copyWith( status: NetworkHealthStatus.offline);
+      });
     }
   }
 
@@ -112,7 +116,7 @@ class _NetworkStatusListTile extends State<NetworkStatusListTile> {
 
   // TODO(dpajak99): After UI, move it to single widget
   Widget _buildNetworkHealthStatusWidget() {
-    switch (widget.networkModel.status.status) {
+    switch (currentNetworkModel.status) {
       case NetworkHealthStatus.online:
         return const Icon(
           Icons.circle,

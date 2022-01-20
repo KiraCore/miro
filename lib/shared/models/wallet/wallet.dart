@@ -86,6 +86,14 @@ class Wallet extends Equatable {
   }
 
   /// Returns the associated [address] as a Bech32 string.
+  String get bech32Shortcut {
+    String _address = bech32Address;
+    String firstPart = _address.substring(0, 8);
+    String lastPart = _address.substring(_address.length - 4, _address.length);
+    return '${firstPart}_$lastPart';
+  }
+
+  /// Returns the associated [address] as a Bech32 string.
   String get bech32Address => Bech32.encode(walletDetails.bech32Hrp, address);
 
   /// Returns the associated [publicKey] as a Bech32 string

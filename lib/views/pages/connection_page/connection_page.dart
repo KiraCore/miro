@@ -7,8 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/specific_blocs/network_connector/network_connector_cubit.dart';
 import 'package:miro/blocs/specific_blocs/network_list/network_list_cubit.dart';
 import 'package:miro/providers/network_provider.dart';
+import 'package:miro/shared/constants/network_health_status.dart';
 import 'package:miro/shared/models/network_model.dart';
-import 'package:miro/shared/models/network_status.dart';
 import 'package:miro/shared/router/router.gr.dart';
 import 'package:miro/views/pages/connection_page/network_status_list_tile.dart';
 import 'package:miro/views/widgets/generic/center_load_spinner.dart';
@@ -61,7 +61,7 @@ class _ConnectionPage extends State<ConnectionPage> {
                                     NetworkModel(
                                       url: customNetworkTextController.text,
                                       name: 'custom network',
-                                      status: NetworkStatus.offline(),
+                                      status: NetworkHealthStatus.offline,
                                     ),
                                   );
                               if (status) {
