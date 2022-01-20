@@ -1,9 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/infra/services/api/query_interx_status_service.dart';
-import 'package:miro/shared/constants/network_health.dart';
+import 'package:miro/shared/constants/network_health_status.dart';
 import 'package:miro/shared/models/network_model.dart';
-import 'package:miro/shared/models/network_status.dart';
 import 'package:miro/shared/utils/assets_manager.dart';
 
 part 'network_list_state.dart';
@@ -20,16 +19,13 @@ class NetworkListCubit extends Cubit<NetworkListState> {
     networkList = List<NetworkModel>.empty(growable: true);
     List<NetworkModel> staticNetworks = await _fetchNetworkList();
 
+    emit(NetworkListLoadedState(networkList: staticNetworks));
+
     for (NetworkModel network in staticNetworks) {
       NetworkHealthStatus networkStatus = await _checkNetworkHealth(network);
-      networkList.add(
-        NetworkModel.status(
-          from: network,
-          status: NetworkStatus(
-            status: networkStatus,
-          ),
-        ),
-      );
+      networkList.add(network.copyWith(
+        status: networkStatus
+      ));
     }
     emit(NetworkListLoadedState(networkList: networkList));
   }

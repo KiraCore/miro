@@ -3,7 +3,7 @@ import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api/query_interx_status/query_interx_status_resp.dart';
 import 'package:miro/infra/exceptions/interx_unavailable_exception.dart';
 import 'package:miro/infra/repositories/api_repository.dart';
-import 'package:miro/shared/constants/network_health.dart';
+import 'package:miro/shared/constants/network_health_status.dart';
 import 'package:miro/shared/models/infra/interx_response_data.dart';
 
 abstract class _QueryInterxStatusService {
@@ -19,7 +19,9 @@ class QueryInterxStatusService extends _QueryInterxStatusService {
   @override
   Future<NetworkHealthStatus> getHealth(Uri networkUri) async {
     try {
-      await _apiRepository.fetchQueryInterxStatus<dynamic>(networkUri);
+      final Response<dynamic> response = await _apiRepository.fetchQueryInterxStatus<dynamic>(networkUri);
+      QueryInterxStatusResp.fromJson(response.data as Map<String, dynamic>);
+
       return NetworkHealthStatus.online;
     } catch (_) {
       return _repeatMethodIfInvalidScheme<NetworkHealthStatus>(

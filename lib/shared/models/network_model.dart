@@ -1,14 +1,14 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:miro/infra/dto/api/query_interx_status/query_interx_status_resp.dart';
-import 'package:miro/shared/models/network_status.dart';
+import 'package:miro/shared/constants/network_health_status.dart';
 import 'package:miro/shared/utils/network_utils.dart';
 
 @immutable
 class NetworkModel extends Equatable {
   final String name;
   final String url;
-  final NetworkStatus status;
+  final NetworkHealthStatus status;
   final QueryInterxStatusResp? queryInterxStatus;
   final Uri parsedUri;
 
@@ -24,19 +24,13 @@ class NetworkModel extends Equatable {
   factory NetworkModel.fromJson(Map<String, dynamic> json) => NetworkModel(
         name: json['name'] as String,
         url: json['address'] as String,
-        status: NetworkStatus.offline(),
-      );
-
-  factory NetworkModel.status({required NetworkModel from, required NetworkStatus status}) => NetworkModel(
-        url: from.url,
-        name: from.name,
-        status: status,
+        status: NetworkHealthStatus.waiting,
       );
 
   NetworkModel copyWith({
     String? name,
     String? url,
-    NetworkStatus? status,
+    NetworkHealthStatus? status,
     QueryInterxStatusResp? queryInterxStatus,
   }) {
     return NetworkModel(
@@ -48,7 +42,7 @@ class NetworkModel extends Equatable {
   }
 
   @override
-  List<Object> get props => <Object>[parsedUri];
+  List<Object?> get props => <Object?>[parsedUri, status, queryInterxStatus];
 
   @override
   String toString() => 'NetworkModel{name: $name, url: $url, status: $status, NetworkData: $queryInterxStatus}';

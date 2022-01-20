@@ -1,6 +1,10 @@
 import 'dart:html' as html;
 
 class BrowserUtils {
+  static void replaceUrl(Uri newUrl) {
+    html.window.history.replaceState(<String, dynamic>{}, '', newUrl.toString());
+  }
+
   static void downloadFile(List<dynamic> content, String name) {
     final html.Blob blob = html.Blob(content);
     final String url = html.Url.createObjectUrlFromBlob(blob);

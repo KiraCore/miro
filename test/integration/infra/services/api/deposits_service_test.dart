@@ -4,6 +4,7 @@ import 'package:miro/infra/dto/api/deposits/request/deposit_req.dart';
 import 'package:miro/infra/dto/api/deposits/response/deposits_resp.dart';
 import 'package:miro/infra/services/api/deposits_service.dart';
 import 'package:miro/shared/utils/network_utils.dart';
+import 'package:miro/test/utils/test_utils.dart';
 
 // To run this test type in console:
 // fvm flutter test test/integration/infra/services/api/deposits_service_test.dart --platform chrome
@@ -17,11 +18,12 @@ void main() {
 
       DepositsReq depositsReq = DepositsReq(account: 'kira1axqn2nr8wcwy83gnx97ugypunfka30wt4xyul8');
 
-      print('data request');
+      testPrint('Data request');
       DepositsResp? depositsResp = await depositsService.getAccountDeposits(uri, depositsReq);
 
-      print('data return');
+      testPrint('Data return');
       print(depositsResp);
+      print('');
     });
   });
 }

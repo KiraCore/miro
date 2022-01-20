@@ -2,9 +2,10 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/exceptions/interx_unavailable_exception.dart';
 import 'package:miro/infra/services/api/query_interx_status_service.dart';
-import 'package:miro/shared/constants/network_health.dart';
+import 'package:miro/shared/constants/network_health_status.dart';
 import 'package:miro/shared/models/infra/interx_response_data.dart';
 import 'package:miro/shared/utils/network_utils.dart';
+import 'package:miro/test/utils/test_utils.dart';
 
 // To run this test type in console:
 // fvm flutter test test/integration/infra/services/api/query_interx_status_service_test.dart --platform chrome
@@ -49,8 +50,9 @@ Future<void> main() async {
     test('Should return network data if network belongs to kira and network is active', () async {
       final Uri uri = NetworkUtils.parseUrl('https://${testnetRpcUrl}');
 
+      testPrint('Data request');
       InterxResponseData interxStatusResponse = await queryInterxStatusService.getData(uri);
-      print('');
+      testPrint('Data return');
       print(interxStatusResponse.toString());
       print('');
     });
@@ -58,8 +60,9 @@ Future<void> main() async {
     test('Should return network data if network belongs to kira, network is active but url has bad scheme', () async {
       final Uri uri = NetworkUtils.parseUrl('http://${testnetRpcUrl}');
 
+      testPrint('Data request');
       InterxResponseData interxStatusResponse = await queryInterxStatusService.getData(uri);
-      print('');
+      testPrint('Data return');
       print(interxStatusResponse.toString());
       print('');
     });
@@ -69,14 +72,14 @@ Future<void> main() async {
 
       try {
         await queryInterxStatusService.getData(uri);
-        print('Test failed');
+        testPrintError('Test failed');
       } catch (e) {
         if (e.runtimeType == InterxUnavailableException) {
-          print('Test passed.');
+          print('Test passed');
           print('Exception is ${e.runtimeType}');
         } else {
-          print('Test failed.');
-          print('Exception is ${e.runtimeType}');
+          testPrintError('Test failed');
+          testPrintError('Exception is ${e.runtimeType}');
         }
       }
     });

@@ -4,12 +4,13 @@ import 'package:miro/infra/dto/api_cosmos/query_balance/request/query_balance_re
 import 'package:miro/infra/dto/api_cosmos/query_balance/response/query_balance_resp.dart';
 import 'package:miro/infra/services/api_cosmos/query_balance_service.dart';
 import 'package:miro/shared/utils/network_utils.dart';
+import 'package:miro/test/utils/test_utils.dart';
 
 // To run this test type in console:
 // fvm flutter test test/integration/infra/services/api_cosmos/query_balance_service_test.dart --platform chrome
 void main() {
-  group('Test of service', () {
-    test('check', () async {
+  group('Tests of getAccountBalance() method', () {
+    test('Should return specific account balances list', () async {
       await initLocator();
 
       final QueryBalanceService queryBalanceService = globalLocator<QueryBalanceService>();
@@ -17,11 +18,12 @@ void main() {
 
       QueryBalanceReq queryBalanceReq = QueryBalanceReq(address: 'kira1axqn2nr8wcwy83gnx97ugypunfka30wt4xyul8');
 
-      print('data request');
+      testPrint('Data request');
       QueryBalanceResp? queryBalanceResp = await queryBalanceService.getAccountBalance(networkUri, queryBalanceReq);
 
-      print('data return');
+      testPrint('Data return');
       print(queryBalanceResp);
+      print('');
     });
   });
 }

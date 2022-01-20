@@ -110,5 +110,12 @@ void main() {
         expectedBech32PublicKey,
       );
     });
+
+    test('Should build bech32 in predefined format ex. keyfile_kiraXXXX_XXXX', () async {
+      expect(
+        actualWallet.bech32Shortcut,
+        'kira1gdu_l7u3',
+      );
+    });
   });
 }
