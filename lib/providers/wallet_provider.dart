@@ -10,4 +10,9 @@ class WalletProvider extends ChangeNotifier {
     _currentWallet = newWallet;
     notifyListeners();
   }
+
+  void logout() {
+    _currentWallet = null;
+    notifyListeners();
+  }
 }

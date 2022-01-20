@@ -1,7 +1,6 @@
-import 'dart:html';
-
 import 'package:flutter/material.dart';
 import 'package:miro/shared/models/network_model.dart';
+import 'package:miro/shared/utils/browser_utils.dart';
 
 class NetworkProvider extends ChangeNotifier {
   NetworkModel? _currentNetworkModel;
@@ -28,6 +27,6 @@ class NetworkProvider extends ChangeNotifier {
     currentUrl = currentUrl.replace(queryParameters: <String, dynamic>{
       'rpc': newNetwork != null ? newNetwork.parsedUri.toString() : '',
     });
-    window.history.replaceState(<String, dynamic>{}, '', currentUrl.toString());
+    BrowserUtils.replaceUrl(currentUrl);
   }
 }

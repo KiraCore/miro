@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/services/api/query_interx_status_service.dart';
 import 'package:miro/providers/network_provider.dart';
+import 'package:miro/shared/constants/network_health_status.dart';
 import 'package:miro/shared/models/infra/interx_response_data.dart';
 import 'package:miro/shared/models/network_model.dart';
-import 'package:miro/shared/models/network_status.dart';
 import 'package:miro/shared/utils/app_logger.dart';
 import 'package:miro/shared/utils/network_utils.dart';
 
@@ -24,12 +24,22 @@ class NetworkConnectorCubit extends Cubit<NetworkConnectorState> {
     final String? networkSrc = baseUri.queryParameters['rpc'];
 
     if (networkSrc != null) {
-      await connect(NetworkModel(
+      NetworkModel urlNetworkModel = NetworkModel(
         url: networkSrc,
         name: networkSrc,
-        status: NetworkStatus.offline(),
-      ));
+        status: NetworkHealthStatus.waiting,
+      );
+
+      networkProvider.changeCurrentNetwork(urlNetworkModel);
+      emit(NetworkConnectorConnectedState(currentNetwork: urlNetworkModel));
+      await connect(urlNetworkModel);
     }
+  }
+
+  Future<bool> checkConnection(String url) async {
+    Uri networkUri = NetworkUtils.parseUrl(url);
+    NetworkHealthStatus networkHealthStatus = await queryInterxStatusService.getHealth(networkUri);
+    return networkHealthStatus == NetworkHealthStatus.online;
   }
 
   Future<bool> connect(NetworkModel networkModel) async {
@@ -38,7 +48,7 @@ class NetworkConnectorCubit extends Cubit<NetworkConnectorState> {
       final NetworkModel newNetwork = networkModel.copyWith(
         url: interxStatusResponse.usedUri.toString(),
         queryInterxStatus: interxStatusResponse.queryInterxStatusResp,
-        status: NetworkStatus.online(),
+        status: NetworkHealthStatus.online,
       );
       networkProvider.changeCurrentNetwork(newNetwork);
       emit(NetworkConnectorConnectedState(currentNetwork: newNetwork));
