@@ -158,6 +158,13 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
+    - assets/icons/
+    - assets/images/
+
+  fonts:
+    - family: IconsFont
+      fonts:
+        - asset: assets/fonts/IconsFont.ttf
 
 flutter_intl:
   enabled: true
