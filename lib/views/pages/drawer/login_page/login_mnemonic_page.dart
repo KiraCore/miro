@@ -31,7 +31,7 @@ class _LoginMnemonicPage extends State<LoginMnemonicPage> {
           ),
           ElevatedButton(
             onPressed: () {
-              context.router.pop();
+              AutoRouter.of(context).navigate(const PagesRoute(children: <PageRouteInfo>[WelcomeRoute()]));
             },
             child: const Text('Back to Welcome Page'),
           ),
@@ -48,7 +48,7 @@ class _LoginMnemonicPage extends State<LoginMnemonicPage> {
       Mnemonic mnemonic = Mnemonic(value: mnemonicTextController.text);
       Wallet wallet = Wallet.derive(mnemonic: mnemonic);
       globalLocator<WalletProvider>().updateWallet(wallet);
-      await context.router.push(const DashboardRoute());
+      await AutoRouter.of(context).navigate(const DashboardRoute());
     } on InvalidMnemonicException catch (_) {
       errorMessage = 'Invalid mnemonic';
     } catch (_) {

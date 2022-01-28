@@ -3,10 +3,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:miro/config/hive.dart';
 import 'package:miro/config/locator.dart';
+import 'package:miro/config/theme/theme_dark.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/providers/app_config_provider.dart';
 import 'package:miro/providers/app_list_providers.dart';
-import 'package:miro/shared/guards/url_path_guard.dart';
 import 'package:miro/shared/router/router.gr.dart';
 import 'package:provider/provider.dart';
 import 'package:url_strategy/url_strategy.dart';
@@ -37,7 +37,7 @@ class CoreApp extends StatefulWidget {
 }
 
 class _CoreApp extends State<CoreApp> {
-  final AppRouter appRouter = AppRouter(urlPathGuard: UrlPathGuard());
+  final AppRouter appRouter = AppRouter();
 
   @override
   void initState() {
@@ -57,7 +57,7 @@ class _CoreApp extends State<CoreApp> {
             globalLocator<AppConfigProvider>().locale,
             globalLocator<AppConfigProvider>().locale.toUpperCase(),
           ),
-          theme: globalLocator<AppConfigProvider>().themeData,
+          theme: buildDarkTheme(globalLocator<AppConfigProvider>().locale),
           builder: (_, Widget? routerWidget) {
             return routerWidget as Widget;
           },

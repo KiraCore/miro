@@ -10,18 +10,18 @@ import 'package:miro/providers/network_provider.dart';
 import 'package:miro/shared/constants/network_health_status.dart';
 import 'package:miro/shared/models/network_model.dart';
 import 'package:miro/shared/router/router.gr.dart';
-import 'package:miro/views/pages/connection_page/network_status_list_tile.dart';
+import 'package:miro/views/pages/drawer/connection_drawer_page/network_status_list_tile.dart';
 import 'package:miro/views/widgets/generic/center_load_spinner.dart';
 import 'package:provider/provider.dart';
 
-class ConnectionPage extends StatefulWidget {
-  const ConnectionPage({Key? key}) : super(key: key);
+class ConnectionDrawerPage extends StatefulWidget {
+  const ConnectionDrawerPage({Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _ConnectionPage();
+  State<StatefulWidget> createState() => _ConnectionDrawerPage();
 }
 
-class _ConnectionPage extends State<ConnectionPage> {
+class _ConnectionDrawerPage extends State<ConnectionDrawerPage> {
   final TextEditingController customNetworkTextController = TextEditingController();
 
   @override

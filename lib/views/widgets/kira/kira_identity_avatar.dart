@@ -3,19 +3,19 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jdenticon_dart/jdenticon_dart.dart';
-import 'package:miro/views/widgets/kira_custom/kira_toast.dart';
+import 'package:miro/views/widgets/kira/kira_toast.dart';
 
-class KiraGravatar extends StatelessWidget {
+class KiraIdentityAvatar extends StatelessWidget {
   final String address;
 
-  const KiraGravatar({required this.address, Key? key}) : super(key: key);
+  const KiraIdentityAvatar({required this.address, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () async {
         await FlutterClipboard.copy(address);
-        KiraToast.show('Address copied');
+        KiraToast.show('bech32 address copied');
       },
       borderRadius: BorderRadius.circular(500),
       child: Container(

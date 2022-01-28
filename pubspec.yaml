@@ -140,6 +140,10 @@ dependencies:
   # https://pub.dev/packages/jdenticon_dart
   jdenticon_dart: ^2.0.0
 
+  # Wrap a widget with CustomPopupMenu, Tap or Long Press this widget, a popup menu would display in a suitable position.
+  # https://pub.dev/packages/custom_pop_up_menu
+  custom_pop_up_menu: ^1.2.2
+
 dev_dependencies:
   auto_route_generator: ^3.0.1
   build_runner: ^2.1.5
@@ -159,7 +163,6 @@ flutter:
   assets:
     - assets/
     - assets/icons/
-    - assets/images/
 
   fonts:
     - family: IconsFont
