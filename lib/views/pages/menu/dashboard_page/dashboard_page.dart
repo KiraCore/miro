@@ -4,7 +4,7 @@ import 'package:miro/providers/wallet_provider.dart';
 import 'package:miro/shared/models/wallet/keyfile.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/shared/utils/browser_utils.dart';
-import 'package:miro/views/widgets/kira_custom/kira_gravatar.dart';
+import 'package:miro/views/widgets/kira/kira_identity_avatar.dart';
 import 'package:provider/provider.dart';
 
 class DashboardPage extends StatelessWidget {
@@ -23,7 +23,7 @@ class DashboardPage extends StatelessWidget {
             children: <Widget>[
               if (_wallet != null) ...<Widget>[
                 Text(_wallet.bech32Address),
-                KiraGravatar(address: _wallet.bech32Address),
+                KiraIdentityAvatar(address: _wallet.bech32Address),
                 TextFormField(
                   controller: _keyfilePasswordController,
                 ),
@@ -37,7 +37,7 @@ class DashboardPage extends StatelessWidget {
                 ),
                 ElevatedButton(
                   onPressed: () {
-                    context.router.popUntilRoot();
+                    AutoRouter.of(context).popUntilRoot();
                   },
                   child: const Text('Back to Welcome Page'),
                 ),

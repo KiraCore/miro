@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:miro/shared/models/wallet/keyfile.dart';
 import 'package:miro/shared/models/wallet/mnemonic.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
+import 'package:miro/shared/router/router.gr.dart';
 import 'package:miro/shared/utils/browser_utils.dart';
-import 'package:miro/views/pages/create_wallet_page/mnemonic_grid_tile.dart';
-import 'package:miro/views/widgets/kira_custom/kira_gravatar.dart';
-import 'package:miro/views/widgets/kira_custom/kira_qr_code.dart';
+import 'package:miro/views/pages/drawer/create_wallet_page/mnemonic_grid_tile.dart';
+import 'package:miro/views/widgets/kira/kira_identity_avatar.dart';
+import 'package:miro/views/widgets/kira/kira_qr_code.dart';
 
 class CreateWalletPage extends StatefulWidget {
   const CreateWalletPage({Key? key}) : super(key: key);
@@ -62,7 +63,7 @@ class _CreateWalletPage extends State<CreateWalletPage> {
           ],
           if (_wallet != null) ...<Widget>[
             Text(_wallet!.bech32Address),
-            KiraGravatar(address: _wallet!.bech32Address),
+            KiraIdentityAvatar(address: _wallet!.bech32Address),
             KiraQrCode(data: _mnemonic.value),
             TextFormField(
               controller: _keyfilePasswordController,
@@ -82,7 +83,7 @@ class _CreateWalletPage extends State<CreateWalletPage> {
             children: <Widget>[
               ElevatedButton(
                 onPressed: () {
-                  context.router.pop();
+                  AutoRouter.of(context).navigate(const PagesRoute(children: <PageRouteInfo>[WelcomeRoute()]));
                 },
                 child: const Text('Back to Welcome Page'),
               ),

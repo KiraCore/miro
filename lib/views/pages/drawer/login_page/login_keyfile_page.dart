@@ -5,7 +5,7 @@ import 'package:miro/providers/wallet_provider.dart';
 import 'package:miro/shared/models/wallet/keyfile.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/shared/router/router.gr.dart';
-import 'package:miro/views/widgets/kira_custom/kira_dropzone.dart';
+import 'package:miro/views/widgets/kira/kira_dropzone.dart';
 
 class LoginKeyfilePage extends StatefulWidget {
   const LoginKeyfilePage({Key? key}) : super(key: key);
@@ -36,7 +36,7 @@ class _LoginKeyfilePage extends State<LoginKeyfilePage> {
           ),
           ElevatedButton(
             onPressed: () {
-              context.router.pop();
+              AutoRouter.of(context).navigate(const PagesRoute(children: <PageRouteInfo>[WelcomeRoute()]));
             },
             child: const Text('Back to Welcome Page'),
           ),
@@ -59,7 +59,7 @@ class _LoginKeyfilePage extends State<LoginKeyfilePage> {
       globalLocator<WalletProvider>().updateWallet(
         _getWalletFromKeyFileString(dropZoneController.fileData!),
       );
-      context.router.push(const DashboardRoute());
+      AutoRouter.of(context).navigate(const DashboardRoute());
     }
   }
 

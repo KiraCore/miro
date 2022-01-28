@@ -12,7 +12,7 @@ class WelcomePage extends StatelessWidget {
         children: <Widget>[
           ElevatedButton(
             onPressed: () {
-              context.router.navigate(
+              AutoRouter.of(context).navigate(
                 const ConnectionRoute(),
               );
             },
@@ -20,7 +20,7 @@ class WelcomePage extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              context.router.navigate(
+              AutoRouter.of(context).navigate(
                 const CreateWalletRoute(),
               );
             },
@@ -28,7 +28,7 @@ class WelcomePage extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              context.router.navigate(
+              AutoRouter.of(context).navigate(
                 const LoginKeyfileRoute(),
               );
             },
@@ -36,7 +36,7 @@ class WelcomePage extends StatelessWidget {
           ),
           ElevatedButton(
             onPressed: () {
-              context.router.navigate(
+              AutoRouter.of(context).navigate(
                 const LoginMnemonicRoute(),
               );
             },
