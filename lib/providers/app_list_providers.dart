@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/specific_blocs/network_connector/network_connector_cubit.dart';
 import 'package:miro/blocs/specific_blocs/network_list/network_list_cubit.dart';
+import 'package:miro/blocs/specific_blocs/scaffold_menu/scaffold_menu_cubit.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/services/api/query_interx_status_service.dart';
 import 'package:miro/providers/network_provider.dart';
@@ -15,6 +16,10 @@ List<SingleChildWidget> appListProviders = <SingleChildWidget>[
   ),
   ChangeNotifierProvider<WalletProvider>.value(
     value: globalLocator<WalletProvider>(),
+  ),
+  BlocProvider<ScaffoldMenuCubit>(
+    lazy: false,
+    create: (BuildContext context) => ScaffoldMenuCubit(),
   ),
   BlocProvider<NetworkConnectorCubit>(
     lazy: false,
