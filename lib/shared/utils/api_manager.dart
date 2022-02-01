@@ -27,7 +27,9 @@ class ApiManager {
   }
 
   Map<String, dynamic>? _prepareQueryParameters(Map<String, dynamic>? queryParameters) {
-    if (queryParameters == null) return null;
+    if (queryParameters == null) {
+      return null;
+    }
     queryParameters.removeWhere((String key, dynamic value) => value == null);
     return queryParameters;
   }

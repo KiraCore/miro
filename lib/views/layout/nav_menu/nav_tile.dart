@@ -4,7 +4,7 @@ import 'package:miro/blocs/specific_blocs/scaffold_menu/scaffold_menu_cubit.dart
 import 'package:miro/config/app_sizes.dart';
 import 'package:miro/views/layout/nav_menu/model/nav_item.dart';
 import 'package:miro/views/layout/nav_menu/model/nav_tile_theme_data.dart';
-import 'package:miro/views/widgets/generic/widget_mouse_state_listener.dart';
+import 'package:miro/views/widgets/generic/mouse_state_listener.dart';
 
 class NavTile extends StatefulWidget {
   final NavItem navItem;
@@ -38,7 +38,7 @@ class _NavTile extends State<NavTile> {
             splashColor: Colors.transparent,
             highlightColor: Colors.transparent,
           ),
-          child: WidgetMouseStateListener(
+          child: MouseStateListener(
             onTap: widget.onTap,
             selected: menuState.routePath == widget.navItem.pageRouteInfo?.path,
             disabled: !widget.navItem.isEnabled,

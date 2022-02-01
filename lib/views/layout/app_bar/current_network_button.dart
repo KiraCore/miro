@@ -1,12 +1,12 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:miro/config/app_sizes.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/assets.dart';
 import 'package:miro/providers/network_provider.dart';
-import 'package:miro/shared/router/router.gr.dart';
-import 'package:miro/views/widgets/generic/widget_mouse_state_listener.dart';
+import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
+import 'package:miro/views/pages/drawer/connection_drawer_page/connection_drawer_page.dart';
+import 'package:miro/views/widgets/generic/mouse_state_listener.dart';
 import 'package:provider/provider.dart';
 
 class CurrentNetworkButton extends StatelessWidget {
@@ -19,7 +19,7 @@ class CurrentNetworkButton extends StatelessWidget {
         splashColor: Colors.transparent,
         highlightColor: Colors.transparent,
       ),
-      child: WidgetMouseStateListener(
+      child: MouseStateListener(
         onTap: () => _openDrawerNetworkPage(context),
         childBuilder: (Set<MaterialState> states) {
           Color foregroundColor = _getForegroundColor(states);
@@ -78,14 +78,14 @@ class CurrentNetworkButton extends StatelessWidget {
     );
   }
 
+  void _openDrawerNetworkPage(BuildContext context) {
+    KiraScaffold.of(context).navigateEndDrawerRoute(const ConnectionDrawerPage());
+  }
+
   Color _getForegroundColor(Set<MaterialState> states) {
     if (states.contains(MaterialState.hovered) || states.contains(MaterialState.pressed)) {
       return DesignColors.blue1_100;
     }
     return DesignColors.gray2_100;
-  }
-
-  void _openDrawerNetworkPage(BuildContext context) {
-    AutoRouter.of(context).navigate(const PagesRoute(children: <PageRouteInfo>[ConnectionRoute()]));
   }
 }
