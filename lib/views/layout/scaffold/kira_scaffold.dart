@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:miro/blocs/specific_blocs/drawer/drawer_cubit.dart';
 import 'package:miro/views/layout/app_bar/kira_app_bar.dart';
 import 'package:miro/views/layout/app_bar/mobile/backdrop/backdrop_app_bar.dart';
 import 'package:miro/views/layout/app_bar/mobile/kira_app_bar_mobile.dart';
@@ -9,11 +11,15 @@ class KiraScaffold extends StatefulWidget {
   final Widget body;
   final KiraAppBar appBar;
   final NavMenu navMenu;
+  final Widget? endDrawer;
+  final Color? drawerScrimColor;
 
   const KiraScaffold({
     required this.body,
     required this.appBar,
     required this.navMenu,
+    this.drawerScrimColor,
+    this.endDrawer,
     Key? key,
   }) : super(key: key);
 
@@ -37,6 +43,11 @@ class KiraScaffoldState extends State<KiraScaffold> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      drawerScrimColor: widget.drawerScrimColor,
+      drawerEdgeDragWidth: 0,
+      drawerEnableOpenDragGesture: false,
+      endDrawerEnableOpenDragGesture: false,
+      endDrawer: widget.endDrawer,
       body: ResponsiveWidget(
         largeScreen: _buildDesktop(),
         mediumScreen: _buildMobile(),
@@ -87,5 +98,21 @@ class KiraScaffoldState extends State<KiraScaffold> {
       height: double.infinity,
       child: widget.body,
     );
+  }
+
+  void navigateEndDrawerRoute(Widget page) {
+    BlocProvider.of<DrawerCubit>(context).navigate(scaffoldKey, page);
+  }
+
+  void replaceEndDrawerRoute(Widget page) {
+    BlocProvider.of<DrawerCubit>(context).replace(scaffoldKey, page);
+  }
+
+  void popEndDrawer() {
+    BlocProvider.of<DrawerCubit>(context).pop(scaffoldKey);
+  }
+
+  void closeEndDrawer() {
+    BlocProvider.of<DrawerCubit>(context).closeDrawer(scaffoldKey);
   }
 }

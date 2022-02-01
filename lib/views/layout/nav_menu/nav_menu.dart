@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:miro/config/app_sizes.dart';
+import 'package:miro/shared/utils/app_logger.dart';
 import 'package:miro/views/layout/app_bar/mobile/backdrop/backdrop_app_bar.dart';
 import 'package:miro/views/layout/nav_menu/model/nav_item.dart';
 import 'package:miro/views/layout/nav_menu/model/nav_menu_theme_data.dart';
@@ -84,7 +85,9 @@ class _NavMenu extends State<NavMenu> {
       AutoRouter.of(context).navigate(navItem.pageRouteInfo!);
       try {
         Backdrop.of(context).fling();
-      } catch (_) {}
+      } catch (_) {
+        AppLogger().log(message: 'Context not provided', logLevel: LogLevel.terribleFailure);
+      }
     }
   }
 }

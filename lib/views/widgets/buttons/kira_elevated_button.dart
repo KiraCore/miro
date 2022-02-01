@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
-import 'package:miro/views/widgets/generic/widget_mouse_state_listener.dart';
+import 'package:miro/views/widgets/generic/mouse_state_listener.dart';
 
 class KiraElevatedButton extends StatefulWidget {
   final GestureTapCallback? onPressed;
@@ -12,7 +12,7 @@ class KiraElevatedButton extends StatefulWidget {
     required this.onPressed,
     required this.title,
     this.width,
-    this.height = 50,
+    this.height = 51,
     Key? key,
   }) : super(key: key);
 
@@ -23,16 +23,16 @@ class KiraElevatedButton extends StatefulWidget {
 class _KiraElevatedButton extends State<KiraElevatedButton> {
   @override
   Widget build(BuildContext context) {
-    return WidgetMouseStateListener(
+    return MouseStateListener(
       disabled: widget.onPressed == null,
       onTap: widget.onPressed,
       childBuilder: (Set<MaterialState> states) {
         return Container(
           decoration: BoxDecoration(
-            gradient:  _getButtonGradient(states),
-            borderRadius: BorderRadius.circular(4),
+            gradient: _getButtonGradient(states),
+            borderRadius: BorderRadius.circular(8),
           ),
-          height: widget.height + 2,
+          height: widget.height,
           width: widget.width,
           child: Center(
             child: Text(

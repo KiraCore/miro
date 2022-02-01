@@ -1,9 +1,9 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:miro/config/app_sizes.dart';
 import 'package:miro/providers/wallet_provider.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
-import 'package:miro/shared/router/router.gr.dart';
+import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
+import 'package:miro/views/pages/drawer/login_page/login_page.dart';
 import 'package:miro/views/widgets/buttons/kira_elevated_button.dart';
 import 'package:miro/views/widgets/generic/pop_wrapper.dart';
 import 'package:miro/views/widgets/kira/kira_identity_avatar.dart';
@@ -93,7 +93,7 @@ class _CurrentWalletButton extends State<CurrentWalletButton> {
       width: _kButtonWidth,
       height: AppSizes.kAppBarItemsHeight - 5,
       onPressed: () {
-        AutoRouter.of(context).navigate(const PagesRoute(children: <PageRouteInfo>[WelcomeRoute()]));
+        KiraScaffold.of(context).navigateEndDrawerRoute(const LoginPage());
       },
       title: 'Connect a Wallet',
     );
