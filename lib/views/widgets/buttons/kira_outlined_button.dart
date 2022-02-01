@@ -1,37 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/views/widgets/generic/mouse_state_listener.dart';
 
 class KiraOutlinedButton extends StatelessWidget {
-  final GestureTapCallback? onPressed;
-  final Widget child;
+  final GestureTapCallback onPressed;
+  final String title;
   final double? height;
   final double? width;
 
   const KiraOutlinedButton({
     required this.onPressed,
-    required this.child,
-    this.height,
+    required this.title,
     this.width,
+    this.height = 51,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: width ?? double.infinity,
-      child: OutlinedButton(
-        onPressed: onPressed,
-        style: OutlinedButton.styleFrom(
-          side: const BorderSide(
-            color: Color(0xFF6489B4),
+    return MouseStateListener(
+      onTap: onPressed,
+      childBuilder: (Set<MaterialState> states) {
+        return Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+              color: _getBorderColor(states),
+              width: 1,
+            ),
+            borderRadius: BorderRadius.circular(8),
           ),
-        ),
-        child: SizedBox(
-          height: height ?? 50,
+          width: width ?? double.infinity,
+          height: height,
           child: Center(
-            child: child,
+            child: Text(
+              title.toUpperCase(),
+              style: const TextStyle(
+                fontWeight: FontWeight.w700,
+                letterSpacing: 0.4,
+                fontSize: 12,
+              ),
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
+  }
+
+  Color _getBorderColor(Set<MaterialState> states) {
+    if (states.contains(MaterialState.hovered)) {
+      return DesignColors.gray3_100;
+    }
+    return DesignColors.gray2_100;
   }
 }

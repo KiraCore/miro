@@ -20,6 +20,7 @@ import 'package:miro/views/layout/nav_menu/model/nav_tile_theme_data.dart';
 import 'package:miro/views/layout/nav_menu/model/tile_decoration.dart';
 import 'package:miro/views/layout/nav_menu/nav_menu.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
+import 'package:miro/views/pages/drawer/drawer_wrapper.dart';
 import 'package:miro/views/widgets/generic/pop_wrapper.dart';
 import 'package:miro/views/widgets/generic/search_bar.dart';
 import 'package:miro/views/widgets/kira/kira_logo.dart';
@@ -72,14 +73,11 @@ class PagesWrapper extends StatelessWidget {
     return KiraScaffold(
       appBar: _buildAppBar(context),
       navMenu: _buildMenu(context),
+      drawerScrimColor: const Color(0x99000000),
+      endDrawer: const DrawerWrapper(),
       body: AutoTabsRouter(
         routes: <PageRouteInfo>[
-          const CreateWalletRoute(),
-          const ConnectionRoute(),
-          const LoginMnemonicRoute(),
-          const LoginKeyfileRoute(),
           const ValidatorsRoute(),
-          const WelcomeRoute(),
 
           ...visibleNavItems
               .where((NavItem navItem) => navItem.pageRouteInfo != null)
