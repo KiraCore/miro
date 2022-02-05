@@ -77,8 +77,8 @@ class PagesWrapper extends StatelessWidget {
       endDrawer: const DrawerWrapper(),
       body: AutoTabsRouter(
         routes: <PageRouteInfo>[
-          const ValidatorsRoute(),
-
+          // TODO(dominik): Implement Validators Route
+          // const ValidatorsRoute(),
           ...visibleNavItems
               .where((NavItem navItem) => navItem.pageRouteInfo != null)
               .map((NavItem navItem) => navItem.pageRouteInfo!)

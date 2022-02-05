@@ -7,11 +7,15 @@ class TextLink extends StatelessWidget {
   final String text;
   final double? fontSize;
   final GestureTapCallback? onTap;
+  final Color? color;
+  final Color? hoverColor;
 
   const TextLink(
     this.text, {
     this.fontSize,
     this.onTap,
+    this.color,
+    this.hoverColor,
     Key? key,
   }) : super(key: key);
 
@@ -24,7 +28,9 @@ class TextLink extends StatelessWidget {
           text,
           style: TextStyle(
             fontSize: fontSize ?? 14,
-            color: states.contains(MaterialState.pressed) ? DesignColors.blue2_100 : DesignColors.blue1_100,
+            color: states.contains(MaterialState.pressed)
+                ? color ?? DesignColors.blue2_100
+                : hoverColor ?? DesignColors.blue1_100,
             decoration: states.contains(MaterialState.hovered) && !states.contains(MaterialState.pressed)
                 ? TextDecoration.underline
                 : null,
