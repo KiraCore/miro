@@ -1,5 +1,11 @@
+import 'package:flutter/cupertino.dart';
+
 class AppSizes {
-  static const double kDefaultMarginPageTop = 30;
+  static const EdgeInsets defaultPageMargin = EdgeInsets.only(
+    top: 40,
+    left: 40,
+    right: 40,
+  );
 
   static const double kKiraAppBarHeight = 80;
   static const double kKiraMenuWidth = 232;

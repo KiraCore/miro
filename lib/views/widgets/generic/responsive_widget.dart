@@ -12,30 +12,26 @@ class ResponsiveWidget extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  static bool isSmallScreen(BuildContext context) =>
-      MediaQuery.of(context).size.width < 850;
-
-  static bool isLargeScreen(BuildContext context) =>
-      MediaQuery.of(context).size.width < 1100 &&
-          MediaQuery.of(context).size.width >= 850;
+  static bool isSmallScreen(BuildContext context) => MediaQuery.of(context).size.width < 850;
 
   static bool isMediumScreen(BuildContext context) =>
-      MediaQuery.of(context).size.width >= 1100;
+      MediaQuery.of(context).size.width < 1100 && MediaQuery.of(context).size.width >= 850;
+
+  static bool isLargeScreen(BuildContext context) => MediaQuery.of(context).size.width >= 1100;
 
   @override
   Widget build(BuildContext context) {
-    // If our width is more than 1100 then we consider it a desktop
-    if (isMediumScreen(context)) {
+    // If our width is more than 1100, we assume it is a desktop
+    if (isLargeScreen(context)) {
       return largeScreen;
     }
-    // If width it less then 1100 and more then 850 we consider it as tablet
-    else if (isLargeScreen(context) && smallScreen != null) {
+    // If width is less than 1100 and more than 850, we assume it is a tablet
+    else if (isMediumScreen(context) && smallScreen != null) {
       return smallScreen!;
     }
-    // Or less then that we called it mobile
+    // Or less than 850, we assume it is a mobile
     else {
       return mediumScreen;
     }
   }
 }
-

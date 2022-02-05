@@ -47,6 +47,9 @@ ThemeData buildDarkTheme(String? lang) {
     textSelectionTheme: const TextSelectionThemeData(
       cursorColor: Color(0xFF6F6C99),
     ),
+    textButtonTheme: TextButtonThemeData(
+      style: ButtonStyle(foregroundColor: MaterialStateProperty.resolveWith(_getTextButtonFontColor)),
+    ),
     outlinedButtonTheme: OutlinedButtonThemeData(
       style: ButtonStyle(
         foregroundColor: MaterialStateProperty.resolveWith(_getOutlinedButtonFontColor),
@@ -112,6 +115,28 @@ Color _getOutlinedButtonFontColor(Set<MaterialState> states) {
   Color fontColor = DesignColors.white_100;
   if (states.contains(MaterialState.disabled)) {
     fontColor = const Color(0xFF50525C);
+  }
+  return fontColor;
+}
+
+Color _getTextButtonFontColor(Set<MaterialState> states) {
+  Color fontColor = DesignColors.gray2_100;
+  if (states.contains(MaterialState.disabled)) {
+    fontColor = const Color(0xFF50525C);
+  }
+  if (states.contains(MaterialState.hovered)) {
+    fontColor = DesignColors.white_100;
+  }
+  return fontColor;
+}
+
+Color _getIconButtonColor(Set<MaterialState> states) {
+  Color fontColor = DesignColors.gray2_100;
+  if (states.contains(MaterialState.disabled)) {
+    fontColor = const Color(0xFF50525C);
+  }
+  if (states.contains(MaterialState.hovered)) {
+    fontColor = DesignColors.white_100;
   }
   return fontColor;
 }
