@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:miro/blocs/specific_blocs/network_connector/network_connector_cubit.dart';
 import 'package:miro/infra/services/api/query_interx_status_service.dart';
-import 'package:miro/shared/constants/network_health_status.dart';
 import 'package:miro/shared/models/network_model.dart';
 import 'package:miro/shared/utils/assets_manager.dart';
 
@@ -9,25 +9,34 @@ part 'network_list_state.dart';
 
 class NetworkListCubit extends Cubit<NetworkListState> {
   final QueryInterxStatusService queryInterxStatusService;
+  final NetworkConnectorCubit networkConnectorCubit;
+
   List<NetworkModel> networkList = List<NetworkModel>.empty(growable: true);
 
-  NetworkListCubit({required this.queryInterxStatusService}) : super(NetworkListInitialState()) {
+  NetworkListCubit({
+    required this.queryInterxStatusService,
+    required this.networkConnectorCubit,
+  }) : super(NetworkListInitialState()) {
     getNetworks();
   }
 
   Future<void> getNetworks() async {
-    networkList = List<NetworkModel>.empty(growable: true);
     List<NetworkModel> staticNetworks = await _fetchNetworkList();
-
+    networkList = staticNetworks;
+    emit(NetworkListLoadingState());
     emit(NetworkListLoadedState(networkList: staticNetworks));
 
-    for (NetworkModel network in staticNetworks) {
-      NetworkHealthStatus networkStatus = await _checkNetworkHealth(network);
-      networkList.add(network.copyWith(
-        status: networkStatus
-      ));
+    for (int i = 0; i < staticNetworks.length; i++) {
+      _updateNetworkStatus(i);
     }
-    emit(NetworkListLoadedState(networkList: networkList));
+  }
+
+  void _updateNetworkStatus(int index) {
+    networkConnectorCubit.getNetworkData(networkList[index]).then((NetworkModel newNetworkModel) async {
+      networkList[index] = newNetworkModel;
+      emit(NetworkListLoadingState());
+      emit(NetworkListLoadedState(networkList: networkList));
+    });
   }
 
   Future<List<NetworkModel>> _fetchNetworkList() async {
@@ -36,7 +45,4 @@ class NetworkListCubit extends Cubit<NetworkListState> {
         .map((dynamic e) => NetworkModel.fromJson(e as Map<String, dynamic>))
         .toList();
   }
-
-  Future<NetworkHealthStatus> _checkNetworkHealth(NetworkModel networkModel) async =>
-      await queryInterxStatusService.getHealth(networkModel.parsedUri);
 }

@@ -1,21 +1,27 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:miro/config/locator.dart';
+import 'package:miro/infra/dto/api/query_validators/request/query_validators_req.dart';
+import 'package:miro/infra/dto/api/query_validators/response/query_validators_resp.dart';
 import 'package:miro/infra/services/api/query_interx_status_service.dart';
+import 'package:miro/infra/services/api/query_validators_service.dart';
 import 'package:miro/providers/network_provider.dart';
 import 'package:miro/shared/constants/network_health_status.dart';
 import 'package:miro/shared/models/infra/interx_response_data.dart';
 import 'package:miro/shared/models/network_model.dart';
-import 'package:miro/shared/utils/app_logger.dart';
 import 'package:miro/shared/utils/network_utils.dart';
 
 part 'network_connector_state.dart';
 
 class NetworkConnectorCubit extends Cubit<NetworkConnectorState> {
   final QueryInterxStatusService queryInterxStatusService;
-  final NetworkProvider networkProvider = globalLocator<NetworkProvider>();
+  final QueryValidatorsService queryValidatorsService;
+  final NetworkProvider networkProvider;
 
-  NetworkConnectorCubit({required this.queryInterxStatusService}) : super(NetworkConnectorInitialState()) {
+  NetworkConnectorCubit({
+    required this.queryInterxStatusService,
+    required this.queryValidatorsService,
+    required this.networkProvider,
+  }) : super(NetworkConnectorInitialState()) {
     connectFromUrl();
   }
 
@@ -24,39 +30,45 @@ class NetworkConnectorCubit extends Cubit<NetworkConnectorState> {
     final String? networkSrc = baseUri.queryParameters['rpc'];
 
     if (networkSrc != null) {
-      NetworkModel urlNetworkModel = NetworkModel(
+      NetworkModel urlNetworkModel = await getNetworkData(NetworkModel(
         url: networkSrc,
         name: networkSrc,
-        status: NetworkHealthStatus.waiting,
-      );
+        status: NetworkHealthStatus.unknown,
+      ));
 
-      networkProvider.changeCurrentNetwork(urlNetworkModel);
-      emit(NetworkConnectorConnectedState(currentNetwork: urlNetworkModel));
-      await connect(urlNetworkModel);
+      if (urlNetworkModel.status == NetworkHealthStatus.online) {
+        networkProvider.changeCurrentNetwork(urlNetworkModel);
+        emit(NetworkConnectorConnectedState(currentNetwork: urlNetworkModel));
+        await connect(urlNetworkModel);
+      }
     }
   }
 
-  Future<bool> checkConnection(String url) async {
-    Uri networkUri = NetworkUtils.parseUrl(url);
-    NetworkHealthStatus networkHealthStatus = await queryInterxStatusService.getHealth(networkUri);
-    return networkHealthStatus == NetworkHealthStatus.online;
+  Future<void> connect(NetworkModel networkModel) async {
+    networkProvider.changeCurrentNetwork(networkModel);
+    emit(NetworkConnectorConnectedState(currentNetwork: networkModel));
   }
 
-  Future<bool> connect(NetworkModel networkModel) async {
+  Future<NetworkModel> getNetworkData(NetworkModel network) async {
     try {
-      final InterxResponseData interxStatusResponse = await queryInterxStatusService.getData(networkModel.parsedUri);
-      final NetworkModel newNetwork = networkModel.copyWith(
-        url: interxStatusResponse.usedUri.toString(),
-        queryInterxStatus: interxStatusResponse.queryInterxStatusResp,
-        status: NetworkHealthStatus.online,
+      InterxResponseData interxResponseData = await queryInterxStatusService.getData(network.parsedUri);
+      QueryValidatorsResp queryValidatorsResp = await queryValidatorsService.getValidators(
+        interxResponseData.usedUri,
+        QueryValidatorsReq(all: true),
       );
-      networkProvider.changeCurrentNetwork(newNetwork);
-      emit(NetworkConnectorConnectedState(currentNetwork: newNetwork));
-      return true;
+      return network.copyWith(
+        url: interxResponseData.usedUri.toString(),
+        status: NetworkHealthStatus.online,
+        queryValidatorsResp: queryValidatorsResp,
+        queryInterxStatus: interxResponseData.queryInterxStatusResp,
+      );
     } catch (e) {
-      // InterxUnavailableException
-      AppLogger().log(message: e.toString(), logLevel: LogLevel.error);
-      return false;
+      if (networkProvider.networkModel?.parsedUri == network.parsedUri) {
+        disconnect();
+      }
+      return network.copyWith(
+        status: NetworkHealthStatus.offline,
+      );
     }
   }
 
