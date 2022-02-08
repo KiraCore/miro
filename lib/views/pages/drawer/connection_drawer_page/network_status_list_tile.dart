@@ -1,21 +1,12 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:miro/blocs/specific_blocs/network_connector/network_connector_cubit.dart';
-import 'package:miro/config/locator.dart';
+import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/assets.dart';
 import 'package:miro/providers/network_provider.dart';
 import 'package:miro/shared/constants/network_health_status.dart';
 import 'package:miro/shared/models/network_model.dart';
+import 'package:miro/views/pages/drawer/connection_drawer_page/network_connect_button.dart';
 import 'package:provider/provider.dart';
-
-enum NetworkStatusEnum {
-  connecting,
-  connected,
-  hover,
-  disconnected,
-}
 
 class NetworkStatusListTile extends StatefulWidget {
   final NetworkModel networkModel;
@@ -30,128 +21,163 @@ class NetworkStatusListTile extends StatefulWidget {
 }
 
 class _NetworkStatusListTile extends State<NetworkStatusListTile> {
-  Set<NetworkStatusEnum> tileStatus = <NetworkStatusEnum>{};
-  late NetworkModel currentNetworkModel;
+  final TextStyle networkDetailsTextStyle = const TextStyle(
+    color: DesignColors.gray2_100,
+    fontSize: 12,
+  );
 
   @override
   void initState() {
-    currentNetworkModel = widget.networkModel;
-    _setInitialItemStatus();
     super.initState();
   }
 
   @override
-  void didUpdateWidget(covariant NetworkStatusListTile oldWidget) {
-    currentNetworkModel = widget.networkModel;
-    _setInitialItemStatus();
-    super.didUpdateWidget(oldWidget);
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: _onTap,
-      onHover: (bool val) => _onHover(status: val),
-      child: ListTile(
-        title: Text(
-          currentNetworkModel.name,
-          overflow: TextOverflow.ellipsis,
-        ),
-        leading: _buildNetworkHealthStatusWidget(),
-        trailing: _buildNetworkConnectionStatusWidget(),
-      ),
+    return Consumer<NetworkProvider>(
+      builder: (_, NetworkProvider networkProvider, Widget? child) {
+        bool isActualConnectedNetwork = networkProvider.networkModel?.parsedUri == widget.networkModel.parsedUri;
+        return Container(
+          margin: const EdgeInsets.symmetric(vertical: 8),
+          decoration: BoxDecoration(
+            border: Border.all(
+              width: 1,
+              color: isActualConnectedNetwork ? DesignColors.darkGreen : const Color(0xFF4E4C71),
+            ),
+            color: isActualConnectedNetwork ? DesignColors.darkGreen.withOpacity(0.1) : Colors.transparent,
+            borderRadius: BorderRadius.circular(4),
+          ),
+          padding: const EdgeInsets.symmetric(vertical: 12),
+          child: Wrap(
+            children: <Widget>[
+              Theme(
+                data: ThemeData().copyWith(
+                  dividerColor: Colors.transparent,
+                  splashColor: Colors.transparent,
+                ),
+                child: ExpansionTile(
+                  title: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Row(
+                        children: <Widget>[
+                          SizedBox(
+                            width: 12,
+                            height: 12,
+                            child: Center(
+                              child: _buildNetworkHealthStatusWidget(),
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            widget.networkModel.name,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              color: DesignColors.white_100,
+                              fontSize: 16,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 4),
+                      Row(
+                        children: <Widget>[
+                          const SizedBox(width: 20),
+                          Text(
+                            widget.networkModel.parsedUri.toString(),
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              color: DesignColors.gray2_100,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  collapsedIconColor: Colors.white,
+                  children: <Widget>[
+                    const SizedBox(height: 27),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 35, right: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Text(
+                            'Block Height',
+                            style: networkDetailsTextStyle,
+                          ),
+                          Text(
+                            widget.networkModel.queryInterxStatus?.syncInfo.latestBlockHeight ?? '---',
+                            style: networkDetailsTextStyle,
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 35, right: 20),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: <Widget>[
+                          Text(
+                            'Validators',
+                            style: networkDetailsTextStyle,
+                          ),
+                          Text(
+                            _getValidatorsCount(),
+                            style: networkDetailsTextStyle,
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 8),
+              Row(
+                children: <Widget>[
+                  const SizedBox(width: 35),
+                  NetworkConnectButton(
+                    networkModel: widget.networkModel,
+                    isConnected: isActualConnectedNetwork,
+                  ),
+                ],
+              )
+            ],
+          ),
+        );
+      },
     );
   }
 
-  void _setInitialItemStatus() {
-    NetworkProvider networkProvider = globalLocator<NetworkProvider>();
-    if (networkProvider.isConnected && networkProvider.networkModel!.parsedUri == currentNetworkModel.parsedUri) {
-      tileStatus
-        ..remove(NetworkStatusEnum.disconnected)
-        ..add(NetworkStatusEnum.connected);
-    } else {
-      tileStatus
-        ..remove(NetworkStatusEnum.connected)
-        ..add(NetworkStatusEnum.disconnected);
-    }
-  }
-
-  Future<void> _onTap() async {
-    if (currentNetworkModel.isConnected) {
-      _disconnectFromNetwork();
-    } else {
-      await _connectToNetwork();
-    }
-  }
-
-  void _disconnectFromNetwork() {
-    context.read<NetworkConnectorCubit>().disconnect();
-    tileStatus
-      ..remove(NetworkStatusEnum.connected)
-      ..add(NetworkStatusEnum.disconnected);
-  }
-
-  Future<void> _connectToNetwork() async {
-    tileStatus.add(NetworkStatusEnum.connecting);
-    setState(() {});
-    bool status = await context.read<NetworkConnectorCubit>().connect(widget.networkModel);
-    if (!status) {
-      setState(() {
-        currentNetworkModel = currentNetworkModel.copyWith(status: NetworkHealthStatus.offline);
-      });
-    }
-    tileStatus.remove(NetworkStatusEnum.connecting);
-    setState(() {});
-  }
-
-  void _onHover({required bool status}) {
-    if (status) {
-      tileStatus.add(NetworkStatusEnum.hover);
-    } else {
-      tileStatus.remove(NetworkStatusEnum.hover);
-    }
-    setState(() {});
-  }
-
-  // TODO(dpajak99): After UI, move it to single widget
   Widget _buildNetworkHealthStatusWidget() {
-    switch (currentNetworkModel.status) {
+    switch (widget.networkModel.status) {
       case NetworkHealthStatus.online:
         return SvgPicture.asset(
           Assets.iconsNetworkStatus,
           color: Colors.green,
-          height: 15,
+          height: 12,
         );
-      case NetworkHealthStatus.waiting:
+      case NetworkHealthStatus.unknown:
         return SvgPicture.asset(
           Assets.iconsNetworkStatus,
           color: Colors.grey,
-          height: 15,
+          height: 12,
         );
       default:
         return SvgPicture.asset(
           Assets.iconsNetworkStatus,
           color: Colors.red,
-          height: 14,
+          height: 12,
         );
     }
   }
 
-  Widget? _buildNetworkConnectionStatusWidget() {
-    if (tileStatus.contains(NetworkStatusEnum.connecting)) {
-      return const Text('Connecting...');
+  String _getValidatorsCount() {
+    if (widget.networkModel.queryValidatorsResp?.status != null) {
+      return '${widget.networkModel.queryValidatorsResp!.status!.activeValidators}/${widget.networkModel.queryValidatorsResp!.status!.totalValidators}';
     }
-    if (tileStatus.contains(NetworkStatusEnum.hover)) {
-      if (tileStatus.contains(NetworkStatusEnum.disconnected)) {
-        return const Text('Connect');
-      }
-      if (tileStatus.contains(NetworkStatusEnum.connected)) {
-        return const Text('Disconnect');
-      }
-    }
-    if (tileStatus.contains(NetworkStatusEnum.connected)) {
-      return const Text('Connected');
-    }
-    return null;
+    return '---';
   }
 }

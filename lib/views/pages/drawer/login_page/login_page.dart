@@ -32,6 +32,7 @@ class _LoginPage extends State<LoginPage> {
           crossAxisAlignment: WrapCrossAlignment.center,
           children: <Widget>[
             Text('Recommended and safe option', style: Theme.of(context).textTheme.headline2),
+            // TODO(dominik): Add tooltip message
             const KiraToolTip(
               message: 'Some message why Login with Saifu is the safest option',
             ),
@@ -71,6 +72,7 @@ class _LoginPage extends State<LoginPage> {
                 ],
               ),
             ),
+            // TODO(dominik): Add tooltip message
             const KiraToolTip(
               childMargin: EdgeInsets.zero,
               message: 'Some message why Login with Saifu is the safest option',

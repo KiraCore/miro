@@ -34,6 +34,7 @@ class _LoginMnemonicPage extends State<LoginMnemonicPage> {
           crossAxisAlignment: WrapCrossAlignment.center,
           children: <Widget>[
             Text('Write or paste your mnemonic', style: Theme.of(context).textTheme.headline2),
+            // TODO(dominik): Add tooltip message
             const KiraToolTip(
               message: 'Some message how to login with mnemonic',
             ),
