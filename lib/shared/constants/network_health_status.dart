@@ -1,5 +1,5 @@
 enum NetworkHealthStatus {
   online,
   offline,
-  waiting,
+  unknown,
 }

@@ -2,10 +2,13 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/blocs/specific_blocs/network_connector/network_connector_cubit.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api/query_interx_status/query_interx_status_resp.dart';
+import 'package:miro/infra/dto/api/query_validators/response/query_validators_resp.dart';
 import 'package:miro/infra/services/api/query_interx_status_service.dart';
+import 'package:miro/infra/services/api/query_validators_service.dart';
 import 'package:miro/providers/network_provider.dart';
 import 'package:miro/shared/constants/network_health_status.dart';
 import 'package:miro/shared/models/network_model.dart';
+import 'package:miro/test/mocks/api/api_query_validators.dart' as api_validators_mocks;
 import 'package:miro/test/mocks/api/api_status.dart' as api_status_mocks;
 import 'package:miro/test/test_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
@@ -18,14 +21,12 @@ Future<void> main() async {
 
   final NetworkConnectorCubit networkConnectorCubit = NetworkConnectorCubit(
     queryInterxStatusService: globalLocator<QueryInterxStatusService>(),
+    queryValidatorsService: globalLocator<QueryValidatorsService>(),
+    networkProvider: globalLocator<NetworkProvider>(),
   );
   // Actual values for tests
   const String actualBrowserUrl = 'https://test.test/?rpc=https://online.kira.network';
-  final NetworkModel actualNetworkModel = NetworkModel(
-    name: 'test-network',
-    url: 'https://online.kira.network',
-    status: NetworkHealthStatus.waiting,
-  );
+
   // Expected values of tests
   const String expectedConnectedNetworkUrl = 'https://online.kira.network';
 
@@ -35,11 +36,12 @@ Future<void> main() async {
       url: 'https://online.kira.network',
       status: NetworkHealthStatus.online,
       queryInterxStatus: QueryInterxStatusResp.fromJson(api_status_mocks.apiStatusMock),
+      queryValidatorsResp: QueryValidatorsResp.fromJson(api_validators_mocks.apiValidatorsMock),
     );
 
     test('Should correctly set network parameters after connecting to network', () async {
       await networkConnectorCubit.connectFromUrl(url: actualBrowserUrl);
-      final NetworkModel? connectedNetworkModel = globalLocator<NetworkProvider>().networkModel;
+      final NetworkModel? actualNetworkModel = globalLocator<NetworkProvider>().networkModel;
 
       // Because the tested method doesn't work properly outside the test, we need to check method within one test
       testPrint('Should return NetworkConnectorConnectedState with connected NetworkModel');
@@ -52,24 +54,57 @@ Future<void> main() async {
 
       testPrint('Should return true (isConnected) if network is connected');
       expect(
-        connectedNetworkModel?.isConnected,
+        actualNetworkModel?.isConnected,
         true,
       );
 
       testPrint('Should return URL from actually connected network');
       expect(
-        connectedNetworkModel?.parsedUri.toString(),
+        actualNetworkModel?.parsedUri.toString(),
         expectedConnectedNetworkUrl,
       );
     });
   });
 
-  group('Test establishing a connection via connect() method', () {
+  group('Test filling networkModel via fillNetworkData() method', () {
+    final NetworkModel actualUnknownNetworkModel = NetworkModel(
+      name: 'test-network',
+      url: 'https://online.kira.network',
+      status: NetworkHealthStatus.unknown,
+    );
+
     final NetworkModel expectedNetworkModel = NetworkModel(
       name: 'test-network',
       url: 'https://online.kira.network',
       status: NetworkHealthStatus.online,
       queryInterxStatus: QueryInterxStatusResp.fromJson(api_status_mocks.apiStatusMock),
+      queryValidatorsResp: QueryValidatorsResp.fromJson(api_validators_mocks.apiValidatorsMock),
+    );
+
+    test('Should correctly fill validators, queryInterxStatus params', () async {
+      NetworkModel actualNetworkModel = await networkConnectorCubit.getNetworkData(actualUnknownNetworkModel);
+      expect(
+        actualNetworkModel.toString(),
+        expectedNetworkModel.toString(),
+      );
+    });
+  });
+
+  group('Test establishing a connection via connect() method', () {
+    final NetworkModel actualNetworkModel = NetworkModel(
+      name: 'test-network',
+      url: 'https://online.kira.network',
+      status: NetworkHealthStatus.online,
+      queryInterxStatus: QueryInterxStatusResp.fromJson(api_status_mocks.apiStatusMock),
+      queryValidatorsResp: QueryValidatorsResp.fromJson(api_validators_mocks.apiValidatorsMock),
+    );
+
+    final NetworkModel expectedNetworkModel = NetworkModel(
+      name: 'test-network',
+      url: 'https://online.kira.network',
+      status: NetworkHealthStatus.online,
+      queryInterxStatus: QueryInterxStatusResp.fromJson(api_status_mocks.apiStatusMock),
+      queryValidatorsResp: QueryValidatorsResp.fromJson(api_validators_mocks.apiValidatorsMock),
     );
 
     test('Should correctly set network parameters after connecting to network', () async {
@@ -113,22 +148,6 @@ Future<void> main() async {
       expect(
         actualNetworkModel,
         null,
-      );
-    });
-  });
-
-  group('Tests of checkConnection() method', () {
-    test('Should return true if can connect to network', () async {
-      expect(
-        await networkConnectorCubit.checkConnection('https://online.kira.network'),
-        true,
-      );
-    });
-
-    test('Should return false if cannot connect to network', () async {
-      expect(
-        await networkConnectorCubit.checkConnection('https://offline.kira.network'),
-        false,
       );
     });
   });

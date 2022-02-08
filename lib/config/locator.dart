@@ -3,6 +3,7 @@ import 'package:miro/infra/repositories/api_cosmos_repository.dart';
 import 'package:miro/infra/repositories/api_repository.dart';
 import 'package:miro/infra/services/api/deposits_service.dart';
 import 'package:miro/infra/services/api/query_interx_status_service.dart';
+import 'package:miro/infra/services/api/query_validators_service.dart';
 import 'package:miro/infra/services/api/withdraws_service.dart';
 import 'package:miro/infra/services/api_cosmos/query_balance_service.dart';
 import 'package:miro/providers/app_config_provider.dart';
@@ -20,6 +21,7 @@ Future<void> initLocator() async {
     ..registerFactory<ApiCosmosRepository>(() => RemoteApiCosmosRepository())
     ..registerFactory<WithdrawsService>(() => WithdrawsService())
     ..registerFactory<DepositsService>(() => DepositsService())
+    ..registerFactory<QueryValidatorsService>(() => QueryValidatorsService())
     ..registerFactory<QueryInterxStatusService>(() => QueryInterxStatusService())
     ..registerFactory<QueryBalanceService>(() => QueryBalanceService());
 }

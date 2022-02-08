@@ -8,6 +8,7 @@ import 'package:miro/test/utils/test_utils.dart';
 
 // To run this test type in console:
 // fvm flutter test test/integration/infra/services/api/deposits_service_test.dart --platform chrome
+//ignore_for_file: avoid_print
 void main() {
   group('Tests of getAccountDeposits() method', () {
     test('Should return specific account deposits list', () async {
@@ -21,7 +22,9 @@ void main() {
       testPrint('Data request');
       DepositsResp? depositsResp = await depositsService.getAccountDeposits(uri, depositsReq);
 
+
       testPrint('Data return');
+
       print(depositsResp);
       print('');
     });
