@@ -26,11 +26,10 @@ class KiraDrawer extends StatelessWidget {
         onWillPop: onWillPop != null ? () => onWillPop!() : null,
         child: SingleChildScrollView(
           child: Container(
+            width: width,
             height: MediaQuery.of(context).size.height,
-            constraints: BoxConstraints(
-              minHeight: 800,
-              maxWidth: width,
-              minWidth: width,
+            constraints: const BoxConstraints(
+              minHeight: 680,
             ),
             child: Drawer(
               child: Container(

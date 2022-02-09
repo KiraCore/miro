@@ -8,7 +8,7 @@ import 'package:miro/config/theme/design_colors.dart';
 enum MnemonicState {
   valid,
   invalid,
-  waiting,
+  empty,
 }
 
 class MnemonicGridItem extends StatefulWidget {
@@ -28,7 +28,7 @@ class MnemonicGridItem extends StatefulWidget {
 }
 
 class _MnemonicGridItem extends State<MnemonicGridItem> {
-  MnemonicState mnemonicState = MnemonicState.waiting;
+  MnemonicState mnemonicState = MnemonicState.empty;
 
   @override
   void initState() {
@@ -93,15 +93,15 @@ class _MnemonicGridItem extends State<MnemonicGridItem> {
 
   void _validateMnemonic(String? text) {
     bool validWord = bip39.WORDLIST.contains(text);
-    MnemonicState newState = MnemonicState.waiting;
+    MnemonicState newMnemonicState = MnemonicState.empty;
     if (validWord) {
-      newState = MnemonicState.valid;
+      newMnemonicState = MnemonicState.valid;
     } else {
-      newState = MnemonicState.invalid;
+      newMnemonicState = MnemonicState.invalid;
     }
-    if (newState != mnemonicState) {
+    if (newMnemonicState != mnemonicState) {
       setState(() {
-        mnemonicState = newState;
+        mnemonicState = newMnemonicState;
       });
     }
   }

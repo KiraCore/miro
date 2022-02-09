@@ -4,11 +4,11 @@ class Assets {
 
   static const String assetsLogoDark = 'assets/logo_dark.svg';
   static const String assetsLogoLight = 'assets/logo_light.svg';
+  static const String assetsLogoSygnet = 'assets/logo_sygnet.png';
   static const String assetsNetworkListConfig = 'assets/network_list_config.json';
   static const String badgesAppStore = 'assets/images/badges/app_store.png';
   static const String badgesGooglePlay = 'assets/images/badges/google_play.png';
   static const String fontsIconsFont = 'assets/fonts/IconsFont.ttf';
   static const String fontsIconsFontConfig = 'assets/fonts/icons_font_config.json';
   static const String iconsNetworkStatus = 'assets/icons/network_status.svg';
-
 }

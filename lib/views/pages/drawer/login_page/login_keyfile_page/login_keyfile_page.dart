@@ -7,7 +7,7 @@ import 'package:miro/shared/models/wallet/keyfile.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/shared/utils/app_logger.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
-import 'package:miro/views/pages/drawer/login_page/create_wallet_reference_widget.dart';
+import 'package:miro/views/pages/drawer/login_page/create_wallet_link_button.dart';
 import 'package:miro/views/pages/drawer/login_page/login_keyfile_page/keyfile_dropzone.dart';
 import 'package:miro/views/pages/drawer/login_page/login_keyfile_page/keyfile_dropzone_controller.dart';
 import 'package:miro/views/widgets/buttons/kira_elevated_button.dart';
@@ -53,7 +53,7 @@ class _LoginKeyfilePage extends State<LoginKeyfilePage> {
           title: 'Login',
         ),
         const Spacer(),
-        const CreateWalletReferenceWidget(),
+        const CreateWalletLinkButton(),
       ],
     );
   }
