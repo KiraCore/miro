@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
-import 'package:miro/views/pages/drawer/login_page/create_wallet_reference_widget.dart';
+import 'package:miro/views/pages/drawer/login_page/create_wallet_link_button.dart';
 import 'package:miro/views/pages/drawer/login_page/login_keyfile_page/login_keyfile_page.dart';
 import 'package:miro/views/pages/drawer/login_page/login_mnemonic_page/login_mnemonic_page.dart';
 import 'package:miro/views/widgets/buttons/kira_outlined_button.dart';
@@ -39,7 +39,7 @@ class _LoginPage extends State<LoginPage> {
               KiraScaffold.of(context).navigateEndDrawerRoute(const LoginMnemonicPage());
             }),
         const Spacer(),
-        const CreateWalletReferenceWidget(),
+        const CreateWalletLinkButton(),
       ],
     );
   }
