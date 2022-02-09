@@ -5,13 +5,19 @@ import 'package:miro/views/widgets/generic/mouse_state_listener.dart';
 class KiraElevatedButton extends StatefulWidget {
   final GestureTapCallback? onPressed;
   final String title;
+  final IconData? iconData;
   final double? width;
   final double height;
+  final bool disabled;
+  final Color? foregroundColor;
 
   const KiraElevatedButton({
     required this.onPressed,
     required this.title,
     this.width,
+    this.iconData,
+    this.foregroundColor,
+    this.disabled = false,
     this.height = 51,
     Key? key,
   }) : super(key: key);
@@ -23,34 +29,50 @@ class KiraElevatedButton extends StatefulWidget {
 class _KiraElevatedButton extends State<KiraElevatedButton> {
   @override
   Widget build(BuildContext context) {
-    return MouseStateListener(
-      disabled: widget.onPressed == null,
-      onTap: widget.onPressed,
-      childBuilder: (Set<MaterialState> states) {
-        return Container(
-          decoration: BoxDecoration(
-            gradient: _getButtonGradient(states),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          height: widget.height,
-          width: widget.width,
-          child: Center(
-            child: Text(
-              widget.title.toUpperCase(),
-              style: const TextStyle(
-                color: DesignColors.white_100,
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-              ),
+    return Opacity(
+      opacity: widget.disabled ? 0.3 : 1,
+      child: MouseStateListener(
+        disabled: widget.disabled,
+        onTap: widget.disabled ? null : widget.onPressed,
+        childBuilder: (Set<MaterialState> states) {
+          return Container(
+            decoration: BoxDecoration(
+              gradient: widget.foregroundColor != null ? null : _getButtonGradient(states),
+              color: widget.foregroundColor?.withOpacity(0.1),
+              borderRadius: BorderRadius.circular(8),
             ),
-          ),
-        );
-      },
+            height: widget.height,
+            width: widget.width,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                if (widget.iconData != null) ...<Widget>[
+                  Icon(
+                    widget.iconData,
+                    color: widget.foregroundColor,
+                    size: 14,
+                  ),
+                  const SizedBox(width: 12),
+                ],
+                Text(
+                  widget.title.toUpperCase(),
+                  style: TextStyle(
+                    color: widget.foregroundColor ?? DesignColors.white_100,
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
+            ),
+          );
+        },
+      ),
     );
   }
 
   Gradient _getButtonGradient(Set<MaterialState> states) {
-    if (states.contains(MaterialState.hovered)) {
+    if (!widget.disabled && states.contains(MaterialState.hovered)) {
       return DesignColors.primaryButtonGradient;
     }
     return DesignColors.primaryButtonGradientHover;

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:miro/config/app_icons.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/views/widgets/kira/kira_text_field/kira_text_field_controller.dart';
 
@@ -9,12 +10,18 @@ class KiraTextField extends StatefulWidget {
   final String? label;
   final bool obscureText;
   final FormFieldValidator<String>? validator;
+  final Widget? suffixIcon;
+  final ValueChanged<String>? onChanged;
+  final bool readOnly;
 
   const KiraTextField({
     required this.controller,
     this.validator,
+    this.onChanged,
+    this.readOnly = false,
     this.hint,
     this.label,
+    this.suffixIcon,
     this.obscureText = false,
     Key? key,
   }) : super(key: key);
@@ -24,15 +31,15 @@ class KiraTextField extends StatefulWidget {
 }
 
 class _KiraTextField extends State<KiraTextField> {
-  final TextEditingController textEditingController = TextEditingController();
   final FocusNode inputFocusNode = FocusNode();
   String? errorMessage;
+  bool obscureTextStatus = false;
 
   @override
   void initState() {
+    obscureTextStatus = widget.obscureText;
     widget.controller.initController(
       validate: _validate,
-      textController: textEditingController,
     );
     super.initState();
   }
@@ -55,8 +62,13 @@ class _KiraTextField extends State<KiraTextField> {
         ],
         TextFormField(
           focusNode: inputFocusNode,
-          controller: textEditingController,
-          obscureText: widget.obscureText,
+          controller: widget.controller.textController,
+          onChanged: widget.onChanged,
+          obscureText: obscureTextStatus,
+          readOnly: widget.readOnly,
+          style: const TextStyle(
+            color: DesignColors.white_100,
+          ),
           decoration: InputDecoration(
             filled: true,
             fillColor: DesignColors.gray1_100,
@@ -64,6 +76,7 @@ class _KiraTextField extends State<KiraTextField> {
             errorStyle: const TextStyle(
               color: DesignColors.red,
             ),
+            suffixIcon: _getSuffixIcon(),
             errorMaxLines: 1,
             hintText: widget.hint,
             hintStyle: const TextStyle(
@@ -108,9 +121,9 @@ class _KiraTextField extends State<KiraTextField> {
     if (widget.validator == null) {
       errorMessage = null;
     } else {
-      errorMessage = widget.validator!(textEditingController.text);
+      errorMessage = widget.validator!(widget.controller.textController.text);
+      setState(() {});
     }
-    setState(() {});
     return errorMessage;
   }
 
@@ -122,5 +135,43 @@ class _KiraTextField extends State<KiraTextField> {
       return DesignColors.blue1_100;
     }
     return DesignColors.gray2_100;
+  }
+
+  Widget? _getSuffixIcon() {
+    Widget? iconWidget;
+    if (widget.suffixIcon != null) {
+      iconWidget = widget.suffixIcon;
+    }
+    if (widget.obscureText == true && obscureTextStatus) {
+      iconWidget = IconButton(
+        onPressed: () => setState(() {
+          obscureTextStatus = false;
+        }),
+        icon: const Icon(
+          AppIcons.hidden,
+          size: 16,
+          color: DesignColors.gray2_100,
+        ),
+      );
+    }
+    if (widget.obscureText == true && !obscureTextStatus) {
+      iconWidget = IconButton(
+        onPressed: () => setState(() {
+          obscureTextStatus = true;
+        }),
+        icon: const Icon(
+          AppIcons.visible,
+          size: 16,
+          color: DesignColors.gray2_100,
+        ),
+      );
+    }
+    if (iconWidget != null) {
+      return Padding(
+        padding: const EdgeInsets.only(right: 12),
+        child: iconWidget,
+      );
+    }
+    return null;
   }
 }

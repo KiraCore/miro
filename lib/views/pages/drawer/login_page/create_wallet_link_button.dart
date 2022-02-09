@@ -4,8 +4,8 @@ import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
 import 'package:miro/views/pages/drawer/create_wallet_page/create_wallet_page.dart';
 import 'package:miro/views/widgets/generic/text_link.dart';
 
-class CreateWalletReferenceWidget extends StatelessWidget {
-  const CreateWalletReferenceWidget({Key? key}) : super(key: key);
+class CreateWalletLinkButton extends StatelessWidget {
+  const CreateWalletLinkButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,8 @@ class CreateWalletReferenceWidget extends StatelessWidget {
           onTap: () {
             KiraScaffold.of(context).navigateEndDrawerRoute(const CreateWalletPage());
           },
-        )
+        ),
+        const SizedBox(height: 15),
       ],
     );
   }
