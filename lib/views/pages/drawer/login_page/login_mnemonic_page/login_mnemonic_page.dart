@@ -3,7 +3,7 @@ import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/providers/wallet_provider.dart';
 import 'package:miro/shared/models/wallet/mnemonic.dart';
-import 'package:miro/shared/models/wallet/wallet.dart';
+import 'package:miro/shared/models/wallet/unsafe_wallet.dart';
 import 'package:miro/shared/utils/app_logger.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
 import 'package:miro/views/widgets/buttons/kira_elevated_button.dart';
@@ -85,8 +85,8 @@ class _LoginMnemonicPage extends State<LoginMnemonicPage> {
 
     try {
       Mnemonic mnemonic = Mnemonic.fromArray(array: mnemonicArray);
-      Wallet wallet = Wallet.derive(mnemonic: mnemonic);
-      globalLocator<WalletProvider>().updateWallet(wallet);
+      UnsafeWallet unsafeWallet = UnsafeWallet.derive(mnemonic: mnemonic);
+      globalLocator<WalletProvider>().updateWallet(unsafeWallet);
       KiraScaffold.of(context).closeEndDrawer();
     } catch (e) {
       String errorMessage = 'Something unexpected happened';

@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:hex/hex.dart';
 import 'package:miro/shared/exceptions/invalid_keyfile_exception.dart';
 import 'package:miro/shared/exceptions/invalid_password_exception.dart';
-import 'package:miro/shared/models/wallet/wallet.dart';
+import 'package:miro/shared/models/wallet/unsafe_wallet.dart';
 import 'package:miro/shared/utils/cryptography/aes256.dart';
 
 /// Stores the content of the keyfile.json.
@@ -16,7 +16,7 @@ class KeyFile extends Equatable {
   static const String latestVersion = '1.0.0';
 
   /// Keyfile wallet
-  final Wallet wallet;
+  final UnsafeWallet wallet;
 
   /// Version of keyfile
   final String version;
@@ -47,7 +47,7 @@ class KeyFile extends Equatable {
 
       return KeyFile(
         version: keyFileAsJson['version'] as String,
-        wallet: Wallet.fromKeyFileData(keyFileAsJson, secretData),
+        wallet: UnsafeWallet.fromKeyFileData(keyFileAsJson, secretData),
       );
     } catch (_) {
       throw InvalidPasswordException();
@@ -60,7 +60,7 @@ class KeyFile extends Equatable {
   }
 
   String get fileName {
-    return 'keyfile_${wallet.bech32Shortcut}.json';
+    return 'keyfile_${wallet.address.bech32Shortcut}.json';
   }
 
   Map<String, dynamic> _encryptJson(String password) {
@@ -73,8 +73,8 @@ class KeyFile extends Equatable {
   Map<String, dynamic> _getPublicJsonData() {
     return <String, dynamic>{
       'publicKey': HEX.encode(wallet.publicKey),
-      'address': HEX.encode(wallet.address),
-      'bech32Address': wallet.bech32Address,
+      'address': HEX.encode(wallet.address.addressBytes),
+      'bech32Address': wallet.address.bech32Address,
       'walletDetails': wallet.walletDetails.toJson(),
       'version': latestVersion,
     };

@@ -59,7 +59,7 @@ class _CurrentWalletButton extends State<CurrentWalletButton> {
                 height: 40,
                 width: 40,
                 child: KiraIdentityAvatar(
-                  address: wallet.bech32Address,
+                  address: wallet.address.bech32Address,
                 ),
               ),
               const SizedBox(width: 15),
@@ -69,7 +69,7 @@ class _CurrentWalletButton extends State<CurrentWalletButton> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      wallet.bech32Shortcut,
+                      wallet.address.bech32Shortcut,
                       style: const TextStyle(
                         fontSize: 12,
                       ),

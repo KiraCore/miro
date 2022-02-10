@@ -2,17 +2,34 @@ import 'dart:typed_data';
 
 import 'package:bech32/bech32.dart' as bech32;
 
+class Bech32Pair {
+  final String hrp;
+  final Uint8List data;
+
+  Bech32Pair({
+    required this.hrp,
+    required this.data,
+  });
+}
+
 /// Allows to easily encode into Bech32 some data using a
 /// given human readable part.
 class Bech32 {
   /// Encodes the given data using the Bech32 encoding with the
   /// given human readable part
   static String encode(String humanReadablePart, Uint8List data) {
-    final Uint8List converted = _convertBits(data, 8, 5);
-    const bech32.Bech32Codec bech32Codec = bech32.Bech32Codec();
-    final bech32.Bech32 bech32Data = bech32.Bech32(humanReadablePart, converted);
+    Uint8List convertedData = _convertBits(data, 8, 5);
 
-    return bech32Codec.encode(bech32Data);
+    return bech32.bech32.encode(bech32.Bech32(humanReadablePart, convertedData));
+  }
+
+  /// Encodes the given data using the Bech32 encoding with the
+  /// given human readable part
+  static Bech32Pair decode(String bechAddress) {
+    bech32.Bech32 decoded = bech32.bech32.decode(bechAddress);
+    Uint8List program = _convertBits(decoded.data, 5, 8, pad: false);
+
+    return Bech32Pair(data: Uint8List.fromList(program), hrp: decoded.hrp);
   }
 
   /// for bech32 coding

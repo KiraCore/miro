@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:miro/config/app_icons.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/shared/models/wallet/mnemonic.dart';
-import 'package:miro/shared/models/wallet/wallet.dart';
+import 'package:miro/shared/models/wallet/unsafe_wallet.dart';
 import 'package:miro/views/pages/drawer/create_wallet_page/download_keyfile_section/download_keyfile_section.dart';
 import 'package:miro/views/pages/drawer/create_wallet_page/download_keyfile_section/download_keyfile_section_controller.dart';
 import 'package:miro/views/pages/drawer/create_wallet_page/wallet_section_tile.dart';
@@ -27,7 +27,7 @@ class _CreateWalletPage extends State<CreateWalletPage> {
   KiraTextFieldController publicAddressTextController = KiraTextFieldController();
   DownloadKeyfileSectionController downloadKeyfileSectionController = DownloadKeyfileSectionController();
   Mnemonic currentMnemonic = Mnemonic.random();
-  Wallet? currentWallet;
+  UnsafeWallet? currentWallet;
   bool generateNewWallet = true;
 
   @override
@@ -140,8 +140,8 @@ class _CreateWalletPage extends State<CreateWalletPage> {
     });
     await Future<void>.delayed(const Duration(milliseconds: 400));
     currentMnemonic = Mnemonic.random();
-    currentWallet = Wallet.derive(mnemonic: currentMnemonic);
-    publicAddressTextController.textController.text = currentWallet!.bech32Address;
+    currentWallet = UnsafeWallet.derive(mnemonic: currentMnemonic);
+    publicAddressTextController.textController.text = currentWallet!.address.bech32Address;
     setState(() {
       generateNewWallet = false;
     });

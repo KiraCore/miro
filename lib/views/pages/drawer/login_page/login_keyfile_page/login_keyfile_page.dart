@@ -4,7 +4,7 @@ import 'package:miro/providers/wallet_provider.dart';
 import 'package:miro/shared/exceptions/invalid_keyfile_exception.dart';
 import 'package:miro/shared/exceptions/invalid_password_exception.dart';
 import 'package:miro/shared/models/wallet/keyfile.dart';
-import 'package:miro/shared/models/wallet/wallet.dart';
+import 'package:miro/shared/models/wallet/unsafe_wallet.dart';
 import 'package:miro/shared/utils/app_logger.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
 import 'package:miro/views/pages/drawer/login_page/create_wallet_link_button.dart';
@@ -99,13 +99,14 @@ class _LoginKeyfilePage extends State<LoginKeyfilePage> {
     bool passwordValid = keyfilePasswordController.validate() == null;
 
     if (keyfileValid && passwordValid) {
-      Wallet wallet = _getWalletFromKeyFileString(dropZoneController.dropzoneController.currentFile!.content);
-      globalLocator<WalletProvider>().updateWallet(wallet);
+      UnsafeWallet unsafeWallet =
+          _getWalletFromKeyFileString(dropZoneController.dropzoneController.currentFile!.content);
+      globalLocator<WalletProvider>().updateWallet(unsafeWallet);
       KiraScaffold.of(context).closeEndDrawer();
     }
   }
 
-  Wallet _getWalletFromKeyFileString(String keyFileEncryptedContent) {
+  UnsafeWallet _getWalletFromKeyFileString(String keyFileEncryptedContent) {
     try {
       String password = keyfilePasswordController.textController.text;
       KeyFile keyFile = KeyFile.decode(keyFileEncryptedContent, password);

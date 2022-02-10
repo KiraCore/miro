@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:miro/config/app_icons.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/shared/models/wallet/keyfile.dart';
-import 'package:miro/shared/models/wallet/wallet.dart';
+import 'package:miro/shared/models/wallet/unsafe_wallet.dart';
 import 'package:miro/shared/utils/browser_utils.dart';
 import 'package:miro/views/pages/drawer/create_wallet_page/download_keyfile_section/download_keyfile_section_controller.dart';
 import 'package:miro/views/widgets/buttons/kira_elevated_button.dart';
@@ -11,7 +11,7 @@ import 'package:miro/views/widgets/kira/kira_text_field/kira_text_field_controll
 
 class DownloadKeyfileSection extends StatefulWidget {
   final DownloadKeyfileSectionController controller;
-  final Wallet wallet;
+  final UnsafeWallet wallet;
 
   const DownloadKeyfileSection({
     required this.controller,

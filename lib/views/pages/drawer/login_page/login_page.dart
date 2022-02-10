@@ -3,6 +3,7 @@ import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
 import 'package:miro/views/pages/drawer/login_page/create_wallet_link_button.dart';
 import 'package:miro/views/pages/drawer/login_page/login_keyfile_page/login_keyfile_page.dart';
 import 'package:miro/views/pages/drawer/login_page/login_mnemonic_page/login_mnemonic_page.dart';
+import 'package:miro/views/pages/drawer/login_page/login_saifu_page/login_saifu_page.dart';
 import 'package:miro/views/widgets/buttons/kira_elevated_button.dart';
 import 'package:miro/views/widgets/buttons/kira_outlined_button.dart';
 import 'package:miro/views/widgets/buttons/store_badge.dart';
@@ -41,7 +42,9 @@ class _LoginPage extends State<LoginPage> {
         const SizedBox(height: 28),
         KiraElevatedButton(
           title: 'Saifu',
-          onPressed: () {},
+          onPressed: () {
+            KiraScaffold.of(context).navigateEndDrawerRoute(const LoginSaifuPage());
+          },
         ),
         const SizedBox(height: 13),
         Row(
