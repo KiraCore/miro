@@ -60,7 +60,7 @@ class KeyFile extends Equatable {
   }
 
   String get fileName {
-    return 'keyfile_${wallet.bech32Shortcut}.json';
+    return 'keyfile_${wallet.address.bech32Shortcut}.json';
   }
 
   Map<String, dynamic> _encryptJson(String password) {
@@ -73,8 +73,8 @@ class KeyFile extends Equatable {
   Map<String, dynamic> _getPublicJsonData() {
     return <String, dynamic>{
       'publicKey': HEX.encode(wallet.publicKey),
-      'address': HEX.encode(wallet.address),
-      'bech32Address': wallet.bech32Address,
+      'address': HEX.encode(wallet.address.addressBytes),
+      'bech32Address': wallet.address.bech32Address,
       'walletDetails': wallet.walletDetails.toJson(),
       'version': latestVersion,
     };

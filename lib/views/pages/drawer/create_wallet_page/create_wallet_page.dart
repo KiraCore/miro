@@ -141,7 +141,7 @@ class _CreateWalletPage extends State<CreateWalletPage> {
     await Future<void>.delayed(const Duration(milliseconds: 400));
     currentMnemonic = Mnemonic.random();
     currentWallet = Wallet.derive(mnemonic: currentMnemonic);
-    publicAddressTextController.textController.text = currentWallet!.bech32Address;
+    publicAddressTextController.textController.text = currentWallet!.address.bech32Address;
     setState(() {
       generateNewWallet = false;
     });
