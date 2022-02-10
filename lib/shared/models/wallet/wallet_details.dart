@@ -2,6 +2,8 @@ import 'package:equatable/equatable.dart';
 
 /// Contains information about a blockchain network
 class WalletDetails extends Equatable {
+  static const WalletDetails defaultWalletDetails = WalletDetails(bech32Hrp: 'kira', name: 'Kira Network');
+
   /// Bech32 human readable part
   final String bech32Hrp;
 
@@ -22,14 +24,6 @@ class WalletDetails extends Equatable {
     this.defaultTokenName,
   });
 
-  @override
-  List<Object?> get props => <dynamic>[
-        bech32Hrp,
-        name,
-        iconUrl,
-        defaultTokenName,
-      ];
-
   factory WalletDetails.fromJson(Map<String, dynamic> json) {
     return WalletDetails(
       bech32Hrp: json['bech32Hrp'] as String,
@@ -45,4 +39,12 @@ class WalletDetails extends Equatable {
         'iconUrl': iconUrl,
         'defaultTokenName': defaultTokenName,
       };
+
+  @override
+  List<Object?> get props => <dynamic>[
+        bech32Hrp,
+        name,
+        iconUrl,
+        defaultTokenName,
+      ];
 }

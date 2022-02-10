@@ -6,6 +6,7 @@ import 'package:miro/shared/exceptions/invalid_password_exception.dart';
 import 'package:miro/shared/models/wallet/keyfile.dart';
 import 'package:miro/shared/models/wallet/mnemonic.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
+import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/shared/models/wallet/wallet_details.dart';
 
 void main() {
@@ -30,14 +31,15 @@ void main() {
   final Mnemonic actualMnemonic = Mnemonic(value: actualMnemonicString);
   final Wallet actualWallet = Wallet.derive(mnemonic: actualMnemonic);
   final KeyFile actualKeyfile = KeyFile(wallet: actualWallet, version: KeyFile.latestVersion);
-
+  const WalletDetails actualWalletDetails = WalletDetails.defaultWalletDetails;
   // Expected Values of tests
-  const WalletDetails expectedWalletDetails = WalletDetails(bech32Hrp: 'kira', name: 'Kira Network');
   // const WalletDetails expectedWalletDetails = Wallet.defaultWalletDetails;
-  final Uint8List expectedAddress = Uint8List.fromList(<int>[67, 120, 50, 23, 45, 152, 229, 35, 167, 252, 116, 139, 158, 211, 58, 199, 41, 33, 150, 76]);
+  final Uint8List expectedAddressBytes = Uint8List.fromList(<int>[67, 120, 50, 23, 45, 152, 229, 35, 167, 252, 116, 139, 158, 211, 58, 199, 41, 33, 150, 76]);
+  final WalletAddress expectedAddress = WalletAddress(addressBytes: expectedAddressBytes, bech32Hrp: actualWalletDetails.bech32Hrp);
+
   final Uint8List expectedPrivateKey = Uint8List.fromList(<int>[158, 115, 126, 2, 208, 98, 193, 1, 114, 159, 189, 20, 131, 168, 118, 66, 223, 196, 48, 193, 71, 233, 115, 59, 192, 240, 216, 104, 85, 120, 94, 60]);
   final Uint8List expectedPublicKey = Uint8List.fromList(<int>[2, 230, 163, 243, 204, 78, 142, 181, 242, 255, 18, 127, 23, 240, 26, 81, 90, 37, 87, 1, 55, 60, 94, 73, 154, 3, 71, 10, 32, 131, 46, 111, 124]);
-  final Wallet expectedWallet = Wallet(walletDetails: expectedWalletDetails, address: expectedAddress, privateKey: expectedPrivateKey, publicKey: expectedPublicKey);
+  final Wallet expectedWallet = Wallet(address: expectedAddress, privateKey: expectedPrivateKey, publicKey: expectedPublicKey);
   const String expectedVersion = KeyFile.latestVersion;
   final KeyFile expectedKeyFile = KeyFile(wallet: expectedWallet, version: expectedVersion);
   const String expectedKeyFileName = 'keyfile_kira1gdu_l7u3.json';

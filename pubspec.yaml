@@ -148,6 +148,19 @@ dependencies:
   # https://pub.dev/packages/file_picker
   file_picker: ^4.3.1
 
+  # A Flutter plugin for controlling the camera. Supports previewing the camera feed, 
+  # capturing images and video, and streaming image buffers to Dart.
+  # https://pub.dev/packages/camera
+  camera: ^0.9.4+1
+  
+  # A Flutter plugin for getting information about and controlling the camera on Web.
+  # https://pub.dev/packages/camera_web
+  camera_web: ^0.2.1+2
+  
+  # A common platform interface for the camera plugin.
+  # https://pub.dev/packages/camera_platform_interface
+  camera_platform_interface: ^2.1.5
+
 dev_dependencies:
   auto_route_generator: ^3.0.1
   build_runner: ^2.1.5

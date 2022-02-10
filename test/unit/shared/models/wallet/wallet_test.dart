@@ -3,15 +3,18 @@ import 'dart:typed_data';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/shared/models/wallet/mnemonic.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
+import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/wallet_details.dart';
 
 void main() {
   // @formatter:off
 
   // Actual Values for tests
-  String actualMnemonicString =
+  const String actualMnemonicString =
       'equal success expand debris crash despair awake bachelor athlete discover drop tilt reveal give oven polar party exact sign chalk hurdle move tilt chronic';
-  Mnemonic actualMnemonic = Mnemonic(value: actualMnemonicString);
-  Wallet actualWallet = Wallet.derive(mnemonic: actualMnemonic);
+  final Mnemonic actualMnemonic = Mnemonic(value: actualMnemonicString);
+  final Wallet actualWallet = Wallet.derive(mnemonic: actualMnemonic);
+  const WalletDetails actualWalletDetails = WalletDetails.defaultWalletDetails;
 
   const Map<String, dynamic> actualKeyFilePublicJSON = <String, dynamic>{
     'publicKey': '02e6a3f3cc4e8eb5f2ff127f17f01a515a255701373c5e499a03470a20832e6f7c',
@@ -40,8 +43,7 @@ void main() {
   Wallet expectedWallet = Wallet(
     privateKey: Uint8List.fromList(expectedPrivateKey),
     publicKey: Uint8List.fromList(expectedPublicKey),
-    address: Uint8List.fromList(expectedAddress),
-    walletDetails: Wallet.defaultWalletDetails,
+    address: WalletAddress(addressBytes: Uint8List.fromList(expectedAddress), bech32Hrp: actualWalletDetails.bech32Hrp),
   );
   // @formatter:on
 
@@ -78,7 +80,7 @@ void main() {
   group('Test of wallet class arguments and methods', () {
     test('Should create valid wallet address from given mnemonic', () async {
       expect(
-        actualWallet.address,
+        actualWallet.address.addressBytes,
         expectedAddress,
       );
     });
@@ -99,7 +101,7 @@ void main() {
 
     test('Should create valid bech32 address from given mnemonic', () async {
       expect(
-        actualWallet.bech32Address,
+        actualWallet.address.bech32Address,
         expectedBech32address,
       );
     });
@@ -113,7 +115,7 @@ void main() {
 
     test('Should build bech32 in predefined format ex. keyfile_kiraXXXX_XXXX', () async {
       expect(
-        actualWallet.bech32Shortcut,
+        actualWallet.address.bech32Shortcut,
         'kira1gdu_l7u3',
       );
     });
