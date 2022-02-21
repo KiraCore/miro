@@ -83,6 +83,14 @@ class _NavMenu extends State<NavMenu> {
         currentItem = navItem;
       });
       AutoRouter.of(context).navigate(navItem.pageRouteInfo!);
+      _closeBackdrop();
+    }
+  }
+
+  // Because backdrop exists only on tablet and mobile
+  // check if current window doesn't have desktop size
+  void _closeBackdrop() {
+    if (!ResponsiveWidget.isLargeScreen(context)) {
       try {
         Backdrop.of(context).fling();
       } catch (_) {
