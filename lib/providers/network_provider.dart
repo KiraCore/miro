@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:miro/config/locator.dart';
+import 'package:miro/providers/tokens_provider.dart';
 import 'package:miro/shared/models/network_model.dart';
 import 'package:miro/shared/utils/browser_utils.dart';
 
@@ -17,8 +19,12 @@ class NetworkProvider extends ChangeNotifier {
   }
 
   void changeCurrentNetwork(NetworkModel? newNetwork) {
+    bool otherNetwork = newNetwork?.parsedUri.toString() != _currentNetworkModel?.parsedUri.toString();
     _currentNetworkModel = newNetwork;
     _updateUrlParams(newNetwork);
+    if (otherNetwork && isConnected && _currentNetworkModel!.isConnected) {
+      _onNetworkChanged();
+    }
     notifyListeners();
   }
 
@@ -28,5 +34,9 @@ class NetworkProvider extends ChangeNotifier {
       'rpc': newNetwork != null ? newNetwork.parsedUri.toString() : '',
     });
     BrowserUtils.replaceUrl(currentUrl);
+  }
+
+  void _onNetworkChanged() {
+    globalLocator<TokensProvider>().refreshData();
   }
 }

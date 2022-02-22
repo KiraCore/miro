@@ -1,26 +1,25 @@
-import 'package:clipboard/clipboard.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jdenticon_dart/jdenticon_dart.dart';
-import 'package:miro/views/widgets/kira/kira_toast.dart';
 
 class KiraIdentityAvatar extends StatelessWidget {
+  final double size;
   final String address;
 
-  const KiraIdentityAvatar({required this.address, Key? key}) : super(key: key);
+  const KiraIdentityAvatar({
+    required this.address,
+    required this.size,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () async {
-        await FlutterClipboard.copy(address);
-        KiraToast.show('bech32 address copied');
-      },
+    return ClipRRect(
       borderRadius: BorderRadius.circular(500),
       child: Container(
-        width: 75,
-        height: 75,
+        width: size,
+        height: size,
         padding: const EdgeInsets.all(2),
         decoration: const BoxDecoration(
           shape: BoxShape.circle,
@@ -28,12 +27,14 @@ class KiraIdentityAvatar extends StatelessWidget {
         child: ClipRRect(
           borderRadius: BorderRadius.circular(1000),
           child: CircleAvatar(
-            backgroundColor: Colors.white,
-            child: SvgPicture.string(
-              Jdenticon.toSvg(address),
-              fit: BoxFit.contain,
-              height: 70,
-              width: 70,
+            backgroundColor: const Color(0xFF2B2F78),
+            child: SizedBox(
+              width: size - size * 0.25,
+              height: size - size * 0.25,
+              child: SvgPicture.string(
+                Jdenticon.toSvg(address),
+                fit: BoxFit.contain,
+              ),
             ),
           ),
         ),

@@ -1,0 +1,4 @@
+enum SortingStatus {
+  asc,
+  desc,
+}

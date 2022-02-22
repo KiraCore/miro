@@ -4,8 +4,8 @@ class Pagination {
   Pagination({required this.total});
 
   factory Pagination.fromJson(Map<String, dynamic> json) => Pagination(
-    total: json['total'] as String,
-  );
+        total: json['total'] as String? ?? '0',
+      );
 
   @override
   String toString() {
