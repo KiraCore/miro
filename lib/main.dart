@@ -7,6 +7,9 @@ import 'package:miro/config/theme/theme_dark.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/providers/app_config_provider.dart';
 import 'package:miro/providers/app_list_providers.dart';
+import 'package:miro/shared/guards/auth_guard.dart';
+import 'package:miro/shared/guards/navigation_guard.dart';
+import 'package:miro/shared/guards/url_parameters_guard.dart';
 import 'package:miro/shared/router/router.gr.dart';
 import 'package:provider/provider.dart';
 import 'package:url_strategy/url_strategy.dart';
@@ -37,7 +40,11 @@ class CoreApp extends StatefulWidget {
 }
 
 class _CoreApp extends State<CoreApp> {
-  final AppRouter appRouter = AppRouter();
+  final AppRouter appRouter = AppRouter(
+    authGuard: AuthGuard(),
+    urlParametersGuard: UrlParametersGuard(),
+    navigationGuard: NavigationGuard(),
+  );
 
   @override
   void initState() {

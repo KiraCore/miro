@@ -1,66 +1,87 @@
-import 'package:custom_pop_up_menu/custom_pop_up_menu.dart';
 import 'package:flutter/material.dart';
+import 'package:just_the_tooltip/just_the_tooltip.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
+import 'package:miro/views/widgets/generic/responsive/screen_size.dart';
 
 typedef PopWrapperButtonBuilder = Widget Function(AnimationController animationController);
 
-class PopWrapperListItem {
-  final String title;
-  final GestureTapCallback onPressed;
+typedef PopWrapperPopupBuilder = Widget Function();
 
-  PopWrapperListItem({required this.title, required this.onPressed});
-}
+class PopWrapperController {
+  late BuildContext context;
+  late ScreenSize _screenSize;
+  late AnimationController animationController;
+  late JustTheController controller = JustTheController();
+  late Function showMobilePopup;
 
-class PopWrapper extends StatefulWidget {
-  final List<PopWrapperListItem> menuList;
-  final PopWrapperButtonBuilder buttonBuilder;
-  final double itemWidth;
-  final BoxDecoration? decoration;
+  set screenSize(ScreenSize value) {
+    _screenSize = value;
+  }
 
-  const PopWrapper({
-    required this.buttonBuilder,
-    required this.menuList,
-    this.itemWidth = 80,
-    this.decoration,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  State<StatefulWidget> createState() => _PopMenu();
-}
-
-class PopWrapperController extends CustomPopupMenuController {
-  final AnimationController animationController;
-
-  PopWrapperController(this.animationController);
-
-  @override
   void showMenu() {
-    menuIsShowing = true;
-    animationController.forward();
-    notifyListeners();
+    if (_screenSize == ScreenSize.desktop) {
+      controller.showTooltip();
+    } else {
+      showMobilePopup();
+    }
   }
 
-  @override
   void hideMenu() {
-    menuIsShowing = false;
-    animationController.reverse();
-    notifyListeners();
+    if (_screenSize == ScreenSize.desktop) {
+      controller.hideTooltip();
+    } else {
+      Navigator.of(context, rootNavigator: true).pop();
+    }
   }
 
-  @override
   void toggleMenu() {
-    if (menuIsShowing) {
+    if (controller.value == TooltipStatus.isShowing) {
       hideMenu();
     } else {
       showMenu();
     }
   }
+
+  void dispose() {
+    animationController.dispose();
+  }
+
+  void initController({
+    required AnimationController animationController,
+    required BuildContext context,
+    required Function showMobilePopup,
+  }) {
+    this.animationController = animationController;
+    this.context = context;
+    this.showMobilePopup = showMobilePopup;
+  }
 }
 
-class _PopMenu extends State<PopWrapper> with SingleTickerProviderStateMixin {
-  late PopWrapperController popMenuController;
+class PopWrapper extends StatefulWidget {
+  final PopWrapperController popWrapperController;
+  final PopWrapperPopupBuilder popupBuilder;
+  final PopWrapperButtonBuilder buttonBuilder;
+  final double dropdownMargin;
+  final BoxDecoration? decoration;
+  final double buttonWidth;
+  final double buttonHeight;
 
+  const PopWrapper({
+    required this.popWrapperController,
+    required this.buttonBuilder,
+    required this.popupBuilder,
+    required this.buttonWidth,
+    required this.buttonHeight,
+    this.dropdownMargin = 15,
+    this.decoration,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _PopWrapper();
+}
+
+class _PopWrapper extends State<PopWrapper> with SingleTickerProviderStateMixin {
   @override
   void initState() {
     setUpController();
@@ -68,7 +89,14 @@ class _PopMenu extends State<PopWrapper> with SingleTickerProviderStateMixin {
   }
 
   @override
+  void dispose() {
+    widget.popWrapperController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    _updatePopWrapperController();
     return ResponsiveWidget(
       largeScreen: _buildDesktop(),
       mediumScreen: _buildMobile(),
@@ -80,64 +108,68 @@ class _PopMenu extends State<PopWrapper> with SingleTickerProviderStateMixin {
       vsync: this,
       duration: const Duration(milliseconds: 200),
     )..addListener(() => setState(() {}));
-    popMenuController = PopWrapperController(animationController);
+    widget.popWrapperController.initController(
+      animationController: animationController,
+      context: context,
+      showMobilePopup: _showMobilePopup,
+    );
+  }
+
+  void _updatePopWrapperController() {
+    widget.popWrapperController.screenSize = ResponsiveWidget.getScreenSize(context);
   }
 
   Widget _buildDesktop() {
-    return CustomPopupMenu(
-      pressType: PressType.singleClick,
-      controller: popMenuController,
-      barrierColor: Colors.transparent,
-      showArrow: false,
-      menuBuilder: () {
-        return Container(
-          margin: const EdgeInsets.only(top: 15),
-          width: widget.itemWidth,
-          padding: const EdgeInsets.all(20),
+    return JustTheTooltip(
+      isModal: true,
+      controller: widget.popWrapperController.controller,
+      triggerMode: TooltipTriggerMode.manual,
+      tailLength: 0,
+      backgroundColor: Colors.transparent,
+      content: Container(
+        margin: const EdgeInsets.only(top: 14, left: 4, right: 4, bottom: 4),
+        padding: const EdgeInsets.all(0),
+        decoration: BoxDecoration(
+          color: Theme.of(context).scaffoldBackgroundColor,
+        ),
+        child: Container(
           decoration: widget.decoration,
-          child: ListView.builder(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            itemCount: widget.menuList.length,
-            itemBuilder: (BuildContext context, int index) {
-              PopWrapperListItem item = widget.menuList[index];
-              return MouseRegion(
-                cursor: SystemMouseCursors.click,
-                child: InkWell(
-                  onTap: () => item.onPressed(),
-                  child: ListTile(
-                    title: Text(
-                      item.title,
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
-              );
-            },
+          child: widget.popupBuilder(),
+        ),
+      ),
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: GestureDetector(
+          onTap: () {
+            widget.popWrapperController.showMenu();
+          },
+          child: Container(
+            color: Colors.transparent,
+            width: widget.buttonWidth,
+            height: widget.buttonHeight,
+            child: widget.buttonBuilder(widget.popWrapperController.animationController),
           ),
-        );
-      },
-      child: widget.buttonBuilder(popMenuController.animationController),
+        ),
+      ),
     );
   }
 
   Widget _buildMobile() {
-    return Dialog(
-      backgroundColor: widget.decoration?.color,
-      child: ListView.builder(
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        itemCount: widget.menuList.length,
-        itemBuilder: (BuildContext context, int index) {
-          PopWrapperListItem item = widget.menuList[index];
-          return ListTile(
-            title: Text(
-              item.title,
-              textAlign: TextAlign.center,
-            ),
-          );
-        },
-      ),
+    return GestureDetector(
+      onTap: _showMobilePopup,
+      child: widget.buttonBuilder(widget.popWrapperController.animationController),
+    );
+  }
+
+  void _showMobilePopup() {
+    showDialog<void>(
+      context: context,
+      builder: (_) {
+        return Dialog(
+          backgroundColor: widget.decoration?.color,
+          child: widget.popupBuilder(),
+        );
+      },
     );
   }
 }

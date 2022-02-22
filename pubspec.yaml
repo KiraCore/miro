@@ -140,26 +140,31 @@ dependencies:
   # https://pub.dev/packages/jdenticon_dart
   jdenticon_dart: ^2.0.0
 
-  # Wrap a widget with CustomPopupMenu, Tap or Long Press this widget, a popup menu would display in a suitable position.
-  # https://pub.dev/packages/custom_pop_up_menu
-  custom_pop_up_menu: ^1.2.2
+
+  # A multi directional tooltip used to display any content with inbuilt support for list views
+  # https://pub.dev/packages/just_the_tooltip
+  just_the_tooltip: ^0.0.11+2
 
   # A package that allows you to use a native file explorer to pick single or multiple absolute file paths, with extension filtering support
   # https://pub.dev/packages/file_picker
   file_picker: ^4.3.1
 
-  # A Flutter plugin for controlling the camera. Supports previewing the camera feed, 
+  # A Flutter plugin for controlling the camera. Supports previewing the camera feed,
   # capturing images and video, and streaming image buffers to Dart.
   # https://pub.dev/packages/camera
   camera: ^0.9.4+1
-  
+
   # A Flutter plugin for getting information about and controlling the camera on Web.
   # https://pub.dev/packages/camera_web
   camera_web: ^0.2.1+2
-  
+
   # A common platform interface for the camera plugin.
   # https://pub.dev/packages/camera_platform_interface
   camera_platform_interface: ^2.1.5
+
+  # A collection of loading indicators animated with flutter. Heavily inspired by @tobiasahlin's SpinKit.
+  # https://pub.dev/packages/flutter_spinkit
+  flutter_spinkit: ^5.1.0
 
 dev_dependencies:
   auto_route_generator: ^3.0.1

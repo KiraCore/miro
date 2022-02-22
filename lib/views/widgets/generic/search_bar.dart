@@ -14,8 +14,10 @@ class SearchBar extends StatelessWidget {
   final InputBorder? focusedBorder;
   final InputBorder? focusedErrorBorder;
   final ValueChanged<String>? onChanged;
+  final String label;
 
   const SearchBar({
+    required this.label,
     this.width = double.infinity,
     this.height = double.infinity,
     this.border,
@@ -39,7 +41,7 @@ class SearchBar extends StatelessWidget {
         decoration: InputDecoration(
           fillColor: backgroundColor,
           filled: backgroundColor != null,
-          hintText: 'Search for anything',
+          hintText: label,
           hintStyle: const TextStyle(
             color: DesignColors.gray2_100,
             fontSize: 15,

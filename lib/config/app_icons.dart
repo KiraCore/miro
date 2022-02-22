@@ -36,16 +36,19 @@ class AppIcons {
   static const IconData done = IconData(0xe80c, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData filter = IconData(0xe80d, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData healthy = IconData(0xe80e, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData heart = IconData(0xe80f, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData receive = IconData(0xe810, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData send = IconData(0xe811, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData updown = IconData(0xe812, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData withdraw = IconData(0xe813, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData github = IconData(0xe814, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData hidden = IconData(0xe815, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData telegram = IconData(0xe816, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData twitter = IconData(0xe817, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData medium = IconData(0xe818, fontFamily: _kFontFam, fontPackage: _kFontPkg);
-  static const IconData visible = IconData(0xe819, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData refresh = IconData(0xe81a, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+
+  // ignore: constant_identifier_names
+  static const IconData heart_outlined = IconData(0xe81b, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData heart = IconData(0xe81c, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData hidden = IconData(0xe81d, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData visible = IconData(0xe81e, fontFamily: _kFontFam, fontPackage: _kFontPkg);
 }
