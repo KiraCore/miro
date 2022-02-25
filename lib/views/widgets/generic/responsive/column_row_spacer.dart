@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:miro/views/widgets/generic/responsive_widget.dart';
+import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 
 class ColumnRowSpacer extends StatelessWidget {
   final double size;

@@ -6,22 +6,26 @@ import 'package:miro/config/theme/design_colors.dart';
 class SearchBar extends StatelessWidget {
   final double width;
   final double height;
+  final Color? backgroundColor;
   final InputBorder? border;
   final InputBorder? disabledBorder;
   final InputBorder? enabledBorder;
   final InputBorder? errorBorder;
   final InputBorder? focusedBorder;
   final InputBorder? focusedErrorBorder;
+  final ValueChanged<String>? onChanged;
 
   const SearchBar({
     this.width = double.infinity,
     this.height = double.infinity,
     this.border,
+    this.backgroundColor,
     this.disabledBorder,
     this.enabledBorder,
     this.errorBorder,
     this.focusedBorder,
     this.focusedErrorBorder,
+    this.onChanged,
     Key? key,
   }) : super(key: key);
 
@@ -31,7 +35,10 @@ class SearchBar extends StatelessWidget {
       width: width,
       height: height,
       child: TextFormField(
+        onChanged: onChanged,
         decoration: InputDecoration(
+          fillColor: backgroundColor,
+          filled: backgroundColor != null,
           hintText: 'Search for anything',
           hintStyle: const TextStyle(
             color: DesignColors.gray2_100,

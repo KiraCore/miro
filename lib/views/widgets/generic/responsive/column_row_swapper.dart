@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
-import 'package:miro/views/widgets/generic/column_row_spacer.dart';
-import 'package:miro/views/widgets/generic/responsive_widget.dart';
+import 'package:miro/views/widgets/generic/responsive/column_row_spacer.dart';
+import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 
 class ColumnRowSwapper extends StatefulWidget {
   final List<Widget> children;

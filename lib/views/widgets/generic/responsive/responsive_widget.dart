@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:miro/views/widgets/generic/responsive/screen_size.dart';
 
 class ResponsiveWidget extends StatelessWidget {
   final Widget largeScreen;
@@ -18,6 +19,18 @@ class ResponsiveWidget extends StatelessWidget {
       MediaQuery.of(context).size.width < 1100 && MediaQuery.of(context).size.width >= 850;
 
   static bool isLargeScreen(BuildContext context) => MediaQuery.of(context).size.width >= 1100;
+
+  static ScreenSize getScreenSize(BuildContext context) {
+    if (isSmallScreen(context)) {
+      return ScreenSize.mobile;
+    }
+
+    if (isMediumScreen(context)) {
+      return ScreenSize.tablet;
+    }
+
+    return ScreenSize.desktop;
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -1,44 +1,34 @@
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
-import 'package:miro/shared/utils/app_logger.dart';
+import 'package:miro/infra/cache/app_config_cache.dart';
 
 abstract class AppConfigProvider extends ChangeNotifier {
-  String get locale;
   void initConfig();
 
-  Future<void> updateLang(String? lang);
+  String get locale;
+
+  Future<void> updateLang(String lang);
 }
 
 class AppConfigProviderImpl extends AppConfigProvider {
+  final AppConfigCache appConfigCache = AppConfigCache();
+
+  @override
+  late String locale;
+
   AppConfigProviderImpl() {
     initConfig();
   }
 
-  late Box<String> _prefs;
-  late String _locale;
-
-  @override
-  String get locale => _locale;
-
-
   @override
   void initConfig() {
-    try {
-      _prefs = Hive.box<String>('configuration');
-      _locale = _prefs.get('language', defaultValue: 'en')!;
-      notifyListeners();
-    } on Exception catch (error) {
-      AppLogger().log(message: error.toString(), logLevel: LogLevel.terribleFailure);
-    }
+    locale = appConfigCache.getConfig('language', defaultValue: 'en')!;
+    notifyListeners();
   }
 
   @override
-  Future<void> updateLang(String? lang) async {
-    try {
-      await _prefs.put('language', lang!);
-      notifyListeners();
-    } on Exception catch (error) {
-      AppLogger().log(message: error.toString(), logLevel: LogLevel.error);
-    }
+  Future<void> updateLang(String lang) async {
+    locale = lang;
+    appConfigCache.updateConfig('language', lang);
+    notifyListeners();
   }
 }

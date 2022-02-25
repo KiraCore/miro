@@ -7,7 +7,7 @@ import 'package:miro/views/layout/app_bar/mobile/backdrop/backdrop_app_bar.dart'
 import 'package:miro/views/layout/nav_menu/model/nav_item.dart';
 import 'package:miro/views/layout/nav_menu/model/nav_menu_theme_data.dart';
 import 'package:miro/views/layout/nav_menu/nav_tile.dart';
-import 'package:miro/views/widgets/generic/responsive_widget.dart';
+import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 
 class NavMenu extends StatefulWidget {
   final List<NavItem> navItems;

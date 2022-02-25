@@ -4,9 +4,9 @@ import 'package:miro/config/app_sizes.dart';
 import 'package:miro/views/layout/footer/footer.dart';
 import 'package:miro/views/pages/menu/dashboard_page/widgets/dashboard_grid.dart';
 import 'package:miro/views/pages/menu/dashboard_page/widgets/dashboard_grid_tile.dart';
-import 'package:miro/views/widgets/generic/column_row_spacer.dart';
-import 'package:miro/views/widgets/generic/column_row_swapper.dart';
 import 'package:miro/views/widgets/generic/filled_scroll_view.dart';
+import 'package:miro/views/widgets/generic/responsive/column_row_spacer.dart';
+import 'package:miro/views/widgets/generic/responsive/column_row_swapper.dart';
 import 'package:miro/views/widgets/kira/kira_card.dart';
 
 class DashboardPage extends StatelessWidget {
