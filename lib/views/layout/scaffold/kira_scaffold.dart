@@ -5,7 +5,7 @@ import 'package:miro/views/layout/app_bar/kira_app_bar.dart';
 import 'package:miro/views/layout/app_bar/mobile/backdrop/backdrop_app_bar.dart';
 import 'package:miro/views/layout/app_bar/mobile/kira_app_bar_mobile.dart';
 import 'package:miro/views/layout/nav_menu/nav_menu.dart';
-import 'package:miro/views/widgets/generic/responsive_widget.dart';
+import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 
 class KiraScaffold extends StatefulWidget {
   final Widget body;
