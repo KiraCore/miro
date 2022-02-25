@@ -2,8 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:miro/config/app_icons.dart';
 import 'package:miro/config/theme/design_colors.dart';
-import 'package:miro/views/widgets/generic/column_row_swapper.dart';
-import 'package:miro/views/widgets/generic/responsive_widget.dart';
+import 'package:miro/views/widgets/generic/responsive/column_row_swapper.dart';
+import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 
 const double kFooterHeight = 50;
 

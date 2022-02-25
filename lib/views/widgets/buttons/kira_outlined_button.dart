@@ -36,6 +36,7 @@ class KiraOutlinedButton extends StatelessWidget {
               title.toUpperCase(),
               style: const TextStyle(
                 fontWeight: FontWeight.w700,
+                color: DesignColors.white_100,
                 letterSpacing: 0.4,
                 fontSize: 12,
               ),
