@@ -7,6 +7,7 @@ import 'package:miro/infra/cache/cache_manager.dart';
 import 'package:miro/providers/app_config_provider.dart';
 import 'package:miro/providers/app_list_providers.dart';
 import 'package:miro/shared/guards/auth_guard.dart';
+import 'package:miro/shared/guards/connection_guard.dart';
 import 'package:miro/shared/guards/navigation_guard.dart';
 import 'package:miro/shared/guards/url_parameters_guard.dart';
 import 'package:miro/shared/router/router.gr.dart';
@@ -42,6 +43,7 @@ class _CoreApp extends State<CoreApp> {
     authGuard: AuthGuard(),
     urlParametersGuard: UrlParametersGuard(),
     navigationGuard: NavigationGuard(),
+    connectionGuard: ConnectionGuard(),
   );
 
   @override
@@ -51,6 +53,9 @@ class _CoreApp extends State<CoreApp> {
 
   @override
   Widget build(BuildContext context) {
+    precacheImage(const AssetImage('assets/logo_sygnet.png'), context);
+    precacheImage(const AssetImage('assets/logo_loading.gif'), context);
+
     return Consumer<AppConfigProvider>(
       builder: (_, AppConfigProvider value, Widget? child) {
         return MaterialApp.router(

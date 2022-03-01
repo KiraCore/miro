@@ -6,7 +6,12 @@ import 'package:miro/views/pages/drawer/connection_drawer_page/network_status_li
 import 'package:miro/views/widgets/generic/center_load_spinner.dart';
 
 class NetworkList extends StatelessWidget {
-  const NetworkList({Key? key}) : super(key: key);
+  final void Function(NetworkModel networkModel)? onNetworkConnected;
+
+  const NetworkList({
+    this.onNetworkConnected,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +27,7 @@ class NetworkList extends StatelessWidget {
               NetworkModel currentNetwork = state.networkList[index];
               return NetworkStatusListTile(
                 networkModel: currentNetwork,
+                onNetworkConnected: onNetworkConnected,
               );
             },
           );

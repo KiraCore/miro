@@ -75,11 +75,8 @@ class PagesWrapper extends StatelessWidget {
       navMenu: _buildMenu(context),
       drawerScrimColor: const Color(0x99000000),
       endDrawer: const DrawerWrapper(),
-      body: const AutoRouter(
-        key: GlobalObjectKey('pages_router'),
-        // navigatorObservers: () => <AutoRouterObserver>[
-        //   CoreNavigatorObserver(context),
-        // ],
+      body: AutoRouter(
+        key: GlobalKey(debugLabel: 'pages_router'),
       ),
     );
   }

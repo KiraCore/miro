@@ -9,10 +9,12 @@ import 'package:miro/views/pages/drawer/connection_drawer_page/network_connect_b
 import 'package:provider/provider.dart';
 
 class NetworkStatusListTile extends StatefulWidget {
+  final void Function(NetworkModel networkModel)? onNetworkConnected;
   final NetworkModel networkModel;
 
   const NetworkStatusListTile({
     required this.networkModel,
+    this.onNetworkConnected,
     Key? key,
   }) : super(key: key);
 
@@ -141,6 +143,7 @@ class _NetworkStatusListTile extends State<NetworkStatusListTile> {
                   NetworkConnectButton(
                     networkModel: widget.networkModel,
                     isConnected: isActualConnectedNetwork,
+                    onNetworkConnected: widget.onNetworkConnected,
                   ),
                 ],
               )

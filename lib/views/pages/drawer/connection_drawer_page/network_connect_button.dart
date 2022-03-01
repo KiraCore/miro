@@ -7,11 +7,13 @@ import 'package:miro/shared/constants/network_health_status.dart';
 import 'package:miro/shared/models/network_model.dart';
 
 class NetworkConnectButton extends StatefulWidget {
+  final void Function(NetworkModel networkModel)? onNetworkConnected;
   final NetworkModel networkModel;
   final bool isConnected;
 
   const NetworkConnectButton({
     required this.networkModel,
+    this.onNetworkConnected,
     this.isConnected = false,
     Key? key,
   }) : super(key: key);
@@ -83,5 +85,8 @@ class _NetworkConnectButton extends State<NetworkConnectButton> {
 
   Future<void> _connectToNetwork() async {
     await BlocProvider.of<NetworkConnectorCubit>(context).connect(widget.networkModel);
+    if (widget.onNetworkConnected != null) {
+      widget.onNetworkConnected!(widget.networkModel);
+    }
   }
 }

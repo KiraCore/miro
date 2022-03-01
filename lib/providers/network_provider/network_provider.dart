@@ -28,9 +28,11 @@ class NetworkProvider extends ChangeNotifier {
     networkEvent.invoke(this);
   }
 
-  void setState(NetworkState networkState) {
+  void setState(NetworkState networkState, {bool notify = true}) {
     state = networkState;
-    notifyListeners();
+    if (notify) {
+      notifyListeners();
+    }
   }
 
   void onNetworkChanged() {

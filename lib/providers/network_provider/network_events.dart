@@ -53,8 +53,12 @@ class SetUpNetworkEvent extends NetworkEvent {
 }
 
 class DisconnectNetworkEvent extends NetworkEvent {
+  final bool notify;
+
+  DisconnectNetworkEvent({this.notify = true});
+
   @override
   void invoke(NetworkProvider networkProvider) {
-    networkProvider.setState(DisconnectedNetworkState());
+    networkProvider.setState(DisconnectedNetworkState(), notify: notify);
   }
 }

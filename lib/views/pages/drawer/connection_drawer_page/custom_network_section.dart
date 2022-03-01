@@ -10,7 +10,12 @@ import 'package:miro/shared/utils/network_utils.dart';
 import 'package:miro/views/widgets/generic/center_load_spinner.dart';
 
 class CustomNetworkSection extends StatefulWidget {
-  const CustomNetworkSection({Key? key}) : super(key: key);
+  final void Function(NetworkModel networkModel)? onNetworkConnected;
+
+  const CustomNetworkSection({
+    this.onNetworkConnected,
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _CustomNetworkSection();
@@ -153,6 +158,9 @@ class _CustomNetworkSection extends State<CustomNetworkSection> {
     NetworkModel? customNetworkModel = await _validateNetworkConnection();
     if (customNetworkModel != null) {
       await BlocProvider.of<NetworkConnectorCubit>(context).connect(customNetworkModel);
+      if (widget.onNetworkConnected != null) {
+        widget.onNetworkConnected!(customNetworkModel);
+      }
       _updateSuccessMessage('Successfully connected');
     } else {
       _updateErrorMessage('Cannot connect');

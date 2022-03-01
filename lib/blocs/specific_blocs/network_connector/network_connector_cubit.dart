@@ -40,7 +40,7 @@ class NetworkConnectorCubit extends Cubit<NetworkConnectorState> {
       NetworkModel urlNetworkModel = await getNetworkData(networkToConnect);
 
       if (urlNetworkModel.status == NetworkHealthStatus.online) {
-        await connect(urlNetworkModel);
+        networkProvider.handleEvent(SetUpNetworkEvent(urlNetworkModel));
       }
     }
   }
