@@ -5,6 +5,7 @@ import 'package:miro/providers/wallet_provider.dart';
 import 'package:miro/shared/models/wallet/mnemonic.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/shared/utils/app_logger.dart';
+import 'package:miro/shared/utils/cryptography/bip39_extension.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
 import 'package:miro/views/widgets/buttons/kira_elevated_button.dart';
 import 'package:miro/views/widgets/kira/kira_tooltip.dart';
@@ -50,6 +51,7 @@ class _LoginMnemonicPage extends State<LoginMnemonicPage> {
                 )
               : MnemonicGrid(
                   controller: mnemonicGridController,
+                  editable: true,
                 ),
         ),
         Padding(
@@ -58,7 +60,7 @@ class _LoginMnemonicPage extends State<LoginMnemonicPage> {
             child: Text(
               errorMessage ?? '',
               style: const TextStyle(
-                color: DesignColors.red,
+                color: DesignColors.red_100,
               ),
             ),
           ),
@@ -108,19 +110,15 @@ class _LoginMnemonicPage extends State<LoginMnemonicPage> {
       AppLogger().log(message: errorMessage, logLevel: LogLevel.warning);
       return errorMessage;
     }
-    if (mnemonicArray.length < 24) {
-      String errorMessage = 'Mnemonic too short';
+
+    MnemonicValidateResult validateResult = Bip39Extension.validateMnemonicWithMessage(mnemonicArray.join(' '));
+    if (validateResult == MnemonicValidateResult.success) {
+      return null;
+    } else {
+      String errorMessage = Bip39Extension.statusToMessage(validateResult);
       AppLogger().log(message: errorMessage, logLevel: LogLevel.warning);
       return errorMessage;
     }
-    try {
-      Mnemonic.fromArray(array: mnemonicArray);
-    } catch (_) {
-      String errorMessage = 'Invalid mnemonic';
-      AppLogger().log(message: errorMessage, logLevel: LogLevel.warning);
-      return errorMessage;
-    }
-    return null;
   }
 
   void _setLoadingState({required bool state}) {

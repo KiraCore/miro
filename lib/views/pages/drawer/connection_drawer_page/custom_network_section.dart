@@ -98,7 +98,7 @@ class _CustomNetworkSection extends State<CustomNetworkSection> {
             Text(
               errorMessage!,
               style: const TextStyle(
-                color: DesignColors.red,
+                color: DesignColors.red_100,
                 fontSize: 12,
               ),
             ),

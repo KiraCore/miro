@@ -74,7 +74,7 @@ class _KiraTextField extends State<KiraTextField> {
             fillColor: DesignColors.gray1_100,
             errorText: errorMessage,
             errorStyle: const TextStyle(
-              color: DesignColors.red,
+              color: DesignColors.red_100,
             ),
             suffixIcon: _getSuffixIcon(),
             errorMaxLines: 1,
@@ -99,14 +99,14 @@ class _KiraTextField extends State<KiraTextField> {
             ),
             errorBorder: OutlineInputBorder(
               borderSide: const BorderSide(
-                color: DesignColors.red,
+                color: DesignColors.red_100,
                 width: 1,
               ),
               borderRadius: BorderRadius.circular(8),
             ),
             focusedErrorBorder: OutlineInputBorder(
               borderSide: const BorderSide(
-                color: DesignColors.red,
+                color: DesignColors.red_100,
                 width: 1,
               ),
               borderRadius: BorderRadius.circular(8),
@@ -129,7 +129,7 @@ class _KiraTextField extends State<KiraTextField> {
 
   Color _getLabelColor() {
     if (errorMessage != null) {
-      return DesignColors.red;
+      return DesignColors.red_100;
     }
     if (inputFocusNode.hasFocus) {
       return DesignColors.blue1_100;
