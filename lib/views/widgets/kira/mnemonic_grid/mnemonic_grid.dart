@@ -9,9 +9,11 @@ class MnemonicGrid extends StatefulWidget {
   final List<String>? mnemonicWordList;
   final int mnemonicSize;
   final int columnsCount;
+  final bool editable;
 
   const MnemonicGrid({
     required this.controller,
+    required this.editable,
     this.mnemonicWordList,
     this.mnemonicSize = 24,
     this.columnsCount = 2,
@@ -103,6 +105,7 @@ class _MnemonicGrid extends State<MnemonicGrid> {
   Widget _buildCell(int index) {
     return MnemonicGridItem(
       index: index,
+      editable: widget.editable,
       mnemonicWord: widget.mnemonicWordList?[index],
       textController: mnemonicControllers[index],
     );

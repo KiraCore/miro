@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
 import 'package:miro/views/pages/drawer/login_page/create_wallet_link_button.dart';
 import 'package:miro/views/pages/drawer/login_page/login_keyfile_page/login_keyfile_page.dart';
@@ -70,7 +71,10 @@ class _LoginPage extends State<LoginPage> {
                   ),
                   Text(
                     'Note: this is not a safe option to sign in',
-                    style: Theme.of(context).textTheme.headline2!.copyWith(fontSize: 14),
+                    style: Theme.of(context).textTheme.headline2!.copyWith(
+                          fontSize: 14,
+                          color: DesignColors.yellow,
+                        ),
                   ),
                 ],
               ),

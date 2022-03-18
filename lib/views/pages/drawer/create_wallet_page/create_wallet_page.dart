@@ -91,6 +91,7 @@ class _CreateWalletPage extends State<CreateWalletPage> {
                     child: MnemonicGrid(
                       mnemonicWordList: currentMnemonic.array,
                       controller: mnemonicGridController,
+                      editable: false,
                       // mnemonicWordList: currentMnemonic.array,
                     ),
                   ),

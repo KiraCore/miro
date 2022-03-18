@@ -35,7 +35,7 @@ class _NetworkConnectButton extends State<NetworkConnectButton> {
     return const Text(
       'Cannot connect to network',
       style: TextStyle(
-        color: DesignColors.red,
+        color: DesignColors.red_100,
       ),
     );
   }

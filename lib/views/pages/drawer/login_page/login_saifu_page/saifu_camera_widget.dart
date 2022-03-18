@@ -88,14 +88,14 @@ Widget _buildErrorWidget(CameraException error) {
     children: <Widget>[
       const Icon(
         Icons.error,
-        color: DesignColors.red,
+        color: DesignColors.red_100,
         size: 30,
       ),
       const SizedBox(height: 15),
       Text(
         error.code.toUpperCase(),
         style: const TextStyle(
-          color: DesignColors.red,
+          color: DesignColors.red_100,
           fontSize: 12,
         ),
       ),

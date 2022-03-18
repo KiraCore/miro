@@ -86,13 +86,13 @@ class _KiraList<E, T extends ListBloc<E>> extends State<KiraList<E, T>> {
           Icon(
             Icons.wifi_off,
             size: 40,
-            color: DesignColors.red,
+            color: DesignColors.red_100,
           ),
           SizedBox(height: 20),
           Text(
             'No interx connection specified',
             style: TextStyle(
-              color: DesignColors.red,
+              color: DesignColors.red_100,
               fontWeight: FontWeight.bold,
             ),
           ),
