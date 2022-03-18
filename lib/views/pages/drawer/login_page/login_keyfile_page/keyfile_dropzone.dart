@@ -44,7 +44,7 @@ class _KeyfileDropzone extends State<KeyfileDropzone> {
       decoration: BoxDecoration(
         border: Border.all(
           width: 1,
-          color: errorMessage != null ? DesignColors.red : DesignColors.blue1_100,
+          color: errorMessage != null ? DesignColors.red_100 : DesignColors.blue1_100,
         ),
         borderRadius: BorderRadius.circular(8),
       ),
@@ -179,7 +179,7 @@ class _KeyfileDropzone extends State<KeyfileDropzone> {
                 Text(
                   errorMessage!,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(color: DesignColors.red),
+                  style: const TextStyle(color: DesignColors.red_100),
                 ),
             ],
           ),

@@ -56,7 +56,7 @@ class _AccountPopMenu extends State<AccountPopMenu> {
           title: const Text(
             'Log Out',
             style: TextStyle(
-              color: DesignColors.red,
+              color: DesignColors.red_100,
             ),
           ),
         ),
