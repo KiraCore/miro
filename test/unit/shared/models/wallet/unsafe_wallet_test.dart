@@ -17,15 +17,8 @@ void main() {
   const WalletDetails actualWalletDetails = WalletDetails.defaultWalletDetails;
 
   const Map<String, dynamic> actualKeyFilePublicJSON = <String, dynamic>{
-    'publicKey': '02e6a3f3cc4e8eb5f2ff127f17f01a515a255701373c5e499a03470a20832e6f7c',
-    'address': '437832172d98e523a7fc748b9ed33ac72921964c',
+    'version': '1.0.1',
     'bech32Address': 'kira1gdury9ednrjj8fluwj9ea5e6cu5jr9jvekl7u3',
-    'walletDetails': <String, dynamic>{
-      'bech32Hrp': 'kira',
-      'name': 'Kira Network',
-      'iconUrl': null,
-      'defaultTokenName': null
-    }
   };
 
   const Map<String, dynamic> actualKeyFilePrivateJSON = <String, dynamic>{

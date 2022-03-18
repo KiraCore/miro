@@ -6,6 +6,7 @@ import 'package:miro/shared/models/wallet/mnemonic.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/shared/models/wallet/wallet_details.dart';
+import 'package:miro/shared/utils/cryptography/bech32.dart';
 import 'package:miro/shared/utils/cryptography/secp256k1.dart';
 import 'package:pointycastle/export.dart';
 
@@ -86,21 +87,12 @@ class UnsafeWallet extends Wallet {
   }
 
   factory UnsafeWallet.fromKeyFileData(Map<String, dynamic> publicData, Map<String, dynamic> secretData) {
-    final Uint8List address = Uint8List.fromList(HEX.decode(publicData['address'] as String));
-    final WalletDetails walletDetails = WalletDetails.fromJson(publicData['walletDetails'] as Map<String, dynamic>);
+    final WalletAddress walletAddress = WalletAddress.fromBech32(publicData['bech32Address'] as String);
+    final Uint8List publicKey = Bech32.decode(walletAddress.bech32Address).data;
     return UnsafeWallet(
-      address: WalletAddress(addressBytes: address, bech32Hrp: walletDetails.bech32Hrp),
+      address: walletAddress,
       privateKey: Uint8List.fromList(HEX.decode(secretData['privateKey'] as String)),
-      publicKey: Uint8List.fromList(HEX.decode(publicData['publicKey'] as String)),
+      publicKey: publicKey,
     );
   }
-
-  /// Converts the current [UnsafeWallet] instance into a JSON object.
-  /// Note that the private key is not serialized for safety reasons.
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'hexAddress': HEX.encode(address.addressBytes),
-        'bech32Address': address.bech32Address,
-        'publicKey': HEX.encode(publicKey),
-        'walletDetails': walletDetails.toJson(),
-      };
 }
