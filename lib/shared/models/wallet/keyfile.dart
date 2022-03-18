@@ -13,7 +13,7 @@ import 'package:miro/shared/utils/cryptography/aes256.dart';
 /// The content of the keyfile is encrypted with the AES265 algorithm, using the user's password
 class KeyFile extends Equatable {
   /// Latest version of keyfile
-  static const String latestVersion = '1.0.0';
+  static const String latestVersion = '1.0.1';
 
   /// Keyfile wallet
   final Wallet wallet;
@@ -72,10 +72,7 @@ class KeyFile extends Equatable {
 
   Map<String, dynamic> _getPublicJsonData() {
     return <String, dynamic>{
-      'publicKey': HEX.encode(wallet.publicKey),
-      'address': HEX.encode(wallet.address.addressBytes),
       'bech32Address': wallet.address.bech32Address,
-      'walletDetails': wallet.walletDetails.toJson(),
       'version': latestVersion,
     };
   }

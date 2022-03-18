@@ -6,7 +6,6 @@ import 'package:hex/hex.dart';
 import 'package:miro/shared/models/wallet/mnemonic.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/shared/models/wallet/wallet_details.dart';
-import 'package:miro/shared/utils/cryptography/bech32.dart';
 import 'package:miro/shared/utils/cryptography/secp256k1.dart';
 import 'package:pointycastle/export.dart';
 
@@ -24,17 +23,13 @@ class Wallet extends Equatable {
 
   /// The wallet hex private key
   final Uint8List privateKey;
-
-  /// The wallet hex public key
-  final Uint8List publicKey;
-
+  
   /// Blockchain network details
   final WalletDetails walletDetails;
 
   const Wallet({
     required this.address,
     required this.privateKey,
-    required this.publicKey,
     this.walletDetails = WalletDetails.defaultWalletDetails,
   });
 
@@ -64,30 +59,21 @@ class Wallet extends Equatable {
 
     return Wallet(
       address: WalletAddress.fromPublicKey(publicKeyBytes, bech32Hrp: walletDetails.bech32Hrp),
-      publicKey: publicKeyBytes,
       privateKey: derivedNode.privateKey!,
       walletDetails: walletDetails,
     );
   }
 
   factory Wallet.fromKeyFileData(Map<String, dynamic> publicData, Map<String, dynamic> secretData) {
-    final Uint8List address = Uint8List.fromList(HEX.decode(publicData['address'] as String));
-    final WalletDetails walletDetails = WalletDetails.fromJson(publicData['walletDetails'] as Map<String, dynamic>);
+    final WalletAddress walletAddress = WalletAddress.fromBech32(publicData['bech32Address'] as String);
+    final Uint8List privateKey = Uint8List.fromList(HEX.decode(secretData['privateKey'] as String));
+
     return Wallet(
-      address: WalletAddress(addressBytes: address, bech32Hrp: walletDetails.bech32Hrp),
-      privateKey: Uint8List.fromList(HEX.decode(secretData['privateKey'] as String)),
-      publicKey: Uint8List.fromList(HEX.decode(publicData['publicKey'] as String)),
+      address: walletAddress,
+      privateKey: privateKey,
     );
   }
-
-  /// Returns the associated [publicKey] as a Bech32 string
-  String get bech32PublicKey {
-    final List<int> type = <int>[235, 90, 233, 135, 33];
-    final String prefix = '${walletDetails.bech32Hrp}pub';
-    final Uint8List fullPublicKey = Uint8List.fromList(type + publicKey);
-    return Bech32.encode(prefix, fullPublicKey);
-  }
-
+  
   // TODO(dominik): For future use. Elliptic Curve public key, probably can be used in transactions
   /// Returns the associated [publicKey] as an [ECPublicKey] instance.
   ECPublicKey get ecPublicKey {
@@ -103,16 +89,7 @@ class Wallet extends Equatable {
     final BigInt privateKeyInt = BigInt.parse(HEX.encode(privateKey), radix: 16);
     return ECPrivateKey(privateKeyInt, ECCurve_secp256k1());
   }
-
-  /// Converts the current [Wallet] instance into a JSON object.
-  /// Note that the private key is not serialized for safety reasons.
-  Map<String, dynamic> toJson() => <String, dynamic>{
-        'hexAddress': HEX.encode(address.addressBytes),
-        'bech32Address': address.bech32Address,
-        'publicKey': HEX.encode(publicKey),
-        'walletDetails': walletDetails.toJson(),
-      };
   
   @override
-  List<Object?> get props => <Object?>[address, privateKey, publicKey, walletDetails];
+  List<Object?> get props => <Object?>[address, privateKey, walletDetails];
 }
