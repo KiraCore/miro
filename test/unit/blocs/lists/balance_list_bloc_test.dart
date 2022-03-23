@@ -7,7 +7,8 @@ import 'package:miro/config/hive.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api_cosmos/query_balance/response/balance.dart';
 import 'package:miro/infra/services/api_cosmos/query_balance_service.dart';
-import 'package:miro/providers/network_provider.dart';
+import 'package:miro/providers/network_provider/network_events.dart';
+import 'package:miro/providers/network_provider/network_provider.dart';
 import 'package:miro/providers/wallet_provider.dart';
 import 'package:miro/shared/constants/network_health_status.dart';
 import 'package:miro/shared/models/network_model.dart';
@@ -66,7 +67,8 @@ Future<void> main() async {
       address: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
     ),
   );
-  globalLocator<NetworkProvider>().changeCurrentNetwork(actualNetworkModel);
+  globalLocator<NetworkProvider>().handleEvent(ConnectToNetworkEvent(actualNetworkModel));
+  globalLocator<NetworkProvider>().handleEvent(SetUpNetworkEvent(actualNetworkModel));
 
   BalanceListBloc balanceListBloc = BalanceListBloc(
     networkProvider: globalLocator<NetworkProvider>(),

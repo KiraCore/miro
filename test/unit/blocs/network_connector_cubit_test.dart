@@ -5,7 +5,7 @@ import 'package:miro/infra/dto/api/query_interx_status/query_interx_status_resp.
 import 'package:miro/infra/dto/api/query_validators/response/query_validators_resp.dart';
 import 'package:miro/infra/services/api/query_interx_status_service.dart';
 import 'package:miro/infra/services/api/query_validators_service.dart';
-import 'package:miro/providers/network_provider.dart';
+import 'package:miro/providers/network_provider/network_provider.dart';
 import 'package:miro/shared/constants/network_health_status.dart';
 import 'package:miro/shared/models/network_model.dart';
 import 'package:miro/test/mocks/api/api_query_validators.dart' as api_validators_mocks;

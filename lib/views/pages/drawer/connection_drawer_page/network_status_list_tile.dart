@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/assets.dart';
-import 'package:miro/providers/network_provider.dart';
+import 'package:miro/providers/network_provider/network_provider.dart';
 import 'package:miro/shared/constants/network_health_status.dart';
 import 'package:miro/shared/models/network_model.dart';
 import 'package:miro/views/pages/drawer/connection_drawer_page/network_connect_button.dart';
@@ -35,7 +35,7 @@ class _NetworkStatusListTile extends State<NetworkStatusListTile> {
   Widget build(BuildContext context) {
     return Consumer<NetworkProvider>(
       builder: (_, NetworkProvider networkProvider, Widget? child) {
-        bool isActualConnectedNetwork = networkProvider.networkModel?.parsedUri == widget.networkModel.parsedUri;
+        bool isActualConnectedNetwork = networkProvider.networkUri == widget.networkModel.parsedUri;
         return Container(
           margin: const EdgeInsets.symmetric(vertical: 8),
           decoration: BoxDecoration(

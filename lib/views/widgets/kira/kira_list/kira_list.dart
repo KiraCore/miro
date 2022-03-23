@@ -6,7 +6,7 @@ import 'package:intl/intl.dart';
 import 'package:miro/blocs/abstract_blocs/list_bloc/list_bloc.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';
-import 'package:miro/providers/network_provider.dart';
+import 'package:miro/providers/network_provider/network_provider.dart';
 import 'package:miro/shared/utils/app_logger.dart';
 import 'package:miro/views/widgets/generic/center_load_spinner.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
