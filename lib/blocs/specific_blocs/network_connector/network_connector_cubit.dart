@@ -4,7 +4,8 @@ import 'package:miro/infra/dto/api/query_validators/request/query_validators_req
 import 'package:miro/infra/dto/api/query_validators/response/query_validators_resp.dart';
 import 'package:miro/infra/services/api/query_interx_status_service.dart';
 import 'package:miro/infra/services/api/query_validators_service.dart';
-import 'package:miro/providers/network_provider.dart';
+import 'package:miro/providers/network_provider/network_events.dart';
+import 'package:miro/providers/network_provider/network_provider.dart';
 import 'package:miro/shared/constants/network_health_status.dart';
 import 'package:miro/shared/models/infra/interx_response_data.dart';
 import 'package:miro/shared/models/network_model.dart';
@@ -30,22 +31,24 @@ class NetworkConnectorCubit extends Cubit<NetworkConnectorState> {
     final String? networkSrc = baseUri.queryParameters['rpc'];
 
     if (networkSrc != null) {
-      NetworkModel urlNetworkModel = await getNetworkData(NetworkModel(
+      NetworkModel networkToConnect = NetworkModel(
         url: networkSrc,
         name: networkSrc,
         status: NetworkHealthStatus.unknown,
-      ));
+      );
+      networkProvider.handleEvent(ConnectToNetworkEvent(networkToConnect));
+      NetworkModel urlNetworkModel = await getNetworkData(networkToConnect);
 
       if (urlNetworkModel.status == NetworkHealthStatus.online) {
-        networkProvider.changeCurrentNetwork(urlNetworkModel);
-        emit(NetworkConnectorConnectedState(currentNetwork: urlNetworkModel));
         await connect(urlNetworkModel);
       }
     }
   }
 
   Future<void> connect(NetworkModel networkModel) async {
-    networkProvider.changeCurrentNetwork(networkModel);
+    networkProvider
+      ..handleEvent(ConnectToNetworkEvent(networkModel))
+      ..handleEvent(SetUpNetworkEvent(networkModel));
     emit(NetworkConnectorConnectedState(currentNetwork: networkModel));
   }
 
@@ -63,7 +66,7 @@ class NetworkConnectorCubit extends Cubit<NetworkConnectorState> {
         queryInterxStatus: interxResponseData.queryInterxStatusResp,
       );
     } catch (e) {
-      if (networkProvider.networkModel?.parsedUri == network.parsedUri) {
+      if (networkProvider.isConnected && networkProvider.networkUri == network.parsedUri) {
         disconnect();
       }
       return network.copyWith(
@@ -73,7 +76,7 @@ class NetworkConnectorCubit extends Cubit<NetworkConnectorState> {
   }
 
   void disconnect() {
-    networkProvider.changeCurrentNetwork(null);
+    networkProvider.handleEvent(DisconnectNetworkEvent());
     emit(NetworkConnectorInitialState());
   }
 }
