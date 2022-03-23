@@ -3,7 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:miro/config/app_sizes.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/assets.dart';
-import 'package:miro/providers/network_provider.dart';
+import 'package:miro/providers/network_provider/network_provider.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
 import 'package:miro/views/pages/drawer/connection_drawer_page/connection_drawer_page.dart';
 import 'package:miro/views/widgets/generic/mouse_state_listener.dart';

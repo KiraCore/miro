@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:miro/providers/network_provider.dart';
+import 'package:miro/providers/network_provider/network_provider.dart';
 import 'package:miro/views/widgets/kira/kira_list/models/sort_option.dart';
 import 'package:miro/views/widgets/kira/kira_list/models/sorting_status.dart';
 

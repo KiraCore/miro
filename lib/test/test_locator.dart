@@ -8,7 +8,7 @@ import 'package:miro/infra/services/api_cosmos/query_balance_service.dart';
 import 'package:miro/infra/services/api_kira/query_kira_tokens_aliases_service.dart';
 import 'package:miro/infra/services/api_kira/query_kira_tokens_rates_service.dart';
 import 'package:miro/providers/app_config_provider.dart';
-import 'package:miro/providers/network_provider.dart';
+import 'package:miro/providers/network_provider/network_provider.dart';
 import 'package:miro/providers/tokens_provider.dart';
 import 'package:miro/providers/wallet_provider.dart';
 import 'package:miro/test/mock_api_cosmos_repository.dart';

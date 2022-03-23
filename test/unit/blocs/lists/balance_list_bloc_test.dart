@@ -7,13 +7,13 @@ import 'package:miro/config/hive.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api_cosmos/query_balance/response/balance.dart';
 import 'package:miro/infra/services/api_cosmos/query_balance_service.dart';
-import 'package:miro/providers/network_provider.dart';
+import 'package:miro/providers/network_provider/network_events.dart';
+import 'package:miro/providers/network_provider/network_provider.dart';
 import 'package:miro/providers/wallet_provider.dart';
 import 'package:miro/shared/constants/network_health_status.dart';
 import 'package:miro/shared/models/network_model.dart';
 import 'package:miro/shared/models/wallet/mnemonic.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/shared/utils/pages/balances_comparator.dart';
 import 'package:miro/test/test_locator.dart';
 import 'package:miro/views/widgets/kira/kira_list/models/sort_option.dart';
@@ -68,10 +68,11 @@ Future<void> main() async {
   final Mnemonic actualMnemonic = Mnemonic(value: actualMnemonicString);
   final Wallet actualWallet = Wallet.derive(mnemonic: actualMnemonic);
   // @formatter:on
-
+  
   globalLocator<WalletProvider>().updateWallet(actualWallet);
-  globalLocator<NetworkProvider>().changeCurrentNetwork(actualNetworkModel);
-
+  globalLocator<NetworkProvider>().handleEvent(ConnectToNetworkEvent(actualNetworkModel));
+  globalLocator<NetworkProvider>().handleEvent(SetUpNetworkEvent(actualNetworkModel));
+  
   BalanceListBloc balanceListBloc = BalanceListBloc(
     networkProvider: globalLocator<NetworkProvider>(),
     queryBalanceService: globalLocator<QueryBalanceService>(),
