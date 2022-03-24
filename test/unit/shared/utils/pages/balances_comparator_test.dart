@@ -15,39 +15,40 @@ void main() {
     const Balance(amount: '12344', denom: 'LTC'),
   };
 
-  group('Tests of Balances.sortByAmount() method', () {
+  group('Tests of BalanceSortOption.amount', () {
     test('Should return 0 (Amounts equal)', () {
       expect(
-        BalancesComparator.sortByAmount(
-          const Balance(amount: '1.55', denom: 'XCH'),
-          const Balance(amount: '1.55', denom: 'XCH'),
-        ),
+        BalancesComparator().getSortOption(BalanceSortOption.amount).comparator(
+              const Balance(amount: '1.55', denom: 'XCH'),
+              const Balance(amount: '1.55', denom: 'XCH'),
+            ),
         0,
       );
     });
 
     test('Should return 1 (First amount greater than second)', () {
       expect(
-        BalancesComparator.sortByAmount(
-          const Balance(amount: '1.55', denom: 'XCH'),
-          const Balance(amount: '1', denom: 'AAE'),
-        ),
+        BalancesComparator().getSortOption(BalanceSortOption.amount).comparator(
+              const Balance(amount: '1.55', denom: 'XCH'),
+              const Balance(amount: '1', denom: 'AAE'),
+            ),
         1,
       );
     });
 
     test('Should return -1 (First amount less than second)', () {
       expect(
-        BalancesComparator.sortByAmount(
-          const Balance(amount: '1', denom: 'AAE'),
-          const Balance(amount: '1.55', denom: 'XCH'),
-        ),
+        BalancesComparator().getSortOption(BalanceSortOption.amount).comparator(
+              const Balance(amount: '1', denom: 'AAE'),
+              const Balance(amount: '1.55', denom: 'XCH'),
+            ),
         -1,
       );
     });
 
     test('Should return list sorted by amount', () {
-      List<Balance> actualBalances = actualAllBalances.toList()..sort(BalancesComparator.sortByAmount);
+      List<Balance> actualBalances = actualAllBalances.toList()
+        ..sort(BalancesComparator().getSortOption(BalanceSortOption.amount).comparator);
       expect(
         actualBalances,
         <Balance>[
@@ -64,39 +65,40 @@ void main() {
     });
   });
 
-  group('Tests of Balances.sortByName() method', () {
+  group('Tests of BalanceSortOption.name method', () {
     test('Should return 0 (Names equal)', () {
       expect(
-        BalancesComparator.sortByAmount(
-          const Balance(amount: '1.55', denom: 'XCH'),
-          const Balance(amount: '1.55', denom: 'XCH'),
-        ),
+        BalancesComparator().getSortOption(BalanceSortOption.name).comparator(
+              const Balance(amount: '1.55', denom: 'XCH'),
+              const Balance(amount: '1.55', denom: 'XCH'),
+            ),
         0,
       );
     });
 
     test('Should return 1 (First name greater than second)', () {
       expect(
-        BalancesComparator.sortByAmount(
-          const Balance(amount: '1.55', denom: 'XCH'),
-          const Balance(amount: '1', denom: 'AAE'),
-        ),
+        BalancesComparator().getSortOption(BalanceSortOption.name).comparator(
+              const Balance(amount: '1.55', denom: 'XCH'),
+              const Balance(amount: '1', denom: 'AAE'),
+            ),
         1,
       );
     });
 
     test('Should return -1 (First name less than second)', () {
       expect(
-        BalancesComparator.sortByAmount(
-          const Balance(amount: '1', denom: 'AAE'),
-          const Balance(amount: '1.55', denom: 'XCH'),
-        ),
+        BalancesComparator().getSortOption(BalanceSortOption.name).comparator(
+              const Balance(amount: '1', denom: 'AAE'),
+              const Balance(amount: '1.55', denom: 'XCH'),
+            ),
         -1,
       );
     });
 
     test('Should return list sorted by name', () {
-      List<Balance> actualBalances = actualAllBalances.toList()..sort(BalancesComparator.sortByName);
+      List<Balance> actualBalances = actualAllBalances.toList()
+        ..sort(BalancesComparator().getSortOption(BalanceSortOption.name).comparator);
       expect(
         actualBalances,
         <Balance>[
@@ -113,27 +115,29 @@ void main() {
     });
   });
 
-  group('Tests of Balances.filterSmallBalances() method', () {
+  group('Tests of BalanceFilterOption.smallBalances', () {
     test('Should return true if balance greater than one', () {
       expect(
-        BalancesComparator.filterSmallBalances(
-          const Balance(amount: '1.55', denom: 'XCH'),
-        ),
+        BalancesComparator().getFilterOption(BalanceFilterOption.smallBalances).comparator(
+              const Balance(amount: '1.55', denom: 'XCH'),
+            ),
         true,
       );
     });
 
     test('Should return false if balance less than one', () {
       expect(
-        BalancesComparator.filterSmallBalances(
-          const Balance(amount: '0.001', denom: 'XCH'),
-        ),
+        BalancesComparator().getFilterOption(BalanceFilterOption.smallBalances).comparator(
+              const Balance(amount: '0.001', denom: 'XCH'),
+            ),
         false,
       );
     });
 
     test('Should return list filtered by small balances', () {
-      List<Balance> actualBalances = actualAllBalances.where(BalancesComparator.filterSmallBalances).toList();
+      List<Balance> actualBalances = actualAllBalances
+          .where(BalancesComparator().getFilterOption(BalanceFilterOption.smallBalances).comparator)
+          .toList();
       expect(
         actualBalances,
         <Balance>[

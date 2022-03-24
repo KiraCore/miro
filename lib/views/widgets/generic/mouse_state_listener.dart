@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
 class MouseStateListener extends StatefulWidget {
@@ -6,12 +7,14 @@ class MouseStateListener extends StatefulWidget {
   final bool disabled;
   final bool selected;
   final GestureTapCallback? onTap;
+  final MouseCursor? cursor;
 
   const MouseStateListener({
     required this.childBuilder,
     this.disabled = false,
     this.selected = false,
     this.onTap,
+    this.cursor,
     Key? key,
   }) : super(key: key);
 
@@ -37,8 +40,16 @@ class _MouseStateListener extends State<MouseStateListener> {
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
-      cursor: widget.onTap != null ? SystemMouseCursors.click : SystemMouseCursors.none,
+      cursor: widget.cursor ?? (widget.onTap != null ? SystemMouseCursors.click : SystemMouseCursors.basic),
+      onEnter: (_) {
+        _addState(MaterialState.hovered);
+      },
+      onExit: (_) {
+        _removeState(MaterialState.hovered);
+        _removeState(MaterialState.pressed);
+      },
       child: GestureDetector(
+        onTap: widget.onTap,
         onTapDown: (TapDownDetails details) {
           _addState(MaterialState.pressed);
         },
@@ -48,18 +59,7 @@ class _MouseStateListener extends State<MouseStateListener> {
         onTapCancel: () {
           _removeState(MaterialState.pressed);
         },
-        child: InkWell(
-          onTap: widget.onTap != null ? () => widget.onTap!() : null,
-          onHover: (bool hovered) {
-            if (hovered) {
-              _addState(MaterialState.hovered);
-            } else {
-              _removeState(MaterialState.hovered);
-              _removeState(MaterialState.pressed);
-            }
-          },
-          child: widget.childBuilder(states),
-        ),
+        child: widget.childBuilder(states),
       ),
     );
   }

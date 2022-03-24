@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:miro/infra/dto/api/deposits/request/deposit_req.dart';
+import 'package:miro/infra/dto/api/query_transaction_result/request/query_transaction_result_req.dart';
 import 'package:miro/infra/dto/api/query_validators/request/query_validators_req.dart';
 import 'package:miro/infra/dto/api/withdraws/request/withdraws_req.dart';
 import 'package:miro/infra/repositories/api_repository.dart';
@@ -55,5 +56,12 @@ class MockApiRepository implements ApiRepository {
       data: mockedResponse as T,
       requestOptions: RequestOptions(path: ''),
     );
+  }
+
+  @override
+  Future<Response<T>> fetchQueryTransactionResult<T>(
+      Uri networkUri, QueryTransactionResultReq queryTransactionResultReq) {
+    // TODO(dominik): implement fetchQueryTransactionResult
+    throw UnimplementedError();
   }
 }

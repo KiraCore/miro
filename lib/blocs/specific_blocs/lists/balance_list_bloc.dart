@@ -5,23 +5,12 @@ import 'package:miro/infra/dto/api_cosmos/query_balance/response/query_balance_r
 import 'package:miro/infra/services/api_cosmos/query_balance_service.dart';
 import 'package:miro/providers/network_provider/network_provider.dart';
 import 'package:miro/providers/wallet_provider.dart';
+import 'package:miro/shared/models/list/sort_option.dart';
 import 'package:miro/shared/utils/app_logger.dart';
 import 'package:miro/shared/utils/pages/balances_comparator.dart';
-import 'package:miro/views/widgets/kira/kira_list/models/sort_option.dart';
 
 class BalanceListBloc extends ListBloc<Balance> {
   static String favouriteCacheWorkspace = 'favourite_currencies';
-
-  static List<SortOption<Balance>> sortOptions = const <SortOption<Balance>>[
-    SortOption<Balance>(
-      name: 'Name',
-      comparator: BalancesComparator.sortByName,
-    ),
-    SortOption<Balance>(
-      name: 'Amount',
-      comparator: BalancesComparator.sortByAmount,
-    ),
-  ];
 
   final QueryBalanceService queryBalanceService;
   final WalletProvider walletProvider;
@@ -43,53 +32,18 @@ class BalanceListBloc extends ListBloc<Balance> {
   }
 
   @override
-  SortOption<Balance> get defaultSortOption => sortOptions[0];
+  SortOption<Balance> get defaultSortOption => BalancesComparator().getSortOption(BalanceSortOption.name);
 
   @override
-  Future<Set<Balance>> fetchPageData(int pageIndex) async {
-    if (pageIndex == 0) {
-      List<Balance> allBalances = await _fetchAllBalances();
-      allListItems = getSortedList(allBalances.toSet());
-    }
-
-    await Future<void>.delayed(const Duration(seconds: 1));
-    return _splitToCurrentPageData(allListItems.toList(), pageIndex);
-  }
-
-  Set<Balance> _splitToCurrentPageData(List<Balance> fullBalancesList, int pageIndex) {
-    if ((pageIndex + 1) * ListBloc.pageSize < fullBalancesList.length) {
-      return fullBalancesList.sublist(pageIndex * ListBloc.pageSize, (pageIndex + 1) * ListBloc.pageSize).toSet();
-    }
-    return fullBalancesList.sublist(pageIndex * ListBloc.pageSize, fullBalancesList.length).toSet();
-  }
-
-  @override
-  Set<Balance> getSortedList(Set<Balance> listItems) {
-    List<Balance> favouriteBalance = listItems.where(_favouriteFilter).toList();
-    Set<Balance> sortedFavourites = sortList(favouriteBalance.toSet());
-    Set<Balance> sortedList = sortList(listItems.where((Balance e) => !favouriteBalance.contains(e)).toSet());
-    return <Balance>{
-      ...sortedFavourites,
-      ...sortedList,
-    };
-  }
-
-  Future<List<Balance>> _fetchAllBalances() async {
+  Future<Set<Balance>> downloadListData() async {
     if (!walletProvider.isLoggedIn) {
-      return List<Balance>.empty(growable: true);
+      AppLogger().log(message: 'User not logged in');
+      return <Balance>{};
     }
-    QueryBalanceResp? queryBalanceResp;
-    try {
-      queryBalanceResp = await queryBalanceService.getMyAccountBalance();
-    } catch (e) {
-      AppLogger().log(message: 'Request error $e');
-    }
-    if (queryBalanceResp == null) {
-      return List<Balance>.empty(growable: true);
-    }
+    List<Balance> remoteBalances = await _fetchBalances();
 
-    List<Balance> finalBalances = <Balance>[
-      ...queryBalanceResp.balances,
+    Set<Balance> finalBalances = <Balance>{
+      ...remoteBalances,
       // Mock data
       // TODO(dominik): Its only dev mock. Remove it before merge
       ...const <Balance>[
@@ -106,20 +60,40 @@ class BalanceListBloc extends ListBloc<Balance> {
         Balance(amount: '8374928743', denom: 'SOL'),
         Balance(amount: '98236', denom: 'CRO'),
         Balance(amount: '12344', denom: 'LTC'),
-        Balance(amount: '123123.12344', denom: 'BCH'),
-        Balance(amount: '123123.12344', denom: 'BCH'),
-        Balance(amount: '123123.12344', denom: 'AAB'),
-        Balance(amount: '123123.12344', denom: 'AACCBBDDEEFFGGHHIIJJKKWWBBSCDOFIANFIASJSADKASDKASD'),
+        Balance(amount: '123123.12310', denom: 'BCH'),
+        Balance(amount: '123123.12341', denom: 'AAB'),
+        Balance(amount: '123123.12343', denom: 'AACCBBDDEEFFGGHHIIJJKKWWBBSCDOFIANFIASJSADKASDKASD'),
         Balance(amount: '123123.12344', denom: 'AAE'),
-        Balance(amount: '123123.12344', denom: 'AAF'),
-        Balance(amount: '123123.12344', denom: 'AAG'),
-        Balance(amount: '123123.12344', denom: 'AAH'),
-        Balance(amount: '123123.12344', denom: 'AAI'),
-        Balance(amount: '123123.12344', denom: 'AAJ'),
+        Balance(amount: '123123.12345', denom: 'AAF'),
+        Balance(amount: '123123.12346', denom: 'AAG'),
+        Balance(amount: '123123.12347', denom: 'AAH'),
+        Balance(amount: '123123.12348', denom: 'AAI'),
+        Balance(amount: '123123.12349', denom: 'AAJ'),
       ],
       // TODO(dominik): End of mock
-    ];
+    };
     return finalBalances;
+  }
+
+  @override
+  Set<Balance> getSortedList(Set<Balance> listItems) {
+    List<Balance> favouriteBalance = listItems.where(_favouriteFilter).toList();
+    Set<Balance> sortedFavourites = sortList(favouriteBalance.toSet());
+    Set<Balance> sortedList = sortList(listItems.where((Balance e) => !favouriteBalance.contains(e)).toSet());
+    return <Balance>{
+      ...sortedFavourites,
+      ...sortedList,
+    };
+  }
+
+  Future<List<Balance>> _fetchBalances() async {
+    try {
+      QueryBalanceResp queryBalanceResp = (await queryBalanceService.getMyAccountBalance())!;
+      return queryBalanceResp.balances;
+    } catch (e) {
+      AppLogger().log(message: 'Network error while fetching Balances: $e');
+      return List<Balance>.empty();
+    }
   }
 
   bool _favouriteFilter(Balance balance) {

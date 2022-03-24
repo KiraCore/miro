@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:miro/infra/dto/api/deposits/request/deposit_req.dart';
+import 'package:miro/infra/dto/api/query_transaction_result/request/query_transaction_result_req.dart';
 import 'package:miro/infra/dto/api/query_validators/request/query_validators_req.dart';
 import 'package:miro/infra/dto/api/withdraws/request/withdraws_req.dart';
 import 'package:miro/shared/utils/api_manager.dart';
@@ -13,6 +14,9 @@ abstract class ApiRepository {
   Future<Response<T>> fetchDeposits<T>(Uri networkUri, DepositsReq depositsReq);
 
   Future<Response<T>> fetchWithdraws<T>(Uri networkUri, WithdrawsReq withdrawsReq);
+
+  Future<Response<T>> fetchQueryTransactionResult<T>(
+      Uri networkUri, QueryTransactionResultReq queryTransactionResultReq);
 }
 
 class RemoteApiRepository implements ApiRepository {
@@ -66,6 +70,20 @@ class RemoteApiRepository implements ApiRepository {
         networkUri: networkUri,
         path: '/api/withdraws',
         queryParameters: withdrawsReq.toJson(),
+      );
+      return response;
+    } on DioError {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<Response<T>> fetchQueryTransactionResult<T>(
+      Uri networkUri, QueryTransactionResultReq queryTransactionResultReq) async {
+    try {
+      final Response<T> response = await _api.get<T>(
+        networkUri: networkUri,
+        path: '/api/transactions/${queryTransactionResultReq.txHash}',
       );
       return response;
     } on DioError {

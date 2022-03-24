@@ -20,8 +20,7 @@ void main() {
       DepositsReq depositsReq = DepositsReq(account: 'kira1axqn2nr8wcwy83gnx97ugypunfka30wt4xyul8');
 
       testPrint('Data request');
-      DepositsResp? depositsResp = await depositsService.getAccountDeposits(uri, depositsReq);
-
+      DepositsResp? depositsResp = await depositsService.getAccountDeposits(depositsReq, customNetworkUri: uri);
 
       testPrint('Data return');
 

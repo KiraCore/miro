@@ -130,13 +130,14 @@ class PagesWrapper extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        const SearchBar(
+        SearchBar(
+          controller: TextEditingController(),
           label: 'Search for anything',
           width: 342,
           height: AppSizes.kAppBarItemsHeight,
-          border: OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
-          enabledBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
-          focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
+          border: const OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
+          enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
+          focusedBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
         ),
         Row(
           children: const <Widget>[

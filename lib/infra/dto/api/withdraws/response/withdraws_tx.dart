@@ -1,7 +1,16 @@
-class WithdrawsTx {
+import 'package:miro/infra/dto/api/transaction_object.dart';
+
+class WithdrawsTx extends TransactionDetails {
+  @override
   final String address;
+
+  @override
   final String type;
+
+  @override
   final String denom;
+
+  @override
   final int amount;
 
   WithdrawsTx({

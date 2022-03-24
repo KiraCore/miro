@@ -1,6 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:miro/blocs/abstract_blocs/list_bloc/list_bloc.dart';
+import 'package:miro/blocs/specific_blocs/lists/balance_list_bloc.dart';
+import 'package:miro/blocs/specific_blocs/lists/transactions_list_bloc.dart';
 import 'package:miro/config/app_icons.dart';
 import 'package:miro/config/app_sizes.dart';
 import 'package:miro/config/locator.dart';
@@ -27,7 +31,7 @@ class MyAccountPage extends StatefulWidget {
 
 class _MyAccountPage extends State<MyAccountPage> {
   late Map<Widget, Widget> pages;
-
+  double pageOpacity = 1;
   ScrollController scrollController = ScrollController();
   late Wallet wallet;
   late Widget currentPage;
@@ -36,9 +40,11 @@ class _MyAccountPage extends State<MyAccountPage> {
   void initState() {
     wallet = globalLocator<WalletProvider>().currentWallet!;
     pages = <Widget, Widget>{
+      TransactionsPage(parentScrollController: scrollController): _buildNavigationTab('Transactions'),
       BalancePage(parentScrollController: scrollController): _buildNavigationTab('Balance'),
-      const TransactionsPage(): _buildNavigationTab('Transactions')
     };
+    BlocProvider.of<BalanceListBloc>(context).add(InitListEvent());
+    BlocProvider.of<TransactionsListBloc>(context).add(InitListEvent());
     currentPage = pages.keys.first;
     super.initState();
   }
@@ -51,32 +57,35 @@ class _MyAccountPage extends State<MyAccountPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    return SingleChildScrollView(
       controller: scrollController,
-      children: <Widget>[
-        Padding(
-          padding: AppSizes.defaultPageMargin,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              _buildHeaderSection(),
-              const SizedBox(height: 36),
-              CupertinoSlidingSegmentedControl<Widget>(
-                groupValue: currentPage,
-                children: pages,
-                onValueChanged: _onPageChanged,
-                backgroundColor: DesignColors.blue1_10,
-                thumbColor: DesignColors.blue1_100,
-                padding: const EdgeInsets.all(8),
-              ),
-              const SizedBox(height: 20),
-              currentPage,
-              const SizedBox(height: 36),
-              const Footer(),
-            ],
-          ),
+      child: Padding(
+        padding: AppSizes.defaultPageMargin,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            _buildHeaderSection(),
+            const SizedBox(height: 36),
+            CupertinoSlidingSegmentedControl<Widget>(
+              groupValue: currentPage,
+              children: pages,
+              onValueChanged: _onPageChanged,
+              backgroundColor: DesignColors.blue1_10,
+              thumbColor: DesignColors.blue1_100,
+              padding: const EdgeInsets.all(8),
+            ),
+            const SizedBox(height: 20),
+            AnimatedOpacity(
+              duration: const Duration(milliseconds: 500),
+              opacity: pageOpacity,
+              child: currentPage,
+            ),
+            const SizedBox(height: 36),
+            const Footer(),
+          ],
         ),
-      ],
+      ),
     );
   }
 

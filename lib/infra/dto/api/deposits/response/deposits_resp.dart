@@ -14,7 +14,8 @@ class DepositsResp {
 
     return DepositsResp(
       transactions: txs.keys
-          .map<DepositsTransactions>((String key) => DepositsTransactions.fromJsonWithKey(txs[key] as Map<String, dynamic>, key))
+          .map<DepositsTransactions>(
+              (String key) => DepositsTransactions.fromJsonWithKey(txs[key] as Map<String, dynamic>, key))
           .toList(),
       totalCount: json['total_count'] as int,
     );

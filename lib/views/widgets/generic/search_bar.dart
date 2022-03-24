@@ -4,6 +4,7 @@ import 'package:miro/config/app_icons.dart';
 import 'package:miro/config/theme/design_colors.dart';
 
 class SearchBar extends StatelessWidget {
+  final TextEditingController controller;
   final double width;
   final double height;
   final Color? backgroundColor;
@@ -18,6 +19,7 @@ class SearchBar extends StatelessWidget {
 
   const SearchBar({
     required this.label,
+    required this.controller,
     this.width = double.infinity,
     this.height = double.infinity,
     this.border,
@@ -37,6 +39,7 @@ class SearchBar extends StatelessWidget {
       width: width,
       height: height,
       child: TextFormField(
+        controller: controller,
         onChanged: onChanged,
         decoration: InputDecoration(
           fillColor: backgroundColor,

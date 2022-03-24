@@ -1,15 +1,15 @@
 Map<String, dynamic> apiBalancesMock = {
   'balances': [
     {
-      'amount': '123123.12344',
+      'amount': '123123.12341',
       'denom': 'AAB',
     },
     {
-      'amount': '123123.12344',
+      'amount': '123123.12342',
       'denom': 'AAC',
     },
     {
-      'amount': '123123.12344',
+      'amount': '123123.12343',
       'denom': 'AACCBBDDEEFFGGHHIIJJKKWWBBSCDOFIANFIASJSADKASDKASD',
     },
     {
@@ -17,23 +17,23 @@ Map<String, dynamic> apiBalancesMock = {
       'denom': 'AAE',
     },
     {
-      'amount': '123123.12344',
+      'amount': '123123.12345',
       'denom': 'AAF',
     },
     {
-      'amount': '123123.12344',
+      'amount': '123123.12346',
       'denom': 'AAG',
     },
     {
-      'amount': '123123.12344',
+      'amount': '123123.12347',
       'denom': 'AAH',
     },
     {
-      'amount': '123123.12344',
+      'amount': '123123.12348',
       'denom': 'AAI',
     },
     {
-      'amount': '123123.12344',
+      'amount': '123123.12349',
       'denom': 'AAJ',
     },
     {
@@ -41,7 +41,7 @@ Map<String, dynamic> apiBalancesMock = {
       'denom': 'ADA',
     },
     {
-      'amount': '123123.12344',
+      'amount': '123123.12310',
       'denom': 'BCH',
     },
     {

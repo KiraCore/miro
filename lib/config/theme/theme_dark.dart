@@ -7,7 +7,8 @@ ColorScheme _kColorSchemeDark = ColorScheme.dark(
   primaryVariant: Colors.grey[300]!,
   secondary: const Color(0xffbbbbbb),
   background: const Color(0xff2E2E2E),
-  onPrimary: Colors.black,
+  onPrimary: DesignColors.white_100,
+  onSurface: DesignColors.white_100,
 );
 
 TextTheme _buildDarkTextTheme(TextTheme? base, String? lang) {

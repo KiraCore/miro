@@ -3,15 +3,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/abstract_blocs/list_bloc/list_bloc.dart';
 import 'package:miro/config/app_icons.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/shared/models/list/sort_option.dart';
+import 'package:miro/shared/models/list/sorting_status.dart';
 import 'package:miro/views/widgets/generic/pop_wrapper.dart';
-import 'package:miro/views/widgets/kira/kira_list/models/sort_option.dart';
-import 'package:miro/views/widgets/kira/kira_list/models/sorting_status.dart';
-import 'package:miro/views/widgets/kira/kira_list/sort_pop_menu.dart';
+import 'package:miro/views/widgets/kira/kira_list/list_pop_menu.dart';
 
-class SortOptionWidget<E, T extends ListBloc<E>> extends StatefulWidget {
+class SortDropdown<E, T extends ListBloc<E>> extends StatefulWidget {
   final List<SortOption<E>> sortOptions;
 
-  const SortOptionWidget({
+  const SortDropdown({
     required this.sortOptions,
     Key? key,
   }) : super(key: key);
@@ -20,7 +20,7 @@ class SortOptionWidget<E, T extends ListBloc<E>> extends StatefulWidget {
   State<StatefulWidget> createState() => _SortOptionWidget<E, T>();
 }
 
-class _SortOptionWidget<E, T extends ListBloc<E>> extends State<SortOptionWidget<E, T>> {
+class _SortOptionWidget<E, T extends ListBloc<E>> extends State<SortDropdown<E, T>> {
   PopWrapperController sortOptionsController = PopWrapperController();
   late SortOption<E> currentSortOption;
 
@@ -51,7 +51,7 @@ class _SortOptionWidget<E, T extends ListBloc<E>> extends State<SortOptionWidget
             buttonHeight: 30,
             popWrapperController: sortOptionsController,
             buttonBuilder: (AnimationController animationController) {
-              return _buildSortButton();
+              return _SortButton(title: currentSortOption.name);
             },
             dropdownMargin: 0,
             decoration: BoxDecoration(
@@ -59,11 +59,12 @@ class _SortOptionWidget<E, T extends ListBloc<E>> extends State<SortOptionWidget
               borderRadius: BorderRadius.circular(8),
             ),
             popupBuilder: () {
-              return SortPopMenu<E, T>(
-                sortOptions: widget.sortOptions,
-                sortOptionsController: sortOptionsController,
-                selectedOption: currentSortOption,
-                onChanged: _onPopupItemClicked,
+              return ListPopMenu<SortOption<E>>(
+                itemToString: (SortOption<E> item) => item.name,
+                items: widget.sortOptions,
+                onItemSelected: _onPopupItemClicked,
+                selectedItems: () => <SortOption<E>>{currentSortOption},
+                title: 'Sort by',
               );
             },
           ),
@@ -102,10 +103,24 @@ class _SortOptionWidget<E, T extends ListBloc<E>> extends State<SortOptionWidget
     });
     BlocProvider.of<T>(context).add(SortEvent<E>(currentSortOption));
   }
+}
 
-  Widget _buildSortButton() {
+const double _kButtonHeight = 30;
+const EdgeInsets _kButtonPadding = EdgeInsets.symmetric(horizontal: 12);
+
+class _SortButton extends StatelessWidget {
+  final String title;
+
+  const _SortButton({
+    required this.title,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+      height: _kButtonHeight,
+      padding: _kButtonPadding,
       decoration: BoxDecoration(
         border: Border.all(
           color: DesignColors.gray2_100,
@@ -117,7 +132,8 @@ class _SortOptionWidget<E, T extends ListBloc<E>> extends State<SortOptionWidget
         children: <Widget>[
           Expanded(
             child: Text(
-              currentSortOption.name,
+              title,
+              overflow: TextOverflow.fade,
               style: const TextStyle(
                 fontSize: 13,
                 color: DesignColors.gray2_100,

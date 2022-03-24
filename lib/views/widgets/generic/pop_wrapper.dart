@@ -120,34 +120,38 @@ class _PopWrapper extends State<PopWrapper> with SingleTickerProviderStateMixin 
   }
 
   Widget _buildDesktop() {
-    return JustTheTooltip(
-      isModal: true,
-      controller: widget.popWrapperController.controller,
-      triggerMode: TooltipTriggerMode.manual,
-      tailLength: 0,
-      backgroundColor: Colors.transparent,
-      content: Container(
-        margin: const EdgeInsets.only(top: 14, left: 4, right: 4, bottom: 4),
-        padding: const EdgeInsets.all(0),
-        decoration: BoxDecoration(
-          color: Theme.of(context).scaffoldBackgroundColor,
-        ),
-        child: Container(
-          decoration: widget.decoration,
-          child: widget.popupBuilder(),
-        ),
-      ),
-      child: MouseRegion(
-        cursor: SystemMouseCursors.click,
-        child: GestureDetector(
-          onTap: () {
-            widget.popWrapperController.showMenu();
-          },
+    return SizedBox(
+      width: widget.buttonWidth,
+      height: widget.buttonHeight,
+      child: JustTheTooltip(
+        isModal: true,
+        controller: widget.popWrapperController.controller,
+        triggerMode: TooltipTriggerMode.manual,
+        tailLength: 0,
+        backgroundColor: Colors.transparent,
+        content: Container(
+          margin: const EdgeInsets.only(top: 14, bottom: 4),
+          padding: const EdgeInsets.all(0),
+          decoration: BoxDecoration(
+            color: Theme.of(context).scaffoldBackgroundColor,
+          ),
           child: Container(
-            color: Colors.transparent,
-            width: widget.buttonWidth,
-            height: widget.buttonHeight,
-            child: widget.buttonBuilder(widget.popWrapperController.animationController),
+            decoration: widget.decoration,
+            child: widget.popupBuilder(),
+          ),
+        ),
+        child: MouseRegion(
+          cursor: SystemMouseCursors.click,
+          child: GestureDetector(
+            onTap: () {
+              widget.popWrapperController.showMenu();
+            },
+            child: Container(
+              color: Colors.transparent,
+              width: widget.buttonWidth,
+              height: widget.buttonHeight,
+              child: widget.buttonBuilder(widget.popWrapperController.animationController),
+            ),
           ),
         ),
       ),

@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:miro/views/widgets/kira/kira_list/models/sorting_status.dart';
+import 'package:miro/shared/models/list/sorting_status.dart';
 
 class SortOption<T> extends Equatable {
   final String name;
@@ -11,6 +11,14 @@ class SortOption<T> extends Equatable {
     required this.comparator,
     this.sortingStatus = SortingStatus.asc,
   });
+
+  bool get isAscending {
+    return sortingStatus == SortingStatus.asc;
+  }
+
+  bool get isDescending {
+    return sortingStatus == SortingStatus.desc;
+  }
 
   SortOption<T> copyWith({
     String? name,

@@ -5,6 +5,7 @@ import 'package:miro/blocs/abstract_blocs/list_bloc/list_bloc.dart';
 import 'package:miro/blocs/specific_blocs/lists/balance_list_bloc.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/infra/dto/api_cosmos/query_balance/response/balance.dart';
+import 'package:miro/shared/models/list/filter_option.dart';
 import 'package:miro/shared/utils/pages/balances_comparator.dart';
 
 class SmallBalanceCheckbox extends StatefulWidget {
@@ -56,10 +57,12 @@ class _SmallBalancesCheckbox extends State<SmallBalanceCheckbox> {
     setState(() {
       selectedStatus = !selectedStatus;
     });
+    BalanceListBloc balanceListBloc = BlocProvider.of<BalanceListBloc>(context);
+    FilterOption<Balance> filterOption = BalancesComparator().getFilterOption(BalanceFilterOption.smallBalances);
     if (selectedStatus) {
-      BlocProvider.of<BalanceListBloc>(context).add(FilterEvent<Balance>(BalancesComparator.filterSmallBalances));
+      balanceListBloc.add(AddFilterEvent<Balance>(filterOption));
     } else {
-      BlocProvider.of<BalanceListBloc>(context).add(FilterEvent<Balance>(BalancesComparator.clear));
+      balanceListBloc.add(RemoveFilterEvent<Balance>(filterOption));
     }
   }
 }

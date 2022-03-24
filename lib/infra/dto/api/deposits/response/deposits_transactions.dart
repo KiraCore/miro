@@ -1,8 +1,12 @@
 import 'package:miro/infra/dto/api/deposits/response/deposits_tx.dart';
+import 'package:miro/infra/dto/api/transaction_object.dart';
 
-class DepositsTransactions {
+class DepositsTransactions extends TransactionObject {
+  @override
   final String hash;
+  @override
   final int time;
+  @override
   final List<DepositsTx> txs;
 
   DepositsTransactions({

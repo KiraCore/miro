@@ -1,8 +1,12 @@
+import 'package:miro/infra/dto/api/transaction_object.dart';
 import 'package:miro/infra/dto/api/withdraws/response/withdraws_tx.dart';
 
-class WithdrawsTransactions {
+class WithdrawsTransactions extends TransactionObject {
+  @override
   final String hash;
+  @override
   final int time;
+  @override
   final List<WithdrawsTx> txs;
 
   WithdrawsTransactions({
