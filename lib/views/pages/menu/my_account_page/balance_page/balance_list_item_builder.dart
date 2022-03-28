@@ -34,7 +34,7 @@ class BalanceListItemBuilder extends StatefulWidget {
 
 class _BalanceListItemBuilder extends State<BalanceListItemBuilder> {
   final FavouriteCache favouriteCache = FavouriteCache(
-    workspaceName: BalanceListBloc.favouriteCacheWorkspace,
+    boxName: BalanceListBloc.favouriteCacheWorkspace,
   );
   bool isExpanded = false;
 
