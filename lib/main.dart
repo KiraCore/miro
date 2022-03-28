@@ -66,7 +66,7 @@ class _CoreApp extends State<CoreApp> {
           ),
           theme: buildDarkTheme(globalLocator<AppConfigProvider>().locale),
           builder: (_, Widget? routerWidget) {
-            return routerWidget as Widget;
+            return Scaffold(body: routerWidget as Widget);
           },
           localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
             S.delegate,

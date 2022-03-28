@@ -7,6 +7,8 @@
 // **************************************************************************
 // AutoRouteGenerator
 // **************************************************************************
+//
+// ignore_for_file: type=lint
 
 import 'package:auto_route/auto_route.dart' as _i6;
 import 'package:flutter/material.dart' as _i7;
@@ -93,37 +95,42 @@ class AppRouter extends _i6.RootStackRouter {
       ];
 }
 
-/// generated route for [_i1.PagesWrapper]
+/// generated route for
+/// [_i1.PagesWrapper]
 class PagesRoute extends _i6.PageRouteInfo<void> {
-  const PagesRoute({List<_i6.PageRouteInfo>? children}) : super(name, path: '/', initialChildren: children);
+  const PagesRoute({List<_i6.PageRouteInfo>? children}) : super(PagesRoute.name, path: '/', initialChildren: children);
 
   static const String name = 'PagesRoute';
 }
 
-/// generated route for [_i2.AccountsPage]
+/// generated route for
+/// [_i2.AccountsPage]
 class AccountsRoute extends _i6.PageRouteInfo<void> {
-  const AccountsRoute() : super(name, path: 'accounts');
+  const AccountsRoute() : super(AccountsRoute.name, path: 'accounts');
 
   static const String name = 'AccountsRoute';
 }
 
-/// generated route for [_i3.DashboardPage]
+/// generated route for
+/// [_i3.DashboardPage]
 class DashboardRoute extends _i6.PageRouteInfo<void> {
-  const DashboardRoute() : super(name, path: 'dashboard');
+  const DashboardRoute() : super(DashboardRoute.name, path: 'dashboard');
 
   static const String name = 'DashboardRoute';
 }
 
-/// generated route for [_i4.ValidatorsPage]
+/// generated route for
+/// [_i4.ValidatorsPage]
 class ValidatorsRoute extends _i6.PageRouteInfo<void> {
-  const ValidatorsRoute() : super(name, path: 'validators');
+  const ValidatorsRoute() : super(ValidatorsRoute.name, path: 'validators');
 
   static const String name = 'ValidatorsRoute';
 }
 
-/// generated route for [_i5.MyAccountPage]
+/// generated route for
+/// [_i5.MyAccountPage]
 class MyAccountRoute extends _i6.PageRouteInfo<void> {
-  const MyAccountRoute() : super(name, path: 'my-account');
+  const MyAccountRoute() : super(MyAccountRoute.name, path: 'my-account');
 
   static const String name = 'MyAccountRoute';
 }

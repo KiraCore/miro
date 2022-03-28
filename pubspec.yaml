@@ -12,11 +12,11 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.0.0+1
+version: 2.1.0
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
-  flutter: "^2.5.3"
+  flutter: "^2.10.3"
 
 # Dependencies specify other packages that your package needs in order to work.
 # To automatically upgrade your package dependencies to the latest versions
@@ -34,11 +34,11 @@ dependencies:
 
   #  A wrapper around InheritedWidget to make them easier to use and more reusable.
   #  https://pub.dev/packages/provider
-  provider: ^6.0.1
+  provider: ^6.0.2
 
   #  AutoRoute is a declarative routing solution, where everything needed for navigation is automatically generated for you.
   #  https://pub.dev/packages/auto_route
-  auto_route: ^3.0.4
+  auto_route: ^3.2.4
 
   #  This is a simple Service Locator for Dart and Flutter projects
   #  https://pub.dev/packages/get_it
@@ -47,7 +47,7 @@ dependencies:
   # A powerful Http client for Dart, which supports Interceptors, Global configuration, FormData,
   #  Request Cancellation, File downloading, Timeout etc.
   #  https://pub.dev/packages/dio
-  dio: ^4.0.1
+  dio: ^4.0.4
 
   # A Dart package that helps to implement value based equality without needing to explicitly override == and hashCode.
   # https://pub.dev/packages/equatable
@@ -55,7 +55,7 @@ dependencies:
 
   # Fast, Enjoyable & Secure NoSQL Database
   # https://github.com/hivedb/hive
-  hive: ^2.0.4
+  hive: ^2.1.0
   hive_flutter: ^1.1.0
 
   # Small, easy to use and extensible logger which prints beautiful logs.
@@ -64,8 +64,8 @@ dependencies:
 
   # Flutter Widgets that make it easy to implement the BLoC (Business Logic Component) design pattern. Built to be used with the bloc state management package.
   # https://pub.dev/packages/flutter_bloc
-  flutter_bloc: ^7.3.3
-  bloc_test: ^8.5.0
+  flutter_bloc: ^8.0.1
+  bloc_test: ^9.0.3
 
   # Contains code to deal with internationalized/localized messages, date and number formatting and parsing, bi-directional text, and other internationalization issues.
   # https://pub.dev/packages/intl
@@ -93,7 +93,7 @@ dependencies:
 
   # A Dart library implementing cryptographic algorithms and primitives, modeled on the BouncyCastle library.
   # https://pub.dev/packages/pointycastle
-  pointycastle: ^3.4.0
+  pointycastle: ^3.5.2
 
   # Easy hexadecimal convertion using dart:convert API.
   # https://pub.dev/packages/hex
@@ -117,16 +117,15 @@ dependencies:
 
   # A drag-and-drop Flutter plugin (Web only).
   # https://pub.dev/packages/flutter_dropzone
-  flutter_dropzone: ^3.0.0
+  flutter_dropzone: ^3.0.5
 
   # Toast Library for Flutter, Easily create toast messages in single line of code
   # https://pub.dev/packages/fluttertoast
-  fluttertoast: ^8.0.8
+  fluttertoast: ^8.0.9
 
-  # The google_fonts package for Flutter allows you to easily use any of the 977 fonts
   # (and their variants) from fonts.google.com in your Flutter app.
   # https://pub.dev/packages/google_fonts
-  google_fonts: ^2.1.0
+  google_fonts: ^2.3.1
 
   # QR.Flutter is a Flutter library for simple and fast QR code rendering via a Widget or custom painter.
   # https://pub.dev/packages/qr_flutter
@@ -134,7 +133,7 @@ dependencies:
 
   # An SVG rendering and widget library for Flutter, which allows painting and displaying Scalable Vector Graphics 1.1 files.
   # https://pub.dev/packages/flutter_svg
-  flutter_svg: ^0.23.0+1
+  flutter_svg: ^1.0.3
 
   # This is the Dart/Flutter implementation of the Jdenticon project. Jdenticon is a quick and easy to use library for generating highly recognizable identicons using SVG.
   # https://pub.dev/packages/jdenticon_dart
@@ -147,16 +146,16 @@ dependencies:
 
   # A package that allows you to use a native file explorer to pick single or multiple absolute file paths, with extension filtering support
   # https://pub.dev/packages/file_picker
-  file_picker: ^4.3.1
+  file_picker: ^4.5.1
 
   # A Flutter plugin for controlling the camera. Supports previewing the camera feed,
   # capturing images and video, and streaming image buffers to Dart.
   # https://pub.dev/packages/camera
-  camera: ^0.9.4+1
+  camera: ^0.9.4+17
 
   # A Flutter plugin for getting information about and controlling the camera on Web.
   # https://pub.dev/packages/camera_web
-  camera_web: ^0.2.1+2
+  camera_web: ^0.2.1+3
 
   # A common platform interface for the camera plugin.
   # https://pub.dev/packages/camera_platform_interface
@@ -167,9 +166,9 @@ dependencies:
   flutter_spinkit: ^5.1.0
 
 dev_dependencies:
-  auto_route_generator: ^3.0.1
-  build_runner: ^2.1.5
-  hive_generator: ^1.1.1
+  auto_route_generator: ^3.2.3
+  build_runner: ^2.1.8
+  hive_generator: ^1.1.2
   #flutter_lints: ^1.0.4
   flutter_test:
     sdk: flutter
