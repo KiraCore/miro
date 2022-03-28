@@ -1,25 +1,27 @@
-import 'package:hive/hive.dart';
+import 'package:miro/config/locator.dart';
+import 'package:miro/infra/cache/cache_manager.dart';
 
 class FavouriteCache {
-  final String workspaceName;
+  final String boxName;
+  final CacheManager _cacheManager = globalLocator<CacheManager>();
 
   FavouriteCache({
-    required this.workspaceName,
+    required this.boxName,
   });
 
   bool get({required String id}) {
-    return Hive.box<bool>(workspaceName).get(id, defaultValue: false)!;
+    return _cacheManager.get<bool>(boxName: boxName, key: id, defaultValue: false);
   }
 
   void add({required String id, required bool value}) {
-    Hive.box<bool>(workspaceName).put(id, value);
+    _cacheManager.add<bool>(boxName: boxName, key: id, value: value);
   }
 
   void delete({required String id}) {
-    Hive.box<bool>(workspaceName).delete(id);
+    return _cacheManager.delete<bool>(boxName: boxName, key: id);
   }
 
   Map<String, bool> getAll() {
-    return Hive.box<bool>(workspaceName).toMap() as Map<String, bool>;
+    return _cacheManager.getAll<bool>(boxName: boxName);
   }
 }

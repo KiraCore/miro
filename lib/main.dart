@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:hive_flutter/hive_flutter.dart';
-import 'package:miro/config/hive.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/theme_dark.dart';
 import 'package:miro/generated/l10n.dart';
+import 'package:miro/infra/cache/cache_manager.dart';
 import 'package:miro/providers/app_config_provider.dart';
 import 'package:miro/providers/app_list_providers.dart';
 import 'package:miro/shared/guards/auth_guard.dart';
@@ -15,9 +14,8 @@ import 'package:provider/provider.dart';
 import 'package:url_strategy/url_strategy.dart';
 
 Future<void> main() async {
-  await Hive.initFlutter();
   await initLocator();
-  await initHive();
+  await globalLocator<CacheManager>().init();
   setPathUrlStrategy();
 
   runApp(
