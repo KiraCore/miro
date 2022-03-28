@@ -21,7 +21,7 @@ class AppConfigProviderImpl extends AppConfigProvider {
 
   @override
   void initConfig() {
-    locale = appConfigCache.getConfig('language', defaultValue: 'en')!;
+    locale = appConfigCache.getConfig('language', defaultValue: 'en');
     notifyListeners();
   }
 

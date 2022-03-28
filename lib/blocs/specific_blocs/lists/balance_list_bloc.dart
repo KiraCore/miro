@@ -123,7 +123,7 @@ class BalanceListBloc extends ListBloc<Balance> {
   }
 
   bool _favouriteFilter(Balance balance) {
-    FavouriteCache favouriteCache = FavouriteCache(workspaceName: favouriteCacheWorkspace);
+    FavouriteCache favouriteCache = FavouriteCache(boxName: favouriteCacheWorkspace);
     return favouriteCache.get(id: balance.denom);
   }
 }
