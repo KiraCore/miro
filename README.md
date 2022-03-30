@@ -1,19 +1,14 @@
 # miro
-
-Miro is a user interface for Kira Network Users to manage their accounts, balance and transfer tokens between different wallets.
+Miro is user interface for KIRA Network to manage accounts, balance and transfer tokens between different wallets.
 
 ## Installation
-
-Use the git to clone [miro](https://github.com/KiraCore/miro) project.
-
+Use git clone to download [miro](https://github.com/KiraCore/miro) project.
 ```bash
 git clone git@github.com:KiraCore/miro.git
 ```
 
 ## Usage
-
 The project runs on flutter version **2.5.3**. You can use [fvm](https://fvm.app/docs/getting_started/installation) for easy switching between versions
-
 ```bash
 # Install and use required flutter version
 fvm install 2.5.3
@@ -29,15 +24,12 @@ fvm flutter run -d chrome
 ```
 
 To generate config files use
-
 ```bash
 fvm flutter pub run build_runner watch --delete-conflicting-outputs
 ```
 
-## Testing
-
+## Tests
 To run Unit Tests / Integration tests
-
 ```bash
 # Run all Unit Tests
 fvm flutter test test/unit --platform chrome
@@ -48,8 +40,14 @@ fvm flutter test path/to/test.dart --platform chrome
 fvm flutter test test/infra/services/api/withdraws_service_test.dart --platform chrome
 ```
 
-## Contributing
+## Building, Deploying and Installing
+To build project please run script in [deploy.sh](https://github.com/KiraCore/miro/deploy.sh). \
+Deploy script is only intended to be run on Ubuntu 20.04.4 LTS.\
+After successful build, open index.html in "/miro/build/web".\
+Enjoy! 
 
-Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change. Please make sure to update tests as appropriate.
+## Contributing
+Pull requests are welcome. For major changes, please open an issue first to discuss what would like to improve. Please 
+make sure to update tests as well.
 
 ## [Licence](./LICENSE.md)
