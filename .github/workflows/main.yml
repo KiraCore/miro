@@ -53,15 +53,16 @@ jobs:
               echo "DESTINATION_BRANCH=$(echo ${{ env.BASE_REF_BRANCH }})" >> $GITHUB_ENV
           - name: Inspecting & organizing artifacts
             run: |
+              set -x
               echo "(current dir): $PWD" && ls -l ./
               chmod -Rv 555 ./scripts
               VERSION_REGEX="^(v?)([0-9]+)\.([0-9]+)\.([0-9]+)(-?)([a-zA-Z]+)?(\.?([0-9]+)?)$"
               SOURCE_BRANCH=${{ env.SOURCE_BRANCH }}
               REPOSITORY_NAME="${{ github.event.repository.name }}" && echo "REPOSITORY_NAME=$REPOSITORY_NAME" >> $GITHUB_ENV
-              RELEASE_VER=$(./scripts/version.sh) && echo "RELEASE_VER=$RELEASE_VER" >> $GITHUB_ENV
+              RELEASE_VER="$(./scripts/version.sh)" && echo "RELEASE_VER=$RELEASE_VER" >> $GITHUB_ENV
               echo "RELEASE_VER=$RELEASE_VER" >> $GITHUB_ENV
               git ls-remote https://github.com/kiracore/$REPOSITORY_NAME | egrep -q "refs/tags/${RELEASE_VER}$" && echo "RELEASE_EXISTS=true" >> $GITHUB_ENV || echo "RELEASE_EXISTS=false" >> $GITHUB_ENV
-              (  [[ "$RELEASE_VER" =~ $VERSION_REGEX ]] && [[ "$SOURCE_BRANCH" =~ $VERSION_REGEX ]] && [[ "$SOURCE_BRANCH" != $RELEASE_VER ]] ) && echo "ERROR: Version branch name MUST be the same as the app version, see scripts/version.sh for details!" && exit 1
+              ( [[ "$RELEASE_VER" =~ $VERSION_REGEX ]] && [[ "$SOURCE_BRANCH" =~ $VERSION_REGEX ]] && [ "$SOURCE_BRANCH" != "$RELEASE_VER" ] ) && echo "ERROR: Version branch name MUST be the same as the app version, see scripts/version.sh for details!" && exit 1
           - name: Print debug data before testing
             run: |
               echo "     Source branch: ${{ env.SOURCE_BRANCH }}"

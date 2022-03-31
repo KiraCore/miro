@@ -10,25 +10,26 @@ RAW_VERSION=$VERSION
 # Script MUST fail if the version could NOT be retreaved
 [ -z $VERSION ] && echo "ERROR: SAIFU version was NOT found in the version file '$VERSION_FILE' !" && exit 1
 
-if [[ $VERSION == *+0 ]] ; then
-    # Full Release
-    VERSION=${VERSION//+/.}
-elif [[ $VERSION == *+* ]] ; then
-    # Release Candidate
-    VERSION=${VERSION//+/-rc.}
-fi
-#VERSION="lol."
 PATHS_COUNT=$(echo "${VERSION}" | tr -cd "." | wc -c)
+
+if [[ $PATHS_COUNT -lt 2 ]] ; then
+    echo "ERROR: Version has invalid format, must by X.X.X, X.X.X.X, X.X.X+X, X.X.X-rc.X, but got $VERSION"
+fi
+
+VERSION=${VERSION//+/.}
+VERSION=$(echo "$VERSION" | grep -o '[^-]*$')
 
 if [[ $PATHS_COUNT -le 2 ]] ; then
     VERSION="${VERSION}.0"
 fi
 
-PATHS_COUNT=$(echo "${VERSION}" | tr -cd "." | wc -c)
+major_VERSION=$(echo $VERSION | cut -d. -f1 | sed 's/[^0-9]*//g')
+minor_VERSION=$(echo $VERSION | cut -d. -f2 | sed 's/[^0-9]*//g')
+micro_VERSION=$(echo $VERSION | cut -d. -f3 | sed 's/[^0-9]*//g')
+build_VERSION=$(echo $VERSION | cut -d. -f4 | sed 's/[^0-9]*//g')
 
-if [[ $PATHS_COUNT -ne 3 ]] ; then
-    echo "ERROR: Version format specified in the '$VERSION_FILE' file is NOT valid, expected <uint>.<uint>.<uint>+<uint> or <uint>.<uint>.<uint>, but got '$RAW_VERSION'"
-    exit 1
+if [[ $micro_VERSION -gt 0 ]] ; then
+    echo "v${major_VERSION}.${minor_VERSION}.${micro_VERSION}-rc.${build_VERSION}"
 else
-    echo "v${VERSION}"
+    echo "v${major_VERSION}.${minor_VERSION}.${micro_VERSION}.${build_VERSION}"
 fi
