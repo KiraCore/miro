@@ -31,10 +31,6 @@ jobs:
               echo "ENVS: $(env)"
               echo "HOME: $HOME"
               echo " PWD: $PWD"
-          - name: Download artifacts
-            uses: actions/download-artifact@v3.0.0
-            with:
-              name: saifu-src
           - name: Extract branch name on push
             if: github.event_name == 'push'
             shell: bash
@@ -70,15 +66,12 @@ jobs:
               echo "  Repository name: ${{ env.REPOSITORY_NAME }}"
               echo "  Release version: ${{ env.RELEASE_VER }}"
               echo "   Release exists: ${{ env.RELEASE_EXISTS }}"
-          - name: Building SAIFU & Installing Packages
+          - name: Building MIRO & Installing Packages
             run: |
               echo "(current dir): $PWD" && ls -l ./
               chmod -Rv 555 ./scripts
               make build
-          - name: Publishing SAIFU Binaries
-            env:
-              SAIFU_KEYSTORE_PASSWORD: ${{ secrets.SAIFU_KEYSTORE_PASSWORD }}
-              SAIFU_KEYSTORE_BASE64: ${{ secrets.SAIFU_KEYSTORE_BASE64 }}
+          - name: Publishing MIRO Binaries
             shell: bash
             run: |
               make publish
@@ -96,7 +89,7 @@ jobs:
           - name: Uploading artifacts
             uses: actions/upload-artifact@v3.0.0
             with:
-              name: saifu-bin
+              name: miro-bin
               path: ./bin.tar.gz
   release:
     name: Create Release
@@ -116,7 +109,7 @@ jobs:
           - name: Download artifacts
             uses: actions/download-artifact@v3.0.0
             with:
-              name: saifu-bin
+              name: miro-bin
           - name: Inspecting & organizing artifacts
             run: |
               echo "(current dir): $PWD" && ls -l ./
