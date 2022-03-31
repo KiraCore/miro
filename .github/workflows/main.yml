@@ -15,7 +15,6 @@ jobs:
       packages: write
       id-token: write
       pull-requests: write
-    needs: [setup]
     container: 
       image: ghcr.io/kiracore/docker/base-image:v0.7.0.0
     steps:
