@@ -57,7 +57,12 @@ jobs:
               RELEASE_VER="$(./scripts/version.sh)" && echo "RELEASE_VER=$RELEASE_VER" >> $GITHUB_ENV
               echo "RELEASE_VER=$RELEASE_VER" >> $GITHUB_ENV
               git ls-remote https://github.com/kiracore/$REPOSITORY_NAME | egrep -q "refs/tags/${RELEASE_VER}$" && echo "RELEASE_EXISTS=true" >> $GITHUB_ENV || echo "RELEASE_EXISTS=false" >> $GITHUB_ENV
-              ( [[ "$RELEASE_VER" =~ $VERSION_REGEX ]] && [[ "$SOURCE_BRANCH" =~ $VERSION_REGEX ]] && [ "$SOURCE_BRANCH" != "$RELEASE_VER" ] ) && echo "ERROR: Version branch name MUST be the same as the app version, see scripts/version.sh for details!" && exit 1
+              if [[ "$RELEASE_VER" =~ $VERSION_REGEX ]] && [[ "$SOURCE_BRANCH" =~ $VERSION_REGEX ]] && [ "$SOURCE_BRANCH" != "$RELEASE_VER" ] ; then 
+                echo "ERROR: Version branch name MUST be the same as the app version, run scripts/version.sh to check app version!" 
+                exit 1
+              else
+                echo "INFO: Variables setup succeeded"
+              fi
           - name: Print debug data before testing
             run: |
               echo "     Source branch: ${{ env.SOURCE_BRANCH }}"
