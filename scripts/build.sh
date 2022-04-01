@@ -8,6 +8,11 @@ echo "INFO: Starting build & analyze process..."
 
 rm -rfv ./build
 
+export PATH="$PATH:$HOME/.pub-cache/bin"
+export PATH="$PATH:./.fvm/flutter_sdk"
+
+yes | fvm flutter --version
+
 yes | fvm flutter packages pub get
 
 yes | fvm flutter analyze --no-fatal-infos
