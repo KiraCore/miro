@@ -12,6 +12,8 @@ rm -rfv ./build
 #export PATH="$PATH:./.fvm/flutter_sdk"
 #yes | fvm flutter pub upgrade --major-versions
 
+uname -a
+
 yes | fvm flutter --version
 
 yes | fvm flutter packages pub get

@@ -93,6 +93,9 @@ loadGlobEnvs
 
 fvm --version
 
+# setup chrome
+apt install --assume-yes chromium-browser
+
 # mount C drive or other disk where repo is stored
 setGlobLine "mount -t drvfs C:" "mount -t drvfs C: /mnt/c || echo 'Failed to mount C drive'"
 
