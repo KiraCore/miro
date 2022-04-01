@@ -1,4 +1,5 @@
 import 'package:miro/config/locator.dart';
+import 'package:miro/infra/cache/cache_manager.dart';
 import 'package:miro/infra/repositories/api_cosmos_repository.dart';
 import 'package:miro/infra/repositories/api_kira_repository.dart';
 import 'package:miro/infra/repositories/api_repository.dart';
@@ -21,6 +22,7 @@ Future<void> initTestLocator() async {
     ..registerLazySingleton<NetworkProvider>(() => NetworkProvider())
     ..registerLazySingleton<WalletProvider>(() => WalletProvider())
     ..registerLazySingleton<TokensProvider>(() => TokensProvider())
+    ..registerLazySingleton<CacheManager>(() => CacheManager())
     ..registerFactory<ApiKiraRepository>(() => MockApiKiraRepository())
     ..registerFactory<ApiRepository>(() => MockApiRepository())
     ..registerFactory<ApiCosmosRepository>(() => MockApiCosmosRepository())

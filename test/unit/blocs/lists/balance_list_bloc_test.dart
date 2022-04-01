@@ -1,10 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:miro/blocs/abstract_blocs/list_bloc/list_bloc.dart';
 import 'package:miro/blocs/specific_blocs/lists/balance_list_bloc.dart';
-import 'package:miro/config/hive.dart';
 import 'package:miro/config/locator.dart';
+import 'package:miro/infra/cache/cache_manager.dart';
 import 'package:miro/infra/dto/api_cosmos/query_balance/response/balance.dart';
 import 'package:miro/infra/services/api_cosmos/query_balance_service.dart';
 import 'package:miro/providers/network_provider/network_events.dart';
@@ -58,9 +56,8 @@ Future<void> main() async {
   };
 
   // Init tests
-  await Hive.initFlutter();
-  await initHive();
   await initTestLocator();
+  await globalLocator<CacheManager>().init();
 
   // @formatter:off
   const String actualMnemonicString =
