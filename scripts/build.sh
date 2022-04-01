@@ -14,11 +14,17 @@ rm -rfv ./build
 
 uname -a
 
-yes | fvm flutter --version
+FVM_VERSION=$(cat ./.fvm/fvm_config.json | tac | grep -Fn -m 1 '"flutterSdkVersion": ' | rev | cut -d ":" -f1 | rev | xargs | tr -dc '[:alnum:]\-\.')
 
-yes | fvm flutter packages pub get
+fvm install $FVM_VERSION
 
-yes | fvm flutter analyze --no-fatal-infos
+fvm use $FVM_VERSION --force
+
+fvm flutter --version
+
+fvm flutter packages pub get
+
+fvm flutter analyze --no-fatal-infos
 
 # note if the flutter version changes in the .fvm then the "yes pipe" will automatically install necessary dependencies
-yes | fvm flutter build web
+fvm flutter build web

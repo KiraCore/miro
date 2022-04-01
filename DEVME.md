@@ -108,3 +108,14 @@ cd $MIRO_REPO
 make build
 ```
 
+# Run Inside Docker
+
+```
+DOCKER_IMAGE="ghcr.io/kiracore/docker/base-image:v0.8.0.0" && \
+ docker pull $DOCKER_IMAGE && \
+ docker run -i -t $DOCKER_IMAGE /bin/bash
+
+git clone https://github.com/kiracore/miro -b feature/ci-cd-v1 && \
+ cd miro && chmod -R 555 ./scripts && \
+ make build
+```
