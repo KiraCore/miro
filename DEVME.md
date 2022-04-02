@@ -93,8 +93,21 @@ loadGlobEnvs
 
 fvm --version
 
-# setup chrome
-apt install --assume-yes chromium-browser
+# setup chromium
+add-apt-repository -y ppa:system76/pop
+apt install -y chromium
+chromium --version
+
+# install ipfs
+ARCH=$(getArch) && \
+IPFS_VERSION="v0.12.1" &&
+IPFS_TAR="go-ipfs_${IPFS_VERSION}_linux-${ARCH}.tar.gz"
+wget https://dist.ipfs.io/go-ipfs/${IPFS_VERSION}/$IPFS_TAR
+
+tar -xvzf $IPFS_TAR && ./go-ipfs/install.sh
+ipfs --version
+
+sha256sum $IPFS_TAR
 
 # mount C drive or other disk where repo is stored
 setGlobLine "mount -t drvfs C:" "mount -t drvfs C: /mnt/c || echo 'Failed to mount C drive'"
@@ -115,7 +128,29 @@ DOCKER_IMAGE="ghcr.io/kiracore/docker/base-image:v0.8.0.0" && \
  docker pull $DOCKER_IMAGE && \
  docker run -i -t $DOCKER_IMAGE /bin/bash
 
+# if image is already pulled: docker run -i -t ghcr.io/kiracore/docker/base-image:v0.8.0.0 /bin/bash
+
 git clone https://github.com/kiracore/miro -b feature/ci-cd-v1 && \
  cd miro && chmod -R 555 ./scripts && \
  make build
+
+# cleanup
+# delete containers
+docker ps -a | awk '{ print $1,$2 }' | grep "ghcr.io/kiracore/docker/base-image:v0.8.0.0" | awk '{print $1 }' | xargs -I {} docker rm {}
+# delete images
+docker rmi ghcr.io/kiracore/docker/base-image:v0.8.0.0
+```
+
+# Publishing Release To IPFS
+
+```
+# currently IPFS upload is not practical and takes a long time to finalize
+ipfs pin remote service rm pinata
+ipfs pin remote service add pinata https://api.pinata.cloud/psa "$PINATA_API_JWT"
+ipfs pin remote service ls
+
+ipfs add -r ./some-dir --pin=true --wrap-with-directory=true
+
+ipfs pin remote add --service=pinata --name=some-dir XXX --background=true
+ipfs pin remote ls --service=pinata --cid=XXXX --status=queued,pinning,pinned,failed
 ```
