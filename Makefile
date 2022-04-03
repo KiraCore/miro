@@ -7,5 +7,5 @@ publish:
 test:
 	./scripts/test.sh
 
-integration-test:
-	./scripts/integration-test.sh
+local-test:
+	./scripts/local-test.sh

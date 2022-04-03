@@ -32,12 +32,10 @@ fvm flutter pub run build_runner watch --delete-conflicting-outputs
 To run Unit Tests / Integration tests
 ```bash
 # Run all Unit Tests
-fvm flutter test test/unit --platform chrome
+make test
 
 # To run specific Unit Test
-fvm flutter test path/to/test.dart --platform chrome
-# e.g.
-fvm flutter test test/infra/services/api/withdraws_service_test.dart --platform chrome
+fvm flutter test path/to-file-or-directory/test.dart --platform chrome
 ```
 
 ## Building, Deploying and Installing
