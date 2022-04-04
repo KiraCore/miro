@@ -14,8 +14,6 @@ kill -9 $(sudo lsof -t -i:26657) || echoWarn "WARNING: Nothing running on port 2
 kill -9 $(sudo lsof -t -i:26658) || echoWarn "WARNING: Nothing running on port 26658, or failed to kill processes"
 kill -9 $(sudo lsof -t -i:11000) || echoWarn "WARNING: Nothing running on port 11000, or failed to kill processes"
 
-rm -rfv $SEKAID_HOME /etc/systemd/system/sekai.service
-rm -rfv $INTERX_HOME /etc/systemd/system/interx.service
-
-rm -fv ${GOBIN}/sekaid || echoWarn "WARNING: Failed to remove sekaid from GOBIN"
-rm -fv ${GOBIN}/interx || echoWarn "WARNING: Failed to remove sekaid from GOBIN"
+rm -rfv "$SEKAID_HOME" "${GOBIN}/sekaid" /etc/systemd/system/sekai.service || echoWarn "WARNING: Failed to cleanup files after sekai"
+rm -rfv "$INTERX_HOME" "${GOBIN}/interx" /etc/systemd/system/interx.service  || echoWarn "WARNING: Failed to cleanup files after interx"
+echoInfo "INFO: Finished KIRA Network Environment cleanup."

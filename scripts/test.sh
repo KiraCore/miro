@@ -5,12 +5,17 @@ set -x
 
 echo "INFO: Starting unit tests..."
 
-CHROMIUM_VERSION=$(/usr/bin/chromium --version || echo "")
+uname -a
+CHROME_EXECUTABLE=$(which google-chrome || which chrome || which chromium-browser || which chromium)
+CHROMIUM_VERSION=$($CHROME_EXECUTABLE --version || echo "")
+
+fvm flutter doctor -v
+
 if [ ! -z "$CHROMIUM_VERSION" ] ; then
-    export CHROME_EXECUTABLE="/usr/bin/chromium"
+    export CHROME_EXECUTABLE="$CHROME_EXECUTABLE"
     fvm flutter test test/unit --platform chrome
 else
-    echo "ERROR: chromium must be installed in '/usr/bin/chromium' to run tests"
-    echo "INFO: Reccomended solution: 'add-apt-repository -y ppa:system76/pop && apt install -y chromium'"
+    echo "ERROR: chrome or chromium must be installed and added to your PATH!"
+    echo "INFO: Reccomended solution: 'add-apt-repository -y ppa:system76/pop && apt install -y chromium-browser'"
     exit 1
 fi

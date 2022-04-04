@@ -47,6 +47,7 @@ else
     echoInfo "INFO: KIRA utils are up to date, latest version $UTILS_VER" && sleep 2
 fi
 
+# Essential tool to provide SYSTEMD replacement on OS that might NOT have it mounted such as WSL2 and Docker
 SYSCTRL_DESTINATION=/usr/local/bin/systemctl2
 if [ ! -f $SYSCTRL_DESTINATION ] ; then
     safeWget /usr/local/bin/systemctl2 \

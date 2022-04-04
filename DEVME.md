@@ -124,15 +124,17 @@ make build
 # Run Inside Docker
 
 ```
-DOCKER_IMAGE="ghcr.io/kiracore/docker/base-image:v0.8.0.0" && \
- docker pull $DOCKER_IMAGE && \
- docker run -i -t $DOCKER_IMAGE /bin/bash
+# download and enter container
+docker run -i -t ghcr.io/kiracore/docker/base-image:v0.8.0.0 /bin/bash
 
-# if image is already pulled: docker run -i -t ghcr.io/kiracore/docker/base-image:v0.8.0.0 /bin/bash
+# clone the repo inside the container, change your branch name to desired name
+git clone https://github.com/kiracore/miro -b "feature/ci-cd-v1" && \
+ cd miro && chmod -R 555 ./scripts
 
-git clone https://github.com/kiracore/miro -b feature/ci-cd-v1 && \
- cd miro && chmod -R 555 ./scripts && \
- make build
+make build
+make test
+make local-test
+...
 
 # cleanup
 # delete containers
