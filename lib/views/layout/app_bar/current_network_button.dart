@@ -10,7 +10,12 @@ import 'package:miro/views/widgets/generic/mouse_state_listener.dart';
 import 'package:provider/provider.dart';
 
 class CurrentNetworkButton extends StatelessWidget {
-  const CurrentNetworkButton({Key? key}) : super(key: key);
+  final double width;
+
+  const CurrentNetworkButton({
+    this.width = 192,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -24,12 +29,10 @@ class CurrentNetworkButton extends StatelessWidget {
         childBuilder: (Set<MaterialState> states) {
           Color foregroundColor = _getForegroundColor(states);
           return Container(
-            width: 192.0,
+            width: width,
             height: AppSizes.kAppBarItemsHeight,
             decoration: BoxDecoration(
-              border: Border.all(
-                color: foregroundColor,
-              ),
+              border: Border.all(color: foregroundColor),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Padding(

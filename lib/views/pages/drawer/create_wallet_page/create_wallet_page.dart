@@ -39,90 +39,86 @@ class _CreateWalletPage extends State<CreateWalletPage> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: double.infinity,
-      height: double.infinity,
-      child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text('Create a wallet', style: Theme.of(context).textTheme.headline1),
-            const SizedBox(height: 24),
-            const Divider(color: Color(0xFF343261)),
-            const SizedBox(height: 24),
-            KiraTextField(
-              label: 'Your public address',
-              readOnly: true,
-              controller: publicAddressTextController,
-              suffixIcon: IconButton(
-                onPressed: _createNewWallet,
-                icon: const Icon(
-                  AppIcons.refresh,
-                  color: DesignColors.blue1_100,
-                ),
+      height: 2000,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text('Create a wallet', style: Theme.of(context).textTheme.headline1),
+          const SizedBox(height: 24),
+          const Divider(color: Color(0xFF343261)),
+          const SizedBox(height: 24),
+          KiraTextField(
+            label: 'Your public address',
+            readOnly: true,
+            controller: publicAddressTextController,
+            suffixIcon: IconButton(
+              onPressed: _createNewWallet,
+              icon: const Icon(
+                AppIcons.refresh,
+                color: DesignColors.blue1_100,
               ),
             ),
-            const SizedBox(height: 20),
-            WalletSectionTile(
-              title: 'Reveal Secret QR Code',
-              subtitle: 'You won’t be able to see it again',
-              tooltipMessage: 'You won’t be able to see it again',
-              disabled: generateNewWallet,
-              children: <Widget>[
-                const SizedBox(height: 15),
-                KiraQrCode(
-                  data: currentMnemonic.value,
-                  size: 180,
-                ),
-                const SizedBox(height: 15),
-              ],
-            ),
-            WalletSectionTile(
-              title: 'Reveal Secret Phrases',
-              subtitle: 'You won’t be able to see it again',
-              tooltipMessage: 'You won’t be able to see it again',
-              disabled: generateNewWallet,
-              children: <Widget>[
-                SizedBox(
-                  height: 450,
-                  width: double.infinity,
-                  child: Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: MnemonicGrid(
-                      mnemonicWordList: currentMnemonic.array,
-                      controller: mnemonicGridController,
-                      editable: false,
-                    ),
-                  ),
-                ),
-                TextButton.icon(
-                  onPressed: _copyCurrentMnemonic,
-                  icon: const Icon(Icons.copy),
-                  label: const Text('Copy mnemonic'),
-                ),
-              ],
-            ),
-            WalletSectionTile(
-              title: 'Generate keyfile',
-              tooltipMessage: 'Generate keyfile',
-              disabled: generateNewWallet,
-              children: <Widget>[
-                if (currentWallet != null)
-                  DownloadKeyfileSection(
-                    controller: downloadKeyfileSectionController,
-                    wallet: currentWallet!,
-                  ),
-              ],
-            ),
-            const Divider(color: Color(0xFF343261)),
-            Opacity(
-              opacity: generateNewWallet ? 0.3 : 1,
-              child: WalletTermsSection(
-                wallet: currentWallet,
+          ),
+          const SizedBox(height: 20),
+          WalletSectionTile(
+            title: 'Reveal Secret QR Code',
+            subtitle: 'You won’t be able to see it again',
+            tooltipMessage: 'You won’t be able to see it again',
+            disabled: generateNewWallet,
+            children: <Widget>[
+              const SizedBox(height: 15),
+              KiraQrCode(
+                data: currentMnemonic.value,
+                size: 180,
               ),
-            ),
-          ],
-        ),
+              const SizedBox(height: 15),
+            ],
+          ),
+          WalletSectionTile(
+            title: 'Reveal Secret Phrases',
+            subtitle: 'You won’t be able to see it again',
+            tooltipMessage: 'You won’t be able to see it again',
+            disabled: generateNewWallet,
+            children: <Widget>[
+              SizedBox(
+                height: 450,
+                width: double.infinity,
+                child: Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: MnemonicGrid(
+                    mnemonicWordList: currentMnemonic.array,
+                    controller: mnemonicGridController,
+                    editable: false,
+                    // mnemonicWordList: currentMnemonic.array,
+                  ),
+                ),
+              ),
+              TextButton.icon(
+                onPressed: _copyCurrentMnemonic,
+                icon: const Icon(Icons.copy),
+                label: const Text('Copy mnemonic'),
+              ),
+            ],
+          ),
+          WalletSectionTile(
+            title: 'Generate keyfile',
+            tooltipMessage: 'Generate keyfile',
+            disabled: generateNewWallet,
+            children: <Widget>[
+              if (currentWallet != null)
+                DownloadKeyfileSection(
+                  controller: downloadKeyfileSectionController,
+                  wallet: currentWallet!,
+                ),
+            ],
+          ),
+          const Divider(color: Color(0xFF343261)),
+          Opacity(
+            opacity: generateNewWallet ? 0.3 : 1,
+            child: WalletTermsSection(wallet: currentWallet),
+          ),
+        ],
       ),
     );
   }

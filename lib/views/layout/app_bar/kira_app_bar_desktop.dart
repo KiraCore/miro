@@ -4,9 +4,11 @@ import 'package:miro/views/layout/app_bar/model/app_bar_desktop_decoration.dart'
 
 class KiraAppBarDesktop extends StatelessWidget {
   final AppBarDesktopDecoration desktopDecoration;
+  final Widget sidebar;
 
   const KiraAppBarDesktop({
     required this.desktopDecoration,
+    required this.sidebar,
     Key? key,
   }) : super(key: key);
 
@@ -21,22 +23,18 @@ class KiraAppBarDesktop extends StatelessWidget {
       child: Row(
         children: <Widget>[
           Expanded(
-            child: _buildAppBarContent(),
+            child: Padding(
+              padding: const EdgeInsets.only(
+                top: 13,
+                bottom: 13,
+                right: 41,
+                left: 32,
+              ),
+              child: sidebar,
+            ),
           ),
         ],
       ),
-    );
-  }
-
-  Widget _buildAppBarContent() {
-    return Padding(
-      padding: const EdgeInsets.only(
-        top: 13,
-        bottom: 13,
-        right: 41,
-        left: 32,
-      ),
-      child: desktopDecoration.sidebar,
     );
   }
 }
