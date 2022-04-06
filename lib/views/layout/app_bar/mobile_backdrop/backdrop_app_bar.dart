@@ -13,7 +13,8 @@ class Backdrop extends InheritedWidget {
   }) : super(key: key, child: child);
 
   /// Provides access to the state from everywhere in the widget tree.
-  static _BackdropAppBar of(BuildContext context) => context.dependOnInheritedWidgetOfExactType<Backdrop>()!.backdropState;
+  static _BackdropAppBar of(BuildContext context) =>
+      context.dependOnInheritedWidgetOfExactType<Backdrop>()!.backdropState;
 
   @override
   bool updateShouldNotify(Backdrop oldWidget) => true;

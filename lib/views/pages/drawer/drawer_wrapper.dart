@@ -6,6 +6,7 @@ import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/views/layout/drawer/kira_drawer.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
 import 'package:miro/views/widgets/generic/center_load_spinner.dart';
+import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 
 class DrawerWrapper extends StatefulWidget {
   const DrawerWrapper({Key? key}) : super(key: key);
@@ -18,6 +19,7 @@ class _DrawerWrapper extends State<DrawerWrapper> {
   @override
   Widget build(BuildContext context) {
     return KiraDrawer(
+      width: ResponsiveWidget.isSmallScreen(context) ? MediaQuery.of(context).size.width : 400,
       drawerColor: const Color(0xff121420),
       onClose: _onDrawerClose,
       onWillPop: _onWillPop,

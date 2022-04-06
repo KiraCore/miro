@@ -7,6 +7,7 @@ import 'package:miro/views/pages/menu/dashboard_page/widgets/dashboard_grid_tile
 import 'package:miro/views/widgets/generic/filled_scroll_view.dart';
 import 'package:miro/views/widgets/generic/responsive/column_row_spacer.dart';
 import 'package:miro/views/widgets/generic/responsive/column_row_swapper.dart';
+import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 import 'package:miro/views/widgets/kira/kira_card.dart';
 
 class DashboardPage extends StatelessWidget {
@@ -16,7 +17,9 @@ class DashboardPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return FilledScrollView(
       child: Padding(
-        padding: AppSizes.defaultPageMargin,
+        padding: ResponsiveWidget.isLargeScreen(context)
+            ? AppSizes.defaultDesktopPageMargin
+            : AppSizes.defaultMobilePageMargin,
         child: Column(
           children: const <Widget>[
             ColumnRowSwapper(

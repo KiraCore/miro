@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:miro/views/layout/app_bar/mobile/backdrop/backdrop_app_bar.dart';
+import 'package:miro/views/layout/app_bar/mobile_backdrop/backdrop_app_bar.dart';
 
 class BackdropToggleButton extends StatelessWidget {
   /// Animated icon that is used for the contained [AnimatedIcon].
@@ -24,10 +24,7 @@ class BackdropToggleButton extends StatelessWidget {
       icon: AnimatedIcon(
         icon: animatedIconData,
         color: color,
-        progress: Backdrop
-            .of(context)
-            .animationController
-            .view,
+        progress: Backdrop.of(context).animationController.view,
       ),
       onPressed: () => Backdrop.of(context).fling(),
     );
