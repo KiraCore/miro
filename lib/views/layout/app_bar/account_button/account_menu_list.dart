@@ -6,53 +6,29 @@ import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/providers/wallet_provider.dart';
 import 'package:miro/shared/router/router.gr.dart';
 import 'package:miro/views/widgets/generic/mouse_state_listener.dart';
-import 'package:miro/views/widgets/generic/pop_wrapper.dart';
 
-class AccountPopMenu extends StatefulWidget {
-  final PopWrapperController popWrapperController;
-  final double height;
-  final double width;
-  final BuildContext appContext;
+class AccountMenuList extends StatelessWidget {
+  final VoidCallback? onItemTap;
 
-  const AccountPopMenu({
-    required this.popWrapperController,
-    required this.height,
-    required this.width,
-    required this.appContext,
+  const AccountMenuList({
+    this.onItemTap,
     Key? key,
   }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _AccountPopMenu();
-}
-
-class _AccountPopMenu extends State<AccountPopMenu> {
-  @override
   Widget build(BuildContext context) {
-    return Container(
-      height: widget.height,
-      width: widget.width,
-      margin: EdgeInsets.zero,
-      padding: const EdgeInsets.all(12),
-      child: LayoutBuilder(
-        builder: (_, __) => _buildPopList(),
-      ),
-    );
-  }
-
-  Widget _buildPopList() {
     return ListView(
       children: <Widget>[
-        _buildListTile(
-          onTap: _onNavigateToMyAccountPressed,
+        _MenuListTile(
+          onTap: () => _onNavigateToMyAccountPressed(context),
           title: const Text('My account'),
         ),
-        _buildListTile(
+        _MenuListTile(
           onTap: () {},
           title: const Text('Settings'),
         ),
-        _buildListTile(
-          onTap: _onLogout,
+        _MenuListTile(
+          onTap: () => _onLogout(context),
           title: const Text(
             'Log Out',
             style: TextStyle(
@@ -72,7 +48,40 @@ class _AccountPopMenu extends State<AccountPopMenu> {
     );
   }
 
-  Widget _buildListTile({required GestureTapCallback onTap, required Text title}) {
+  void _onNavigateToMyAccountPressed(BuildContext context) {
+    if (onItemTap != null) {
+      onItemTap!();
+    }
+    AutoRouter.of(context).navigate(const MyAccountRoute());
+  }
+
+  void _onLogout(BuildContext context) {
+    if (onItemTap != null) {
+      onItemTap!();
+    }
+    globalLocator<WalletProvider>().logout(context);
+    AutoRouter.of(context).replace(const DashboardRoute());
+  }
+
+// TODO(dominik): Design change proposal. Remove or uncomment before release
+// void _onCreateNewWalletPressed() {
+//   widget.popWrapperController.hideMenu();
+//   KiraScaffold.of(widget.appContext).navigateEndDrawerRoute(const CreateWalletPage());
+// }
+}
+
+class _MenuListTile extends StatelessWidget {
+  final VoidCallback onTap;
+  final Text title;
+
+  const _MenuListTile({
+    required this.onTap,
+    required this.title,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return MouseStateListener(
       onTap: onTap,
       childBuilder: (Set<MaterialState> states) {
@@ -91,21 +100,4 @@ class _AccountPopMenu extends State<AccountPopMenu> {
       },
     );
   }
-
-  void _onNavigateToMyAccountPressed() {
-    widget.popWrapperController.hideMenu();
-    AutoRouter.of(widget.appContext).navigate(const MyAccountRoute());
-  }
-
-  void _onLogout() {
-    widget.popWrapperController.hideMenu();
-    globalLocator<WalletProvider>().logout(context);
-    AutoRouter.of(context).replace(const DashboardRoute());
-  }
-
-// TODO(dominik): Design change proposal. Remove or uncomment before release
-// void _onCreateNewWalletPressed() {
-//   widget.popWrapperController.hideMenu();
-//   KiraScaffold.of(widget.appContext).navigateEndDrawerRoute(const CreateWalletPage());
-// }
 }

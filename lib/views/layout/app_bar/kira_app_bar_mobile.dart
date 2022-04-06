@@ -22,9 +22,7 @@ class _KiraAppBarMobile extends State<KiraAppBarMobile> with TickerProviderState
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-        color: widget.mobileDecoration.backgroundColor,
-      ),
+      decoration: BoxDecoration(color: widget.mobileDecoration.backgroundColor),
       child: Container(
         margin: const EdgeInsets.all(12),
         decoration: BoxDecoration(
@@ -35,35 +33,72 @@ class _KiraAppBarMobile extends State<KiraAppBarMobile> with TickerProviderState
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             children: <Widget>[
-              _buildAppBarContent(),
-              _buildBackdrop(),
+              _AppBarHeader(
+                leading: widget.mobileDecoration.leading,
+                title: widget.mobileDecoration.title,
+                trailing: widget.mobileDecoration.trailing,
+              ),
+              _BackdropContent(
+                backdropDuration: widget.mobileDecoration.backdropDuration,
+                collapsed: widget.isCollapsed,
+                menu: widget.menu,
+              )
             ],
           ),
         ),
       ),
     );
   }
+}
 
-  Widget _buildAppBarContent() {
+class _AppBarHeader extends StatelessWidget {
+  final Widget? leading;
+  final Widget? title;
+  final Widget? trailing;
+
+  const _AppBarHeader({
+    this.leading,
+    this.title,
+    this.trailing,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return SizedBox(
       height: AppSizes.kKiraAppBarHeight - 24,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          widget.mobileDecoration.leading ?? const SizedBox(),
-          widget.mobileDecoration.trailing ?? const SizedBox(),
+          leading ?? const SizedBox(),
+          if (title != null) title!,
+          trailing ?? const SizedBox(),
         ],
       ),
     );
   }
+}
 
-  Widget _buildBackdrop() {
+class _BackdropContent extends StatelessWidget {
+  final Duration backdropDuration;
+  final bool collapsed;
+  final Widget menu;
+
+  const _BackdropContent({
+    required this.backdropDuration,
+    required this.collapsed,
+    required this.menu,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return AnimatedSize(
-      duration: widget.mobileDecoration.backdropDuration,
+      duration: backdropDuration,
       child: SizedBox(
         width: double.infinity,
-        height: widget.isCollapsed ? MediaQuery.of(context).size.height - AppSizes.kKiraAppBarHeight : 0,
-        child: widget.menu,
+        height: collapsed ? MediaQuery.of(context).size.height - AppSizes.kKiraAppBarHeight : 0,
+        child: menu,
       ),
     );
   }
