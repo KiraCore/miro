@@ -3,52 +3,63 @@ class NetworkUtils {
       RegExp(r'^(?!0)(?!.*\.$)((1?\d?\d|25[0-5]|2[0-4]\d)(\.|$)){4}$', caseSensitive: false, multiLine: false);
 
   static Uri parseUrl(String urlToParse) {
-    try {
-      Uri uriFromUrl = _parseStringToUriWithSchema(urlToParse);
-      String finalUrl = '${uriFromUrl.scheme.isNotEmpty ? uriFromUrl.scheme : 'http'}://${uriFromUrl.host}';
-      if (_isIpAddress(uriFromUrl.host)) {
-        if (!_hasDefaultPort(uriFromUrl.port)) {
-          finalUrl += ':${uriFromUrl.port}';
-        } else {
-          finalUrl += ':11000';
-        }
-      }
-      Uri resultUri = Uri.parse(finalUrl);
-      return resultUri.replace(
-        queryParameters: uriFromUrl.queryParameters.isNotEmpty ? uriFromUrl.queryParameters : null,
-      );
-    } on FormatException {
-      rethrow;
+    Uri uri = _parseToUriWithSchema(urlToParse);
+    uri = _assignDefaultPort(uri);
+    return uri;
+  }
+
+  static Uri _parseToUriWithSchema(String text) {
+    String _text = text;
+    Uri uri;
+
+    if (_text.endsWith('/')) {
+      _text = _text.substring(0, text.length - 1);
     }
+
+    if (_text.startsWith('http://') || _text.startsWith('https://')) {
+      uri = Uri.parse(_text);
+    } else {
+      uri = Uri.parse('http://$_text');
+    }
+
+    if (_isLocalhost(uri)) {
+      uri = uri.replace(scheme: 'http');
+    }
+    return uri;
   }
 
-  static bool _hasDefaultPort(int port) {
-    final List<int> defaultPorts = <int>[0, 80, 443];
-    return defaultPorts.contains(port);
+  static Uri _assignDefaultPort(Uri uri) {
+    List<int> ignoredPorts = <int>[0, 80, 443];
+
+    // If uri is domain name, then return uri without changes, because domains don't have ports
+    // If uri is localhost address, then return uri without changes, because user specifies port
+    if (!_isIpAddress(uri) || _isLocalhost(uri)) {
+      return uri;
+    }
+
+    if (ignoredPorts.contains(uri.port)) {
+      // If uri is IP address without port specified, then assign default port
+      return uri.replace(port: 11000);
+    }
+
+    // If uri is IP address with port specified then return uri with custom port
+    return uri;
   }
 
-  static bool _isIpAddress(String text) {
+  static bool _isIpAddress(Uri uri) {
     try {
-      Uri uri = _parseStringToUriWithSchema(text);
-      bool isValid = ipAddressRegExp.hasMatch(uri.host);
-      return isValid;
+      return ipAddressRegExp.hasMatch(uri.host);
     } on FormatException {
       return false;
     }
   }
 
-  static Uri _parseStringToUriWithSchema(String text) {
-    try {
-      Uri uri = Uri.parse(text);
-      if (uri.host.isEmpty) {
-        throw const FormatException();
-      }
-      return uri;
-    } on FormatException {
-      if (text.contains('http')) {
-        rethrow;
-      }
-      return _parseStringToUriWithSchema('http://$text');
+  static bool _isLocalhost(Uri uri) {
+    List<String> localhostAddress = <String>['localhost', '127.0.0.1', '0.0.0.0'];
+
+    if (localhostAddress.contains(uri.host)) {
+      return true;
     }
+    return false;
   }
 }
