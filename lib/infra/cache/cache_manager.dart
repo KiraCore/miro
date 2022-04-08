@@ -44,6 +44,12 @@ class CacheManager {
       key: key,
     );
   }
+
+  void deleteAll<T>({required String boxName}) {
+    return _cacheRepository.deleteAll<T>(
+      boxName: boxName,
+    );
+  }
 }
 
 class _HiveCacheRepository extends _CacheRepository {
@@ -72,6 +78,11 @@ class _HiveCacheRepository extends _CacheRepository {
   void delete<T>({required String boxName, required String key}) {
     Hive.box<T>(boxName).delete(key);
   }
+
+  @override
+  void deleteAll<T>({required String boxName}) {
+    Hive.box<T>(boxName).clear();
+  }
 }
 
 class _MemoryCacheRepository extends _CacheRepository {
@@ -99,6 +110,12 @@ class _MemoryCacheRepository extends _CacheRepository {
     _cache.putIfAbsent(boxName, () => <String, dynamic>{});
     _cache[boxName]!.remove(key);
   }
+
+  @override
+  void deleteAll<T>({required String boxName}) {
+    _cache.putIfAbsent(boxName, () => <String, dynamic>{});
+    _cache[boxName]!.clear();
+  }
 }
 
 abstract class _CacheRepository {
@@ -109,4 +126,6 @@ abstract class _CacheRepository {
   void add<T>({required String boxName, required String key, required T value});
 
   void delete<T>({required String boxName, required String key});
+
+  void deleteAll<T>({required String boxName});
 }
