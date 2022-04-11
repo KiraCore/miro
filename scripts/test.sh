@@ -13,7 +13,7 @@ fvm flutter doctor -v
 
 if [ ! -z "$CHROMIUM_VERSION" ] ; then
     export CHROME_EXECUTABLE="$CHROME_EXECUTABLE"
-    fvm flutter test test/unit --platform chrome
+    fvm flutter test test/unit --platform chrome -v
 else
     echo "ERROR: chrome or chromium must be installed and added to your PATH!"
     echo "INFO: Reccomended solution: 'add-apt-repository -y ppa:system76/pop && apt install -y chromium-browser'"
