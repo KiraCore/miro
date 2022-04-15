@@ -6,7 +6,7 @@ set -x
 echo "INFO: Starting unit tests..."
 
 uname -a
-CHROME_EXECUTABLE=$(which google-chrome || which chrome || which chromium-browser || which chromium)
+CHROME_EXECUTABLE=$(which chrome || which google-chrome || which chromium-browser || which chromium)
 CHROMIUM_VERSION=$($CHROME_EXECUTABLE --version || echo "")
 
 fvm flutter doctor -v

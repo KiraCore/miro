@@ -16,8 +16,15 @@ jobs:
       id-token: write
       pull-requests: write
     container:
-      image: ghcr.io/kiracore/docker/base-image:v0.8.0.0
+      image: ghcr.io/kiracore/docker/base-image:v0.9.2-rc.2
     steps:
+      # Work around https://github.com/actions/checkout/issues/760
+      - name: Add safe.directory
+        run: |
+          git config --global --add safe.directory /usr/lib/flutter
+          git config --global --add safe.directory /github/workspace
+          git config --global --add safe.directory $PWD
+      # ref.: https://github.com/actions/checkout, v3.0.0
       - name: Checkout repository
         uses: actions/checkout@a12a3943b4bdde767164f792f33f40b04645d846
       - name: Checking dependency versions
@@ -49,7 +56,8 @@ jobs:
       - name: Inspecting & organizing artifacts
         run: |
           set -x
-          echo "(current dir): $PWD" && ls -l ./
+          cd ../ && tar -czvf src.tar.gz -C ./miro . && cp ./src.tar.gz ./miro/src.tar.gz
+          cd ./miro
           chmod -Rv 555 ./scripts
           VERSION_REGEX="^(v?)([0-9]+)\.([0-9]+)\.([0-9]+)(-?)([a-zA-Z]+)?(\.?([0-9]+)?)$"
           SOURCE_BRANCH=${{ env.SOURCE_BRANCH }}
@@ -65,6 +73,10 @@ jobs:
           fi
       - name: Print debug data before testing
         run: |
+          echo "(current dir): $PWD" && ls -l ./
+           . /etc/profile
+          flutter --version
+          echo "Bash Utils Version: $(bashUtilsVersion)"
           echo "     Source branch: ${{ env.SOURCE_BRANCH }}"
           echo "Destination branch: ${{ env.DESTINATION_BRANCH }}"
           echo "       Event name: ${{ github.event_name }}"
@@ -77,7 +89,9 @@ jobs:
           chmod -Rv 555 ./scripts
           make build
       - name: MIRO Unit Tests
+        uses: browser-actions/setup-chrome@199a6fa42e7ee7ed582f541afee4c97852a4afb2
         run: |
+          chrome --version
           make test
       #- name: MIRO Local Integration Tests
       #  run: |
@@ -93,8 +107,8 @@ jobs:
           echo -e "\n\r\n\r\`\`\`" >> ./bin/RELEASE.md
           echo -e "      Release Versions: $RELEASE_VER" >> ./bin/RELEASE.md
           echo -e "     Release Date Time: $(date --rfc-2822)" >> ./bin/RELEASE.md
-          echo "    source-code.tar.gz: sha256:$(sha256sum ./bin/source-code.tar.gz | awk '{ print $1 }')" >> ./bin/RELEASE.md
           echo "      html-web-app.zip: sha256:$(sha256sum ./bin/html-web-app.zip | awk '{ print $1 }')" >> ./bin/RELEASE.md
+          echo "    source-code.tar.gz: sha256:$(sha256sum ./bin/source-code.tar.gz | awk '{ print $1 }')" >> ./bin/RELEASE.md
           echo -e "\`\`\`"   >> ./bin/RELEASE.md
           tar -czvf bin.tar.gz -C ./bin .
       - name: Uploading artifacts
@@ -118,11 +132,12 @@ jobs:
       id-token: write
       pull-requests: write
     steps:
-      # ref.: https://github.com/sigstore/cosign-installer, v2.1.0
+      # Install the cosign tool
+      # ref.: https://github.com/sigstore/cosign-installer, v2.2.0
       - name: Install cosign
-        uses: sigstore/cosign-installer@581838fbedd492d2350a9ecd427a95d6de1e5d01
+        uses: sigstore/cosign-installer@d6a3abf1bdea83574e28d40543793018b6035605
         with:
-          cosign-release: 'v1.6.0'
+          cosign-release: 'v1.7.2'
       - name: Download artifacts
         uses: actions/download-artifact@v3.0.0
         with:
@@ -137,6 +152,7 @@ jobs:
           REPOSITORY_NAME="${{ github.event.repository.name }}"
           echo "REPOSITORY_NAME=$REPOSITORY_NAME" >> $GITHUB_ENV
           git ls-remote https://github.com/kiracore/$REPOSITORY_NAME | egrep -q "refs/tags/${RELEASE_VER}$" && echo "RELEASE_EXISTS=true" >> $GITHUB_ENV || echo "RELEASE_EXISTS=false" >> $GITHUB_ENV
+          [[ "$RELEASE_VER" == *"-rc"* ]] && echo "PRE_RELEASE=true" >> $GITHUB_ENV || echo "PRE_RELEASE=false" >> $GITHUB_ENV
       # Branch name is also a version of the release
       # ref: https://stackoverflow.com/questions/58033366/how-to-get-the-current-branch-within-github-actions
       - name: Extract branch name on push
@@ -176,36 +192,34 @@ jobs:
         if: |
           github.event_name == 'push' &&
           ( env.RELEASE_EXISTS == false || env.RELEASE_EXISTS == 'false' ) &&
-          ( startsWith(env.SOURCE_BRANCH, 'v') && contains(env.SOURCE_BRANCH, '.') && !contains(env.SOURCE_BRANCH, 'rc') && !contains(env.SOURCE_BRANCH, '-') )
+          ( startsWith(env.SOURCE_BRANCH, 'v') && contains(env.SOURCE_BRANCH, '.') )
         uses: softprops/action-gh-release@1e07f4398721186383de40550babbdf2b84acfc5
         with:
           body_path: RELEASE.md
           tag_name: ${{ env.SOURCE_BRANCH }}
           name: ${{ env.SOURCE_BRANCH }}
-          prerelease: false
+          prerelease: ${{ env.PRE_RELEASE }}
           draft: false
           fail_on_unmatched_files: true
           files: |
-            ./source-code.tar.gz
             ./html-web-app.zip
-      # ref: https://github.com/softprops/action-gh-release, v0.1.14
-      # Release on merge only (push action) - this should run only once, do NOT release already existing releases
-      - name: Publish pre-release
-        if: |
-          github.event_name == 'push' &&
-          ( env.RELEASE_EXISTS == false || env.RELEASE_EXISTS == 'false' ) &&
-          ( startsWith(env.SOURCE_BRANCH, 'v') && contains(env.SOURCE_BRANCH, '.') && contains(env.SOURCE_BRANCH, '-') )
-        uses: softprops/action-gh-release@1e07f4398721186383de40550babbdf2b84acfc5
+            ./html-web-app.zip.sig
+            ./source-code.tar.gz
+            ./source-code.tar.gz.sig
+      # ref.: https://github.com/hmarr/auto-approve-action, v2.1.0
+      - name: Approve pull request on success
+        uses: hmarr/auto-approve-action@5d04a5ca6da9aeb8ca9f31a5239b96fc3e003029
+        if: github.event_name == 'pull_request' 
         with:
-          body_path: RELEASE.md
-          tag_name: ${{ env.SOURCE_BRANCH }}
-          name: ${{ env.SOURCE_BRANCH }}
-          prerelease: true
-          draft: false
-          fail_on_unmatched_files: true
-          files: |
-            ./source-code.tar.gz
-            ./html-web-app.zip
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+      - name: Cleanup all resources
+        if: always()
+        shell: bash
+        run: |
+          shred -vzn 3 ../cosign.key || echo "WARNING: Failed to shred key file"
+          rm -fv ../cosign.key
+          rm -rfv ./*
+          echo "(current dir): $PWD" && ls -l ./
       # ref.: https://github.com/hmarr/auto-approve-action, v2.1.0
       - name: Approve pull request on success
         uses: hmarr/auto-approve-action@5d04a5ca6da9aeb8ca9f31a5239b96fc3e003029
