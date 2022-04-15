@@ -3,7 +3,7 @@ set -e
 . /etc/profile || echo "WARNING: Failed to load environment variables"
 set -x
 
-BASE_IMAGE_VERSION="v0.8.0.0"
+BASE_IMAGE_VERSION="v0.9.2-rc.2"
 CONTAINER=$(docker ps -a | awk '{ print $1,$2 }' | grep -m 1 "ghcr.io/kiracore/docker/base-image:$BASE_IMAGE_VERSION" | awk '{print $1 }' || echo "")
 
 if [ ! -z "$CONTAINER" ] ; then
