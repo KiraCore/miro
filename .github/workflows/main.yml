@@ -88,8 +88,12 @@ jobs:
           echo "(current dir): $PWD" && ls -l ./
           chmod -Rv 555 ./scripts
           make build
-      - name: MIRO Unit Tests
+      # ref.: https://github.com/browser-actions/setup-chrome
+      - name: Install Chrome
         uses: browser-actions/setup-chrome@199a6fa42e7ee7ed582f541afee4c97852a4afb2
+        with:
+            chrome-version: dev
+      - name: MIRO Unit Tests
         run: |
           chrome --version
           make test
