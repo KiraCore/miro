@@ -54,7 +54,7 @@ class _KiraTextField extends State<KiraTextField> {
           Text(
             widget.label!,
             style: TextStyle(
-              fontSize: 16,
+              fontSize: 14,
               color: _getLabelColor(),
             ),
           ),
@@ -68,6 +68,7 @@ class _KiraTextField extends State<KiraTextField> {
           readOnly: widget.readOnly,
           style: const TextStyle(
             color: DesignColors.white_100,
+            fontSize: 14,
           ),
           decoration: InputDecoration(
             filled: true,
@@ -81,6 +82,7 @@ class _KiraTextField extends State<KiraTextField> {
             hintText: widget.hint,
             hintStyle: const TextStyle(
               color: DesignColors.gray2_100,
+              fontSize: 14,
             ),
             border: InputBorder.none,
             enabledBorder: OutlineInputBorder(

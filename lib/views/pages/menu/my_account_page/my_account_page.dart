@@ -7,6 +7,7 @@ import 'package:miro/providers/wallet_provider.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/views/layout/footer/footer.dart';
 import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_page.dart';
+import 'package:miro/views/pages/menu/my_account_page/identity_registrar_page/identity_registrar_page.dart';
 import 'package:miro/views/pages/menu/my_account_page/my_account_tile.dart';
 import 'package:miro/views/pages/menu/my_account_page/transactions_page/transactions_page.dart';
 import 'package:miro/views/widgets/buttons/kira_elevated_button.dart';
@@ -34,6 +35,7 @@ class _MyAccountPage extends State<MyAccountPage> {
   void initState() {
     wallet = globalLocator<WalletProvider>().currentWallet!;
     pages = <Widget, Widget>{
+      const IdentityRegistrarPage(): _buildNavigationTab('Identity Registrar'),
       BalancePage(parentScrollController: scrollController): _buildNavigationTab('Balance'),
       const TransactionsPage(): _buildNavigationTab('Transactions')
     };

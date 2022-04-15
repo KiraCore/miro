@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:miro/blocs/specific_blocs/data/query_identity_records_by_address_data_bloc.dart';
 import 'package:miro/blocs/specific_blocs/drawer/drawer_cubit.dart';
 import 'package:miro/blocs/specific_blocs/lists/balance_list_bloc.dart';
 import 'package:miro/blocs/specific_blocs/network_connector/network_connector_cubit.dart';
@@ -44,6 +45,14 @@ List<SingleChildWidget> appListProviders = <SingleChildWidget>[
     ),
   ),
   ...listCubits,
+  ...dataCubits,
+];
+
+List<SingleChildWidget> dataCubits = <SingleChildWidget>[
+  BlocProvider<QueryIdentityRecordsByAddressDataBloc>(
+    lazy: false,
+    create: (BuildContext context) => QueryIdentityRecordsByAddressDataBloc(),
+  ),
 ];
 
 List<SingleChildWidget> listCubits = <SingleChildWidget>[
