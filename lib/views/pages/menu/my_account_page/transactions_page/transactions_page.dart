@@ -59,6 +59,11 @@ class _TransactionsPage extends State<TransactionsPage> {
         onDatePicked: _onDateFilterChanged,
       ),
       itemBuilder: (TransactionObject item) {
+        if (item.txs.isEmpty) {
+          return _EmptyTransactionListItem(
+            transactionObject: item,
+          );
+        }
         return _TransactionListItem(transactionObject: item);
       },
     );
@@ -120,6 +125,44 @@ const TextStyle kCellTextStyle = TextStyle(
   fontSize: 14,
 );
 
+class _EmptyTransactionListItem extends StatelessWidget {
+  final TransactionObject transactionObject;
+
+  const _EmptyTransactionListItem({
+    required this.transactionObject,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return _TransactionsListItemLayout(
+      iconWidget: const Icon(
+        Icons.error,
+        color: DesignColors.blue1_100,
+      ),
+      addressWidget: const Text(
+        'Undefined transaction',
+        style: kCellTextStyle,
+      ),
+      transactionHashWidget: _TransactionHashWidget(
+        hash: transactionObject.hash,
+      ),
+      statusWidget: _TransactionStatusWidget(
+        key: GlobalObjectKey('${transactionObject.hash}-status'),
+        hash: transactionObject.hash,
+      ),
+      dateWidget: Text(
+        DateFormat('d MMM, h:mm a').format(DateTime.fromMillisecondsSinceEpoch(transactionObject.time * 1000)),
+        style: kCellTextStyle,
+      ),
+      amountWidget: const Text(
+        'Undefined transaction',
+        style: kCellTextStyle,
+      ),
+    );
+  }
+}
+
 class _TransactionListItem extends StatelessWidget {
   final TransactionObject transactionObject;
 
@@ -144,45 +187,12 @@ class _TransactionListItem extends StatelessWidget {
           ),
         ),
       ),
-      transactionHashWidget: KiraToolTip(
-        message: transactionObject.hash,
-        child: Row(
-          children: <Widget>[
-            Expanded(
-              child: Text(
-                transactionObject.hash,
-                overflow: TextOverflow.clip,
-                maxLines: 1,
-                style: kCellTextStyle,
-              ),
-            ),
-            const Text(
-              '...',
-              style: kCellTextStyle,
-            ),
-            SizedBox(
-              height: 20,
-              child: IconButton(
-                padding: EdgeInsets.zero,
-                visualDensity: VisualDensity.compact,
-                onPressed: () {
-                  Clipboard.setData(ClipboardData(text: transactionObject.hash));
-                  KiraToast.show('Copied transaction address to clipboard');
-                },
-                splashRadius: 15,
-                icon: const Icon(
-                  AppIcons.copy,
-                  color: DesignColors.gray2_100,
-                  size: 15,
-                ),
-              ),
-            ),
-          ],
-        ),
+      transactionHashWidget: _TransactionHashWidget(
+        hash: transactionObject.hash,
       ),
       statusWidget: _TransactionStatusWidget(
         key: GlobalObjectKey('${transactionObject.hash}-status'),
-        transactionObject: transactionObject,
+        hash: transactionObject.hash,
       ),
       dateWidget: Text(
         DateFormat('d MMM, h:mm a').format(DateTime.fromMillisecondsSinceEpoch(transactionObject.time * 1000)),
@@ -230,6 +240,55 @@ class _TransactionListItem extends StatelessWidget {
       '${transactionObject.txs.first.amount} ${transactionObject.txs.first.denom}',
       style: kCellTextStyle.copyWith(
         color: DesignColors.gray2_100,
+      ),
+    );
+  }
+}
+
+class _TransactionHashWidget extends StatelessWidget {
+  final String hash;
+
+  const _TransactionHashWidget({
+    required this.hash,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return KiraToolTip(
+      message: hash,
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: Text(
+              hash,
+              overflow: TextOverflow.clip,
+              maxLines: 1,
+              style: kCellTextStyle,
+            ),
+          ),
+          const Text(
+            '...',
+            style: kCellTextStyle,
+          ),
+          SizedBox(
+            height: 20,
+            child: IconButton(
+              padding: EdgeInsets.zero,
+              visualDensity: VisualDensity.compact,
+              onPressed: () {
+                Clipboard.setData(ClipboardData(text: hash));
+                KiraToast.show('Copied transaction address to clipboard');
+              },
+              splashRadius: 15,
+              icon: const Icon(
+                AppIcons.copy,
+                color: DesignColors.gray2_100,
+                size: 15,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -321,10 +380,10 @@ class _ListCell extends StatelessWidget {
 }
 
 class _TransactionStatusWidget extends StatefulWidget {
-  final TransactionObject transactionObject;
+  final String hash;
 
   const _TransactionStatusWidget({
-    required this.transactionObject,
+    required this.hash,
     Key? key,
   }) : super(key: key);
 
@@ -336,8 +395,7 @@ class _TransactionStatusWidgetState extends State<_TransactionStatusWidget> {
   late TransactionsListBloc transactionsListBloc;
   bool loadingStatus = false;
 
-  QueryTransactionResultResp? get queryTransactionResultResp =>
-      transactionsListBloc.transactionsStatus[widget.transactionObject.hash];
+  QueryTransactionResultResp? get queryTransactionResultResp => transactionsListBloc.transactionsStatus[widget.hash];
 
   @override
   void initState() {
@@ -365,12 +423,12 @@ class _TransactionStatusWidgetState extends State<_TransactionStatusWidget> {
     try {
       QueryTransactionResultService queryTransactionResultService = globalLocator<QueryTransactionResultService>();
       QueryTransactionResultResp queryTransactionResultResp = await queryTransactionResultService.getTransactionDetails(
-        widget.transactionObject.hash,
+        widget.hash,
       );
-      transactionsListBloc.transactionsStatus[widget.transactionObject.hash] = queryTransactionResultResp;
+      transactionsListBloc.transactionsStatus[widget.hash] = queryTransactionResultResp;
     } catch (e) {
       AppLogger().log(
-        message: 'Cannot get transaction status for transaction ${widget.transactionObject.hash}',
+        message: 'Cannot get transaction status for transaction ${widget.hash}',
         logLevel: LogLevel.error,
       );
     }
