@@ -29,7 +29,7 @@ if [ ! -z "$CHROMEDRIVER_VERSION" ] ; then
     fvm flutter drive --driver=test_driver/integration_test.dart --target=test/unit/blocs/lists/balance_list_bloc_test.dart -d web-server --release
     fvm flutter drive --driver=test_driver/integration_test.dart --target=test/unit/blocs/network_connector_cubit_test.dart -d web-server --release
     fvm flutter drive --driver=test_driver/integration_test.dart --target=test/unit/blocs/drawer_cubit_test.dart -d web-server --release 
-    fvm flutter drive --driver=test_driver/integration_test.dart --target=test/unit/providers/network_provider_test.dart -d web-server --release 
+    fvm flutter drive --driver=test_driver/integration_test.dart --target=test/unit/providers/network_provider_test.dart -d web-server --release
 elif [ ! -z "$CHROMIUM_VERSION" ] ; then
     export CHROME_EXECUTABLE="$CHROME_EXECUTABLE"
     fvm flutter test test/unit/blocks --platform chrome -v

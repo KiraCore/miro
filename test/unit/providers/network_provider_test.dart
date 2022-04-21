@@ -10,6 +10,8 @@ import 'package:miro/test/test_locator.dart';
 // To run this test type in console:
 // fvm flutter test test/unit/providers/network_provider_test.dart --platform chrome
 Future<void> main() async {
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  
   await initTestLocator();
   setUpAll(TestWidgetsFlutterBinding.ensureInitialized);
 
