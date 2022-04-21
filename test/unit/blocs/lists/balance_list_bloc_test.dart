@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:integration_test/integration_test.dart';
 import 'package:miro/blocs/abstract_blocs/list_bloc/list_bloc.dart';
 import 'package:miro/blocs/specific_blocs/lists/balance_list_bloc.dart';
 import 'package:miro/config/locator.dart';
@@ -20,6 +21,8 @@ import 'package:miro/views/widgets/kira/kira_list/models/sorting_status.dart';
 // To run this test type in console:
 // fvm flutter test test/unit/blocs/lists/balance_list_bloc_test.dart --platform chrome
 Future<void> main() async {
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  
   // Actual values for tests
   final NetworkModel actualNetworkModel = NetworkModel(
     name: 'online.kira.network',

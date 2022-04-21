@@ -16,7 +16,7 @@ jobs:
       id-token: write
       pull-requests: write
     container:
-      image: ghcr.io/kiracore/docker/base-image:v0.9.4-rc.4
+      image: ghcr.io/kiracore/docker/base-image:v0.10.1-rc.8
     steps:
       # Work around https://github.com/actions/checkout/issues/760
       - name: Add safe.directory
@@ -93,7 +93,7 @@ jobs:
         uses: browser-actions/setup-chrome@latest
       - name: MIRO Unit Tests
         run: |
-          chrome --version
+          chromedriver --version
           make test
       #- name: MIRO Local Integration Tests
       #  run: |
@@ -151,8 +151,7 @@ jobs:
           chmod -Rv 777 ./
           RELEASE_VER=$(cat ./RELEASE.md | tac | grep -Fn -m 1 'Release Versions: ' | rev | cut -d ":" -f1 | rev | xargs | tr -dc '[:alnum:]\-\.' || echo '')
           echo "RELEASE_VER=$RELEASE_VER" >> $GITHUB_ENV
-          REPOSITORY_NAME="${{ github.event.repository.name }}"
-          echo "REPOSITORY_NAME=$REPOSITORY_NAME" >> $GITHUB_ENV
+          REPOSITORY_NAME="${{ github.event.repository.name }}" && echo "REPOSITORY_NAME=$REPOSITORY_NAME" >> $GITHUB_ENV
           git ls-remote https://github.com/kiracore/$REPOSITORY_NAME | egrep -q "refs/tags/${RELEASE_VER}$" && echo "RELEASE_EXISTS=true" >> $GITHUB_ENV || echo "RELEASE_EXISTS=false" >> $GITHUB_ENV
           [[ "$RELEASE_VER" == *"-rc"* ]] && echo "PRE_RELEASE=true" >> $GITHUB_ENV || echo "PRE_RELEASE=false" >> $GITHUB_ENV
       # Branch name is also a version of the release
@@ -188,6 +187,21 @@ jobs:
           spam_label: "Build Errors"
           close_spam_prs: "yes"
           access_token: ${{ secrets.GITHUB_TOKEN }}
+      # ref: https://github.com/softprops/action-gh-release, v0.1.14
+      # Release on merge only (push action) - this should run only once
+      - name: Signing release files
+        if: |
+          github.event_name == 'push' &&
+          ( env.RELEASE_EXISTS == false || env.RELEASE_EXISTS == 'false' ) &&
+          ( startsWith(env.SOURCE_BRANCH, 'v') && contains(env.SOURCE_BRANCH, '.') )
+        shell: bash
+        env:
+          KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
+          COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
+        run: |
+          echo "$KEY" > ../cosign.key
+          for FILE in *; do FILE_NAME=$(basename $FILE); cosign sign-blob --key=../cosign.key --output-signature=./${FILE_NAME}.sig ./$FILE_NAME; done
+          rm -fv ../cosign.key
       # ref: https://github.com/softprops/action-gh-release, v0.1.14
       # Release on merge only (push action) - this should run only once, do NOT release already existing releases
       - name: Publish release

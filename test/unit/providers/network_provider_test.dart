@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:integration_test/integration_test.dart';
 import 'package:miro/providers/network_provider/network_events.dart';
 import 'package:miro/providers/network_provider/network_provider.dart';
 import 'package:miro/providers/network_provider/network_states.dart';

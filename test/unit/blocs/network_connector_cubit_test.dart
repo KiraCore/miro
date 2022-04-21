@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:integration_test/integration_test.dart';
 import 'package:miro/blocs/specific_blocs/network_connector/network_connector_cubit.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api/query_interx_status/query_interx_status_resp.dart';
@@ -16,6 +17,8 @@ import 'package:miro/test/utils/test_utils.dart';
 // To run this test type in console:
 // fvm flutter test test/unit/blocs/network_connector_cubit_test.dart --platform chrome
 Future<void> main() async {
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  
   setUpAll(TestWidgetsFlutterBinding.ensureInitialized);
   await initTestLocator();
 
