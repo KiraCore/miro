@@ -21,7 +21,6 @@ fvm flutter test test/unit/shared
 fvm flutter test test/unit/providers/menu_provider_test.dart
 
 echoInfo "INFO: Starting browser dependent unit tests..."
-
 if [ ! -z "$CHROMEDRIVER_VERSION" ] ; then
     service dbus start || echoWarn "WARNINIG: Failed to start dbus"
     systemctl restart chromedriver || echoWarn "WARNINIG: Failed to restart chromedriver service"
