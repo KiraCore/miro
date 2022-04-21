@@ -3,10 +3,9 @@ set -e
 . /etc/profile || echo "WARNING: Failed to load environment variables"
 set -x
 
-SEKAI_VERSION="v0.1.24-rc.8"
-INTERX_VERSION="v0.4.2-rc.1"
-
-TOOLS_VERSION="v0.0.8.0"
+SEKAI_VERSION="v0.1.26-rc.11"
+INTERX_VERSION="v0.4.5-rc.4"
+TOOLS_VERSION="v0.1.1-rc.10"
 NETWORK_NAME="localnet-0"
 
 ##############################################################################################################
@@ -26,23 +25,40 @@ TEST_USER_3_MNEMONIC="either wasp emerge portion reward deposit switch suspect f
 
 WORKING_DIRECTORY="$PWD"
 ARCH=$(getArch)
-OS_VERSION=$(uname) && OS_VERSION="${OS_VERSION,,}"
-SEKAI_VERSION_CURRENT=$(sekaid version || echo "")
-INTERX_VERSION_CURRENT=$(interx version || echo "")
+PLATFORM=$(uname) && PLATFORM=$(echo "$PLATFORM" | tr '[:upper:]' '[:lower:]')
+COSIGN_INSTALLED=$(isCommand cosign &> /dev/null || echo "false")
+KIRA_COSIGN_PUB=/usr/keys/kira-cosign.pub && mkdir -p /usr/keys
 UTILS_VER=$(utilsVersion 2> /dev/null || echo "")
-UTILS_OLD_VER="false" && [[ $(versionToNumber "$UTILS_VER" || echo "0") -ge $(versionToNumber "v0.1.0.0" || echo "1") ]] || UTILS_OLD_VER="true" 
+UTILS_OLD_VER="false" && [[ $(versionToNumber "$UTILS_VER" || echo "0") -ge $(versionToNumber "v0.1.2.4" || echo "1") ]] || UTILS_OLD_VER="true" 
 
 ( [ "$ARCH" != "amd64" ] && [ "$ARCH" != "arm64" ] ) && echo "ERROR: Unsupported system architecture '$ARCH'" && exit 1
-( [ "$OS_VERSION" != "windows" ] && [ "$OS_VERSION" != "linux" ] && [ "$OS_VERSION" != "darwin" ] ) && echo "ERROR: Unsupported operting system '$OS_VERSION'" && exit 1
+( [ "$PLATFORM" != "windows" ] && [ "$PLATFORM" != "linux" ] && [ "$PLATFORM" != "darwin" ] ) && echo "ERROR: Unsupported operting system '$PLATFORM'" && exit 1
 
-echo "INFO: Ensuring essential dependencies are installed & up to date"
 cd /tmp
 
+if [ "$COSIGN_INSTALLED" != "true" ] ; then
+    echo "INFO: Installing cosign"
+    FILE_NAME=$(echo "cosign-${PLATFORM}-${ARCH}" | tr '[:upper:]' '[:lower:]') && \
+        wget https://github.com/sigstore/cosign/releases/download/${COSIGN_VERSION}/$FILE_NAME && chmod +x -v ./$FILE_NAME && \
+        mv -fv ./$FILE_NAME /usr/local/bin/cosign && cosign version
+fi
+
+cat > $KIRA_COSIGN_PUB << EOL
+-----BEGIN PUBLIC KEY-----
+MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAE/IrzBQYeMwvKa44/DF/HB7XDpnE+
+f+mU9F/Qbfq25bBWV2+NlYMJv3KvKHNtu3Jknt6yizZjUV4b8WGfKBzFYw==
+-----END PUBLIC KEY-----
+EOL
+
+echo "INFO: Ensuring essential dependencies are installed & up to date"
+
 if [ "$UTILS_OLD_VER" == "true" ] ; then
-    wget "https://github.com/KiraCore/tools/releases/download/$TOOLS_VERSION/kira-utils.sh" -O ./utils.sh && \
-        FILE_HASH=$(sha256sum ./utils.sh | awk '{ print $1 }' | xargs || echo -n "") && \
-        [ "$FILE_HASH" == "1cfb806eec03956319668b0a4f02f2fcc956ed9800070cda1870decfe2e6206e" ] && \
-        chmod 555 ./utils.sh && ./utils.sh utilsSetup ./utils.sh "/var/kiraglob" && . /etc/profile
+    FILE_NAME="bash-utils.sh" && \
+        wget "https://github.com/KiraCore/tools/releases/download/$TOOLS_VERSION/${FILE_NAME}" -O ./$FILE_NAME && \
+        wget "https://github.com/KiraCore/tools/releases/download/$TOOLS_VERSION/${FILE_NAME}.sig" -O ./${FILE_NAME}.sig && \
+        cosign verify-blob --key="$KIRA_COSIGN_PUB" --signature=./${FILE_NAME}.sig ./$FILE_NAME && \
+        chmod -v 755 ./$FILE_NAME && ./$FILE_NAME bashUtilsSetup "/var/kiraglob" && . /etc/profile && \
+        echoInfo "INFO: Installed bash-utils $(bash-utils bashUtilsVersion)"
 else
     echoInfo "INFO: KIRA utils are up to date, latest version $UTILS_VER" && sleep 2
 fi
@@ -62,38 +78,23 @@ if [ -z "$KIRA_BIN" ] ; then
     mkdir -p $KIRA_BIN
 fi
 
-if [ "$SEKAI_VERSION_CURRENT" != "$SEKAI_VERSION" ] ; then
-    echoWarn "WARNING: New version of sekaid MUST be installed, version '$SEKAI_VERSION_CURRENT' is obsolete, expevted '$SEKAI_VERSION'" && sleep 3
-    DEB_FILE=sekai-${OS_VERSION}-${ARCH}.deb && rm -frv ./$DEB_FILE ./sekaid && \
-        wget https://github.com/KiraCore/sekai/releases/download/${SEKAI_VERSION}/$DEB_FILE && \
-        dpkg-deb -x ./$DEB_FILE ./sekaid && \
-        cp -fv ./sekaid/bin/sekaid $KIRA_BIN/sekaid
-    
-    chmod 555 $KIRA_BIN/sekaid
-    sekaid version
+cd $KIRA_BIN
 
-    SEKAI_UTILS_FILE="sekai-utils.sh" && rm -fv ./$SEKAI_UTILS_FILE && \
-    wget https://github.com/KiraCore/sekai/releases/download/${SEKAI_VERSION}/$SEKAI_UTILS_FILE && \
-        chmod 555 ./$SEKAI_UTILS_FILE && ./$SEKAI_UTILS_FILE sekaiUtilsSetup && . /etc/profile
+BIN_DEST="/usr/local/bin/sekaid" && \
+  safeWget ./sekaid.deb "https://github.com/KiraCore/sekai/releases/download/$SEKAI_VERSION/sekai-linux-${ARCH}.deb" \
+  "$KIRA_COSIGN_PUB" && dpkg-deb -x ./sekaid.deb ./sekaid && cp -fv "$KIRA_BIN/sekaid/bin/sekaid" $BIN_DEST && chmod -v 755 $BIN_DEST
 
-    sekaiUtilsVersion
-else
-    echoInfo "INFO: Sekai '$SEKAI_VERSION_CURRENT' is up to date, no need to install"
-fi
+BIN_DEST="/usr/local/bin/sekai-utils.sh" && \
+  safeWget ./sekai-utils.sh "https://github.com/KiraCore/sekai/releases/download/$SEKAI_VERSION/sekai-utils.sh" \
+  "$KIRA_COSIGN_PUB" && chmod -v 755 ./sekai-utils.sh && ./sekai-utils.sh sekaiUtilsSetup && . /etc/profile && chmod -v 755 $BIN_DEST
 
-if [ "$INTERX_VERSION_CURRENT" != "$INTERX_VERSION" ] ; then
-    echoWarn "WARNING: New version of interx MUST be installed, version '$INTERX_VERSION_CURRENT' is obsolete, expevted '$INTERX_VERSION'" && sleep 3
-    DEB_FILE=interx-${OS_VERSION}-${ARCH}.deb && rm -frv ./$DEB_FILE ./interx && \
-     wget https://github.com/KiraCore/interx/releases/download/${INTERX_VERSION}/$DEB_FILE && \
-     cp -fv $DEB_FILE $KIRA_BIN/interx && \
-     dpkg-deb -x ./$DEB_FILE ./interx && \
-     cp -fv ./interx/bin/interx $KIRA_BIN/interx
+FILE=/usr/local/bin/sekai-env.sh && \
+safeWget $FILE "https://github.com/KiraCore/sekai/releases/download/$SEKAI_VERSION/sekai-env.sh" \
+  "$KIRA_COSIGN_PUB" && chmod -v 755 $FILE && setGlobLine "source $FILE" "source $FILE"
 
-     chmod 555 $KIRA_BIN/interx
-     interx version
-else
-    echoInfo "INFO: Interx '$SEKAI_VERSION_CURRENT' is up to date, no need to install"
-fi
+BIN_DEST="/usr/local/bin/interx" && \
+safeWget ./interx.deb "https://github.com/KiraCore/interx/releases/download/$INTERX_VERSION/interx-linux-${ARCH}.deb" \
+  "$KIRA_COSIGN_PUB" && dpkg-deb -x ./interx.deb ./interx && cp -fv "$KIRA_BIN/interx/bin/interx" $BIN_DEST && chmod -v 755 $BIN_DEST
 
 cd $WORKING_DIRECTORY
 
@@ -130,7 +131,7 @@ MemorySwapMax=0
 Type=simple
 User=root
 WorkingDirectory=/root
-ExecStart=$KIRA_BIN/sekaid start --home=$SEKAID_HOME --trace
+ExecStart=/usr/local/bin/sekaid start --home=$SEKAID_HOME --trace
 Restart=always
 RestartSec=5
 LimitNOFILE=4096
@@ -177,7 +178,7 @@ MemorySwapMax=0
 Type=simple
 User=root
 WorkingDirectory=/root
-ExecStart=$KIRA_BIN/interx start --home=$INTERX_HOME
+ExecStart=/usr/local/bin/interx start --home=$INTERX_HOME
 Restart=always
 RestartSec=5
 LimitNOFILE=4096

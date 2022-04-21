@@ -16,16 +16,19 @@ fvm flutter doctor -v
 # This command is essential for all VM environments due to git security policies
 git config --global --add safe.directory /usr/lib/flutter
 
-echoInfo "INFO: Starting browser NOT dependent unit tests..."
+echo "INFO: Starting browser NOT dependent unit tests..."
 fvm flutter test test/unit/shared
 fvm flutter test test/unit/providers/menu_provider_test.dart
 
-echoInfo "INFO: Starting browser dependent unit tests..."
+echo "INFO: Starting browser dependent unit tests..."
 if [ ! -z "$CHROMEDRIVER_VERSION" ] ; then
     service dbus start || echoWarn "WARNINIG: Failed to start dbus"
     systemctl restart chromedriver || echoWarn "WARNINIG: Failed to restart chromedriver service"
     
     # The --release flag is essential for running browser dependent tests in UI, see https://github.com/jonsamwell/flutter_gherkin/issues/66
+    # each browser dependent test requires: `import 'package:integration_test/integration_test.dart';`
+    # as well as: `IntegrationTestWidgetsFlutterBinding.ensureInitialized();` in the first line of the main function
+    # for the browser dependent tests reference see: https://docs.flutter.dev/cookbook/testing/integration/introduction#4-write-the-integration-test
     fvm flutter drive --driver=test_driver/integration_test.dart --target=test/unit/blocs/lists/balance_list_bloc_test.dart -d web-server --release
     fvm flutter drive --driver=test_driver/integration_test.dart --target=test/unit/blocs/network_connector_cubit_test.dart -d web-server --release
     fvm flutter drive --driver=test_driver/integration_test.dart --target=test/unit/blocs/drawer_cubit_test.dart -d web-server --release 

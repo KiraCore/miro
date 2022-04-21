@@ -16,7 +16,7 @@ jobs:
       id-token: write
       pull-requests: write
     container:
-      image: ghcr.io/kiracore/docker/base-image:v0.10.1-rc.8
+      image: ghcr.io/kiracore/docker/base-image:v0.10.2-rc.9
     steps:
       # Work around https://github.com/actions/checkout/issues/760
       - name: Add safe.directory
@@ -92,9 +92,9 @@ jobs:
         run: |
           chromedriver --version
           make test
-      #- name: MIRO Local Integration Tests
-      #  run: |
-      #    make local-test
+      - name: MIRO Local Integration Tests
+        run: |
+          make local-test
       - name: Publishing MIRO Binaries
         shell: bash
         run: |
