@@ -6,6 +6,7 @@ set -x
 SEKAI_VERSION="v0.1.26-rc.11"
 INTERX_VERSION="v0.4.5-rc.4"
 TOOLS_VERSION="v0.1.1-rc.10"
+COSIGN_VERSION="v1.7.2"
 NETWORK_NAME="localnet-0"
 
 ##############################################################################################################
@@ -24,14 +25,13 @@ TEST_USER_3_MNEMONIC="either wasp emerge portion reward deposit switch suspect f
 ##############################################################################################################
 
 WORKING_DIRECTORY="$PWD"
-ARCH=$(getArch)
+ARCH=$(uname -m) && ( [[ "${ARCH,,}" == *"arm"* ]] || [[ "${ARCH,,}" == *"aarch"* ]] ) && ARCH="arm64" || ARCH="amd64"
 PLATFORM=$(uname) && PLATFORM=$(echo "$PLATFORM" | tr '[:upper:]' '[:lower:]')
 COSIGN_INSTALLED=$(isCommand cosign &> /dev/null || echo "false")
 KIRA_COSIGN_PUB=/usr/keys/kira-cosign.pub && mkdir -p /usr/keys
 UTILS_VER=$(utilsVersion 2> /dev/null || echo "")
 UTILS_OLD_VER="false" && [[ $(versionToNumber "$UTILS_VER" || echo "0") -ge $(versionToNumber "v0.1.2.4" || echo "1") ]] || UTILS_OLD_VER="true" 
 
-( [ "$ARCH" != "amd64" ] && [ "$ARCH" != "arm64" ] ) && echo "ERROR: Unsupported system architecture '$ARCH'" && exit 1
 ( [ "$PLATFORM" != "windows" ] && [ "$PLATFORM" != "linux" ] && [ "$PLATFORM" != "darwin" ] ) && echo "ERROR: Unsupported operting system '$PLATFORM'" && exit 1
 
 cd /tmp
@@ -62,6 +62,9 @@ if [ "$UTILS_OLD_VER" == "true" ] ; then
 else
     echoInfo "INFO: KIRA utils are up to date, latest version $UTILS_VER" && sleep 2
 fi
+
+ARCH=$(getArch)
+( [ "$ARCH" != "amd64" ] && [ "$ARCH" != "arm64" ] ) && echo "ERROR: Unsupported system architecture '$ARCH'" && exit 1
 
 # Essential tool to provide SYSTEMD replacement on OS that might NOT have it mounted such as WSL2 and Docker
 SYSCTRL_DESTINATION=/usr/local/bin/systemctl2
