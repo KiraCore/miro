@@ -40,8 +40,8 @@ class _MyAccountPage extends State<MyAccountPage> {
   void initState() {
     wallet = globalLocator<WalletProvider>().currentWallet!;
     pages = <Widget, Widget>{
-      TransactionsPage(parentScrollController: scrollController): _buildNavigationTab('Transactions'),
       BalancePage(parentScrollController: scrollController): _buildNavigationTab('Balance'),
+      TransactionsPage(parentScrollController: scrollController): _buildNavigationTab('Transactions'),
     };
     BlocProvider.of<BalanceListBloc>(context).add(InitListEvent());
     BlocProvider.of<TransactionsListBloc>(context).add(InitListEvent());
