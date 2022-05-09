@@ -7,7 +7,7 @@ import 'package:miro/shared/utils/app_logger.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
 import 'package:miro/views/pages/drawer/login_page/create_wallet_link_button.dart';
 import 'package:miro/views/pages/drawer/login_page/login_saifu_page/login_public_key_section.dart';
-import 'package:miro/views/pages/drawer/login_page/login_saifu_page/saifu_camera_widget.dart';
+import 'package:miro/views/widgets/generic/camera_widget.dart';
 
 class LoginSaifuPage extends StatefulWidget {
   const LoginSaifuPage({Key? key}) : super(key: key);
@@ -29,7 +29,7 @@ class _LoginSaifuPage extends State<LoginSaifuPage> {
         Text('Connect a wallet with Saifu', style: Theme.of(context).textTheme.headline1),
         Text('Enter QR code with your Saifu app', style: Theme.of(context).textTheme.headline2),
         const SizedBox(height: 24),
-        SaifuCameraWidget(
+        CameraWidget(
           width: double.infinity,
           height: 228,
           validate: _validatePublicAddress,

@@ -4,14 +4,14 @@ import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/views/widgets/generic/center_load_spinner.dart';
 import 'package:miro/views/widgets/generic/qr_scanner/qr_scanner.dart';
 
-class SaifuCameraWidget extends StatefulWidget {
+class CameraWidget extends StatefulWidget {
   final String? errorMessage;
   final double width;
   final double height;
-  final String? Function(String publicAddress) validate;
+  final String? Function(String value) validate;
   final VoidQrReceivedCallback onReceiveQrCode;
 
-  const SaifuCameraWidget({
+  const CameraWidget({
     required this.validate,
     required this.onReceiveQrCode,
     this.errorMessage,
@@ -21,10 +21,10 @@ class SaifuCameraWidget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _SaifuCameraWidget();
+  State<StatefulWidget> createState() => _CameraWidget();
 }
 
-class _SaifuCameraWidget extends State<SaifuCameraWidget> {
+class _CameraWidget extends State<CameraWidget> {
   String? errorMessage;
 
   @override

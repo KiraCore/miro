@@ -7,25 +7,26 @@ import 'package:miro/providers/network_provider/network_provider.dart';
 import 'package:miro/providers/wallet_provider.dart';
 
 abstract class _QueryBalanceService {
-  Future<QueryBalanceResp?> getMyAccountBalance();
+  Future<QueryBalanceResp> getMyAccountBalance({Uri? customNetworkUri});
 
-  Future<QueryBalanceResp?> getAccountBalance(Uri networkUri, QueryBalanceReq queryBalanceReq);
+  Future<QueryBalanceResp> getAccountBalance(QueryBalanceReq queryBalanceReq, {Uri? customNetworkUri});
 }
 
 class QueryBalanceService implements _QueryBalanceService {
   final ApiCosmosRepository _apiCosmosRepository = globalLocator<ApiCosmosRepository>();
 
   @override
-  Future<QueryBalanceResp?> getMyAccountBalance() async {
-    Uri networkUri = globalLocator<NetworkProvider>().networkUri!;
+  Future<QueryBalanceResp> getMyAccountBalance({Uri? customNetworkUri}) async {
+    Uri networkUri = customNetworkUri ?? globalLocator<NetworkProvider>().networkUri!;
     QueryBalanceReq queryBalanceReq = QueryBalanceReq(
       address: globalLocator<WalletProvider>().currentWallet!.address.bech32Address,
     );
-    return await getAccountBalance(networkUri, queryBalanceReq);
+    return await getAccountBalance(queryBalanceReq, customNetworkUri: networkUri);
   }
 
   @override
-  Future<QueryBalanceResp?> getAccountBalance(Uri networkUri, QueryBalanceReq queryBalanceReq) async {
+  Future<QueryBalanceResp> getAccountBalance(QueryBalanceReq queryBalanceReq, {Uri? customNetworkUri}) async {
+    Uri networkUri = customNetworkUri ?? globalLocator<NetworkProvider>().networkUri!;
     try {
       final Response<dynamic> response =
           await _apiCosmosRepository.fetchQueryBalance<dynamic>(networkUri, queryBalanceReq);

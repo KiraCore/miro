@@ -28,6 +28,10 @@ class TokenAlias extends Equatable {
     );
   }
 
+  String get lowestDenomination {
+    return denoms.first;
+  }
+
   @override
   List<Object?> get props => <Object>[
         decimals.hashCode,

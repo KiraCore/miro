@@ -44,6 +44,7 @@ class SignedSignature {
     // Get the compressed Base64 public key
     final List<int> pubKeyCompressed = ecPublicKey.Q!.getEncoded(true);
 
+    print(base64Encode(signatureData));
     return SignedSignature._(
       signature: base64Encode(signatureData),
       publicKey: TxPubKey(key: base64Encode(pubKeyCompressed)),

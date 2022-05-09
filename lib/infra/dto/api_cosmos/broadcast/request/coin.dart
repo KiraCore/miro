@@ -14,4 +14,9 @@ class Coin {
       'denom': denom,
     };
   }
+
+  @override
+  String toString() {
+    return '$value $denom';
+  }
 }

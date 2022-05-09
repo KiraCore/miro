@@ -78,8 +78,8 @@ void main() {
 
   group('Tests of CryptoAddressParser.bytesToInt() method', () {
     // @formatter:off
-    final Uint8List actualBytes = Uint8List.fromList(<int>[67, 120, 50, 23, 45, 152, 229, 35, 167, 252, 116, 139, 158, 211, 58, 199, 41, 33, 150, 76]);
-    final BigInt expectedInt = BigInt.parse('385182834570421086524114545486521958202987353676');
+    final Uint8List actualBytes = Uint8List.fromList(<int>[24, 150, 222, 103, 126, 90, 125, 224, 107, 237, 117, 102, 114, 92, 30, 88, 74, 148, 19, 223, 144, 103, 251, 171, 171, 157, 167, 243, 12, 239, 17, 156]);
+    final BigInt expectedInt = BigInt.parse('11122070403585220070824613977251566047543942799146369922011927922925181538716');
     // @formatter:on
     test('Should return BigInt from given bytes', () {
       expect(
@@ -91,8 +91,8 @@ void main() {
 
   group('Tests of CryptoAddressParser.intToBytes() method', () {
     // @formatter:off
-    final BigInt actualInt = BigInt.parse('385182834570421086524114545486521958202987353676');
-    final Uint8List expectedBytes = Uint8List.fromList(<int>[67, 120, 50, 23, 45, 152, 229, 35, 167, 252, 116, 139, 158, 211, 58, 199, 41, 33, 150, 76]);
+    final BigInt actualInt = BigInt.parse('11122070403585220070824613977251566047543942799146369922011927922925181538716');
+    final Uint8List expectedBytes = Uint8List.fromList(<int>[24, 150, 222, 103, 126, 90, 125, 224, 107, 237, 117, 102, 114, 92, 30, 88, 74, 148, 19, 223, 144, 103, 251, 171, 171, 157, 167, 243, 12, 239, 17, 156]);
     // @formatter:on
     test('Should return bytes from given BigInt', () {
       expect(

@@ -1,13 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/broadcast_req.dart';
-import 'package:miro/infra/dto/api_cosmos/broadcast/response/broadcast_resp.dart';
 import 'package:miro/infra/dto/api_cosmos/query_account/request/query_account_req.dart';
 import 'package:miro/infra/dto/api_cosmos/query_account/response/query_account_resp.dart';
 import 'package:miro/infra/dto/api_cosmos/query_balance/request/query_balance_req.dart';
 import 'package:miro/shared/utils/api_manager.dart';
 
 abstract class ApiCosmosRepository {
-  Future<BroadcastResp> broadcast(Uri networkUri, BroadcastReq request);
+  Future<Response<T>> broadcast<T>(Uri networkUri, BroadcastReq request);
 
   Future<QueryAccountResp> fetchQueryAccount(Uri networkUri, QueryAccountReq request);
 
@@ -18,14 +17,14 @@ class RemoteApiCosmosRepository implements ApiCosmosRepository {
   final ApiManager _api = ApiManager();
 
   @override
-  Future<BroadcastResp> broadcast(Uri networkUri, BroadcastReq request) async {
+  Future<Response<T>> broadcast<T>(Uri networkUri, BroadcastReq request) async {
     try {
-      final Response<Map<String, dynamic>> response = await _api.post<Map<String, dynamic>>(
+      final Response<T> response = await _api.post<T>(
         body: request.toJson(),
         networkUri: networkUri,
         path: '/api/cosmos/txs',
       );
-      return BroadcastResp.fromJson(response.data!);
+      return response;
     } on DioError {
       rethrow;
     }

@@ -7,6 +7,7 @@ import 'package:miro/infra/cache/cache_manager.dart';
 import 'package:miro/providers/app_config_provider.dart';
 import 'package:miro/providers/app_list_providers.dart';
 import 'package:miro/shared/guards/auth_guard.dart';
+import 'package:miro/shared/guards/empty_params_guard.dart';
 import 'package:miro/shared/guards/navigation_guard.dart';
 import 'package:miro/shared/guards/url_parameters_guard.dart';
 import 'package:miro/shared/router/router.gr.dart';
@@ -42,6 +43,7 @@ class _CoreApp extends State<CoreApp> {
     authGuard: AuthGuard(),
     urlParametersGuard: UrlParametersGuard(),
     navigationGuard: NavigationGuard(),
+    emptyParamsGuard: EmptyParamsGuard(),
   );
 
   @override

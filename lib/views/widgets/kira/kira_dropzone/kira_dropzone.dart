@@ -1,24 +1,24 @@
-import 'dart:html' as html;
-
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dropzone/flutter_dropzone.dart';
-import 'package:miro/views/widgets/kira/kira_dropzone/models/dropzone_controller.dart';
+import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/views/widgets/generic/text_link.dart';
+import 'package:miro/views/widgets/kira/kira_dropzone/dropzone_area.dart';
+import 'package:miro/views/widgets/kira/kira_dropzone/models/dropzone_area_controller.dart';
 import 'package:miro/views/widgets/kira/kira_dropzone/models/dropzone_file.dart';
+import 'package:miro/views/widgets/kira/kira_dropzone/models/kira_dropzone_controller.dart';
 
 class KiraDropzone extends StatefulWidget {
   final KiraDropzoneController controller;
-  final ValueChanged<DropzoneFile>? onPickFile;
-  final ValueChanged<String?>? onError;
-  final VoidCallback? onHover;
-  final VoidCallback? onLeave;
+  final ValidateDropzoneFile validate;
+  final double width;
+  final double height;
+  final String title;
 
   const KiraDropzone({
     required this.controller,
-    this.onPickFile,
-    this.onError,
-    this.onHover,
-    this.onLeave,
+    required this.validate,
+    required this.title,
+    this.width = double.infinity,
+    this.height = 128,
     Key? key,
   }) : super(key: key);
 
@@ -27,7 +27,10 @@ class KiraDropzone extends StatefulWidget {
 }
 
 class _KiraDropzone extends State<KiraDropzone> {
-  late DropzoneViewController dropzoneViewController;
+  final DropzoneAreaController dropzoneAreaController = DropzoneAreaController();
+  bool isHover = false;
+  DropzoneFile? actualFile;
+  String? errorMessage;
 
   @override
   void initState() {
@@ -37,62 +40,153 @@ class _KiraDropzone extends State<KiraDropzone> {
 
   @override
   Widget build(BuildContext context) {
-    return DropzoneView(
-      operation: DragOperation.all,
-      cursor: CursorType.grab,
-      onCreated: (DropzoneViewController controller) => dropzoneViewController = controller,
-      onError: widget.onError,
-      onHover: widget.onHover,
-      onDrop: _onDropzoneDrop,
-      onLeave: widget.onLeave,
+    return Container(
+      height: widget.height,
+      width: widget.width,
+      decoration: BoxDecoration(
+        border: Border.all(
+          width: 1,
+          color: errorMessage != null ? DesignColors.red_100 : DesignColors.blue1_100,
+        ),
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Stack(
+        children: <Widget>[
+          Positioned.fill(
+            child: DropzoneArea(
+              controller: dropzoneAreaController,
+              onHover: () => _setHoverState(status: true),
+              onLeave: () => _setHoverState(status: false),
+              onPickFile: _onFilePicked,
+            ),
+          ),
+          Positioned.fill(
+            child: Padding(
+              padding: const EdgeInsets.all(10),
+              child: _buildPreview(),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
   void _initController() {
     widget.controller.initController(
-      pickFile: _pickFileManual,
+      dropzoneAreaController: dropzoneAreaController,
+      validate: _validate,
+      setErrorMessage: _setErrorMessage,
     );
   }
 
-  Future<DropzoneFile?> _pickFileManual() async {
-    FilePickerResult? uploadResult = await FilePicker.platform.pickFiles(allowMultiple: false);
-    if (uploadResult != null) {
-      PlatformFile platformFile = uploadResult.files.single;
-      if (platformFile.bytes == null) {
-        return null;
-      }
-      DropzoneFile file = DropzoneFile(
-        name: platformFile.name,
-        size: platformFile.size,
-        extension: platformFile.extension,
-        content: String.fromCharCodes(platformFile.bytes!),
-      );
-      _setFile(file);
-      return file;
-    }
-    return null;
+  String? _validate() {
+    errorMessage = widget.validate(actualFile);
+    setState(() {});
+    return errorMessage;
   }
 
-  void _onDropzoneDrop(dynamic uploadedFile) {
-    if (uploadedFile is html.File) {
-      final html.FileReader reader = html.FileReader()..readAsText(uploadedFile);
-      reader.onLoadEnd.listen((html.ProgressEvent event) {
-        String result = reader.result.toString();
-        DropzoneFile file = DropzoneFile(
-          name: uploadedFile.name,
-          size: uploadedFile.size,
-          extension: uploadedFile.name.split('.').last,
-          content: result,
-        );
-        _setFile(file);
-      });
-    }
+  void _setErrorMessage(String? message) {
+    setState(() {
+      errorMessage = message;
+    });
   }
 
-  void _setFile(DropzoneFile file) {
-    widget.controller.currentFile = file;
-    if (widget.onPickFile != null) {
-      widget.onPickFile!(file);
+  void _onFilePicked(DropzoneFile file) {
+    _setHoverState(status: false);
+    setState(() {
+      errorMessage = widget.validate(file);
+      actualFile = file;
+    });
+  }
+
+  void _setHoverState({required bool status}) {
+    setState(() {
+      isHover = status;
+    });
+  }
+
+  Widget _buildPreview() {
+    if (isHover) {
+      return _buildDropPreview();
     }
+    if (actualFile == null) {
+      return _buildEmptyPreview();
+    }
+    return _buildFilePreview();
+  }
+
+  Widget _buildDropPreview() {
+    return Center(
+      child: Text(
+        'Drop file'.toUpperCase(),
+        style: Theme.of(context).textTheme.headline1,
+      ),
+    );
+  }
+
+  Widget _buildEmptyPreview() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        Text(widget.title),
+        Wrap(
+          alignment: WrapAlignment.center,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: <Widget>[
+            const Text('or '),
+            TextLink(
+              'browse',
+              onTap: () {
+                dropzoneAreaController.pickFile();
+              },
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildFilePreview() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        const Icon(
+          Icons.insert_drive_file,
+          color: DesignColors.gray2_100,
+          size: 50,
+        ),
+        const SizedBox(width: 8),
+        SizedBox(
+          width: 200,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                actualFile!.name,
+                overflow: TextOverflow.ellipsis,
+                style: const TextStyle(
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              if (errorMessage == null)
+                Text(
+                  actualFile!.sizeString,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(color: DesignColors.gray2_100),
+                )
+              else
+                Text(
+                  errorMessage!,
+                  overflow: TextOverflow.ellipsis,
+                  style: const TextStyle(color: DesignColors.red_100),
+                ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 }

@@ -1,24 +1,17 @@
+import 'dart:convert';
 import 'dart:html' as html;
+import 'dart:typed_data';
 
 class BrowserUtils {
   static void replaceUrl(Uri newUrl) {
     html.window.history.replaceState(<String, dynamic>{}, '', newUrl.toString());
   }
 
-  static void downloadFile(List<dynamic> content, String name) {
-    final html.Blob blob = html.Blob(content);
-    final String url = html.Url.createObjectUrlFromBlob(blob);
-    final html.AnchorElement anchor = html.document.createElement('a') as html.AnchorElement
-      ..href = url
-      ..style.display = 'none'
-      ..download = name;
-    html.document.body!.children.add(anchor);
-
-    // download
-    anchor.click();
-
-    // cleanup
-    html.document.body!.children.remove(anchor);
-    html.Url.revokeObjectUrl(url);
+  static void downloadFile(Uint8List data, String name) {
+    final String content = base64Encode(data);
+    final html.AnchorElement anchor =
+        html.AnchorElement(href: 'data:application/octet-stream;charset=utf-16le;base64,$content')
+          ..setAttribute('download', name)
+          ..click();
   }
 }

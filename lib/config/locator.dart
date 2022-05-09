@@ -13,6 +13,7 @@ import 'package:miro/infra/services/api_cosmos/query_balance_service.dart';
 import 'package:miro/infra/services/api_cosmos/transactions_service.dart';
 import 'package:miro/infra/services/api_kira/query_kira_tokens_aliases_service.dart';
 import 'package:miro/infra/services/api_kira/query_kira_tokens_rates_service.dart';
+import 'package:miro/infra/services/api_kira/query_network_properties_service.dart';
 import 'package:miro/providers/app_config_provider.dart';
 import 'package:miro/providers/menu_provider.dart';
 import 'package:miro/providers/network_provider/network_provider.dart';
@@ -35,6 +36,7 @@ Future<void> initLocator() async {
     ..registerFactory<WithdrawsService>(() => WithdrawsService())
     ..registerFactory<DashboardService>(() => DashboardService())
     ..registerFactory<QueryAccountService>(() => QueryAccountService())
+    ..registerFactory<QueryNetworkPropertiesService>(() => QueryNetworkPropertiesService())
     ..registerFactory<DepositsService>(() => DepositsService())
     ..registerFactory<QueryValidatorsService>(() => QueryValidatorsService())
     ..registerFactory<TransactionsService>(() => TransactionsService())

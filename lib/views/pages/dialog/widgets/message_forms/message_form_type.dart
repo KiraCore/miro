@@ -1,0 +1,4 @@
+enum MessageFormType {
+  request,
+  create,
+}

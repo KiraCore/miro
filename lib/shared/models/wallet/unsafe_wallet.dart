@@ -23,10 +23,9 @@ class UnsafeWallet extends Wallet {
   final WalletAddress address;
 
   @override
-  final Uint8List publicKey;
-
-  @override
   final WalletDetails walletDetails;
+
+  final Uint8List publicKey;
 
   /// The wallet hex private key
   final Uint8List privateKey;

@@ -53,9 +53,9 @@ class _KiraElevatedButton extends State<KiraElevatedButton> {
                     color: widget.foregroundColor,
                     size: 14,
                   ),
+                  const SizedBox(width: 12),
                 ],
                 if (widget.title != null) ...<Widget>[
-                  const SizedBox(width: 12),
                   Text(
                     widget.title!.toUpperCase(),
                     style: TextStyle(

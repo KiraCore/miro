@@ -1,8 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:miro/views/widgets/kira/kira_dropzone/models/dropzone_file.dart';
 
 typedef FilePickedCallback = Future<DropzoneFile?> Function();
 
-class KiraDropzoneController {
+class DropzoneAreaController extends ChangeNotifier {
   late FilePickedCallback pickFile;
   DropzoneFile? currentFile;
 
@@ -10,5 +11,9 @@ class KiraDropzoneController {
     required FilePickedCallback pickFile,
   }) {
     this.pickFile = pickFile;
+  }
+
+  void notifyFileUpdated() {
+    notifyListeners();
   }
 }

@@ -65,6 +65,7 @@ class PopWrapper extends StatefulWidget {
   final BoxDecoration? decoration;
   final double buttonWidth;
   final double buttonHeight;
+  final bool disabled;
 
   const PopWrapper({
     required this.popWrapperController,
@@ -73,6 +74,7 @@ class PopWrapper extends StatefulWidget {
     required this.buttonWidth,
     required this.buttonHeight,
     this.dropdownMargin = 15,
+    this.disabled = false,
     this.decoration,
     Key? key,
   }) : super(key: key);
@@ -138,9 +140,12 @@ class _PopWrapper extends State<PopWrapper> with SingleTickerProviderStateMixin 
         ),
       ),
       child: MouseRegion(
-        cursor: SystemMouseCursors.click,
+        cursor: widget.disabled ? MouseCursor.defer : SystemMouseCursors.click,
         child: GestureDetector(
           onTap: () {
+            if (widget.disabled) {
+              return;
+            }
             widget.popWrapperController.showMenu();
           },
           child: Container(

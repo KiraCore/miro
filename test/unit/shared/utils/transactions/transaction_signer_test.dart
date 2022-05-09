@@ -4,20 +4,16 @@ import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/msg_send.da
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/tx_msg.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/transaction/components/tx_fee.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/transaction/signed_transaction.dart';
+import 'package:miro/infra/dto/api_cosmos/broadcast/request/transaction/transaction_sign_request.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/transaction/unsigned_transaction.dart';
 import 'package:miro/shared/models/wallet/mnemonic.dart';
 import 'package:miro/shared/models/wallet/unsafe_wallet.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/shared/utils/transactions/transaction_signer.dart';
-import 'package:miro/test/test_locator.dart';
 
 // To run tests use:
 // fvm flutter test "test/unit/shared/utils/transactions/transaction_signer_test.dart" --platform chrome
 Future<void> main() async {
-  // Set up test
-  setUpAll(TestWidgetsFlutterBinding.ensureInitialized);
-  await initTestLocator();
-
   // Actual values for tests
   const String actualMnemonicString =
       'require point property company tongue busy bench burden caution gadget knee glance thought bulk assist month cereal report quarter tool section often require shield';
@@ -55,9 +51,11 @@ Future<void> main() async {
     unsignedTransaction: actualUnsignedTransaction,
     ecPublicKey: actualWallet.ecPublicKey,
     ecPrivateKey: actualWallet.ecPrivateKey,
-    sequence: actualSequence,
-    accountNumber: actualAccountNumber,
-    chainId: actualChainId,
+    transactionNetworkData: TransactionNetworkData(
+      sequence: actualSequence,
+      accountNumber: actualAccountNumber,
+      chainId: actualChainId,
+    ),
   );
 
   // Expected values for tests

@@ -16,6 +16,7 @@ class BalanceListItemMobile extends StatelessWidget {
   final String lowestDenominationText;
   final String fullTokenAmountText;
   final String tokenIcon;
+  final void Function() onSendPressed;
 
   const BalanceListItemMobile({
     required this.expansionChangedCallback,
@@ -28,6 +29,7 @@ class BalanceListItemMobile extends StatelessWidget {
     required this.lowestDenominationText,
     required this.fullTokenAmountText,
     required this.tokenIcon,
+    required this.onSendPressed,
     Key? key,
   }) : super(key: key);
 
@@ -148,7 +150,7 @@ class BalanceListItemMobile extends StatelessWidget {
           const SizedBox(height: 15),
           KiraOutlinedButton(
             height: 40,
-            onPressed: () {},
+            onPressed: onSendPressed,
             title: 'Send',
           ),
         ],

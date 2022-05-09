@@ -11,4 +11,12 @@ class UnsignedTransaction {
     required this.memo,
     required this.fee,
   });
+
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
+      'messages': messages.map((TxMsg e) => e.toJson()).toList(),
+      'memo': memo,
+      'fee': fee.toJson(),
+    };
+  }
 }

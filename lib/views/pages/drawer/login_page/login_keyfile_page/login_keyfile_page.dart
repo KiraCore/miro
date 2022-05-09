@@ -8,10 +8,10 @@ import 'package:miro/shared/models/wallet/unsafe_wallet.dart';
 import 'package:miro/shared/utils/app_logger.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
 import 'package:miro/views/pages/drawer/login_page/create_wallet_link_button.dart';
-import 'package:miro/views/pages/drawer/login_page/login_keyfile_page/keyfile_dropzone.dart';
-import 'package:miro/views/pages/drawer/login_page/login_keyfile_page/keyfile_dropzone_controller.dart';
 import 'package:miro/views/widgets/buttons/kira_elevated_button.dart';
+import 'package:miro/views/widgets/kira/kira_dropzone/kira_dropzone.dart';
 import 'package:miro/views/widgets/kira/kira_dropzone/models/dropzone_file.dart';
+import 'package:miro/views/widgets/kira/kira_dropzone/models/kira_dropzone_controller.dart';
 import 'package:miro/views/widgets/kira/kira_text_field/kira_text_field.dart';
 import 'package:miro/views/widgets/kira/kira_text_field/kira_text_field_controller.dart';
 
@@ -24,7 +24,7 @@ class LoginKeyfilePage extends StatefulWidget {
 
 class _LoginKeyfilePage extends State<LoginKeyfilePage> {
   final KiraTextFieldController keyfilePasswordController = KiraTextFieldController();
-  final KeyfileDropzoneController dropZoneController = KeyfileDropzoneController();
+  final KiraDropzoneController dropzoneController = KiraDropzoneController();
 
   @override
   Widget build(BuildContext context) {
@@ -36,8 +36,9 @@ class _LoginKeyfilePage extends State<LoginKeyfilePage> {
         const SizedBox(height: 12),
         Text('This is not a safe option to sign in', style: Theme.of(context).textTheme.headline2),
         const SizedBox(height: 37),
-        KeyfileDropzone(
-          controller: dropZoneController,
+        KiraDropzone(
+          title: 'Please drop a key file here',
+          controller: dropzoneController,
           validate: _validateKeyFile,
         ),
         const SizedBox(height: 16),
@@ -78,11 +79,11 @@ class _LoginKeyfilePage extends State<LoginKeyfilePage> {
   }
 
   String? _validateKeyFilePassword() {
-    DropzoneFile? file = dropZoneController.dropzoneController.currentFile;
+    DropzoneFile? file = dropzoneController.dropzoneAreaController.currentFile;
     if (file == null) {
       String errorMessage = 'Keyfile cannot be empty';
       AppLogger().log(message: errorMessage, logLevel: LogLevel.warning);
-      dropZoneController.setErrorMessage(errorMessage);
+      dropzoneController.setErrorMessage(errorMessage);
     }
     try {
       _getWalletFromKeyFileString(file!.content);
@@ -95,12 +96,12 @@ class _LoginKeyfilePage extends State<LoginKeyfilePage> {
   }
 
   void _onLoginButtonPressed() {
-    bool keyfileValid = dropZoneController.validate() == null;
+    bool keyfileValid = dropzoneController.validate() == null;
     bool passwordValid = keyfilePasswordController.validate() == null;
 
     if (keyfileValid && passwordValid) {
       UnsafeWallet unsafeWallet =
-          _getWalletFromKeyFileString(dropZoneController.dropzoneController.currentFile!.content);
+          _getWalletFromKeyFileString(dropzoneController.dropzoneAreaController.currentFile!.content);
       globalLocator<WalletProvider>().updateWallet(unsafeWallet);
       KiraScaffold.of(context).closeEndDrawer();
     }

@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/broadcast_req.dart';
-import 'package:miro/infra/dto/api_cosmos/broadcast/response/broadcast_resp.dart';
 import 'package:miro/infra/dto/api_cosmos/query_account/request/query_account_req.dart';
 import 'package:miro/infra/dto/api_cosmos/query_account/response/query_account_resp.dart';
 import 'package:miro/infra/dto/api_cosmos/query_balance/request/query_balance_req.dart';
@@ -9,7 +8,7 @@ import 'package:miro/test/mocks/api/api_balances.dart';
 
 class MockApiCosmosRepository implements ApiCosmosRepository {
   @override
-  Future<BroadcastResp> broadcast(Uri networkUri, BroadcastReq request) {
+  Future<Response<T>> broadcast<T>(Uri networkUri, BroadcastReq request) {
     // TODO(Dominik): implement broadcastCosmosTransaction
     throw UnimplementedError();
   }

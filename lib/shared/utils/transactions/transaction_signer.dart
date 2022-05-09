@@ -5,6 +5,7 @@ import 'package:miro/infra/dto/api_cosmos/broadcast/request/transaction/componen
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/transaction/components/signer_info.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/transaction/components/tx_body.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/transaction/signed_transaction.dart';
+import 'package:miro/infra/dto/api_cosmos/broadcast/request/transaction/transaction_sign_request.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/transaction/unsigned_transaction.dart';
 import 'package:miro/shared/utils/transactions/signed_signature.dart';
 import 'package:miro/shared/utils/transactions/std_sign_doc.dart';
@@ -14,20 +15,16 @@ class TransactionSigner {
   /// Signs the given [stdTx] using the info contained inside the
   /// given [wallet] and returns a new [StdTx] containing the signatures
   /// inside it.
-  ///
-  /// Throws [NoNetworkException]
   static SignedTransaction sign({
     required UnsignedTransaction unsignedTransaction,
+    required TransactionNetworkData transactionNetworkData,
     required ECPrivateKey ecPrivateKey,
     required ECPublicKey ecPublicKey,
-    required String sequence,
-    required String accountNumber,
-    required String chainId,
   }) {
     final StdSignDoc signDoc = StdSignDoc(
-      sequence: sequence,
-      accountNumber: accountNumber,
-      chainId: chainId,
+      sequence: transactionNetworkData.sequence,
+      accountNumber: transactionNetworkData.accountNumber,
+      chainId: transactionNetworkData.chainId,
       messages: unsignedTransaction.messages,
       fee: unsignedTransaction.fee,
       memo: unsignedTransaction.memo,
@@ -56,7 +53,7 @@ class TransactionSigner {
           SignerInfo(
             publicKey: signedSignature.publicKey,
             modeInfo: modeInfo,
-            sequence: sequence,
+            sequence: transactionNetworkData.sequence,
           ),
         ],
         fee: unsignedTransaction.fee,

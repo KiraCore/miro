@@ -1,6 +1,10 @@
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:miro/shared/utils/crypto_address_parser.dart';
+import 'package:miro/shared/utils/cryptography/secp256k1.dart';
+import 'package:miro/shared/utils/cryptography/sha256.dart';
+import 'package:miro/shared/utils/map_utils.dart';
 import 'package:pointycastle/ecc/api.dart';
 import 'package:pointycastle/ecc/curves/secp256k1.dart';
 import 'package:pointycastle/export.dart';
@@ -32,29 +36,62 @@ class MessageSigner {
       ecSignature = ECSignature(ecSignature.r, canonicalS);
     }
 
-    final Uint8List publicKeyBytes = Uint8List.view(publicKey.Q!.getEncoded(false).buffer, 1);
-
-    final BigInt publicKeyBigInt = CryptoAddressParser.bytesToInt(publicKeyBytes);
-
-    int recoveryID = -1;
-    for (int i = 0; i < 4; i++) {
-      final BigInt? k = _recoverFromSignature(i, ecSignature, message, _params);
-      if (k == publicKeyBigInt) {
-        recoveryID = i;
-        break;
-      }
+    final Uint8List publicKeyBytes = publicKey.Q!.getEncoded();
+    final Uint8List address = Secp256k1.publicKeyToAddress(publicKeyBytes);
+    bool signatureValid = _validateSignature(address, ecSignature, message);
+    if (!signatureValid) {
+      throw Exception('Invalid signature');
     }
 
-    if (recoveryID == -1) {
-      throw Exception('Invalid recoverable key');
-    }
-
-    return Uint8List.fromList(
+    Uint8List signatureBytes = Uint8List.fromList(
       CryptoAddressParser.intToBytes(ecSignature.r) + CryptoAddressParser.intToBytes(ecSignature.s),
     );
+
+    return signatureBytes;
   }
 
-  static BigInt? _recoverFromSignature(int recId, ECSignature sig, Uint8List msg, ECDomainParameters params) {
+  static bool validateRawSignature({
+    required Uint8List address,
+    required String signature,
+    required Map<String, dynamic> message,
+  }) {
+    try {
+      Uint8List signatureBytes = base64Decode(signature);
+
+      ECSignature ecSignature = ECSignature(
+        CryptoAddressParser.bytesToInt(signatureBytes.sublist(0, 32)),
+        CryptoAddressParser.bytesToInt(signatureBytes.sublist(32, 64)),
+      );
+
+      Map<String, dynamic> jsonSignature = MapUtils.sort(message);
+      String bodyData = json.encode(jsonSignature);
+      final Uint8List bytes = Uint8List.fromList(utf8.encode(bodyData));
+      final List<int> messageHash = Sha256.encrypt(utf8.decode(bytes)).bytes;
+
+      return _validateSignature(address, ecSignature, Uint8List.fromList(messageHash));
+    } catch (_) {
+      return false;
+    }
+  }
+
+  static bool _validateSignature(Uint8List address, ECSignature ecSignature, Uint8List message) {
+    final ECDomainParameters _params = ECCurve_secp256k1();
+    final BigInt addressBytes = CryptoAddressParser.bytesToInt(address);
+    for (int i = 0; i < 4; i++) {
+      final Uint8List? k = _recoverFromSignature(i, ecSignature, message, _params);
+      if (k == null) {
+        continue;
+      }
+      final Uint8List kAddressBytes = Secp256k1.publicKeyToAddress(k);
+      final BigInt kAddresInt = CryptoAddressParser.bytesToInt(kAddressBytes);
+      if (kAddresInt == addressBytes) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  static Uint8List? _recoverFromSignature(int recId, ECSignature sig, Uint8List msg, ECDomainParameters params) {
     final BigInt n = params.n;
     final BigInt i = BigInt.from(recId ~/ 2);
     final BigInt x = sig.r + (i * n);
@@ -77,8 +114,8 @@ class MessageSigner {
 
     final ECPoint? q = (params.G * eInvrInv)! + (R * srInv);
 
-    final Uint8List bytes = q!.getEncoded(false);
-    return CryptoAddressParser.bytesToInt(bytes.sublist(1));
+    final Uint8List bytes = q!.getEncoded();
+    return bytes;
   }
 
   static ECPoint? _decompressKey(BigInt xBN, bool yBit, ECCurve c) {
@@ -94,7 +131,6 @@ class MessageSigner {
         for (int i = 0; i < bytes.length; i++) {
           tmp[i + offset] = bytes[i];
         }
-
         return tmp;
       }
 

@@ -21,4 +21,10 @@ class MockApiKiraRepository implements ApiKiraRepository {
       requestOptions: RequestOptions(path: ''),
     );
   }
+
+  @override
+  Future<Response<T>> fetchQueryNetworkProperties<T>(Uri networkUri) {
+    // TODO(dominik): implement fetchQueryNetworkProperties
+    throw UnimplementedError();
+  }
 }

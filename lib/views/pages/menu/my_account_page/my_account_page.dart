@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:miro/config/app_sizes.dart';
@@ -5,6 +6,7 @@ import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/providers/wallet_provider.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
+import 'package:miro/shared/router/router.gr.dart';
 import 'package:miro/views/layout/footer/footer.dart';
 import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_page.dart';
 import 'package:miro/views/pages/menu/my_account_page/my_account_tile.dart';
@@ -122,7 +124,11 @@ class _MyAccountPage extends State<MyAccountPage> {
                 ScreenSize.tablet,
               ],
               child: KiraElevatedButton(
-                onPressed: () {},
+                onPressed: () => AutoRouter.of(context).navigate(
+                  DialogWrapperRoute(children: <PageRouteInfo>[
+                    TransactionRequestRoute(messageType: 'MsgSend'),
+                  ]),
+                ),
                 title: 'Request',
               ),
             ),

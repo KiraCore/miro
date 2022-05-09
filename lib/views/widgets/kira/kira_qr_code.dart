@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
-import 'package:miro/generated/assets.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class KiraQrCode extends StatelessWidget {
@@ -23,6 +22,8 @@ class KiraQrCode extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      width: size,
+      height: size,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
@@ -35,7 +36,7 @@ class KiraQrCode extends StatelessWidget {
         child: QrImage(
           data: data,
           version: version,
-          embeddedImage: const AssetImage(Assets.assetsLogoSygnet),
+          // embeddedImage: const AssetImage(Assets.assetsLogoSygnet),
           size: size,
           foregroundColor: foregroundColor,
           backgroundColor: backgroundColor,

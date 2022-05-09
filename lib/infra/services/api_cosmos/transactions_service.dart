@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/broadcast_req.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/transaction/signed_transaction.dart';
+import 'package:miro/infra/dto/api_cosmos/broadcast/request/transaction/transaction_sign_request.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/transaction/unsigned_transaction.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/response/broadcast_resp.dart';
 import 'package:miro/infra/dto/api_cosmos/query_account/response/query_account_resp.dart';
@@ -19,6 +20,8 @@ abstract class _TransactionsService {
   Future<BroadcastResp> broadcastTransaction(SignedTransaction signedTransaction, {Uri? customUri});
 
   Future<SignedTransaction> signTransaction(UnsignedTransaction unsignedTransaction, {Uri? customUri});
+
+  Future<TransactionNetworkData> getTransactionNetworkData({Uri? customUri, String? customChainId});
 }
 
 class TransactionsService implements _TransactionsService {
@@ -28,15 +31,22 @@ class TransactionsService implements _TransactionsService {
   Future<BroadcastResp> broadcastTransaction(SignedTransaction signedTransaction, {Uri? customUri}) async {
     Uri networkUri = customUri ?? globalLocator<NetworkProvider>().networkUri!;
     try {
-      final BroadcastResp response = await _apiCosmosRepository.broadcast(
+      Response<Map<String, dynamic>> response = await _apiCosmosRepository.broadcast(
         networkUri,
         BroadcastReq(
           transaction: signedTransaction,
         ),
       );
-      return response;
+      final BroadcastResp broadcastResp = BroadcastResp.fromJson(response.data as Map<String, dynamic>);
+      if (broadcastResp.checkTx.data == null) {
+        throw DioError(
+          requestOptions: response.requestOptions,
+          response: response,
+        );
+      }
+      return broadcastResp;
     } on DioError catch (e) {
-      AppLogger().log(message: '${signedTransaction.toJson()} - ${e.toString()}', logLevel: LogLevel.error);
+      AppLogger().log(message: '${signedTransaction.toJson()} - ${e.response}', logLevel: LogLevel.error);
       rethrow;
     }
   }
@@ -44,25 +54,42 @@ class TransactionsService implements _TransactionsService {
   @override
   Future<SignedTransaction> signTransaction(UnsignedTransaction unsignedTransaction,
       {Uri? customUri, String? customChainId}) async {
+    final Wallet? wallet = globalLocator<WalletProvider>().currentWallet;
+    TransactionNetworkData transactionNetworkData = await getTransactionNetworkData(
+      customUri: customUri,
+      customChainId: customChainId,
+    );
+
+    assert(wallet is UnsafeWallet, 'User should be logged via UnsafeWallet');
+
+    SignedTransaction signedTransaction = TransactionSigner.sign(
+      unsignedTransaction: unsignedTransaction,
+      transactionNetworkData: transactionNetworkData,
+      ecPrivateKey: (wallet as UnsafeWallet).ecPrivateKey,
+      ecPublicKey: wallet.ecPublicKey,
+    );
+
+    return signedTransaction;
+  }
+
+  @override
+  Future<TransactionNetworkData> getTransactionNetworkData({Uri? customUri, String? customChainId}) async {
     final NetworkProvider networkProvider = globalLocator<NetworkProvider>();
     final QueryAccountService accountService = globalLocator<QueryAccountService>();
     final Wallet? wallet = globalLocator<WalletProvider>().currentWallet;
 
     assert(wallet != null, 'User should be logged in');
-    assert(wallet is UnsafeWallet, 'User should be logged via UnsafeWallet');
     assert(networkProvider.isConnected || customUri != null, 'Network should be connected');
 
-    QueryAccountResp queryAccountResp =
-        await accountService.fetchQueryAccount(wallet!.address.bech32Address, customUri: customUri);
-    SignedTransaction signedTransaction = TransactionSigner.sign(
-      unsignedTransaction: unsignedTransaction,
-      ecPrivateKey: (wallet as UnsafeWallet).ecPrivateKey,
-      ecPublicKey: wallet.ecPublicKey,
-      chainId: customChainId ?? networkProvider.networkModel!.queryInterxStatus!.interxInfo.chainId,
-      accountNumber: queryAccountResp.accountNumber,
-      sequence: queryAccountResp.sequence ?? '0',
+    QueryAccountResp queryAccountResp = await accountService.fetchQueryAccount(
+      wallet!.address.bech32Address,
+      customUri: customUri,
     );
 
-    return signedTransaction;
+    return TransactionNetworkData(
+      sequence: queryAccountResp.sequence ?? '0',
+      accountNumber: queryAccountResp.accountNumber,
+      chainId: customChainId ?? networkProvider.networkModel!.queryInterxStatus!.interxInfo.chainId,
+    );
   }
 }

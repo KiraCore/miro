@@ -90,34 +90,6 @@ class BalanceListBloc extends ListBloc<Balance> {
 
     List<Balance> finalBalances = <Balance>[
       ...queryBalanceResp.balances,
-      // Mock data
-      // TODO(dominik): Its only dev mock. Remove it before merge
-      ...const <Balance>[
-        Balance(amount: '666999', denom: 'ETH'),
-        Balance(amount: '1234', denom: 'BTC'),
-        Balance(amount: '0.235', denom: 'USDT'),
-        Balance(amount: '0.9999', denom: 'ADA'),
-        Balance(amount: '0.00001', denom: 'DOT'),
-        Balance(amount: '0.000012341', denom: 'XRP'),
-        Balance(amount: '0.000342101', denom: 'UNI'),
-        Balance(amount: '1', denom: 'XLM'),
-        Balance(amount: '1.55', denom: 'XCH'),
-        Balance(amount: '1.124334', denom: 'BNB'),
-        Balance(amount: '8374928743', denom: 'SOL'),
-        Balance(amount: '98236', denom: 'CRO'),
-        Balance(amount: '12344', denom: 'LTC'),
-        Balance(amount: '123123.12344', denom: 'BCH'),
-        Balance(amount: '123123.12344', denom: 'BCH'),
-        Balance(amount: '123123.12344', denom: 'AAB'),
-        Balance(amount: '123123.12344', denom: 'AACCBBDDEEFFGGHHIIJJKKWWBBSCDOFIANFIASJSADKASDKASD'),
-        Balance(amount: '123123.12344', denom: 'AAE'),
-        Balance(amount: '123123.12344', denom: 'AAF'),
-        Balance(amount: '123123.12344', denom: 'AAG'),
-        Balance(amount: '123123.12344', denom: 'AAH'),
-        Balance(amount: '123123.12344', denom: 'AAI'),
-        Balance(amount: '123123.12344', denom: 'AAJ'),
-      ],
-      // TODO(dominik): End of mock
     ];
     return finalBalances;
   }

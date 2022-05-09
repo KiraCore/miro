@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/cupertino.dart';
 import 'package:miro/config/app_icons.dart';
 import 'package:miro/config/theme/design_colors.dart';
@@ -110,7 +112,7 @@ class _DownloadKeyfileSection extends State<DownloadKeyfileSection> {
     if (isPasswordValid) {
       KeyFile keyFile = KeyFile(wallet: widget.wallet);
       String encryptedKeyFileAsString = keyFile.encode(passwordTextController.textController.text);
-      BrowserUtils.downloadFile(<String>[encryptedKeyFileAsString], keyFile.fileName);
+      BrowserUtils.downloadFile(Uint8List.fromList(encryptedKeyFileAsString.codeUnits), keyFile.fileName);
     }
     setState(() {
       downloadButtonText = 'Downloaded';

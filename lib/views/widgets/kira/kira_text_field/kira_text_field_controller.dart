@@ -4,6 +4,10 @@ class KiraTextFieldController {
   late String? Function() validate;
   TextEditingController textController = TextEditingController();
 
+  String get text {
+    return textController.text;
+  }
+
   void initController({
     required String? Function() validate,
   }) {
