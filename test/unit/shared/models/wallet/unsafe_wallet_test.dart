@@ -99,13 +99,6 @@ void main() {
       );
     });
 
-    test('Should create valid bech32 address from given mnemonic', () async {
-      expect(
-        actualWallet.bech32PublicKey,
-        expectedBech32PublicKey,
-      );
-    });
-
     test('Should build bech32 in predefined format ex. keyfile_kiraXXXX_XXXX', () async {
       expect(
         actualWallet.address.bech32Shortcut,
