@@ -39,12 +39,12 @@ class PagesWrapper extends StatelessWidget {
     const NavItem(
       pageRouteInfo: null,
       name: 'Validators',
-      icon: AppIcons.validator,
+      icon: AppIcons.shield,
     ),
     const NavItem(
       pageRouteInfo: null,
       name: 'Transactions',
-      icon: AppIcons.transaction,
+      icon: AppIcons.transactions,
     ),
     const NavItem(
       pageRouteInfo: null,
