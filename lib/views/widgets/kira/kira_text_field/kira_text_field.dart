@@ -148,7 +148,7 @@ class _KiraTextField extends State<KiraTextField> {
           obscureTextStatus = false;
         }),
         icon: const Icon(
-          AppIcons.hidden,
+          AppIcons.eye_hidden,
           size: 16,
           color: DesignColors.gray2_100,
         ),
@@ -160,7 +160,7 @@ class _KiraTextField extends State<KiraTextField> {
           obscureTextStatus = true;
         }),
         icon: const Icon(
-          AppIcons.visible,
+          AppIcons.eye_visible,
           size: 16,
           color: DesignColors.gray2_100,
         ),
