@@ -52,7 +52,7 @@ class DashboardPage extends StatelessWidget {
                     title: 'Healthy',
                     subtitle: 'Consensus state',
                     icon: Icon(
-                      AppIcons.healthy,
+                      AppIcons.health,
                       color: Color(0xFFF2E46C),
                     ),
                   ),

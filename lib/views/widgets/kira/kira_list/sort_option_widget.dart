@@ -75,7 +75,7 @@ class _SortOptionWidget<E, T extends ListBloc<E>> extends State<SortOptionWidget
             onPressed: () => _onChangedSortOption(currentSortOption, changeSorting: true),
             splashRadius: 20,
             icon: const Icon(
-              AppIcons.updown,
+              AppIcons.up_down,
               size: 16,
               color: DesignColors.gray2_100,
             ),
