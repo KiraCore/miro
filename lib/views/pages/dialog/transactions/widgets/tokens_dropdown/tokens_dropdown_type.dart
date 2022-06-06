@@ -1,0 +1,4 @@
+enum TokensDropdownType {
+  allBalances,
+  availableBalances,
+}

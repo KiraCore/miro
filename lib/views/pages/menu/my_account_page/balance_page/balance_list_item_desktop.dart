@@ -4,6 +4,7 @@ import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_list_item_builder.dart';
 import 'package:miro/views/widgets/buttons/kira_outlined_button.dart';
 import 'package:miro/views/widgets/buttons/star_button.dart';
+import 'package:miro/views/widgets/generic/token_avatar.dart';
 
 class BalanceListItemDesktop extends StatelessWidget {
   final ExpansionChangedCallback expansionChangedCallback;
@@ -16,6 +17,7 @@ class BalanceListItemDesktop extends StatelessWidget {
   final String lowestDenominationText;
   final String fullTokenAmountText;
   final String tokenIcon;
+  final void Function() onSendPressed;
 
   const BalanceListItemDesktop({
     required this.expansionChangedCallback,
@@ -28,6 +30,7 @@ class BalanceListItemDesktop extends StatelessWidget {
     required this.lowestDenominationText,
     required this.fullTokenAmountText,
     required this.tokenIcon,
+    required this.onSendPressed,
     Key? key,
   }) : super(key: key);
 
@@ -89,7 +92,7 @@ class BalanceListItemDesktop extends StatelessWidget {
           width: 70,
           child: KiraOutlinedButton(
             height: 40,
-            onPressed: () {},
+            onPressed: onSendPressed,
             title: 'Send',
           ),
         ),
@@ -103,22 +106,9 @@ class BalanceListItemDesktop extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          SizedBox(
-            width: 30,
-            height: 30,
-            child: CircleAvatar(
-              backgroundColor: DesignColors.gray1_100,
-              radius: 15,
-              child: Padding(
-                padding: const EdgeInsets.all(8),
-                child: Image.network(
-                  tokenIcon,
-                  errorBuilder: (_, __, ___) {
-                    return const SizedBox();
-                  },
-                ),
-              ),
-            ),
+          TokenAvatar(
+            iconUrl: tokenIcon,
+            size: 30,
           ),
           const SizedBox(width: 10),
           Text(tokenName),

@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,6 +11,7 @@ import 'package:miro/infra/cache/favourite_cache.dart';
 import 'package:miro/infra/dto/api_cosmos/query_balance/response/balance.dart';
 import 'package:miro/infra/dto/api_kira/query_kira_tokens_aliases/response/token_alias.dart';
 import 'package:miro/providers/tokens_provider.dart';
+import 'package:miro/shared/router/router.gr.dart';
 import 'package:miro/shared/utils/app_logger.dart';
 import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_list_item_desktop.dart';
 import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_list_item_mobile.dart';
@@ -77,6 +79,7 @@ class _BalanceListItemBuilder extends State<BalanceListItemBuilder> {
                   fullTokenAmountText: _getTokenFullAmountText(),
                   favouritePressedCallback: _onFavouriteButtonPressed,
                   tokenIcon: tokenAlias?.icon ?? '',
+                  onSendPressed: () => _onSendPressed(tokenAlias),
                 ),
                 mediumScreen: BalanceListItemMobile(
                   expansionChangedCallback: _onExpansionChanged,
@@ -89,6 +92,7 @@ class _BalanceListItemBuilder extends State<BalanceListItemBuilder> {
                   fullTokenAmountText: _getTokenFullAmountText(),
                   favouritePressedCallback: _onFavouriteButtonPressed,
                   tokenIcon: tokenAlias?.icon ?? '',
+                  onSendPressed: () => _onSendPressed(tokenAlias),
                 ),
               );
             },
@@ -167,5 +171,16 @@ class _BalanceListItemBuilder extends State<BalanceListItemBuilder> {
 
   String _getTokenFullAmountText() {
     return widget.balance.amount;
+  }
+
+  void _onSendPressed(TokenAlias? tokenAlias) {
+    AutoRouter.of(context).navigate(DialogWrapperRoute(children: <PageRouteInfo>[
+      GenericTransactionRoute(
+        messageType: 'MsgSend',
+        metadata: <String, dynamic>{
+          'tokenAlias': tokenAlias,
+        },
+      ),
+    ]));
   }
 }
