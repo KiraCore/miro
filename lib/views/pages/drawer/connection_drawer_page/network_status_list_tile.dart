@@ -41,9 +41,9 @@ class _NetworkStatusListTile extends State<NetworkStatusListTile> {
           decoration: BoxDecoration(
             border: Border.all(
               width: 1,
-              color: isActualConnectedNetwork ? DesignColors.darkGreen : const Color(0xFF4E4C71),
+              color: isActualConnectedNetwork ? DesignColors.darkGreen_100 : const Color(0xFF4E4C71),
             ),
-            color: isActualConnectedNetwork ? DesignColors.darkGreen.withOpacity(0.1) : Colors.transparent,
+            color: isActualConnectedNetwork ? DesignColors.darkGreen_100.withOpacity(0.1) : Colors.transparent,
             borderRadius: BorderRadius.circular(4),
           ),
           padding: const EdgeInsets.symmetric(vertical: 12),

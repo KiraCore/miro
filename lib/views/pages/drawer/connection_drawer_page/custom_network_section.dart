@@ -84,7 +84,7 @@ class _CustomNetworkSection extends State<CustomNetworkSection> {
                       child: const Text(
                         'Connect',
                         style: TextStyle(
-                          color: DesignColors.darkGreen,
+                          color: DesignColors.darkGreen_100,
                         ),
                       ),
                     ),
@@ -106,7 +106,7 @@ class _CustomNetworkSection extends State<CustomNetworkSection> {
             Text(
               successMessage!,
               style: const TextStyle(
-                color: DesignColors.darkGreen,
+                color: DesignColors.darkGreen_100,
                 fontSize: 12,
               ),
             ),
