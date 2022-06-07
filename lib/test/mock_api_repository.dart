@@ -7,16 +7,48 @@ import 'package:miro/test/mocks/api/api_dashboard.dart';
 import 'package:miro/test/mocks/api/api_query_validators.dart';
 import 'package:miro/test/mocks/api/api_status.dart';
 
+enum DynamicNetworkStatus {
+  healthy,
+  unhealthy,
+  offline,
+}
+
 class MockApiRepository implements ApiRepository {
+  DynamicNetworkStatus dynamicNetworkStatus = DynamicNetworkStatus.healthy;
+
   @override
   Future<Response<T>> fetchQueryInterxStatus<T>(Uri networkUri) async {
     int statusCode = 404;
     Map<String, dynamic>? mockedResponse;
+    await Future<void>.delayed(const Duration(milliseconds: 50));
 
-    if (networkUri.host == 'online.kira.network') {
-      statusCode = 200;
-      mockedResponse = apiStatusMock;
-    } else {
+    switch (networkUri.host) {
+      case 'unhealthy.kira.network':
+        statusCode = 200;
+        mockedResponse = apiStatusMockUnhealthy;
+        break;
+      case 'healthy.kira.network':
+        statusCode = 200;
+        mockedResponse = apiStatusMockHealthy;
+        break;
+      case 'dynamic.kira.network':
+        if (dynamicNetworkStatus == DynamicNetworkStatus.healthy) {
+          statusCode = 200;
+          mockedResponse = apiStatusMockHealthy;
+          dynamicNetworkStatus = DynamicNetworkStatus.unhealthy;
+        } else if (dynamicNetworkStatus == DynamicNetworkStatus.unhealthy) {
+          statusCode = 200;
+          mockedResponse = apiStatusMockUnhealthy;
+          dynamicNetworkStatus = DynamicNetworkStatus.offline;
+        } else {
+          statusCode = 404;
+          mockedResponse = null;
+          dynamicNetworkStatus = DynamicNetworkStatus.healthy;
+        }
+        break;
+    }
+
+    if (statusCode == 404) {
       throw DioError(requestOptions: RequestOptions(path: networkUri.host));
     }
 
@@ -44,7 +76,7 @@ class MockApiRepository implements ApiRepository {
     int statusCode = 404;
     Map<String, dynamic>? mockedResponse;
 
-    if (networkUri.host == 'online.kira.network') {
+    if (networkUri.host == 'unhealthy.kira.network') {
       statusCode = 200;
       if (queryValidatorsReq.limit != null && queryValidatorsReq.offset != null) {
         List<dynamic> mockedResponseList = apiValidatorsMock['validators'] as List<dynamic>;

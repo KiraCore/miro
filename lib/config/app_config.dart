@@ -1,3 +1,94 @@
+import 'package:miro/shared/controllers/browser/rpc_browser_url_controller.dart';
+import 'package:miro/shared/models/network/data/connection_status_type.dart';
+import 'package:miro/shared/models/network/status/network_unknown_model.dart';
+import 'package:miro/shared/utils/app_logger.dart';
+import 'package:miro/shared/utils/network_utils.dart';
+
 class AppConfig {
-  static const int bulkSinglePageSize = 500;
+  final RpcBrowserUrlController rpcBrowserUrlController = RpcBrowserUrlController();
+  final int bulkSinglePageSize = 500;
+  final Duration outdatedBlockDuration = const Duration(minutes: 5);
+  final List<String> supportedInterxVersions = <String>['v0.4.11'];
+
+  final int _defaultRefreshIntervalSeconds = 60;
+  final NetworkUnknownModel _defaultNetworkUnknownModel = NetworkUnknownModel(
+    connectionStatusType: ConnectionStatusType.disconnected,
+    uri: Uri.parse('https://testnet-rpc.kira.network'),
+  );
+
+  late Duration _refreshInterval;
+  late List<NetworkUnknownModel> _networkList = List<NetworkUnknownModel>.empty(growable: true);
+
+  Duration get refreshInterval => _refreshInterval;
+
+  List<NetworkUnknownModel> get networkList => _networkList;
+
+  void init(Map<String, dynamic> configJson) {
+    _initIntervalSeconds(configJson['refresh_interval_seconds']);
+    _initNetworkList(configJson['network_list']);
+  }
+
+  bool isInterxVersionOutdated(String version) {
+    bool isVersionSupported = supportedInterxVersions.contains(version);
+    if (isVersionSupported) {
+      return false;
+    } else {
+      AppLogger().log(message: 'Interx version [$version] is not supported', logLevel: LogLevel.warning);
+      return true;
+    }
+  }
+
+  NetworkUnknownModel findNetworkModelInConfig(NetworkUnknownModel networkUnknownModel) {
+    List<NetworkUnknownModel> matchingNetworkUnknownModels =
+        networkList.where((NetworkUnknownModel e) => e.uri.host == networkUnknownModel.uri.host).toList();
+
+    if (matchingNetworkUnknownModels.isEmpty) {
+      return networkUnknownModel;
+    }
+    return matchingNetworkUnknownModels.first;
+  }
+
+  Future<NetworkUnknownModel> getDefaultNetworkUnknownModel() async {
+    NetworkUnknownModel? urlNetworkUnknownModel = await _getNetworkUnknownModelFromUrl();
+    if (urlNetworkUnknownModel == null) {
+      return networkList.first;
+    }
+    return urlNetworkUnknownModel;
+  }
+
+  Future<NetworkUnknownModel?> _getNetworkUnknownModelFromUrl() async {
+    String? networkAddress = rpcBrowserUrlController.getRpcAddress();
+    if (networkAddress == null) {
+      return null;
+    }
+    Uri uri = NetworkUtils.parseUrl(networkAddress);
+    NetworkUnknownModel urlNetworkUnknownModel = NetworkUnknownModel(uri: uri, connectionStatusType: ConnectionStatusType.disconnected);
+    urlNetworkUnknownModel = findNetworkModelInConfig(urlNetworkUnknownModel);
+    return urlNetworkUnknownModel;
+  }
+
+  void _initIntervalSeconds(dynamic refreshIntervalSecondsJson) {
+    if (refreshIntervalSecondsJson is num && refreshIntervalSecondsJson > _defaultRefreshIntervalSeconds) {
+      _refreshInterval = Duration(seconds: refreshIntervalSecondsJson.round());
+    } else {
+      _refreshInterval = Duration(seconds: _defaultRefreshIntervalSeconds);
+    }
+  }
+
+  void _initNetworkList(dynamic networkListJson) {
+    _networkList = List<NetworkUnknownModel>.empty(growable: true);
+    if (networkListJson is List<dynamic>) {
+      for (dynamic networkListItem in networkListJson) {
+        try {
+          _networkList.add(NetworkUnknownModel.fromJson(networkListItem as Map<String, dynamic>));
+        } catch (_) {
+          AppLogger().log(message: 'CONFIG: Cannot parse network list item from network_list_config.json: $networkListItem');
+        }
+      }
+    }
+
+    if (_networkList.isEmpty) {
+      _networkList.add(_defaultNetworkUnknownModel);
+    }
+  }
 }

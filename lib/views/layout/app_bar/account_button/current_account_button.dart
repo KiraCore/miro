@@ -23,8 +23,8 @@ class CurrentAccountButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Consumer<WalletProvider>(
-      builder: (_, WalletProvider networkProvider, Widget? child) {
-        final Wallet? _wallet = networkProvider.currentWallet;
+      builder: (_, WalletProvider walletProvider, Widget? child) {
+        final Wallet? _wallet = walletProvider.currentWallet;
         if (_wallet != null) {
           return SignedInAccountButton(
             wallet: _wallet,
