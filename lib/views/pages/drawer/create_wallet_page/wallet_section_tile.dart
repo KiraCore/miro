@@ -73,7 +73,7 @@ class _WalletSectionTile extends State<WalletSectionTile> {
                     style: const TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w400,
-                      color: DesignColors.yellow,
+                      color: DesignColors.yellow_100,
                     ),
                   )
                 : null,

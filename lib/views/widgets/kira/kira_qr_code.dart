@@ -27,7 +27,7 @@ class KiraQrCode extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
           width: 4,
-          color: DesignColors.pink,
+          color: DesignColors.pink_100,
         ),
       ),
       child: ClipRRect(
