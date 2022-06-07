@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:miro/blocs/specific_blocs/network_module/network_module_bloc.dart';
+import 'package:miro/blocs/specific_blocs/network_module/network_module_state.dart';
 import 'package:miro/config/app_sizes.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/assets.dart';
-import 'package:miro/providers/network_provider/network_provider.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
-import 'package:miro/views/pages/drawer/connection_drawer_page/connection_drawer_page.dart';
+import 'package:miro/views/pages/drawer/network_drawer_page/network_drawer_page.dart';
 import 'package:miro/views/widgets/generic/mouse_state_listener.dart';
-import 'package:provider/provider.dart';
 
 class CurrentNetworkButton extends StatelessWidget {
   final double width;
@@ -48,12 +49,10 @@ class CurrentNetworkButton extends StatelessWidget {
                   ),
                   const SizedBox(width: 8),
                   Expanded(
-                    child: Consumer<NetworkProvider>(
-                      builder: (_, NetworkProvider networkProvider, Widget? child) {
-                        String networkName = 'SELECT NETWORK';
-                        if (networkProvider.networkModel != null) {
-                          networkName = networkProvider.networkModel!.name;
-                        }
+                    child: BlocBuilder<NetworkModuleBloc, NetworkModuleState>(
+                      builder: (_, NetworkModuleState networkModuleState) {
+                        String networkName = networkModuleState.networkStatusModel.name;
+
                         return Text(
                           networkName,
                           overflow: TextOverflow.ellipsis,
@@ -82,7 +81,7 @@ class CurrentNetworkButton extends StatelessWidget {
   }
 
   void _openDrawerNetworkPage(BuildContext context) {
-    KiraScaffold.of(context).navigateEndDrawerRoute(const ConnectionDrawerPage());
+    KiraScaffold.of(context).navigateEndDrawerRoute(const NetworkDrawerPage());
   }
 
   Color _getForegroundColor(Set<MaterialState> states) {

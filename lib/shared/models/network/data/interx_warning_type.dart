@@ -1,0 +1,4 @@
+enum InterxWarningType {
+  blockTimeOutdated,
+  versionOutdated,
+}

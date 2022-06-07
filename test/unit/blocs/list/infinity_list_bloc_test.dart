@@ -13,17 +13,13 @@ import 'package:miro/blocs/specific_blocs/list/infinity_list/infinity_list_bloc.
 import 'package:miro/blocs/specific_blocs/list/sort/events/sort_change_event.dart';
 import 'package:miro/blocs/specific_blocs/list/sort/events/sort_clear_event.dart';
 import 'package:miro/blocs/specific_blocs/list/sort/sort_bloc.dart';
+import 'package:miro/blocs/specific_blocs/network_module/events/network_module_connect_event.dart';
+import 'package:miro/blocs/specific_blocs/network_module/network_module_bloc.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/cache/cache_manager.dart';
-import 'package:miro/infra/dto/api/query_interx_status/query_interx_status_resp.dart';
-import 'package:miro/infra/dto/api/query_validators/response/query_validators_resp.dart';
-import 'package:miro/providers/network_provider/network_events.dart';
-import 'package:miro/providers/network_provider/network_provider.dart';
-import 'package:miro/providers/network_provider/network_states.dart';
-import 'package:miro/shared/constants/network_health_status.dart';
-import 'package:miro/shared/models/network_model.dart';
-import 'package:miro/test/mocks/api/api_query_validators.dart' as api_validators_mocks;
-import 'package:miro/test/mocks/api/api_status.dart' as api_status_mocks;
+import 'package:miro/shared/models/network/data/connection_status_type.dart';
+import 'package:miro/shared/models/network/data/network_info_model.dart';
+import 'package:miro/shared/models/network/status/online/network_healthy_model.dart';
 import 'package:miro/test/test_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
@@ -38,12 +34,18 @@ Future<void> main() async {
   await initTestLocator();
   await globalLocator<CacheManager>().init();
 
-  final NetworkModel networkModel = NetworkModel(
-    name: 'https://online.kira.network',
-    url: 'https://online.kira.network',
-    status: NetworkHealthStatus.online,
-    queryInterxStatus: QueryInterxStatusResp.fromJson(api_status_mocks.apiStatusMock),
-    queryValidatorsResp: QueryValidatorsResp.fromJson(api_validators_mocks.apiValidatorsMock),
+  final NetworkHealthyModel networkHealthyModel = NetworkHealthyModel(
+    connectionStatusType: ConnectionStatusType.connected,
+    name: 'https://unhealthy.kira.network',
+    uri: Uri.parse('https://unhealthy.kira.network'),
+    networkInfoModel: NetworkInfoModel(
+      chainId: 'localnet-1',
+      interxVersion: '0.0.1',
+      latestBlockHeight: 123,
+      latestBlockTime: DateTime.now(),
+      activeValidators: 1,
+      totalValidators: 1,
+    ),
   );
 
   TestListItem expectedTestListItem1 = TestListItem(id: 1, name: 'apple', status: 'active');
@@ -113,9 +115,7 @@ Future<void> main() async {
       );
 
       // Act
-      globalLocator<NetworkProvider>()
-        ..state = ConnectingNetworkState(networkModel)
-        ..handleEvent(SetUpNetworkEvent(networkModel));
+      globalLocator<NetworkModuleBloc>().add(NetworkModuleConnectEvent(networkHealthyModel));
       await Future<void>.delayed(const Duration(milliseconds: 100));
 
       // Assert
@@ -205,8 +205,7 @@ Future<void> main() async {
         lastPage: false,
       );
 
-      testPrint(
-          'Should add filterByActive filter and return ListLoadedState with first page of list items that match filters');
+      testPrint('Should add filterByActive filter and return ListLoadedState with first page of list items that match filters');
       expect(
         actualInfinityListBloc.state,
         expectedListState,

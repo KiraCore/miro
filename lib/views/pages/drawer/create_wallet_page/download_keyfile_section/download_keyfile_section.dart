@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:miro/config/app_icons.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/shared/controllers/browser/browser_controller.dart';
 import 'package:miro/shared/models/wallet/keyfile.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
-import 'package:miro/shared/utils/browser_utils.dart';
 import 'package:miro/views/pages/drawer/create_wallet_page/download_keyfile_section/download_keyfile_section_controller.dart';
 import 'package:miro/views/widgets/buttons/kira_elevated_button.dart';
 import 'package:miro/views/widgets/kira/kira_text_field/kira_text_field.dart';
@@ -89,8 +89,7 @@ class _DownloadKeyfileSection extends State<DownloadKeyfileSection> {
 
   void _onPasswordChanged() {
     bool passwordEmpty = passwordTextController.textController.text.isEmpty;
-    bool passwordsEqual =
-        passwordTextController.textController.text == repeatPasswordTextController.textController.text;
+    bool passwordsEqual = passwordTextController.textController.text == repeatPasswordTextController.textController.text;
 
     if (!passwordEmpty && passwordsEqual) {
       _setCanDownloadKeyfile(status: true);
@@ -110,7 +109,7 @@ class _DownloadKeyfileSection extends State<DownloadKeyfileSection> {
     if (isPasswordValid) {
       KeyFile keyFile = KeyFile(wallet: widget.wallet);
       String encryptedKeyFileAsString = keyFile.encode(passwordTextController.textController.text);
-      BrowserUtils.downloadFile(<String>[encryptedKeyFileAsString], keyFile.fileName);
+      BrowserController.downloadFile(<String>[encryptedKeyFileAsString], keyFile.fileName);
     }
     setState(() {
       downloadButtonText = 'Downloaded';

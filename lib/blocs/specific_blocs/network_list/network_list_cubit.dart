@@ -1,48 +1,28 @@
-import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:miro/blocs/specific_blocs/network_connector/network_connector_cubit.dart';
-import 'package:miro/infra/services/api/query_interx_status_service.dart';
-import 'package:miro/shared/models/network_model.dart';
-import 'package:miro/shared/utils/assets_manager.dart';
+import 'package:miro/blocs/specific_blocs/network_list/a_network_list_state.dart';
+import 'package:miro/blocs/specific_blocs/network_list/states/network_list_loaded_state.dart';
+import 'package:miro/blocs/specific_blocs/network_list/states/network_list_loading_state.dart';
+import 'package:miro/config/app_config.dart';
+import 'package:miro/config/locator.dart';
+import 'package:miro/shared/models/network/status/a_network_status_model.dart';
 
-part 'network_list_state.dart';
+class NetworkListCubit extends Cubit<ANetworkListState> {
+  final AppConfig appConfig = globalLocator<AppConfig>();
 
-class NetworkListCubit extends Cubit<NetworkListState> {
-  final QueryInterxStatusService queryInterxStatusService;
-  final NetworkConnectorCubit networkConnectorCubit;
+  List<ANetworkStatusModel> networkStatusModelList = List<ANetworkStatusModel>.empty(growable: true);
 
-  List<NetworkModel> networkList = List<NetworkModel>.empty(growable: true);
+  NetworkListCubit() : super(NetworkListLoadingState());
 
-  NetworkListCubit({
-    required this.queryInterxStatusService,
-    required this.networkConnectorCubit,
-  }) : super(NetworkListInitialState()) {
-    getNetworks();
+  void initNetworkStatusModelList() {
+    networkStatusModelList = List<ANetworkStatusModel>.from(appConfig.networkList);
+    emit(NetworkListLoadedState(networkStatusModelList: networkStatusModelList));
   }
 
-  Future<void> getNetworks() async {
-    List<NetworkModel> staticNetworks = await _fetchNetworkList();
-    networkList = staticNetworks;
-    emit(NetworkListLoadingState());
-    emit(NetworkListLoadedState(networkList: staticNetworks));
-
-    for (int i = 0; i < staticNetworks.length; i++) {
-      _updateNetworkStatus(i);
+  void setNetworkStatusModel({required ANetworkStatusModel networkStatusModel}) {
+    int networkStatusModelIndex = networkStatusModelList.indexWhere((ANetworkStatusModel e) => e.uri == networkStatusModel.uri);
+    if (networkStatusModelIndex != -1) {
+      networkStatusModelList[networkStatusModelIndex] = networkStatusModel;
+      emit(NetworkListLoadedState(networkStatusModelList: networkStatusModelList));
     }
-  }
-
-  void _updateNetworkStatus(int index) {
-    networkConnectorCubit.getNetworkData(networkList[index]).then((NetworkModel newNetworkModel) async {
-      networkList[index] = newNetworkModel;
-      emit(NetworkListLoadingState());
-      emit(NetworkListLoadedState(networkList: networkList));
-    });
-  }
-
-  Future<List<NetworkModel>> _fetchNetworkList() async {
-    Map<String, dynamic> json = await AssetsManager().getAsMap('assets/network_list_config.json');
-    return (json['network_list'] as List<dynamic>)
-        .map((dynamic e) => NetworkModel.fromJson(e as Map<String, dynamic>))
-        .toList();
   }
 }

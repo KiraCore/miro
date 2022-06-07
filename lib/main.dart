@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:miro/blocs/specific_blocs/network_list/network_list_cubit.dart';
+import 'package:miro/blocs/specific_blocs/network_module/events/network_module_init_event.dart';
+import 'package:miro/blocs/specific_blocs/network_module/network_module_bloc.dart';
+import 'package:miro/config/app_config.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/theme_dark.dart';
 import 'package:miro/generated/l10n.dart';
@@ -10,14 +14,21 @@ import 'package:miro/shared/guards/auth_guard.dart';
 import 'package:miro/shared/guards/navigation_guard.dart';
 import 'package:miro/shared/guards/url_parameters_guard.dart';
 import 'package:miro/shared/router/router.gr.dart';
+import 'package:miro/shared/utils/assets_manager.dart';
 import 'package:provider/provider.dart';
 import 'package:url_strategy/url_strategy.dart';
 
 Future<void> main() async {
   await initLocator();
   await globalLocator<CacheManager>().init();
-  setPathUrlStrategy();
 
+  Map<String, dynamic> configJson = await AssetsManager().getAsMap('assets/network_list_config.json');
+  globalLocator<AppConfig>().init(configJson);
+
+  globalLocator<NetworkModuleBloc>().add(NetworkModuleInitEvent());
+  globalLocator<NetworkListCubit>().initNetworkStatusModelList();
+
+  setPathUrlStrategy();
   runApp(
     // ignore: always_specify_types
     ChangeNotifierProvider.value(

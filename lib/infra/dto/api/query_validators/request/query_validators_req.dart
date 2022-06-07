@@ -42,6 +42,9 @@ class QueryValidatorsReq {
   /// This is an option to query validator by a given valoper address
   final String? valkey;
 
+  /// Returns [Status] class only
+  final bool? statusOnly;
+
   QueryValidatorsReq({
     this.address,
     this.all,
@@ -54,6 +57,7 @@ class QueryValidatorsReq {
     this.pubkey,
     this.status,
     this.valkey,
+    this.statusOnly,
   });
 
   Map<String, dynamic> toJson() {
@@ -69,6 +73,7 @@ class QueryValidatorsReq {
       'pubkey': pubkey,
       'status': status,
       'valkey': valkey,
+      'status_only': statusOnly,
     };
   }
 }

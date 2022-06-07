@@ -25,7 +25,7 @@ class MockApiCosmosRepository implements ApiCosmosRepository {
     int statusCode = 404;
     Map<String, dynamic>? mockedResponse;
 
-    if (networkUri.host == 'online.kira.network') {
+    if (networkUri.host == 'unhealthy.kira.network') {
       statusCode = 200;
       mockedResponse = apiBalancesMock;
     } else {

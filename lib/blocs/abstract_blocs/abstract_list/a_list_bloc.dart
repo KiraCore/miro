@@ -22,16 +22,17 @@ import 'package:miro/blocs/specific_blocs/list/filters/states/filters_active_sta
 import 'package:miro/blocs/specific_blocs/list/filters/states/filters_empty_state.dart';
 import 'package:miro/blocs/specific_blocs/list/sort/models/sort_option.dart';
 import 'package:miro/blocs/specific_blocs/list/sort/sort_bloc.dart';
+import 'package:miro/blocs/specific_blocs/network_module/network_module_bloc.dart';
 import 'package:miro/config/app_config.dart';
 import 'package:miro/config/locator.dart';
-import 'package:miro/providers/network_provider/network_provider.dart';
 import 'package:miro/shared/utils/app_logger.dart';
 import 'package:miro/shared/utils/list_utils.dart';
 
 abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListState> {
   /// Network provider is used to get network url.
-  /// If NetworkProvider hasn't network url specified, list will emit [ListDisconnectedState]
-  final NetworkProvider networkProvider = globalLocator<NetworkProvider>();
+  /// If NetworkModuleBloc hasn't network url specified, list will emit [ListDisconnectedState]
+  final NetworkModuleBloc networkModuleBloc = globalLocator<NetworkModuleBloc>();
+  final AppConfig appConfig = globalLocator<AppConfig>();
 
   final IListController<T> listController;
   final FiltersBloc<T> filtersBloc;
@@ -55,6 +56,8 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
   /// Is responsible for notifying list about loading status.
   /// This is set to true when the list downloads all items
   ValueNotifier<bool> showLoadingOverlay = ValueNotifier<bool>(false);
+
+  Uri? _usedNetworkUri;
 
   AListBloc({
     required this.listController,
@@ -96,7 +99,12 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
 
   void _mapListInitEventToState(ListInitEvent listInitEvent, Emitter<AListState> emit) {
     // Reload list when network is changed
-    networkProvider.addListener(() => add(ListReloadEvent()));
+    networkModuleBloc.stream.listen((_) {
+      if (networkModuleBloc.state.networkStatusModel.uri.host != _usedNetworkUri?.host) {
+        _usedNetworkUri = networkModuleBloc.state.networkStatusModel.uri;
+        add(ListReloadEvent());
+      }
+    });
     add(ListReloadEvent());
   }
 
@@ -104,7 +112,7 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
     if (loadingListStatus) {
       return;
     }
-    if (!networkProvider.isConnected) {
+    if (networkModuleBloc.state.isDisconnected) {
       emit(ListDisconnectedState());
       return;
     }
@@ -169,7 +177,7 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
     await Future<void>.delayed(const Duration(milliseconds: 500));
     List<T> allListItems = List<T>.empty(growable: true);
     int downloadedPagesCount = 0;
-    int bulkSinglePageSize = AppConfig.bulkSinglePageSize;
+    int bulkSinglePageSize = appConfig.bulkSinglePageSize;
     await Future.doWhile(() async {
       int offset = downloadedPagesCount * bulkSinglePageSize;
       List<T> currentPageItems = await listController.getPageData(downloadedPagesCount, offset, bulkSinglePageSize);

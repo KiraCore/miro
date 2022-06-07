@@ -43,12 +43,12 @@ class ToastContainer extends StatelessWidget {
     return ClipRRect(
       borderRadius: BorderRadius.circular(8),
       child: Container(
-        height: height,
         width: width,
+        constraints: BoxConstraints(minHeight: height),
         color: DesignColors.gray1_100,
         child: Container(
-          height: height,
           width: width,
+          constraints: BoxConstraints(minHeight: height),
           color: _toastDecoration.backgroundColor,
           padding: const EdgeInsets.symmetric(horizontal: 18),
           child: Row(
@@ -66,11 +66,14 @@ class ToastContainer extends StatelessWidget {
               ],
               if (width != null)
                 Expanded(
-                  child: Text(
-                    title.data ?? '',
-                    style: (title.style ?? const TextStyle()).copyWith(
-                      color: title.style?.color ?? _toastDecoration.titleColor,
-                      fontSize: title.style?.fontSize ?? 14,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8),
+                    child: Text(
+                      title.data ?? '',
+                      style: (title.style ?? const TextStyle()).copyWith(
+                        color: title.style?.color ?? _toastDecoration.titleColor,
+                        fontSize: title.style?.fontSize ?? 14,
+                      ),
                     ),
                   ),
                 )
