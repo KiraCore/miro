@@ -48,7 +48,7 @@ class _HeartButton extends State<StarButton> {
     if (selected) {
       return const Icon(
         Icons.star,
-        color: DesignColors.yellow,
+        color: DesignColors.yellow_100,
         size: 18,
       );
     }

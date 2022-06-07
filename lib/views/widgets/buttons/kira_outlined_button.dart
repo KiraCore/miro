@@ -3,14 +3,16 @@ import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/views/widgets/generic/mouse_state_listener.dart';
 
 class KiraOutlinedButton extends StatelessWidget {
-  final GestureTapCallback onPressed;
+  final GestureTapCallback? onPressed;
   final String title;
   final double? height;
   final double? width;
+  final Color? borderColor;
 
   const KiraOutlinedButton({
     required this.onPressed,
     required this.title,
+    this.borderColor,
     this.width,
     this.height = 51,
     Key? key,
@@ -51,6 +53,6 @@ class KiraOutlinedButton extends StatelessWidget {
     if (states.contains(MaterialState.hovered)) {
       return DesignColors.gray3_100;
     }
-    return DesignColors.gray2_100;
+    return borderColor ?? DesignColors.gray2_100;
   }
 }

@@ -5,7 +5,8 @@ import 'package:miro/config/app_icons.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/views/widgets/kira/kira_identity_avatar.dart';
-import 'package:miro/views/widgets/kira/kira_toast.dart';
+import 'package:miro/views/widgets/kira/kira_toast/kira_toast.dart';
+import 'package:miro/views/widgets/kira/kira_toast/toast_container.dart';
 
 class MyAccountTile extends StatelessWidget {
   final Wallet wallet;
@@ -56,7 +57,7 @@ class MyAccountTile extends StatelessWidget {
                       ),
                     ),
                     trailing: IconButton(
-                      onPressed: _copyPublicAddress,
+                      onPressed: () => _copyPublicAddress(context),
                       icon: const Icon(
                         AppIcons.copy,
                         color: DesignColors.gray2_100,
@@ -73,8 +74,11 @@ class MyAccountTile extends StatelessWidget {
     );
   }
 
-  void _copyPublicAddress() {
+  void _copyPublicAddress(BuildContext context) {
     Clipboard.setData(ClipboardData(text: wallet.address.bech32Address));
-    KiraToast.show('Public address copied');
+    KiraToast.of(context).show(
+      type: ToastType.success,
+      message: 'Public address copied',
+    );
   }
 }

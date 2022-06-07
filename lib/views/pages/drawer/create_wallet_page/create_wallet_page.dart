@@ -11,7 +11,8 @@ import 'package:miro/views/pages/drawer/create_wallet_page/wallet_terms_section.
 import 'package:miro/views/widgets/kira/kira_qr_code.dart';
 import 'package:miro/views/widgets/kira/kira_text_field/kira_text_field.dart';
 import 'package:miro/views/widgets/kira/kira_text_field/kira_text_field_controller.dart';
-import 'package:miro/views/widgets/kira/kira_toast.dart';
+import 'package:miro/views/widgets/kira/kira_toast/kira_toast.dart';
+import 'package:miro/views/widgets/kira/kira_toast/toast_container.dart';
 import 'package:miro/views/widgets/kira/mnemonic_grid/mnemonic_grid.dart';
 import 'package:miro/views/widgets/kira/mnemonic_grid/model/mnemonic_grid_controller.dart';
 
@@ -145,6 +146,9 @@ class _CreateWalletPage extends State<CreateWalletPage> {
 
   Future<void> _copyCurrentMnemonic() async {
     await FlutterClipboard.copy(currentMnemonic.value);
-    KiraToast.show('Address copied');
+    await KiraToast.of(context).show(
+      type: ToastType.success,
+      message: 'Mnemonic successfully copied',
+    );
   }
 }

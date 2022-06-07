@@ -45,7 +45,7 @@ class _NetworkConnectButton extends State<NetworkConnectButton> {
       onPressed: () {},
       style: ButtonStyle(
         backgroundColor: MaterialStateProperty.all(
-          DesignColors.darkGreen,
+          DesignColors.darkGreen_100,
         ),
       ),
       child: Text(
@@ -66,7 +66,7 @@ class _NetworkConnectButton extends State<NetworkConnectButton> {
           shape: MaterialStateProperty.all(
             const RoundedRectangleBorder(
               side: BorderSide(
-                color: DesignColors.darkGreen,
+                color: DesignColors.darkGreen_100,
               ),
             ),
           ),
