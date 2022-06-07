@@ -1,107 +1,312 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:miro/providers/network_provider/network_events.dart';
+import 'package:miro/blocs/specific_blocs/network/events/network_connect_event.dart';
+import 'package:miro/blocs/specific_blocs/network/events/network_connect_from_url_event.dart';
+import 'package:miro/blocs/specific_blocs/network/events/network_disconnect_event.dart';
+import 'package:miro/blocs/specific_blocs/network/events/network_set_up_event.dart';
+import 'package:miro/blocs/specific_blocs/network/states/network_connected_state.dart';
+import 'package:miro/blocs/specific_blocs/network/states/network_disconnected_state.dart';
 import 'package:miro/providers/network_provider/network_provider.dart';
-import 'package:miro/providers/network_provider/network_states.dart';
-import 'package:miro/shared/constants/network_health_status.dart';
-import 'package:miro/shared/models/network_model.dart';
+import 'package:miro/shared/models/network/network_info_model.dart';
+import 'package:miro/shared/models/network/status/network_unknown_model.dart';
+import 'package:miro/shared/models/network/status/online/interx_error.dart';
+import 'package:miro/shared/models/network/status/online/network_unhealthy_model.dart';
 import 'package:miro/test/test_locator.dart';
+import 'package:miro/test/utils/test_utils.dart';
 
 // To run this test type in console:
 // fvm flutter test test/unit/providers/network_provider_test.dart --platform chrome
+// ignore_for_file: cascade_invocations
 Future<void> main() async {
   await initTestLocator();
   setUpAll(TestWidgetsFlutterBinding.ensureInitialized);
 
-  final NetworkModel networkModel = NetworkModel(
-    url: 'testnet-rpc.kira.network',
-    name: 'testnet-test',
-    status: NetworkHealthStatus.offline,
+  String miroUri = 'https://miro.kira.network?rpc=https://online.kira.network';
+
+  NetworkUnknownModel networkUnknownModel = NetworkUnknownModel(
+    uri: Uri.parse('https://online.kira.network'),
   );
 
-  NetworkProvider networkProvider = NetworkProvider();
+  NetworkUnhealthyModel networkUnhealthyModel = NetworkUnhealthyModel(
+    uri: Uri.parse('https://online.kira.network'),
+    networkInfoModel: NetworkInfoModel(
+      chainId: 'testnet-7',
+      latestBlockHeight: 108843,
+      latestBlockTime: DateTime.parse('2021-11-04T12:42:54.394946399Z'),
+    ),
+    interxErrors: const <InterxError>[InterxError.versionOutdated],
+  );
 
-  group('Tests of initial NetworkProvider state', () {
-    test('Should return DisconnectedNetworkState on first provider initialize', () {
-      expect(networkProvider.state, DisconnectedNetworkState());
-    });
-  });
+  group('Tests of network connecting process', () {
+    test(
+        'Should call NetworkConnectEvent and NetworkDisconnectEvent without errors, emit assigned AListState and modify NetworkProvider fields',
+        () async {
+      // Assign
+      NetworkProvider actualNetworkProvider = NetworkProvider();
 
-  group('Tests of NetworkProvider state after change network states', () {
-    test('Should return ConnectedNetworkState when ConnectToNetworkEvent & SetUpNetworkEvent is called', () async {
-      networkProvider
-        ..handleEvent(ConnectToNetworkEvent(networkModel))
-        ..handleEvent(SetUpNetworkEvent(networkModel));
-      expect(networkProvider.state, ConnectedNetworkState(networkModel));
+      // Assert
+      testPrint('Should return NetworkDisconnectedState if network is not connected');
+      expect(
+        actualNetworkProvider.networkState,
+        NetworkDisconnectedState(),
+      );
+
+      testPrint('Should return [networkStatusModel: null] if network is not connected');
+      expect(
+        actualNetworkProvider.networkStatusModel,
+        null,
+      );
+
+      testPrint('Should return [networkUri: null] if network is not connected');
+      expect(
+        actualNetworkProvider.networkUri,
+        null,
+      );
+
+      testPrint('Should return [isConnected: false] if network is not connected');
+      expect(
+        actualNetworkProvider.isConnected,
+        false,
+      );
+
+      // Act
+      await actualNetworkProvider.handleEvent(NetworkConnectEvent(networkUnknownModel));
+
+      // Assert
+      testPrint('Should return NetworkConnectedState if network is connected');
+      expect(
+        actualNetworkProvider.networkState,
+        NetworkConnectedState(networkOnlineModel: networkUnhealthyModel),
+      );
+
+      testPrint('Should return [networkStatusModel: connectedNetworkStatusModel] if network is connected');
+      expect(
+        actualNetworkProvider.networkStatusModel,
+        networkUnhealthyModel,
+      );
+
+      testPrint('Should return [networkStatusModel: connectedNetworkStatusModel.ur] if network is connected');
+      expect(
+        actualNetworkProvider.networkUri,
+        networkUnhealthyModel.uri,
+      );
+
+      testPrint('Should return [isConnected: true] if network is connected');
+      expect(
+        actualNetworkProvider.isConnected,
+        true,
+      );
+
+      // Act
+      await actualNetworkProvider.handleEvent(NetworkDisconnectEvent());
+
+      // Assert
+      testPrint('Should return NetworkDisconnectedState if network is disconnected');
+      expect(
+        actualNetworkProvider.networkState,
+        NetworkDisconnectedState(),
+      );
+
+      testPrint('Should return [networkStatusModel: null] if network is disconnected');
+      expect(
+        actualNetworkProvider.networkStatusModel,
+        null,
+      );
+
+      testPrint('Should return [networkUri: null] if network is disconnected');
+      expect(
+        actualNetworkProvider.networkUri,
+        null,
+      );
+
+      testPrint('Should return [isConnected: false] if network is disconnected');
+      expect(
+        actualNetworkProvider.isConnected,
+        false,
+      );
     });
 
     test(
-        'Should return DisconnectedNetworkState when break connection (SetUpNetworkEvent without ConnectToNetworkEvent before is called)',
+        'Should call NetworkConnectFromUrlEvent without errors, emit assigned AListState and modify NetworkProvider fields',
         () async {
-      networkProvider
-        ..handleEvent(ConnectToNetworkEvent(networkModel))
-        ..handleEvent(DisconnectNetworkEvent())
-        ..handleEvent(SetUpNetworkEvent(networkModel));
-      expect(networkProvider.state, DisconnectedNetworkState());
-    });
+      // Assign
+      NetworkProvider actualNetworkProvider = NetworkProvider();
 
-    test('Should return DisconnectedNetworkState when disconnect from network', () async {
-      networkProvider
-        ..state = ConnectedNetworkState(networkModel)
-        ..handleEvent(DisconnectNetworkEvent());
-      expect(networkProvider.state, DisconnectedNetworkState());
-    });
-  });
-
-  group('Test NetworkProvider params on ConnectingNetworkState', () {
-    test('Should return null if state is ConnectingNetworkState', () {
-      networkProvider.state = ConnectingNetworkState(networkModel);
+      // Assert
+      testPrint('Should return NetworkDisconnectedState if network is not connected');
       expect(
-        networkProvider.networkModel,
+        actualNetworkProvider.networkState,
+        NetworkDisconnectedState(),
+      );
+
+      testPrint('Should return [networkStatusModel: null] if network is not connected');
+      expect(
+        actualNetworkProvider.networkStatusModel,
         null,
       );
-    });
 
-    test('Should return null if state is ConnectingNetworkState', () {
-      networkProvider.state = ConnectingNetworkState(networkModel);
+      testPrint('Should return [networkUri: null] if network is not connected');
       expect(
-        networkProvider.networkUri,
+        actualNetworkProvider.networkUri,
         null,
       );
-    });
-  });
 
-  group('Test NetworkProvider params on DisconnectedNetworkState', () {
-    test('Should return null if state is DisconnectedNetworkState', () {
-      networkProvider.state = DisconnectedNetworkState();
+      testPrint('Should return [isConnected: false] if network is not connected');
       expect(
-        networkProvider.networkModel,
+        actualNetworkProvider.isConnected,
+        false,
+      );
+
+      // Act
+      await actualNetworkProvider.handleEvent(NetworkConnectFromUrlEvent(optionalNetworkUri: Uri.parse(miroUri)));
+
+      // Assert
+      testPrint('Should return NetworkConnectedState if network is connected');
+      expect(
+        actualNetworkProvider.networkState,
+        NetworkConnectedState(networkOnlineModel: networkUnhealthyModel),
+      );
+
+      testPrint('Should return [networkStatusModel: connectedNetworkStatusModel] if network is connected');
+      expect(
+        actualNetworkProvider.networkStatusModel,
+        networkUnhealthyModel,
+      );
+
+      testPrint('Should return [networkStatusModel: connectedNetworkStatusModel.ur] if network is connected');
+      expect(
+        actualNetworkProvider.networkUri,
+        networkUnhealthyModel.uri,
+      );
+
+      testPrint('Should return [isConnected: true] if network is connected');
+      expect(
+        actualNetworkProvider.isConnected,
+        true,
+      );
+    });
+
+    test(
+        'Should call NetworkConnectFromUrlEvent without errors, emit assigned AListState and modify NetworkProvider fields',
+        () async {
+      // Assign
+      NetworkProvider actualNetworkProvider = NetworkProvider();
+
+      // Assert
+      testPrint('Should return NetworkDisconnectedState if network is not connected');
+      expect(
+        actualNetworkProvider.networkState,
+        NetworkDisconnectedState(),
+      );
+
+      testPrint('Should return [networkStatusModel: null] if network is not connected');
+      expect(
+        actualNetworkProvider.networkStatusModel,
         null,
       );
-    });
 
-    test('Should return null if state is DisconnectedNetworkState', () {
-      networkProvider.state = DisconnectedNetworkState();
+      testPrint('Should return [networkUri: null] if network is not connected');
       expect(
-        networkProvider.networkUri,
+        actualNetworkProvider.networkUri,
         null,
       );
-    });
-  });
 
-  group('Test NetworkProvider params on ConnectedNetworkState', () {
-    test('Should return [networkModel.parsedUri] if state is ConnectedNetworkState', () {
-      networkProvider.state = ConnectedNetworkState(networkModel);
+      testPrint('Should return [isConnected: false] if network is not connected');
       expect(
-        networkProvider.networkUri,
-        networkModel.parsedUri,
+        actualNetworkProvider.isConnected,
+        false,
+      );
+
+      // Act
+      await actualNetworkProvider.handleEvent(NetworkSetUpEvent(networkUnhealthyModel));
+
+      // Assert
+      testPrint('Should return NetworkConnectedState after call NetworkSetUpEvent');
+      expect(
+        actualNetworkProvider.networkState,
+        NetworkConnectedState(networkOnlineModel: networkUnhealthyModel),
+      );
+
+      testPrint('Should return [networkStatusModel: connectedNetworkStatusModel] after call NetworkSetUpEvent');
+      expect(
+        actualNetworkProvider.networkStatusModel,
+        networkUnhealthyModel,
+      );
+
+      testPrint('Should return [networkStatusModel: connectedNetworkStatusModel.uri] after call NetworkSetUpEvent');
+      expect(
+        actualNetworkProvider.networkUri,
+        networkUnhealthyModel.uri,
+      );
+
+      testPrint('Should return [isConnected: true] after call NetworkSetUpEvent');
+      expect(
+        actualNetworkProvider.isConnected,
+        true,
       );
     });
 
-    test('Should return networkModel if state is ConnectedNetworkState', () {
-      networkProvider.state = ConnectedNetworkState(networkModel);
+    test(
+        'Should call NetworkConnectFromUrlEvent without errors, emit assigned AListState and modify NetworkProvider fields',
+        () async {
+      // Assign
+      NetworkProvider actualNetworkProvider = NetworkProvider();
+
+      // Assert
+      testPrint('Should return NetworkDisconnectedState if network is not connected');
       expect(
-        networkProvider.networkModel,
-        networkModel,
+        actualNetworkProvider.networkState,
+        NetworkDisconnectedState(),
+      );
+
+      testPrint('Should return [networkStatusModel: null] if network is not connected');
+      expect(
+        actualNetworkProvider.networkStatusModel,
+        null,
+      );
+
+      testPrint('Should return [networkUri: null] if network is not connected');
+      expect(
+        actualNetworkProvider.networkUri,
+        null,
+      );
+
+      testPrint('Should return [isConnected: false] if network is not connected');
+      expect(
+        actualNetworkProvider.isConnected,
+        false,
+      );
+
+      // Act
+      await Future<void>.delayed(const Duration(milliseconds: 100));
+      await actualNetworkProvider.handleEvent(NetworkSetUpEvent(networkUnhealthyModel, connectingStateRequired: true));
+
+      // Assert
+      testPrint(
+          'Should return NetworkDisconnectedState if connectingStateRequired param is true and state is not NetworkConnectingState');
+      expect(
+        actualNetworkProvider.networkState,
+        NetworkDisconnectedState(),
+      );
+
+      testPrint(
+          'Should return [networkStatusModel: null] if connectingStateRequired param is true and state is not NetworkConnectingState');
+      expect(
+        actualNetworkProvider.networkStatusModel,
+        null,
+      );
+
+      testPrint(
+          'Should return [networkUri: null] if connectingStateRequired param is true and state is not NetworkConnectingState');
+      expect(
+        actualNetworkProvider.networkUri,
+        null,
+      );
+
+      testPrint(
+          'Should return [isConnected: false] if connectingStateRequired param is true and state is not NetworkConnectingState');
+      expect(
+        actualNetworkProvider.isConnected,
+        false,
       );
     });
   });

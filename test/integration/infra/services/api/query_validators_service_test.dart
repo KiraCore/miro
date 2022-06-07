@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api/query_validators/request/query_validators_req.dart';
 import 'package:miro/infra/dto/api/query_validators/response/query_validators_resp.dart';
+import 'package:miro/infra/dto/api/query_validators/response/status.dart';
 import 'package:miro/infra/services/api/query_validators_service.dart';
 import 'package:miro/shared/models/validators/validator_model.dart';
 import 'package:miro/shared/utils/network_utils.dart';
@@ -70,6 +71,22 @@ Future<void> main() async {
       int responseLength = queryValidatorsResp.toString().length;
       print('${queryValidatorsResp.toString().substring(0, 1000)} ....');
       print('.... ${queryValidatorsResp.toString().substring(responseLength - 1800, responseLength)}');
+      print('');
+    });
+  });
+
+  group('Tests of getStatus() method', () {
+    test('Should return validator status only', () async {
+      final QueryValidatorsService queryValidatorsService = globalLocator<QueryValidatorsService>();
+      final Uri networkUri = NetworkUtils.parseUrl('https://testnet-rpc.kira.network');
+
+      testPrint('Data request');
+      Status? status = await queryValidatorsService.getStatus(networkUri);
+
+      testPrint('Data return');
+      int responseLength = status.toString().length;
+      print('${status.toString().substring(0, 1000)} ....');
+      print('.... ${status.toString().substring(responseLength - 1800, responseLength)}');
       print('');
     });
   });

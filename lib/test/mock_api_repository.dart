@@ -16,6 +16,9 @@ class MockApiRepository implements ApiRepository {
     if (networkUri.host == 'online.kira.network') {
       statusCode = 200;
       mockedResponse = apiStatusMock;
+    } else if (networkUri.host == 'healthy.kira.network') {
+      statusCode = 200;
+      mockedResponse = apiStatusMockHealthy;
     } else {
       throw DioError(requestOptions: RequestOptions(path: networkUri.host));
     }

@@ -22,16 +22,16 @@ import 'package:miro/blocs/specific_blocs/list/filters/states/filters_active_sta
 import 'package:miro/blocs/specific_blocs/list/filters/states/filters_empty_state.dart';
 import 'package:miro/blocs/specific_blocs/list/sort/models/sort_option.dart';
 import 'package:miro/blocs/specific_blocs/list/sort/sort_bloc.dart';
+import 'package:miro/blocs/specific_blocs/network/network_bloc.dart';
 import 'package:miro/config/app_config.dart';
 import 'package:miro/config/locator.dart';
-import 'package:miro/providers/network_provider/network_provider.dart';
 import 'package:miro/shared/utils/app_logger.dart';
 import 'package:miro/shared/utils/list_utils.dart';
 
 abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListState> {
   /// Network provider is used to get network url.
   /// If NetworkProvider hasn't network url specified, list will emit [ListDisconnectedState]
-  final NetworkProvider networkProvider = globalLocator<NetworkProvider>();
+  final NetworkBloc networkBloc = globalLocator<NetworkBloc>();
 
   final IListController<T> listController;
   final FiltersBloc<T> filtersBloc;
@@ -96,7 +96,7 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
 
   void _mapListInitEventToState(ListInitEvent listInitEvent, Emitter<AListState> emit) {
     // Reload list when network is changed
-    networkProvider.addListener(() => add(ListReloadEvent()));
+    networkBloc.stream.listen((_) => add(ListReloadEvent()));
     add(ListReloadEvent());
   }
 
@@ -104,7 +104,7 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
     if (loadingListStatus) {
       return;
     }
-    if (!networkProvider.isConnected) {
+    if (!networkBloc.isConnected) {
       emit(ListDisconnectedState());
       return;
     }

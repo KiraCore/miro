@@ -1,0 +1,4 @@
+enum InterxError {
+  blockTimeOutdated,
+  versionOutdated,
+}

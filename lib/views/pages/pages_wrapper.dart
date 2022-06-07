@@ -6,11 +6,11 @@ import 'package:miro/config/app_sizes.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/shared/router/router.gr.dart';
 import 'package:miro/views/layout/app_bar/account_button/current_account_button.dart';
-import 'package:miro/views/layout/app_bar/current_network_button.dart';
 import 'package:miro/views/layout/app_bar/kira_app_bar.dart';
 import 'package:miro/views/layout/app_bar/mobile_backdrop/backdrop_toggle_button.dart';
 import 'package:miro/views/layout/app_bar/model/app_bar_desktop_decoration.dart';
 import 'package:miro/views/layout/app_bar/model/app_bar_mobile_decoration.dart';
+import 'package:miro/views/layout/app_bar/network_current_button.dart';
 import 'package:miro/views/layout/nav_menu/model/nav_item.dart';
 import 'package:miro/views/layout/nav_menu/model/nav_menu_theme_data.dart';
 import 'package:miro/views/layout/nav_menu/model/nav_tile_theme_data.dart';
@@ -147,7 +147,7 @@ class PagesWrapper extends StatelessWidget {
             const SizedBoxExpanded(
               width: 192,
               expandOn: <ScreenSize>[ScreenSize.mobile, ScreenSize.tablet],
-              child: CurrentNetworkButton(),
+              child: NetworkCurrentButton(),
             ),
             if (ResponsiveWidget.isLargeScreen(context)) ...const <Widget>[
               SizedBox(width: 12),
