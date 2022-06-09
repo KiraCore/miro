@@ -6,7 +6,7 @@ import 'package:miro/views/widgets/kira/mnemonic_grid/model/mnemonic_grid_contro
 
 class MnemonicGrid extends StatefulWidget {
   final MnemonicGridController controller;
-  final List<String>? mnemonicWordList;
+  final List<String> mnemonicWordList;
   final int mnemonicSize;
   final int columnsCount;
   final bool editable;
@@ -14,7 +14,7 @@ class MnemonicGrid extends StatefulWidget {
   const MnemonicGrid({
     required this.controller,
     required this.editable,
-    this.mnemonicWordList,
+    this.mnemonicWordList = const <String>[],
     this.mnemonicSize = 24,
     this.columnsCount = 2,
     Key? key,
@@ -32,6 +32,14 @@ class _MnemonicGrid extends State<MnemonicGrid> {
     _initController();
     _initMnemonicTextControllers();
     super.initState();
+  }
+
+  @override
+  void didUpdateWidget(covariant MnemonicGrid oldWidget) {
+    if (oldWidget.mnemonicWordList != widget.mnemonicWordList) {
+      _initMnemonicTextControllers();
+    }
+    super.didUpdateWidget(oldWidget);
   }
 
   @override
@@ -97,17 +105,23 @@ class _MnemonicGrid extends State<MnemonicGrid> {
   }
 
   void _initMnemonicTextControllers() {
+    mnemonicControllers.clear();
     for (int i = 0; i < widget.mnemonicSize; i++) {
-      mnemonicControllers.add(TextEditingController(text: widget.mnemonicWordList?[i] ?? ''));
+      String mnemonicWord = widget.mnemonicWordList.length > i ? widget.mnemonicWordList[i] : '';
+      mnemonicControllers.add(TextEditingController(text: mnemonicWord));
     }
   }
 
   Widget _buildCell(int index) {
+    String mnemonicWord = widget.mnemonicWordList.length > index ? widget.mnemonicWordList[index] : '';
+    TextEditingController textEditingController =
+        mnemonicControllers.length > index ? mnemonicControllers[index] : TextEditingController();
+
     return MnemonicGridItem(
       index: index,
       editable: widget.editable,
-      mnemonicWord: widget.mnemonicWordList?[index],
-      textController: mnemonicControllers[index],
+      mnemonicWord: mnemonicWord,
+      textController: textEditingController,
     );
   }
 }
