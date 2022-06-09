@@ -1,17 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';
-import 'package:miro/providers/wallet_provider.dart';
-import 'package:miro/shared/models/wallet/wallet.dart';
-import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
-import 'package:miro/views/widgets/buttons/kira_elevated_button.dart';
 
 class WalletTermsSection extends StatefulWidget {
-  final Wallet? wallet;
+  final void Function(bool value) onChanged;
+  final bool checked;
 
   const WalletTermsSection({
-    required this.wallet,
+    required this.onChanged,
+    required this.checked,
     Key? key,
   }) : super(key: key);
 
@@ -20,7 +17,15 @@ class WalletTermsSection extends StatefulWidget {
 }
 
 class _WalletTermsSection extends State<WalletTermsSection> {
-  bool termsAccepted = false;
+  ValueNotifier<bool> termsAcceptedNotifier = ValueNotifier<bool>(false);
+
+  @override
+  void didUpdateWidget(covariant WalletTermsSection oldWidget) {
+    if (oldWidget.checked != widget.checked) {
+      termsAcceptedNotifier.value = widget.checked;
+    }
+    super.didUpdateWidget(oldWidget);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,18 +34,19 @@ class _WalletTermsSection extends State<WalletTermsSection> {
         const SizedBox(height: 20),
         Row(
           children: <Widget>[
-            SizedBox(
-              width: 40,
-              child: Checkbox(
-                value: termsAccepted,
-                activeColor: DesignColors.blue2_100,
-                checkColor: DesignColors.gray3_100,
-                onChanged: (bool? state) {
-                  setState(() {
-                    termsAccepted = !termsAccepted;
-                  });
-                },
-              ),
+            ValueListenableBuilder<bool>(
+              valueListenable: termsAcceptedNotifier,
+              builder: (_, bool termsChecked, __) {
+                return SizedBox(
+                  width: 40,
+                  child: Checkbox(
+                    value: termsChecked,
+                    activeColor: DesignColors.blue2_100,
+                    checkColor: DesignColors.gray3_100,
+                    onChanged: _onCheckboxValueChanged,
+                  ),
+                );
+              },
             ),
             const Expanded(
               child: SizedBox(
@@ -55,20 +61,12 @@ class _WalletTermsSection extends State<WalletTermsSection> {
             ),
           ],
         ),
-        const SizedBox(height: 20),
-        KiraElevatedButton(
-          onPressed: _onConnectWalledPressed,
-          disabled: !termsAccepted,
-          title: 'Connect wallet',
-        ),
       ],
     );
   }
 
-  void _onConnectWalledPressed() {
-    if (widget.wallet != null) {
-      globalLocator<WalletProvider>().updateWallet(widget.wallet!);
-      KiraScaffold.of(context).closeEndDrawer();
-    }
+  void _onCheckboxValueChanged(bool? state) {
+    termsAcceptedNotifier.value = !termsAcceptedNotifier.value;
+    widget.onChanged(termsAcceptedNotifier.value);
   }
 }
