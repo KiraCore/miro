@@ -13,6 +13,8 @@ abstract class ApiRepository {
   Future<Response<T>> fetchDeposits<T>(Uri networkUri, DepositsReq depositsReq);
 
   Future<Response<T>> fetchWithdraws<T>(Uri networkUri, WithdrawsReq withdrawsReq);
+
+  Future<Response<T>> fetchDashboard<T>(Uri networkUri);
 }
 
 class RemoteApiRepository implements ApiRepository {
@@ -66,6 +68,19 @@ class RemoteApiRepository implements ApiRepository {
         networkUri: networkUri,
         path: '/api/withdraws',
         queryParameters: withdrawsReq.toJson(),
+      );
+      return response;
+    } on DioError {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<Response<T>> fetchDashboard<T>(Uri networkUri) async {
+    try {
+      final Response<T> response = await _api.get<T>(
+        networkUri: networkUri,
+        path: '/api/dashboard',
       );
       return response;
     } on DioError {
