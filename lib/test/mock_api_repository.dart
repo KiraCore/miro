@@ -3,6 +3,7 @@ import 'package:miro/infra/dto/api/deposits/request/deposit_req.dart';
 import 'package:miro/infra/dto/api/query_validators/request/query_validators_req.dart';
 import 'package:miro/infra/dto/api/withdraws/request/withdraws_req.dart';
 import 'package:miro/infra/repositories/api_repository.dart';
+import 'package:miro/test/mocks/api/api_dashboard.dart';
 import 'package:miro/test/mocks/api/api_query_validators.dart';
 import 'package:miro/test/mocks/api/api_status.dart';
 
@@ -53,6 +54,15 @@ class MockApiRepository implements ApiRepository {
     return Response<T>(
       statusCode: statusCode,
       data: mockedResponse as T,
+      requestOptions: RequestOptions(path: ''),
+    );
+  }
+
+  @override
+  Future<Response<T>> fetchDashboard<T>(Uri networkUri) async {
+    return Response<T>(
+      statusCode: 200,
+      data: apiDashboardMock as T,
       requestOptions: RequestOptions(path: ''),
     );
   }

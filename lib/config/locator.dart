@@ -3,6 +3,7 @@ import 'package:miro/infra/cache/cache_manager.dart';
 import 'package:miro/infra/repositories/api_cosmos_repository.dart';
 import 'package:miro/infra/repositories/api_kira_repository.dart';
 import 'package:miro/infra/repositories/api_repository.dart';
+import 'package:miro/infra/services/api/dashboard_service.dart';
 import 'package:miro/infra/services/api/deposits_service.dart';
 import 'package:miro/infra/services/api/query_interx_status_service.dart';
 import 'package:miro/infra/services/api/query_validators_service.dart';
@@ -32,6 +33,7 @@ Future<void> initLocator() async {
     ..registerFactory<ApiCosmosRepository>(() => RemoteApiCosmosRepository())
     ..registerFactory<ApiKiraRepository>(() => RemoteApiKiraRepository())
     ..registerFactory<WithdrawsService>(() => WithdrawsService())
+    ..registerFactory<DashboardService>(() => DashboardService())
     ..registerFactory<QueryAccountService>(() => QueryAccountService())
     ..registerFactory<DepositsService>(() => DepositsService())
     ..registerFactory<QueryValidatorsService>(() => QueryValidatorsService())
