@@ -11,6 +11,8 @@ import 'package:miro/infra/services/api/withdraws_service.dart';
 import 'package:miro/infra/services/api_cosmos/query_account_service.dart';
 import 'package:miro/infra/services/api_cosmos/query_balance_service.dart';
 import 'package:miro/infra/services/api_cosmos/transactions_service.dart';
+import 'package:miro/infra/services/api_kira/query_identity_records_service.dart';
+import 'package:miro/infra/services/api_kira/query_identity_verify_requests_service.dart';
 import 'package:miro/infra/services/api_kira/query_kira_tokens_aliases_service.dart';
 import 'package:miro/infra/services/api_kira/query_kira_tokens_rates_service.dart';
 import 'package:miro/providers/app_config_provider.dart';
@@ -38,6 +40,8 @@ Future<void> initLocator() async {
     ..registerFactory<DepositsService>(() => DepositsService())
     ..registerFactory<QueryValidatorsService>(() => QueryValidatorsService())
     ..registerFactory<TransactionsService>(() => TransactionsService())
+    ..registerFactory<QueryIdentityRecordsService>(() => QueryIdentityRecordsService())
+    ..registerFactory<QueryIdentityVerifyRequestsService>(() => QueryIdentityVerifyRequestsService())
     ..registerFactory<QueryKiraTokensRatesService>(() => QueryKiraTokensRatesService())
     ..registerFactory<QueryKiraTokensAliasesService>(() => QueryKiraTokensAliasesService())
     ..registerFactory<QueryInterxStatusService>(() => QueryInterxStatusService())

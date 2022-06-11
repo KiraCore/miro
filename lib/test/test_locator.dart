@@ -7,6 +7,8 @@ import 'package:miro/infra/services/api/dashboard_service.dart';
 import 'package:miro/infra/services/api/query_interx_status_service.dart';
 import 'package:miro/infra/services/api/query_validators_service.dart';
 import 'package:miro/infra/services/api_cosmos/query_balance_service.dart';
+import 'package:miro/infra/services/api_kira/query_identity_records_service.dart';
+import 'package:miro/infra/services/api_kira/query_identity_verify_requests_service.dart';
 import 'package:miro/infra/services/api_kira/query_kira_tokens_aliases_service.dart';
 import 'package:miro/infra/services/api_kira/query_kira_tokens_rates_service.dart';
 import 'package:miro/providers/app_config_provider.dart';
@@ -28,6 +30,8 @@ Future<void> initTestLocator() async {
     ..registerFactory<ApiRepository>(() => MockApiRepository())
     ..registerFactory<ApiCosmosRepository>(() => MockApiCosmosRepository())
     ..registerFactory<QueryInterxStatusService>(() => QueryInterxStatusService())
+    ..registerFactory<QueryIdentityRecordsService>(() => QueryIdentityRecordsService())
+    ..registerFactory<QueryIdentityVerifyRequestsService>(() => QueryIdentityVerifyRequestsService())
     ..registerFactory<QueryBalanceService>(() => QueryBalanceService())
     ..registerFactory<DashboardService>(() => DashboardService())
     ..registerFactory<QueryKiraTokensRatesService>(() => QueryKiraTokensRatesService())
