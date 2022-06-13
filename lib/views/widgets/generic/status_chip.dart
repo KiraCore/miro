@@ -1,26 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
 
-enum StatusChipValue {
-  pending,
-  confirmed,
-  failed,
+enum StatusChipType {
   loading,
-  notVerified,
+  failed,
+  success,
+  warning,
 }
 
 class StatusChip extends StatelessWidget {
-  final StatusChipValue value;
+  final StatusChipType? type;
+  final String label;
+  final Icon? icon;
 
   const StatusChip({
-    required this.value,
+    required this.type,
+    required this.label,
+    this.icon,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    String textValue = _getText();
-    Color color = _getColor();
+    Color color = chipColor;
     Color backgroundColor = color.withOpacity(0.2);
 
     return Row(
@@ -31,42 +33,45 @@ class StatusChip extends StatelessWidget {
             color: backgroundColor,
             borderRadius: BorderRadius.circular(4),
           ),
-          child: Text(
-            textValue,
-            style: TextStyle(
-              color: color,
-              fontSize: 12,
-            ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              if (icon != null) ...<Widget>[
+                Icon(
+                  icon!.icon,
+                  color: icon!.color ?? color,
+                  size: 14,
+                ),
+                const SizedBox(width: 8),
+              ],
+              Text(
+                label,
+                style: TextStyle(
+                  color: color,
+                  fontSize: 12,
+                ),
+              ),
+            ],
           ),
         ),
       ],
     );
   }
 
-  String _getText() {
-    if (value == StatusChipValue.pending) {
-      return 'Pending';
-    } else if (value == StatusChipValue.failed) {
-      return 'Failed';
-    } else if (value == StatusChipValue.loading) {
-      return 'Loading...';
-    } else if (value == StatusChipValue.notVerified) {
-      return 'Not Verified';
+  Color get chipColor {
+    switch (type) {
+      case StatusChipType.loading:
+        return DesignColors.gray2_100;
+      case StatusChipType.failed:
+        return DesignColors.red_100;
+      case StatusChipType.warning:
+        return DesignColors.yellow_100;
+      case StatusChipType.success:
+        return DesignColors.blue1_100;
+      default:
+        return DesignColors.gray2_100;
     }
-
-    return 'Confirmed';
-  }
-
-  Color _getColor() {
-    if (value == StatusChipValue.pending) {
-      return DesignColors.yellow_100;
-    } else if (value == StatusChipValue.failed) {
-      return DesignColors.red_100;
-    } else if (value == StatusChipValue.loading) {
-      return DesignColors.gray2_100;
-    } else if (value == StatusChipValue.notVerified) {
-      return DesignColors.gray2_100;
-    }
-    return DesignColors.darkGreen_100;
   }
 }

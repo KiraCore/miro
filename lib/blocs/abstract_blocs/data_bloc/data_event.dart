@@ -6,3 +6,5 @@ class DataEvent extends Equatable {
 }
 
 class LoadDataEvent extends DataEvent {}
+
+class NotifyDataChangedEvent extends DataEvent {}

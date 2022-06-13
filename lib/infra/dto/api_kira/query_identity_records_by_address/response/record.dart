@@ -5,7 +5,7 @@ class Record extends Equatable {
   final DateTime date;
   final String id;
   final String key;
-  final String value;
+  final String? value;
   final List<String> verifiers;
 
   const Record({
@@ -23,7 +23,7 @@ class Record extends Equatable {
       date: DateTime.parse(json['date'] as String),
       id: json['id'] as String,
       key: json['key'] as String,
-      value: json['value'] as String,
+      value: json['value'] as String?,
       verifiers: json['verifiers'] != null ? json['verifiers'] as List<String> : List<String>.empty(),
     );
   }
@@ -37,4 +37,15 @@ class Record extends Equatable {
         value,
         verifiers,
       ];
+}
+
+class NewRecord extends Record {
+  const NewRecord({required String key, required DateTime date})
+      : super(
+          key: key,
+          date: date,
+          address: '',
+          id: '',
+          value: null,
+        );
 }

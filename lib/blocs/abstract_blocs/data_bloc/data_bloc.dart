@@ -7,6 +7,7 @@ part 'data_state.dart';
 abstract class DataBloc<T extends Object> extends Bloc<DataEvent, DataState<T>> {
   DataBloc() : super(DataEmptyState<T>()) {
     on<LoadDataEvent>(_mapLoadDataEventToState);
+    on<NotifyDataChangedEvent>(_mapNotifyDataChangedEventToState);
   }
 
   T? value;
@@ -26,6 +27,11 @@ abstract class DataBloc<T extends Object> extends Bloc<DataEvent, DataState<T>> 
     } catch (e) {
       emit(DataErrorState<T>());
     }
+  }
+
+  Future<void> _mapNotifyDataChangedEventToState(NotifyDataChangedEvent event, Emitter<DataState<T>> emit) async {
+    emit(DataLoadingState<T>());
+    emit(DataLoadedState<T>(value!));
   }
 
   Future<T> fetchRemoteData();

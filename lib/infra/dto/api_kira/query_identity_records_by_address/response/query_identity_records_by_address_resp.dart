@@ -8,13 +8,6 @@ class QueryIdentityRecordsByAddressResp extends Equatable {
     required this.records,
   });
 
-  Map<String, Record> get recordsMap {
-    return records.fold<Map<String, Record>>(
-      <String, Record>{},
-      (Map<String, Record> map, Record record) => map..addAll(<String, Record>{record.key: record}),
-    );
-  }
-
   factory QueryIdentityRecordsByAddressResp.fromJson(Map<String, dynamic> json) {
     return QueryIdentityRecordsByAddressResp(
       records:

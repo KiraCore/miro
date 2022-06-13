@@ -28,8 +28,7 @@ class FakeTextField extends StatelessWidget {
         color: emptyLabelStyle?.color ?? DesignColors.gray2_100,
       );
     }
-    return Container(
-      padding: const EdgeInsets.only(right: 20),
+    return SizedBox(
       width: double.infinity,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
