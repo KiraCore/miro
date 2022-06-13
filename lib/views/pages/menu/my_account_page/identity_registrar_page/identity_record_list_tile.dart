@@ -4,6 +4,7 @@ import 'package:miro/blocs/abstract_blocs/data_bloc/data_bloc.dart';
 import 'package:miro/blocs/specific_blocs/data/query_identity_records_by_address_data_bloc.dart';
 import 'package:miro/infra/dto/api_kira/query_identity_records_by_address/response/record.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
+import 'package:miro/views/pages/drawer/identity_record_page/edit_record_page.dart';
 import 'package:miro/views/pages/drawer/identity_record_page/identity_record_page.dart';
 import 'package:miro/views/pages/menu/my_account_page/identity_registrar_page/identity_record_config.dart';
 import 'package:miro/views/pages/menu/my_account_page/identity_registrar_page/identity_record_row_layout.dart';
@@ -21,11 +22,11 @@ const BorderSide kListItemBorderSide = BorderSide(
 
 class IdentityRecordListTile extends StatelessWidget {
   final IdentityRecordConfig? identityRecordConfig;
-  final String identityKey;
+  final String recordKey;
 
   const IdentityRecordListTile({
     required this.identityRecordConfig,
-    required this.identityKey,
+    required this.recordKey,
     Key? key,
   }) : super(key: key);
 
@@ -36,12 +37,12 @@ class IdentityRecordListTile extends StatelessWidget {
         bool loadingStatus = state is DataLoadingState<List<Record>>;
         Record? record;
         if (!loadingStatus) {
-          record = BlocProvider.of<QueryIdentityRecordsByAddressDataBloc>(context).recordsMap[identityKey];
+          record = BlocProvider.of<QueryIdentityRecordsByAddressDataBloc>(context).recordsMap[recordKey];
         }
         return _IdentityRecordListTileContent(
           label: identityRecordConfig?.label,
           description: identityRecordConfig?.description,
-          identityKey: identityKey,
+          recordKey: recordKey,
           record: record,
           loading: loadingStatus,
           recordType: identityRecordConfig?.recordType ?? RecordType.shortText,
@@ -53,14 +54,14 @@ class IdentityRecordListTile extends StatelessWidget {
 
 class _IdentityRecordListTileContent extends StatelessWidget {
   final String? label;
-  final String identityKey;
+  final String recordKey;
   final String? description;
   final RecordType recordType;
   final bool loading;
   final Record? record;
 
   const _IdentityRecordListTileContent({
-    required this.identityKey,
+    required this.recordKey,
     required this.description,
     required this.loading,
     required this.record,
@@ -84,7 +85,7 @@ class _IdentityRecordListTileContent extends StatelessWidget {
           ),
           entrySection: IdentityRecordPreview(
             record: record,
-            label: label ?? identityKey,
+            label: label ?? recordKey,
             recordType: recordType,
           ),
           statusSection: IdentityRecordStatusChip(
@@ -98,7 +99,7 @@ class _IdentityRecordListTileContent extends StatelessWidget {
                 KiraElevatedButton(
                   width: 76,
                   height: 40,
-                  onPressed: () {},
+                  onPressed: () => _openRecordAddDrawer(context),
                   title: 'Add',
                 )
               else ...<Widget>[
@@ -106,7 +107,7 @@ class _IdentityRecordListTileContent extends StatelessWidget {
                 KiraOutlinedButton(
                   width: 76,
                   height: 40,
-                  onPressed: () {},
+                  onPressed: () => _openRecordEditDrawer(context),
                   title: 'Edit',
                 ),
               ],
@@ -120,7 +121,34 @@ class _IdentityRecordListTileContent extends StatelessWidget {
   void _openRecordPreviewDrawer(BuildContext context) {
     KiraScaffold.of(context).navigateEndDrawerRoute(
       IdentityRecordPage(
-        label: label ?? identityKey,
+        recordKey: recordKey,
+        label: label ?? recordKey,
+        description: description,
+        record: record,
+        recordType: recordType,
+      ),
+    );
+  }
+
+  void _openRecordEditDrawer(BuildContext context) {
+    KiraScaffold.of(context).navigateEndDrawerRoute(
+      EditRecordPage(
+        recordKey: recordKey,
+        recordEditMode: RecordEditMode.edit,
+        label: label ?? recordKey,
+        description: description,
+        record: record,
+        recordType: recordType,
+      ),
+    );
+  }
+
+  void _openRecordAddDrawer(BuildContext context) {
+    KiraScaffold.of(context).navigateEndDrawerRoute(
+      EditRecordPage(
+        recordKey: recordKey,
+        recordEditMode: RecordEditMode.add,
+        label: label ?? recordKey,
         description: description,
         record: record,
         recordType: recordType,

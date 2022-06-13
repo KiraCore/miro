@@ -81,7 +81,11 @@ class KiraScaffoldState extends State<KiraScaffold> {
   }
 
   void popEndDrawer() {
-    BlocProvider.of<DrawerCubit>(context).pop(scaffoldKey);
+    try {
+      BlocProvider.of<DrawerCubit>(context).pop(scaffoldKey);
+    } catch (_) {
+      BlocProvider.of<DrawerCubit>(context).closeDrawer(scaffoldKey);
+    }
   }
 
   void closeEndDrawer() {

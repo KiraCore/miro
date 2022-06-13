@@ -34,7 +34,9 @@ class RecordUrlListPreview extends StatelessWidget {
       List<String> socialLinkStrings = (record!.value ?? '').split(',');
       for (String socialLinkString in socialLinkStrings) {
         SocialUrl socialUrl = UrlRecognizer.findObject(url: socialLinkString);
-        socials.add(socialUrl);
+        if (socialUrl.url.isNotEmpty) {
+          socials.add(socialUrl);
+        }
       }
     }
     return socials;

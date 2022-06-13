@@ -68,7 +68,7 @@ class _IdentityRegistrarPage extends State<IdentityRegistrarPage> {
             ...IdentityRecordsConfig.defaultIdentityRecordKeys.map((String key) {
               return IdentityRecordListTile(
                 identityRecordConfig: IdentityRecordsConfig.getConfig(key),
-                identityKey: key,
+                recordKey: key,
               );
             }).toList(),
             BlocBuilder<QueryIdentityRecordsByAddressDataBloc, DataState<List<Record>>>(
@@ -83,7 +83,7 @@ class _IdentityRegistrarPage extends State<IdentityRegistrarPage> {
                   children: customRecords.map((Record e) {
                     return IdentityRecordListTile(
                       identityRecordConfig: IdentityRecordsConfig.getConfig(e.key),
-                      identityKey: e.key,
+                      recordKey: e.key,
                     );
                   }).toList(),
                 );

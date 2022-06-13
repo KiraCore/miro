@@ -11,8 +11,10 @@ class KiraTextField extends StatefulWidget {
   final bool obscureText;
   final FormFieldValidator<String>? validator;
   final Widget? suffixIcon;
+  final Widget? prefixIcon;
   final ValueChanged<String>? onChanged;
   final bool readOnly;
+  final int maxLines;
 
   const KiraTextField({
     required this.controller,
@@ -20,8 +22,10 @@ class KiraTextField extends StatefulWidget {
     this.onChanged,
     this.readOnly = false,
     this.hint,
+    this.maxLines = 1,
     this.label,
     this.suffixIcon,
+    this.prefixIcon,
     this.obscureText = false,
     Key? key,
   }) : super(key: key);
@@ -65,12 +69,14 @@ class _KiraTextField extends State<KiraTextField> {
           controller: widget.controller.textController,
           onChanged: widget.onChanged,
           obscureText: obscureTextStatus,
+          maxLines: widget.maxLines,
           readOnly: widget.readOnly,
           style: const TextStyle(
             color: DesignColors.white_100,
             fontSize: 14,
           ),
           decoration: InputDecoration(
+            hoverColor: Colors.transparent,
             filled: true,
             fillColor: DesignColors.gray1_100,
             errorText: errorMessage,
@@ -78,6 +84,7 @@ class _KiraTextField extends State<KiraTextField> {
               color: DesignColors.red_100,
             ),
             suffixIcon: _getSuffixIcon(),
+            prefixIcon: widget.prefixIcon,
             errorMaxLines: 1,
             hintText: widget.hint,
             hintStyle: const TextStyle(
