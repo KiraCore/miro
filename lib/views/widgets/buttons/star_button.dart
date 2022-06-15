@@ -5,18 +5,20 @@ import 'package:miro/config/theme/design_colors.dart';
 class StarButton extends StatefulWidget {
   final bool value;
   final void Function(bool value) onChanged;
+  final double size;
 
   const StarButton({
     required this.onChanged,
     this.value = false,
+    this.size = 18,
     Key? key,
   }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _HeartButton();
+  State<StatefulWidget> createState() => _StarButton();
 }
 
-class _HeartButton extends State<StarButton> {
+class _StarButton extends State<StarButton> {
   late bool selected;
 
   @override
@@ -46,16 +48,16 @@ class _HeartButton extends State<StarButton> {
 
   Widget _getHeartIcon() {
     if (selected) {
-      return const Icon(
+      return Icon(
         Icons.star,
         color: DesignColors.yellow_100,
-        size: 18,
+        size: widget.size,
       );
     }
-    return const Icon(
+    return Icon(
       Icons.star_border,
       color: DesignColors.gray2_100,
-      size: 18,
+      size: widget.size,
     );
   }
 }

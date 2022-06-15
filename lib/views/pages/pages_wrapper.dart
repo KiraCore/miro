@@ -37,7 +37,7 @@ class PagesWrapper extends StatelessWidget {
       icon: AppIcons.dashboard,
     ),
     const NavItem(
-      pageRouteInfo: null,
+      pageRouteInfo: ValidatorsRoute(),
       name: 'Validators',
       icon: AppIcons.shield,
     ),

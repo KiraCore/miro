@@ -2,11 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:miro/blocs/abstract_blocs/list_bloc/list_bloc.dart';
-import 'package:miro/blocs/specific_blocs/lists/balance_list_bloc.dart';
 import 'package:miro/config/theme/design_colors.dart';
-import 'package:miro/infra/cache/favourite_cache.dart';
 import 'package:miro/infra/dto/api_cosmos/query_balance/response/balance.dart';
 import 'package:miro/infra/dto/api_kira/query_kira_tokens_aliases/response/token_alias.dart';
 import 'package:miro/providers/tokens_provider.dart';
@@ -33,13 +29,14 @@ class BalanceListItemBuilder extends StatefulWidget {
 }
 
 class _BalanceListItemBuilder extends State<BalanceListItemBuilder> {
-  final FavouriteCache favouriteCache = FavouriteCache(
-    boxName: BalanceListBloc.favouriteCacheWorkspace,
-  );
+  // final FavouriteCache favouriteCache = FavouriteCache(
+  //   boxName: BalanceListBloc.favouriteCacheWorkspace,
+  // );
   bool isExpanded = false;
 
   bool get isFavourite {
-    return favouriteCache.get(id: widget.balance.denom);
+    return false;
+    // return favouriteCache.get(id: widget.balance.denom);
   }
 
   @override
@@ -119,12 +116,12 @@ class _BalanceListItemBuilder extends State<BalanceListItemBuilder> {
   }
 
   void _onFavouriteButtonPressed(bool value) {
-    if (value) {
-      favouriteCache.add(id: widget.balance.denom, value: true);
-    } else {
-      favouriteCache.delete(id: widget.balance.denom);
-    }
-    BlocProvider.of<BalanceListBloc>(context).add(SortEvent<Balance>());
+    // if (value) {
+    //   favouriteCache.add(id: widget.balance.denom, value: true);
+    // } else {
+    //   favouriteCache.delete(id: widget.balance.denom);
+    // }
+    // BlocProvider.of<BalanceListBloc>(context).add(SortEvent<Balance>());
     setState(() {});
   }
 

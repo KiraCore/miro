@@ -39,7 +39,7 @@ Future<void> main() async {
       'nature light entire memory garden ostrich bottom ensure brand fantasy curtain coast also solve cannon wealth hole quantum fantasy purchase check drift cloth ecology';
   final Mnemonic recipientMnemonic = Mnemonic(value: recipientMnemonicString);
   final UnsafeWallet recipientWallet = UnsafeWallet.derive(mnemonic: recipientMnemonic);
-  const String recipientAddress = 'kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl';
+  const String recipientAddress = 'kira14ju59wcs9wcac5pep7yxrm5pu0sv52zw0vtxpd';
 
   final Uri customUri = NetworkUtils.parseUrl('http://173.212.254.147:11000');
   const String chainId = 'testnet-9';
@@ -81,7 +81,7 @@ Future<void> main() async {
 
       BroadcastReq broadcastReq = BroadcastReq(transaction: signedTransaction);
       testPrint('Signed MsgSend transaction: ${json.encode(broadcastReq.toJson())}');
-      await _broadcastTransaction(signedTransaction);
+      // await _broadcastTransaction(signedTransaction);
     });
 
     test('Should return a signed transaction with MsgRegisterIdentityRecords message', () async {
@@ -91,7 +91,7 @@ Future<void> main() async {
       // );
 
       final IdentityInfoEntry identityInfoEntry = IdentityInfoEntry(
-        key: 'avatar',
+        key: 'avatar2',
         info: 'https://paganresearch.io/images/kiracore.jpg',
       );
 
@@ -118,7 +118,7 @@ Future<void> main() async {
     });
 
     test('Should return a signed transaction with MsgRequestIdentityRecordsVerify message', () async {
-      final BigInt recordId = BigInt.from(954);
+      final BigInt recordId = BigInt.from(952);
       final Coin verifyTip = Coin(denom: 'ukex', value: BigInt.parse('200'));
 
       final TxMsg actualMessage = MsgRequestIdentityRecordsVerify(
@@ -142,7 +142,7 @@ Future<void> main() async {
 
       BroadcastReq broadcastReq = BroadcastReq(transaction: signedTransaction);
       testPrint('Signed MsgRequestIdentityRecordsVerify transaction: ${json.encode(broadcastReq.toJson())}');
-      // await _broadcastTransaction(signedTransaction);
+      await _broadcastTransaction(signedTransaction);
     });
 
     test('Should return a signed transaction with MsgCancelIdentityRecordsVerifyRequest message', () async {

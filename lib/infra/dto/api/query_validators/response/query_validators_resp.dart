@@ -18,7 +18,7 @@ class QueryValidatorsResp extends Equatable {
 
   factory QueryValidatorsResp.fromJson(Map<String, dynamic> json) {
     return QueryValidatorsResp(
-      status: Status.fromJson(json['status'] as Map<String, dynamic>),
+      status: json['status'] != null ? Status.fromJson(json['status'] as Map<String, dynamic>) : null,
       waiting: json['waiting'] != null
           ? (json['waiting'] as List<dynamic>).map((dynamic e) => e as String).toList()
           : List<String>.empty(growable: true),

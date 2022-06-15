@@ -5,13 +5,17 @@ class MouseStateListener extends StatefulWidget {
   final Widget Function(Set<MaterialState> states) childBuilder;
   final bool disabled;
   final bool selected;
+  final bool disableSplash;
   final GestureTapCallback? onTap;
+  final MouseCursor? mouseCursor;
 
   const MouseStateListener({
     required this.childBuilder,
     this.disabled = false,
     this.selected = false,
+    this.disableSplash = false,
     this.onTap,
+    this.mouseCursor,
     Key? key,
   }) : super(key: key);
 
@@ -37,7 +41,7 @@ class _MouseStateListener extends State<MouseStateListener> {
   @override
   Widget build(BuildContext context) {
     return MouseRegion(
-      cursor: widget.onTap != null ? SystemMouseCursors.click : SystemMouseCursors.none,
+      cursor: widget.mouseCursor ?? (widget.onTap != null ? SystemMouseCursors.click : SystemMouseCursors.none),
       child: GestureDetector(
         onTapDown: (TapDownDetails details) {
           _addState(MaterialState.pressed);
@@ -50,6 +54,10 @@ class _MouseStateListener extends State<MouseStateListener> {
         },
         child: InkWell(
           onTap: widget.onTap != null ? () => widget.onTap!() : null,
+          splashFactory: widget.disableSplash ? NoSplash.splashFactory : null,
+          splashColor: widget.disableSplash ? Colors.transparent : null,
+          highlightColor: widget.disableSplash ? Colors.transparent : null,
+          hoverColor: widget.disableSplash ? Colors.transparent : null,
           onHover: (bool hovered) {
             if (hovered) {
               _addState(MaterialState.hovered);

@@ -1,17 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:miro/blocs/abstract_blocs/list_bloc/list_bloc.dart';
+import 'package:miro/blocs/abstract_blocs/list_bloc/list_event/search_event.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/views/widgets/generic/search_bar.dart';
 
-typedef SearchCallback<E> = bool Function(E item, String searchValue);
-
-class SearchOptionWidget<E> extends StatelessWidget {
-  final SearchCallback<E> searchCallback;
-  final void Function(String value) onChanged;
-
+class SearchOptionWidget<ListItemType, ListBlocType extends ListBloc<dynamic>> extends StatelessWidget {
   const SearchOptionWidget({
-    required this.searchCallback,
-    required this.onChanged,
     Key? key,
   }) : super(key: key);
 
@@ -22,7 +18,10 @@ class SearchOptionWidget<E> extends StatelessWidget {
       width: 285,
       child: SearchBar(
         label: 'Search',
-        onChanged: onChanged,
+        onFieldSubmitted: (String value) {
+          print('Submited: $value');
+          BlocProvider.of<ListBlocType>(context).add(SearchEvent<ListItemType>(value));
+        },
         backgroundColor: DesignColors.blue1_10,
         border: OutlineInputBorder(
           borderSide: const BorderSide(color: Colors.transparent),

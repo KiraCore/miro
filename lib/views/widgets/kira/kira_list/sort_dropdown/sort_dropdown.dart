@@ -1,0 +1,102 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:miro/blocs/abstract_blocs/list_bloc/list_bloc.dart';
+import 'package:miro/blocs/abstract_blocs/list_bloc/list_event/sort_event.dart';
+import 'package:miro/config/app_icons.dart';
+import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/shared/models/list/sort_option.dart';
+import 'package:miro/views/widgets/generic/pop_wrapper.dart';
+import 'package:miro/views/widgets/kira/kira_list/list_pop_menu/list_pop_menu.dart';
+import 'package:miro/views/widgets/kira/kira_list/sort_dropdown/sort_dropdown_button.dart';
+
+class SortDropdown<ItemType, ListBlocType extends ListBloc<ItemType>> extends StatefulWidget {
+  final List<SortOption<ItemType>> sortOptions;
+
+  const SortDropdown({
+    required this.sortOptions,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _SortOptionWidget<ItemType, ListBlocType>();
+}
+
+class _SortOptionWidget<ItemType, ListBlocType extends ListBloc<ItemType>>
+    extends State<SortDropdown<ItemType, ListBlocType>> {
+  PopWrapperController sortOptionsController = PopWrapperController();
+  late SortOption<ItemType> currentSortOption;
+
+  @override
+  void initState() {
+    currentSortOption = BlocProvider.of<ListBlocType>(context).activeSortOption;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: <Widget>[
+        const Text(
+          'Sort by',
+          style: TextStyle(
+            fontSize: 14,
+            color: DesignColors.gray2_100,
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+        const SizedBox(width: 10),
+        SizedBox(
+          width: 110,
+          height: 30,
+          child: PopWrapper(
+            buttonWidth: 100,
+            buttonHeight: 30,
+            popWrapperController: sortOptionsController,
+            buttonBuilder: (AnimationController animationController) {
+              return SortDropdownButton(title: currentSortOption.id);
+            },
+            dropdownMargin: 0,
+            decoration: BoxDecoration(
+              color: const Color(0xFF12143D),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            popupBuilder: () {
+              return ListPopMenu<SortOption<ItemType>>(
+                itemToString: (SortOption<ItemType> item) => item.id,
+                items: widget.sortOptions,
+                onItemSelected: _onPopupItemClicked,
+                selectedItems: () => <SortOption<ItemType>>{currentSortOption},
+                title: 'Sort by',
+              );
+            },
+          ),
+        ),
+        const SizedBox(width: 10),
+        Opacity(
+          opacity: 1,
+          child: IconButton(
+            onPressed: () => _onChangedSortOption(currentSortOption.reversed()),
+            splashRadius: 20,
+            icon: const Icon(
+              AppIcons.up_down,
+              size: 16,
+              color: DesignColors.gray2_100,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
+  void _onPopupItemClicked(SortOption<ItemType> sortOption) {
+    sortOptionsController.hideMenu();
+    _onChangedSortOption(sortOption);
+  }
+
+  void _onChangedSortOption(SortOption<ItemType> sortOption) {
+    setState(() {
+      currentSortOption = sortOption;
+    });
+    BlocProvider.of<ListBlocType>(context).add(SortEvent<ItemType>(currentSortOption));
+  }
+}
