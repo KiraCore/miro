@@ -8,8 +8,8 @@ import 'package:miro/views/widgets/generic/mouse_state_listener.dart';
 
 class NavTile extends StatefulWidget {
   final NavItem navItem;
-  final NavTileThemeData? navItemTheme;
   final GestureTapCallback? onTap;
+  final NavTileThemeData? navItemTheme;
 
   const NavTile({
     required this.navItem,

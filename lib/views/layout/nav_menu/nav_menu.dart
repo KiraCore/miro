@@ -11,8 +11,8 @@ import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 
 class NavMenu extends StatefulWidget {
   final List<NavItem> navItems;
-  final NavMenuThemeData? navMenuTheme;
   final Widget logo;
+  final NavMenuThemeData? navMenuTheme;
 
   const NavMenu({
     required this.navItems,

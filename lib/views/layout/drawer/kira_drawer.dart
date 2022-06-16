@@ -3,15 +3,15 @@ import 'package:miro/views/widgets/generic/filled_scroll_view.dart';
 
 class KiraDrawer extends StatelessWidget {
   final Widget child;
-  final Widget? popButton;
-  final double width;
   final Function onClose;
+  final Widget? popButton;
   final WillPopCallback? onWillPop;
   final Color? drawerColor;
+  final double width;
 
   const KiraDrawer({
-    required this.onClose,
     required this.child,
+    required this.onClose,
     this.popButton,
     this.onWillPop,
     this.drawerColor,

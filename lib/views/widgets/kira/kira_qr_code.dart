@@ -7,9 +7,9 @@ import 'package:qr_flutter/qr_flutter.dart';
 class KiraQrCode extends StatelessWidget {
   final String data;
   final double size;
-  final int version;
   final Color foregroundColor;
   final Color backgroundColor;
+  final int version;
 
   const KiraQrCode({
     required this.data,

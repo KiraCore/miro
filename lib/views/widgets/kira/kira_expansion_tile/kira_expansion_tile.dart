@@ -6,11 +6,11 @@ import 'package:miro/views/widgets/kira/kira_expansion_tile/expansion_tile_title
 import 'package:miro/views/widgets/kira/kira_expansion_tile/kira_expansion_tile_controller.dart';
 
 class KiraExpansionTile extends StatefulWidget {
-  final KiraExpansionTileController? controller;
   final String title;
+  final List<Widget> children;
+  final KiraExpansionTileController? controller;
   final String? subtitle;
   final String? tooltipMessage;
-  final List<Widget> children;
   final bool disabled;
 
   const KiraExpansionTile({

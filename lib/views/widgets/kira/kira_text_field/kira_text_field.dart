@@ -16,13 +16,13 @@ class KiraTextField extends StatefulWidget {
 
   const KiraTextField({
     required this.controller,
-    this.validator,
-    this.onChanged,
-    this.readOnly = false,
     this.hint,
     this.label,
-    this.suffixIcon,
     this.obscureText = false,
+    this.validator,
+    this.suffixIcon,
+    this.onChanged,
+    this.readOnly = false,
     Key? key,
   }) : super(key: key);
 

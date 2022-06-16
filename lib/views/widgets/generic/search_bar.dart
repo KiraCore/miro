@@ -4,6 +4,7 @@ import 'package:miro/config/app_icons.dart';
 import 'package:miro/config/theme/design_colors.dart';
 
 class SearchBar extends StatelessWidget {
+  final String label;
   final double width;
   final double height;
   final Color? backgroundColor;
@@ -14,14 +15,13 @@ class SearchBar extends StatelessWidget {
   final InputBorder? focusedBorder;
   final InputBorder? focusedErrorBorder;
   final ValueChanged<String>? onChanged;
-  final String label;
 
   const SearchBar({
     required this.label,
     this.width = double.infinity,
     this.height = double.infinity,
-    this.border,
     this.backgroundColor,
+    this.border,
     this.disabledBorder,
     this.enabledBorder,
     this.errorBorder,

@@ -59,12 +59,12 @@ class PopWrapperController {
 
 class PopWrapper extends StatefulWidget {
   final PopWrapperController popWrapperController;
-  final PopWrapperPopupBuilder popupBuilder;
   final PopWrapperButtonBuilder buttonBuilder;
-  final double dropdownMargin;
-  final BoxDecoration? decoration;
+  final PopWrapperPopupBuilder popupBuilder;
   final double buttonWidth;
   final double buttonHeight;
+  final double dropdownMargin;
+  final BoxDecoration? decoration;
 
   const PopWrapper({
     required this.popWrapperController,

@@ -6,10 +6,10 @@ import 'package:miro/views/widgets/kira/mnemonic_grid/model/mnemonic_grid_contro
 
 class MnemonicGrid extends StatefulWidget {
   final MnemonicGridController controller;
+  final bool editable;
   final List<String> mnemonicWordList;
   final int mnemonicSize;
   final int columnsCount;
-  final bool editable;
 
   const MnemonicGrid({
     required this.controller,

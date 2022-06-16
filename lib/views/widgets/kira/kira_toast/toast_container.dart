@@ -13,15 +13,15 @@ enum ToastType {
 }
 
 class ToastContainer extends StatelessWidget {
+  final Text title;
+  final ToastType toastType;
   final double height;
   final double? width;
+  final ToastDecoration? toastDecoration;
+  final Icon? icon;
   final VoidCallback? onActionTap;
   final String? actionTitle;
-  final Text title;
-  final Icon? icon;
-  final ToastType toastType;
   final bool showDefaultIcon;
-  final ToastDecoration? toastDecoration;
 
   const ToastContainer({
     required this.title,

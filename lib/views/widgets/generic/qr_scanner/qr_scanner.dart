@@ -13,12 +13,12 @@ typedef VoidQrReceivedCallback = void Function(String qrData);
 typedef CameraErrorBuilder = Widget Function(CameraException error);
 
 class QrScanner extends StatefulWidget {
-  final double width;
-  final double height;
   final Widget cameraLoadingWidget;
-  final VoidCameraErrorCallback? onError;
   final CameraErrorBuilder errorWidgetBuilder;
   final VoidQrReceivedCallback onReceivedQrCode;
+  final double width;
+  final double height;
+  final VoidCameraErrorCallback? onError;
 
   const QrScanner({
     required this.cameraLoadingWidget,

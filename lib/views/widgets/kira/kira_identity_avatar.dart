@@ -4,8 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jdenticon_dart/jdenticon_dart.dart';
 
 class KiraIdentityAvatar extends StatelessWidget {
-  final double size;
   final String address;
+  final double size;
 
   const KiraIdentityAvatar({
     required this.address,

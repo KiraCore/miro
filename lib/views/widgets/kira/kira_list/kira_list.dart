@@ -16,8 +16,8 @@ import 'package:miro/views/widgets/kira/kira_list/sort_option_widget.dart';
 import 'package:provider/provider.dart';
 
 class KiraList<E, T extends ListBloc<E>> extends StatefulWidget {
-  final ScrollController scrollController;
   final Widget Function(E item) itemBuilder;
+  final ScrollController scrollController;
   final List<SortOption<E>>? sortOptions;
   final SearchCallback<E>? searchCallback;
   final Color? backgroundColor;
@@ -27,11 +27,11 @@ class KiraList<E, T extends ListBloc<E>> extends StatefulWidget {
   const KiraList({
     required this.itemBuilder,
     required this.scrollController,
-    this.customFilterWidgets,
-    this.backgroundColor,
-    this.searchCallback,
     this.sortOptions,
+    this.searchCallback,
+    this.backgroundColor,
     this.shrinkWrap = false,
+    this.customFilterWidgets,
     Key? key,
   }) : super(key: key);
 

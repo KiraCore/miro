@@ -8,9 +8,9 @@ import 'package:miro/views/widgets/kira/kira_card.dart';
 class DashboardGrid extends StatefulWidget {
   final String title;
   final int columnsCount;
+  final List<DashboardGridTile> items;
   final int? tabletColumnsCount;
   final int? mobileColumnsCount;
-  final List<DashboardGridTile> items;
 
   const DashboardGrid({
     required this.title,

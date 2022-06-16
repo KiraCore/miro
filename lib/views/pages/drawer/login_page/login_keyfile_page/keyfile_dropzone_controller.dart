@@ -5,8 +5,8 @@ typedef ValidateKeyfile = String? Function(DropzoneFile?);
 
 class KeyfileDropzoneController {
   late KiraDropzoneController dropzoneController;
-  late void Function(String?) setErrorMessage;
   late String? Function() validate;
+  late void Function(String?) setErrorMessage;
 
   void initController({
     required KiraDropzoneController dropzoneController,

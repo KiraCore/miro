@@ -12,8 +12,8 @@ class KiraScaffold extends StatefulWidget {
   final Widget body;
   final KiraAppBar appBar;
   final NavMenu navMenu;
-  final Widget? endDrawer;
   final Color? drawerScrimColor;
+  final Widget? endDrawer;
 
   const KiraScaffold({
     required this.body,

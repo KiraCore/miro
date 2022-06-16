@@ -4,8 +4,8 @@ import 'package:miro/views/widgets/generic/responsive/screen_size.dart';
 
 class SizedBoxExpanded extends StatefulWidget {
   final List<ScreenSize> expandOn;
-  final List<ScreenSize>? defaultOn;
   final Widget child;
+  final List<ScreenSize>? defaultOn;
   final double? width;
   final double? height;
 

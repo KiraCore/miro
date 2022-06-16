@@ -5,11 +5,11 @@ import 'package:miro/views/widgets/generic/center_load_spinner.dart';
 import 'package:miro/views/widgets/generic/qr_scanner/qr_scanner.dart';
 
 class SaifuCameraWidget extends StatefulWidget {
+  final String? Function(String publicAddress) validate;
+  final VoidQrReceivedCallback onReceiveQrCode;
   final String? errorMessage;
   final double width;
   final double height;
-  final String? Function(String publicAddress) validate;
-  final VoidQrReceivedCallback onReceiveQrCode;
 
   const SaifuCameraWidget({
     required this.validate,

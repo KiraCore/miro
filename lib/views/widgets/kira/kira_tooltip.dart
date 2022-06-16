@@ -4,8 +4,8 @@ import 'package:miro/config/theme/design_colors.dart';
 
 /// Duplicate of [Tooltip] widget, to globally setup custom options
 class KiraToolTip extends StatelessWidget {
-  final EdgeInsetsGeometry childMargin;
   final String message;
+  final EdgeInsetsGeometry childMargin;
   final double? height;
   final EdgeInsetsGeometry? padding;
   final EdgeInsetsGeometry? margin;
@@ -18,7 +18,6 @@ class KiraToolTip extends StatelessWidget {
   final Duration? waitDuration;
   final Duration? showDuration;
   final TooltipTriggerMode? triggerMode;
-
   final bool? enableFeedback;
 
   const KiraToolTip({
@@ -30,11 +29,11 @@ class KiraToolTip extends StatelessWidget {
     this.verticalOffset,
     this.preferBelow,
     this.excludeFromSemantics,
+    this.child,
     this.decoration,
     this.textStyle,
     this.waitDuration,
     this.showDuration,
-    this.child,
     this.triggerMode,
     this.enableFeedback,
     Key? key,

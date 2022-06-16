@@ -14,8 +14,8 @@ enum MnemonicState {
 class MnemonicGridItem extends StatefulWidget {
   final TextEditingController textController;
   final int index;
-  final String? mnemonicWord;
   final bool editable;
+  final String? mnemonicWord;
 
   const MnemonicGridItem({
     required this.textController,

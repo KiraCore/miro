@@ -33,8 +33,8 @@ class UnsafeWallet extends Wallet {
 
   UnsafeWallet({
     required this.address,
-    required this.privateKey,
     required this.publicKey,
+    required this.privateKey,
     this.walletDetails = WalletDetails.defaultWalletDetails,
   });
 

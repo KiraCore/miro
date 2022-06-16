@@ -5,7 +5,7 @@ class AppBarDesktopDecoration {
   final Color? backgroundColor;
 
   AppBarDesktopDecoration({
-    this.backgroundColor,
     this.border,
+    this.backgroundColor,
   });
 }

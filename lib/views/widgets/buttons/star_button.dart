@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
 
 class StarButton extends StatefulWidget {
-  final bool value;
   final void Function(bool value) onChanged;
+  final bool value;
 
   const StarButton({
     required this.onChanged,

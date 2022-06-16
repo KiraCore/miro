@@ -12,9 +12,9 @@ class KiraOutlinedButton extends StatelessWidget {
   const KiraOutlinedButton({
     required this.onPressed,
     required this.title,
-    this.borderColor,
-    this.width,
     this.height = 51,
+    this.width,
+    this.borderColor,
     Key? key,
   }) : super(key: key);
 
