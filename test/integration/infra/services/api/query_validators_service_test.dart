@@ -15,12 +15,15 @@ Future<void> main() async {
   group('Tests of getValidators() method', () {
     test('Should return list of validators with status & waiting & validators fields', () async {
       final QueryValidatorsService queryValidatorsService = globalLocator<QueryValidatorsService>();
-      final Uri uri = NetworkUtils.parseUrl('https://testnet-rpc.kira.network');
+      final Uri networkUri = NetworkUtils.parseUrl('https://testnet-rpc.kira.network');
 
       QueryValidatorsReq queryValidatorsReq = QueryValidatorsReq(all: true);
 
       testPrint('Data request');
-      QueryValidatorsResp? queryValidatorsResp = await queryValidatorsService.getValidators(uri, queryValidatorsReq);
+      QueryValidatorsResp? queryValidatorsResp = await queryValidatorsService.getValidators(
+        queryValidatorsReq,
+        optionalNetworkUri: networkUri,
+      );
 
       testPrint('Data return');
       int responseLength = queryValidatorsResp.toString().length;

@@ -20,7 +20,7 @@ void main() {
 
       testPrint('Data request');
       QueryAccountResp? queryAccountResp =
-          await queryAccountService.fetchQueryAccount(actualAddress, customUri: networkUri);
+          await queryAccountService.fetchQueryAccount(actualAddress, optionalNetworkUri: networkUri);
 
       testPrint('Data return');
       print(queryAccountResp);

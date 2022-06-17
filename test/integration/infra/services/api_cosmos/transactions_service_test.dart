@@ -41,7 +41,7 @@ Future<void> main() async {
   final UnsafeWallet recipientWallet = UnsafeWallet.derive(mnemonic: recipientMnemonic);
   const String recipientAddress = 'kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl';
 
-  final Uri customUri = NetworkUtils.parseUrl('http://173.212.254.147:11000');
+  final Uri networkUri = NetworkUtils.parseUrl('http://173.212.254.147:11000');
   const String chainId = 'testnet-9';
   final TxFee fee = TxFee(amount: <Coin>[Coin(denom: 'ukex', value: BigInt.parse('200'))]);
 
@@ -51,7 +51,7 @@ Future<void> main() async {
   Future<void> _broadcastTransaction(SignedTransaction signedTransaction) async {
     testPrint('Data request');
     BroadcastResp broadcastResp =
-        await transactionsService.broadcastTransaction(signedTransaction, customUri: customUri);
+        await transactionsService.broadcastTransaction(signedTransaction, optionalNetworkUri: networkUri);
 
     testPrint('Data return');
     print(broadcastResp);
@@ -75,7 +75,7 @@ Future<void> main() async {
 
       SignedTransaction signedTransaction = await transactionsService.signTransaction(
         unsignedTransaction,
-        customUri: customUri,
+        optionalNetworkUri: networkUri,
         customChainId: chainId,
       );
 
@@ -108,7 +108,7 @@ Future<void> main() async {
 
       SignedTransaction signedTransaction = await transactionsService.signTransaction(
         unsignedTransaction,
-        customUri: customUri,
+        optionalNetworkUri: networkUri,
         customChainId: chainId,
       );
 
@@ -136,7 +136,7 @@ Future<void> main() async {
 
       SignedTransaction signedTransaction = await transactionsService.signTransaction(
         unsignedTransaction,
-        customUri: customUri,
+        optionalNetworkUri: networkUri,
         customChainId: chainId,
       );
 
@@ -161,7 +161,7 @@ Future<void> main() async {
 
       SignedTransaction signedTransaction = await transactionsService.signTransaction(
         unsignedTransaction,
-        customUri: customUri,
+        optionalNetworkUri: networkUri,
         customChainId: chainId,
       );
 
@@ -186,7 +186,7 @@ Future<void> main() async {
 
       SignedTransaction signedTransaction = await transactionsService.signTransaction(
         unsignedTransaction,
-        customUri: customUri,
+        optionalNetworkUri: networkUri,
         customChainId: chainId,
       );
 
@@ -213,7 +213,7 @@ Future<void> main() async {
 
       SignedTransaction signedTransaction = await transactionsService.signTransaction(
         unsignedTransaction,
-        customUri: customUri,
+        optionalNetworkUri: networkUri,
         customChainId: chainId,
       );
 

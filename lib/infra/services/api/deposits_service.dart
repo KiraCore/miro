@@ -3,9 +3,10 @@ import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api/deposits/request/deposit_req.dart';
 import 'package:miro/infra/dto/api/deposits/response/deposits_resp.dart';
 import 'package:miro/infra/repositories/api_repository.dart';
+import 'package:miro/providers/network_provider/network_provider.dart';
 
 abstract class _DepositsService {
-  Future<DepositsResp?> getAccountDeposits(Uri networkUri, DepositsReq depositsReq);
+  Future<DepositsResp?> getAccountDeposits(DepositsReq depositsReq, {Uri? optionalNetworkUri});
 
   void ignoreMethod();
 }
@@ -14,7 +15,8 @@ class DepositsService implements _DepositsService {
   final ApiRepository _apiRepository = globalLocator<ApiRepository>();
 
   @override
-  Future<DepositsResp?> getAccountDeposits(Uri networkUri, DepositsReq depositsReq) async {
+  Future<DepositsResp?> getAccountDeposits(DepositsReq depositsReq, {Uri? optionalNetworkUri}) async {
+    Uri networkUri = optionalNetworkUri ?? globalLocator<NetworkProvider>().networkUri!;
     try {
       final Response<dynamic> response = await _apiRepository.fetchDeposits<dynamic>(networkUri, depositsReq);
       return DepositsResp.fromJson(response.data as Map<String, dynamic>);

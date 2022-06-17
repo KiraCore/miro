@@ -5,7 +5,7 @@ import 'package:miro/infra/repositories/api_kira_repository.dart';
 import 'package:miro/providers/network_provider/network_provider.dart';
 
 abstract class _QueryKiraTokensRatesService {
-  Future<QueryKiraTokensRatesResp> getTokenRates();
+  Future<QueryKiraTokensRatesResp> getTokenRates({Uri? optionalNetworkUri});
 
   void ignoreMethod();
 }
@@ -14,8 +14,8 @@ class QueryKiraTokensRatesService implements _QueryKiraTokensRatesService {
   final ApiKiraRepository _apiKiraRepository = globalLocator<ApiKiraRepository>();
 
   @override
-  Future<QueryKiraTokensRatesResp> getTokenRates({Uri? customNetworkUri}) async {
-    Uri networkUri = customNetworkUri ?? globalLocator<NetworkProvider>().networkUri!;
+  Future<QueryKiraTokensRatesResp> getTokenRates({Uri? optionalNetworkUri}) async {
+    Uri networkUri = optionalNetworkUri ?? globalLocator<NetworkProvider>().networkUri!;
     final Response<dynamic> response = await _apiKiraRepository.fetchQueryKiraTokensRates<dynamic>(networkUri);
     return QueryKiraTokensRatesResp.fromJson(response.data as Map<String, dynamic>);
   }

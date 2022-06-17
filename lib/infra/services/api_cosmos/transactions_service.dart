@@ -16,17 +16,17 @@ import 'package:miro/shared/utils/transactions/transaction_signer.dart';
 
 abstract class _TransactionsService {
   /// Throws [DioError]
-  Future<BroadcastResp> broadcastTransaction(SignedTransaction signedTransaction, {Uri? customUri});
+  Future<BroadcastResp> broadcastTransaction(SignedTransaction signedTransaction, {Uri? optionalNetworkUri});
 
-  Future<SignedTransaction> signTransaction(UnsignedTransaction unsignedTransaction, {Uri? customUri});
+  Future<SignedTransaction> signTransaction(UnsignedTransaction unsignedTransaction, {Uri? optionalNetworkUri});
 }
 
 class TransactionsService implements _TransactionsService {
   final ApiCosmosRepository _apiCosmosRepository = globalLocator<ApiCosmosRepository>();
 
   @override
-  Future<BroadcastResp> broadcastTransaction(SignedTransaction signedTransaction, {Uri? customUri}) async {
-    Uri networkUri = customUri ?? globalLocator<NetworkProvider>().networkUri!;
+  Future<BroadcastResp> broadcastTransaction(SignedTransaction signedTransaction, {Uri? optionalNetworkUri}) async {
+    Uri networkUri = optionalNetworkUri ?? globalLocator<NetworkProvider>().networkUri!;
     try {
       final BroadcastResp response = await _apiCosmosRepository.broadcast(
         networkUri,
@@ -43,17 +43,17 @@ class TransactionsService implements _TransactionsService {
 
   @override
   Future<SignedTransaction> signTransaction(UnsignedTransaction unsignedTransaction,
-      {Uri? customUri, String? customChainId}) async {
+      {Uri? optionalNetworkUri, String? customChainId}) async {
     final NetworkProvider networkProvider = globalLocator<NetworkProvider>();
     final QueryAccountService accountService = globalLocator<QueryAccountService>();
     final Wallet? wallet = globalLocator<WalletProvider>().currentWallet;
 
     assert(wallet != null, 'User should be logged in');
     assert(wallet is UnsafeWallet, 'User should be logged via UnsafeWallet');
-    assert(networkProvider.isConnected || customUri != null, 'Network should be connected');
+    assert(networkProvider.isConnected || optionalNetworkUri != null, 'Network should be connected');
 
     QueryAccountResp queryAccountResp =
-        await accountService.fetchQueryAccount(wallet!.address.bech32Address, customUri: customUri);
+        await accountService.fetchQueryAccount(wallet!.address.bech32Address, optionalNetworkUri: optionalNetworkUri);
     SignedTransaction signedTransaction = TransactionSigner.sign(
       unsignedTransaction: unsignedTransaction,
       ecPrivateKey: (wallet as UnsafeWallet).ecPrivateKey,

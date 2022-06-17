@@ -14,10 +14,10 @@ void main() {
       await initLocator();
 
       final DashboardService dashboardService = globalLocator<DashboardService>();
-      final Uri uri = NetworkUtils.parseUrl('http://135.181.205.211:11000');
+      final Uri networkUri = NetworkUtils.parseUrl('http://135.181.205.211:11000');
 
       testPrint('Data request');
-      DashboardResp? dashboardResp = await dashboardService.getData(optionalNetworkUri: uri);
+      DashboardResp? dashboardResp = await dashboardService.getData(optionalNetworkUri: networkUri);
 
       testPrint('Data return');
 

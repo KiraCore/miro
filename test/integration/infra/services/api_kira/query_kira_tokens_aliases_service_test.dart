@@ -19,7 +19,7 @@ void main() {
 
       testPrint('Data request');
       QueryKiraTokensAliasesResp queryKiraTokensAliasesResp = await queryKiraTokensAliasesService.getTokenAliases(
-        customNetworkUri: networkUri,
+        optionalNetworkUri: networkUri,
       );
 
       testPrint('Data return');

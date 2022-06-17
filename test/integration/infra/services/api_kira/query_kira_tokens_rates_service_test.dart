@@ -17,8 +17,9 @@ void main() {
       final Uri networkUri = NetworkUtils.parseUrl('https://testnet-rpc.kira.network');
 
       testPrint('Data request');
-      QueryKiraTokensRatesResp queryKiraTokensRatesResp =
-          await queryKiraTokensRatesService.getTokenRates(customNetworkUri: networkUri);
+      QueryKiraTokensRatesResp queryKiraTokensRatesResp = await queryKiraTokensRatesService.getTokenRates(
+        optionalNetworkUri: networkUri,
+      );
 
       testPrint('Data return');
       print(queryKiraTokensRatesResp);

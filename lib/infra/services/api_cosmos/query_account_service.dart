@@ -7,7 +7,7 @@ import 'package:miro/providers/network_provider/network_provider.dart';
 
 abstract class _QueryAccountService {
   /// Throws [DioError] and [NoNetworkException]
-  Future<QueryAccountResp> fetchQueryAccount(String address, {Uri? customUri});
+  Future<QueryAccountResp> fetchQueryAccount(String address, {Uri? optionalNetworkUri});
 
   void ignoreMethod();
 }
@@ -16,8 +16,8 @@ class QueryAccountService implements _QueryAccountService {
   final ApiCosmosRepository _apiCosmosRepository = globalLocator<ApiCosmosRepository>();
 
   @override
-  Future<QueryAccountResp> fetchQueryAccount(String address, {Uri? customUri}) async {
-    Uri networkUri = customUri ?? globalLocator<NetworkProvider>().networkUri!;
+  Future<QueryAccountResp> fetchQueryAccount(String address, {Uri? optionalNetworkUri}) async {
+    Uri networkUri = optionalNetworkUri ?? globalLocator<NetworkProvider>().networkUri!;
     try {
       final QueryAccountResp response = await _apiCosmosRepository.fetchQueryAccount(
         networkUri,
