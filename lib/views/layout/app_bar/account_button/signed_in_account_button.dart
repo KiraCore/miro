@@ -4,7 +4,8 @@ import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/views/layout/app_bar/account_button/account_menu_list.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
 import 'package:miro/views/pages/drawer/account_drawer_page/account_drawer_page.dart';
-import 'package:miro/views/widgets/generic/pop_wrapper.dart';
+import 'package:miro/views/widgets/generic/pop_wrapper/pop_wrapper.dart';
+import 'package:miro/views/widgets/generic/pop_wrapper/pop_wrapper_controller.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 import 'package:miro/views/widgets/kira/kira_identity_avatar.dart';
 

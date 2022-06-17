@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:miro/blocs/abstract_blocs/list_bloc/list_bloc.dart';
 import 'package:miro/config/app_icons.dart';
 import 'package:miro/config/theme/design_colors.dart';
-import 'package:miro/views/widgets/generic/pop_wrapper.dart';
+import 'package:miro/views/widgets/generic/pop_wrapper/pop_wrapper_controller.dart';
 import 'package:miro/views/widgets/kira/kira_list/models/sort_option.dart';
 
 class SortPopMenu<E, T extends ListBloc<E>> extends StatelessWidget {

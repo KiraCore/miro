@@ -3,7 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/abstract_blocs/list_bloc/list_bloc.dart';
 import 'package:miro/config/app_icons.dart';
 import 'package:miro/config/theme/design_colors.dart';
-import 'package:miro/views/widgets/generic/pop_wrapper.dart';
+import 'package:miro/views/widgets/generic/pop_wrapper/pop_wrapper.dart';
+import 'package:miro/views/widgets/generic/pop_wrapper/pop_wrapper_controller.dart';
 import 'package:miro/views/widgets/kira/kira_list/models/sort_option.dart';
 import 'package:miro/views/widgets/kira/kira_list/models/sorting_status.dart';
 import 'package:miro/views/widgets/kira/kira_list/sort_pop_menu.dart';
@@ -21,7 +22,7 @@ class SortOptionWidget<E, T extends ListBloc<E>> extends StatefulWidget {
 }
 
 class _SortOptionWidget<E, T extends ListBloc<E>> extends State<SortOptionWidget<E, T>> {
-  PopWrapperController sortOptionsController = PopWrapperController();
+  final PopWrapperController sortOptionsController = PopWrapperController();
   late SortOption<E> currentSortOption;
 
   @override
