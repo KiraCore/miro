@@ -28,14 +28,7 @@ class _CustomNetworkSection extends State<CustomNetworkSection> {
 
   @override
   void initState() {
-    focusNode.addListener(() {
-      if (focusNode.hasFocus) {
-        showHint = false;
-      } else {
-        showHint = true;
-      }
-      setState(() {});
-    });
+    focusNode.addListener(_handleFocusNodeChanged);
     super.initState();
   }
 
@@ -135,6 +128,15 @@ class _CustomNetworkSection extends State<CustomNetworkSection> {
         ],
       ],
     );
+  }
+
+  void _handleFocusNodeChanged() {
+    if (focusNode.hasFocus) {
+      showHint = false;
+    } else {
+      showHint = true;
+    }
+    setState(() {});
   }
 
   void _onChangedCustomAddressValue(bool value) {
