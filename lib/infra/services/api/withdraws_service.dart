@@ -6,6 +6,7 @@ import 'package:miro/infra/repositories/api_repository.dart';
 
 abstract class _WithdrawsService {
   Future<WithdrawsResp?> getAccountWithdraws(Uri networkUri, WithdrawsReq withdrawsReq);
+
   void ignoreMethod();
 }
 
@@ -24,6 +25,6 @@ class WithdrawsService implements _WithdrawsService {
 
   @override
   void ignoreMethod() {
-    // TODO(Karol): implement ignoreMethod
+    // TODO(dominik): Hide lint warning: one_member_abstract. Remove it after create another method in this class
   }
 }

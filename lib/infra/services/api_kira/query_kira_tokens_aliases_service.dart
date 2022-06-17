@@ -7,7 +7,7 @@ import 'package:miro/providers/network_provider/network_provider.dart';
 abstract class _QueryKiraTokensAliasesService {
   Future<QueryKiraTokensAliasesResp> getTokenAliases();
 
-  void ignore();
+  void ignoreMethod();
 }
 
 class QueryKiraTokensAliasesService implements _QueryKiraTokensAliasesService {
@@ -21,6 +21,7 @@ class QueryKiraTokensAliasesService implements _QueryKiraTokensAliasesService {
   }
 
   @override
-  // TODO(dominik): To remove
-  void ignore() {}
+  void ignoreMethod() {
+    // TODO(dominik): Hide lint warning: one_member_abstract. Remove it after create another method in this class
+  }
 }

@@ -26,6 +26,6 @@ class DashboardService implements _DashboardService {
 
   @override
   void ignoreMethod() {
-    // TODO(Dominik): implement ignoreMethod
+    // TODO(dominik): Hide lint warning: one_member_abstract. Remove it after create another method in this class
   }
 }

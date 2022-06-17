@@ -5,10 +5,11 @@ import 'package:miro/infra/dto/api_cosmos/query_account/response/query_account_r
 import 'package:miro/infra/repositories/api_cosmos_repository.dart';
 import 'package:miro/providers/network_provider/network_provider.dart';
 
-// ignore: one_member_abstracts
 abstract class _QueryAccountService {
   /// Throws [DioError] and [NoNetworkException]
   Future<QueryAccountResp> fetchQueryAccount(String address, {Uri? customUri});
+
+  void ignoreMethod();
 }
 
 class QueryAccountService implements _QueryAccountService {
@@ -26,5 +27,10 @@ class QueryAccountService implements _QueryAccountService {
     } on DioError {
       rethrow;
     }
+  }
+
+  @override
+  void ignoreMethod() {
+    // TODO(dominik): Hide lint warning: one_member_abstract. Remove it after create another method in this class
   }
 }

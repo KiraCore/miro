@@ -26,6 +26,6 @@ class QueryValidatorsService implements _ValidatorsService {
 
   @override
   void ignoreMethod() {
-    // TODO(dominik): implement ignoreMethod
+    // TODO(dominik): Hide lint warning: one_member_abstract. Remove it after create another method in this class
   }
 }
