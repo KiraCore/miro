@@ -1,14 +1,14 @@
 import 'package:dio/dio.dart';
 import 'package:miro/config/locator.dart';
+import 'package:miro/infra/dto/api/query_interx_status/interx_status_wrapper.dart';
 import 'package:miro/infra/dto/api/query_interx_status/query_interx_status_resp.dart';
 import 'package:miro/infra/exceptions/interx_unavailable_exception.dart';
 import 'package:miro/infra/repositories/api_repository.dart';
 import 'package:miro/shared/constants/network_health_status.dart';
-import 'package:miro/shared/models/infra/interx_response_data.dart';
 
 abstract class _QueryInterxStatusService {
   /// Throws [InterxUnavailableException]
-  Future<InterxResponseData> getData(Uri networkUri);
+  Future<InterxStatusWrapper> getData(Uri networkUri);
 
   Future<NetworkHealthStatus> getHealth(Uri networkUri);
 }
@@ -35,15 +35,15 @@ class QueryInterxStatusService extends _QueryInterxStatusService {
   @override
 
   /// Throws [InterxUnavailableException]
-  Future<InterxResponseData> getData(Uri networkUri) async {
+  Future<InterxStatusWrapper> getData(Uri networkUri) async {
     try {
       final Response<dynamic> response = await _apiRepository.fetchQueryInterxStatus<dynamic>(networkUri);
-      return InterxResponseData(
+      return InterxStatusWrapper(
         usedUri: networkUri,
         queryInterxStatusResp: QueryInterxStatusResp.fromJson(response.data as Map<String, dynamic>),
       );
     } catch (e) {
-      return _repeatRequestInHttps<InterxResponseData>(
+      return _repeatRequestInHttps<InterxStatusWrapper>(
         uri: networkUri,
         exceptionMessage: e.toString(),
         methodToRepeat: (Uri newUri) async => await getData(newUri),
