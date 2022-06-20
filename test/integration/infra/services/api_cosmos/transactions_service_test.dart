@@ -43,7 +43,7 @@ Future<void> main() async {
 
   final Uri networkUri = NetworkUtils.parseUrl('http://173.212.254.147:11000');
   const String chainId = 'testnet-9';
-  final TxFee fee = TxFee(amount: <Coin>[Coin(denom: 'ukex', value: BigInt.parse('200'))]);
+  final TxFee fee = TxFee(amount: <Coin>[Coin(denom: 'ukex', amount: BigInt.parse('200'))]);
 
   globalLocator<WalletProvider>().updateWallet(senderWallet);
   TransactionsService transactionsService = TransactionsService();
@@ -59,7 +59,7 @@ Future<void> main() async {
 
   group('Tests of TransactionsService.signTransaction() method', () {
     test('Should return a signed transaction with MsgSend message', () async {
-      final Coin amount = Coin(denom: 'ukex', value: BigInt.parse('200'));
+      final Coin amount = Coin(denom: 'ukex', amount: BigInt.parse('200'));
 
       final TxMsg actualMessage = MsgSend(
         toAddress: WalletAddress.fromBech32(recipientAddress),
@@ -119,7 +119,7 @@ Future<void> main() async {
 
     test('Should return a signed transaction with MsgRequestIdentityRecordsVerify message', () async {
       final BigInt recordId = BigInt.from(954);
-      final Coin verifyTip = Coin(denom: 'ukex', value: BigInt.parse('200'));
+      final Coin verifyTip = Coin(denom: 'ukex', amount: BigInt.parse('200'));
 
       final TxMsg actualMessage = MsgRequestIdentityRecordsVerify(
         address: senderWallet.address.bech32Address,

@@ -32,8 +32,8 @@ Future<void> main() async {
   final WalletAddress actualSenderAddress = actualWallet.address;
   final WalletAddress actualRecipientAddress = WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl');
 
-  final Coin actualAmount = Coin(denom: 'ukex', value: BigInt.from(100));
-  final Coin actualFee = Coin(denom: 'ukex', value: BigInt.from(100));
+  final Coin actualAmount = Coin(denom: 'ukex', amount: BigInt.from(100));
+  final Coin actualFee = Coin(denom: 'ukex', amount: BigInt.from(100));
 
   final UnsignedTransaction actualUnsignedTransaction = UnsignedTransaction(
     messages: <TxMsg>[
@@ -72,7 +72,7 @@ Future<void> main() async {
           'from_address': 'kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx',
           'to_address': 'kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl',
           'amount': <Map<String, dynamic>>[
-            <String, dynamic>{'amount': actualAmount.value.toString(), 'denom': actualAmount.denom}
+            <String, dynamic>{'amount': actualAmount.amount.toString(), 'denom': actualAmount.denom}
           ]
         }
       ],
@@ -96,7 +96,7 @@ Future<void> main() async {
       ],
       'fee': <String, dynamic>{
         'amount': <Map<String, dynamic>>[
-          <String, dynamic>{'amount': actualFee.value.toString(), 'denom': actualFee.denom}
+          <String, dynamic>{'amount': actualFee.amount.toString(), 'denom': actualFee.denom}
         ],
         'gas_limit': '999999'
       }
