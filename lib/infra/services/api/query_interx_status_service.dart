@@ -24,7 +24,7 @@ class QueryInterxStatusService extends _QueryInterxStatusService {
 
       return NetworkHealthStatus.online;
     } catch (_) {
-      return _repeatMethodIfInvalidScheme<NetworkHealthStatus>(
+      return _repeatRequestInHttps<NetworkHealthStatus>(
         uri: networkUri,
         defaultReturnValue: NetworkHealthStatus.offline,
         methodToRepeat: (Uri newUri) async => await getHealth(newUri),
@@ -43,7 +43,7 @@ class QueryInterxStatusService extends _QueryInterxStatusService {
         queryInterxStatusResp: QueryInterxStatusResp.fromJson(response.data as Map<String, dynamic>),
       );
     } catch (e) {
-      return _repeatMethodIfInvalidScheme<InterxResponseData>(
+      return _repeatRequestInHttps<InterxResponseData>(
         uri: networkUri,
         exceptionMessage: e.toString(),
         methodToRepeat: (Uri newUri) async => await getData(newUri),
@@ -52,7 +52,7 @@ class QueryInterxStatusService extends _QueryInterxStatusService {
   }
 
   /// Throws [InterxUnavailableException]
-  Future<T> _repeatMethodIfInvalidScheme<T>({
+  Future<T> _repeatRequestInHttps<T>({
     required Uri uri,
     required Future<T> Function(Uri newUri) methodToRepeat,
     T? defaultReturnValue,
