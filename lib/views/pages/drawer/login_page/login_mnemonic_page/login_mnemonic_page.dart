@@ -8,9 +8,9 @@ import 'package:miro/shared/utils/app_logger.dart';
 import 'package:miro/shared/utils/cryptography/bip39_extension.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
 import 'package:miro/views/widgets/buttons/kira_elevated_button.dart';
+import 'package:miro/views/widgets/generic/mnemonic_grid/editable_mnemonic_grid/editable_mnemonic_grid.dart';
+import 'package:miro/views/widgets/generic/mnemonic_grid/editable_mnemonic_grid/editable_mnemonic_grid_controller.dart';
 import 'package:miro/views/widgets/kira/kira_tooltip.dart';
-import 'package:miro/views/widgets/kira/mnemonic_grid/mnemonic_grid.dart';
-import 'package:miro/views/widgets/kira/mnemonic_grid/model/mnemonic_grid_controller.dart';
 
 class LoginMnemonicPage extends StatefulWidget {
   const LoginMnemonicPage({Key? key}) : super(key: key);
@@ -20,12 +20,21 @@ class LoginMnemonicPage extends StatefulWidget {
 }
 
 class _LoginMnemonicPage extends State<LoginMnemonicPage> {
-  final MnemonicGridController mnemonicGridController = MnemonicGridController();
+  final EditableMnemonicGridController editableMnemonicGridController =
+      EditableMnemonicGridController(mnemonicSize: 24);
   String? errorMessage;
   bool loadingStatus = false;
 
   @override
   Widget build(BuildContext context) {
+    Map<MnemonicValidateResult, String> mnemonicErrors = <MnemonicValidateResult, String>{
+      MnemonicValidateResult.invalidChecksum: 'Invalid checksum',
+      MnemonicValidateResult.invalidEntropy: 'Invalid entropy',
+      MnemonicValidateResult.invalidMnemonic: 'Invalid mnemonic',
+      MnemonicValidateResult.mnemonicTooShort: 'Mnemonic too short',
+      MnemonicValidateResult.undefinedError: 'Undefined error',
+    };
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -42,18 +51,19 @@ class _LoginMnemonicPage extends State<LoginMnemonicPage> {
           ],
         ),
         const SizedBox(height: 24),
-        SizedBox(
-          width: double.infinity,
-          height: 450,
-          child: loadingStatus
-              ? const Center(
-                  child: Text('Connecting into account...'),
-                )
-              : MnemonicGrid(
-                  controller: mnemonicGridController,
-                  editable: true,
-                ),
-        ),
+        if (loadingStatus)
+          const SizedBox(
+            width: double.infinity,
+            height: 450,
+            child: Center(
+              child: Text('Connecting into account...'),
+            ),
+          )
+        else
+          EditableMnemonicGrid(
+            editableMnemonicGridController: editableMnemonicGridController,
+            // editable: true,
+          ),
         Padding(
           padding: const EdgeInsets.only(top: 8, bottom: 15),
           child: Center(
@@ -65,20 +75,31 @@ class _LoginMnemonicPage extends State<LoginMnemonicPage> {
             ),
           ),
         ),
-        KiraElevatedButton(
-          onPressed: _onLoginButtonPressed,
-          title: 'Connect a wallet',
+        ValueListenableBuilder<MnemonicValidateResult>(
+          valueListenable: editableMnemonicGridController.mnemonicValidateResultNotifier,
+          builder: (_, MnemonicValidateResult mnemonicValidateResult, __) {
+            Widget button = KiraElevatedButton(
+              onPressed: _onLoginButtonPressed,
+              disabled: mnemonicValidateResult != MnemonicValidateResult.success,
+              title: 'Connect a wallet',
+            );
+            if (mnemonicValidateResult != MnemonicValidateResult.success) {
+              return KiraToolTip(
+                message: mnemonicErrors[mnemonicValidateResult]!,
+                child: button,
+              );
+            } else {
+              return button;
+            }
+          },
         ),
       ],
     );
   }
 
   Future<void> _onLoginButtonPressed() async {
-    _setErrorMessage(null);
-    List<String> mnemonicArray = mnemonicGridController.getValues();
-    String? mnemonicErrorMessage = _validateMnemonic(mnemonicArray);
-    if (mnemonicErrorMessage != null) {
-      _setErrorMessage(mnemonicErrorMessage);
+    Mnemonic? mnemonic = editableMnemonicGridController.save();
+    if (mnemonic == null) {
       return;
     }
     _setLoadingState(state: true);
@@ -86,38 +107,13 @@ class _LoginMnemonicPage extends State<LoginMnemonicPage> {
     await Future<void>.delayed(const Duration(milliseconds: 500));
 
     try {
-      Mnemonic mnemonic = Mnemonic.fromArray(array: mnemonicArray);
       UnsafeWallet unsafeWallet = UnsafeWallet.derive(mnemonic: mnemonic);
       globalLocator<WalletProvider>().updateWallet(unsafeWallet);
       KiraScaffold.of(context).closeEndDrawer();
     } catch (e) {
       String errorMessage = 'Something unexpected happened';
       AppLogger().log(message: errorMessage, logLevel: LogLevel.terribleFailure);
-      _setErrorMessage(errorMessage);
       _setLoadingState(state: false);
-    }
-  }
-
-  void _setErrorMessage(String? message) {
-    setState(() {
-      errorMessage = message;
-    });
-  }
-
-  String? _validateMnemonic(List<String> mnemonicArray) {
-    if (mnemonicArray.isEmpty) {
-      String errorMessage = 'You have to enter some mnemonic to log in';
-      AppLogger().log(message: errorMessage, logLevel: LogLevel.warning);
-      return errorMessage;
-    }
-
-    MnemonicValidateResult validateResult = Bip39Extension.validateMnemonicWithMessage(mnemonicArray.join(' '));
-    if (validateResult == MnemonicValidateResult.success) {
-      return null;
-    } else {
-      String errorMessage = Bip39Extension.statusToMessage(validateResult);
-      AppLogger().log(message: errorMessage, logLevel: LogLevel.warning);
-      return errorMessage;
     }
   }
 

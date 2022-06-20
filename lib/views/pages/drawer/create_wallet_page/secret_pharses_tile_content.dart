@@ -1,18 +1,15 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:miro/shared/models/wallet/mnemonic.dart';
+import 'package:miro/views/widgets/generic/mnemonic_grid/mnemonic_grid_preview/mnemonic_grid_preview.dart';
 import 'package:miro/views/widgets/kira/kira_toast/kira_toast.dart';
 import 'package:miro/views/widgets/kira/kira_toast/toast_container.dart';
-import 'package:miro/views/widgets/kira/mnemonic_grid/mnemonic_grid.dart';
-import 'package:miro/views/widgets/kira/mnemonic_grid/model/mnemonic_grid_controller.dart';
 
 class SecretPhrasesTileContent extends StatelessWidget {
   final Mnemonic mnemonic;
-  final MnemonicGridController mnemonicGridController;
 
   const SecretPhrasesTileContent({
     required this.mnemonic,
-    required this.mnemonicGridController,
     Key? key,
   }) : super(key: key);
 
@@ -25,10 +22,8 @@ class SecretPhrasesTileContent extends StatelessWidget {
           width: double.infinity,
           child: Padding(
             padding: const EdgeInsets.all(10),
-            child: MnemonicGrid(
-              mnemonicWordList: mnemonic.array,
-              controller: mnemonicGridController,
-              editable: false,
+            child: MnemonicGridPreview(
+              mnemonic: mnemonic,
             ),
           ),
         ),

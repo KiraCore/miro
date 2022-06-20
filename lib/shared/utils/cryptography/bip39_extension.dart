@@ -11,9 +11,9 @@ enum MnemonicValidateResult {
 }
 
 class Bip39Extension {
-  static MnemonicValidateResult validateMnemonicWithMessage(String mnemonic) {
+  static MnemonicValidateResult validateMnemonicWithMessage(String mnemonic, {int? mnemonicSize}) {
     List<String> mnemonicArray = mnemonic.split(' ');
-    if (mnemonicArray.length < 12) {
+    if (mnemonicArray.length < (mnemonicSize ?? 12)) {
       return MnemonicValidateResult.mnemonicTooShort;
     }
     try {

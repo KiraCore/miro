@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:miro/config/locator.dart';
@@ -14,6 +16,8 @@ import 'package:provider/provider.dart';
 import 'package:url_strategy/url_strategy.dart';
 
 Future<void> main() async {
+  window.document.onContextMenu.listen((MouseEvent mouseEvent) => mouseEvent.preventDefault());
+
   await initLocator();
   await globalLocator<CacheManager>().init();
   setPathUrlStrategy();

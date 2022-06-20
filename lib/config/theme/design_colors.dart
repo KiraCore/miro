@@ -20,6 +20,7 @@ class DesignColors {
   static const Color blue1_100 = Color(0xFF298DFF);
   static const Color blue1_20 = Color(0x33298DFF);
   static const Color blue1_10 = Color(0x1A298DFF);
+  static const Color blue1_5 = Color(0x0D298DFF);
 
   static const Color blue2_100 = Color(0xFF4264F2);
   static const Color blue2_10 = Color(0x1A4264F2);
@@ -33,6 +34,7 @@ class DesignColors {
   static const Color gray2_40 = Color(0x666489B4);
 
   static const Color gray3_100 = Color(0xFFCFEBFF);
+  static const Color gray3_50 = Color(0x80CFEBFF);
   static const Color gray3_5 = Color(0x0DCFEBFF);
 
   static const Color white_100 = Color(0xFFFFFFFF);

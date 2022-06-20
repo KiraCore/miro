@@ -16,7 +16,6 @@ import 'package:miro/views/widgets/kira/kira_expansion_tile/kira_expansion_tile.
 import 'package:miro/views/widgets/kira/kira_expansion_tile/kira_expansion_tile_controller.dart';
 import 'package:miro/views/widgets/kira/kira_text_field/kira_text_field.dart';
 import 'package:miro/views/widgets/kira/kira_text_field/kira_text_field_controller.dart';
-import 'package:miro/views/widgets/kira/mnemonic_grid/model/mnemonic_grid_controller.dart';
 
 class CreateWalletPage extends StatefulWidget {
   const CreateWalletPage({Key? key}) : super(key: key);
@@ -35,7 +34,6 @@ class _CreateWalletPage extends State<CreateWalletPage> {
   KiraExpansionTileController mnemonicTileController = KiraExpansionTileController();
   KiraExpansionTileController keyfileTileController = KiraExpansionTileController();
 
-  MnemonicGridController mnemonicGridController = MnemonicGridController();
   KiraTextFieldController publicAddressTextController = KiraTextFieldController();
   DownloadKeyfileSectionController downloadKeyfileSectionController = DownloadKeyfileSectionController();
 
@@ -97,7 +95,6 @@ class _CreateWalletPage extends State<CreateWalletPage> {
                     disabled: loading,
                     children: <Widget>[
                       SecretPhrasesTileContent(
-                        mnemonicGridController: mnemonicGridController,
                         mnemonic: mnemonic,
                       ),
                     ],
