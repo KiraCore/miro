@@ -8,7 +8,7 @@ import 'package:miro/views/widgets/kira/kira_expansion_tile/kira_expansion_tile_
 class KiraExpansionTile extends StatefulWidget {
   final String title;
   final List<Widget> children;
-  final KiraExpansionTileController? controller;
+  final KiraExpansionTileController? kiraExpansionTileController;
   final String? subtitle;
   final String? tooltipMessage;
   final bool disabled;
@@ -16,7 +16,7 @@ class KiraExpansionTile extends StatefulWidget {
   const KiraExpansionTile({
     required this.title,
     required this.children,
-    this.controller,
+    this.kiraExpansionTileController,
     this.subtitle,
     this.tooltipMessage,
     this.disabled = false,
@@ -28,7 +28,8 @@ class KiraExpansionTile extends StatefulWidget {
 }
 
 class _KiraExpansionTile extends State<KiraExpansionTile> {
-  late final KiraExpansionTileController controller = widget.controller ?? KiraExpansionTileController();
+  late final KiraExpansionTileController controller =
+      widget.kiraExpansionTileController ?? KiraExpansionTileController();
   bool expandedStatus = false;
 
   @override

@@ -63,7 +63,7 @@ class _CreateWalletPage extends State<CreateWalletPage> {
               KiraTextField(
                 label: 'Your public address',
                 readOnly: true,
-                controller: publicAddressTextController,
+                kiraTextFieldController: publicAddressTextController,
                 suffixIcon: IconButton(
                   onPressed: _createNewWallet,
                   icon: const Icon(
@@ -77,7 +77,7 @@ class _CreateWalletPage extends State<CreateWalletPage> {
                 valueListenable: mnemonicNotifier,
                 builder: (_, Mnemonic mnemonic, __) {
                   return KiraExpansionTile(
-                    controller: qrCodeTileController,
+                    kiraExpansionTileController: qrCodeTileController,
                     title: 'Reveal Secret QR Code',
                     subtitle: 'You won’t be able to see it again',
                     tooltipMessage: 'You won’t be able to see it again',
@@ -90,7 +90,7 @@ class _CreateWalletPage extends State<CreateWalletPage> {
                 valueListenable: mnemonicNotifier,
                 builder: (_, Mnemonic mnemonic, __) {
                   return KiraExpansionTile(
-                    controller: mnemonicTileController,
+                    kiraExpansionTileController: mnemonicTileController,
                     title: 'Reveal Secret Phrases',
                     subtitle: 'You won’t be able to see it again',
                     tooltipMessage: 'You won’t be able to see it again',
@@ -108,14 +108,14 @@ class _CreateWalletPage extends State<CreateWalletPage> {
                 valueListenable: walletNotifier,
                 builder: (_, UnsafeWallet? wallet, __) {
                   return KiraExpansionTile(
-                    controller: keyfileTileController,
+                    kiraExpansionTileController: keyfileTileController,
                     title: 'Generate keyfile',
                     tooltipMessage: 'Generate keyfile',
                     disabled: loading,
                     children: <Widget>[
                       if (wallet != null)
                         DownloadKeyfileSection(
-                          controller: downloadKeyfileSectionController,
+                          downloadKeyfileSectionController: downloadKeyfileSectionController,
                           wallet: wallet,
                         ),
                     ],

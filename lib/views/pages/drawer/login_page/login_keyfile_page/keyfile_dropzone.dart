@@ -7,13 +7,13 @@ import 'package:miro/views/widgets/kira/kira_dropzone/models/dropzone_controller
 import 'package:miro/views/widgets/kira/kira_dropzone/models/dropzone_file.dart';
 
 class KeyfileDropzone extends StatefulWidget {
-  final KeyfileDropzoneController controller;
-  final ValidateKeyfile validate;
+  final KeyfileDropzoneController keyfileDropzoneController;
+  final ValidateKeyfileCallback validate;
   final double width;
   final double height;
 
   const KeyfileDropzone({
-    required this.controller,
+    required this.keyfileDropzoneController,
     required this.validate,
     this.width = double.infinity,
     this.height = 128,
@@ -52,7 +52,7 @@ class _KeyfileDropzone extends State<KeyfileDropzone> {
         children: <Widget>[
           Positioned.fill(
             child: KiraDropzone(
-              controller: dropZoneController,
+              kiraDropzoneController: dropZoneController,
               onHover: () => _setHoverState(status: true),
               onLeave: () => _setHoverState(status: false),
               onPickFile: _onFilePicked,
@@ -70,7 +70,7 @@ class _KeyfileDropzone extends State<KeyfileDropzone> {
   }
 
   void _initController() {
-    widget.controller.initController(
+    widget.keyfileDropzoneController.initController(
       dropzoneController: dropZoneController,
       validate: _validate,
       setErrorMessage: _setErrorMessage,

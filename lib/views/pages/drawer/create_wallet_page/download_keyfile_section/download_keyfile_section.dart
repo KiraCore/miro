@@ -10,11 +10,11 @@ import 'package:miro/views/widgets/kira/kira_text_field/kira_text_field.dart';
 import 'package:miro/views/widgets/kira/kira_text_field/kira_text_field_controller.dart';
 
 class DownloadKeyfileSection extends StatefulWidget {
-  final DownloadKeyfileSectionController controller;
+  final DownloadKeyfileSectionController downloadKeyfileSectionController;
   final UnsafeWallet wallet;
 
   const DownloadKeyfileSection({
-    required this.controller,
+    required this.downloadKeyfileSectionController,
     required this.wallet,
     Key? key,
   }) : super(key: key);
@@ -46,13 +46,13 @@ class _DownloadKeyfileSection extends State<DownloadKeyfileSection> {
           KiraTextField(
             label: 'Create password for keyfile',
             hint: 'Password',
-            controller: passwordTextController,
+            kiraTextFieldController: passwordTextController,
             obscureText: true,
             onChanged: (_) => _onPasswordChanged(),
           ),
           const SizedBox(height: 12),
           KiraTextField(
-            controller: repeatPasswordTextController,
+            kiraTextFieldController: repeatPasswordTextController,
             hint: 'Repeat password',
             obscureText: true,
             onChanged: (_) {
@@ -75,7 +75,7 @@ class _DownloadKeyfileSection extends State<DownloadKeyfileSection> {
   }
 
   void _initController() {
-    widget.controller.initController(clear: _clearKeyfile);
+    widget.downloadKeyfileSectionController.initController(clear: _clearKeyfile);
   }
 
   void _clearKeyfile() {

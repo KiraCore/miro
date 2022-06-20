@@ -5,14 +5,14 @@ import 'package:miro/views/widgets/kira/mnemonic_grid/mnemonic_grid_item.dart';
 import 'package:miro/views/widgets/kira/mnemonic_grid/model/mnemonic_grid_controller.dart';
 
 class MnemonicGrid extends StatefulWidget {
-  final MnemonicGridController controller;
+  final MnemonicGridController mnemonicGridController;
   final bool editable;
   final List<String> mnemonicWordList;
   final int mnemonicSize;
   final int columnsCount;
 
   const MnemonicGrid({
-    required this.controller,
+    required this.mnemonicGridController,
     required this.editable,
     this.mnemonicWordList = const <String>[],
     this.mnemonicSize = 24,
@@ -70,7 +70,7 @@ class _MnemonicGrid extends State<MnemonicGrid> {
   }
 
   void _initController() {
-    widget.controller.initController(
+    widget.mnemonicGridController.initController(
       paste: _handlePasteShortcut,
       clear: _clearGrid,
       getValues: _getGridValues,
@@ -121,7 +121,7 @@ class _MnemonicGrid extends State<MnemonicGrid> {
       index: index,
       editable: widget.editable,
       mnemonicWord: mnemonicWord,
-      textController: textEditingController,
+      textEditingController: textEditingController,
     );
   }
 }

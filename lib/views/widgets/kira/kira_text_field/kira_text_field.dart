@@ -5,7 +5,7 @@ import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/views/widgets/kira/kira_text_field/kira_text_field_controller.dart';
 
 class KiraTextField extends StatefulWidget {
-  final KiraTextFieldController controller;
+  final KiraTextFieldController kiraTextFieldController;
   final String? hint;
   final String? label;
   final bool obscureText;
@@ -15,7 +15,7 @@ class KiraTextField extends StatefulWidget {
   final bool readOnly;
 
   const KiraTextField({
-    required this.controller,
+    required this.kiraTextFieldController,
     this.hint,
     this.label,
     this.obscureText = false,
@@ -38,7 +38,7 @@ class _KiraTextField extends State<KiraTextField> {
   @override
   void initState() {
     obscureTextStatus = widget.obscureText;
-    widget.controller.initController(
+    widget.kiraTextFieldController.initController(
       validate: _validate,
     );
     super.initState();
@@ -62,7 +62,7 @@ class _KiraTextField extends State<KiraTextField> {
         ],
         TextFormField(
           focusNode: inputFocusNode,
-          controller: widget.controller.textController,
+          controller: widget.kiraTextFieldController.textController,
           onChanged: widget.onChanged,
           obscureText: obscureTextStatus,
           readOnly: widget.readOnly,
@@ -121,7 +121,7 @@ class _KiraTextField extends State<KiraTextField> {
     if (widget.validator == null) {
       errorMessage = null;
     } else {
-      errorMessage = widget.validator!(widget.controller.textController.text);
+      errorMessage = widget.validator!(widget.kiraTextFieldController.textController.text);
       setState(() {});
     }
     return errorMessage;

@@ -12,13 +12,13 @@ enum MnemonicState {
 }
 
 class MnemonicGridItem extends StatefulWidget {
-  final TextEditingController textController;
+  final TextEditingController textEditingController;
   final int index;
   final bool editable;
   final String? mnemonicWord;
 
   const MnemonicGridItem({
-    required this.textController,
+    required this.textEditingController,
     required this.index,
     required this.editable,
     this.mnemonicWord,
@@ -35,14 +35,14 @@ class _MnemonicGridItem extends State<MnemonicGridItem> {
 
   @override
   void initState() {
-    widget.textController.addListener(_validateMnemonicWord);
+    widget.textEditingController.addListener(_validateMnemonicWord);
     focusNode.addListener(_handleFocusNodeChanged);
     super.initState();
   }
 
   @override
   void dispose() {
-    widget.textController.removeListener(_validateMnemonicWord);
+    widget.textEditingController.removeListener(_validateMnemonicWord);
     super.dispose();
   }
 
@@ -51,7 +51,7 @@ class _MnemonicGridItem extends State<MnemonicGridItem> {
     return TextFormField(
       focusNode: focusNode,
       enabled: widget.editable,
-      controller: widget.textController,
+      controller: widget.textEditingController,
       textAlignVertical: TextAlignVertical.center,
       maxLines: 1,
       style: const TextStyle(
@@ -118,7 +118,7 @@ class _MnemonicGridItem extends State<MnemonicGridItem> {
   }
 
   void _validateMnemonicWord() {
-    String _word = widget.textController.text.replaceAll(' ', '');
+    String _word = widget.textEditingController.text.replaceAll(' ', '');
     if (focusNode.hasFocus) {
       _setMnemonicState(MnemonicState.valid);
       return;

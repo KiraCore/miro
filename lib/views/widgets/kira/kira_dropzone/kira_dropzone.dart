@@ -7,14 +7,14 @@ import 'package:miro/views/widgets/kira/kira_dropzone/models/dropzone_controller
 import 'package:miro/views/widgets/kira/kira_dropzone/models/dropzone_file.dart';
 
 class KiraDropzone extends StatefulWidget {
-  final KiraDropzoneController controller;
+  final KiraDropzoneController kiraDropzoneController;
   final ValueChanged<DropzoneFile>? onPickFile;
   final ValueChanged<String?>? onError;
   final VoidCallback? onHover;
   final VoidCallback? onLeave;
 
   const KiraDropzone({
-    required this.controller,
+    required this.kiraDropzoneController,
     this.onPickFile,
     this.onError,
     this.onHover,
@@ -49,7 +49,7 @@ class _KiraDropzone extends State<KiraDropzone> {
   }
 
   void _initController() {
-    widget.controller.initController(
+    widget.kiraDropzoneController.initController(
       pickFile: _pickFileManual,
     );
   }
@@ -90,7 +90,7 @@ class _KiraDropzone extends State<KiraDropzone> {
   }
 
   void _setFile(DropzoneFile file) {
-    widget.controller.currentFile = file;
+    widget.kiraDropzoneController.currentFile = file;
     if (widget.onPickFile != null) {
       widget.onPickFile!(file);
     }

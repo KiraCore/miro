@@ -27,7 +27,7 @@ class SecretPhrasesTileContent extends StatelessWidget {
             padding: const EdgeInsets.all(10),
             child: MnemonicGrid(
               mnemonicWordList: mnemonic.array,
-              controller: mnemonicGridController,
+              mnemonicGridController: mnemonicGridController,
               editable: false,
             ),
           ),

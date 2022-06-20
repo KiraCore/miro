@@ -28,7 +28,7 @@ class _LoginPublicKeySection extends State<LoginPublicKeySection> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         KiraTextField(
-          controller: publicAddressTextController,
+          kiraTextFieldController: publicAddressTextController,
           label: 'or',
           hint: 'Paste a public address',
           onChanged: _onPublicAddressChanged,

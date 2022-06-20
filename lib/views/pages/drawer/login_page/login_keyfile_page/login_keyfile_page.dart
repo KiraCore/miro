@@ -37,12 +37,12 @@ class _LoginKeyfilePage extends State<LoginKeyfilePage> {
         Text('This is not a safe option to sign in', style: Theme.of(context).textTheme.headline2),
         const SizedBox(height: 37),
         KeyfileDropzone(
-          controller: dropZoneController,
+          keyfileDropzoneController: dropZoneController,
           validate: _validateKeyFile,
         ),
         const SizedBox(height: 16),
         KiraTextField(
-          controller: keyfilePasswordController,
+          kiraTextFieldController: keyfilePasswordController,
           hint: 'Enter password',
           obscureText: true,
           validator: (_) => _validateKeyFilePassword(),

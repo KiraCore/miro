@@ -50,7 +50,7 @@ class _LoginMnemonicPage extends State<LoginMnemonicPage> {
                   child: Text('Connecting into account...'),
                 )
               : MnemonicGrid(
-                  controller: mnemonicGridController,
+                  mnemonicGridController: mnemonicGridController,
                   editable: true,
                 ),
         ),

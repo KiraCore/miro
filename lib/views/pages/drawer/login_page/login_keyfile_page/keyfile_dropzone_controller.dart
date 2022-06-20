@@ -1,7 +1,7 @@
 import 'package:miro/views/widgets/kira/kira_dropzone/models/dropzone_controller.dart';
 import 'package:miro/views/widgets/kira/kira_dropzone/models/dropzone_file.dart';
 
-typedef ValidateKeyfile = String? Function(DropzoneFile?);
+typedef ValidateKeyfileCallback = String? Function(DropzoneFile?);
 
 class KeyfileDropzoneController {
   late KiraDropzoneController dropzoneController;
