@@ -59,7 +59,7 @@ class _GenericTransactionForm extends State<GenericTransactionForm> {
         return MsgSendForm(
           msgFormController: msgFormController,
           msgFormType: MsgFormType.create,
-          // TODO(dominik): Replace it to TokenType after refactor on balances list
+          // TODO(dominik): Replace it with TokenType after refactor on balances list
           tokenAlias: widget.metadata['tokenAlias'] as TokenAlias?,
           feeValue: widget.feeValue,
         );
