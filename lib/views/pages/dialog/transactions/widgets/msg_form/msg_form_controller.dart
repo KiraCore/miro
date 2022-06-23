@@ -1,19 +1,60 @@
 import 'package:flutter/material.dart';
+import 'package:miro/infra/dto/api_cosmos/broadcast/request/coin.dart';
+import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/tx_msg.dart';
+import 'package:miro/infra/dto/api_cosmos/broadcast/request/transaction/components/tx_fee.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/transaction/unsigned_transaction.dart';
 
-class MsgFormController extends ChangeNotifier {
-  late UnsignedTransaction Function() buildTransaction;
+abstract class MsgFormController<MsgFormType extends TxMsg> extends ChangeNotifier {
+  final String fee;
+  ValueNotifier<String?> errorMessageNotifier = ValueNotifier<String?>(null);
 
-  String? errorMessage;
+  MsgFormController({
+    required this.fee,
+  });
 
-  void setUpController({
-    required UnsignedTransaction Function() buildTransaction,
-  }) {
-    this.buildTransaction = buildTransaction;
+  String? validateForm() {
+    String? errorMessage = getErrorMessage();
+    setErrorMessage(errorMessage: errorMessage);
+    return errorMessage;
   }
 
+  String? getErrorMessage();
+
   void setErrorMessage({required String? errorMessage}) {
-    this.errorMessage = errorMessage;
+    errorMessageNotifier.value = errorMessage;
     notifyListeners();
+  }
+
+  UnsignedTransaction? save() {
+    TxFee transactionFee = _getTransactionFee();
+    TxMsg? message = getTransactionMessage();
+    if (message == null) {
+      return null;
+    }
+    UnsignedTransaction unsignedTransaction = UnsignedTransaction(
+      fee: transactionFee,
+      memo: getMemo() ?? '',
+      messages: <TxMsg>[
+        message,
+      ],
+    );
+    return unsignedTransaction;
+  }
+
+  MsgFormType? getTransactionMessage();
+
+  String? getMemo();
+
+  TxFee _getTransactionFee() {
+    Coin amount = Coin(
+      value: BigInt.parse(fee),
+      denom: 'ukex',
+    );
+
+    return TxFee(
+      amount: <Coin>[
+        amount,
+      ],
+    );
   }
 }

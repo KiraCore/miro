@@ -1,11 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/tx_msg.dart';
 import 'package:miro/infra/dto/api_kira/query_kira_tokens_aliases/response/token_alias.dart';
 import 'package:miro/views/pages/dialog/transactions/generic_transaction_page/sign_transaction_button.dart';
 import 'package:miro/views/pages/dialog/transactions/widgets/msg_form/msg_form_controller.dart';
 import 'package:miro/views/pages/dialog/transactions/widgets/msg_form/msg_form_type.dart';
-import 'package:miro/views/pages/dialog/transactions/widgets/msg_form/msg_send_form.dart';
+import 'package:miro/views/pages/dialog/transactions/widgets/msg_form/msg_send_form/msg_send_form.dart';
+import 'package:miro/views/pages/dialog/transactions/widgets/msg_form/msg_send_form/msg_send_form_controller.dart';
 
 class GenericTransactionForm extends StatefulWidget {
   final String messageType;
@@ -24,7 +26,7 @@ class GenericTransactionForm extends StatefulWidget {
 }
 
 class _GenericTransactionForm extends State<GenericTransactionForm> {
-  final MsgFormController msgFormController = MsgFormController();
+  late final MsgFormController<TxMsg> msgFormController;
 
   @override
   Widget build(BuildContext context) {
@@ -56,8 +58,9 @@ class _GenericTransactionForm extends State<GenericTransactionForm> {
   Widget _buildMessageForm() {
     switch (widget.messageType) {
       case 'MsgSend':
+        msgFormController = MsgSendFormController(fee: widget.feeValue);
         return MsgSendForm(
-          msgFormController: msgFormController,
+          msgSendFormController: msgFormController as MsgSendFormController,
           msgFormType: MsgFormType.create,
           // TODO(dominik): Replace it with TokenType after refactor on balances list
           tokenAlias: widget.metadata['tokenAlias'] as TokenAlias?,

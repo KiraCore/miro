@@ -1,11 +1,11 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
-import 'package:miro/infra/dto/api_cosmos/query_balance/response/balance.dart';
 import 'package:miro/views/pages/dialog/transactions/widgets/msg_form/msg_form_type.dart';
 import 'package:miro/views/pages/dialog/transactions/widgets/token_section/amount_notification_section.dart';
 import 'package:miro/views/pages/dialog/transactions/widgets/token_section/amount_text_field.dart';
 import 'package:miro/views/pages/dialog/transactions/widgets/token_section/denomination_chip_button_list.dart';
+import 'package:miro/views/pages/dialog/transactions/widgets/token_section/models/token_amount.dart';
 import 'package:miro/views/pages/dialog/transactions/widgets/token_section/models/token_denomination.dart';
 import 'package:miro/views/pages/dialog/transactions/widgets/token_section/models/token_type.dart';
 import 'package:miro/views/pages/dialog/transactions/widgets/token_section/token_section_controller.dart';
@@ -15,21 +15,19 @@ import 'package:miro/views/widgets/generic/decorated_input.dart';
 
 class TokenSection extends StatefulWidget {
   final TokenSectionController tokenSectionController;
-  final List<Balance> availableBalances;
   final MsgFormType msgFormType;
   final bool loading;
   final String? address;
-  final VoidCallback onUpdateValidation;
+  final void Function(TokenAmount?) onChanged;
   final TokenType? initialTokenType;
   final bool disabled;
 
   const TokenSection({
     required this.tokenSectionController,
-    required this.availableBalances,
     required this.loading,
     required this.address,
-    required this.onUpdateValidation,
     required this.msgFormType,
+    required this.onChanged,
     this.initialTokenType,
     this.disabled = false,
     Key? key,
@@ -44,6 +42,7 @@ class _TokenSection extends State<TokenSection> {
 
   @override
   void initState() {
+    widget.tokenSectionController.addListener(_handleTokenSectionControllerChange);
     if (widget.initialTokenType != null) {
       _onTokenTypeChanged(widget.initialTokenType!);
     }
@@ -111,13 +110,17 @@ class _TokenSection extends State<TokenSection> {
     );
   }
 
+  void _handleTokenSectionControllerChange() {
+    TokenAmount? tokenAmount = widget.tokenSectionController.sendTokenAmount;
+    widget.onChanged(tokenAmount);
+  }
+
   bool get textFieldDisabled {
     return widget.tokenSectionController.sendTokenAmount == null || widget.disabled;
   }
 
   void _onAmountTextChanged(String value) {
     widget.tokenSectionController.updateAmountValue(value);
-    widget.onUpdateValidation();
   }
 
   Widget _buildNotificationSection(String? errorMessage) {
@@ -129,10 +132,8 @@ class _TokenSection extends State<TokenSection> {
   }
 
   void _onTokenTypeChanged(TokenType tokenType) {
-    setState(() {
-      widget.tokenSectionController.updateTokenType(tokenType);
-      widget.onUpdateValidation();
-    });
+    widget.tokenSectionController.updateTokenType(tokenType);
+    setState(() {});
   }
 
   List<TokenDenomination> get denominationList {

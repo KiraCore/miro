@@ -6,7 +6,7 @@ import 'package:miro/views/pages/dialog/transactions/widgets/token_section/model
 import 'package:miro/views/pages/dialog/transactions/widgets/token_section/models/token_denomination.dart';
 import 'package:miro/views/pages/dialog/transactions/widgets/token_section/models/token_type.dart';
 
-class TokenSectionController {
+class TokenSectionController extends ChangeNotifier {
   final List<Balance> availableBalances;
   final WalletAddress? walletAddress;
   final ValueNotifier<String?> errorMessageNotifier = ValueNotifier<String?>(null);
@@ -38,6 +38,7 @@ class TokenSectionController {
     selectedTokenType = tokenType;
     amountValueTextController.text = '';
     validate();
+    notifyListeners();
   }
 
   Balance? _tryFindBalanceForTokenType(TokenType tokenType) {
@@ -59,6 +60,7 @@ class TokenSectionController {
       amountValueTextController.text = value == '0' ? '' : value;
     }
     validate();
+    notifyListeners();
   }
 
   void updateTokenDenomination(TokenDenomination tokenDenomination) {
@@ -66,6 +68,7 @@ class TokenSectionController {
     availableTokenAmount?.tokenDenomination = tokenDenomination;
     String actualBalance = sendTokenAmount?.amount.toString() ?? '';
     amountValueTextController.text = actualBalance;
+    notifyListeners();
   }
 
   String? validate() {
