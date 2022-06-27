@@ -337,7 +337,7 @@ Map<String, dynamic> apiValidatorsMock = <String, dynamic>{
       'pubkey': 'PubKeyEd25519{EE01DDF7AB5F42B1A0DEA031D8B3A175F4F5E120A737E254144D28783F7E4EBC}',
       'proposer': 'E72D3657C38BB1FB6C8C9D938CD2D19BF34D9FE2',
       'moniker': 'necrus',
-      'status': 'ACTIVE',
+      'status': 'WAITING',
       'rank': '1303553',
       'streak': '1303553',
       'mischance': '0',
