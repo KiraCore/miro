@@ -46,7 +46,24 @@ class MockApiRepository implements ApiRepository {
 
     if (networkUri.host == 'online.kira.network') {
       statusCode = 200;
-      mockedResponse = apiValidatorsMock;
+      if (queryValidatorsReq.limit != null && queryValidatorsReq.offset != null) {
+        List<dynamic> mockedResponseList = apiValidatorsMock['validators'] as List<dynamic>;
+        if (queryValidatorsReq.offset == '0' && queryValidatorsReq.limit == '2') {
+          mockedResponse = <String, dynamic>{
+            'validators': mockedResponseList.sublist(0, 2),
+          };
+        } else if (queryValidatorsReq.offset == '0' && queryValidatorsReq.limit == '500') {
+          mockedResponse = <String, dynamic>{
+            'validators': mockedResponseList.sublist(0, 3),
+          };
+        } else {
+          mockedResponse = <String, dynamic>{
+            'validators': mockedResponseList.sublist(0, 3),
+          };
+        }
+      } else {
+        mockedResponse = apiValidatorsMock;
+      }
     } else {
       throw DioError(requestOptions: RequestOptions(path: networkUri.host));
     }
