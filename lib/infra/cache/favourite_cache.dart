@@ -1,27 +1,53 @@
+import 'dart:convert';
+
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/cache/cache_manager.dart';
 
+/// Current architecture of FavouriteCache:
+/// hiveKey {
+///   fav_key_1: [favId_1.1, favId_1.2, favId_1.3]
+///   fav_key_2: [favId_2.1, favId_2.2, favId_3.3]
+/// }
+///
+/// Example:
+/// favourites {
+///   validators: ['kira12p8c7ynv7uxzdd88dc9trd9e4qzsewjvqq8y2x', 'kira1mpqwqe3zhejalh9zveumy3uduess5p8n09wjmh'],
+///   balances: ['ukex', 'samolean'],
+/// }
 class FavouriteCache {
-  final String boxName;
+  static const String hiveKey = 'favourites';
+  final String key;
   final CacheManager _cacheManager = globalLocator<CacheManager>();
 
   FavouriteCache({
-    required this.boxName,
+    required this.key,
   });
 
-  bool get({required String id}) {
-    return _cacheManager.get<bool>(boxName: boxName, key: id, defaultValue: false);
+  void add(String value) {
+    Set<String> values = getAll()..add(value);
+    _saveInCache(values);
   }
 
-  void add({required String id, required bool value}) {
-    _cacheManager.add<bool>(boxName: boxName, key: id, value: value);
+  void delete(String value) {
+    Set<String> values = getAll()..removeWhere((String e) => e == value);
+    _saveInCache(values);
   }
 
-  void delete({required String id}) {
-    return _cacheManager.delete<bool>(boxName: boxName, key: id);
+  Set<String> getAll() {
+    String result = _cacheManager.get<String>(
+      boxName: hiveKey,
+      key: key,
+      defaultValue: '',
+    );
+    if (result.isEmpty) {
+      return <String>{};
+    } else {
+      return (jsonDecode(result) as List<dynamic>).cast<String>().toSet();
+    }
   }
 
-  Map<String, bool> getAll() {
-    return _cacheManager.getAll<bool>(boxName: boxName);
+  // Save values as List because Set is not an json encodable object
+  void _saveInCache(Set<String> values) {
+    _cacheManager.add<String>(boxName: hiveKey, key: key, value: jsonEncode(values.toList()));
   }
 }
