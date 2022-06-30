@@ -3,7 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:miro/config/app_sizes.dart';
 import 'package:miro/shared/utils/app_logger.dart';
-import 'package:miro/views/layout/app_bar/mobile/backdrop/backdrop_app_bar.dart';
+import 'package:miro/views/layout/app_bar/mobile_backdrop/backdrop_app_bar.dart';
 import 'package:miro/views/layout/nav_menu/model/nav_item.dart';
 import 'package:miro/views/layout/nav_menu/model/nav_menu_theme_data.dart';
 import 'package:miro/views/layout/nav_menu/nav_tile.dart';
@@ -35,36 +35,28 @@ class _NavMenu extends State<NavMenu> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       width: AppSizes.kKiraMenuWidth,
       height: double.infinity,
-      color: widget.navMenuTheme?.backgroundColor,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 16,
-        ),
-        child: Column(
-          children: <Widget>[
-            if (!ResponsiveWidget.isSmallScreen(context))
-              SizedBox(
-                height: AppSizes.kKiraAppBarHeight,
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                    left: 20,
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      widget.logo,
-                    ],
-                  ),
+      child: Column(
+        children: <Widget>[
+          if (ResponsiveWidget.isLargeScreen(context))
+            SizedBox(
+              height: AppSizes.kKiraAppBarHeight,
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: <Widget>[
+                    widget.logo,
+                  ],
                 ),
               ),
-            const SizedBox(height: 40),
-            ...widget.navItems.map<Widget>(_buildMenuTile).toList(),
-          ],
-        ),
+            ),
+          const SizedBox(height: 40),
+          ...widget.navItems.map<Widget>(_buildMenuTile).toList(),
+        ],
       ),
     );
   }

@@ -4,7 +4,7 @@ import 'package:miro/views/widgets/generic/mouse_state_listener.dart';
 
 class KiraElevatedButton extends StatefulWidget {
   final GestureTapCallback? onPressed;
-  final String title;
+  final String? title;
   final IconData? iconData;
   final double? width;
   final double height;
@@ -13,7 +13,7 @@ class KiraElevatedButton extends StatefulWidget {
 
   const KiraElevatedButton({
     required this.onPressed,
-    required this.title,
+    this.title,
     this.width,
     this.iconData,
     this.foregroundColor,
@@ -53,16 +53,18 @@ class _KiraElevatedButton extends State<KiraElevatedButton> {
                     color: widget.foregroundColor,
                     size: 14,
                   ),
-                  const SizedBox(width: 12),
                 ],
-                Text(
-                  widget.title.toUpperCase(),
-                  style: TextStyle(
-                    color: widget.foregroundColor ?? DesignColors.white_100,
-                    fontSize: 12,
-                    fontWeight: FontWeight.w500,
+                if (widget.title != null) ...<Widget>[
+                  const SizedBox(width: 12),
+                  Text(
+                    widget.title!.toUpperCase(),
+                    style: TextStyle(
+                      color: widget.foregroundColor ?? DesignColors.white_100,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
-                ),
+                ],
               ],
             ),
           );

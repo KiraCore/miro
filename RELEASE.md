@@ -1,5 +1,2 @@
-## KIRA MIRO
-
-### Features:
-* Added github workflows
-* Simplified build process with makefile
+Features:
+* Automatically push releases to IPFS

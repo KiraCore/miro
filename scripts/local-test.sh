@@ -18,12 +18,13 @@ TEST_SUCCESS="true"
 
 # fvm flutter run -d web-server -v --debug
 
-if [ ! -z "$CHROMEDRIVER_VERSION" ] ; then
+if [ -f /.dockerenv ]; then
+    echoInfo "INFO: Process is running inside docker container, external chromedriver must be used to execute browser related tests!"
+elif [ ! -z "$CHROMEDRIVER_VERSION" ] ; then
     fvm flutter drive --driver=test_driver/integration_test.dart \
      --target=test/integration/infra/services/api/deposits_service_test.dart \
      --dart-define=TEST_INTERX_URL="127.0.0.1:11000" --dart-define=TEST_USER_1_ADDR="$TEST_USER_1_ADDR" \
-     -d web-server --release
-
+     -d web-server --release || TEST_SUCCESS="false"
 elif [ ! -z "$CHROMIUM_VERSION" ] ; then
     export CHROME_EXECUTABLE="$CHROME_EXECUTABLE"
 
@@ -31,7 +32,7 @@ elif [ ! -z "$CHROMIUM_VERSION" ] ; then
      --dart-define=TEST_INTERX_URL="127.0.0.1:11000" --dart-define=TEST_USER_1_ADDR="$TEST_USER_1_ADDR" || TEST_SUCCESS="false"
 
      fvm flutter test test/integration/infra/services/api/deposits_service_test.dart --platform chrome \
-     --dart-define=TEST_INTERX_URL="127.0.0.1:11000" --dart-define=TEST_USER_1_ADDR="$TEST_USER_1_ADDR" -d web-server
+     --dart-define=TEST_INTERX_URL="127.0.0.1:11000" --dart-define=TEST_USER_1_ADDR="$TEST_USER_1_ADDR" -d web-server || TEST_SUCCESS="false"
 else
     # Regardless if tests pass or not, the infrastructure will be stopped
     ./scripts/kira-stop.sh || echo "WARNINIG: Failed to stop sekai & interx"

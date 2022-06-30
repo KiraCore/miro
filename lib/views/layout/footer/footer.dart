@@ -13,7 +13,6 @@ class Footer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: ResponsiveWidget.isLargeScreen(context) ? kFooterHeight : kFooterHeight * 2,
       width: double.infinity,
       child: ColumnRowSwapper(
         columnMainAxisAlignment: MainAxisAlignment.center,
@@ -28,8 +27,9 @@ class Footer extends StatelessWidget {
   }
 
   Widget _buildTextSection(BuildContext context) {
-    return Row(
-      mainAxisAlignment: ResponsiveWidget.isLargeScreen(context) ? MainAxisAlignment.start : MainAxisAlignment.center,
+    return ColumnRowSwapper(
+      rowCrossAxisAlignment: CrossAxisAlignment.center,
+      rowMainAxisAlignment: MainAxisAlignment.start,
       children: <Widget>[
         _buildTextButton(
           text: 'User terms',
@@ -54,9 +54,7 @@ class Footer extends StatelessWidget {
       onPressed: onPressed,
       child: Text(
         text,
-        style: const TextStyle(
-          fontSize: 12,
-        ),
+        style: const TextStyle(fontSize: 12),
       ),
     );
   }

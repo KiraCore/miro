@@ -73,7 +73,7 @@ class _LoginPage extends State<LoginPage> {
                     'Note: this is not a safe option to sign in',
                     style: Theme.of(context).textTheme.headline2!.copyWith(
                           fontSize: 14,
-                          color: DesignColors.yellow,
+                          color: DesignColors.yellow_100,
                         ),
                   ),
                 ],

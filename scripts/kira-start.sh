@@ -3,9 +3,9 @@ set -e
 . /etc/profile || echo "WARNING: Failed to load environment variables"
 set -x
 
-SEKAI_VERSION="v0.1.26-rc.11"
-INTERX_VERSION="v0.4.5-rc.4"
-TOOLS_VERSION="v0.1.1-rc.10"
+SEKAI_VERSION="v0.2.1-rc.15"
+INTERX_VERSION="v0.4.11"
+TOOLS_VERSION="v0.2.5-rc.8"
 COSIGN_VERSION="v1.7.2"
 NETWORK_NAME="localnet-0"
 

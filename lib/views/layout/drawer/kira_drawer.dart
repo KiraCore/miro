@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:miro/views/widgets/generic/filled_scroll_view.dart';
 
 class KiraDrawer extends StatelessWidget {
   final Widget child;
@@ -24,18 +25,15 @@ class KiraDrawer extends StatelessWidget {
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: WillPopScope(
         onWillPop: onWillPop != null ? () => onWillPop!() : null,
-        child: SingleChildScrollView(
-          child: Container(
-            width: width,
-            height: MediaQuery.of(context).size.height,
-            constraints: const BoxConstraints(
-              minHeight: 680,
-            ),
-            child: Drawer(
-              child: Container(
-                color: drawerColor,
-                height: double.infinity,
-                width: width,
+        child: SizedBox(
+          width: width,
+          height: double.infinity,
+          child: Drawer(
+            child: Container(
+              color: drawerColor,
+              height: double.infinity,
+              width: width,
+              child: FilledScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,

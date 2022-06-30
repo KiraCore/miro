@@ -20,24 +20,27 @@ class _ConnectionDrawerPage extends State<ConnectionDrawerPage> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Wrap(
-            crossAxisAlignment: WrapCrossAlignment.center,
-            children: <Widget>[
-              Text('Choose a Connection', style: Theme.of(context).textTheme.headline1),
-              // TODO(dominik): Add tooltip message
-              const KiraToolTip(
-                message: 'Sth about networks',
-              ),
-            ],
-          ),
-          const SizedBox(height: 28),
-          const NetworkList(),
-          const CustomNetworkSection(),
-        ],
+      child: SizedBox(
+        height: 1500,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Wrap(
+              crossAxisAlignment: WrapCrossAlignment.center,
+              children: <Widget>[
+                Text('Choose a Connection', style: Theme.of(context).textTheme.headline1),
+                // TODO(dominik): Add tooltip message
+                const KiraToolTip(
+                  message: 'Sth about networks',
+                ),
+              ],
+            ),
+            const SizedBox(height: 28),
+            const NetworkList(),
+            const CustomNetworkSection(),
+          ],
+        ),
       ),
     );
   }

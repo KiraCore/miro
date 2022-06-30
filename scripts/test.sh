@@ -8,23 +8,25 @@ echo "INFO: Starting unit tests..."
 uname -a
 CHROME_EXECUTABLE=$(which google-chrome-unstable || which chrome || which google-chrome || which chromium-browser || which chromium)
 CHROMEDRIVER_EXECUTABLE=$(which chromedriver || echo "")
-CHROMIUM_VERSION=$($CHROME_EXECUTABLE --version || echo "")
-CHROMEDRIVER_VERSION=$($CHROMEDRIVER_EXECUTABLE --version || echo "")
+CHROMIUM_VERSION=$(timeout 3 $CHROME_EXECUTABLE --version || echo "")
+CHROMEDRIVER_VERSION=$(timeout 3 $CHROMEDRIVER_EXECUTABLE --version || echo "")
 
 fvm flutter doctor -v
 
 # This command is essential for all VM environments due to git security policies
 git config --global --add safe.directory /usr/lib/flutter
 
-echo "INFO: Starting browser NOT dependent unit tests..."
+echoInfo "INFO: Starting browser NOT dependent unit tests..."
 fvm flutter test test/unit/shared
 fvm flutter test test/unit/providers/menu_provider_test.dart
 
-echo "INFO: Starting browser dependent unit tests..."
-if [ ! -z "$CHROMEDRIVER_VERSION" ] ; then
+echoInfo "INFO: Starting browser dependent unit tests..."
+if [ -f /.dockerenv ]; then
+    echoInfo "INFO: Process is running inside docker container, external chromedriver must be used!"
+elif [ ! -z "$CHROMEDRIVER_VERSION" ] ; then
     service dbus start || echoWarn "WARNINIG: Failed to start dbus"
     systemctl restart chromedriver || echoWarn "WARNINIG: Failed to restart chromedriver service"
-    
+
     # The --release flag is essential for running browser dependent tests in UI, see https://github.com/jonsamwell/flutter_gherkin/issues/66
     # each browser dependent test requires: `import 'package:integration_test/integration_test.dart';`
     # as well as: `IntegrationTestWidgetsFlutterBinding.ensureInitialized();` in the first line of the main function
