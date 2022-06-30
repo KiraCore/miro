@@ -17,8 +17,9 @@ fvm flutter doctor -v
 git config --global --add safe.directory /usr/lib/flutter
 
 echoInfo "INFO: Starting browser NOT dependent unit tests..."
-fvm flutter test test/unit/shared
-fvm flutter test test/unit/providers/menu_provider_test.dart
+# TODO: Add list of independent unit tests
+# fvm flutter test test/unit/shared
+# fvm flutter test test/unit/providers/menu_provider_test.dart
 
 echoInfo "INFO: Starting browser dependent unit tests..."
 if [ -f /.dockerenv ]; then
