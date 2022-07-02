@@ -4,30 +4,36 @@ set -e
 set -x
 
 echo "INFO: Starting unit tests..."
-
-uname -a
 CHROME_EXECUTABLE=$(which google-chrome-unstable || which chrome || which google-chrome || which chromium-browser || which chromium)
 CHROMEDRIVER_EXECUTABLE=$(which chromedriver || echo "")
-CHROMIUM_VERSION=$(timeout 3 $CHROME_EXECUTABLE --version || echo "")
-CHROMEDRIVER_VERSION=$(timeout 3 $CHROMEDRIVER_EXECUTABLE --version || echo "")
+CHROMIUM_VERSION=$(timeout 10 $CHROME_EXECUTABLE --version || echo "")
+CHROMEDRIVER_VERSION=$(timeout 10 $CHROMEDRIVER_EXECUTABLE --version || echo "")
 
 fvm flutter doctor -v
 
 # This command is essential for all VM environments due to git security policies
 git config --global --add safe.directory /usr/lib/flutter
 
-echoInfo "INFO: Starting browser NOT dependent unit tests..."
-# TODO: Add list of independent unit tests
-# fvm flutter test test/unit/shared
-# fvm flutter test test/unit/providers/menu_provider_test.dart
+echoInfo "----------------------------------------------------"
+echoInfo "|   Starting browser NOT dependent unit tests..."
+echoInfo "|---------------------------------------------------"
+echoInfo "|                      OS: $(uname -a)"
+echoInfo "|       CHROME EXECUTABLE: $CHROME_EXECUTABLE"
+echoInfo "| CHROMEDRIVER EXECUTABLE: $CHROMEDRIVER_EXECUTABLE"
+echoInfo "|        CHROMIUM VERSION: $CHROMIUM_VERSION"
+echoInfo "|    CHROMEDRIVER VERSION: $CHROMEDRIVER_VERSION"
+echoInfo "----------------------------------------------------"
 
-echoInfo "INFO: Starting browser dependent unit tests..."
-if [ ! -z "$CHROMIUM_VERSION" ] ; then
-    fvm flutter test test/unit --platform chrome --verbose
-else
-    echo "ERROR: chrome was NOT installed or chrome binary could NOT be found"
-    exit 1
-fi
+timeout 10 $CHROME_EXECUTABLE --version
+fvm flutter test test/unit --platform chrome --verbose
+
+# if [ ! -z "$CHROMIUM_VERSION" ] ; then
+#     fvm flutter test test/unit --platform chrome --verbose
+# else
+#     echo "ERROR: chrome was NOT installed or chrome binary could NOT be found"
+#     exit 1
+# fi
+
 # if [ -f /.dockerenv ]; then
 #     echoInfo "INFO: Process is running inside docker container, external chromedriver must be used!"
 # elif [ ! -z "$CHROMEDRIVER_VERSION" ] ; then
