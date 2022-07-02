@@ -8,8 +8,8 @@ on:
 
 jobs:
   build:
-    name: Repo Build
-    runs-on: ubuntu-20.04
+    name: Repo Build (AMD64)
+    runs-on: [ self-hosted, github-actions-amd64-runner-2 ]
     permissions:
       contents: read
       packages: write
@@ -17,6 +17,7 @@ jobs:
       pull-requests: write
     container:
       image: ghcr.io/kiracore/docker/base-image:v0.10.8
+      options: --privileged --net=host --ipc=host
     steps:
       # Work around https://github.com/actions/checkout/issues/760
       - name: Add safe.directory
