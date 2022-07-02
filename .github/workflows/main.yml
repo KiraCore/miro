@@ -17,7 +17,7 @@ jobs:
       pull-requests: write
     container:
       image: ghcr.io/kiracore/docker/base-image:v0.10.8
-      options: --privileged --net=host --add-host=host.docker.internal:host-gateway
+      options: --privileged --net=host
     steps:
       # Work around https://github.com/actions/checkout/issues/760
       - name: Add safe.directory
