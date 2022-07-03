@@ -15,48 +15,36 @@ fvm flutter doctor -v
 git config --global --add safe.directory /usr/lib/flutter
 
 set +x
-echo "----------------------------------------------------"
-echo "|   Starting unit testing..."
-echo "|---------------------------------------------------"
+echo "-----------------------------------------------------"
+echo "|             Starting unit testing...              |"
+echo "|----------------------------------------------------"
 echo "|                      OS: $(uname -a)"
 echo "|       CHROME EXECUTABLE: $CHROME_EXECUTABLE"
 echo "| CHROMEDRIVER EXECUTABLE: $CHROMEDRIVER_EXECUTABLE"
 echo "|        CHROMIUM VERSION: $CHROMIUM_VERSION"
 echo "|    CHROMEDRIVER VERSION: $CHROMEDRIVER_VERSION"
-echo "----------------------------------------------------"
+echo "-----------------------------------------------------"
 set -x
-
-echo "INFO: Listing all tests in the test/unit directory..."
-for file in $(find ./test/unit -name '*.dart'); do
-    SUCCESS=true
-    if grep -q "integration_test.dart" "$file"; then
-        bash-utils echoInfo "INFO: Integration test: $file"
-    else
-        bash-utils echoInfo "INFO: Unit test: $file"
-    fi
-done
 
 if [ -f /.dockerenv ]; then
     echo "WARNING: This process is running wihtin docker container and requires chromedriver"
-    
-    echo "INFO: Re/starting chromedriver"
-    service dbus start || echo "WARNINIG: Failed to start dbus"
-    systemctl restart chromedriver || echo "WARNINIG: Failed to restart chromedriver service"
-
-    echo "INFO: Checking chromedriver status"
-    # NOTE: Using 'jsonParse' to ensure that the resulting output has a correct json format
-    curl --show-error --fail localhost:4444/status | bash-utils jsonParse ".value" | jq
 
     # NOTE: Some of the tests in the 'test/unit' require UI and fail without it, the chromedriver is essential to execute them
     for file in $(find ./test/unit -name '*.dart'); do
         SUCCESS=true
         if grep -q "integration_test.dart" "$file"; then
-           ( ($(bash-utils isSubStr "$file" "network_provider_test.dart" )) || \
-             ($(bash-utils isSubStr "$file" "balance_list_bloc_test.dart" )) || \
-             ($(bash-utils isSubStr "$file" "network_connector_cubit_test.dart" )) || \
-             ($(bash-utils isSubStr "$file" "drawer_cubit_test.dart" )) ) && \
-             bash-utils echoWarn "WARNING: Test '$file' is NOT supported and will be skipped" && continue
             bash-utils echoInfo "INFO: Executing integration test: $file"
+
+            # NOTE: For integration tests to work (within docker), dbus & chromedriver must be restarted every time
+            echo "INFO: Restarting chromedriver"
+            service dbus stop || echo "WARNINIG: Failed to stop dbus"
+            systemctl stop chromedriver || echo "WARNINIG: Failed to stop chromedriver service"
+            service dbus start || echo "WARNINIG: Failed to start dbus"
+            systemctl start chromedriver || echo "WARNINIG: Failed to restart chromedriver service"
+
+            echo "INFO: Checking chromedriver status"
+            # NOTE: Using 'jsonParse' to ensure that the resulting output has a correct json format
+            curl --show-error --fail localhost:4444/status | bash-utils jsonParse ".value" | jq
 
             ## NOTE:The --release flag is essential for running browser dependent tests in UI, see https://github.com/jonsamwell/flutter_gherkin/issues/66
             ## each browser dependent test requires: `import 'package:integration_test/integration_test.dart';`
@@ -69,7 +57,7 @@ if [ -f /.dockerenv ]; then
         fi
 
         if [ "$SUCCESS" == "true" ] ; then
-            bash-utils echoInfo "INFO: Passed test '$file'" && sleep 3 && continue
+            bash-utils echoInfo "INFO: Passed test '$file'" && continue
         else
             bash-utils echoErr "ERROR: Failed test: '$file'" && break
         fi

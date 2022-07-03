@@ -106,7 +106,7 @@ make build
 
 ```
 # download and enter container
-docker run -i -t ghcr.io/kiracore/docker/base-image:v0.10.8 /bin/bash
+docker run -i -t ghcr.io/kiracore/docker/base-image:v0.10.9 /bin/bash
 
 # clone the repo inside the container, change your branch name to desired name
 git clone https://github.com/kiracore/miro -b "feature/ci-cd-v1" && \
@@ -119,7 +119,7 @@ make local-test
 
 # cleanup
 # delete containers
-docker ps -a | awk '{ print $1,$2 }' | grep "ghcr.io/kiracore/docker/base-image:v0.10.8" | awk '{print $1 }' | xargs -I {} docker rm {}
+docker ps -a | awk '{ print $1,$2 }' | grep "ghcr.io/kiracore/docker/base-image:v0.10.9" | awk '{print $1 }' | xargs -I {} docker rm {}
 # delete images
-docker rmi ghcr.io/kiracore/docker/base-image:v0.10.8
+docker rmi ghcr.io/kiracore/docker/base-image:v0.10.9
 ```

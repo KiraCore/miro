@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:integration_test/integration_test.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/coin.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/msg_send.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/tx_msg.dart';
@@ -14,6 +15,8 @@ import 'package:miro/test/test_locator.dart';
 // To run tests use:
 // fvm flutter test "test/unit/shared/utils/transactions/transaction_signer_test.dart" --platform chrome
 Future<void> main() async {
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  
   // Set up test
   setUpAll(TestWidgetsFlutterBinding.ensureInitialized);
   await initTestLocator();
