@@ -7,11 +7,11 @@ publish:
 	./scripts/publish.sh
 
 test:
-    ./scripts/clean.sh
+	clean
 	./scripts/test.sh
 
 local-test:
-    ./scripts/clean.sh
+	clean
 	./scripts/local-test.sh
 
 kira-start:

@@ -75,14 +75,17 @@ jobs:
           echo "   Release exists: ${{ env.RELEASE_EXISTS }}"
       - name: MIRO Build & Install Packages
         run: |
+          set -x
           echo "(current dir): $PWD" && ls -l ./
           chmod -Rv 555 ./scripts
           make build
       - name: MIRO Unit Tests
         run: |
+          set -x
           make test
       - name: MIRO Local Integration Tests
         run: |
+          set -x
           make local-test
       - name: Publishing Binaries
         shell: bash
