@@ -12,7 +12,7 @@ yes | fvm flutter clean || echo "WARNING: Failed fvm clean" && sleep 3
 
 ./scripts/kira-stop.sh || echo "WARNING: Failed to stop local KIRA Network" && sleep 3
 
-./scripts/docker-clean.sh || echo "WARNING: Failed to clean docker" && sleep 3
+./scripts/docker-stop.sh || echo "WARNING: Failed to stop docker" && sleep 3
 
 rm -rfv ./build ./bin ./.dart_tool ./.packages ./.flutter-*
 
