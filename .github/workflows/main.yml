@@ -82,15 +82,19 @@ jobs:
       - name: MIRO Unit Tests
         run: |
           set -x
+          make clean
           make test
       - name: MIRO Local Integration Tests
         run: |
           set -x
+          make clean
           make local-test
       - name: Publishing Binaries
         shell: bash
         run: |
           set -x
+          make clean
+          make build
           make publish
           echo "INFO: Unpacking web app..."
           rm -rfv ./build/ipfs && mkdir -p ./build/ipfs && cd ./build/ipfs
