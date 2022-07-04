@@ -1,0 +1,4 @@
+enum FilterMode {
+  and,
+  or,
+}

@@ -1,10 +1,10 @@
-extension SafeSublistExtension<T> on List<T> {
-  List<T> safeSublist(int start, int end) {
+class ListUtils {
+  static List<dynamic> safeSublist(List<dynamic> list, int start, int end) {
     int startIndex = start < 0 ? 0 : start;
-    if (length < end) {
-      return sublist(startIndex, length);
+    if (list.length < end) {
+      return list.sublist(startIndex, list.length);
     } else {
-      return sublist(startIndex, end);
+      return list.sublist(startIndex, end);
     }
   }
 }
