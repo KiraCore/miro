@@ -1,5 +1,5 @@
-import 'package:miro/shared/models/list/sort_option.dart';
 import 'package:miro/shared/models/validators/validator_model.dart';
+import 'package:miro/shared/utils/list/sort_option.dart';
 
 class ValidatorsSortOptions {
   static SortOption<ValidatorModel> get sortByTop {

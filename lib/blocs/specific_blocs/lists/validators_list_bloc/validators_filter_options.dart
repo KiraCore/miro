@@ -1,5 +1,5 @@
-import 'package:miro/shared/models/list/filter_option.dart';
 import 'package:miro/shared/models/validators/validator_model.dart';
+import 'package:miro/shared/utils/list/filter_option.dart';
 
 class ValidatorsFilterOptions {
   static FilterOption<ValidatorModel> filterByActiveValidators = FilterOption<ValidatorModel>(
