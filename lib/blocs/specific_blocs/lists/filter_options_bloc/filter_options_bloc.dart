@@ -1,7 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/abstract_blocs/list_bloc/list_bloc.dart';
-import 'package:miro/blocs/abstract_blocs/list_bloc/list_event/list_event.dart';
-import 'package:miro/blocs/abstract_blocs/list_bloc/list_state/list_state.dart';
 import 'package:miro/blocs/specific_blocs/lists/filter_options_bloc/filter_options_event.dart';
 import 'package:miro/blocs/specific_blocs/lists/filter_options_bloc/filter_options_state.dart';
 import 'package:miro/shared/utils/list/filter_mode.dart';
@@ -9,11 +7,9 @@ import 'package:miro/shared/utils/list/filter_option.dart';
 import 'package:miro/shared/utils/list/search_option.dart';
 
 class FilterOptionsBloc<T> extends Bloc<FilterOptionsEvent, FilterOptionsState<T>> {
-  final Bloc<ListEvent, ListState> sourceListBloc;
   final SearchComparator<T> searchComparator;
 
   FilterOptionsBloc({
-    required this.sourceListBloc,
     required this.searchComparator,
   }) : super(EmptyFiltersState<T>()) {
     on<SearchEvent<T>>(_mapSearchEventToState);
@@ -22,7 +18,8 @@ class FilterOptionsBloc<T> extends Bloc<FilterOptionsEvent, FilterOptionsState<T
   }
 
   void _mapSearchEventToState(SearchEvent<T> searchEvent, Emitter<FilterOptionsState<T>> emit) {
-    List<FilterOption<T>> filterOptions = state.activeFilters..removeWhere((FilterOption<T> e) => e is SearchOption);
+    List<FilterOption<T>> filterOptions = List<FilterOption<T>>.from(state.activeFilters)
+      ..removeWhere((FilterOption<T> e) => e is SearchOption);
     if (searchEvent.searchText.isEmpty) {
       filterOptions.removeWhere((FilterOption<T> e) => e is SearchOption);
     } else {
@@ -32,19 +29,21 @@ class FilterOptionsBloc<T> extends Bloc<FilterOptionsEvent, FilterOptionsState<T
   }
 
   void _mapAddFilterEventToState(AddFilterEvent<T> addFilterEvent, Emitter<FilterOptionsState<T>> emit) {
-    List<FilterOption<T>> filterOptions = state.activeFilters..add(addFilterEvent.filterOption);
+    List<FilterOption<T>> filterOptions = List<FilterOption<T>>.from(state.activeFilters)
+      ..add(addFilterEvent.filterOption);
     _notifyFilterUpdated(filterOptions, emit);
   }
 
   void _mapRemoveFilterEventToState(RemoveFilterEvent<T> removeFilterEvent, Emitter<FilterOptionsState<T>> emit) {
-    List<FilterOption<T>> filterOptions = state.activeFilters..remove(removeFilterEvent.filterOption);
+    List<FilterOption<T>> filterOptions = List<FilterOption<T>>.from(state.activeFilters)
+      ..remove(removeFilterEvent.filterOption);
     _notifyFilterUpdated(filterOptions, emit);
   }
 
   void _notifyFilterUpdated(List<FilterOption<T>> filterOptions, Emitter<FilterOptionsState<T>> emit) {
     FilterComparator<T> filterComparator = _generateFilterComparator(filterOptions);
 
-    emit(filterOptions.isEmpty
+    emit(filterOptions.isNotEmpty
         ? FiltersActiveState<T>(activeFilters: filterOptions, filterComparator: filterComparator)
         : EmptyFiltersState<T>());
   }

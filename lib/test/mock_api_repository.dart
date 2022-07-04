@@ -51,15 +51,15 @@ class MockApiRepository implements ApiRepository {
         List<dynamic> mockedResponseList = apiValidatorsMock['validators'] as List<dynamic>;
         if (queryValidatorsReq.offset == '0' && queryValidatorsReq.limit == '2') {
           mockedResponse = <String, dynamic>{
-            'validators': mockedResponseList.safeSublist(0, 2),
+            'validators': ListUtils.safeSublist(mockedResponseList, 0, 2),
           };
         } else if (queryValidatorsReq.offset == '0' && queryValidatorsReq.limit == '500') {
           mockedResponse = <String, dynamic>{
-            'validators': mockedResponseList.safeSublist(0, 3),
+            'validators': ListUtils.safeSublist(mockedResponseList, 0, 3),
           };
         } else {
           mockedResponse = <String, dynamic>{
-            'validators': mockedResponseList.safeSublist(0, 3),
+            'validators': ListUtils.safeSublist(mockedResponseList, 0, 3),
           };
         }
       } else {

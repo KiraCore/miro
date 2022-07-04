@@ -68,7 +68,11 @@ abstract class ListBloc<T extends IListItem> extends Bloc<ListEvent, ListState> 
     // Init listeners
     filterOptionsBloc.stream.listen((_) => add(ListOptionsChangedEvent()));
     sortOptionBloc.stream.listen((_) => add(ListOptionsChangedEvent()));
-    listFavouritesBloc.stream.listen((_) => add(ListUpdatedEvent(jumpToTop: true)));
+    listFavouritesBloc.stream.listen((_) {
+      print('favourites updated');
+      add(ListUpdatedEvent(jumpToTop: true));
+    });
+
     // Call InitListEvent
     add(InitListEvent());
   }

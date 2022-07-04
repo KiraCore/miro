@@ -1,7 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:miro/blocs/specific_blocs/lists/validators_list_bloc/validators_list_bloc.dart';
+import 'package:miro/blocs/abstract_blocs/infinity_list_bloc/infinity_list_bloc.dart';
+import 'package:miro/blocs/abstract_blocs/list_data_cubit/list_data_cubit.dart';
+import 'package:miro/blocs/specific_blocs/lists/filter_options_bloc/filter_options_bloc.dart';
+import 'package:miro/blocs/specific_blocs/lists/list_favourites_bloc/list_favourites_bloc.dart';
+import 'package:miro/blocs/specific_blocs/lists/sort_options_bloc/sort_option_bloc.dart';
+import 'package:miro/blocs/specific_blocs/lists/validators_list_bloc/validators_filter_options.dart';
+import 'package:miro/blocs/specific_blocs/lists/validators_list_bloc/validators_list_cubit.dart';
 import 'package:miro/blocs/specific_blocs/lists/validators_list_bloc/validators_sort_options.dart';
 import 'package:miro/config/app_sizes.dart';
 import 'package:miro/config/locator.dart';
@@ -36,31 +42,59 @@ class _ValidatorsPage extends State<ValidatorsPage> {
           padding: AppSizes.defaultDesktopPageMargin,
           child: MultiProvider(
             providers: <SingleChildWidget>[
-              BlocProvider<ValidatorsListBloc>(
+              BlocProvider<FilterOptionsBloc<ValidatorModel>>(
                 lazy: false,
-                create: (BuildContext context) => ValidatorsListBloc.init(
-                  networkProvider: globalLocator<NetworkProvider>(),
+                create: (BuildContext context) => FilterOptionsBloc<ValidatorModel>(
+                  searchComparator: ValidatorsFilterOptions.search,
+                ),
+              ),
+              BlocProvider<SortOptionBloc<ValidatorModel>>(
+                lazy: false,
+                create: (BuildContext context) => SortOptionBloc<ValidatorModel>(
+                  defaultSortOption: ValidatorsSortOptions.sortByTop,
+                ),
+              ),
+              BlocProvider<ListDataCubit<ValidatorModel>>(
+                lazy: false,
+                create: (BuildContext context) => ValidatorsListCubit(
                   queryValidatorsService: globalLocator<QueryValidatorsService>(),
+                ),
+              ),
+              BlocProvider<ListFavouritesBloc<ValidatorModel>>(
+                lazy: false,
+                create: (BuildContext context) => ListFavouritesBloc<ValidatorModel>(
+                  listDataCubit: context.read<ListDataCubit<ValidatorModel>>(),
+                ),
+              ),
+              BlocProvider<InfinityListBloc<ValidatorModel>>(
+                lazy: false,
+                create: (BuildContext context) => InfinityListBloc<ValidatorModel>(
+                  networkProvider: globalLocator<NetworkProvider>(),
+                  listDataCubit: context.read<ListDataCubit<ValidatorModel>>(),
+                  filterOptionsBloc: context.read<FilterOptionsBloc<ValidatorModel>>(),
+                  sortOptionBloc: context.read<SortOptionBloc<ValidatorModel>>(),
+                  listFavouritesBloc: context.read<ListFavouritesBloc<ValidatorModel>>(),
+                  pageSize: 20,
                 ),
               ),
             ],
             child: Column(
               children: <Widget>[
-                KiraInfinityList<ValidatorModel, ValidatorsListBloc>(
+                KiraInfinityList<ValidatorModel>(
                   scrollController: scrollController,
                   minHeight: MediaQuery.of(context).size.height - 300,
                   title: const ValidatorsPageListTitle(),
                   listHeader: ValidatorsListItemLayout(
                     favouriteButtonSection: const SizedBox(width: 25),
-                    topSection: SortableTitle<ValidatorModel, ValidatorsListBloc>(
+                    topSection: SortableTitle<ValidatorModel, InfinityListBloc<ValidatorModel>>(
                       label: const Text('Top'),
                       sortOption: ValidatorsSortOptions.sortByTop,
                     ),
-                    monikerSection: SortableTitle<ValidatorModel, ValidatorsListBloc>(
+                    monikerSection: SortableTitle<ValidatorModel, InfinityListBloc<ValidatorModel>>(
                       label: const Text('Moniker'),
                       sortOption: ValidatorsSortOptions.sortByMoniker,
                     ),
-                    statusSection: SortableTitle<ValidatorModel, ValidatorsListBloc>(
+                    statusSection: SortableTitle<ValidatorModel, InfinityListBloc<ValidatorModel>>(
                       label: const Text('Status'),
                       sortOption: ValidatorsSortOptions.sortByStatus,
                     ),

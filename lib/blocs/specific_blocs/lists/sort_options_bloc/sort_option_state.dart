@@ -7,5 +7,5 @@ class SortOptionState<T> extends Equatable {
   const SortOptionState(this.activeSortOption);
 
   @override
-  List<Object?> get props => <Object?>[activeSortOption.hashCode];
+  List<Object?> get props => <Object?>[activeSortOption.id, activeSortOption.sortingStatus];
 }

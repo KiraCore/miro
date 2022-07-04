@@ -4,12 +4,12 @@ import 'package:miro/infra/dto/api/query_validators/request/query_validators_req
 import 'package:miro/infra/services/api/query_validators_service.dart';
 import 'package:miro/shared/models/validators/validator_model.dart';
 
-class ValidatorsListBloc extends ListDataCubit<ValidatorModel> {
+class ValidatorsListCubit extends ListDataCubit<ValidatorModel> {
   final QueryValidatorsService queryValidatorsService;
 
   final FavouriteCache favouriteCache = FavouriteCache(key: 'validators');
 
-  ValidatorsListBloc({
+  ValidatorsListCubit({
     required this.queryValidatorsService,
   });
 

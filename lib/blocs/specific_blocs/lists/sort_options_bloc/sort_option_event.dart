@@ -16,7 +16,7 @@ class ChangeSortOptionEvent<T> extends SortOptionEvent {
   });
 
   @override
-  List<Object?> get props => <Object?>[sortOption.hashCode];
+  List<Object?> get props => <Object?>[sortOption.id, sortOption.sortingStatus];
 }
 
 class ClearSortOptionEvent<T> extends SortOptionEvent {

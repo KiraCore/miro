@@ -2,11 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/abstract_blocs/infinity_list_bloc/infinity_list_bloc.dart';
 import 'package:miro/blocs/abstract_blocs/infinity_list_bloc/infinity_list_event/reached_bottom_infinity_list_event.dart';
-import 'package:miro/blocs/abstract_blocs/infinity_list_bloc/infinity_list_state/infinity_list_state.dart';
+import 'package:miro/blocs/abstract_blocs/list_bloc/list_state/list_loaded_state.dart';
 import 'package:miro/blocs/abstract_blocs/list_bloc/list_state/list_loading_state.dart';
 import 'package:miro/blocs/abstract_blocs/list_bloc/list_state/list_state.dart';
 import 'package:miro/blocs/abstract_blocs/list_bloc/list_state/no_interx_connection_state.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/shared/utils/list/i_list_item.dart';
 import 'package:miro/views/widgets/kira/kira_list/kira_list_layout.dart';
 import 'package:miro/views/widgets/kira/kira_list/list_error_widget.dart';
 import 'package:miro/views/widgets/kira/kira_list/list_loading_widget.dart';
@@ -14,8 +15,8 @@ import 'package:miro/views/widgets/kira/kira_list/loading_more_widget.dart';
 
 const double kReachedBottomOffset = 200;
 
-class KiraInfinityList<ItemType, ListBlocType extends InfinityListBloc<ItemType>> extends StatelessWidget {
-  final Widget Function(ItemType item) itemBuilder;
+class KiraInfinityList<T extends IListItem> extends StatelessWidget {
+  final Widget Function(T item) itemBuilder;
   final ScrollController scrollController;
   final Widget? title;
   final Widget? listHeader;
@@ -33,28 +34,28 @@ class KiraInfinityList<ItemType, ListBlocType extends InfinityListBloc<ItemType>
 
   @override
   Widget build(BuildContext context) {
-    return KiraListLayout<ItemType, ListBlocType>(
+    return KiraListLayout<T, InfinityListBloc<T>>(
       title: title,
       child: Container(
         constraints: BoxConstraints(
           minHeight: minHeight ?? double.infinity,
         ),
-        child: BlocBuilder<ListBlocType, ListState>(
+        child: BlocBuilder<InfinityListBloc<T>, ListState>(
           builder: (BuildContext context, ListState state) {
             if (state is ListLoadingState) {
               return const ListLoadingWidget();
-            } else if (state is InfinityListLoadedState) {
-              return _KiraInfinityListContent<ItemType, ListBlocType>(
+            } else if (state is ListLoadedState<T>) {
+              return _KiraInfinityListContent<T>(
                 scrollController: scrollController,
                 itemBuilder: itemBuilder,
-                items: state.data.toList() as List<ItemType>,
+                items: state.data.toList(),
                 lastPage: state.lastPage,
                 listHeader: listHeader,
               );
             } else if (state is NoInterxConnectionState) {
               return const ListErrorWidget(errorMessage: 'No interx connection');
             }
-            return const ListErrorWidget(errorMessage: 'Unknown error');
+            return ListErrorWidget(errorMessage: 'Unknown error $state');
           },
         ),
       ),
@@ -62,10 +63,10 @@ class KiraInfinityList<ItemType, ListBlocType extends InfinityListBloc<ItemType>
   }
 }
 
-class _KiraInfinityListContent<ItemType, ListBlocType extends InfinityListBloc<ItemType>> extends StatefulWidget {
+class _KiraInfinityListContent<T extends IListItem> extends StatefulWidget {
   final ScrollController scrollController;
-  final Widget Function(ItemType item) itemBuilder;
-  final List<ItemType> items;
+  final Widget Function(T item) itemBuilder;
+  final List<T> items;
   final bool lastPage;
   final Widget? listHeader;
 
@@ -79,11 +80,10 @@ class _KiraInfinityListContent<ItemType, ListBlocType extends InfinityListBloc<I
   }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _KiraInfinityListContentState<ItemType, ListBlocType>();
+  State<StatefulWidget> createState() => _KiraInfinityListContentState<T>();
 }
 
-class _KiraInfinityListContentState<ItemType, ListBlocType extends InfinityListBloc<ItemType>>
-    extends State<_KiraInfinityListContent<ItemType, ListBlocType>> {
+class _KiraInfinityListContentState<T extends IListItem> extends State<_KiraInfinityListContent<T>> {
   @override
   void initState() {
     widget.scrollController.addListener(_fetchDataAfterReachedMax);
@@ -99,7 +99,7 @@ class _KiraInfinityListContentState<ItemType, ListBlocType extends InfinityListB
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder<bool>(
-      valueListenable: BlocProvider.of<ListBlocType>(context).showLoadingOverlay,
+      valueListenable: BlocProvider.of<InfinityListBloc<T>>(context).showLoadingOverlay,
       builder: (_, bool showLoadingOverlay, __) {
         return Opacity(
           opacity: showLoadingOverlay ? 0.3 : 1,
@@ -132,7 +132,7 @@ class _KiraInfinityListContentState<ItemType, ListBlocType extends InfinityListB
                     ),
                   );
                 }
-                ItemType item = widget.items[index - additionalStartItemsCount];
+                T item = widget.items[index - additionalStartItemsCount];
                 return widget.itemBuilder(item);
               },
             ),
@@ -148,7 +148,7 @@ class _KiraInfinityListContentState<ItemType, ListBlocType extends InfinityListB
       double maxOffset = widget.scrollController.position.maxScrollExtent - kReachedBottomOffset;
       bool reachedMax = currentOffset >= maxOffset;
       if (reachedMax) {
-        BlocProvider.of<ListBlocType>(context).add(ReachedBottomInfinityListEvent());
+        BlocProvider.of<InfinityListBloc<T>>(context).add(ReachedBottomInfinityListEvent());
       }
     }
   }

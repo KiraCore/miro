@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:miro/blocs/specific_blocs/lists/validators_list_bloc/validators_filter_options.dart';
-import 'package:miro/blocs/specific_blocs/lists/validators_list_bloc/validators_list_bloc.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/shared/models/list/filter_model.dart';
 import 'package:miro/shared/models/validators/validator_model.dart';
@@ -27,7 +26,7 @@ class ValidatorsPageListTitle extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: <Widget>[
-              FilterDropdown<ValidatorModel, ValidatorsListBloc>(
+              FilterDropdown<ValidatorModel>(
                 filterOptions: <FilterModel<ValidatorModel>>[
                   FilterModel<ValidatorModel>(
                     name: 'Active',
@@ -51,7 +50,7 @@ class ValidatorsPageListTitle extends StatelessWidget {
                   ),
                 ],
               ),
-              const SearchOptionWidget<ValidatorModel, ValidatorsListBloc>(),
+              const SearchOptionWidget<ValidatorModel>(),
             ],
           ),
         ),

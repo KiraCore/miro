@@ -1,12 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:miro/blocs/abstract_blocs/list_bloc/list_bloc.dart';
-import 'package:miro/blocs/abstract_blocs/list_bloc/list_event/search_event.dart';
+import 'package:miro/blocs/specific_blocs/lists/filter_options_bloc/filter_options_bloc.dart';
+import 'package:miro/blocs/specific_blocs/lists/filter_options_bloc/filter_options_event.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/shared/utils/list/i_list_item.dart';
 import 'package:miro/views/widgets/generic/search_bar.dart';
 
-class SearchOptionWidget<ListItemType, ListBlocType extends ListBloc<dynamic>> extends StatelessWidget {
+class SearchOptionWidget<T extends IListItem> extends StatelessWidget {
   const SearchOptionWidget({
     Key? key,
   }) : super(key: key);
@@ -20,7 +21,7 @@ class SearchOptionWidget<ListItemType, ListBlocType extends ListBloc<dynamic>> e
         label: 'Search',
         onFieldSubmitted: (String value) {
           print('Submited: $value');
-          BlocProvider.of<ListBlocType>(context).add(SearchEvent<ListItemType>(value));
+          BlocProvider.of<FilterOptionsBloc<T>>(context).add(SearchEvent<T>(value));
         },
         backgroundColor: DesignColors.blue1_10,
         border: OutlineInputBorder(

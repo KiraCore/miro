@@ -4,17 +4,17 @@ import 'package:miro/shared/utils/list/sorting_status.dart';
 class SortOption<T> extends Equatable {
   final String id;
   final Comparator<T> comparator;
-  final SortingStatus _sortingStatus;
+  final SortingStatus sortingStatus;
 
   const SortOption.asc({
     required this.id,
     required this.comparator,
-  }) : _sortingStatus = SortingStatus.asc;
+  }) : sortingStatus = SortingStatus.asc;
 
   const SortOption.desc({
     required this.id,
     required this.comparator,
-  }) : _sortingStatus = SortingStatus.desc;
+  }) : sortingStatus = SortingStatus.desc;
 
   SortOption<T> reversed() {
     if (ascending) {
@@ -31,11 +31,11 @@ class SortOption<T> extends Equatable {
   }
 
   bool get ascending {
-    return _sortingStatus == SortingStatus.asc;
+    return sortingStatus == SortingStatus.asc;
   }
 
   bool get descending {
-    return _sortingStatus == SortingStatus.desc;
+    return sortingStatus == SortingStatus.desc;
   }
 
   List<T> sort(List<T> list) {
@@ -51,6 +51,6 @@ class SortOption<T> extends Equatable {
 
   @override
   String toString() {
-    return 'SortOption{id: $id, comparator: $comparator, sortingStatus: $_sortingStatus}';
+    return 'SortOption{id: $id, comparator: $comparator, sortingStatus: $sortingStatus}';
   }
 }

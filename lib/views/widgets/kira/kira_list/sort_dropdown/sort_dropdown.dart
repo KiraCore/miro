@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:miro/blocs/abstract_blocs/list_bloc/list_bloc.dart';
-import 'package:miro/blocs/abstract_blocs/list_bloc/list_event/sort_event.dart';
+import 'package:miro/blocs/specific_blocs/lists/sort_options_bloc/sort_option_bloc.dart';
+import 'package:miro/blocs/specific_blocs/lists/sort_options_bloc/sort_option_event.dart';
 import 'package:miro/config/app_icons.dart';
 import 'package:miro/config/theme/design_colors.dart';
-import 'package:miro/shared/models/list/sort_option.dart';
+import 'package:miro/shared/utils/list/i_list_item.dart';
+import 'package:miro/shared/utils/list/sort_option.dart';
 import 'package:miro/views/widgets/generic/pop_wrapper.dart';
 import 'package:miro/views/widgets/kira/kira_list/list_pop_menu/list_pop_menu.dart';
 import 'package:miro/views/widgets/kira/kira_list/sort_dropdown/sort_dropdown_button.dart';
 
-class SortDropdown<ItemType, ListBlocType extends ListBloc<ItemType>> extends StatefulWidget {
-  final List<SortOption<ItemType>> sortOptions;
+class SortDropdown<T extends IListItem> extends StatefulWidget {
+  final List<SortOption<T>> sortOptions;
 
   const SortDropdown({
     required this.sortOptions,
@@ -18,17 +19,16 @@ class SortDropdown<ItemType, ListBlocType extends ListBloc<ItemType>> extends St
   }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _SortOptionWidget<ItemType, ListBlocType>();
+  State<StatefulWidget> createState() => _SortOptionWidget<T>();
 }
 
-class _SortOptionWidget<ItemType, ListBlocType extends ListBloc<ItemType>>
-    extends State<SortDropdown<ItemType, ListBlocType>> {
+class _SortOptionWidget<T extends IListItem> extends State<SortDropdown<T>> {
   PopWrapperController sortOptionsController = PopWrapperController();
-  late SortOption<ItemType> currentSortOption;
+  late SortOption<T> currentSortOption;
 
   @override
   void initState() {
-    currentSortOption = BlocProvider.of<ListBlocType>(context).activeSortOption;
+    currentSortOption = BlocProvider.of<SortOptionBloc<T>>(context).state.activeSortOption;
     super.initState();
   }
 
@@ -61,11 +61,11 @@ class _SortOptionWidget<ItemType, ListBlocType extends ListBloc<ItemType>>
               borderRadius: BorderRadius.circular(8),
             ),
             popupBuilder: () {
-              return ListPopMenu<SortOption<ItemType>>(
-                itemToString: (SortOption<ItemType> item) => item.id,
+              return ListPopMenu<SortOption<T>>(
+                itemToString: (SortOption<T> item) => item.id,
                 items: widget.sortOptions,
                 onItemSelected: _onPopupItemClicked,
-                selectedItems: () => <SortOption<ItemType>>{currentSortOption},
+                selectedItems: () => <SortOption<T>>{currentSortOption},
                 title: 'Sort by',
               );
             },
@@ -88,15 +88,15 @@ class _SortOptionWidget<ItemType, ListBlocType extends ListBloc<ItemType>>
     );
   }
 
-  void _onPopupItemClicked(SortOption<ItemType> sortOption) {
+  void _onPopupItemClicked(SortOption<T> sortOption) {
     sortOptionsController.hideMenu();
     _onChangedSortOption(sortOption);
   }
 
-  void _onChangedSortOption(SortOption<ItemType> sortOption) {
+  void _onChangedSortOption(SortOption<T> sortOption) {
     setState(() {
       currentSortOption = sortOption;
     });
-    BlocProvider.of<ListBlocType>(context).add(SortEvent<ItemType>(currentSortOption));
+    BlocProvider.of<SortOptionBloc<T>>(context).add(ChangeSortOptionEvent<T>(sortOption: currentSortOption));
   }
 }

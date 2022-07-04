@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:miro/blocs/specific_blocs/lists/validators_list_bloc/validators_list_bloc.dart';
+import 'package:miro/blocs/specific_blocs/lists/list_favourites_bloc/list_favourites_bloc.dart';
+import 'package:miro/blocs/specific_blocs/lists/list_favourites_bloc/list_favourites_event.dart';
 import 'package:miro/shared/models/validators/validator_model.dart';
 import 'package:miro/views/pages/menu/validators_page/validators_list_item_layout.dart';
 import 'package:miro/views/widgets/buttons/star_button.dart';
@@ -20,17 +21,19 @@ class ValidatorsListItem extends StatelessWidget {
     return ValidatorsListItemLayout(
       favouriteButtonSection: StarButton(
         size: 25,
-        value: validatorModel.favourite,
+        value: validatorModel.isFavourite,
         onChanged: (bool value) async {
           await scrollController.animateTo(
             scrollController.position.minScrollExtent,
             duration: const Duration(seconds: 1),
             curve: Curves.ease,
           );
-          if (validatorModel.favourite) {
-            BlocProvider.of<ValidatorsListBloc>(context).removeFavourite(validatorModel);
+          ListFavouritesBloc<ValidatorModel> listFavouritesBloc =
+              BlocProvider.of<ListFavouritesBloc<ValidatorModel>>(context);
+          if (!validatorModel.isFavourite) {
+            listFavouritesBloc.add(AddFavouriteEvent<ValidatorModel>(validatorModel));
           } else {
-            BlocProvider.of<ValidatorsListBloc>(context).addFavourite(validatorModel);
+            listFavouritesBloc.add(RemoveFavouriteEvent<ValidatorModel>(validatorModel));
           }
         },
       ),

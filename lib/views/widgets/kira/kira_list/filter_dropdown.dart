@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:miro/blocs/abstract_blocs/list_bloc/list_bloc.dart';
-import 'package:miro/blocs/abstract_blocs/list_bloc/list_event/add_filter_event.dart';
-import 'package:miro/blocs/abstract_blocs/list_bloc/list_event/remove_filter_event.dart';
+import 'package:miro/blocs/specific_blocs/lists/filter_options_bloc/filter_options_bloc.dart';
+import 'package:miro/blocs/specific_blocs/lists/filter_options_bloc/filter_options_event.dart';
 import 'package:miro/config/app_icons.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/shared/models/list/filter_model.dart';
+import 'package:miro/shared/utils/list/i_list_item.dart';
 import 'package:miro/views/widgets/generic/pop_wrapper.dart';
 import 'package:miro/views/widgets/kira/kira_list/list_pop_menu/list_pop_menu.dart';
 
 const double _kDropdownButtonWidth = 100;
 const double _kDropdownButtonHeight = 30;
 
-class FilterDropdown<ItemType, ListBlocType extends ListBloc<ItemType>> extends StatefulWidget {
-  final List<FilterModel<ItemType>> filterOptions;
+class FilterDropdown<T extends IListItem> extends StatefulWidget {
+  final List<FilterModel<T>> filterOptions;
 
   const FilterDropdown({
     required this.filterOptions,
@@ -21,11 +21,10 @@ class FilterDropdown<ItemType, ListBlocType extends ListBloc<ItemType>> extends 
   }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _FilterOptionWidget<ItemType, ListBlocType>();
+  State<StatefulWidget> createState() => _FilterOptionWidget<T>();
 }
 
-class _FilterOptionWidget<ItemType, ListBlocType extends ListBloc<ItemType>>
-    extends State<FilterDropdown<ItemType, ListBlocType>> {
+class _FilterOptionWidget<T extends IListItem> extends State<FilterDropdown<T>> {
   PopWrapperController filterOptionsController = PopWrapperController();
 
   @override
@@ -51,14 +50,14 @@ class _FilterOptionWidget<ItemType, ListBlocType extends ListBloc<ItemType>>
         borderRadius: BorderRadius.circular(8),
       ),
       popupBuilder: () {
-        return ListPopMenu<FilterModel<ItemType>>(
-          itemToString: (FilterModel<ItemType> item) => item.name,
+        return ListPopMenu<FilterModel<T>>(
+          itemToString: (FilterModel<T> item) => item.name,
           items: widget.filterOptions,
           onItemSelected: _onFilterAdded,
           onItemRemoved: _onFilterRemoved,
           selectedItems: () => widget.filterOptions
-              .where((FilterModel<ItemType> e) =>
-                  BlocProvider.of<ListBlocType>(context).activeFilterOptions.contains(e.filterOption))
+              .where((FilterModel<T> e) =>
+                  BlocProvider.of<FilterOptionsBloc<T>>(context).state.activeFilters.contains(e.filterOption))
               .toSet(),
           title: 'Filter by',
         );
@@ -66,11 +65,11 @@ class _FilterOptionWidget<ItemType, ListBlocType extends ListBloc<ItemType>>
     );
   }
 
-  void _onFilterAdded(FilterModel<ItemType> filterModel) {
-    BlocProvider.of<ListBlocType>(context).add(AddFilterEvent<ItemType>(filterModel.filterOption));
+  void _onFilterAdded(FilterModel<T> filterModel) {
+    BlocProvider.of<FilterOptionsBloc<T>>(context).add(AddFilterEvent<T>(filterModel.filterOption));
   }
 
-  void _onFilterRemoved(FilterModel<ItemType> filterModel) {
-    BlocProvider.of<ListBlocType>(context).add(RemoveFilterEvent<ItemType>(filterModel.filterOption));
+  void _onFilterRemoved(FilterModel<T> filterModel) {
+    BlocProvider.of<FilterOptionsBloc<T>>(context).add(RemoveFilterEvent<T>(filterModel.filterOption));
   }
 }

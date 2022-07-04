@@ -7,9 +7,13 @@ class ListFavouritesState extends Equatable {
   List<Object?> get props => <Object>[];
 }
 
-class ListFavouritesLoaded extends ListFavouritesState {
-  const ListFavouritesLoaded();
+class ListFavouritesLoaded<T> extends ListFavouritesState {
+  final List<T> favourites;
+
+  const ListFavouritesLoaded({
+    required this.favourites,
+  });
 
   @override
-  List<Object?> get props => <Object>[DateTime.now()];
+  List<Object?> get props => <Object>[favourites];
 }

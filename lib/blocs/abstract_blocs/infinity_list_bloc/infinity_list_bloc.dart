@@ -1,9 +1,10 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/abstract_blocs/infinity_list_bloc/infinity_list_event/reached_bottom_infinity_list_event.dart';
-import 'package:miro/blocs/abstract_blocs/infinity_list_bloc/infinity_list_state/infinity_list_loaded_state.dart';
 import 'package:miro/blocs/abstract_blocs/list_bloc/list_bloc.dart';
 import 'package:miro/blocs/abstract_blocs/list_bloc/list_event/list_updated_event.dart';
 import 'package:miro/blocs/abstract_blocs/list_bloc/list_event/next_page_event.dart';
+import 'package:miro/blocs/abstract_blocs/list_bloc/list_state/list_loaded_state.dart';
+import 'package:miro/blocs/abstract_blocs/list_bloc/list_state/list_loading_state.dart';
 import 'package:miro/blocs/abstract_blocs/list_bloc/list_state/list_state.dart';
 import 'package:miro/blocs/abstract_blocs/list_data_cubit/list_data_cubit.dart';
 import 'package:miro/blocs/specific_blocs/lists/filter_options_bloc/filter_options_bloc.dart';
@@ -17,7 +18,7 @@ import 'package:miro/shared/utils/list/page_details.dart';
 import 'package:miro/shared/utils/list/sort_option.dart';
 import 'package:miro/shared/utils/list_utils.dart';
 
-abstract class InfinityListBloc<T extends IListItem> extends ListBloc<T> {
+class InfinityListBloc<T extends IListItem> extends ListBloc<T> {
   /// Stores the last page index that was loaded.
   int scrolledIndex = 1;
 
@@ -52,6 +53,7 @@ abstract class InfinityListBloc<T extends IListItem> extends ListBloc<T> {
   }
 
   void _mapListUpdatedEventToState(ListUpdatedEvent listUpdatedEvent, Emitter<ListState> emit) {
+    print('list updated');
     if (listUpdatedEvent.jumpToTop) {
       scrolledIndex = 1;
     }
@@ -60,7 +62,8 @@ abstract class InfinityListBloc<T extends IListItem> extends ListBloc<T> {
     List<T> sortedList = sortList(filteredList);
     _updateCurrentPageDetails(sortedList);
     List<T> visibleList = ListUtils.safeSublist(sortedList, 0, scrolledIndex * pageSize).toList() as List<T>;
-    emit(InfinityListLoadedState<T>(
+    emit(ListLoadingState());
+    emit(ListLoadedState<T>(
       data: visibleList,
       lastPage: currentPageDetails.lastPage,
     ));
@@ -69,6 +72,7 @@ abstract class InfinityListBloc<T extends IListItem> extends ListBloc<T> {
   List<T> sortList(List<T> listItems) {
     SortOption<T> activeSortOption = sortOptionBloc.state.activeSortOption;
     Set<T> favouriteItems = listFavouritesBloc.favourites.toSet();
+    print(favouriteItems);
     Set<T> uniqueItems = <T>{
       ...activeSortOption.sort(filterList(favouriteItems.toList())),
       ...activeSortOption.sort(listItems),

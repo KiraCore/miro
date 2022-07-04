@@ -11,7 +11,7 @@ class ListFavouritesBloc<T extends IListItem> extends Bloc<ListFavouritesEvent, 
 
   ListFavouritesBloc({
     required this.listDataCubit,
-  }) : super(const ListFavouritesLoaded()) {
+  }) : super(ListFavouritesLoaded<T>(favourites: List<T>.empty())) {
     on<AddFavouriteEvent<T>>(_mapAddFavouriteEventToState);
     on<RemoveFavouriteEvent<T>>(_mapRemoveFavouriteEventToState);
   }
@@ -20,19 +20,23 @@ class ListFavouritesBloc<T extends IListItem> extends Bloc<ListFavouritesEvent, 
     searchEvent.item.isFavourite = true;
     favourites.add(searchEvent.item as T);
     listDataCubit.getFavouriteCache().add(searchEvent.item.cacheId);
-    emit(const ListFavouritesLoaded());
+    emit(ListFavouritesLoaded<T>(favourites: List<T>.from(favourites)));
   }
 
   void _mapRemoveFavouriteEventToState(RemoveFavouriteEvent<T> searchEvent, Emitter<ListFavouritesState> emit) {
     searchEvent.item.isFavourite = false;
     favourites.remove(searchEvent.item as T);
     listDataCubit.getFavouriteCache().delete(searchEvent.item.cacheId);
-    emit(const ListFavouritesLoaded());
+    emit(ListFavouritesLoaded<T>(favourites: List<T>.from(favourites)));
   }
 
   Future<void> initFavourites() async {
     try {
-      favourites = await listDataCubit.getFavouritesData();
+      List<T> favouritesList = await listDataCubit.getFavouritesData();
+      for (T item in favouritesList) {
+        item.isFavourite = true;
+      }
+      favourites = favouritesList;
     } catch (_) {
       AppLogger().log(message: 'Cannot fetch favourites');
       favourites = List<T>.empty(growable: true);
