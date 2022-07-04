@@ -1,41 +1,46 @@
+import 'dart:async';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:miro/blocs/abstract_blocs/list_bloc/list_event/add_filter_event.dart';
-import 'package:miro/blocs/abstract_blocs/list_bloc/list_event/go_next_page_list_event.dart';
 import 'package:miro/blocs/abstract_blocs/list_bloc/list_event/init_list_event.dart';
 import 'package:miro/blocs/abstract_blocs/list_bloc/list_event/list_event.dart';
+import 'package:miro/blocs/abstract_blocs/list_bloc/list_event/list_options_changed_event.dart';
+import 'package:miro/blocs/abstract_blocs/list_bloc/list_event/list_updated_event.dart';
+import 'package:miro/blocs/abstract_blocs/list_bloc/list_event/next_page_event.dart';
 import 'package:miro/blocs/abstract_blocs/list_bloc/list_event/reload_list_event.dart';
-import 'package:miro/blocs/abstract_blocs/list_bloc/list_event/remove_filter_event.dart';
-import 'package:miro/blocs/abstract_blocs/list_bloc/list_event/search_event.dart';
-import 'package:miro/blocs/abstract_blocs/list_bloc/list_event/sort_event.dart';
 import 'package:miro/blocs/abstract_blocs/list_bloc/list_state/list_error_state.dart';
 import 'package:miro/blocs/abstract_blocs/list_bloc/list_state/list_loading_state.dart';
 import 'package:miro/blocs/abstract_blocs/list_bloc/list_state/list_state.dart';
 import 'package:miro/blocs/abstract_blocs/list_bloc/list_state/no_interx_connection_state.dart';
+import 'package:miro/blocs/abstract_blocs/list_data_cubit/list_data_cubit.dart';
+import 'package:miro/blocs/specific_blocs/lists/filter_options_bloc/filter_options_bloc.dart';
+import 'package:miro/blocs/specific_blocs/lists/list_favourites_bloc/list_favourites_bloc.dart';
+import 'package:miro/blocs/specific_blocs/lists/sort_options_bloc/sort_option_bloc.dart';
 import 'package:miro/providers/network_provider/network_provider.dart';
-import 'package:miro/shared/models/list/filter_option.dart';
-import 'package:miro/shared/models/list/page_details.dart';
-import 'package:miro/shared/models/list/search_option.dart';
-import 'package:miro/shared/models/list/sort_option.dart';
 import 'package:miro/shared/utils/app_logger.dart';
+import 'package:miro/shared/utils/list/filter_option.dart';
+import 'package:miro/shared/utils/list/i_list_item.dart';
+import 'package:miro/shared/utils/list/page_details.dart';
 
-abstract class ListBloc<T> extends Bloc<ListEvent, ListState> {
+typedef SearchComparator<T> = FilterComparator<T> Function(String searchText);
+
+abstract class ListBloc<T extends IListItem> extends Bloc<ListEvent, ListState> {
   /// Network provider is used to get network url.
   /// If NetworkProvider hasn't network url specified, list will emit [NoInterxConnectionState]
   final NetworkProvider networkProvider;
 
-  /// Stores information about selected sorting type
-  /// [defaultSortOption] must be defined in child classes
-  late SortOption<T> activeSortOption = defaultSortOption;
+  final ListDataCubit<T> listDataCubit;
+  final FilterOptionsBloc<T> filterOptionsBloc;
+  final SortOptionBloc<T> sortOptionBloc;
+  final ListFavouritesBloc<T> listFavouritesBloc;
 
-  /// Stores information about selected filters
-  Set<FilterOption<T>> activeFilterOptions = <FilterOption<T>>{};
+  final int pageSize;
 
   /// Stores all downloaded pages during widget lifecycle
   Map<int, PageDetails<T>> pagesCache = <int, PageDetails<T>>{};
 
   /// Stores information about current page.
-  /// In case of infinity list, this is the loaded page.
+  /// In case of infinity list, this is the last loaded page.
   PageDetails<T> currentPageDetails = PageDetails<T>.initial();
 
   /// Is responsible for notifying list about loading status.
@@ -47,50 +52,51 @@ abstract class ListBloc<T> extends Bloc<ListEvent, ListState> {
   /// If false, allows downloading another page
   bool loadingListStatus = false;
 
-  ListBloc.init({
+  ListBloc({
     required this.networkProvider,
+    required this.listDataCubit,
+    required this.filterOptionsBloc,
+    required this.sortOptionBloc,
+    required this.listFavouritesBloc,
+    required this.pageSize,
   }) : super(ListLoadingState()) {
     // Assign events to methods
     on<InitListEvent>(_mapInitListEventToState);
     on<ReloadListEvent>(_mapReloadListEventToState);
-    on<GetNextPageEvent>(_mapGetNextPageEventToState);
-    on<SortEvent<T>>(_mapSortEventToState);
-    on<AddFilterEvent<T>>(_mapAddFilterEventToState);
-    on<SearchEvent<T>>(_mapSearchEventToState);
-    on<RemoveFilterEvent<T>>(_mapRemoveFilterEventToState);
+    on<NextPageEvent>(_mapGetNextPageEventToState);
+    on<ListOptionsChangedEvent>(_mapListOptionsChangedEventToState);
+    // Init listeners
+    filterOptionsBloc.stream.listen((_) => add(ListOptionsChangedEvent()));
+    sortOptionBloc.stream.listen((_) => add(ListOptionsChangedEvent()));
+    listFavouritesBloc.stream.listen((_) => add(ListUpdatedEvent(jumpToTop: true)));
     // Call InitListEvent
     add(InitListEvent());
   }
 
-  void _mapInitListEventToState(InitListEvent event, Emitter<ListState> emit) {
+  void _mapInitListEventToState(InitListEvent initListEvent, Emitter<ListState> emit) {
     // Reload list when network is changed
     networkProvider.addListener(() => add(ReloadListEvent()));
     add(ReloadListEvent());
   }
 
-  Future<void> _mapReloadListEventToState(ReloadListEvent event, Emitter<ListState> emit) async {
+  Future<void> _mapReloadListEventToState(ReloadListEvent reloadListEvent, Emitter<ListState> emit) async {
     if (loadingListStatus) {
       return;
     }
-    try {
-      emit(ListLoadingState());
-      if (!networkProvider.isConnected) {
-        emit(NoInterxConnectionState());
-      } else {
-        loadingListStatus = true;
-        pagesCache.clear();
-        currentPageDetails = PageDetails<T>.initial();
-        await onListInitialized();
-        loadingListStatus = false;
-        add(GetNextPageEvent());
-      }
-    } catch (e) {
-      AppLogger().log(message: 'Cannot init list. Stack trace: ${e.toString()}');
-      emit(ListErrorState());
+    if (!networkProvider.isConnected) {
+      emit(NoInterxConnectionState());
+      return;
     }
+    emit(ListLoadingState());
+    loadingListStatus = true;
+    pagesCache.clear();
+    currentPageDetails = PageDetails<T>.initial();
+    await listFavouritesBloc.initFavourites();
+    loadingListStatus = false;
+    add(NextPageEvent());
   }
 
-  Future<void> _mapGetNextPageEventToState(GetNextPageEvent event, Emitter<ListState> emit) async {
+  Future<void> _mapGetNextPageEventToState(NextPageEvent nextPageEvent, Emitter<ListState> emit) async {
     if (loadingListStatus || currentPageDetails.lastPage) {
       return;
     }
@@ -103,7 +109,7 @@ abstract class ListBloc<T> extends Bloc<ListEvent, ListState> {
       }
       pagesCache[index] = pageData;
       currentPageDetails = pageData;
-      notifyListUpdated(emit);
+      add(ListUpdatedEvent(jumpToTop: false));
     } catch (e) {
       AppLogger().log(message: 'Cannot fetch list data for page $index. Stack trace: ${e.toString()}');
       emit(ListErrorState());
@@ -111,63 +117,12 @@ abstract class ListBloc<T> extends Bloc<ListEvent, ListState> {
     loadingListStatus = false;
   }
 
-  Future<void> _mapSortEventToState(SortEvent<T> event, Emitter<ListState> emit) async {
+  Future<void> _mapListOptionsChangedEventToState(
+    ListOptionsChangedEvent displayConditionsChangedEvent,
+    Emitter<ListState> emit,
+  ) async {
     await _downloadAllListData();
-    activeSortOption = event.sortOption ?? defaultSortOption;
-    notifyListSorted(emit);
-  }
-
-  Future<void> _mapAddFilterEventToState(AddFilterEvent<T> event, Emitter<ListState> emit) async {
-    await _downloadAllListData();
-    activeFilterOptions.add(event.filterOption);
-    notifyFilterChanged(emit);
-  }
-
-  Future<void> _mapRemoveFilterEventToState(RemoveFilterEvent<T> event, Emitter<ListState> emit) async {
-    await _downloadAllListData();
-    activeFilterOptions.remove(event.filterOption);
-    notifyFilterChanged(emit);
-  }
-
-  Future<void> _mapSearchEventToState(SearchEvent<T> event, Emitter<ListState> emit) async {
-    activeFilterOptions.removeWhere((FilterOption<T> e) => e is SearchOption);
-    FilterComparator<T>? filterComparator = getSearchComparator(event.searchText);
-    if (filterComparator == null) {
-      AppLogger().log(message: 'This ListBlock not support search option');
-      return;
-    }
-    if (event.searchText.isEmpty) {
-      activeFilterOptions.removeWhere((FilterOption<T> e) => e is SearchOption);
-    } else {
-      await _downloadAllListData();
-      activeFilterOptions.add(SearchOption<T>(filterComparator));
-    }
-    notifyFilterChanged(emit);
-  }
-
-  /// By default, this method does nothing.
-  /// It can be overridden in child classes to perform additional actions when list is initialized.
-  /// For example: If we need to download favourite items before showing list, we have to do it here
-  Future<void> onListInitialized() async {
-    return Future<void>.value();
-  }
-
-  /// Returns list of items matching current filter options.
-  List<T> getFilteredList(List<T> listItems) {
-    Set<T> data = <T>{};
-    if (activeFilterOptions.isEmpty) {
-      return listItems;
-    }
-    List<FilterOption<T>> forceFilters = activeFilterOptions.where((FilterOption<T> e) => e.force).toList();
-    List<FilterOption<T>> softFilters = activeFilterOptions.where((FilterOption<T> e) => !e.force).toList();
-    for (T item in listItems) {
-      bool matchAllForceFilters = _hasForceFilterMatch(forceFilters, item);
-      bool matchAnySoftFilters = _hasSoftFilterMatch(softFilters, item, softFilters.isEmpty);
-      if (matchAllForceFilters && matchAnySoftFilters) {
-        data.add(item);
-      }
-    }
-    return data.toList();
+    add(ListUpdatedEvent(jumpToTop: true));
   }
 
   Future<PageDetails<T>> _getPageDetails(int pageIndex) async {
@@ -175,7 +130,7 @@ abstract class ListBloc<T> extends Bloc<ListEvent, ListState> {
       return pagesCache[pageIndex]!;
     } else {
       int offset = pageIndex * pageSize;
-      List<T> pageListItems = await fetchPageData(pageIndex, offset, pageSize);
+      List<T> pageListItems = await listDataCubit.getPageData(pageIndex, offset, pageSize);
       return PageDetails<T>(
         index: pageIndex,
         data: pageListItems,
@@ -185,7 +140,8 @@ abstract class ListBloc<T> extends Bloc<ListEvent, ListState> {
   }
 
   Future<void> _downloadAllListData() async {
-    if (pagesCache[pagesCache.length - 1] == null || pagesCache[pagesCache.length - 1]!.lastPage) {
+    PageDetails<T> lastPageDetails = pagesCache[pagesCache.keys.last]!;
+    if (lastPageDetails.lastPage) {
       return;
     }
     showLoadingOverlay.value = true;
@@ -195,7 +151,7 @@ abstract class ListBloc<T> extends Bloc<ListEvent, ListState> {
     await Future.doWhile(() async {
       int customPageSize = 500;
       int offset = downloadedPagesCount * customPageSize;
-      List<T> currentPageItems = await fetchPageData(downloadedPagesCount, offset, customPageSize);
+      List<T> currentPageItems = await listDataCubit.getPageData(downloadedPagesCount, offset, customPageSize);
       allPageItems.addAll(currentPageItems);
       downloadedPagesCount += 1;
       return currentPageItems.length == customPageSize;
@@ -216,61 +172,4 @@ abstract class ListBloc<T> extends Bloc<ListEvent, ListState> {
       );
     }
   }
-
-  bool _hasForceFilterMatch(List<FilterOption<T>> filters, T item) {
-    bool hasMatch = true;
-    for (FilterOption<T> filterOption in filters) {
-      if (!filterOption.hasMatch(item)) {
-        hasMatch = false;
-      }
-    }
-    return hasMatch;
-  }
-
-  bool _hasSoftFilterMatch(List<FilterOption<T>> filters, T item, bool initialValue) {
-    bool hasMatch = initialValue;
-    for (FilterOption<T> filterOption in filters) {
-      if (filterOption.hasMatch(item)) {
-        hasMatch = true;
-      }
-    }
-    return hasMatch;
-  }
-
-  /// Calls the sortList() method that returns a sorted list of list items
-  ///
-  /// It can be override to provide custom sorting logic.
-  /// For example: In case of favourites, we want to sort favourite items and rest of items separately.
-  List<T> getSortedList(List<T> listItems) {
-    return activeSortOption.sort(listItems);
-  }
-
-  /// Default page size.
-  /// Must be overridden in child classes.
-  int get pageSize;
-
-  /// Default sort option
-  /// Must be overridden in child classes.
-  SortOption<T> get defaultSortOption;
-
-  /// Returns a list of list items for specified page.
-  /// Must be overridden in child classes.
-  Future<List<T>> fetchPageData(int pageIndex, int offset, int limit);
-
-  /// Returns a comparator with conditions for searching items
-  /// If null is returned, search option is not supported.
-  /// Must be overridden in child classes.
-  FilterComparator<T>? getSearchComparator(String searchText);
-
-  /// Should emit state after list updated
-  /// Must be overridden in child classes.
-  void notifyListUpdated(Emitter<ListState> emit);
-
-  /// Should emit state after sort changed
-  /// Must be overridden in child classes.
-  void notifyListSorted(Emitter<ListState> emit);
-
-  /// Should emit state after filter changed
-  /// Must be overridden in child classes.
-  void notifyFilterChanged(Emitter<ListState> emit);
 }
