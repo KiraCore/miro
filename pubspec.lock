@@ -915,6 +915,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.0"
+  vector_map:
+    dependency: "direct main"
+    description:
+      name: vector_map
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.7.0"
   vector_math:
     dependency: transitive
     description:

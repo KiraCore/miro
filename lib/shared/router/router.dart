@@ -6,6 +6,7 @@ import 'package:miro/shared/guards/url_parameters_guard.dart';
 import 'package:miro/views/pages/menu/accounts_page/accounts_page.dart';
 import 'package:miro/views/pages/menu/dashboard_page/dashboard_page.dart';
 import 'package:miro/views/pages/menu/my_account_page/my_account_page.dart';
+import 'package:miro/views/pages/menu/network_visualizer_page/network_visualiser_page.dart';
 import 'package:miro/views/pages/menu/validators_page/validators_page.dart';
 import 'package:miro/views/pages/pages_wrapper.dart';
 
@@ -36,6 +37,13 @@ import 'package:miro/views/pages/pages_wrapper.dart';
         page: ValidatorsPage,
         name: 'ValidatorsRoute',
         path: 'validators',
+        transitionsBuilder: TransitionsBuilders.fadeIn,
+        guards: [UrlParametersGuard, NavigationGuard],
+      ),
+      CustomRoute<void>(
+        page: NetworkVisualiserPage,
+        name: 'NetworkVisualiserRoute',
+        path: 'network-visualiser',
         transitionsBuilder: TransitionsBuilders.fadeIn,
         guards: [UrlParametersGuard, NavigationGuard],
       ),

@@ -3,8 +3,10 @@ import 'package:miro/infra/cache/cache_manager.dart';
 import 'package:miro/infra/repositories/api_cosmos_repository.dart';
 import 'package:miro/infra/repositories/api_kira_repository.dart';
 import 'package:miro/infra/repositories/api_repository.dart';
+import 'package:miro/infra/repositories/geolocation_db_repository.dart';
 import 'package:miro/infra/services/api/dashboard_service.dart';
 import 'package:miro/infra/services/api/deposits_service.dart';
+import 'package:miro/infra/services/api/p2p_list_service.dart';
 import 'package:miro/infra/services/api/query_interx_status_service.dart';
 import 'package:miro/infra/services/api/query_validators_service.dart';
 import 'package:miro/infra/services/api/withdraws_service.dart';
@@ -13,6 +15,7 @@ import 'package:miro/infra/services/api_cosmos/query_balance_service.dart';
 import 'package:miro/infra/services/api_cosmos/transactions_service.dart';
 import 'package:miro/infra/services/api_kira/query_kira_tokens_aliases_service.dart';
 import 'package:miro/infra/services/api_kira/query_kira_tokens_rates_service.dart';
+import 'package:miro/infra/services/geolocation_db/geolocation_db_service.dart';
 import 'package:miro/providers/app_config_provider.dart';
 import 'package:miro/providers/menu_provider.dart';
 import 'package:miro/providers/network_provider/network_provider.dart';
@@ -32,6 +35,7 @@ Future<void> initLocator() async {
     ..registerFactory<ApiRepository>(() => RemoteApiRepository())
     ..registerFactory<ApiCosmosRepository>(() => RemoteApiCosmosRepository())
     ..registerFactory<ApiKiraRepository>(() => RemoteApiKiraRepository())
+    ..registerFactory<IGeolocationDbRepository>(() => RemoteGeolocationDbRepository())
     ..registerFactory<WithdrawsService>(() => WithdrawsService())
     ..registerFactory<DashboardService>(() => DashboardService())
     ..registerFactory<QueryAccountService>(() => QueryAccountService())
@@ -41,5 +45,7 @@ Future<void> initLocator() async {
     ..registerFactory<QueryKiraTokensRatesService>(() => QueryKiraTokensRatesService())
     ..registerFactory<QueryKiraTokensAliasesService>(() => QueryKiraTokensAliasesService())
     ..registerFactory<QueryInterxStatusService>(() => QueryInterxStatusService())
+    ..registerFactory<P2PListService>(() => P2PListService())
+    ..registerFactory<GeolocationDbService>(() => GeolocationDbService())
     ..registerFactory<QueryBalanceService>(() => QueryBalanceService());
 }

@@ -66,4 +66,16 @@ class MockApiRepository implements ApiRepository {
       requestOptions: RequestOptions(path: ''),
     );
   }
+
+  @override
+  Future<Response<T>> fetchPrivP2PList<T>(Uri networkUri) {
+    // TODO(dominik): implement fetchPrivP2PList
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Response<T>> fetchPubP2PList<T>(Uri networkUri) {
+    // TODO(dominik): implement fetchPubP2PList
+    throw UnimplementedError();
+  }
 }

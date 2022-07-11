@@ -37,6 +37,11 @@ class PagesWrapper extends StatelessWidget {
       icon: AppIcons.dashboard,
     ),
     const NavItem(
+      pageRouteInfo: NetworkVisualiserRoute(),
+      name: 'Network Visualiser',
+      icon: Icons.network_check,
+    ),
+    const NavItem(
       pageRouteInfo: null,
       name: 'Validators',
       icon: AppIcons.shield,

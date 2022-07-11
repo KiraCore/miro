@@ -15,6 +15,10 @@ abstract class ApiRepository {
   Future<Response<T>> fetchWithdraws<T>(Uri networkUri, WithdrawsReq withdrawsReq);
 
   Future<Response<T>> fetchDashboard<T>(Uri networkUri);
+
+  Future<Response<T>> fetchPubP2PList<T>(Uri networkUri);
+
+  Future<Response<T>> fetchPrivP2PList<T>(Uri networkUri);
 }
 
 class RemoteApiRepository implements ApiRepository {
@@ -81,6 +85,32 @@ class RemoteApiRepository implements ApiRepository {
       final Response<T> response = await _api.get<T>(
         networkUri: networkUri,
         path: '/api/dashboard',
+      );
+      return response;
+    } on DioError {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<Response<T>> fetchPubP2PList<T>(Uri networkUri) async {
+    try {
+      final Response<T> response = await _api.get<T>(
+        networkUri: networkUri,
+        path: '/api/pub_p2p_list',
+      );
+      return response;
+    } on DioError {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<Response<T>> fetchPrivP2PList<T>(Uri networkUri) async {
+    try {
+      final Response<T> response = await _api.get<T>(
+        networkUri: networkUri,
+        path: '/api/priv_p2p_list',
       );
       return response;
     } on DioError {
