@@ -34,7 +34,7 @@ class NodeLocalization extends Equatable {
 
   @override
   String toString() {
-    return 'NodeLocalization{countryCode: $countryCode, countryName: $countryName, lat: $lat, lng: $lng, city: $city, postal: $postal, state: $state}';
+    return 'NodeLocalization(countryCode: \'$countryCode\', countryName: \'$countryName\', lat: $lat, lng: $lng, city: \'$city\', postal: \'$postal\', state: \'$state\')';
   }
 
   @override

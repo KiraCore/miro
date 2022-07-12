@@ -19,6 +19,6 @@ class NodeModel {
 
   @override
   String toString() {
-    return ip;
+    return 'NodeModel(ip: \'$ip\', nodeLocalization: $nodeLocalization)\n';
   }
 }
