@@ -420,6 +420,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.2"
+  geojson_vi:
+    dependency: "direct main"
+    description:
+      name: geojson_vi
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.7"
   get_it:
     dependency: "direct main"
     description:
@@ -915,13 +922,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.2.0"
-  vector_map:
-    dependency: "direct main"
-    description:
-      name: vector_map
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.7.0"
   vector_math:
     dependency: transitive
     description:

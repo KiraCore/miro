@@ -4,16 +4,23 @@ import 'package:miro/config/locator.dart';
 import 'package:miro/infra/services/api/p2p_list_service.dart';
 import 'package:miro/providers/network_provider/network_provider.dart';
 import 'package:miro/shared/models/network_visualiser/node_model.dart';
-import 'package:miro/views/pages/menu/network_visualizer_page/geo_json_asset.dart';
 import 'package:miro/views/widgets/generic/center_load_spinner.dart';
+import 'package:miro/views/widgets/generic/visualiser_map/visualiser_map.dart';
 import 'package:provider/provider.dart';
-import 'package:vector_map/vector_map.dart';
 
 class NetworkVisualiserPage extends StatelessWidget {
   const NetworkVisualiserPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    return const Scaffold(
+      body: SizedBox(
+        width: double.infinity,
+        height: double.infinity,
+        child: VisualiserMap(),
+      ),
+    );
+
     return Scaffold(
       body: Consumer<NetworkProvider>(
         builder: (_, NetworkProvider networkProvider, Widget? child) {
@@ -64,7 +71,7 @@ class _VisualiserLoaded extends State<VisualiserLoaded> {
         body: TabBarView(
           children: <Widget>[
             VisualiserList(nodeModels: widget.nodeModels),
-            VisualiserMap(nodeModels: widget.nodeModels),
+            // VisualiserMap(nodeModels: widget.nodeModels),
           ],
         ),
       ),
@@ -99,38 +106,30 @@ class VisualiserList extends StatelessWidget {
   }
 }
 
-class VisualiserMap extends StatefulWidget {
-  final List<NodeModel> nodeModels;
-
-  const VisualiserMap({
-    required this.nodeModels,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  State<StatefulWidget> createState() => _VisualiserMap();
-}
-
-class _VisualiserMap extends State<VisualiserMap> {
-  late VectorMapController _controller;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = VectorMapController();
-    _loadGeoJson();
-  }
-
-  Future<void> _loadGeoJson() async {
-    String worldGeoJson = await GeoJsonAsset.world();
-
-    MapDataSource world = await MapDataSource.geoJson(geoJson: worldGeoJson);
-    _controller.addLayer(MapLayer(dataSource: world, theme: MapTheme(contourColor: Colors.white, color: Colors.grey)));
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    VectorMap map = VectorMap(controller: _controller);
-    return map;
-  }
-}
+// class VisualiserMap extends StatefulWidget {
+//   final List<NodeModel> nodeModels;
+//
+//   const VisualiserMap({
+//     required this.nodeModels,
+//     Key? key,
+//   }) : super(key: key);
+//
+//   @override
+//   State<StatefulWidget> createState() => _VisualiserMap();
+// }
+//
+// class _VisualiserMap extends State<VisualiserMap> {
+//   late VectorMapController _controller;
+//
+//   @override
+//   void initState() {
+//     super.initState();
+//     _controller = VectorMapController();
+//   }
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     VectorMap map = VectorMap(controller: _controller);
+//     return map;
+//   }
+// }
