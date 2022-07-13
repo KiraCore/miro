@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'dart:ui';
 
 class SizeUtil {
@@ -5,35 +6,32 @@ class SizeUtil {
   static const int designHeight = 180;
 
   //logic size in device
-  static Size _logicSize;
+  final Size logicSize;
+
+  SizeUtil(this.logicSize);
 
   //device pixel radio.
 
-  static get width {
-    return _logicSize.width;
+  double get width {
+    return logicSize.width;
   }
 
-  static get height {
-    return _logicSize.height;
-  }
-
-  static set size(size) {
-    _logicSize = size;
+  double get height {
+    return logicSize.height;
   }
 
   //@param w is the design w;
-  static double getAxisX(double w) {
-    return (w * width) / _DESIGN_WIDTH;
+  double getAxisX(double w) {
+    return (w * width) / designWidth;
   }
 
 // the y direction
-  static double getAxisY(double h) {
-    return (h * height) / _DESIGN_HEIGHT;
+  double getAxisY(double h) {
+    return (h * height) / designHeight;
   }
 
   // diagonal direction value with design size s.
-  static double getAxisBoth(double s) {
-    return s *
-        sqrt((width * width + height * height) / (_DESIGN_WIDTH * _DESIGN_WIDTH + _DESIGN_HEIGHT * _DESIGN_HEIGHT));
+  double getAxisBoth(double s) {
+    return s * sqrt((width * width + height * height) / (designWidth * designWidth + designHeight * designHeight));
   }
 }

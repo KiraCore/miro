@@ -21,7 +21,7 @@ class _VisualiserCanvas extends State<VisualiserCanvas> {
       width: double.infinity,
       height: double.infinity,
       color: Colors.yellow,
-      child: CustomPaint(painter: VisualiserPainter(countryModels: countryModels)),
+      child: CustomPaint(painter: VisualiserPainter(countryModels: widget.countryModels)),
     );
   }
 }
