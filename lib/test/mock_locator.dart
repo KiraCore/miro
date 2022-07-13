@@ -14,7 +14,6 @@ import 'package:miro/infra/services/api_kira/query_kira_tokens_aliases_service.d
 import 'package:miro/infra/services/api_kira/query_kira_tokens_rates_service.dart';
 import 'package:miro/infra/services/network_module_service.dart';
 import 'package:miro/providers/app_config_provider.dart';
-import 'package:miro/providers/tokens_provider.dart';
 import 'package:miro/providers/wallet_provider.dart';
 import 'package:miro/test/mock_api_cosmos_repository.dart';
 import 'package:miro/test/mock_api_kira_repository.dart';
@@ -26,7 +25,6 @@ Future<void> initMockLocator() async {
     ..registerLazySingleton<AppConfig>(AppConfig.new)
     ..registerLazySingleton<AppConfigProvider>(AppConfigProviderImpl.new)
     ..registerLazySingleton<WalletProvider>(WalletProvider.new)
-    ..registerLazySingleton<TokensProvider>(TokensProvider.new)
     ..registerLazySingleton<CacheManager>(CacheManager.new)
     ..registerLazySingleton<NetworkModuleBloc>(NetworkModuleBloc.new)
     ..registerLazySingleton<NetworkListCubit>(NetworkListCubit.new)

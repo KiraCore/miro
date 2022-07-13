@@ -39,12 +39,12 @@ class ResponsiveWidget extends StatelessWidget {
       return largeScreen;
     }
     // If width is less than 1100 and more than 850, we assume it is a tablet
-    else if (isMediumScreen(context) && smallScreen != null) {
-      return smallScreen!;
+    else if (isMediumScreen(context)) {
+      return mediumScreen;
     }
     // Or less than 850, we assume it is a mobile
     else {
-      return mediumScreen;
+      return smallScreen ?? mediumScreen;
     }
   }
 }

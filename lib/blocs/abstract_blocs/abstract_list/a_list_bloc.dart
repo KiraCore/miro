@@ -5,78 +5,97 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/abstract_blocs/abstract_list/a_list_event.dart';
 import 'package:miro/blocs/abstract_blocs/abstract_list/a_list_state.dart';
 import 'package:miro/blocs/abstract_blocs/abstract_list/controllers/i_list_controller.dart';
-import 'package:miro/blocs/abstract_blocs/abstract_list/events/list_init_event.dart';
 import 'package:miro/blocs/abstract_blocs/abstract_list/events/list_next_page_event.dart';
 import 'package:miro/blocs/abstract_blocs/abstract_list/events/list_options_changed_event.dart';
 import 'package:miro/blocs/abstract_blocs/abstract_list/events/list_reload_event.dart';
 import 'package:miro/blocs/abstract_blocs/abstract_list/events/list_updated_event.dart';
 import 'package:miro/blocs/abstract_blocs/abstract_list/models/a_list_item.dart';
-import 'package:miro/blocs/abstract_blocs/abstract_list/models/page_details.dart';
-import 'package:miro/blocs/abstract_blocs/abstract_list/states/list_disconnected_state.dart';
+import 'package:miro/blocs/abstract_blocs/abstract_list/models/page_data.dart';
 import 'package:miro/blocs/abstract_blocs/abstract_list/states/list_error_state.dart';
 import 'package:miro/blocs/abstract_blocs/abstract_list/states/list_loading_state.dart';
+import 'package:miro/blocs/specific_blocs/list/favourites/a_favourites_state.dart';
 import 'package:miro/blocs/specific_blocs/list/favourites/favourites_bloc.dart';
+import 'package:miro/blocs/specific_blocs/list/filters/a_filters_state.dart';
 import 'package:miro/blocs/specific_blocs/list/filters/filters_bloc.dart';
 import 'package:miro/blocs/specific_blocs/list/filters/models/filter_option.dart';
 import 'package:miro/blocs/specific_blocs/list/filters/states/filters_active_state.dart';
 import 'package:miro/blocs/specific_blocs/list/filters/states/filters_empty_state.dart';
 import 'package:miro/blocs/specific_blocs/list/sort/models/sort_option.dart';
 import 'package:miro/blocs/specific_blocs/list/sort/sort_bloc.dart';
+import 'package:miro/blocs/specific_blocs/list/sort/sort_state.dart';
 import 'package:miro/blocs/specific_blocs/network_module/network_module_bloc.dart';
+import 'package:miro/blocs/specific_blocs/network_module/network_module_state.dart';
 import 'package:miro/config/app_config.dart';
 import 'package:miro/config/locator.dart';
+import 'package:miro/shared/controllers/page_reload/page_reload_condition_type.dart';
+import 'package:miro/shared/controllers/page_reload/page_reload_controller.dart';
+import 'package:miro/shared/models/network/status/a_network_status_model.dart';
+import 'package:miro/shared/models/network/status/network_offline_model.dart';
 import 'package:miro/shared/utils/app_logger.dart';
 import 'package:miro/shared/utils/list_utils.dart';
 
 abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListState> {
-  /// Network provider is used to get network url.
-  /// If NetworkModuleBloc hasn't network url specified, list will emit [ListDisconnectedState]
-  final NetworkModuleBloc networkModuleBloc = globalLocator<NetworkModuleBloc>();
   final AppConfig appConfig = globalLocator<AppConfig>();
 
-  final IListController<T> listController;
-  final FiltersBloc<T> filtersBloc;
-  final SortBloc<T> sortBloc;
   final FavouritesBloc<T> favouritesBloc;
+  final FiltersBloc<T> filtersBloc;
+  final NetworkModuleBloc networkModuleBloc = globalLocator<NetworkModuleBloc>();
+  final SortBloc<T> sortBloc;
+
+  late StreamSubscription<AFavouritesState> _favouritesStateSubscription;
+  late StreamSubscription<AFiltersState<T>> _filtersStateSubscription;
+  late StreamSubscription<NetworkModuleState> _networkModuleStateSubscription;
+  late StreamSubscription<SortState<T>> _sortStateSubscription;
+
+  final IListController<T> listController;
+
+  final PageReloadController pageReloadController = PageReloadController(pageReloadConditionType: PageReloadConditionType.changedNetwork);
 
   final int singlePageSize;
 
   /// Stores information about current page.
   /// In case of infinity list, this is the last loaded page.
-  PageDetails<T> currentPageDetails = PageDetails<T>.initial();
-
-  /// Stores information about downloading new page status.
-  /// If true, blocks the possibility of downloading another page (preventing duplicate queries)
-  /// If false, allows downloading another page
-  bool loadingListStatus = false;
+  PageData<T> currentPageData = PageData<T>.initial();
 
   /// Stores all downloaded pages during widget lifecycle
-  Map<int, PageDetails<T>> downloadedPagesCache = <int, PageDetails<T>>{};
+  Map<int, PageData<T>> downloadedPagesCache = <int, PageData<T>>{};
+
+  /// If true, blocks InfinityListBloc from downloading next page
+  bool pageDownloadingStatus = false;
 
   /// Is responsible for notifying list about loading status.
   /// This is set to true when the list downloads all items
   ValueNotifier<bool> showLoadingOverlay = ValueNotifier<bool>(false);
 
-  Uri? _usedNetworkUri;
-
   AListBloc({
-    required this.listController,
+    required this.favouritesBloc,
     required this.filtersBloc,
     required this.sortBloc,
-    required this.favouritesBloc,
+    required this.listController,
     required this.singlePageSize,
   }) : super(ListLoadingState()) {
     // Assign events to methods
-    on<ListInitEvent>(_mapListInitEventToState);
     on<ListReloadEvent>(_mapListReloadEventToState);
     on<ListNextPageEvent>(_mapListNextPageEventToState);
     on<ListOptionsChangedEvent>(_mapListOptionsChangedEventToState);
+
     // Init listeners
-    favouritesBloc.stream.listen((_) => add(const ListUpdatedEvent(jumpToTop: true)));
-    filtersBloc.stream.listen((_) => add(ListOptionsChangedEvent()));
-    sortBloc.stream.listen((_) => add(ListOptionsChangedEvent()));
-    // Call InitListEvent
-    add(ListInitEvent());
+    _favouritesStateSubscription = favouritesBloc.stream.listen((_) => add(const ListUpdatedEvent(jumpToTop: true)));
+    _filtersStateSubscription = filtersBloc.stream.listen((_) => add(ListOptionsChangedEvent()));
+    _networkModuleStateSubscription = networkModuleBloc.stream.listen(_handleNetworkModuleStateChanged);
+    _sortStateSubscription = sortBloc.stream.listen((_) => add(ListOptionsChangedEvent()));
+
+    // Call ListReloadEvent to fetch first page
+    add(ListReloadEvent());
+  }
+
+  @override
+  Future<void> close() async {
+    await _favouritesStateSubscription.cancel();
+    await _filtersStateSubscription.cancel();
+    await _networkModuleStateSubscription.cancel();
+    await _sortStateSubscription.cancel();
+    return super.close();
   }
 
   List<T> sortList(List<T> listItems) {
@@ -97,53 +116,55 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
     return listItems.where(filterComparator).toList();
   }
 
-  void _mapListInitEventToState(ListInitEvent listInitEvent, Emitter<AListState> emit) {
-    // Reload list when network is changed
-    networkModuleBloc.stream.listen((_) {
-      if (networkModuleBloc.state.networkStatusModel.uri.host != _usedNetworkUri?.host) {
-        _usedNetworkUri = networkModuleBloc.state.networkStatusModel.uri;
-        add(ListReloadEvent());
-      }
-    });
-    add(ListReloadEvent());
-  }
-
   Future<void> _mapListReloadEventToState(ListReloadEvent listReloadEvent, Emitter<AListState> emit) async {
-    if (loadingListStatus) {
+    ANetworkStatusModel networkStatusModel = networkModuleBloc.state.networkStatusModel;
+
+    if (networkStatusModel is NetworkOfflineModel) {
+      emit(ListErrorState());
       return;
     }
-    if (networkModuleBloc.state.isDisconnected) {
-      emit(ListDisconnectedState());
-      return;
-    }
+
+    pageReloadController.handleReloadCall(networkStatusModel);
+    int localReloadId = pageReloadController.activeReloadId;
+
     emit(ListLoadingState());
-    loadingListStatus = true;
+
     downloadedPagesCache.clear();
-    currentPageDetails = PageDetails<T>.initial();
+    currentPageData = PageData<T>.initial();
+
     await favouritesBloc.initFavourites();
-    loadingListStatus = false;
-    add(ListNextPageEvent());
+
+    bool canReloadComplete = pageReloadController.canReloadComplete(localReloadId);
+    bool isBlocActive = !isClosed;
+    if (canReloadComplete && isBlocActive) {
+      add(ListNextPageEvent());
+    }
   }
 
   Future<void> _mapListNextPageEventToState(ListNextPageEvent listNextPageEvent, Emitter<AListState> emit) async {
-    if (loadingListStatus || currentPageDetails.lastPage) {
-      return;
-    }
-    int nextPageIndex = currentPageDetails.index + 1;
-    loadingListStatus = true;
+    int localReloadId = pageReloadController.activeReloadId;
+    int nextPageIndex = currentPageData.index + 1;
+    pageDownloadingStatus = true;
     try {
-      PageDetails<T> pageDetails = await _getPageDetails(nextPageIndex);
-      if (pageDetails.listItems.length < singlePageSize) {
-        pageDetails.lastPage = true;
+      PageData<T> pageData = await _getPageData(nextPageIndex);
+
+      downloadedPagesCache[nextPageIndex] = pageData;
+      currentPageData = pageData;
+
+      bool canReloadComplete = pageReloadController.canReloadComplete(localReloadId);
+      bool isBlocActive = !isClosed;
+      if (canReloadComplete && isBlocActive) {
+        add(const ListUpdatedEvent(jumpToTop: false));
       }
-      downloadedPagesCache[nextPageIndex] = pageDetails;
-      currentPageDetails = pageDetails;
-      add(const ListUpdatedEvent(jumpToTop: false));
     } catch (e) {
-      AppLogger().log(message: 'Cannot fetch list data for page $nextPageIndex. Stack trace: ${e.toString()}');
-      emit(ListErrorState());
+      AppLogger().log(message: 'Cannot fetch list data for page $nextPageIndex');
+      bool canReloadComplete = pageReloadController.canReloadComplete(localReloadId);
+      if (canReloadComplete) {
+        pageReloadController.hasErrors = true;
+        emit(ListErrorState());
+      }
     }
-    loadingListStatus = false;
+    pageDownloadingStatus = false;
   }
 
   Future<void> _mapListOptionsChangedEventToState(
@@ -154,23 +175,31 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
     add(const ListUpdatedEvent(jumpToTop: true));
   }
 
-  Future<PageDetails<T>> _getPageDetails(int pageIndex) async {
+  void _handleNetworkModuleStateChanged(NetworkModuleState networkModuleState) {
+    ANetworkStatusModel networkStatusModel = networkModuleBloc.state.networkStatusModel;
+    bool canReloadStart = pageReloadController.canReloadStart(networkStatusModel);
+    if (canReloadStart) {
+      add(ListReloadEvent());
+    }
+  }
+
+  Future<PageData<T>> _getPageData(int pageIndex) async {
     if (downloadedPagesCache[pageIndex] != null) {
       return downloadedPagesCache[pageIndex]!;
     } else {
       int offset = pageIndex * singlePageSize;
       List<T> pageListItems = await listController.getPageData(pageIndex, offset, singlePageSize);
-      return PageDetails<T>(
+      return PageData<T>(
         index: pageIndex,
         listItems: pageListItems,
-        lastPage: pageListItems.length < singlePageSize,
+        isLastPage: pageListItems.length < singlePageSize,
       );
     }
   }
 
   Future<void> _downloadAllListData() async {
-    PageDetails<T> lastPageDetails = downloadedPagesCache[downloadedPagesCache.keys.last]!;
-    if (lastPageDetails.lastPage) {
+    PageData<T> lastPageData = downloadedPagesCache[downloadedPagesCache.keys.last]!;
+    if (lastPageData.isLastPage) {
       return;
     }
     showLoadingOverlay.value = true;
@@ -193,11 +222,11 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
     for (int i = 0; i < allListItems.length; i += singlePageSize) {
       int pageIndex = i ~/ singlePageSize;
       List<T> pageListItems = ListUtils.getSafeSublist<T>(list: allListItems, start: i, end: i + singlePageSize);
-      bool lastPage = i + singlePageSize >= allListItems.length - 1;
-      downloadedPagesCache[pageIndex] = PageDetails<T>(
+      bool isLastPage = i + singlePageSize >= allListItems.length - 1;
+      downloadedPagesCache[pageIndex] = PageData<T>(
         index: pageIndex,
         listItems: pageListItems,
-        lastPage: lastPage,
+        isLastPage: isLastPage,
       );
     }
   }

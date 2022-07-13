@@ -112,6 +112,10 @@ dependencies:
   # https://pub.dev/packages/bech32
   bech32: ^0.2.1
 
+  # The decimal package allows you to deal with decimal numbers without losing precision.
+  # https://pub.dev/packages/decimal
+  decimal: ^2.2.0
+
   ##################################
   ######### UI libraries ###########
   ##################################

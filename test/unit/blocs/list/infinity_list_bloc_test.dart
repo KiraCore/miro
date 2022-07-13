@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/blocs/abstract_blocs/abstract_list/a_list_state.dart';
-import 'package:miro/blocs/abstract_blocs/abstract_list/states/list_disconnected_state.dart';
 import 'package:miro/blocs/abstract_blocs/abstract_list/states/list_loaded_state.dart';
+import 'package:miro/blocs/abstract_blocs/abstract_list/states/list_loading_state.dart';
 import 'package:miro/blocs/specific_blocs/list/favourites/events/favourites_add_record_event.dart';
 import 'package:miro/blocs/specific_blocs/list/favourites/favourites_bloc.dart';
 import 'package:miro/blocs/specific_blocs/list/filters/events/filters_add_option_event.dart';
@@ -13,13 +13,8 @@ import 'package:miro/blocs/specific_blocs/list/infinity_list/infinity_list_bloc.
 import 'package:miro/blocs/specific_blocs/list/sort/events/sort_change_event.dart';
 import 'package:miro/blocs/specific_blocs/list/sort/events/sort_clear_event.dart';
 import 'package:miro/blocs/specific_blocs/list/sort/sort_bloc.dart';
-import 'package:miro/blocs/specific_blocs/network_module/events/network_module_connect_event.dart';
-import 'package:miro/blocs/specific_blocs/network_module/network_module_bloc.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/cache/cache_manager.dart';
-import 'package:miro/shared/models/network/data/connection_status_type.dart';
-import 'package:miro/shared/models/network/data/network_info_model.dart';
-import 'package:miro/shared/models/network/status/online/network_healthy_model.dart';
 import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
@@ -34,26 +29,12 @@ Future<void> main() async {
   await initMockLocator();
   await globalLocator<CacheManager>().init();
 
-  final NetworkHealthyModel networkHealthyModel = NetworkHealthyModel(
-    connectionStatusType: ConnectionStatusType.connected,
-    name: 'https://unhealthy.kira.network',
-    uri: Uri.parse('https://unhealthy.kira.network'),
-    networkInfoModel: NetworkInfoModel(
-      chainId: 'localnet-1',
-      interxVersion: '0.0.1',
-      latestBlockHeight: 123,
-      latestBlockTime: DateTime.now(),
-      activeValidators: 1,
-      totalValidators: 1,
-    ),
-  );
-
   MockListItem expectedMockListItem1 = MockListItem(id: 1, name: 'apple', status: 'active');
   MockListItem expectedMockListItem2 = MockListItem(id: 2, name: 'banana', status: 'active');
   MockListItem expectedMockListItem3 = MockListItem(id: 3, name: 'coconut', status: 'paused');
 
   group('Tests of initial list state', () {
-    test('Should return ListDisconnectedState if interx is not connected', () async {
+    test('Should return ListLoadingState as initial state', () async {
       // Arrange
       MockListController mockListController = MockListController();
       FiltersBloc<MockListItem> actualFiltersBloc = FiltersBloc<MockListItem>(
@@ -67,15 +48,14 @@ Future<void> main() async {
       );
       InfinityListBloc<MockListItem> actualInfinityListBloc = InfinityListBloc<MockListItem>(
         listController: mockListController,
+        favouritesBloc: actualFavouritesBloc,
         filterBloc: actualFiltersBloc,
         sortBloc: actualSortBloc,
-        favouritesBloc: actualFavouritesBloc,
         singlePageSize: 2,
       );
-      await Future<void>.delayed(const Duration(milliseconds: 100));
 
       // Assert
-      AListState expectedListState = ListDisconnectedState();
+      AListState expectedListState = ListLoadingState();
       expect(
         actualInfinityListBloc.state,
         expectedListState,
@@ -83,9 +63,8 @@ Future<void> main() async {
     });
   });
 
-  group('Tests of infinity list process', () {
+  group('Tests of InfinityListBloc process', () {
     test('Should return AListState assigned to specified events', () async {
-      // Arrange
       MockListController mockListController = MockListController();
       FiltersBloc<MockListItem> actualFiltersBloc = FiltersBloc<MockListItem>(
         searchComparator: MockListItemFilterOptions.search,
@@ -105,17 +84,15 @@ Future<void> main() async {
       );
 
       // Assert
-      await Future<void>.delayed(const Duration(milliseconds: 100));
-      AListState expectedListState = ListDisconnectedState();
+      AListState expectedListState = ListLoadingState();
 
-      TestUtils.printInfo('Should return ListDisconnectedState if network not connected');
+      TestUtils.printInfo('Should return ListLoadingState as initial state');
       expect(
         actualInfinityListBloc.state,
         expectedListState,
       );
 
       // Act
-      globalLocator<NetworkModuleBloc>().add(NetworkModuleConnectEvent(networkHealthyModel));
       await Future<void>.delayed(const Duration(milliseconds: 100));
 
       // Assert
