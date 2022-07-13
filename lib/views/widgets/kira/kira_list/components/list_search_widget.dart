@@ -1,27 +1,34 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:miro/blocs/abstract_blocs/abstract_list/models/a_list_item.dart';
+import 'package:miro/blocs/specific_blocs/list/filters/events/filters_search_event.dart';
+import 'package:miro/blocs/specific_blocs/list/filters/filters_bloc.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/views/widgets/generic/search_bar.dart';
 
-typedef SearchCallback<E> = bool Function(E item, String searchValue);
+const double kDefaultSearchBarWidth = 285;
+const double kDefaultSearchBarHeight = 50;
 
-class SearchOptionWidget<E> extends StatelessWidget {
-  final SearchCallback<E> searchCallback;
-  final void Function(String value) onChanged;
+class ListSearchWidget<T extends AListItem> extends StatelessWidget {
+  final String? hint;
+  final double? width;
 
-  const SearchOptionWidget({
-    required this.searchCallback,
-    required this.onChanged,
+  const ListSearchWidget({
+    this.hint,
+    this.width = kDefaultSearchBarWidth,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 50,
-      width: 285,
+      height: kDefaultSearchBarHeight,
+      width: width,
       child: SearchBar(
-        label: 'Search',
-        onChanged: onChanged,
+        label: hint,
+        onFieldSubmitted: (String value) {
+          BlocProvider.of<FiltersBloc<T>>(context).add(FiltersSearchEvent<T>(value));
+        },
         backgroundColor: DesignColors.blue1_10,
         border: OutlineInputBorder(
           borderSide: const BorderSide(color: Colors.transparent),

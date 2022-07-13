@@ -5,7 +5,7 @@ import 'package:miro/blocs/abstract_blocs/abstract_list/controllers/i_list_contr
 import 'package:miro/blocs/abstract_blocs/abstract_list/events/list_next_page_event.dart';
 import 'package:miro/blocs/abstract_blocs/abstract_list/events/list_updated_event.dart';
 import 'package:miro/blocs/abstract_blocs/abstract_list/models/a_list_item.dart';
-import 'package:miro/blocs/abstract_blocs/abstract_list/models/page_details.dart';
+import 'package:miro/blocs/abstract_blocs/abstract_list/models/page_data.dart';
 import 'package:miro/blocs/abstract_blocs/abstract_list/states/list_loaded_state.dart';
 import 'package:miro/blocs/abstract_blocs/abstract_list/states/list_loading_state.dart';
 import 'package:miro/blocs/specific_blocs/list/favourites/favourites_bloc.dart';
@@ -38,7 +38,7 @@ class InfinityListBloc<T extends AListItem> extends AListBloc<T> {
     InfinityListReachedBottomEvent infinityListReachedBottomEvent,
     Emitter<AListState> emit,
   ) {
-    if (currentPageDetails.lastPage || loadingListStatus) {
+    if (currentPageData.isLastPage || pageDownloadingStatus) {
       return;
     }
     lastPageIndex += 1;
@@ -52,38 +52,41 @@ class InfinityListBloc<T extends AListItem> extends AListBloc<T> {
     List<T> allListItems = _getAllPagesAsList();
     List<T> filteredListItems = filterList(allListItems);
     List<T> sortedListItems = sortList(filteredListItems);
-    _updateCurrentPageDetails(sortedListItems);
+
+    _updateCurrentPageData(sortedListItems);
+
     List<T> visibleListItems = ListUtils.getSafeSublist<T>(
       list: sortedListItems,
       start: 0,
       end: (lastPageIndex + 1) * singlePageSize,
     );
+
     emit(ListLoadingState());
     emit(ListLoadedState<T>(
       listItems: visibleListItems,
-      lastPage: currentPageDetails.lastPage,
+      lastPage: currentPageData.isLastPage,
     ));
   }
 
   List<T> _getAllPagesAsList() {
     List<T> allListItems = List<T>.empty(growable: true);
-    for (PageDetails<T> pageDetails in downloadedPagesCache.values) {
-      allListItems.addAll(pageDetails.listItems);
+    for (PageData<T> pageData in downloadedPagesCache.values) {
+      allListItems.addAll(pageData.listItems);
     }
     return allListItems;
   }
 
-  void _updateCurrentPageDetails(List<T> allListItems) {
+  void _updateCurrentPageData(List<T> allListItems) {
     List<T> currentPageItems = ListUtils.getSafeSublist<T>(
       list: allListItems,
       start: lastPageIndex * singlePageSize,
       end: (lastPageIndex + 1) * singlePageSize,
     );
 
-    currentPageDetails = PageDetails<T>(
+    currentPageData = PageData<T>(
       index: lastPageIndex,
       listItems: currentPageItems,
-      lastPage: currentPageItems.length < singlePageSize,
+      isLastPage: currentPageItems.length < singlePageSize,
     );
   }
 }

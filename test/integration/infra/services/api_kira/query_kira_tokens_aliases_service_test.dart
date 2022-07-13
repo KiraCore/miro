@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/config/locator.dart';
-import 'package:miro/infra/dto/api_kira/query_kira_tokens_aliases/response/query_kira_tokens_aliases_resp.dart';
 import 'package:miro/infra/services/api_kira/query_kira_tokens_aliases_service.dart';
+import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/utils/network_utils.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
@@ -21,10 +21,10 @@ Future<void> main() async {
     test('Should return all token aliases', () async {
       TestUtils.printInfo('Data request');
       try {
-        QueryKiraTokensAliasesResp actualQueryKiraTokensAliasesResp = await queryKiraTokensAliasesService.getTokenAliases();
+        List<TokenAliasModel> actualTokenAliasModelList = await queryKiraTokensAliasesService.getTokenAliasModels();
 
         TestUtils.printInfo('Data return');
-        print(actualQueryKiraTokensAliasesResp);
+        print(actualTokenAliasModelList);
         print('');
       } on DioError catch (e) {
         TestUtils.printError(
