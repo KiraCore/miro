@@ -16,7 +16,6 @@ import 'package:miro/infra/services/api_kira/query_kira_tokens_rates_service.dar
 import 'package:miro/providers/app_config_provider.dart';
 import 'package:miro/providers/menu_provider.dart';
 import 'package:miro/providers/network_provider/network_provider.dart';
-import 'package:miro/providers/tokens_provider.dart';
 import 'package:miro/providers/wallet_provider.dart';
 
 final GetIt globalLocator = GetIt.I;
@@ -26,7 +25,6 @@ Future<void> initLocator() async {
     ..registerLazySingleton<AppConfigProvider>(() => AppConfigProviderImpl())
     ..registerLazySingleton<NetworkProvider>(() => NetworkProvider())
     ..registerLazySingleton<WalletProvider>(() => WalletProvider())
-    ..registerLazySingleton<TokensProvider>(() => TokensProvider())
     ..registerLazySingleton<MenuProvider>(() => MenuProvider())
     ..registerLazySingleton<CacheManager>(() => CacheManager())
     ..registerFactory<ApiRepository>(() => RemoteApiRepository())

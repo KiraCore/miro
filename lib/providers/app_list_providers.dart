@@ -7,7 +7,6 @@ import 'package:miro/config/locator.dart';
 import 'package:miro/infra/services/api/query_interx_status_service.dart';
 import 'package:miro/infra/services/api/query_validators_service.dart';
 import 'package:miro/providers/network_provider/network_provider.dart';
-import 'package:miro/providers/tokens_provider.dart';
 import 'package:miro/providers/wallet_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
@@ -18,9 +17,6 @@ List<SingleChildWidget> appListProviders = <SingleChildWidget>[
   ),
   ChangeNotifierProvider<WalletProvider>.value(
     value: globalLocator<WalletProvider>(),
-  ),
-  ChangeNotifierProvider<TokensProvider>.value(
-    value: globalLocator<TokensProvider>(),
   ),
   BlocProvider<DrawerCubit>(
     lazy: false,

@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:miro/config/locator.dart';
 import 'package:miro/providers/network_provider/network_events.dart';
 import 'package:miro/providers/network_provider/network_states.dart';
-import 'package:miro/providers/tokens_provider.dart';
 import 'package:miro/shared/models/network_model.dart';
 
 class NetworkProvider extends ChangeNotifier {
@@ -31,9 +29,5 @@ class NetworkProvider extends ChangeNotifier {
   void setState(NetworkState networkState) {
     state = networkState;
     notifyListeners();
-  }
-
-  void onNetworkChanged() {
-    globalLocator<TokensProvider>().refreshData();
   }
 }

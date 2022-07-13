@@ -5,7 +5,6 @@ import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/providers/wallet_provider.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
-import 'package:miro/views/layout/footer/footer.dart';
 import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_page.dart';
 import 'package:miro/views/pages/menu/my_account_page/my_account_tile.dart';
 import 'package:miro/views/pages/menu/my_account_page/transactions_page/transactions_page.dart';
@@ -32,13 +31,16 @@ class _MyAccountPage extends State<MyAccountPage> {
 
   @override
   void initState() {
+    super.initState();
     wallet = globalLocator<WalletProvider>().currentWallet!;
     pages = <Widget, Widget>{
-      BalancePage(parentScrollController: scrollController): _buildNavigationTab('Balance'),
+      BalancePage(
+        parentScrollController: scrollController,
+        address: wallet.address.bech32Address,
+      ): _buildNavigationTab('Balance'),
       const TransactionsPage(): _buildNavigationTab('Transactions')
     };
     currentPage = pages.keys.first;
-    super.initState();
   }
 
   @override
@@ -49,34 +51,31 @@ class _MyAccountPage extends State<MyAccountPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    return SingleChildScrollView(
       controller: scrollController,
-      children: <Widget>[
-        Padding(
-          padding: ResponsiveWidget.isLargeScreen(context)
-              ? AppSizes.defaultDesktopPageMargin
-              : AppSizes.defaultMobilePageMargin,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              _buildHeaderSection(),
-              const SizedBox(height: 36),
-              CupertinoSlidingSegmentedControl<Widget>(
-                groupValue: currentPage,
-                children: pages,
-                onValueChanged: _onPageChanged,
-                backgroundColor: DesignColors.blue1_10,
-                thumbColor: DesignColors.blue1_100,
-                padding: const EdgeInsets.all(8),
-              ),
-              const SizedBox(height: 20),
-              currentPage,
-              const SizedBox(height: 36),
-              const Footer(),
-            ],
-          ),
+      child: Padding(
+        padding: ResponsiveWidget.isLargeScreen(context)
+            ? AppSizes.defaultDesktopPageMargin
+            : AppSizes.defaultMobilePageMargin,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            _buildHeaderSection(),
+            const SizedBox(height: 20),
+            CupertinoSlidingSegmentedControl<Widget>(
+              groupValue: currentPage,
+              children: pages,
+              onValueChanged: _onPageChanged,
+              backgroundColor: DesignColors.blue1_10,
+              thumbColor: DesignColors.blue1_100,
+              padding: const EdgeInsets.all(8),
+            ),
+            const SizedBox(height: 20),
+            currentPage,
+          ],
         ),
-      ],
+      ),
     );
   }
 

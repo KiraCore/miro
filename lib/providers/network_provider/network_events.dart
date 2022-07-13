@@ -38,9 +38,6 @@ class SetUpNetworkEvent extends NetworkEvent {
     bool otherNetwork = previousNetworkModel?.parsedUri.toString() != networkModel.parsedUri.toString();
     updateUrlParams(networkModel);
     networkProvider.setState(ConnectedNetworkState(networkModel));
-    if (otherNetwork && networkModel.isConnected) {
-      networkProvider.onNetworkChanged();
-    }
   }
 
   void updateUrlParams(NetworkModel? newNetwork) {

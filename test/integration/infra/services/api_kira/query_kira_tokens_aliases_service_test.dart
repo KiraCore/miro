@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/config/locator.dart';
-import 'package:miro/infra/dto/api_kira/query_kira_tokens_aliases/response/query_kira_tokens_aliases_resp.dart';
 import 'package:miro/infra/services/api_kira/query_kira_tokens_aliases_service.dart';
+import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/utils/network_utils.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
@@ -18,12 +18,12 @@ void main() {
       final Uri networkUri = NetworkUtils.parseUrl('https://testnet-rpc.kira.network');
 
       testPrint('Data request');
-      QueryKiraTokensAliasesResp queryKiraTokensAliasesResp = await queryKiraTokensAliasesService.getTokenAliases(
-        customNetworkUri: networkUri,
+      List<TokenAliasModel> tokenAliasModels = await queryKiraTokensAliasesService.getTokenAliasModels(
+        optionalNetworkUri: networkUri,
       );
 
       testPrint('Data return');
-      print(queryKiraTokensAliasesResp);
+      print(tokenAliasModels);
       print('');
     });
   });
