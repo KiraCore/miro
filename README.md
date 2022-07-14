@@ -1,54 +1,84 @@
-# miro
-Miro is user interface for KIRA Network to manage accounts, balance and transfer tokens between different wallets.
+# KIRA miro
+KIRA miro is a user interface for the KIRA Network, allowing to view and manage accounts, transfer tokens between different wallets and explore the network.
 
-## Installation
-Use git clone to download [miro](https://github.com/KiraCore/miro) project.
+_NOTE: All scripts in this repository are only intended to be run on Ubuntu 20.04.4 LTS._
+
+The project runs on flutter version **2.5.3** and requires [fvm](https://fvm.app/docs/getting_started/installation) to allow easy version changes without impacting host environment. If your host machine is not running ubuntu, you can still run all the commands below inside the docker container which contains `dart`, `flutter`, `fvm` and all other essential dependencies that you might need. So no need to install anything and you are ready to go :)
+
+### 1. Download Repository
 ```bash
-git clone git@github.com:KiraCore/miro.git
+git clone git@github.com:KiraCore/miro.git -b "branch-name"
+
+# optionally start docker
+make docker-start
+cd /miro
+# run commands 2., 3. ...
+...
+exit
+make docker-stop
 ```
 
-## Usage
-The project runs on flutter version **2.5.3**. You can use [fvm](https://fvm.app/docs/getting_started/installation) for easy switching between versions
+### 2. Build 
+After successful build, you can find `index.html` in `/miro/build/` directory
 ```bash
-# Install and use required flutter version
-fvm install 2.5.3
-fvm use 2.5.3
+make build
+```
 
-# Install required packages in pubspec.yaml
-fvm flutter pub get
+### 3. Publish
+Used to create release a self contained `zip` file
+```bash
+make publish
+```
 
+### Run project in the Chrome browser
+```bash
 # Run project in the Chrome browser
 fvm flutter run -d chrome --dart-define=FLUTTER_WEB_USE_SKIA=true
 # or
 fvm flutter run -d chrome
 ```
 
-To generate config files use
+### Generating Config Files
 ```bash
 fvm flutter pub run build_runner watch --delete-conflicting-outputs
 ```
 
-## Tests
-To run Unit Tests / Integration tests
+### Running Unit Tests
 ```bash
 # Run all Unit Tests
-fvm flutter test test/unit --platform chrome
+make test
 
 # To run specific Unit Test
-fvm flutter test path/to/test.dart --platform chrome
-# e.g.
-fvm flutter test test/infra/services/api/withdraws_service_test.dart --platform chrome
+fvm flutter test path/to-file-or-directory/test.dart --platform chrome
 ```
 
-## Building, Deploying and Installing
-To build project please run script in [deploy.sh](https://github.com/KiraCore/miro/deploy.sh). \
-Deploy script is only intended to be run on Ubuntu 20.04.4 LTS.\
-After successful build, open index.html in "/miro/build/web".\
-Enjoy! 
+### Running Local Integration Tests
+This command starts an instance of the KIRA Network, runs all Local Integration Tests & stops the local network after finalizing. It is recommended that you use DOCKER container rather then running this command locally.
+```bash
+make local-test
+```
+### Starting & Stopping local KIRA Network 
+```bash
+# start network
+make kira-start
 
-## Contributing
+# if you run inside docker you should load environment variables to be able to run sekaid commands
+loadGlobEnvs
+sekaid status
+
+# purge/destroy network
+make kira-stop
+```
+
+### Running Unit Tests
+```bash
+# Stop any running networks, cleanup docker containers, images and any other local resources
+make clean
+```
+
+### Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what would like to improve. Please 
 make sure to update tests as well.
 
-## License
-[MIT](https://choosealicense.com/licenses/mit/)
+### License
+[GNU AGPLv3](https://choosealicense.com/licenses/agpl-3.0/)

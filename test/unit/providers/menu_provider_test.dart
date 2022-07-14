@@ -1,6 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/providers/menu_provider.dart';
 
+// fvm flutter test test/unit/providers/menu_provider_test.dart
 void main() {
   MenuProvider menuProvider = MenuProvider();
 

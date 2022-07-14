@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:integration_test/integration_test.dart';
 import 'package:miro/blocs/specific_blocs/drawer/drawer_cubit.dart';
 import 'package:miro/test/utils/test_utils.dart';
 import 'package:miro/views/pages/drawer/create_wallet_page/create_wallet_page.dart';
@@ -9,6 +10,8 @@ import 'package:miro/views/pages/drawer/login_page/login_mnemonic_page/login_mne
 // To run this test type in console:
 // fvm flutter test test/unit/blocs/drawer_cubit_test.dart --platform chrome
 Future<void> main() async {
+  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+  
   setUpAll(TestWidgetsFlutterBinding.ensureInitialized);
 
   GlobalKey<ScaffoldState>? actualScaffoldKey;
