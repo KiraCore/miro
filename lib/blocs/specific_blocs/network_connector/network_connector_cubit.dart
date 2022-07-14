@@ -55,9 +55,9 @@ class NetworkConnectorCubit extends Cubit<NetworkConnectorState> {
   Future<NetworkModel> getNetworkData(NetworkModel network) async {
     try {
       InterxResponseData interxResponseData = await queryInterxStatusService.getData(network.parsedUri);
-      QueryValidatorsResp queryValidatorsResp = await queryValidatorsService.getValidators(
-        interxResponseData.usedUri,
+      QueryValidatorsResp queryValidatorsResp = await queryValidatorsService.getQueryValidatorsResp(
         QueryValidatorsReq(all: true),
+        optionalNetworkUri: interxResponseData.usedUri,
       );
       return network.copyWith(
         url: interxResponseData.usedUri.toString(),

@@ -2,9 +2,9 @@ name: Build, Release & Publish
 
 on:
   push:
-    branches: [ master, dev, release, latest, testnet, mainnet, v*.*.*, feature/*, bugfix/*, hotfix/*, refactor/* ]
+    branches: [ master, dev, release, latest, testnet, mainnet, release/v*.*.*, feature/*, bugfix/*, hotfix/*, refactor/* ]
   pull_request:
-    branches: [ master, dev, release, latest, testnet, mainnet, v*.*.*, feature/*, bugfix/*, hotfix/*, refactor/* ]
+    branches: [ master, dev, release, latest, testnet, mainnet, release/v*.*.*, feature/*, bugfix/*, hotfix/*, refactor/* ]
 
 jobs:
   build:
@@ -53,6 +53,7 @@ jobs:
           SOURCE_BRANCH=${{ env.SOURCE_BRANCH }}
           REPOSITORY_NAME="${{ github.event.repository.name }}" && echo "REPOSITORY_NAME=$REPOSITORY_NAME" >> $GITHUB_ENV
           RELEASE_VER="$(./scripts/version.sh)" && echo "RELEASE_VER=$RELEASE_VER" >> $GITHUB_ENV
+          RELEASE_BRANCH="release/$RELEASE_VER" && echo "RELEASE_BRANCH=$RELEASE_BRANCH" >> $GITHUB_ENV
           echo "RELEASE_VER=$RELEASE_VER" >> $GITHUB_ENV
           git ls-remote https://github.com/kiracore/$REPOSITORY_NAME | egrep -q "refs/tags/${RELEASE_VER}$" && echo "RELEASE_EXISTS=true" >> $GITHUB_ENV || echo "RELEASE_EXISTS=false" >> $GITHUB_ENV
           if [[ "$RELEASE_VER" =~ $VERSION_REGEX ]] && [[ "$SOURCE_BRANCH" =~ $VERSION_REGEX ]] && [ "$SOURCE_BRANCH" != "$RELEASE_VER" ] ; then 
@@ -69,6 +70,7 @@ jobs:
           echo "Bash Utils Version: $(bash-utils bashUtilsVersion)"
           echo "     Source branch: ${{ env.SOURCE_BRANCH }}"
           echo "Destination branch: ${{ env.DESTINATION_BRANCH }}"
+          echo "    Release branch: ${{ env.RELEASE_BRANCH }}"
           echo "       Event name: ${{ github.event_name }}"
           echo "  Repository name: ${{ env.REPOSITORY_NAME }}"
           echo "  Release version: ${{ env.RELEASE_VER }}"
@@ -203,6 +205,7 @@ jobs:
           echo "IPFS_HASH=$IPFS_HASH" >> $GITHUB_ENV
           echo "IPFS_HASH_SHORT=${IPFS_HASH::10}...${IPFS_HASH: -3}" >> $GITHUB_ENV
           RELEASE_VER=$(cat ./RELEASE.md | tac | grep -Fn -m 1 'Release Versions: ' | rev | cut -d ":" -f1 | rev | xargs | tr -dc '[:alnum:]\-\.' || echo '')
+          RELEASE_BRANCH="release/$RELEASE_VER" && echo "RELEASE_BRANCH=$RELEASE_BRANCH" >> $GITHUB_ENV
           echo "RELEASE_VER=$RELEASE_VER" >> $GITHUB_ENV
           REPOSITORY_NAME="${{ github.event.repository.name }}"
           echo "REPOSITORY_NAME=$REPOSITORY_NAME" >> $GITHUB_ENV
@@ -229,6 +232,7 @@ jobs:
         run: |
           echo " Source branch: ${{ env.SOURCE_BRANCH }}"
           echo "  Dest. branch: ${{ env.DESTINATION_BRANCH }}"
+          echo "Release branch: ${{ env.RELEASE_BRANCH }}"
           echo "     Repo Name: ${{ env.REPOSITORY_NAME }}"
           echo "    Event name: ${{ github.event_name }}"
           echo "  Release ver.: ${{ env.RELEASE_VER }}"
@@ -250,7 +254,7 @@ jobs:
         if: |
           github.event_name == 'push' &&
           ( env.RELEASE_EXISTS == false || env.RELEASE_EXISTS == 'false' ) &&
-          ( startsWith(env.SOURCE_BRANCH, 'v') && contains(env.SOURCE_BRANCH, '.') )
+          ( startsWith(env.SOURCE_BRANCH, 'release/v') && contains(env.SOURCE_BRANCH, '.') )
         shell: bash
         env:
           KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
@@ -265,12 +269,12 @@ jobs:
         if: |
           github.event_name == 'push' &&
           ( env.RELEASE_EXISTS == false || env.RELEASE_EXISTS == 'false' ) &&
-          ( startsWith(env.SOURCE_BRANCH, 'v') && contains(env.SOURCE_BRANCH, '.') )
+          ( startsWith(env.SOURCE_BRANCH, 'release/v') && contains(env.SOURCE_BRANCH, '.') )
         uses: softprops/action-gh-release@1e07f4398721186383de40550babbdf2b84acfc5
         with:
           body_path: RELEASE.md
-          tag_name: ${{ env.SOURCE_BRANCH }}
-          name: ${{ env.SOURCE_BRANCH }}
+          tag_name: ${{ env.RELEASE_VER }}
+          name: ${{ env.RELEASE_VER }}
           prerelease: ${{ env.PRE_RELEASE }}
           draft: false
           fail_on_unmatched_files: true
