@@ -27,11 +27,6 @@ class _NetworkStatusListTile extends State<NetworkStatusListTile> {
   );
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Consumer<NetworkProvider>(
       builder: (_, NetworkProvider networkProvider, Widget? child) {

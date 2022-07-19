@@ -32,8 +32,8 @@ class _KeyfileDropzone extends State<KeyfileDropzone> {
 
   @override
   void initState() {
-    _initController();
     super.initState();
+    _initController();
   }
 
   @override

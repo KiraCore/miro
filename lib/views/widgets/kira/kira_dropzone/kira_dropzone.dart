@@ -31,8 +31,8 @@ class _KiraDropzone extends State<KiraDropzone> {
 
   @override
   void initState() {
-    _initController();
     super.initState();
+    _initController();
   }
 
   @override

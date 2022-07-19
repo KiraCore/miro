@@ -27,12 +27,12 @@ class _NavTile extends State<NavTile> {
 
   @override
   void initState() {
+    super.initState();
     menuProvider.addListener(() {
       if (mounted) {
         setState(() {});
       }
     });
-    super.initState();
   }
 
   @override

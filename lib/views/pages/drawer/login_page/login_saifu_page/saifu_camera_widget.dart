@@ -29,8 +29,8 @@ class _SaifuCameraWidget extends State<SaifuCameraWidget> {
 
   @override
   void initState() {
-    errorMessage = widget.errorMessage;
     super.initState();
+    errorMessage = widget.errorMessage;
   }
 
   @override

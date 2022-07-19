@@ -33,8 +33,8 @@ class _DownloadKeyfileSection extends State<DownloadKeyfileSection> {
 
   @override
   void initState() {
-    _initController();
     super.initState();
+    _initController();
   }
 
   @override

@@ -42,11 +42,6 @@ class _BalanceListItemBuilder extends State<BalanceListItemBuilder> {
   }
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return MouseStateListener(
       onTap: () {},

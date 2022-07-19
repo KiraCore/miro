@@ -50,8 +50,8 @@ class _BackdropAppBar extends State<BackdropAppBar> with SingleTickerProviderSta
 
   @override
   void initState() {
-    setUpAnimationController();
     super.initState();
+    setUpAnimationController();
   }
 
   @override

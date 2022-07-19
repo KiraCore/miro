@@ -29,17 +29,17 @@ class _MnemonicGrid extends State<MnemonicGrid> {
 
   @override
   void initState() {
+    super.initState();
     _initController();
     _initMnemonicTextControllers();
-    super.initState();
   }
 
   @override
   void didUpdateWidget(covariant MnemonicGrid oldWidget) {
+    super.didUpdateWidget(oldWidget);
     if (oldWidget.mnemonicWordList != widget.mnemonicWordList) {
       _initMnemonicTextControllers();
     }
-    super.didUpdateWidget(oldWidget);
   }
 
   @override
