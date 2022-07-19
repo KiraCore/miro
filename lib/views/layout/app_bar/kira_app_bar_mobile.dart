@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:miro/config/app_sizes.dart';
+import 'package:miro/views/layout/app_bar/kira_app_bar_mobile_header.dart';
+import 'package:miro/views/layout/app_bar/mobile_backdrop/backdrop_content.dart';
 import 'package:miro/views/layout/app_bar/model/app_bar_mobile_decoration.dart';
 
 class KiraAppBarMobile extends StatefulWidget {
@@ -33,12 +34,12 @@ class _KiraAppBarMobile extends State<KiraAppBarMobile> with TickerProviderState
           padding: const EdgeInsets.symmetric(horizontal: 20),
           child: Column(
             children: <Widget>[
-              _AppBarHeader(
+              KiraAppBarMobileHeader(
                 leading: widget.mobileDecoration.leading,
                 title: widget.mobileDecoration.title,
                 trailing: widget.mobileDecoration.trailing,
               ),
-              _BackdropContent(
+              BackdropContent(
                 backdropDuration: widget.mobileDecoration.backdropDuration,
                 collapsed: widget.isCollapsed,
                 menu: widget.menu,
@@ -46,59 +47,6 @@ class _KiraAppBarMobile extends State<KiraAppBarMobile> with TickerProviderState
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class _AppBarHeader extends StatelessWidget {
-  final Widget? leading;
-  final Widget? title;
-  final Widget? trailing;
-
-  const _AppBarHeader({
-    this.leading,
-    this.title,
-    this.trailing,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: AppSizes.kKiraAppBarHeight - 24,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          leading ?? const SizedBox(),
-          if (title != null) title!,
-          trailing ?? const SizedBox(),
-        ],
-      ),
-    );
-  }
-}
-
-class _BackdropContent extends StatelessWidget {
-  final Duration backdropDuration;
-  final bool collapsed;
-  final Widget menu;
-
-  const _BackdropContent({
-    required this.backdropDuration,
-    required this.collapsed,
-    required this.menu,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedSize(
-      duration: backdropDuration,
-      child: SizedBox(
-        width: double.infinity,
-        height: collapsed ? MediaQuery.of(context).size.height - AppSizes.kKiraAppBarHeight : 0,
-        child: menu,
       ),
     );
   }

@@ -60,45 +60,45 @@ class _SaifuCameraWidget extends State<SaifuCameraWidget> {
       ),
     );
   }
-}
 
-Widget _buildLoadingWidget() {
-  return Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    crossAxisAlignment: CrossAxisAlignment.center,
-    children: <Widget>[
-      const CenterLoadSpinner(),
-      const SizedBox(height: 15),
-      Text(
-        'Open camera'.toUpperCase(),
-        style: const TextStyle(
-          color: DesignColors.white_100,
-          fontWeight: FontWeight.w700,
-          fontSize: 12,
+  Widget _buildLoadingWidget() {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        const CenterLoadSpinner(),
+        const SizedBox(height: 15),
+        Text(
+          'Open camera'.toUpperCase(),
+          style: const TextStyle(
+            color: DesignColors.white_100,
+            fontWeight: FontWeight.w700,
+            fontSize: 12,
+          ),
         ),
-      ),
-    ],
-  );
-}
+      ],
+    );
+  }
 
-Widget _buildErrorWidget(CameraException error) {
-  return Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    crossAxisAlignment: CrossAxisAlignment.center,
-    children: <Widget>[
-      const Icon(
-        Icons.error,
-        color: DesignColors.red_100,
-        size: 30,
-      ),
-      const SizedBox(height: 15),
-      Text(
-        error.code.toUpperCase(),
-        style: const TextStyle(
+  Widget _buildErrorWidget(CameraException error) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: <Widget>[
+        const Icon(
+          Icons.error,
           color: DesignColors.red_100,
-          fontSize: 12,
+          size: 30,
         ),
-      ),
-    ],
-  );
+        const SizedBox(height: 15),
+        Text(
+          error.code.toUpperCase(),
+          style: const TextStyle(
+            color: DesignColors.red_100,
+            fontSize: 12,
+          ),
+        ),
+      ],
+    );
+  }
 }

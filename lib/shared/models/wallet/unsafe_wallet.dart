@@ -6,7 +6,7 @@ import 'package:miro/shared/models/wallet/mnemonic.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/shared/models/wallet/wallet_details.dart';
-import 'package:miro/shared/utils/cryptography/bech32.dart';
+import 'package:miro/shared/utils/cryptography/bech32/bech32.dart';
 import 'package:miro/shared/utils/cryptography/secp256k1.dart';
 import 'package:pointycastle/export.dart';
 

@@ -1,16 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:bech32/bech32.dart' as bech32;
-
-class Bech32Pair {
-  final String hrp;
-  final Uint8List data;
-
-  Bech32Pair({
-    required this.hrp,
-    required this.data,
-  });
-}
+import 'package:miro/shared/utils/cryptography/bech32/bech32_pair.dart';
 
 /// Allows to easily encode into Bech32 some data using a
 /// given human readable part.

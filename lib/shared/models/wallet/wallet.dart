@@ -3,7 +3,7 @@ import 'dart:typed_data';
 import 'package:equatable/equatable.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/shared/models/wallet/wallet_details.dart';
-import 'package:miro/shared/utils/cryptography/bech32.dart';
+import 'package:miro/shared/utils/cryptography/bech32/bech32.dart';
 
 abstract class Wallet extends Equatable {
   /// The wallet address instance

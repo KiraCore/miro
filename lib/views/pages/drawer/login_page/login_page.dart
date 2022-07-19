@@ -7,7 +7,8 @@ import 'package:miro/views/pages/drawer/login_page/login_mnemonic_page/login_mne
 import 'package:miro/views/pages/drawer/login_page/login_saifu_page/login_saifu_page.dart';
 import 'package:miro/views/widgets/buttons/kira_elevated_button.dart';
 import 'package:miro/views/widgets/buttons/kira_outlined_button.dart';
-import 'package:miro/views/widgets/buttons/store_badge.dart';
+import 'package:miro/views/widgets/buttons/store_bagde/store_badge.dart';
+import 'package:miro/views/widgets/buttons/store_bagde/store_type.dart';
 import 'package:miro/views/widgets/kira/kira_tooltip.dart';
 
 class LoginPage extends StatefulWidget {

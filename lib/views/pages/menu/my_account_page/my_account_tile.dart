@@ -6,7 +6,7 @@ import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/views/widgets/kira/kira_identity_avatar.dart';
 import 'package:miro/views/widgets/kira/kira_toast/kira_toast.dart';
-import 'package:miro/views/widgets/kira/kira_toast/toast_container.dart';
+import 'package:miro/views/widgets/kira/kira_toast/toast_type.dart';
 
 class MyAccountTile extends StatelessWidget {
   final Wallet wallet;

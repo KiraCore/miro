@@ -3,13 +3,7 @@ import 'dart:js' as js;
 import 'dart:typed_data';
 
 import 'package:miro/shared/utils/enum_utils.dart';
-
-enum InversionAttempts {
-  dontInvert,
-  onlyInvert,
-  attemptBoth,
-  invertFirst,
-}
+import 'package:miro/views/widgets/generic/qr_scanner/inversion_attempts.dart';
 
 class QrValidator {
   static String? onImageIntercept(VideoElement videoElement) {

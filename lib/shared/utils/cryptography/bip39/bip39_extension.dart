@@ -1,14 +1,6 @@
 import 'package:bip39/bip39.dart' as bip39;
 import 'package:miro/shared/utils/app_logger.dart';
-
-enum MnemonicValidateResult {
-  invalidMnemonic,
-  invalidEntropy,
-  invalidChecksum,
-  mnemonicTooShort,
-  undefinedError,
-  success,
-}
+import 'package:miro/shared/utils/cryptography/bip39/mnemonic_validate_result.dart';
 
 class Bip39Extension {
   static MnemonicValidateResult validateMnemonicWithMessage(String mnemonic) {

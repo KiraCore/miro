@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:miro/views/widgets/kira/kira_toast/toast_container.dart';
+import 'package:miro/views/widgets/kira/kira_toast/toast_type.dart';
 
 class KiraToast {
   final BuildContext context;

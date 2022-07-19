@@ -4,13 +4,7 @@ import 'package:miro/config/app_icons.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/views/widgets/buttons/kira_outlined_button.dart';
 import 'package:miro/views/widgets/kira/kira_toast/toast_decoration.dart';
-
-enum ToastType {
-  normal,
-  error,
-  success,
-  warning,
-}
+import 'package:miro/views/widgets/kira/kira_toast/toast_type.dart';
 
 class ToastContainer extends StatelessWidget {
   final double height;

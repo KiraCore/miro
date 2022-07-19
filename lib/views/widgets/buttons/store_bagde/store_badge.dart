@@ -2,15 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/assets.dart';
+import 'package:miro/views/widgets/buttons/store_bagde/store_type.dart';
 import 'package:miro/views/widgets/generic/mouse_state_listener.dart';
 
 const double kBadgeWidth = 161;
 const double kBadgeHeight = 52;
-
-enum StoreType {
-  apple,
-  google,
-}
 
 class StoreBadge extends StatelessWidget {
   final StoreType storeType;

@@ -1,0 +1,4 @@
+enum StoreType {
+  apple,
+  google,
+}
