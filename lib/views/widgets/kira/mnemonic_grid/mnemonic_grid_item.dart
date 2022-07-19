@@ -37,17 +37,13 @@ class _MnemonicGridItem extends State<MnemonicGridItem> {
   void initState() {
     super.initState();
     widget.textController.addListener(_validateMnemonicWord);
-
-    focusNode.addListener(() {
-      if (focusNode.hasFocus) {
-        _setMnemonicState(MnemonicState.valid);
-      }
-    });
+    focusNode.addListener(_handleFocusNodeChanged);
   }
 
   @override
   void dispose() {
     widget.textController.removeListener(_validateMnemonicWord);
+    focusNode.dispose();
     super.dispose();
   }
 
@@ -120,6 +116,12 @@ class _MnemonicGridItem extends State<MnemonicGridItem> {
         ),
       ),
     );
+  }
+
+  void _handleFocusNodeChanged() {
+    if (mounted && focusNode.hasFocus) {
+      _setMnemonicState(MnemonicState.valid);
+    }
   }
 
   void _validateMnemonicWord() {

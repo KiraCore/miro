@@ -40,7 +40,11 @@ class BackdropAppBar extends StatefulWidget {
 }
 
 class _BackdropAppBar extends State<BackdropAppBar> with SingleTickerProviderStateMixin {
-  late AnimationController animationController;
+  late AnimationController animationController = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 200),
+    value: 1,
+  );
 
   bool get isBackLayerConcealed =>
       animationController.status == AnimationStatus.completed || animationController.status == AnimationStatus.forward;
@@ -51,7 +55,13 @@ class _BackdropAppBar extends State<BackdropAppBar> with SingleTickerProviderSta
   @override
   void initState() {
     super.initState();
-    setUpAnimationController();
+    animationController.addListener(_handleAnimationControllerChanged);
+  }
+
+  @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
   }
 
   @override
@@ -81,14 +91,6 @@ class _BackdropAppBar extends State<BackdropAppBar> with SingleTickerProviderSta
     return true;
   }
 
-  void setUpAnimationController() {
-    animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 200),
-      value: 1,
-    )..addListener(() => setState(() {}));
-  }
-
   void fling() {
     FocusScope.of(context).unfocus();
     if (isBackLayerConcealed) {
@@ -107,6 +109,12 @@ class _BackdropAppBar extends State<BackdropAppBar> with SingleTickerProviderSta
   void concealBackLayer() {
     if (isBackLayerRevealed) {
       animationController.animateTo(1);
+    }
+  }
+
+  void _handleAnimationControllerChanged() {
+    if (mounted) {
+      setState(() {});
     }
   }
 }
