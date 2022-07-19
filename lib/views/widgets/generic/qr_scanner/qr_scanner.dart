@@ -42,8 +42,8 @@ class _QrScanner extends State<QrScanner> {
 
   @override
   void initState() {
-    _initCameraController();
     super.initState();
+    _initCameraController();
   }
 
   @override

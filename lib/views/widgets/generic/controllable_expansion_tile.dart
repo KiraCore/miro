@@ -347,6 +347,7 @@ class ControllableExpansionTileState extends State<ControllableExpansionTile> wi
 
   @override
   void didChangeDependencies() {
+    super.didChangeDependencies();
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     _borderColorTween.end = theme.dividerColor;
@@ -359,7 +360,6 @@ class ControllableExpansionTileState extends State<ControllableExpansionTile> wi
     _backgroundColorTween
       ..begin = widget.collapsedBackgroundColor
       ..end = widget.backgroundColor;
-    super.didChangeDependencies();
   }
 
   @override

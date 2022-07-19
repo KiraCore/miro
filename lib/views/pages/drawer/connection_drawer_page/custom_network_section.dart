@@ -28,6 +28,7 @@ class _CustomNetworkSection extends State<CustomNetworkSection> {
 
   @override
   void initState() {
+    super.initState();
     focusNode.addListener(() {
       if (focusNode.hasFocus) {
         showHint = false;
@@ -36,7 +37,6 @@ class _CustomNetworkSection extends State<CustomNetworkSection> {
       }
       setState(() {});
     });
-    super.initState();
   }
 
   @override

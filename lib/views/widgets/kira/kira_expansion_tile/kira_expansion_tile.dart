@@ -32,11 +32,6 @@ class _KiraExpansionTile extends State<KiraExpansionTile> {
   bool expandedStatus = false;
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Opacity(
       opacity: widget.disabled ? 0.3 : 1,

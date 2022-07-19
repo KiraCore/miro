@@ -21,10 +21,10 @@ class _WalletTermsSection extends State<WalletTermsSection> {
 
   @override
   void didUpdateWidget(covariant WalletTermsSection oldWidget) {
+    super.didUpdateWidget(oldWidget);
     if (oldWidget.checked != widget.checked) {
       termsAcceptedNotifier.value = widget.checked;
     }
-    super.didUpdateWidget(oldWidget);
   }
 
   @override
