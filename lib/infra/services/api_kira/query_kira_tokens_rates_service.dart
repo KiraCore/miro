@@ -4,23 +4,18 @@ import 'package:miro/infra/dto/api_kira/query_kira_tokens_rates/response/query_k
 import 'package:miro/infra/repositories/api_kira_repository.dart';
 import 'package:miro/providers/network_provider/network_provider.dart';
 
-abstract class _QueryKiraTokensRatesService {
-  Future<QueryKiraTokensRatesResp> getTokenRates();
-
-  void ignore();
+abstract class _IQueryKiraTokensRatesService {
+  /// Throws [DioError]
+  Future<QueryKiraTokensRatesResp> getTokenRates({Uri? optionalNetworkUri});
 }
 
-class QueryKiraTokensRatesService implements _QueryKiraTokensRatesService {
+class QueryKiraTokensRatesService implements _IQueryKiraTokensRatesService {
   final ApiKiraRepository _apiKiraRepository = globalLocator<ApiKiraRepository>();
 
   @override
-  Future<QueryKiraTokensRatesResp> getTokenRates({Uri? customNetworkUri}) async {
-    Uri networkUri = customNetworkUri ?? globalLocator<NetworkProvider>().networkUri!;
+  Future<QueryKiraTokensRatesResp> getTokenRates({Uri? optionalNetworkUri}) async {
+    Uri networkUri = optionalNetworkUri ?? globalLocator<NetworkProvider>().networkUri!;
     final Response<dynamic> response = await _apiKiraRepository.fetchQueryKiraTokensRates<dynamic>(networkUri);
     return QueryKiraTokensRatesResp.fromJson(response.data as Map<String, dynamic>);
   }
-
-  @override
-  // TODO(dominik): To remove
-  void ignore() {}
 }

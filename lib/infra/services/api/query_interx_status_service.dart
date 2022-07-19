@@ -7,9 +7,11 @@ import 'package:miro/shared/constants/network_health_status.dart';
 import 'package:miro/shared/models/infra/interx_response_data.dart';
 
 abstract class _QueryInterxStatusService {
+  // TODO(dominik): Refactor this class after merge new network provider.
   /// Throws [InterxUnavailableException]
   Future<InterxResponseData> getData(Uri networkUri);
 
+  /// Throws [InterxUnavailableException]
   Future<NetworkHealthStatus> getHealth(Uri networkUri);
 }
 
@@ -33,8 +35,6 @@ class QueryInterxStatusService extends _QueryInterxStatusService {
   }
 
   @override
-
-  /// Throws [InterxUnavailableException]
   Future<InterxResponseData> getData(Uri networkUri) async {
     try {
       final Response<dynamic> response = await _apiRepository.fetchQueryInterxStatus<dynamic>(networkUri);

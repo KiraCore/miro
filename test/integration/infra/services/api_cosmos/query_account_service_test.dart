@@ -19,8 +19,10 @@ void main() {
       String actualAddress = 'kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx';
 
       testPrint('Data request');
-      QueryAccountResp? queryAccountResp =
-          await queryAccountService.fetchQueryAccount(actualAddress, customUri: networkUri);
+      QueryAccountResp? queryAccountResp = await queryAccountService.getQueryAccountResp(
+        actualAddress,
+        optionalNetworkUri: networkUri,
+      );
 
       testPrint('Data return');
       print(queryAccountResp);

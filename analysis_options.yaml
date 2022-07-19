@@ -21,7 +21,7 @@ analyzer:
     - lib/**.g.dart
     - lib/**.gr.dart
     - lib/test/mocks/**
-#    - test/integration/**
+  #    - test/integration/**
 
   # If you want stricter static checks than the Dart type system requires, consider using the implicit-casts and implicit-dynamic flags
   strong-mode:
@@ -94,7 +94,7 @@ analyzer:
     curly_braces_in_flow_control_structures: error #core recommended flutter // pedantic effective_dart
     null_closures: error # recommended flutter // pedantic
     #omit_local_variable_types: ignore # // pedantic effective_dart
-    one_member_abstracts: error # // effective_dart
+    #one_member_abstracts: error # // effective_dart
     overridden_fields: error # recommended flutter
     package_api_docs: error # // effective_dart
     package_prefixed_library_names: error # core recommended flutter
@@ -655,7 +655,7 @@ linter:
     # Dart SDK: >= 2.0.0 • (Linter v0.1.1)
     # Avoid defining a one-member abstract class when a simple function will do.
     # // effective_dart
-    - one_member_abstracts
+    # - one_member_abstracts
 
     # Dart SDK: >= 2.0.0 • (Linter v0.1.21)
     # Only throw instances of classes extending either Exception or Error.

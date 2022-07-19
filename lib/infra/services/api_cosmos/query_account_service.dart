@@ -5,26 +5,21 @@ import 'package:miro/infra/dto/api_cosmos/query_account/response/query_account_r
 import 'package:miro/infra/repositories/api_cosmos_repository.dart';
 import 'package:miro/providers/network_provider/network_provider.dart';
 
-// ignore: one_member_abstracts
-abstract class _QueryAccountService {
-  /// Throws [DioError] and [NoNetworkException]
-  Future<QueryAccountResp> fetchQueryAccount(String address, {Uri? customUri});
+abstract class _IQueryAccountService {
+  /// Throws [DioError]
+  Future<QueryAccountResp> getQueryAccountResp(String address, {Uri? optionalNetworkUri});
 }
 
-class QueryAccountService implements _QueryAccountService {
+class QueryAccountService implements _IQueryAccountService {
   final ApiCosmosRepository _apiCosmosRepository = globalLocator<ApiCosmosRepository>();
 
   @override
-  Future<QueryAccountResp> fetchQueryAccount(String address, {Uri? customUri}) async {
-    Uri networkUri = customUri ?? globalLocator<NetworkProvider>().networkUri!;
-    try {
-      final QueryAccountResp response = await _apiCosmosRepository.fetchQueryAccount(
-        networkUri,
-        QueryAccountReq(address: address),
-      );
-      return response;
-    } on DioError {
-      rethrow;
-    }
+  Future<QueryAccountResp> getQueryAccountResp(String address, {Uri? optionalNetworkUri}) async {
+    Uri networkUri = optionalNetworkUri ?? globalLocator<NetworkProvider>().networkUri!;
+    Response<dynamic> response = await _apiCosmosRepository.fetchQueryAccount<dynamic>(
+      networkUri,
+      QueryAccountReq(address: address),
+    );
+    return QueryAccountResp.fromJson(response.data as Map<String, dynamic>);
   }
 }

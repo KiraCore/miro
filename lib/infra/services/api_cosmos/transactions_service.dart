@@ -11,54 +11,56 @@ import 'package:miro/providers/network_provider/network_provider.dart';
 import 'package:miro/providers/wallet_provider.dart';
 import 'package:miro/shared/models/wallet/unsafe_wallet.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
-import 'package:miro/shared/utils/app_logger.dart';
 import 'package:miro/shared/utils/transactions/transaction_signer.dart';
 
-abstract class _TransactionsService {
+abstract class _ITransactionsService {
   /// Throws [DioError]
-  Future<BroadcastResp> broadcastTransaction(SignedTransaction signedTransaction, {Uri? customUri});
+  Future<BroadcastResp> broadcastTransaction(SignedTransaction signedTransaction, {Uri? optionalNetworkUri});
 
-  Future<SignedTransaction> signTransaction(UnsignedTransaction unsignedTransaction, {Uri? customUri});
+  /// Throws [DioError]
+  Future<SignedTransaction> signTransaction(
+    UnsignedTransaction unsignedTransaction, {
+    Uri? optionalNetworkUri,
+    String? optionalChainId,
+  });
 }
 
-class TransactionsService implements _TransactionsService {
+class TransactionsService implements _ITransactionsService {
   final ApiCosmosRepository _apiCosmosRepository = globalLocator<ApiCosmosRepository>();
 
   @override
-  Future<BroadcastResp> broadcastTransaction(SignedTransaction signedTransaction, {Uri? customUri}) async {
-    Uri networkUri = customUri ?? globalLocator<NetworkProvider>().networkUri!;
-    try {
-      final BroadcastResp response = await _apiCosmosRepository.broadcast(
-        networkUri,
-        BroadcastReq(
-          transaction: signedTransaction,
-        ),
-      );
-      return response;
-    } on DioError catch (e) {
-      AppLogger().log(message: '${signedTransaction.toJson()} - ${e.toString()}', logLevel: LogLevel.error);
-      rethrow;
-    }
+  Future<BroadcastResp> broadcastTransaction(SignedTransaction signedTransaction, {Uri? optionalNetworkUri}) async {
+    Uri networkUri = optionalNetworkUri ?? globalLocator<NetworkProvider>().networkUri!;
+    final Response<dynamic> response = await _apiCosmosRepository.broadcast<dynamic>(
+      networkUri,
+      BroadcastReq(
+        transaction: signedTransaction,
+      ),
+    );
+    return BroadcastResp.fromJson(response.data as Map<String, dynamic>);
   }
 
   @override
-  Future<SignedTransaction> signTransaction(UnsignedTransaction unsignedTransaction,
-      {Uri? customUri, String? customChainId}) async {
+  Future<SignedTransaction> signTransaction(
+    UnsignedTransaction unsignedTransaction, {
+    Uri? optionalNetworkUri,
+    String? optionalChainId,
+  }) async {
     final NetworkProvider networkProvider = globalLocator<NetworkProvider>();
     final QueryAccountService accountService = globalLocator<QueryAccountService>();
     final Wallet? wallet = globalLocator<WalletProvider>().currentWallet;
 
     assert(wallet != null, 'User should be logged in');
     assert(wallet is UnsafeWallet, 'User should be logged via UnsafeWallet');
-    assert(networkProvider.isConnected || customUri != null, 'Network should be connected');
+    assert(networkProvider.isConnected || optionalNetworkUri != null, 'Network should be connected');
 
     QueryAccountResp queryAccountResp =
-        await accountService.fetchQueryAccount(wallet!.address.bech32Address, customUri: customUri);
+        await accountService.getQueryAccountResp(wallet!.address.bech32Address, optionalNetworkUri: optionalNetworkUri);
     SignedTransaction signedTransaction = TransactionSigner.sign(
       unsignedTransaction: unsignedTransaction,
       ecPrivateKey: (wallet as UnsafeWallet).ecPrivateKey,
       ecPublicKey: wallet.ecPublicKey,
-      chainId: customChainId ?? networkProvider.networkModel!.queryInterxStatus!.interxInfo.chainId,
+      chainId: optionalChainId ?? networkProvider.networkModel!.queryInterxStatus!.interxInfo.chainId,
       accountNumber: queryAccountResp.accountNumber,
       sequence: queryAccountResp.sequence ?? '0',
     );

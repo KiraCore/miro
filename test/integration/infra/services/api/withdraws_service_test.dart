@@ -15,12 +15,13 @@ void main() {
       await initLocator();
 
       final WithdrawsService withdrawsService = globalLocator<WithdrawsService>();
-      final Uri uri = NetworkUtils.parseUrl('https://testnet-rpc.kira.network');
+      final Uri networkUri = NetworkUtils.parseUrl('https://testnet-rpc.kira.network');
 
       WithdrawsReq withdrawsReq = WithdrawsReq(account: 'kira1axqn2nr8wcwy83gnx97ugypunfka30wt4xyul8');
 
       testPrint('Data request');
-      WithdrawsResp? withdrawsResp = await withdrawsService.getAccountWithdraws(uri, withdrawsReq);
+      WithdrawsResp? withdrawsResp =
+          await withdrawsService.getWithdrawsResp(withdrawsReq, optionalNetworkUri: networkUri);
 
       testPrint('Data return');
       print(withdrawsResp);

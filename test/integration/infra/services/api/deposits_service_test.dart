@@ -15,13 +15,12 @@ void main() {
       await initLocator();
 
       final DepositsService depositsService = globalLocator<DepositsService>();
-      final Uri uri = NetworkUtils.parseUrl('https://testnet-rpc.kira.network');
+      final Uri networkUri = NetworkUtils.parseUrl('https://testnet-rpc.kira.network');
 
       DepositsReq depositsReq = DepositsReq(account: 'kira1axqn2nr8wcwy83gnx97ugypunfka30wt4xyul8');
 
       testPrint('Data request');
-      DepositsResp? depositsResp = await depositsService.getAccountDeposits(uri, depositsReq);
-
+      DepositsResp? depositsResp = await depositsService.getDepositsResp(depositsReq, optionalNetworkUri: networkUri);
 
       testPrint('Data return');
 
