@@ -42,10 +42,6 @@ class PopWrapperController {
     }
   }
 
-  void dispose() {
-    animationController.dispose();
-  }
-
   void initController({
     required AnimationController animationController,
     required BuildContext context,
@@ -82,15 +78,21 @@ class PopWrapper extends StatefulWidget {
 }
 
 class _PopWrapper extends State<PopWrapper> with SingleTickerProviderStateMixin {
+  late AnimationController animationController = AnimationController(
+    vsync: this,
+    duration: const Duration(milliseconds: 200),
+  );
+
   @override
   void initState() {
     super.initState();
-    setUpController();
+    animationController.addListener(_handleAnimationControllerChanged);
+    _setUpController();
   }
 
   @override
   void dispose() {
-    widget.popWrapperController.dispose();
+    animationController.dispose();
     super.dispose();
   }
 
@@ -103,11 +105,13 @@ class _PopWrapper extends State<PopWrapper> with SingleTickerProviderStateMixin 
     );
   }
 
-  void setUpController() {
-    AnimationController animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 200),
-    )..addListener(() => setState(() {}));
+  void _handleAnimationControllerChanged() {
+    if (mounted) {
+      setState(() {});
+    }
+  }
+
+  void _setUpController() {
     widget.popWrapperController.initController(
       animationController: animationController,
       context: context,
