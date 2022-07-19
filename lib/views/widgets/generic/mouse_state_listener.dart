@@ -24,14 +24,14 @@ class _MouseStateListener extends State<MouseStateListener> {
 
   @override
   void initState() {
-    _setInitialStates();
     super.initState();
+    _setInitialStates();
   }
 
   @override
   void didUpdateWidget(covariant MouseStateListener oldWidget) {
-    _setInitialStates();
     super.didUpdateWidget(oldWidget);
+    _setInitialStates();
   }
 
   @override

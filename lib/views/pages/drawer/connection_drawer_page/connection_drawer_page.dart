@@ -13,11 +13,6 @@ class ConnectionDrawerPage extends StatefulWidget {
 
 class _ConnectionDrawerPage extends State<ConnectionDrawerPage> {
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(

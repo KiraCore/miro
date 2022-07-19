@@ -32,19 +32,19 @@ class _MyAccountPage extends State<MyAccountPage> {
 
   @override
   void initState() {
+    super.initState();
     wallet = globalLocator<WalletProvider>().currentWallet!;
     pages = <Widget, Widget>{
       BalancePage(parentScrollController: scrollController): _buildNavigationTab('Balance'),
       const TransactionsPage(): _buildNavigationTab('Transactions')
     };
     currentPage = pages.keys.first;
-    super.initState();
   }
 
   @override
   void didUpdateWidget(covariant MyAccountPage oldWidget) {
-    wallet = globalLocator<WalletProvider>().currentWallet!;
     super.didUpdateWidget(oldWidget);
+    wallet = globalLocator<WalletProvider>().currentWallet!;
   }
 
   @override

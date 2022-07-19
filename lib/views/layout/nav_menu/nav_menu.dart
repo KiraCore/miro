@@ -29,11 +29,6 @@ class _NavMenu extends State<NavMenu> {
   late NavItem currentItem;
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: AppSizes.kKiraMenuWidth,

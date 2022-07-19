@@ -35,6 +35,7 @@ class _MnemonicGridItem extends State<MnemonicGridItem> {
 
   @override
   void initState() {
+    super.initState();
     widget.textController.addListener(_validateMnemonicWord);
 
     focusNode.addListener(() {
@@ -42,7 +43,6 @@ class _MnemonicGridItem extends State<MnemonicGridItem> {
         _setMnemonicState(MnemonicState.valid);
       }
     });
-    super.initState();
   }
 
   @override

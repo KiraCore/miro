@@ -84,8 +84,8 @@ class PopWrapper extends StatefulWidget {
 class _PopWrapper extends State<PopWrapper> with SingleTickerProviderStateMixin {
   @override
   void initState() {
-    setUpController();
     super.initState();
+    setUpController();
   }
 
   @override

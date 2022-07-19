@@ -41,8 +41,8 @@ class _CreateWalletPage extends State<CreateWalletPage> {
 
   @override
   void initState() {
-    _createNewWallet();
     super.initState();
+    _createNewWallet();
   }
 
   @override

@@ -37,11 +37,11 @@ class _KiraTextField extends State<KiraTextField> {
 
   @override
   void initState() {
+    super.initState();
     obscureTextStatus = widget.obscureText;
     widget.controller.initController(
       validate: _validate,
     );
-    super.initState();
   }
 
   @override

@@ -21,14 +21,14 @@ class _HeartButton extends State<StarButton> {
 
   @override
   void initState() {
-    selected = widget.value;
     super.initState();
+    selected = widget.value;
   }
 
   @override
   void didChangeDependencies() {
-    selected = widget.value;
     super.didChangeDependencies();
+    selected = widget.value;
   }
 
   @override

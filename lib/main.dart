@@ -45,11 +45,6 @@ class _CoreApp extends State<CoreApp> {
   );
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Consumer<AppConfigProvider>(
       builder: (_, AppConfigProvider value, Widget? child) {

@@ -29,11 +29,6 @@ class _DashboardGrid extends State<DashboardGrid> {
   late int finalColumnsCount;
 
   @override
-  void initState() {
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     _initColumnsCount();
 
