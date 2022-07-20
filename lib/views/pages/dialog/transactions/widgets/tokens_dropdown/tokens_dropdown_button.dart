@@ -1,13 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:miro/config/theme/design_colors.dart';
-import 'package:miro/views/pages/dialog/transactions/widgets/token_section/models/token_type.dart';
+import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/views/widgets/generic/token_avatar.dart';
 
 class TokenDropdownButton extends StatelessWidget {
-  final TokenType? tokenType;
+  final TokenAliasModel? tokenAliasModel;
 
   const TokenDropdownButton({
-    this.tokenType,
+    this.tokenAliasModel,
     Key? key,
   }) : super(key: key);
 
@@ -26,11 +26,11 @@ class TokenDropdownButton extends StatelessWidget {
           children: <Widget>[
             TokenAvatar(
               size: 19,
-              iconUrl: tokenType?.icon,
+              iconUrl: tokenAliasModel?.icon,
             ),
             const SizedBox(width: 6),
             Text(
-              tokenType?.name ?? '---',
+              tokenAliasModel?.name ?? '---',
               style: const TextStyle(color: DesignColors.white_100),
             ),
           ],

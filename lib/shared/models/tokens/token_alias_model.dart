@@ -1,20 +1,27 @@
 import 'package:miro/infra/dto/api_kira/query_kira_tokens_aliases/response/token_alias.dart';
-import 'package:miro/views/pages/dialog/transactions/widgets/token_section/models/token_denomination.dart';
+import 'package:miro/shared/models/tokens/token_denomination.dart';
 
-class TokenType {
+class TokenAliasModel {
   final String name;
   final TokenDenomination lowestTokenDenomination;
   final TokenDenomination defaultTokenDenomination;
-  final String icon;
+  final String? icon;
 
-  TokenType({
+  TokenAliasModel({
     required this.name,
     required this.lowestTokenDenomination,
     TokenDenomination? defaultTokenDenomination,
-    this.icon = '',
+    this.icon,
   }) : defaultTokenDenomination = defaultTokenDenomination ?? lowestTokenDenomination;
 
-  factory TokenType.fromTokenAlias(TokenAlias tokenAlias) {
+  factory TokenAliasModel.local(String name) {
+    return TokenAliasModel(
+      name: name,
+      lowestTokenDenomination: TokenDenomination(name: name, decimals: 0),
+    );
+  }
+
+  factory TokenAliasModel.fromTokenAlias(TokenAlias tokenAlias) {
     TokenDenomination defaultTokenDenomination = TokenDenomination(
       name: tokenAlias.symbol,
       decimals: tokenAlias.decimals,
@@ -23,8 +30,8 @@ class TokenType {
         ? TokenDenomination(name: tokenAlias.denoms.first, decimals: 0)
         : defaultTokenDenomination;
 
-    return TokenType(
-      name: tokenAlias.symbol,
+    return TokenAliasModel(
+      name: tokenAlias.name,
       icon: tokenAlias.icon,
       defaultTokenDenomination: defaultTokenDenomination,
       lowestTokenDenomination: lowestTokenDenomination,

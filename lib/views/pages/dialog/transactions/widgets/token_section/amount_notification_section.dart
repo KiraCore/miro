@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
-import 'package:miro/views/pages/dialog/transactions/widgets/token_section/models/token_amount.dart';
+import 'package:miro/shared/models/tokens/token_amount.dart';
 import 'package:miro/views/widgets/generic/center_load_spinner.dart';
 
 class AmountNotificationSection extends StatelessWidget {
@@ -9,7 +9,7 @@ class AmountNotificationSection extends StatelessWidget {
   final String? errorMessage;
 
   const AmountNotificationSection({
-    required this.loading,
+    this.loading = false,
     this.maxTokenAmount,
     this.errorMessage,
     Key? key,

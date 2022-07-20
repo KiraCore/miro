@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:miro/shared/models/tokens/token_alias_model.dart';
+import 'package:miro/shared/models/tokens/token_denomination.dart';
 import 'package:miro/views/pages/dialog/transactions/widgets/msg_form/msg_form_type.dart';
-import 'package:miro/views/pages/dialog/transactions/widgets/token_section/models/token_denomination.dart';
-import 'package:miro/views/pages/dialog/transactions/widgets/token_section/models/token_type.dart';
 import 'package:miro/views/pages/dialog/transactions/widgets/tokens_dropdown/tokens_dropdown_list_item.dart';
 
-typedef TokenTypeSelectedCallback = void Function(TokenType tokenType);
-
 class TokensDropdownList extends StatefulWidget {
-  final TokenTypeSelectedCallback onTokenTypeSelected;
+  final ValueChanged<TokenAliasModel> onChanged;
   final MsgFormType msgFormType;
 
   const TokensDropdownList({
-    required this.onTokenTypeSelected,
+    required this.onChanged,
     required this.msgFormType,
     Key? key,
   }) : super(key: key);
@@ -21,26 +19,32 @@ class TokensDropdownList extends StatefulWidget {
 }
 
 class _TokensDropdownList extends State<TokensDropdownList> {
-  List<TokenType> tokenTypesList = List<TokenType>.empty(growable: true);
+  List<TokenAliasModel> tokenAliasModelList = List<TokenAliasModel>.empty(growable: true);
 
   @override
   void initState() {
     super.initState();
     // TODO(dominik): Mocked values. Connect list with infra
-    tokenTypesList = <TokenType>[
-      TokenType(
-        name: 'KEX',
+    tokenAliasModelList = <TokenAliasModel>[
+      TokenAliasModel.local('LUNA'),
+      TokenAliasModel.local('LUNC'),
+      TokenAliasModel.local('USDT'),
+      TokenAliasModel.local('USDC'),
+      TokenAliasModel.local('BUSD'),
+      TokenAliasModel(
+        name: 'Kira',
         lowestTokenDenomination: const TokenDenomination(name: 'ukex', decimals: 0),
         defaultTokenDenomination: const TokenDenomination(name: 'KEX', decimals: 6),
       ),
-      TokenType(
-        name: 'LUNC',
-        lowestTokenDenomination: const TokenDenomination(name: 'LUNC', decimals: 0),
+      TokenAliasModel(
+        name: 'Bitcoin',
+        lowestTokenDenomination: const TokenDenomination(name: 'satoshi', decimals: 0),
+        defaultTokenDenomination: const TokenDenomination(name: 'BTC', decimals: 8),
       ),
-      TokenType(
-        name: 'ETC',
-        lowestTokenDenomination: const TokenDenomination(name: 'GWEI', decimals: 0),
-        defaultTokenDenomination: const TokenDenomination(name: 'ETC', decimals: 9),
+      TokenAliasModel(
+        name: 'Etherum',
+        lowestTokenDenomination: const TokenDenomination(name: 'wei', decimals: 0),
+        defaultTokenDenomination: const TokenDenomination(name: 'ETH', decimals: 18),
       ),
     ];
   }
@@ -48,12 +52,12 @@ class _TokensDropdownList extends State<TokensDropdownList> {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: tokenTypesList.length,
+      itemCount: tokenAliasModelList.length,
       itemBuilder: (BuildContext context, int index) {
-        TokenType tokenType = tokenTypesList[index];
+        TokenAliasModel tokenAliasModel = tokenAliasModelList[index];
         return TokensDropdownListItem(
-          tokenType: tokenType,
-          onTap: () => widget.onTokenTypeSelected(tokenType),
+          tokenAliasModel: tokenAliasModel,
+          onTap: () => widget.onChanged(tokenAliasModel),
         );
       },
     );

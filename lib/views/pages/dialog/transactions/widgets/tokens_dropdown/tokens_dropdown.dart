@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:miro/shared/models/tokens/token_alias_model.dart';
+import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/views/pages/dialog/transactions/widgets/msg_form/msg_form_type.dart';
-import 'package:miro/views/pages/dialog/transactions/widgets/token_section/models/token_type.dart';
 import 'package:miro/views/pages/dialog/transactions/widgets/tokens_dropdown/tokens_dropdown_button.dart';
-import 'package:miro/views/pages/dialog/transactions/widgets/tokens_dropdown/tokens_dropdown_controller.dart';
 import 'package:miro/views/pages/dialog/transactions/widgets/tokens_dropdown/tokens_dropdown_list.dart';
 import 'package:miro/views/widgets/generic/pop_wrapper.dart';
 
 class TokensDropdown extends StatefulWidget {
-  final TokensDropdownController controller;
+  final WalletAddress? senderWalletAddress;
   final MsgFormType msgFormType;
-  final void Function(TokenType) onTokenTypeChanged;
-  final TokenType? initialTokenType;
+  final ValueChanged<TokenAliasModel> onChanged;
+  final TokenAliasModel? initialTokenAliasModel;
 
   const TokensDropdown({
-    required this.controller,
+    required this.senderWalletAddress,
     required this.msgFormType,
-    required this.onTokenTypeChanged,
-    this.initialTokenType,
+    required this.onChanged,
+    this.initialTokenAliasModel,
     Key? key,
   }) : super(key: key);
 
@@ -26,12 +26,12 @@ class TokensDropdown extends StatefulWidget {
 
 class _TokensDropdown extends State<TokensDropdown> {
   final PopWrapperController popWrapperController = PopWrapperController();
-  final ValueNotifier<TokenType?> selectedTokenTypeNotifier = ValueNotifier<TokenType?>(null);
+  TokenAliasModel? selectedTokenAliasModel;
 
   @override
   void initState() {
     super.initState();
-    selectedTokenTypeNotifier.value = widget.initialTokenType;
+    selectedTokenAliasModel = widget.initialTokenAliasModel;
   }
 
   @override
@@ -55,13 +55,8 @@ class _TokensDropdown extends State<TokensDropdown> {
   }
 
   Widget _buildDropdownButton(AnimationController animationController) {
-    return ValueListenableBuilder<TokenType?>(
-      valueListenable: selectedTokenTypeNotifier,
-      builder: (_, TokenType? selectedTokenType, __) {
-        return TokenDropdownButton(
-          tokenType: selectedTokenType,
-        );
-      },
+    return TokenDropdownButton(
+      tokenAliasModel: selectedTokenAliasModel,
     );
   }
 
@@ -71,15 +66,16 @@ class _TokensDropdown extends State<TokensDropdown> {
       width: constraints.maxWidth + 20,
       height: 150,
       child: TokensDropdownList(
-        onTokenTypeSelected: _onListItemTap,
+        onChanged: _handleTokenAliasModelSelected,
         msgFormType: widget.msgFormType,
       ),
     );
   }
 
-  void _onListItemTap(TokenType tokenType) {
+  void _handleTokenAliasModelSelected(TokenAliasModel tokenAliasModel) {
+    selectedTokenAliasModel = tokenAliasModel;
     popWrapperController.toggleMenu();
-    selectedTokenTypeNotifier.value = tokenType;
-    widget.onTokenTypeChanged(tokenType);
+    widget.onChanged.call(tokenAliasModel);
+    setState(() {});
   }
 }

@@ -1,153 +1,114 @@
+import 'package:decimal/decimal.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/shared/models/tokens/token_alias_model.dart';
+import 'package:miro/shared/models/tokens/token_amount.dart';
+import 'package:miro/shared/models/tokens/token_denomination.dart';
+import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/views/pages/dialog/transactions/widgets/msg_form/msg_form_type.dart';
 import 'package:miro/views/pages/dialog/transactions/widgets/token_section/amount_notification_section.dart';
 import 'package:miro/views/pages/dialog/transactions/widgets/token_section/amount_text_field.dart';
 import 'package:miro/views/pages/dialog/transactions/widgets/token_section/denomination_chip_button_list.dart';
-import 'package:miro/views/pages/dialog/transactions/widgets/token_section/models/token_amount.dart';
-import 'package:miro/views/pages/dialog/transactions/widgets/token_section/models/token_denomination.dart';
-import 'package:miro/views/pages/dialog/transactions/widgets/token_section/models/token_type.dart';
 import 'package:miro/views/pages/dialog/transactions/widgets/token_section/token_section_controller.dart';
+import 'package:miro/views/pages/dialog/transactions/widgets/token_section/token_section_layout.dart';
 import 'package:miro/views/pages/dialog/transactions/widgets/tokens_dropdown/tokens_dropdown.dart';
-import 'package:miro/views/pages/dialog/transactions/widgets/tokens_dropdown/tokens_dropdown_controller.dart';
 import 'package:miro/views/widgets/generic/decorated_input.dart';
 
 class TokenSection extends StatefulWidget {
-  final TokenSectionController tokenSectionController;
-  final MsgFormType msgFormType;
-  final bool loading;
-  final String? address;
-  final void Function(TokenAmount?) onChanged;
-  final TokenType? initialTokenType;
+  final WalletAddress? senderWalletAddress;
   final bool disabled;
+  final MsgFormType msgFormType;
+  final ValueChanged<TokenAmount?> onChanged;
+  final TokenAliasModel? initialTokenAliasModel;
+  final TokenSectionController tokenSectionController;
 
-  const TokenSection({
-    required this.tokenSectionController,
-    required this.loading,
-    required this.address,
+  TokenSection({
+    required this.senderWalletAddress,
+    required this.disabled,
     required this.msgFormType,
     required this.onChanged,
-    this.initialTokenType,
-    this.disabled = false,
+    this.initialTokenAliasModel,
+    TokenSectionController? tokenSectionController,
     Key? key,
-  }) : super(key: key);
+  })  : tokenSectionController = tokenSectionController ?? TokenSectionController(),
+        super(key: key);
 
   @override
   State<StatefulWidget> createState() => _TokenSection();
 }
 
 class _TokenSection extends State<TokenSection> {
-  final TokensDropdownController _tokensDropDownController = TokensDropdownController();
-
   @override
   void initState() {
-    widget.tokenSectionController.addListener(_handleTokenSectionControllerChange);
-    if (widget.initialTokenType != null) {
-      _onTokenTypeChanged(widget.initialTokenType!);
-    }
     super.initState();
+    widget.tokenSectionController.addListener(_handleTokenSectionControllerChangedValue);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Opacity(
-      opacity: widget.disabled || widget.loading ? 0.6 : 1,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Expanded(
-                child: AmountTextField(
-                  disabled: textFieldDisabled,
-                  textEditingController: widget.tokenSectionController.amountValueTextController,
-                  onAmountChanged: _onAmountTextChanged,
-                ),
-              ),
-              const SizedBox(width: 14),
-              Expanded(
-                child: DecoratedInput(
-                  childHeight: 45,
-                  child: TokensDropdown(
-                    controller: _tokensDropDownController,
-                    msgFormType: widget.msgFormType,
-                    initialTokenType: widget.initialTokenType,
-                    onTokenTypeChanged: _onTokenTypeChanged,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          ValueListenableBuilder<String?>(
-            valueListenable: widget.tokenSectionController.errorMessageNotifier,
-            builder: (_, String? errorMessage, __) => _buildNotificationSection(errorMessage),
-          ),
-          const SizedBox(height: 14),
-          if (widget.tokenSectionController.sendTokenAmount != null)
-            Row(
-              children: <Widget>[
-                const Text(
-                  'Denomination',
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: DesignColors.gray2_100,
-                  ),
-                ),
-                const SizedBox(width: 10),
-                DenominationChipButtonList(
-                  denominations: denominationList,
-                  initialTokenDenomination: initialTokenDenomination,
-                  onDenominationChanged: _onDenominationChanged,
-                ),
-              ],
-            ),
-        ],
+    return TokenSectionLayout(
+      hasTransparentOverlay: widget.disabled,
+      amountTextFieldWidget: ValueListenableBuilder<TokenAmount?>(
+        valueListenable: widget.tokenSectionController.tokenAmountNotifier,
+        builder: (_, TokenAmount? tokenAmount, __) {
+          return AmountTextField(
+            disabled: tokenAmount == null,
+            textEditingController: widget.tokenSectionController.amountTextEditingController,
+            onChanged: _handleAmountChanged,
+            onError: _handleError,
+          );
+        },
+      ),
+      tokensDropdownWidget: DecoratedInput(
+        childHeight: 45,
+        child: TokensDropdown(
+          senderWalletAddress: widget.senderWalletAddress,
+          msgFormType: widget.msgFormType,
+          initialTokenAliasModel: widget.initialTokenAliasModel,
+          onChanged: _handleTokenAliasModelChanged,
+        ),
+      ),
+      notificationSectionWidget: ValueListenableBuilder<String?>(
+          valueListenable: widget.tokenSectionController.errorNotifier,
+          builder: (_, String? errorMessage, __) {
+            return AmountNotificationSection(
+              errorMessage: errorMessage,
+              // maxTokenAmount: widget.tokenSectionController.availableTokenAmount,
+            );
+          }),
+      denominationWidget: ValueListenableBuilder<TokenAmount?>(
+        valueListenable: widget.tokenSectionController.tokenAmountNotifier,
+        builder: (_, TokenAmount? tokenAmount, __) {
+          if (tokenAmount == null) {
+            return const SizedBox();
+          }
+          return DenominationChipButtonList(
+            tokenAliasModel: tokenAmount.tokenAliasModel,
+            onChanged: _handleDenominationChanged,
+          );
+        },
       ),
     );
   }
 
-  void _handleTokenSectionControllerChange() {
-    TokenAmount? tokenAmount = widget.tokenSectionController.sendTokenAmount;
-    widget.onChanged(tokenAmount);
+  void _handleTokenSectionControllerChangedValue() {
+    TokenAmount? selectedTokenAmount = widget.tokenSectionController.tokenAmountNotifier.value;
+    widget.onChanged.call(selectedTokenAmount);
   }
 
-  bool get textFieldDisabled {
-    return widget.tokenSectionController.sendTokenAmount == null || widget.disabled;
+  void _handleAmountChanged(Decimal amount) {
+    widget.tokenSectionController.setAmount(amount);
   }
 
-  void _onAmountTextChanged(String value) {
-    widget.tokenSectionController.updateAmountValue(value);
+  void _handleTokenAliasModelChanged(TokenAliasModel tokenAliasModel) {
+    widget.tokenSectionController.setTokenAliasModel(tokenAliasModel);
   }
 
-  Widget _buildNotificationSection(String? errorMessage) {
-    return AmountNotificationSection(
-      loading: widget.loading,
-      errorMessage: errorMessage,
-      maxTokenAmount: widget.tokenSectionController.availableTokenAmount,
-    );
+  void _handleDenominationChanged(TokenDenomination tokenDenomination) {
+    widget.tokenSectionController.setTokenDenomination(tokenDenomination);
   }
 
-  void _onTokenTypeChanged(TokenType tokenType) {
-    widget.tokenSectionController.updateTokenType(tokenType);
-    setState(() {});
-  }
-
-  List<TokenDenomination> get denominationList {
-    return widget.tokenSectionController.selectedTokenType?.tokenDenominations ??
-        List<TokenDenomination>.empty(growable: true);
-  }
-
-  TokenDenomination get initialTokenDenomination {
-    return widget.tokenSectionController.sendTokenAmount!.tokenDenomination;
-  }
-
-  void _onDenominationChanged(TokenDenomination tokenDenomination) {
-    setState(() {
-      widget.tokenSectionController.updateTokenDenomination(tokenDenomination);
-    });
+  void _handleError(String error) {
+    widget.tokenSectionController.setError(error);
   }
 }
