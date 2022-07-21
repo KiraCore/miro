@@ -16,7 +16,7 @@ class QueryAccountService implements _QueryAccountService {
 
   @override
   Future<QueryAccountResp> fetchQueryAccount(String address, {Uri? customUri}) async {
-    Uri networkUri = customUri ?? globalLocator<NetworkBloc>().connectedNetworkUri!;
+    Uri networkUri = customUri ?? globalLocator<NetworkBloc>().state.networkUri!;
     try {
       final QueryAccountResp response = await _apiCosmosRepository.fetchQueryAccount(
         networkUri,

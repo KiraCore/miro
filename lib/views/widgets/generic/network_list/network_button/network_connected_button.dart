@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/shared/models/network/status/a_network_status_model.dart';
+import 'package:miro/shared/models/network/status/online/a_network_online_model.dart';
 
 class NetworkConnectedButton extends StatelessWidget {
   final Color color;
+  final ANetworkStatusModel networkStatusModel;
 
   const NetworkConnectedButton({
     required this.color,
+    required this.networkStatusModel,
     Key? key,
   }) : super(key: key);
 
@@ -17,13 +21,20 @@ class NetworkConnectedButton extends StatelessWidget {
         backgroundColor: MaterialStateProperty.all(color),
       ),
       child: Text(
-        'Connected'.toUpperCase(),
+        title.toUpperCase(),
         style: TextStyle(
           fontSize: 12,
           color: _getFontColor(),
         ),
       ),
     );
+  }
+
+  String get title {
+    if (networkStatusModel is ANetworkOnlineModel) {
+      return 'Connected';
+    }
+    return 'Connecting';
   }
 
   Color _getFontColor() {

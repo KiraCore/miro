@@ -12,7 +12,7 @@ class MockApiRepository implements ApiRepository {
   Future<Response<T>> fetchQueryInterxStatus<T>(Uri networkUri) async {
     int statusCode = 404;
     Map<String, dynamic>? mockedResponse;
-
+    await Future<void>.delayed(const Duration(milliseconds: 50));
     if (networkUri.host == 'online.kira.network') {
       statusCode = 200;
       mockedResponse = apiStatusMock;

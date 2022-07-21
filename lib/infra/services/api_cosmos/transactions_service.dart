@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:miro/blocs/specific_blocs/network/network_bloc.dart';
-import 'package:miro/blocs/specific_blocs/network/states/network_connected_state.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/broadcast_req.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/transaction/signed_transaction.dart';
@@ -28,7 +27,7 @@ class TransactionsService implements _ITransactionsService {
 
   @override
   Future<BroadcastResp> broadcastTransaction(SignedTransaction signedTransaction, {Uri? customUri}) async {
-    Uri networkUri = customUri ?? globalLocator<NetworkBloc>().connectedNetworkUri!;
+    Uri networkUri = customUri ?? globalLocator<NetworkBloc>().state.networkUri!;
     try {
       final BroadcastResp response = await _apiCosmosRepository.broadcast(
         networkUri,
@@ -52,12 +51,14 @@ class TransactionsService implements _ITransactionsService {
 
     assert(wallet != null, 'User should be logged in');
     assert(wallet is UnsafeWallet, 'User should be logged via UnsafeWallet');
-    assert(networkBloc.state is NetworkConnectedState || customUri != null, 'Network should be connected');
+    assert(networkBloc.state.isConnected || customUri != null, 'Network should be connected');
 
-    final ANetworkOnlineModel networkOnlineModel = networkBloc.connectedNetworkStatusModel as ANetworkOnlineModel;
+    final ANetworkOnlineModel networkOnlineModel = networkBloc.state.networkStatusModel as ANetworkOnlineModel;
 
-    QueryAccountResp queryAccountResp =
-        await accountService.fetchQueryAccount(wallet!.address.bech32Address, customUri: customUri);
+    QueryAccountResp queryAccountResp = await accountService.fetchQueryAccount(
+      wallet!.address.bech32Address,
+      customUri: customUri,
+    );
     SignedTransaction signedTransaction = TransactionSigner.sign(
       unsignedTransaction: unsignedTransaction,
       ecPrivateKey: (wallet as UnsafeWallet).ecPrivateKey,

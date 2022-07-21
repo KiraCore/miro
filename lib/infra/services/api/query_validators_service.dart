@@ -59,7 +59,7 @@ class QueryValidatorsService implements _IQueryValidatorsService {
     QueryValidatorsReq queryValidatorsReq, {
     Uri? optionalNetworkUri,
   }) async {
-    Uri networkUri = optionalNetworkUri ?? globalLocator<NetworkBloc>().connectedNetworkUri!;
+    Uri networkUri = optionalNetworkUri ?? globalLocator<NetworkBloc>().state.networkUri!;
     try {
       final Response<dynamic> response =
           await _apiRepository.fetchQueryValidators<dynamic>(networkUri, queryValidatorsReq);

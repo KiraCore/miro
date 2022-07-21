@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:miro/blocs/specific_blocs/network/a_network_state.dart';
 import 'package:miro/blocs/specific_blocs/network/network_bloc.dart';
-import 'package:miro/blocs/specific_blocs/network/states/network_connected_state.dart';
+import 'package:miro/blocs/specific_blocs/network/network_state.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
 import 'package:miro/shared/models/network/status/network_unknown_model.dart';
@@ -27,8 +26,8 @@ class NetworkListTile extends StatefulWidget {
 class _NetworkListTile extends State<NetworkListTile> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<NetworkBloc, ANetworkState>(
-      builder: (_, ANetworkState networkState) {
+    return BlocBuilder<NetworkBloc, NetworkState>(
+      builder: (_, NetworkState networkState) {
         bool actualConnectedNetwork = isActualConnectedNetwork(networkState);
         return Container(
           margin: const EdgeInsets.symmetric(vertical: 8),
@@ -75,12 +74,10 @@ class _NetworkListTile extends State<NetworkListTile> {
     );
   }
 
-  bool isActualConnectedNetwork(ANetworkState networkState) {
-    ANetworkStatusModel? networkStatusModel;
-    if (networkState is NetworkConnectedState) {
-      networkStatusModel = networkState.networkStatusModel;
-    }
-    return networkStatusModel?.uri == widget.networkStatusModel.uri;
+  bool isActualConnectedNetwork(NetworkState networkState) {
+    ANetworkStatusModel? connectedNetworkStatusModel = networkState.networkStatusModel;
+    ANetworkStatusModel widgetNetworkStatusModel = widget.networkStatusModel;
+    return connectedNetworkStatusModel?.uri == widgetNetworkStatusModel.uri;
   }
 
   Color get foregroundColor {

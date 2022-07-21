@@ -14,9 +14,9 @@ import 'package:miro/blocs/specific_blocs/list/sort/events/sort_change_event.dar
 import 'package:miro/blocs/specific_blocs/list/sort/events/sort_clear_event.dart';
 import 'package:miro/blocs/specific_blocs/list/sort/sort_bloc.dart';
 import 'package:miro/blocs/specific_blocs/network/events/network_set_up_event.dart';
+import 'package:miro/blocs/specific_blocs/network/network_bloc.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/cache/cache_manager.dart';
-import 'package:miro/providers/network_provider/network_provider.dart';
 import 'package:miro/shared/models/network/network_info_model.dart';
 import 'package:miro/shared/models/network/status/online/network_healthy_model.dart';
 import 'package:miro/test/test_locator.dart';
@@ -112,7 +112,7 @@ Future<void> main() async {
       );
 
       // Act
-      await globalLocator<NetworkProvider>().handleEvent(NetworkSetUpEvent(networkHealthyModel));
+      globalLocator<NetworkBloc>().add(NetworkSetUpEvent(networkHealthyModel));
       await Future<void>.delayed(const Duration(milliseconds: 100));
 
       // Assert

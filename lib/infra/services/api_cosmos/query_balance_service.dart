@@ -17,7 +17,7 @@ class QueryBalanceService implements _QueryBalanceService {
 
   @override
   Future<QueryBalanceResp?> getMyAccountBalance() async {
-    Uri networkUri = globalLocator<NetworkBloc>().connectedNetworkUri!;
+    Uri networkUri = globalLocator<NetworkBloc>().state.networkUri!;
     QueryBalanceReq queryBalanceReq = QueryBalanceReq(
       address: globalLocator<WalletProvider>().currentWallet!.address.bech32Address,
     );

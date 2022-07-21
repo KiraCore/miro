@@ -15,7 +15,7 @@ class DashboardService implements _DashboardService {
 
   @override
   Future<DashboardResp> getData({Uri? optionalNetworkUri}) async {
-    Uri networkUri = optionalNetworkUri ?? globalLocator<NetworkBloc>().connectedNetworkUri!;
+    Uri networkUri = optionalNetworkUri ?? globalLocator<NetworkBloc>().state.networkUri!;
     try {
       final Response<dynamic> response = await _apiRepository.fetchDashboard<dynamic>(networkUri);
       return DashboardResp.fromJson(response.data as Map<String, dynamic>);

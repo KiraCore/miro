@@ -21,7 +21,7 @@ class NetworkButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (isConnected) {
-      return NetworkConnectedButton(color: color);
+      return NetworkConnectedButton(networkStatusModel: networkStatusModel, color: color);
     }
     if (networkStatusModel is ANetworkOnlineModel) {
       return NetworkConnectButton(

@@ -30,7 +30,7 @@ import 'package:miro/shared/utils/list_utils.dart';
 
 abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListState> {
   /// Network provider is used to get network url.
-  /// If NetworkProvider hasn't network url specified, list will emit [ListDisconnectedState]
+  /// If NetworkBloc hasn't network url specified, list will emit [ListDisconnectedState]
   final NetworkBloc networkBloc = globalLocator<NetworkBloc>();
 
   final IListController<T> listController;
@@ -104,7 +104,7 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
     if (loadingListStatus) {
       return;
     }
-    if (!networkBloc.isConnected) {
+    if (!networkBloc.state.hasUri) {
       emit(ListDisconnectedState());
       return;
     }

@@ -7,16 +7,24 @@ class NetworkBrowserUrlUtils {
   static String? getNetworkAddress({Uri? optionalNetworkUri}) {
     Uri baseUri = optionalNetworkUri ?? Uri.base;
     String? interxAddress = baseUri.queryParameters['rpc'];
-    return interxAddress;
+    return (interxAddress ?? '').isNotEmpty ? interxAddress : null;
   }
 
   static void addNetworkAddress(ANetworkStatusModel networkStatusModel) {
     Uri uri = Uri.base;
-    Map<String, dynamic> queryParameters = <String, dynamic>{
-      ...uri.queryParameters,
-      networkQueryParameterKey: networkStatusModel.uri.toString(),
-    };
+    Map<String, dynamic> queryParameters = getQueryParametersForNetwork(uri.queryParameters, networkStatusModel);
     _setQueryParameters(uri, queryParameters);
+  }
+
+  static Map<String, dynamic> getQueryParametersForNetwork(
+    Map<String, dynamic> currentQueryParameters,
+    ANetworkStatusModel? networkStatusModel,
+  ) {
+    Map<String, dynamic> queryParameters = <String, dynamic>{
+      ...currentQueryParameters,
+      if (networkStatusModel != null) networkQueryParameterKey: networkStatusModel.uri.toString(),
+    };
+    return queryParameters;
   }
 
   static void removeNetworkAddress() {
