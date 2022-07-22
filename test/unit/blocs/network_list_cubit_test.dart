@@ -52,7 +52,7 @@ Future<void> main() async {
       await actualNetworkListCubit.initNetworkList();
 
       // Assert
-      expectedNetworkListState = NetworkListLoadedState(networkStatusModels: <ANetworkStatusModel>[
+      expectedNetworkListState = NetworkListLoadedState(networkStatusModelsList: <ANetworkStatusModel>[
         NetworkUnknownModel(uri: Uri.parse('https://healthy.kira.network/')),
         NetworkUnknownModel(uri: Uri.parse('https://online.kira.network/')),
         NetworkUnknownModel(uri: Uri.parse('https://offline.kira.network/'))
@@ -68,7 +68,7 @@ Future<void> main() async {
       await Future<void>.delayed(const Duration(milliseconds: 600));
 
       // Assert
-      expectedNetworkListState = NetworkListLoadedState(networkStatusModels: <ANetworkStatusModel>[
+      expectedNetworkListState = NetworkListLoadedState(networkStatusModelsList: <ANetworkStatusModel>[
         NetworkHealthyModel(
           uri: Uri.parse('https://healthy.kira.network/'),
           networkInfoModel: NetworkInfoModel(

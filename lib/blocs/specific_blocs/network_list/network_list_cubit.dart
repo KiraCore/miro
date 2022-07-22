@@ -13,7 +13,7 @@ import 'package:miro/shared/utils/app_logger.dart';
 class NetworkListCubit extends Cubit<ANetworkListState> {
   final NetworkUtilsService networkUtilsService = globalLocator<NetworkUtilsService>();
 
-  List<ANetworkStatusModel> _networkList = List<ANetworkStatusModel>.empty(growable: true);
+  List<ANetworkStatusModel> _networkStatusModelsList = List<ANetworkStatusModel>.empty(growable: true);
 
   NetworkListCubit() : super(NetworkListLoadingState());
 
@@ -22,10 +22,10 @@ class NetworkListCubit extends Cubit<ANetworkListState> {
   }
 
   Future<void> initNetworkList() async {
-    List<NetworkUnknownModel> configNetworkUnknownModels = await _loadNetworkStatusModelsFromConfig();
-    _networkList = List<ANetworkStatusModel>.from(configNetworkUnknownModels);
-    emit(NetworkListLoadedState(networkStatusModels: _networkList));
-    _updateNetworksRemoteInfo();
+    List<NetworkUnknownModel> cfgNetUnknownModelsList = await _loadNetworkStatusModelsFromConfig();
+    _networkStatusModelsList = List<ANetworkStatusModel>.from(cfgNetUnknownModelsList);
+    emit(NetworkListLoadedState(networkStatusModelsList: _networkStatusModelsList));
+    _updateNetworksInfo();
   }
 
   Future<List<NetworkUnknownModel>> _loadNetworkStatusModelsFromConfig() async {
@@ -33,20 +33,20 @@ class NetworkListCubit extends Cubit<ANetworkListState> {
     return networkListLoader.loadNetworkListConfig();
   }
 
-  void _updateNetworksRemoteInfo() {
-    for (int i = 0; i < _networkList.length; i++) {
+  void _updateNetworksInfo() {
+    for (int i = 0; i < _networkStatusModelsList.length; i++) {
       _updateNetworkStatusModel(i);
     }
   }
 
   Future<void> _updateNetworkStatusModel(int index) async {
     ANetworkStatusModel newNetworkStatusModel = await _getNetworkStatusModelFromInterx(index);
-    _networkList[index] = newNetworkStatusModel;
-    emit(NetworkListLoadedState(networkStatusModels: _networkList));
+    _networkStatusModelsList[index] = newNetworkStatusModel;
+    emit(NetworkListLoadedState(networkStatusModelsList: _networkStatusModelsList));
   }
 
   Future<ANetworkStatusModel> _getNetworkStatusModelFromInterx(int index) async {
-    NetworkUnknownModel networkUnknownModel = NetworkUnknownModel.fromNetworkStatusModel(_networkList[index]);
+    NetworkUnknownModel networkUnknownModel = NetworkUnknownModel.fromNetworkStatusModel(_networkStatusModelsList[index]);
     try {
       return await networkUtilsService.getNetworkStatusModel(networkUnknownModel);
     } catch (_) {

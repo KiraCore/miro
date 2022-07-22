@@ -15,13 +15,13 @@ class NetworkList extends StatelessWidget {
     return BlocBuilder<NetworkListCubit, ANetworkListState>(
       builder: (_, ANetworkListState networkListState) {
         if (networkListState is NetworkListLoadedState) {
-          int networkListLength = networkListState.networkStatusModels.length;
+          int networkListLength = networkListState.networkStatusModelsList.length;
           return ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: networkListLength,
             itemBuilder: (_, int index) {
-              ANetworkStatusModel currentNetwork = networkListState.networkStatusModels[index];
+              ANetworkStatusModel currentNetwork = networkListState.networkStatusModelsList[index];
               return NetworkListTile(networkStatusModel: currentNetwork);
             },
           );
