@@ -47,6 +47,7 @@ class NetworkListCubit extends Cubit<ANetworkListState> {
     NetworkUnknownModel networkUnknownModel = NetworkUnknownModel.fromNetworkStatusModel(
       _networkStatusModelsList[index],
     );
-    return await networkUtilsService.getNetworkStatusModel(networkUnknownModel);
+    ANetworkStatusModel networkStatusModel = await networkUtilsService.getNetworkStatusModel(networkUnknownModel);
+    return networkStatusModel;
   }
 }

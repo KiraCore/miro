@@ -27,14 +27,14 @@ class NetworkUtilsService extends _INetworkUtilsService {
   Future<ANetworkStatusModel> getNetworkStatusModel(NetworkUnknownModel networkUnknownModel) async {
     try {
       Status? status = await queryValidatorsService.getStatus(networkUnknownModel.uri);
-      QueryInterxStatusResp queryInterxStatusResp = await queryInterxStatusService.getQueryInterxStatusResp(
-        networkUnknownModel.uri,
-      );
+      QueryInterxStatusResp queryInterxStatusResp =
+          await queryInterxStatusService.getQueryInterxStatusResp(networkUnknownModel.uri);
 
-      return _buildNetworkOnlineModel(
+      ANetworkStatusModel networkStatusModel = _buildNetworkOnlineModel(
         networkUnknownModel: networkUnknownModel,
         networkInfoModel: NetworkInfoModel.fromDto(queryInterxStatusResp, status),
       );
+      return networkStatusModel;
     } catch (e) {
       if (networkUnknownModel.isHttp()) {
         return getNetworkStatusModel(networkUnknownModel.withHttps());
