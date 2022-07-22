@@ -59,12 +59,11 @@ class NetworkListTileTitle extends StatelessWidget {
             ),
           ],
         ),
-        if (networkStatusModel is NetworkUnhealthyModel &&
-            (networkStatusModel as NetworkUnhealthyModel).hasErrors) ...<Widget>[
+        if (hasErrors) ...<Widget>[
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
             child: Text(
-              'Found ${(networkStatusModel as NetworkUnhealthyModel).interxErrors.length} problems with server',
+              'Found ${errorsCount} problems with server',
               style: const TextStyle(
                 fontSize: 12,
                 color: DesignColors.yellow_100,
@@ -75,5 +74,19 @@ class NetworkListTileTitle extends StatelessWidget {
           const SizedBox(height: 8),
       ],
     );
+  }
+
+  bool get hasErrors {
+    if (networkStatusModel is NetworkUnhealthyModel) {
+      return (networkStatusModel as NetworkUnhealthyModel).interxError.hasErrors;
+    }
+    return false;
+  }
+
+  int get errorsCount {
+    if (networkStatusModel is NetworkUnhealthyModel) {
+      return (networkStatusModel as NetworkUnhealthyModel).interxError.interxErrorTypes.length;
+    }
+    return 0;
   }
 }

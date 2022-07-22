@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:miro/blocs/specific_blocs/network/events/network_connect_from_url_event.dart';
-import 'package:miro/blocs/specific_blocs/network/network_bloc.dart';
+import 'package:miro/blocs/specific_blocs/network_module/events/network_module_connect_from_url_event.dart';
+import 'package:miro/blocs/specific_blocs/network_module/network_module_bloc.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/theme_dark.dart';
 import 'package:miro/generated/l10n.dart';
@@ -19,7 +19,7 @@ Future<void> main() async {
   await initLocator();
   await globalLocator<CacheManager>().init();
   setPathUrlStrategy();
-  globalLocator<NetworkBloc>().add(const NetworkConnectFromUrlEvent());
+  globalLocator<NetworkModuleBloc>().add(const NetworkModuleConnectFromUrlEvent());
   runApp(
     // ignore: always_specify_types
     ChangeNotifierProvider.value(

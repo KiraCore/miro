@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:miro/blocs/specific_blocs/network/events/network_set_up_event.dart';
-import 'package:miro/blocs/specific_blocs/network/network_bloc.dart';
+import 'package:miro/blocs/specific_blocs/network_module/events/network_module_set_up_event.dart';
+import 'package:miro/blocs/specific_blocs/network_module/network_module_bloc.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
@@ -41,7 +41,7 @@ class NetworkConnectButton extends StatelessWidget {
 
   Future<void> _connectToNetwork() async {
     if (networkStatusModel is ANetworkOnlineModel) {
-      globalLocator<NetworkBloc>().add(NetworkSetUpEvent(networkStatusModel as ANetworkOnlineModel));
+      globalLocator<NetworkModuleBloc>().add(NetworkModuleSetUpEvent(networkStatusModel as ANetworkOnlineModel));
     }
   }
 }

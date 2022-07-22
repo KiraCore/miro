@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:miro/blocs/specific_blocs/network/network_bloc.dart';
-import 'package:miro/blocs/specific_blocs/network/network_state.dart';
+import 'package:miro/blocs/specific_blocs/network_module/network_module_bloc.dart';
+import 'package:miro/blocs/specific_blocs/network_module/network_module_state.dart';
 import 'package:miro/config/app_sizes.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/assets.dart';
@@ -49,9 +49,9 @@ class NetworkCurrentButton extends StatelessWidget {
                   ),
                   const SizedBox(width: 8),
                   Expanded(
-                    child: BlocBuilder<NetworkBloc, NetworkState>(
-                      builder: (_, NetworkState networkState) {
-                        String networkName = networkState.networkStatusModel?.name ?? 'SELECT NETWORK';
+                    child: BlocBuilder<NetworkModuleBloc, NetworkModuleState>(
+                      builder: (_, NetworkModuleState networkModuleState) {
+                        String networkName = networkModuleState.networkStatusModel?.name ?? 'SELECT NETWORK';
 
                         return Text(
                           networkName,

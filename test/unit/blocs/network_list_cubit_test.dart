@@ -3,11 +3,12 @@ import 'package:miro/blocs/specific_blocs/network_list/a_network_list_state.dart
 import 'package:miro/blocs/specific_blocs/network_list/network_list_cubit.dart';
 import 'package:miro/blocs/specific_blocs/network_list/states/network_list_loaded_state.dart';
 import 'package:miro/blocs/specific_blocs/network_list/states/network_list_loading_state.dart';
+import 'package:miro/shared/models/network/interx_error.dart';
+import 'package:miro/shared/models/network/interx_error_type.dart';
 import 'package:miro/shared/models/network/network_info_model.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
 import 'package:miro/shared/models/network/status/network_offline_model.dart';
 import 'package:miro/shared/models/network/status/network_unknown_model.dart';
-import 'package:miro/shared/models/network/status/online/interx_error.dart';
 import 'package:miro/shared/models/network/status/online/network_healthy_model.dart';
 import 'package:miro/shared/models/network/status/online/network_unhealthy_model.dart';
 import 'package:miro/test/test_locator.dart';
@@ -73,15 +74,20 @@ Future<void> main() async {
           uri: Uri.parse('https://healthy.kira.network/'),
           networkInfoModel: NetworkInfoModel(
             chainId: 'localnet-1',
+            interxVersion: '0.0.1',
             latestBlockHeight: 108843,
             latestBlockTime: DateTime.now(),
           ),
         ),
         NetworkUnhealthyModel(
           uri: Uri.parse('https://online.kira.network/'),
-          interxErrors: const <InterxError>[InterxError.versionOutdated, InterxError.blockTimeOutdated],
+          interxError: InterxError(<InterxErrorType>[
+            InterxErrorType.versionOutdated,
+            InterxErrorType.blockTimeOutdated,
+          ]),
           networkInfoModel: NetworkInfoModel(
             chainId: 'testnet-7',
+            interxVersion: 'v0.4.11',
             latestBlockHeight: 108843,
             latestBlockTime: DateTime.parse('2021-11-04 12:42:54.395Z'),
           ),

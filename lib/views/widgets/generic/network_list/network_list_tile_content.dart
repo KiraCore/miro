@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/shared/models/network/interx_error_type.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
 import 'package:miro/shared/models/network/status/online/a_network_online_model.dart';
-import 'package:miro/shared/models/network/status/online/interx_error.dart';
 import 'package:miro/shared/models/network/status/online/network_unhealthy_model.dart';
 import 'package:miro/views/widgets/generic/network_list/network_warning_container.dart';
 
@@ -28,12 +28,19 @@ class NetworkListTileContent extends StatelessWidget {
         children: <Widget>[
           if (networkStatusModel is NetworkUnhealthyModel) ...<Widget>[
             const SizedBox(height: 8),
-            ...(networkStatusModel as NetworkUnhealthyModel).interxErrors.map((InterxError interxError) {
-              return NetworkWarningContainer(
-                interxError: interxError,
-                latestBlockTime: blockTime,
-              );
-            }),
+            ListView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              itemCount: (networkStatusModel as NetworkUnhealthyModel).interxError.interxErrorTypes.length,
+              itemBuilder: (BuildContext context, int index) {
+                NetworkUnhealthyModel networkUnhealthyModel = networkStatusModel as NetworkUnhealthyModel;
+                InterxErrorType interxErrorType = networkUnhealthyModel.interxError.interxErrorTypes[index];
+                return NetworkWarningContainer(
+                  interxErrorType: interxErrorType,
+                  latestBlockTime: blockTime,
+                );
+              },
+            ),
           ],
           const SizedBox(height: 27),
           Row(

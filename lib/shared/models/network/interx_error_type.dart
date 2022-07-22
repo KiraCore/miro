@@ -1,4 +1,4 @@
-enum InterxError {
+enum InterxErrorType {
   blockTimeOutdated,
   versionOutdated,
 }

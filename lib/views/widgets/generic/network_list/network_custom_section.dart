@@ -1,10 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:miro/blocs/specific_blocs/network/events/network_set_up_event.dart';
-import 'package:miro/blocs/specific_blocs/network/network_bloc.dart';
+import 'package:miro/blocs/specific_blocs/network_module/events/network_module_set_up_event.dart';
+import 'package:miro/blocs/specific_blocs/network_module/network_module_bloc.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';
-import 'package:miro/infra/services/network_utils_service.dart';
+import 'package:miro/infra/services/network_module_service.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
 import 'package:miro/shared/models/network/status/network_unknown_model.dart';
 import 'package:miro/shared/models/network/status/online/network_healthy_model.dart';
@@ -175,10 +175,10 @@ class _NetworkCustomSection extends State<NetworkCustomSection> {
     ANetworkStatusModel? customNetworkStatusModel = await _buildNetworkStatusModel();
     _setLoadingStatus(false);
     if (customNetworkStatusModel is NetworkHealthyModel) {
-      globalLocator<NetworkBloc>().add(NetworkSetUpEvent(customNetworkStatusModel));
+      globalLocator<NetworkModuleBloc>().add(NetworkModuleSetUpEvent(customNetworkStatusModel));
       _updateSuccessMessage('Successfully connected');
     } else if (customNetworkStatusModel is NetworkUnhealthyModel) {
-      globalLocator<NetworkBloc>().add(NetworkSetUpEvent(customNetworkStatusModel));
+      globalLocator<NetworkModuleBloc>().add(NetworkModuleSetUpEvent(customNetworkStatusModel));
       _updateSuccessMessage('Connected with warnings');
     } else {
       _updateErrorMessage('Cannot connect');
@@ -193,7 +193,7 @@ class _NetworkCustomSection extends State<NetworkCustomSection> {
     Uri networkUri = NetworkUtils.parseUrl(customNetworkTextController.text);
     try {
       NetworkUnknownModel networkUnknownModel = NetworkUnknownModel(uri: networkUri);
-      ANetworkStatusModel networkStatusModel = await globalLocator<NetworkUtilsService>().getNetworkStatusModel(
+      ANetworkStatusModel networkStatusModel = await globalLocator<NetworkModuleService>().getNetworkStatusModel(
         networkUnknownModel,
       );
       return networkStatusModel;

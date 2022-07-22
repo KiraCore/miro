@@ -1,12 +1,12 @@
+import 'package:miro/shared/models/network/interx_error.dart';
 import 'package:miro/shared/models/network/network_info_model.dart';
 import 'package:miro/shared/models/network/status/online/a_network_online_model.dart';
-import 'package:miro/shared/models/network/status/online/interx_error.dart';
 
 class NetworkUnhealthyModel extends ANetworkOnlineModel {
-  final List<InterxError> interxErrors;
+  final InterxError interxError;
 
   const NetworkUnhealthyModel({
-    required this.interxErrors,
+    required this.interxError,
     required Uri uri,
     required NetworkInfoModel networkInfoModel,
     String? name,
@@ -15,10 +15,6 @@ class NetworkUnhealthyModel extends ANetworkOnlineModel {
           networkInfoModel: networkInfoModel,
           name: name,
         );
-
-  bool get hasErrors {
-    return interxErrors.isNotEmpty;
-  }
 
   @override
   List<Object?> get props => <Object?>[runtimeType, uri, name, networkInfoModel.hashCode];

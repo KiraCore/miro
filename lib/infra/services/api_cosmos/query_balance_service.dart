@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:miro/blocs/specific_blocs/network/network_bloc.dart';
+import 'package:miro/blocs/specific_blocs/network_module/network_module_bloc.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api_cosmos/query_balance/request/query_balance_req.dart';
 import 'package:miro/infra/dto/api_cosmos/query_balance/response/query_balance_resp.dart';
@@ -17,7 +17,7 @@ class QueryBalanceService implements _QueryBalanceService {
 
   @override
   Future<QueryBalanceResp?> getMyAccountBalance() async {
-    Uri networkUri = globalLocator<NetworkBloc>().state.networkUri!;
+    Uri networkUri = globalLocator<NetworkModuleBloc>().state.networkUri!;
     QueryBalanceReq queryBalanceReq = QueryBalanceReq(
       address: globalLocator<WalletProvider>().currentWallet!.address.bech32Address,
     );

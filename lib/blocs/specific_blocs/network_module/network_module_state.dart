@@ -3,14 +3,15 @@ import 'package:miro/shared/models/network/status/a_network_status_model.dart';
 import 'package:miro/shared/models/network/status/network_unknown_model.dart';
 import 'package:miro/shared/models/network/status/online/a_network_online_model.dart';
 
-class NetworkState extends Equatable {
+class NetworkModuleState extends Equatable {
   final ANetworkStatusModel? networkStatusModel;
 
-  const NetworkState.connecting(NetworkUnknownModel networkUnknownModel) : networkStatusModel = networkUnknownModel;
+  const NetworkModuleState.connecting(NetworkUnknownModel networkUnknownModel)
+      : networkStatusModel = networkUnknownModel;
 
-  const NetworkState.connected(ANetworkOnlineModel networkOnlineModel) : networkStatusModel = networkOnlineModel;
+  const NetworkModuleState.connected(ANetworkOnlineModel networkOnlineModel) : networkStatusModel = networkOnlineModel;
 
-  const NetworkState.disconnected() : networkStatusModel = null;
+  const NetworkModuleState.disconnected() : networkStatusModel = null;
 
   bool get isConnected => networkStatusModel is ANetworkOnlineModel;
 

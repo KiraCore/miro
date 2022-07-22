@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
-abstract class ANetworkEvent extends Equatable {
-  const ANetworkEvent();
+abstract class ANetworkModuleEvent extends Equatable {
+  const ANetworkModuleEvent();
 
   @override
   List<Object?> get props => <Object>[];

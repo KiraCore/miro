@@ -13,8 +13,8 @@ import 'package:miro/blocs/specific_blocs/list/infinity_list/infinity_list_bloc.
 import 'package:miro/blocs/specific_blocs/list/sort/events/sort_change_event.dart';
 import 'package:miro/blocs/specific_blocs/list/sort/events/sort_clear_event.dart';
 import 'package:miro/blocs/specific_blocs/list/sort/sort_bloc.dart';
-import 'package:miro/blocs/specific_blocs/network/events/network_set_up_event.dart';
-import 'package:miro/blocs/specific_blocs/network/network_bloc.dart';
+import 'package:miro/blocs/specific_blocs/network_module/events/network_module_set_up_event.dart';
+import 'package:miro/blocs/specific_blocs/network_module/network_module_bloc.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/cache/cache_manager.dart';
 import 'package:miro/shared/models/network/network_info_model.dart';
@@ -38,6 +38,7 @@ Future<void> main() async {
     uri: Uri.parse('https://online.kira.network'),
     networkInfoModel: NetworkInfoModel(
       chainId: 'localnet-1',
+      interxVersion: '0.0.1',
       latestBlockHeight: 123,
       latestBlockTime: DateTime.now(),
       activeValidators: 1,
@@ -112,7 +113,7 @@ Future<void> main() async {
       );
 
       // Act
-      globalLocator<NetworkBloc>().add(NetworkSetUpEvent(networkHealthyModel));
+      globalLocator<NetworkModuleBloc>().add(NetworkModuleSetUpEvent(networkHealthyModel));
       await Future<void>.delayed(const Duration(milliseconds: 100));
 
       // Assert

@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:miro/blocs/specific_blocs/network/network_bloc.dart';
+import 'package:miro/blocs/specific_blocs/network_module/network_module_bloc.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/broadcast_req.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/transaction/signed_transaction.dart';
@@ -27,7 +27,7 @@ class TransactionsService implements _ITransactionsService {
 
   @override
   Future<BroadcastResp> broadcastTransaction(SignedTransaction signedTransaction, {Uri? customUri}) async {
-    Uri networkUri = customUri ?? globalLocator<NetworkBloc>().state.networkUri!;
+    Uri networkUri = customUri ?? globalLocator<NetworkModuleBloc>().state.networkUri!;
     try {
       final BroadcastResp response = await _apiCosmosRepository.broadcast(
         networkUri,
@@ -45,15 +45,15 @@ class TransactionsService implements _ITransactionsService {
   @override
   Future<SignedTransaction> signTransaction(UnsignedTransaction unsignedTransaction,
       {Uri? customUri, String? customChainId}) async {
-    final NetworkBloc networkBloc = globalLocator<NetworkBloc>();
+    final NetworkModuleBloc networkModuleBloc = globalLocator<NetworkModuleBloc>();
     final QueryAccountService accountService = globalLocator<QueryAccountService>();
     final Wallet? wallet = globalLocator<WalletProvider>().currentWallet;
 
     assert(wallet != null, 'User should be logged in');
     assert(wallet is UnsafeWallet, 'User should be logged via UnsafeWallet');
-    assert(networkBloc.state.isConnected || customUri != null, 'Network should be connected');
+    assert(networkModuleBloc.state.isConnected || customUri != null, 'Network should be connected');
 
-    final ANetworkOnlineModel networkOnlineModel = networkBloc.state.networkStatusModel as ANetworkOnlineModel;
+    final ANetworkOnlineModel networkOnlineModel = networkModuleBloc.state.networkStatusModel as ANetworkOnlineModel;
 
     QueryAccountResp queryAccountResp = await accountService.fetchQueryAccount(
       wallet!.address.bech32Address,

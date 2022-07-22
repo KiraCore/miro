@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/specific_blocs/drawer/drawer_cubit.dart';
-import 'package:miro/blocs/specific_blocs/network/network_bloc.dart';
 import 'package:miro/blocs/specific_blocs/network_list/network_list_cubit.dart';
+import 'package:miro/blocs/specific_blocs/network_module/network_module_bloc.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/providers/tokens_provider.dart';
 import 'package:miro/providers/wallet_provider.dart';
@@ -16,9 +16,9 @@ List<SingleChildWidget> appListProviders = <SingleChildWidget>[
   ChangeNotifierProvider<TokensProvider>.value(
     value: globalLocator<TokensProvider>(),
   ),
-  BlocProvider<NetworkBloc>(
+  BlocProvider<NetworkModuleBloc>(
     lazy: false,
-    create: (BuildContext context) => globalLocator<NetworkBloc>(),
+    create: (BuildContext context) => globalLocator<NetworkModuleBloc>(),
   ),
   BlocProvider<DrawerCubit>(
     lazy: false,

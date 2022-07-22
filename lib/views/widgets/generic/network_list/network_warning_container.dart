@@ -1,23 +1,23 @@
 import 'package:flutter/cupertino.dart';
-import 'package:miro/shared/models/network/status/online/interx_error.dart';
+import 'package:miro/shared/models/network/interx_error_type.dart';
 import 'package:miro/views/widgets/kira/kira_toast/toast_container.dart';
 
 class NetworkWarningContainer extends StatelessWidget {
-  final InterxError interxError;
+  final InterxErrorType interxErrorType;
   final String latestBlockTime;
 
   const NetworkWarningContainer({
-    required this.interxError,
+    required this.interxErrorType,
     required this.latestBlockTime,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Map<InterxError, String> interxErrorMessages = <InterxError, String>{
-      InterxError.blockTimeOutdated:
+    Map<InterxErrorType, String> interxErrorMessages = <InterxErrorType, String>{
+      InterxErrorType.blockTimeOutdated:
           'The last available block on this interx was created long time ago ($latestBlockTime). The displayed data may be out of date',
-      InterxError.versionOutdated: 'Interx is not updated to the latest version. Some views may not work correctly',
+      InterxErrorType.versionOutdated: 'Interx is not updated to the latest version. Some views may not work correctly',
     };
 
     return Padding(
@@ -25,7 +25,7 @@ class NetworkWarningContainer extends StatelessWidget {
       child: ToastContainer(
         width: double.infinity,
         title: Text(
-          interxErrorMessages[interxError] ?? 'Undefined error',
+          interxErrorMessages[interxErrorType] ?? 'Undefined error',
           style: const TextStyle(fontSize: 11),
         ),
         toastType: ToastType.warning,
