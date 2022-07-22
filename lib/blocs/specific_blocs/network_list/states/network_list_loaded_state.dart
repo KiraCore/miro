@@ -4,7 +4,9 @@ import 'package:miro/shared/models/network/status/a_network_status_model.dart';
 class NetworkListLoadedState extends ANetworkListState {
   final List<ANetworkStatusModel> networkStatusModels;
 
-  NetworkListLoadedState({required this.networkStatusModels});
+  NetworkListLoadedState({
+    required List<ANetworkStatusModel> networkStatusModels,
+  }) : networkStatusModels = List<ANetworkStatusModel>.from(networkStatusModels);
 
   @override
   List<Object> get props => <Object>[networkStatusModels];

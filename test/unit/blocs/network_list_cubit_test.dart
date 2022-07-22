@@ -49,7 +49,7 @@ Future<void> main() async {
       );
 
       // Act
-      await actualNetworkListCubit.initNetworks();
+      await actualNetworkListCubit.initNetworkList();
 
       // Assert
       expectedNetworkListState = NetworkListLoadedState(networkStatusModels: <ANetworkStatusModel>[

@@ -18,34 +18,40 @@ class NetworkListCubit extends Cubit<ANetworkListState> {
   NetworkListCubit() : super(NetworkListLoadingState());
 
   NetworkListCubit.init() : super(NetworkListLoadingState()) {
-    initNetworks();
+    initNetworkList();
   }
 
-  Future<void> initNetworks() async {
-    List<ANetworkStatusModel> configNetworkStatusModels = await _loadNetworkStatusModelsFromConfig();
-    _networkList = configNetworkStatusModels;
-    emit(NetworkListLoadedState(networkStatusModels: List<ANetworkStatusModel>.from(_networkList)));
+  Future<void> initNetworkList() async {
+    List<NetworkUnknownModel> configNetworkUnknownModels = await _loadNetworkStatusModelsFromConfig();
+    _networkList = List<ANetworkStatusModel>.from(configNetworkUnknownModels);
+    emit(NetworkListLoadedState(networkStatusModels: _networkList));
+    _updateNetworksRemoteInfo();
+  }
 
-    for (int i = 0; i < configNetworkStatusModels.length; i++) {
-      _updateNetworkStatus(i);
+  Future<List<NetworkUnknownModel>> _loadNetworkStatusModelsFromConfig() async {
+    INetworkListLoader networkListLoader = globalLocator<INetworkListLoader>();
+    return networkListLoader.loadNetworkListConfig();
+  }
+
+  void _updateNetworksRemoteInfo() {
+    for (int i = 0; i < _networkList.length; i++) {
+      _updateNetworkStatusModel(i);
     }
   }
 
-  void _updateNetworkStatus(int index) {
-    NetworkUnknownModel networkUnknownModel = NetworkUnknownModel.fromNetworkStatusModel(_networkList[index]);
-    networkUtilsService.getNetworkStatusModel(networkUnknownModel).then(
-        (ANetworkStatusModel newNetworkStatusModel) async {
-      _networkList[index] = newNetworkStatusModel;
-      emit(NetworkListLoadedState(networkStatusModels: List<ANetworkStatusModel>.from(_networkList)));
-    }, onError: (Object error) {
-      AppLogger().log(message: 'Cannot set network status for $networkUnknownModel');
-      _networkList[index] = NetworkOfflineModel.fromRequest(networkUnknownModel);
-      emit(NetworkListLoadedState(networkStatusModels: List<ANetworkStatusModel>.from(_networkList)));
-    });
+  Future<void> _updateNetworkStatusModel(int index) async {
+    ANetworkStatusModel newNetworkStatusModel = await _getNetworkStatusModelFromInterx(index);
+    _networkList[index] = newNetworkStatusModel;
+    emit(NetworkListLoadedState(networkStatusModels: _networkList));
   }
 
-  Future<List<ANetworkStatusModel>> _loadNetworkStatusModelsFromConfig() async {
-    INetworkListLoader networkListLoader = globalLocator<INetworkListLoader>();
-    return networkListLoader.loadNetworkListConfig();
+  Future<ANetworkStatusModel> _getNetworkStatusModelFromInterx(int index) async {
+    NetworkUnknownModel networkUnknownModel = NetworkUnknownModel.fromNetworkStatusModel(_networkList[index]);
+    try {
+      return await networkUtilsService.getNetworkStatusModel(networkUnknownModel);
+    } catch (_) {
+      AppLogger().log(message: 'Cannot set network status for $networkUnknownModel');
+      return NetworkOfflineModel.fromRequest(networkUnknownModel);
+    }
   }
 }
