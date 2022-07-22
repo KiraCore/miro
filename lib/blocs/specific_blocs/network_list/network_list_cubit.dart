@@ -6,9 +6,7 @@ import 'package:miro/config/locator.dart';
 import 'package:miro/config/network/i_network_list_loader.dart';
 import 'package:miro/infra/services/network_utils_service.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
-import 'package:miro/shared/models/network/status/network_offline_model.dart';
 import 'package:miro/shared/models/network/status/network_unknown_model.dart';
-import 'package:miro/shared/utils/app_logger.dart';
 
 class NetworkListCubit extends Cubit<ANetworkListState> {
   final NetworkUtilsService networkUtilsService = globalLocator<NetworkUtilsService>();
@@ -46,12 +44,9 @@ class NetworkListCubit extends Cubit<ANetworkListState> {
   }
 
   Future<ANetworkStatusModel> _getNetworkStatusModelFromInterx(int index) async {
-    NetworkUnknownModel networkUnknownModel = NetworkUnknownModel.fromNetworkStatusModel(_networkStatusModelsList[index]);
-    try {
-      return await networkUtilsService.getNetworkStatusModel(networkUnknownModel);
-    } catch (_) {
-      AppLogger().log(message: 'Cannot set network status for $networkUnknownModel');
-      return NetworkOfflineModel.fromRequest(networkUnknownModel);
-    }
+    NetworkUnknownModel networkUnknownModel = NetworkUnknownModel.fromNetworkStatusModel(
+      _networkStatusModelsList[index],
+    );
+    return await networkUtilsService.getNetworkStatusModel(networkUnknownModel);
   }
 }
