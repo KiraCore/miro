@@ -34,6 +34,7 @@ class NetworkUtilsService extends _INetworkUtilsService {
         networkUnknownModel: networkUnknownModel,
         networkInfoModel: NetworkInfoModel.fromDto(queryInterxStatusResp, status),
       );
+
       return networkStatusModel;
     } catch (e) {
       if (networkUnknownModel.isHttp()) {
@@ -53,18 +54,18 @@ class NetworkUtilsService extends _INetworkUtilsService {
   }) {
     List<InterxError> interxErrors = _getInterxErrors(networkInfoModel);
 
-    if (interxErrors.isNotEmpty) {
+    if (interxErrors.isEmpty) {
+      return NetworkHealthyModel(
+        uri: networkUnknownModel.uri,
+        name: networkUnknownModel.name,
+        networkInfoModel: networkInfoModel,
+      );
+    } else {
       return NetworkUnhealthyModel(
         uri: networkUnknownModel.uri,
         name: networkUnknownModel.name,
         networkInfoModel: networkInfoModel,
         interxErrors: interxErrors,
-      );
-    } else {
-      return NetworkHealthyModel(
-        uri: networkUnknownModel.uri,
-        name: networkUnknownModel.name,
-        networkInfoModel: networkInfoModel,
       );
     }
   }
