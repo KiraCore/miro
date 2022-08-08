@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';
@@ -91,9 +90,7 @@ class _MenuListTile extends StatelessWidget {
             title.data!,
             style: TextStyle(
               fontSize: 14,
-              color: states.contains(MaterialState.hovered)
-                  ? DesignColors.white_100
-                  : title.style?.color ?? DesignColors.gray2_100,
+              color: states.contains(MaterialState.hovered) ? DesignColors.white_100 : title.style?.color ?? DesignColors.gray2_100,
             ),
           ),
         );

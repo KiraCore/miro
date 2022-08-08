@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:miro/views/widgets/kira/kira_tooltip.dart';
 import 'package:miro/views/widgets/network_list/network_custom_section/network_custom_section.dart';

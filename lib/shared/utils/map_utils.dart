@@ -31,9 +31,9 @@ class MapUtils {
 
   /// Takes the given [value] and orders each one of the contained
   /// items that are present inside it by calling [_encodeValue].
-  static List<dynamic> _encodeList(dynamic value) {
+  static List<dynamic> _encodeList(List<dynamic> value) {
     final List<dynamic> result = <dynamic>[];
-    for (dynamic item in value.cast<dynamic>()) {
+    for (dynamic item in value) {
       result.add(_encodeValue(item));
     }
     return result;

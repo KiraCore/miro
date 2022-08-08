@@ -8,7 +8,7 @@ class ToastDecoration {
   final Color iconColor;
   final Color actionButtonBorderColor;
 
-  ToastDecoration({
+  const ToastDecoration({
     required this.backgroundColor,
     required this.titleColor,
     required this.iconColor,
@@ -18,28 +18,28 @@ class ToastDecoration {
   factory ToastDecoration.fromToastType(ToastType toastType) {
     switch (toastType) {
       case ToastType.success:
-        return ToastDecoration(
+        return const ToastDecoration(
           backgroundColor: DesignColors.darkGreen_20,
           titleColor: DesignColors.green_100,
           iconColor: DesignColors.green_100,
           actionButtonBorderColor: DesignColors.white_50,
         );
       case ToastType.error:
-        return ToastDecoration(
+        return const ToastDecoration(
           backgroundColor: DesignColors.red_20,
           titleColor: DesignColors.red_100,
           iconColor: DesignColors.red_100,
           actionButtonBorderColor: DesignColors.gray2_100,
         );
       case ToastType.warning:
-        return ToastDecoration(
+        return const ToastDecoration(
           backgroundColor: DesignColors.yellow_20,
           titleColor: DesignColors.yellow_100,
           iconColor: DesignColors.yellow_100,
           actionButtonBorderColor: DesignColors.gray2_100,
         );
       default:
-        return ToastDecoration(
+        return const ToastDecoration(
           backgroundColor: DesignColors.purple_20,
           titleColor: DesignColors.white_100,
           iconColor: DesignColors.white_100,

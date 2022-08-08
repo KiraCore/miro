@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/views/widgets/generic/mouse_state_listener.dart';
@@ -28,12 +27,8 @@ class TextLink extends StatelessWidget {
           text,
           style: TextStyle(
             fontSize: fontSize ?? 14,
-            color: states.contains(MaterialState.pressed)
-                ? color ?? DesignColors.blue2_100
-                : hoverColor ?? DesignColors.blue1_100,
-            decoration: states.contains(MaterialState.hovered) && !states.contains(MaterialState.pressed)
-                ? TextDecoration.underline
-                : null,
+            color: states.contains(MaterialState.pressed) ? color ?? DesignColors.blue2_100 : hoverColor ?? DesignColors.blue1_100,
+            decoration: states.contains(MaterialState.hovered) && !states.contains(MaterialState.pressed) ? TextDecoration.underline : null,
           ),
         );
       },

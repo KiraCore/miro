@@ -13,8 +13,6 @@ import 'package:miro/shared/utils/app_logger.dart';
 
 abstract class _INetworkModuleService {
   Future<ANetworkStatusModel> getNetworkStatusModel(NetworkUnknownModel networkUnknownModel);
-
-  void ignoreMethod();
 }
 
 class NetworkModuleService implements _INetworkModuleService {
@@ -43,9 +41,6 @@ class NetworkModuleService implements _INetworkModuleService {
       }
     }
   }
-
-  @override
-  void ignoreMethod() {}
 
   Future<NetworkInfoModel> _getNetworkInfoModel(NetworkUnknownModel networkUnknownModel) async {
     Status? status = await queryValidatorsService.getStatus(networkUnknownModel.uri);

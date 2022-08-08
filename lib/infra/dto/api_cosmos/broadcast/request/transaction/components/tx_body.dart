@@ -43,9 +43,8 @@ class TxBody {
         'messages': messages.map((TxMsg e) => e.toJson()).toList(),
         'memo': memo,
         'timeout_height': timeoutHeight,
-        'extension_options': extensionOptions?.map<dynamic>((dynamic e) => e.toJson()).toList() ?? <dynamic>[],
-        'non_critical_extension_options':
-            nonCriticalExtensionOptions?.map<dynamic>((dynamic e) => e.toJson()).toList() ?? <dynamic>[],
+        'extension_options': extensionOptions ?? <dynamic>[],
+        'non_critical_extension_options': nonCriticalExtensionOptions ?? <dynamic>[],
       };
 
   @override

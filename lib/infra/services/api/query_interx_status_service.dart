@@ -8,16 +8,13 @@ import 'package:miro/shared/utils/app_logger.dart';
 abstract class _IQueryInterxStatusService {
   /// Throws [InterxUnavailableException]
   Future<QueryInterxStatusResp> getQueryInterxStatusResp(Uri networkUri);
-
-  void ignoreMethod();
 }
 
 class QueryInterxStatusService implements _IQueryInterxStatusService {
   final ApiRepository _apiRepository = globalLocator<ApiRepository>();
 
-  @override
-
   /// Throws [InterxUnavailableException]
+  @override
   Future<QueryInterxStatusResp> getQueryInterxStatusResp(Uri networkUri) async {
     try {
       final Response<dynamic> response = await _apiRepository.fetchQueryInterxStatus<dynamic>(networkUri);
@@ -27,7 +24,4 @@ class QueryInterxStatusService implements _IQueryInterxStatusService {
       throw InterxUnavailableException();
     }
   }
-
-  @override
-  void ignoreMethod() {}
 }

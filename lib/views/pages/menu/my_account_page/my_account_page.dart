@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:miro/config/app_sizes.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';
@@ -53,9 +52,7 @@ class _MyAccountPage extends State<MyAccountPage> {
       controller: scrollController,
       children: <Widget>[
         Padding(
-          padding: ResponsiveWidget.isLargeScreen(context)
-              ? AppSizes.defaultDesktopPageMargin
-              : AppSizes.defaultMobilePageMargin,
+          padding: ResponsiveWidget.isLargeScreen(context) ? AppSizes.defaultDesktopPageMargin : AppSizes.defaultMobilePageMargin,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[

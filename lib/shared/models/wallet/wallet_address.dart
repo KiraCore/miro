@@ -1,7 +1,6 @@
 import 'dart:typed_data';
 
 import 'package:equatable/equatable.dart';
-import 'package:meta/meta.dart';
 import 'package:miro/shared/utils/crypto_address_parser.dart';
 import 'package:miro/shared/utils/cryptography/bech32.dart';
 import 'package:miro/shared/utils/cryptography/keccak256.dart';
@@ -9,7 +8,6 @@ import 'package:miro/shared/utils/cryptography/secp256k1.dart';
 
 /// Represents an wallet address.
 /// Source: https://github.com/LmFlutterSDK/web3dart/blob/master/lib/src/credentials/address.dart
-@immutable
 class WalletAddress extends Equatable {
   static final RegExp _basicAddress = RegExp('^(0x)?[0-9a-f]{40}', caseSensitive: false);
 
@@ -46,8 +44,7 @@ class WalletAddress extends Equatable {
   // TODO(dominik): Currently unused. Remove before release
   factory WalletAddress.fromHex(String hex, {required String bech32Hrp, bool enforceEip55 = false}) {
     if (!_basicAddress.hasMatch(hex)) {
-      throw ArgumentError.value(
-          hex, 'address', 'Must be a hex string with a length of 40, optionally prefixed with "0x"');
+      throw ArgumentError.value(hex, 'address', 'Must be a hex string with a length of 40, optionally prefixed with "0x"');
     }
 
     if (!enforceEip55 && (hex.toUpperCase() == hex || hex.toLowerCase() == hex)) {
@@ -60,10 +57,8 @@ class WalletAddress extends Equatable {
     for (int i = 0; i < 40; i++) {
       // the nth letter should be uppercase if the nth digit of casemap is 1
       final int hashedPos = int.parse(hash[i], radix: 16);
-      if ((hashedPos > 7 && address[i].toUpperCase() != address[i]) ||
-          (hashedPos <= 7 && address[i].toLowerCase() != address[i])) {
-        throw ArgumentError(
-            'Address has invalid case-characters and is thus not EIP-55 conformant, rejecting. Address was: $hex');
+      if ((hashedPos > 7 && address[i].toUpperCase() != address[i]) || (hashedPos <= 7 && address[i].toLowerCase() != address[i])) {
+        throw ArgumentError('Address has invalid case-characters and is thus not EIP-55 conformant, rejecting. Address was: $hex');
       }
     }
 
@@ -87,9 +82,9 @@ class WalletAddress extends Equatable {
 
   /// Returns the associated [address] as a Bech32 string.
   String get bech32Shortcut {
-    String _address = bech32Address;
-    String firstPart = _address.substring(0, 8);
-    String lastPart = _address.substring(_address.length - 4, _address.length);
+    String address = bech32Address;
+    String firstPart = address.substring(0, 8);
+    String lastPart = address.substring(address.length - 4, address.length);
     return '${firstPart}_$lastPart';
   }
 

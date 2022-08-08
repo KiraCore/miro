@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/infra/dto/api_cosmos/query_balance/response/balance.dart';

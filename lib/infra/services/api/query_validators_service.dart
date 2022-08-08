@@ -32,7 +32,7 @@ class QueryValidatorsService implements _IQueryValidatorsService {
         queryValidatorsReq,
         optionalNetworkUri: optionalNetworkUri,
       );
-      return queryValidatorsResp.validators.map((Validator e) => ValidatorModel.fromDto(e)).toList();
+      return queryValidatorsResp.validators.map(ValidatorModel.fromDto).toList();
     } on DioError {
       rethrow;
     }
@@ -49,10 +49,7 @@ class QueryValidatorsService implements _IQueryValidatorsService {
       ),
       optionalNetworkUri: optionalNetworkUri,
     );
-    return queryValidatorsResp.validators
-        .where((Validator e) => validatorAddresses.contains(e.address))
-        .map((Validator e) => ValidatorModel.fromDto(e))
-        .toList();
+    return queryValidatorsResp.validators.where((Validator e) => validatorAddresses.contains(e.address)).map(ValidatorModel.fromDto).toList();
   }
 
   @override

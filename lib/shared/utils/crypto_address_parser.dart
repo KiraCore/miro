@@ -1,6 +1,6 @@
 import 'dart:typed_data';
 
-import 'package:convert/convert.dart';
+import 'package:hex/hex.dart';
 // ignore: implementation_imports
 import 'package:pointycastle/src/utils.dart' as p_utils;
 
@@ -21,7 +21,7 @@ class CryptoAddressParser {
     int? forcePadLength,
     bool padToEvenLength = false,
   }) {
-    String hexAddress = hex.encode(bytes);
+    String hexAddress = HEX.encode(bytes);
 
     if (forcePadLength != null) {
       assert(forcePadLength >= hexAddress.length, '');
@@ -40,8 +40,10 @@ class CryptoAddressParser {
   /// Converts the hexadecimal string, which can be prefixed with 0x, to a byte
   /// sequence.
   static Uint8List hexToBytes(String hexStr) {
-    final List<int> bytes = hex.decode(stripHexPrefix(hexStr));
-    if (bytes is Uint8List) return bytes;
+    final List<int> bytes = HEX.decode(stripHexPrefix(hexStr));
+    if (bytes is Uint8List) {
+      return bytes;
+    }
 
     return Uint8List.fromList(bytes);
   }

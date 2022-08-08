@@ -4,7 +4,7 @@ import 'package:miro/config/theme/design_colors.dart';
 
 ColorScheme _kColorSchemeDark = ColorScheme.dark(
   primary: DesignColors.blue1_100,
-  primaryVariant: Colors.grey[300]!,
+  primaryContainer: Colors.grey[300]!,
   secondary: const Color(0xffbbbbbb),
   background: const Color(0xff2E2E2E),
   onPrimary: Colors.black,

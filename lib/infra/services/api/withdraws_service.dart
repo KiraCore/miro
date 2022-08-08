@@ -6,7 +6,6 @@ import 'package:miro/infra/repositories/api_repository.dart';
 
 abstract class _WithdrawsService {
   Future<WithdrawsResp?> getAccountWithdraws(Uri networkUri, WithdrawsReq withdrawsReq);
-  void ignoreMethod();
 }
 
 class WithdrawsService implements _WithdrawsService {
@@ -20,10 +19,5 @@ class WithdrawsService implements _WithdrawsService {
     } on DioError {
       rethrow;
     }
-  }
-
-  @override
-  void ignoreMethod() {
-    // TODO(Karol): implement ignoreMethod
   }
 }

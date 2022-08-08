@@ -6,8 +6,6 @@ import 'package:miro/infra/repositories/api_repository.dart';
 
 abstract class _DashboardService {
   Future<DashboardResp> getData({Uri? optionalNetworkUri});
-
-  void ignoreMethod();
 }
 
 class DashboardService implements _DashboardService {
@@ -22,10 +20,5 @@ class DashboardService implements _DashboardService {
     } on DioError {
       rethrow;
     }
-  }
-
-  @override
-  void ignoreMethod() {
-    // TODO(Dominik): implement ignoreMethod
   }
 }

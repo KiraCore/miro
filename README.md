@@ -8,11 +8,12 @@ git clone git@github.com:KiraCore/miro.git
 ```
 
 ## Usage
-The project runs on flutter version **2.5.3**. You can use [fvm](https://fvm.app/docs/getting_started/installation) for easy switching between versions
+The project runs on flutter version **3.0.5**. You can use [fvm](https://fvm.app/docs/getting_started/installation) 
+for easy switching between versions
 ```bash
 # Install and use required flutter version
-fvm install 2.5.3
-fvm use 2.5.3
+fvm install 3.0.5
+fvm use 3.0.5
 
 # Install required packages in pubspec.yaml
 fvm flutter pub get

@@ -1,4 +1,3 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:miro/shared/guards/auth_guard.dart';
 import 'package:miro/shared/guards/navigation_guard.dart';

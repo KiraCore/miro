@@ -23,10 +23,10 @@ class QrValidator {
   }
 
   static ImageData _getSingleFrameFromVideo(VideoElement videoElement) {
-    final CanvasElement _canvasElement = CanvasElement(width: 1024, height: 1024);
-    CanvasRenderingContext2D _canvas = (_canvasElement.getContext('2d') as CanvasRenderingContext2D)
+    final CanvasElement canvasElement = CanvasElement(width: 1024, height: 1024);
+    CanvasRenderingContext2D canvas = (canvasElement.getContext('2d') as CanvasRenderingContext2D)
       ..drawImage(videoElement, 0, 0);
-    ImageData imageData = _canvas.getImageData(0, 0, _canvasElement.width!, _canvasElement.height!);
+    ImageData imageData = canvas.getImageData(0, 0, canvasElement.width!, canvasElement.height!);
     return imageData;
   }
 

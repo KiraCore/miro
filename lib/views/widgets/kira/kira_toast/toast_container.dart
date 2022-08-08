@@ -38,8 +38,8 @@ class ToastContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Icon? _toastIcon = _getIcon();
-    ToastDecoration _toastDecoration = toastDecoration ?? ToastDecoration.fromToastType(toastType);
+    Icon? toastIcon = _getIcon();
+    ToastDecoration localToastDecoration = toastDecoration ?? ToastDecoration.fromToastType(toastType);
     return ClipRRect(
       borderRadius: BorderRadius.circular(8),
       child: Container(
@@ -49,18 +49,18 @@ class ToastContainer extends StatelessWidget {
         child: Container(
           width: width,
           constraints: BoxConstraints(minHeight: height),
-          color: _toastDecoration.backgroundColor,
+          color: localToastDecoration.backgroundColor,
           padding: const EdgeInsets.symmetric(horizontal: 18),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisSize: width == null ? MainAxisSize.min : MainAxisSize.max,
             children: <Widget>[
-              if (_toastIcon != null) ...<Widget>[
+              if (toastIcon != null) ...<Widget>[
                 Icon(
-                  _toastIcon.icon,
-                  size: _toastIcon.size ?? 20,
-                  color: _toastIcon.color ?? _toastDecoration.iconColor,
+                  toastIcon.icon,
+                  size: toastIcon.size ?? 20,
+                  color: toastIcon.color ?? localToastDecoration.iconColor,
                 ),
                 const SizedBox(width: 20),
               ],
@@ -71,7 +71,7 @@ class ToastContainer extends StatelessWidget {
                     child: Text(
                       title.data ?? '',
                       style: (title.style ?? const TextStyle()).copyWith(
-                        color: title.style?.color ?? _toastDecoration.titleColor,
+                        color: title.style?.color ?? localToastDecoration.titleColor,
                         fontSize: title.style?.fontSize ?? 14,
                       ),
                     ),
@@ -81,7 +81,7 @@ class ToastContainer extends StatelessWidget {
                 Text(
                   title.data ?? '',
                   style: (title.style ?? const TextStyle()).copyWith(
-                    color: title.style?.color ?? _toastDecoration.titleColor,
+                    color: title.style?.color ?? localToastDecoration.titleColor,
                     fontSize: title.style?.fontSize ?? 14,
                   ),
                 ),
@@ -92,7 +92,7 @@ class ToastContainer extends StatelessWidget {
                   width: 150,
                   onPressed: onActionTap,
                   title: actionTitle!,
-                  borderColor: _toastDecoration.actionButtonBorderColor,
+                  borderColor: localToastDecoration.actionButtonBorderColor,
                 ),
               ],
             ],
