@@ -21,7 +21,7 @@ analyzer:
     - lib/**.g.dart
     - lib/**.gr.dart
     - lib/test/mocks/**
-#    - test/integration/**
+  #    - test/integration/**
 
   # If you want stricter static checks than the Dart type system requires, consider using the implicit-casts and implicit-dynamic flags
   strong-mode:
@@ -35,12 +35,15 @@ analyzer:
 
     # Group: ERRORS
     always_use_package_imports: error
+    avoid_dynamic_calls: error
     avoid_empty_else: error # core recommended flutter // pedantic
     avoid_print: warning # flutter
     # avoid_relative_lib_imports: warning # doesn't work core recommended flutter // pedantic effective_dart
     avoid_types_as_parameter_names: error # core recommended flutter // pedantic
     # avoid_web_libraries_in_flutter: ignore # flutter
+    cancel_subscriptions: error
     control_flow_in_finally: error # recommended flutter
+    # discarded_futures: error
     empty_statements: error # recommended flutter
     hash_and_equals: error # core recommended flutter // effective_dart
     iterable_contains_unrelated_type: error # core recommended flutter
@@ -56,6 +59,7 @@ analyzer:
 
     # Group: STYLES
     always_declare_return_types: error # // pedantic
+    always_put_control_body_on_new_line: error
     always_require_non_null_named_parameters: error # recommended flutter // pedantic
     annotate_overrides: error # recommended flutter // pedantic
     # avoid_catches_without_on_clauses: ignore # doesn't catch all exceptions when using "on" clause // effective_dart
@@ -72,7 +76,7 @@ analyzer:
     avoid_returning_null: error # // effective_dart
     avoid_returning_null_for_void: error # recommended flutter
     avoid_returning_this: error # // effective_dart
-    # avoid_setters_without_getters: ignore # // effective_dart
+    # avoid_setters_without_getters: error # // effective_dart
     avoid_shadowing_type_parameters: error # core recommended flutter // pedantic
     avoid_single_cascade_in_expression_statements: error # recommended flutter // pedantic
     # avoid_types_on_closure_parameters: ignore # // effective_dart
@@ -91,10 +95,13 @@ analyzer:
     library_prefixes: error # recommended flutter // pedantic effective_dart
     # lines_longer_than_80_chars: ignore # // effective_dart
     non_constant_identifier_names: error # core recommended flutter // effective_dart
+    no_leading_underscores_for_library_prefixes: error # recommended flutter
+    no_leading_underscores_for_local_identifiers: error # recommended flutter
+    null_check_on_nullable_type_parameter: error # core recommended flutter
     curly_braces_in_flow_control_structures: error #core recommended flutter // pedantic effective_dart
     null_closures: error # recommended flutter // pedantic
     #omit_local_variable_types: ignore # // pedantic effective_dart
-    one_member_abstracts: error # // effective_dart
+    # one_member_abstracts: error # // effective_dart
     overridden_fields: error # recommended flutter
     package_api_docs: error # // effective_dart
     package_prefixed_library_names: error # core recommended flutter
@@ -133,10 +140,12 @@ analyzer:
     type_annotate_public_apis: error # // effective_dart
     type_init_formals: error # recommended flutter // pedantic effective_dart
     unawaited_futures: error # // pedantic
+    unnecessary_await_in_return: error
     # unnecessary_brace_in_string_interps: ignore # recommended flutter // pednatic effective_dart
     unnecessary_const: error # recommended flutter // pedantic effective_dart
     unnecessary_getters_setters: error # recommended flutter // pedantic effective_dart
     unnecessary_lambdas: error # // effective_dart
+    unnecessary_late: error # recommended flutter
     unnecessary_new: error # recommended flutter // pedantic effective_dart
     unnecessary_null_in_if_null_operators: error # recommended flutter // pedantic
     unnecessary_overrides: error # core recommended flutter
@@ -151,7 +160,9 @@ analyzer:
     void_checks: error # core recommended flutter
 
     # Group: RULES
+    depend_on_referenced_packages: error # core recommended flutter
     package_names: error # recommended flutter
+    secure_pubspec_urls: error
 
     # _______________________ custom _______________________
 
@@ -160,6 +171,7 @@ analyzer:
     always_specify_types: error
     avoid_bool_literals_in_conditional_expressions: error
     avoid_double_and_int_checks: error
+    avoid_escaping_inner_quotes: error
     avoid_js_rounded_ints: error
     avoid_returning_null_for_future: error
     avoid_unused_constructor_parameters: error
@@ -180,6 +192,7 @@ analyzer:
     unnecessary_raw_strings: error
     unnecessary_statements: error
     use_is_even_rather_than_modulo: error
+    use_named_constants: error
     use_raw_strings: error
     use_string_buffers: error
 
@@ -192,7 +205,7 @@ linter:
 
     # Dart SDK: unreleased
     # Avoid method calls or property accesses on a "dynamic" target.
-    # avoid_dynamic_calls
+    - avoid_dynamic_calls
 
     # Dart SDK: >= 2.0.0 • (Linter v0.1.8)
     # Avoid empty else statements.
@@ -233,7 +246,7 @@ linter:
 
     # Dart SDK: >= 2.0.0 • (Linter v0.1.20)
     # Cancel instances of dart.async.StreamSubscription.
-    #- cancel_subscriptions
+    - cancel_subscriptions
 
     # Dart SDK: >= 2.0.0 • (Linter v0.1.19)
     # Close instances of dart.core.Sink.
@@ -251,6 +264,13 @@ linter:
     # Dart SDK: >= 2.2.1-dev.4.0 • (Linter v0.1.85)
     # DO reference all public properties in debug methods.
     #- diagnostic_describe_all_properties
+
+    # Linter v1.25
+    # Making asynchronous calls in non-async functions is usually the sign of a programming error.
+    # In general these functions should be marked async and such futures should likely be awaited
+    # (as enforced by unawaited_futures).
+    # DON'T invoke asynchronous functions in non-async blocks.
+    #- discarded_futures
 
     # Dart SDK: >= 2.0.0 • (Linter v0.1.21)
     # Avoid empty statements.
@@ -349,7 +369,7 @@ linter:
 
     # Dart SDK: >= 2.0.0 • (Linter v0.1.31)
     # Separate the control structure expression from its statement.
-    #- always_put_control_body_on_new_line
+    - always_put_control_body_on_new_line
 
     # Dart SDK: >= 2.0.0 • (Linter v0.1.33)
     # Put @required named parameters first.
@@ -407,7 +427,7 @@ linter:
 
     # Dart SDK: >= 2.8.0-dev.11.0 • (Linter v0.1.111)
     # Avoid escaping inner quotes by converting surrounding quotes.
-    #- avoid_escaping_inner_quotes
+    - avoid_escaping_inner_quotes
 
     # Dart SDK: >= 2.0.0 • (Linter v0.1.48)
     # Avoid field initializers in const classes.
@@ -481,7 +501,7 @@ linter:
     # Dart SDK: >= 2.0.0 • (Linter v0.1.31)
     # Avoid setters without getters.
     # // effective_dart
-    #- avoid_setters_without_getters: false
+    #- avoid_setters_without_getters
 
     # Dart SDK: >= 2.1.1-dev.0.0 • (Linter v0.1.72)
     # Avoid shadowing type parameters.
@@ -533,6 +553,15 @@ linter:
     # Dart SDK: >= 2.11.0-182.0.dev • (Linter v0.1.120)
     # Don't cast a nullable value to a non nullable type.
     #- cast_nullable_to_non_nullable (experimental)
+
+    # Linter v1.26
+    # DO sort combinator names alphabetically.
+    # - combinators_ordering
+
+    # Linter v1.16.0
+    # DON'T reference files that do not exist in conditional imports.
+    # Code may fail at runtime if the condition evaluates such that the missing file needs to be imported.
+    - conditional_uri_does_not_exist
 
     # Dart SDK: >= 2.0.0 • (Linter v0.1.1)
     # Prefer using lowerCamelCase for constant names.
@@ -634,13 +663,31 @@ linter:
     # core recommended flutter // effective_dart
     - non_constant_identifier_names
 
+    # Linter v1.15
+    # DON’T use a leading underscore for library prefixes. There is no concept of "private" for library prefixes.
+    # When one of those has a name that starts with an underscore, it sends a confusing signal to the reader.
+    # To avoid that, don't use leading underscores in those names.
+    # recommended flutter
+    - no_leading_underscores_for_library_prefixes
+
+    # Linter v1.15
+    # DON’T use a leading underscore for identifiers that aren't private.
+    # Dart uses a leading underscore in an identifier to mark members and top-level declarations as private.
+    # This trains users to associate a leading underscore with one of those kinds of declarations.
+    # They see _ and think "private". There is no concept of "private" for local variables or parameters.
+    # When one of those has a name that starts with an underscore, it sends a confusing signal to the reader.
+    # To avoid that, don't use leading underscores in those names.
+    # recommended flutter
+    - no_leading_underscores_for_local_identifiers
+
     # (Linter vnull)
     # Some operations on primitive types are idempotent and can be removed.
     #- noop_primitive_operations
 
     # Dart SDK: >= 2.11.0-182.0.dev • (Linter v0.1.120)
     # Don't use null check on a potentially nullable type parameter.
-    #- null_check_on_nullable_type_parameter (experimental)
+    # core recommended flutter
+    - null_check_on_nullable_type_parameter
 
     # Dart SDK: >= 2.0.0 • (Linter v0.1.56)
     # Do not pass null as an argument where a closure is expected.
@@ -655,7 +702,7 @@ linter:
     # Dart SDK: >= 2.0.0 • (Linter v0.1.1)
     # Avoid defining a one-member abstract class when a simple function will do.
     # // effective_dart
-    - one_member_abstracts
+    # - one_member_abstracts
 
     # Dart SDK: >= 2.0.0 • (Linter v0.1.21)
     # Only throw instances of classes extending either Exception or Error.
@@ -931,7 +978,7 @@ linter:
 
     # Dart SDK: >= 2.1.1-dev.0.0 • (Linter v0.1.73)
     # Unnecessary await keyword in return.
-    #- unnecessary_await_in_return
+    - unnecessary_await_in_return
 
     # Dart SDK: >= 2.0.0 • (Linter v0.1.30)
     # Avoid using braces in interpolation when not needed.
@@ -961,6 +1008,11 @@ linter:
     # // effective_dart
     - unnecessary_lambdas
 
+    # Linter v1.17
+    # DO not specify the late modifier for top-level and static variables when the declaration contains an initializer.
+    # recommended flutter
+    - unnecessary_late
+
     # Dart SDK: >= 2.0.0 • (Linter v0.1.54)
     # Unnecessary new keyword.
     # recommended flutter // pedantic effective_dart
@@ -968,7 +1020,8 @@ linter:
 
     # Dart SDK: >= 2.0.0 • (Linter v0.1.30)
     # Avoid null in null-aware assignment.
-    #- unnecessary_null_aware_assignments
+    # recommended flutter
+    - unnecessary_null_aware_assignments
 
     # Dart SDK: >= 2.10.0-144.0.dev • (Linter v0.1.119)
     # Unnecessary null checks.
@@ -1011,6 +1064,20 @@ linter:
     # recommended flutter // pedantic effective_dart
     - unnecessary_this
 
+    # Linter v1.24
+    # Unnecessary toList() in spreads.
+    #- unnecessary_to_list_in_spreads
+
+    # Linter v1.19
+    # DO use ColoredBox when Container has only a Color.
+    # A Container is a heavier Widget than a ColoredBox, and as bonus, ColoredBox has a const constructor.
+    #- use_colored_box
+
+    # Linter v1.15
+    # DO use DecoratedBox when Container has only a Decoration.
+    # A Container is a heavier Widget than a DecoratedBox, and as bonus, DecoratedBox has a const constructor.
+    #- use_decorated_box
+
     # Dart SDK: >= 2.2.0 • (Linter v0.1.80)
     # Prefer an 8-digit hexadecimal integer(0xFFFFFFFF) to instantiate Color.
     # flutter // pedantic
@@ -1033,9 +1100,9 @@ linter:
     # Use late for private members with non-nullable type.
     #- use_late_for_private_fields_and_variables (experimental)
 
-    # (Linter vnull)
+    # (Linter v1.0)
     # Use predefined named constants.
-    #- use_named_constants
+    - use_named_constants
 
     # Dart SDK: >= 2.8.0-dev.11.0 • (Linter v0.1.111)
     # Use raw string to avoid escapes.
@@ -1077,12 +1144,16 @@ linter:
 
     # (Linter vnull)
     # DO Depend on referenced packages.
-    #- depend_on_referenced_packages
+    - depend_on_referenced_packages
 
     # Dart SDK: >= 2.0.0 • (Linter v0.1.31)
     # Use lowercase_with_underscores for package names.
     # recommended flutter
     - package_names
+
+    # DO Use secure urls in pubspec.yaml.
+    # Use https instead of http or git:.
+    - secure_pubspec_urls
 
     # Dart SDK: >= 2.1.0-dev.6.0 • (Linter v0.1.63)
     # Sort pub dependencies.

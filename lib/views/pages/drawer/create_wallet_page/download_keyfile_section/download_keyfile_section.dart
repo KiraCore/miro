@@ -123,7 +123,7 @@ class _DownloadKeyfileSection extends State<DownloadKeyfileSection> {
       return 'Field cannot be empty';
     }
     if (repeatPasswordTextController.textController.text != passwordTextController.textController.text) {
-      return 'Passwords doesn\'t match';
+      return "Passwords doesn't match";
     }
     return null;
   }

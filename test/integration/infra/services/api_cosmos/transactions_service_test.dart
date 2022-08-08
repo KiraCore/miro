@@ -1,6 +1,8 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:miro/blocs/specific_blocs/network_module/events/network_module_connect_event.dart';
+import 'package:miro/blocs/specific_blocs/network_module/network_module_bloc.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/broadcast_req.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/coin.dart';
@@ -18,6 +20,9 @@ import 'package:miro/infra/dto/api_cosmos/broadcast/request/transaction/unsigned
 import 'package:miro/infra/dto/api_cosmos/broadcast/response/broadcast_resp.dart';
 import 'package:miro/infra/services/api_cosmos/transactions_service.dart';
 import 'package:miro/providers/wallet_provider.dart';
+import 'package:miro/shared/models/network/data/connection_status_type.dart';
+import 'package:miro/shared/models/network/data/network_info_model.dart';
+import 'package:miro/shared/models/network/status/online/network_healthy_model.dart';
 import 'package:miro/shared/models/wallet/mnemonic.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
@@ -48,10 +53,24 @@ Future<void> main() async {
   globalLocator<WalletProvider>().updateWallet(senderWallet);
   TransactionsService transactionsService = TransactionsService();
 
+  NetworkHealthyModel networkHealthyModel = NetworkHealthyModel(
+    connectionStatusType: ConnectionStatusType.disconnected,
+    uri: Uri.parse('https://healthy.kira.network'),
+    name: 'healthy-mainnet',
+    networkInfoModel: NetworkInfoModel(
+      chainId: 'localnet-1',
+      interxVersion: 'v0.4.11',
+      latestBlockHeight: 108843,
+      latestBlockTime: DateTime.now(),
+    ),
+  );
+
+  globalLocator<NetworkModuleBloc>().add(NetworkModuleConnectEvent(networkHealthyModel));
+  await Future<void>.delayed(const Duration(milliseconds: 100));
+
   Future<void> _broadcastTransaction(SignedTransaction signedTransaction) async {
     testPrint('Data request');
-    BroadcastResp broadcastResp =
-        await transactionsService.broadcastTransaction(signedTransaction, customUri: customUri);
+    BroadcastResp broadcastResp = await transactionsService.broadcastTransaction(signedTransaction, customUri: customUri);
 
     testPrint('Data return');
     print(broadcastResp);

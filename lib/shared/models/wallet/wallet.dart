@@ -43,8 +43,8 @@ class Wallet extends Equatable {
     String lastDerivationPathSegment = '0',
     WalletDetails walletDetails = WalletDetails.defaultWalletDetails,
   }) {
-    final int _lastDerivationPathSegmentCheck = int.tryParse(lastDerivationPathSegment) ?? -1;
-    if (_lastDerivationPathSegmentCheck < 0) {
+    final int lastDerivationPathSegmentCheck = int.tryParse(lastDerivationPathSegment) ?? -1;
+    if (lastDerivationPathSegmentCheck < 0) {
       throw FormatException('Invalid index format $lastDerivationPathSegment');
     }
 

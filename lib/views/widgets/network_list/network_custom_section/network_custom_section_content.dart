@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:miro/blocs/specific_blocs/network_module/events/network_module_connect_event.dart';
 import 'package:miro/blocs/specific_blocs/network_module/network_module_bloc.dart';
@@ -110,7 +109,7 @@ class _NetworkCustomSectionContent extends State<NetworkCustomSectionContent> {
       successMessage = 'Connected';
       networkModuleBloc.add(NetworkModuleConnectEvent(networkStatusModel));
     } else {
-      errorMessage = 'Can\'t connect to network';
+      errorMessage = "Can't connect to network";
     }
     setState(() {});
   }
@@ -126,7 +125,7 @@ class _NetworkCustomSectionContent extends State<NetworkCustomSectionContent> {
     if (networkStatusModel is ANetworkOnlineModel) {
       successMessage = 'Can connect to network';
     } else {
-      errorMessage = 'Cann\'t connect to network';
+      errorMessage = "Can't connect to network";
     }
     setState(() {});
   }

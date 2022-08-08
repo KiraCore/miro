@@ -3,7 +3,6 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 const Duration _kExpand = Duration(milliseconds: 200);
 
@@ -270,7 +269,9 @@ class ControllableExpansionTileState extends State<ControllableExpansionTile> wi
     _backgroundColor = _controller.drive(_backgroundColorTween.chain(_easeOutTween));
 
     _isExpanded = PageStorage.of(context)?.readState(context) as bool? ?? widget.initiallyExpanded;
-    if (_isExpanded) _controller.value = 1.0;
+    if (_isExpanded) {
+      _controller.value = 1.0;
+    }
   }
 
   @override
@@ -298,12 +299,16 @@ class ControllableExpansionTileState extends State<ControllableExpansionTile> wi
   }
 
   Widget? _buildLeadingIcon(BuildContext context) {
-    if (_effectiveAffinity(widget.controlAffinity) != ListTileControlAffinity.leading) return null;
+    if (_effectiveAffinity(widget.controlAffinity) != ListTileControlAffinity.leading) {
+      return null;
+    }
     return _buildIcon(context);
   }
 
   Widget? _buildTrailingIcon(BuildContext context) {
-    if (_effectiveAffinity(widget.controlAffinity) != ListTileControlAffinity.trailing) return null;
+    if (_effectiveAffinity(widget.controlAffinity) != ListTileControlAffinity.trailing) {
+      return null;
+    }
     return _buildIcon(context);
   }
 

@@ -23,23 +23,23 @@ import 'package:miro/test/mocks/mock_network_list_config.json.dart';
 
 Future<void> initTestLocator() async {
   globalLocator
-    ..registerLazySingleton<AppConfig>(() => AppConfig())
-    ..registerLazySingleton<AppConfigProvider>(() => AppConfigProviderImpl())
-    ..registerLazySingleton<WalletProvider>(() => WalletProvider())
-    ..registerLazySingleton<TokensProvider>(() => TokensProvider())
-    ..registerLazySingleton<CacheManager>(() => CacheManager())
-    ..registerLazySingleton<NetworkModuleBloc>(() => NetworkModuleBloc())
-    ..registerLazySingleton<NetworkListCubit>(() => NetworkListCubit())
-    ..registerLazySingleton<ApiRepository>(() => MockApiRepository())
-    ..registerFactory<ApiKiraRepository>(() => MockApiKiraRepository())
-    ..registerFactory<ApiCosmosRepository>(() => MockApiCosmosRepository())
-    ..registerFactory<NetworkModuleService>(() => NetworkModuleService())
-    ..registerFactory<QueryInterxStatusService>(() => QueryInterxStatusService())
-    ..registerFactory<QueryBalanceService>(() => QueryBalanceService())
-    ..registerFactory<DashboardService>(() => DashboardService())
-    ..registerFactory<QueryKiraTokensRatesService>(() => QueryKiraTokensRatesService())
-    ..registerFactory<QueryKiraTokensAliasesService>(() => QueryKiraTokensAliasesService())
-    ..registerFactory<QueryValidatorsService>(() => QueryValidatorsService());
+    ..registerLazySingleton<AppConfig>(AppConfig.new)
+    ..registerLazySingleton<AppConfigProvider>(AppConfigProviderImpl.new)
+    ..registerLazySingleton<WalletProvider>(WalletProvider.new)
+    ..registerLazySingleton<TokensProvider>(TokensProvider.new)
+    ..registerLazySingleton<CacheManager>(CacheManager.new)
+    ..registerLazySingleton<NetworkModuleBloc>(NetworkModuleBloc.new)
+    ..registerLazySingleton<NetworkListCubit>(NetworkListCubit.new)
+    ..registerLazySingleton<ApiRepository>(MockApiRepository.new)
+    ..registerFactory<ApiKiraRepository>(MockApiKiraRepository.new)
+    ..registerFactory<ApiCosmosRepository>(MockApiCosmosRepository.new)
+    ..registerFactory<NetworkModuleService>(NetworkModuleService.new)
+    ..registerFactory<QueryInterxStatusService>(QueryInterxStatusService.new)
+    ..registerFactory<QueryBalanceService>(QueryBalanceService.new)
+    ..registerFactory<DashboardService>(DashboardService.new)
+    ..registerFactory<QueryKiraTokensRatesService>(QueryKiraTokensRatesService.new)
+    ..registerFactory<QueryKiraTokensAliasesService>(QueryKiraTokensAliasesService.new)
+    ..registerFactory<QueryValidatorsService>(QueryValidatorsService.new);
 
   globalLocator<AppConfig>().init(mockNetworkListConfigJson);
 }

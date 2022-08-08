@@ -21,7 +21,8 @@ class QueryBalanceService implements _QueryBalanceService {
     QueryBalanceReq queryBalanceReq = QueryBalanceReq(
       address: globalLocator<WalletProvider>().currentWallet!.address.bech32Address,
     );
-    return await getAccountBalance(networkUri, queryBalanceReq);
+    QueryBalanceResp? queryBalanceResp = await getAccountBalance(networkUri, queryBalanceReq);
+    return queryBalanceResp;
   }
 
   @override

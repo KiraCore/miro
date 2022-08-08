@@ -1,10 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:miro/shared/utils/crypto_address_parser.dart';
-import 'package:pointycastle/ecc/api.dart';
-import 'package:pointycastle/ecc/curves/secp256k1.dart';
 import 'package:pointycastle/export.dart';
-import 'package:pointycastle/signers/ecdsa_signer.dart';
 
 /// Helper class used to sign a transaction.
 /// Source: https://github.com/KiraCore/tools/blob/2f79a4788f1614d9ed56b4878d5b5d8005af51b2/offline-signer/tx_helper/msg_signer.dart
@@ -19,16 +16,15 @@ class MessageSigner {
     ECPrivateKey privateKey,
     ECPublicKey publicKey,
   ) {
-    final ECDomainParameters _params = ECCurve_secp256k1();
-    final BigInt _halfCurveOrder = _params.n >> 1;
+    final ECDomainParameters params = ECCurve_secp256k1();
+    final BigInt halfCurveOrder = params.n >> 1;
 
-    final ECDSASigner ecdsaSigner = ECDSASigner(null, HMac(SHA256Digest(), 64))
-      ..init(true, PrivateKeyParameter<PrivateKey>(privateKey));
+    final ECDSASigner ecdsaSigner = ECDSASigner(null, HMac(SHA256Digest(), 64))..init(true, PrivateKeyParameter<PrivateKey>(privateKey));
 
     ECSignature ecSignature = ecdsaSigner.generateSignature(message) as ECSignature;
 
-    if (ecSignature.s.compareTo(_halfCurveOrder) > 0) {
-      final BigInt canonicalS = _params.n - ecSignature.s;
+    if (ecSignature.s.compareTo(halfCurveOrder) > 0) {
+      final BigInt canonicalS = params.n - ecSignature.s;
       ecSignature = ECSignature(ecSignature.r, canonicalS);
     }
 
@@ -38,7 +34,7 @@ class MessageSigner {
 
     int recoveryID = -1;
     for (int i = 0; i < 4; i++) {
-      final BigInt? k = _recoverFromSignature(i, ecSignature, message, _params);
+      final BigInt? k = _recoverFromSignature(i, ecSignature, message, params);
       if (k == publicKeyBigInt) {
         recoveryID = i;
         break;

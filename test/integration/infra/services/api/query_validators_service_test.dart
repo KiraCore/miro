@@ -84,9 +84,7 @@ Future<void> main() async {
       Status? status = await queryValidatorsService.getStatus(networkUri);
 
       testPrint('Data return');
-      int responseLength = status.toString().length;
-      print('${status.toString().substring(0, 1000)} ....');
-      print('.... ${status.toString().substring(responseLength - 1800, responseLength)}');
+      print(status);
       print('');
     });
   });

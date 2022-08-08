@@ -12,7 +12,7 @@ class PopWrapperController {
   late ScreenSize _screenSize;
   late AnimationController animationController;
   late JustTheController controller = JustTheController();
-  late Function showMobilePopup;
+  late VoidCallback showMobilePopup;
 
   set screenSize(ScreenSize value) {
     _screenSize = value;
@@ -45,7 +45,7 @@ class PopWrapperController {
   void initController({
     required AnimationController animationController,
     required BuildContext context,
-    required Function showMobilePopup,
+    required VoidCallback showMobilePopup,
   }) {
     this.animationController = animationController;
     this.context = context;
@@ -132,7 +132,6 @@ class _PopWrapper extends State<PopWrapper> with SingleTickerProviderStateMixin 
       backgroundColor: Colors.transparent,
       content: Container(
         margin: const EdgeInsets.only(top: 14, left: 4, right: 4, bottom: 4),
-        padding: const EdgeInsets.all(0),
         decoration: BoxDecoration(
           color: Theme.of(context).scaffoldBackgroundColor,
         ),

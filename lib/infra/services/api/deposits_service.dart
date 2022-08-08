@@ -6,7 +6,6 @@ import 'package:miro/infra/repositories/api_repository.dart';
 
 abstract class _DepositsService {
   Future<DepositsResp?> getAccountDeposits(Uri networkUri, DepositsReq depositsReq);
-  void ignoreMethod();
 }
 
 class DepositsService implements _DepositsService {
@@ -21,10 +20,4 @@ class DepositsService implements _DepositsService {
       rethrow;
     }
   }
-
-  @override
-  void ignoreMethod() {
-    // TODO(Karol): implement ignoreMethod
-  }
-
 }

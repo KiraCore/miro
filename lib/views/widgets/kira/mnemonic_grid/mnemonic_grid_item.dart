@@ -1,6 +1,5 @@
 // ignore: implementation_imports
 import 'package:bip39/src/wordlists/english.dart' as bip39;
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:miro/config/theme/design_colors.dart';
@@ -125,16 +124,16 @@ class _MnemonicGridItem extends State<MnemonicGridItem> {
   }
 
   void _validateMnemonicWord() {
-    String _word = widget.textController.text.replaceAll(' ', '');
+    String word = widget.textController.text.replaceAll(' ', '');
     if (focusNode.hasFocus) {
       _setMnemonicState(MnemonicState.valid);
       return;
     }
-    if (widget.index + 1 > 12 && _word.isEmpty) {
+    if (widget.index + 1 > 12 && word.isEmpty) {
       _setMnemonicState(MnemonicState.valid);
       return;
     }
-    bool validWord = bip39.WORDLIST.contains(_word);
+    bool validWord = bip39.WORDLIST.contains(word);
     if (validWord) {
       _setMnemonicState(MnemonicState.valid);
     } else {
