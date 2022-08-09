@@ -5,6 +5,7 @@ import 'package:miro/blocs/specific_blocs/network_list/states/network_list_loade
 import 'package:miro/blocs/specific_blocs/network_list/states/network_list_loading_state.dart';
 import 'package:miro/blocs/specific_blocs/network_module/events/network_module_init_event.dart';
 import 'package:miro/blocs/specific_blocs/network_module/network_module_bloc.dart';
+import 'package:miro/config/locator.dart';
 import 'package:miro/shared/models/network/data/connection_status_type.dart';
 import 'package:miro/shared/models/network/data/interx_warning_model.dart';
 import 'package:miro/shared/models/network/data/interx_warning_type.dart';
@@ -77,8 +78,8 @@ Future<void> main() async {
   group('Tests of NetworkListCubit setup networks process', () {
     test('Should return NetworkUnknownModel list, then update their status amd update connected network', () async {
       // Arrange
-      NetworkModuleBloc actualNetworkModuleBloc = NetworkModuleBloc();
-      NetworkListCubit actualNetworkListCubit = actualNetworkModuleBloc.networkListCubit;
+      NetworkModuleBloc actualNetworkModuleBloc = globalLocator<NetworkModuleBloc>();
+      NetworkListCubit actualNetworkListCubit = globalLocator<NetworkListCubit>();
 
       // Assert
       ANetworkListState expectedNetworkListState = NetworkListLoadingState();

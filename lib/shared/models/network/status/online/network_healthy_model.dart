@@ -1,3 +1,4 @@
+import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/shared/models/network/data/connection_status_type.dart';
 import 'package:miro/shared/models/network/data/network_info_model.dart';
 import 'package:miro/shared/models/network/status/online/a_network_online_model.dart';
@@ -9,6 +10,7 @@ class NetworkHealthyModel extends ANetworkOnlineModel {
     required Uri uri,
     String? name,
   }) : super(
+          statusColor: DesignColors.darkGreen_100,
           networkInfoModel: networkInfoModel,
           connectionStatusType: connectionStatusType,
           uri: uri,

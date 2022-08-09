@@ -5,58 +5,69 @@ import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/shared/models/network/data/connection_status_type.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
+import 'package:miro/shared/models/network/status/network_offline_model.dart';
 import 'package:miro/shared/models/network/status/network_unknown_model.dart';
 import 'package:miro/shared/models/network/status/online/a_network_online_model.dart';
 import 'package:miro/views/widgets/network_list/network_button/network_connect_button.dart';
 import 'package:miro/views/widgets/network_list/network_button/network_selected_button.dart';
 
 class NetworkButton extends StatelessWidget {
-  final Color color;
   final ANetworkStatusModel networkStatusModel;
 
   const NetworkButton({
-    required this.color,
     required this.networkStatusModel,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (networkStatusModel.connectionStatusType == ConnectionStatusType.connected) {
+    bool networkConnected = networkStatusModel.connectionStatusType == ConnectionStatusType.connected;
+    bool networkConnecting = networkStatusModel.connectionStatusType == ConnectionStatusType.connecting;
+    bool networkOnline = networkStatusModel is ANetworkOnlineModel;
+    bool networkUnknown = networkStatusModel is NetworkUnknownModel;
+    bool networkOffline = networkStatusModel is NetworkOfflineModel;
+
+    if (networkConnected && networkOffline) {
+      return const SizedBox(
+        width: double.infinity,
+        child: Text(
+          'Selected server is offline\nPlease choose different network',
+          style: TextStyle(
+            fontSize: 13,
+            color: DesignColors.red_100,
+          ),
+        ),
+      );
+    } else if (networkConnected) {
       return NetworkSelectedButton(
         networkStatusModel: networkStatusModel,
-        color: color,
         title: 'Connected',
       );
-    }
-    if (networkStatusModel.connectionStatusType == ConnectionStatusType.connecting) {
+    } else if (networkConnecting) {
       return NetworkSelectedButton(
         networkStatusModel: networkStatusModel,
-        color: color,
         title: 'Connecting...',
       );
-    }
-    if (networkStatusModel is ANetworkOnlineModel) {
+    } else if (networkOnline) {
       return NetworkConnectButton(
         networkStatusModel: networkStatusModel,
-        color: color,
         onPressed: _handleConnectToNetworkPressed,
       );
-    }
-    if (networkStatusModel is NetworkUnknownModel) {
+    } else if (networkUnknown) {
       return NetworkConnectButton(
         networkStatusModel: networkStatusModel,
-        color: color,
         opacity: 0.6,
         onPressed: null,
       );
+    } else {
+      return const Text(
+        'Cannot connect to network',
+        style: TextStyle(
+          fontSize: 13,
+          color: DesignColors.red_100,
+        ),
+      );
     }
-    return const Text(
-      'Cannot connect to network',
-      style: TextStyle(
-        color: DesignColors.red_100,
-      ),
-    );
   }
 
   void _handleConnectToNetworkPressed() {

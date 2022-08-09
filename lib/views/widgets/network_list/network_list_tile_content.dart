@@ -37,7 +37,7 @@ class NetworkListTileContent extends StatelessWidget {
                 InterxWarningType interxWarningType = networkUnhealthyModel.interxWarningModel.interxWarningTypes[index];
                 return NetworkWarningContainer(
                   interxWarningType: interxWarningType,
-                  latestBlockTime: blockTime,
+                  latestBlockTime: _blockTime,
                 );
               },
             ),
@@ -47,21 +47,21 @@ class NetworkListTileContent extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               const Text('Block time', style: kNetworkDetailsTextStyle),
-              Text(blockTime, style: kNetworkDetailsTextStyle),
+              Text(_blockTime, style: kNetworkDetailsTextStyle),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               const Text('Block Height', style: kNetworkDetailsTextStyle),
-              Text(latestBlockHeight, style: kNetworkDetailsTextStyle),
+              Text(_latestBlockHeight, style: kNetworkDetailsTextStyle),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               const Text('Validators', style: kNetworkDetailsTextStyle),
-              Text(validatorsCount, style: kNetworkDetailsTextStyle),
+              Text(_validatorsCount, style: kNetworkDetailsTextStyle),
             ],
           ),
         ],
@@ -69,14 +69,14 @@ class NetworkListTileContent extends StatelessWidget {
     );
   }
 
-  String get latestBlockHeight {
+  String get _latestBlockHeight {
     if (networkStatusModel is ANetworkOnlineModel) {
       return (networkStatusModel as ANetworkOnlineModel).networkInfoModel.latestBlockHeight.toString();
     }
     return '---';
   }
 
-  String get validatorsCount {
+  String get _validatorsCount {
     if (networkStatusModel is ANetworkOnlineModel) {
       int? activeValidators = (networkStatusModel as ANetworkOnlineModel).networkInfoModel.activeValidators;
       int? totalValidators = (networkStatusModel as ANetworkOnlineModel).networkInfoModel.totalValidators;
@@ -85,7 +85,7 @@ class NetworkListTileContent extends StatelessWidget {
     return '---/---';
   }
 
-  String get blockTime {
+  String get _blockTime {
     if (networkStatusModel is ANetworkOnlineModel) {
       DateTime latestBlockTime = (networkStatusModel as ANetworkOnlineModel).networkInfoModel.latestBlockTime.toLocal();
       return DateFormat('HH:mm dd.MM.yyyy').format(latestBlockTime);

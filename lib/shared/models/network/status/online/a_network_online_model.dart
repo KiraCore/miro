@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:miro/shared/models/network/data/connection_status_type.dart';
 import 'package:miro/shared/models/network/data/interx_warning_model.dart';
 import 'package:miro/shared/models/network/data/network_info_model.dart';
@@ -9,11 +10,13 @@ abstract class ANetworkOnlineModel extends ANetworkStatusModel {
   final NetworkInfoModel networkInfoModel;
 
   const ANetworkOnlineModel({
+    required Color statusColor,
     required this.networkInfoModel,
     required ConnectionStatusType connectionStatusType,
     required Uri uri,
     String? name,
   }) : super(
+          statusColor: statusColor,
           connectionStatusType: connectionStatusType,
           uri: uri,
           name: name,

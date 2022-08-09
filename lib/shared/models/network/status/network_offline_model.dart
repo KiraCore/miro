@@ -1,3 +1,4 @@
+import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/shared/models/network/data/connection_status_type.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
 
@@ -7,6 +8,7 @@ class NetworkOfflineModel extends ANetworkStatusModel {
     required Uri uri,
     String? name,
   }) : super(
+          statusColor: DesignColors.red_100,
           connectionStatusType: connectionStatusType,
           uri: uri,
           name: name,
