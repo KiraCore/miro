@@ -2,14 +2,15 @@ import 'package:equatable/equatable.dart';
 import 'package:miro/shared/models/network/data/connection_status_type.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
 import 'package:miro/shared/models/network/status/network_empty_model.dart';
-import 'package:miro/shared/models/network/status/online/a_network_online_model.dart';
 
 class NetworkModuleState extends Equatable {
   final ANetworkStatusModel networkStatusModel; // NetworkEmptyModel
 
-  const NetworkModuleState.connecting(this.networkStatusModel);
+  NetworkModuleState.connecting(ANetworkStatusModel networkStatusModel)
+      : networkStatusModel = networkStatusModel.copyWith(connectionStatusType: ConnectionStatusType.connecting);
 
-  const NetworkModuleState.connected(ANetworkOnlineModel networkOnlineModel) : networkStatusModel = networkOnlineModel;
+  NetworkModuleState.connected(ANetworkStatusModel networkStatusModel)
+      : networkStatusModel = networkStatusModel.copyWith(connectionStatusType: ConnectionStatusType.connected);
 
   NetworkModuleState.disconnected() : networkStatusModel = NetworkEmptyModel(connectionStatusType: ConnectionStatusType.disconnected);
 

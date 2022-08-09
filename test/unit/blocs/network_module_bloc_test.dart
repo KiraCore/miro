@@ -10,6 +10,7 @@ import 'package:miro/shared/models/network/data/connection_status_type.dart';
 import 'package:miro/shared/models/network/data/interx_warning_model.dart';
 import 'package:miro/shared/models/network/data/interx_warning_type.dart';
 import 'package:miro/shared/models/network/data/network_info_model.dart';
+import 'package:miro/shared/models/network/status/network_offline_model.dart';
 import 'package:miro/shared/models/network/status/network_unknown_model.dart';
 import 'package:miro/shared/models/network/status/online/network_healthy_model.dart';
 import 'package:miro/shared/models/network/status/online/network_unhealthy_model.dart';
@@ -124,7 +125,7 @@ Future<void> main() async {
       await Future<void>.delayed(const Duration(milliseconds: 100));
 
       // Assert
-      expectedNetworkModuleState = NetworkModuleState.disconnected();
+      expectedNetworkModuleState = NetworkModuleState.connected(networkUnhealthyModel);
 
       TestUtils.printInfo('Should return NetworkModuleState with NetworkEmptyModel (disconnected state) if default network is unhealthy');
       expect(actualNetworkBloc.state, expectedNetworkModuleState);
@@ -134,7 +135,7 @@ Future<void> main() async {
       await Future<void>.delayed(const Duration(milliseconds: 100));
 
       // Assert
-      expectedNetworkModuleState = NetworkModuleState.connected(networkUnhealthyModel.copyWith(connectionStatusType: ConnectionStatusType.connected));
+      expectedNetworkModuleState = NetworkModuleState.connected(networkUnhealthyModel);
 
       TestUtils.printInfo('Should return NetworkModuleState with NetworkUnhealthyModel (connected state) after select network');
       expect(actualNetworkBloc.state, expectedNetworkModuleState);
@@ -156,8 +157,7 @@ Future<void> main() async {
       await Future<void>.delayed(const Duration(milliseconds: 40));
 
       // Assert
-      expectedNetworkModuleState =
-          NetworkModuleState.connecting(healthyNetworkUnknownModel.copyWith(connectionStatusType: ConnectionStatusType.connecting));
+      expectedNetworkModuleState = NetworkModuleState.connecting(healthyNetworkUnknownModel);
 
       TestUtils.printInfo('Should return NetworkModuleState with NetworkUnknownModel (connecting state)');
       expect(actualNetworkBloc.state, expectedNetworkModuleState);
@@ -166,7 +166,7 @@ Future<void> main() async {
       await Future<void>.delayed(const Duration(milliseconds: 100));
 
       // Assert
-      expectedNetworkModuleState = NetworkModuleState.connected(networkHealthyModel.copyWith(connectionStatusType: ConnectionStatusType.connected));
+      expectedNetworkModuleState = NetworkModuleState.connected(networkHealthyModel);
 
       TestUtils.printInfo('Should return NetworkModuleState with NetworkHealthyModel (connected state) if default network is healthy');
       expect(actualNetworkBloc.state, expectedNetworkModuleState);
@@ -176,7 +176,7 @@ Future<void> main() async {
       await Future<void>.delayed(const Duration(milliseconds: 100));
 
       // Assert
-      expectedNetworkModuleState = NetworkModuleState.connected(networkUnhealthyModel.copyWith(connectionStatusType: ConnectionStatusType.connected));
+      expectedNetworkModuleState = NetworkModuleState.connected(networkUnhealthyModel);
 
       TestUtils.printInfo('Should return NetworkModuleState with NetworkUnhealthyModel (connected state) if network is unhealthy');
       expect(actualNetworkBloc.state, expectedNetworkModuleState);
@@ -186,7 +186,7 @@ Future<void> main() async {
       await Future<void>.delayed(const Duration(milliseconds: 100));
 
       // Assert
-      expectedNetworkModuleState = NetworkModuleState.connected(networkHealthyModel.copyWith(connectionStatusType: ConnectionStatusType.connected));
+      expectedNetworkModuleState = NetworkModuleState.connected(networkHealthyModel);
 
       TestUtils.printInfo('Should return NetworkModuleState with NetworkHealthyModel (connected state) if network is healthy');
       expect(actualNetworkBloc.state, expectedNetworkModuleState);
@@ -259,6 +259,10 @@ Future<void> main() async {
           InterxWarningType.blockTimeOutdated,
         ]),
       );
+      NetworkOfflineModel dynamicNetworkOfflineModel = NetworkOfflineModel(
+        connectionStatusType: ConnectionStatusType.disconnected,
+        uri: Uri.parse('https://dynamic.kira.network'),
+      );
 
       rpcBrowserUrlController.setRpcAddress(dynamicNetworkUnknownModel);
 
@@ -306,7 +310,7 @@ Future<void> main() async {
       await Future<void>.delayed(const Duration(milliseconds: 100));
 
       // Assert
-      expectedNetworkModuleState = NetworkModuleState.disconnected();
+      expectedNetworkModuleState = NetworkModuleState.connected(dynamicNetworkOfflineModel);
 
       TestUtils.printInfo('Should return NetworkModuleState with NetworkUnknownModel if current network changed status to offline after refreshing');
       expect(actualNetworkBloc.state, expectedNetworkModuleState);

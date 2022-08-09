@@ -1,3 +1,4 @@
+import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/shared/models/network/data/connection_status_type.dart';
 import 'package:miro/shared/models/network/data/interx_warning_model.dart';
 import 'package:miro/shared/models/network/data/network_info_model.dart';
@@ -13,6 +14,7 @@ class NetworkUnhealthyModel extends ANetworkOnlineModel {
     required Uri uri,
     String? name,
   }) : super(
+          statusColor: DesignColors.yellow_100,
           networkInfoModel: networkInfoModel,
           connectionStatusType: connectionStatusType,
           uri: uri,

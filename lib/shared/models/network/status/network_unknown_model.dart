@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:miro/shared/models/network/data/connection_status_type.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
 import 'package:miro/shared/utils/network_utils.dart';
@@ -8,6 +9,7 @@ class NetworkUnknownModel extends ANetworkStatusModel {
     required Uri uri,
     String? name,
   }) : super(
+          statusColor: Colors.grey,
           connectionStatusType: connectionStatusType,
           uri: uri,
           name: name,
