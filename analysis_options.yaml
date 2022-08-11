@@ -1,7 +1,8 @@
 # This file configures the analyzer, which statically analyzes Dart code to
 # check for errors, warnings, and lints.
 
-# linter rules based on libter version 1.14.0 - updated 13-November-2021
+# linter rules based on dart SDK 2.17.6, linter version 1.22.0 - updated 11-August-2022
+# https://github.com/dart-lang/sdk/blob/main/CHANGELOG.md
 
 # https://pub.dev/documentation/analyzer/latest/
 # https://dart-lang.github.io/linter/lints/
