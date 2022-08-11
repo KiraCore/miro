@@ -22,6 +22,8 @@ fvm flutter pub get
 fvm flutter run -d chrome --dart-define=FLUTTER_WEB_USE_SKIA=true
 # or
 fvm flutter run -d chrome
+# or
+fvm flutter run -d web-server
 ```
 
 To generate config files use
