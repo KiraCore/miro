@@ -30,13 +30,9 @@ Future<void> main() async {
 
   setPathUrlStrategy();
   runApp(
-    // ignore: always_specify_types
-    ChangeNotifierProvider.value(
-      value: globalLocator<AppConfigProvider>(),
-      child: MultiProvider(
-        providers: appListProviders,
-        child: const CoreApp(),
-      ),
+    MultiProvider(
+      providers: appListProviders,
+      child: const CoreApp(),
     ),
   );
 }
@@ -62,7 +58,6 @@ class _CoreApp extends State<CoreApp> {
         return MaterialApp.router(
           routeInformationParser: appRouter.defaultRouteParser(),
           routerDelegate: appRouter.delegate(),
-          // showPerformanceOverlay: true,
           debugShowCheckedModeBanner: false,
           locale: Locale(
             globalLocator<AppConfigProvider>().locale,

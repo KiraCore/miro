@@ -11,7 +11,6 @@ class ApiManager {
     CancelToken? cancelToken,
     ProgressCallback? onReceiveProgress,
   }) async {
-    // print('${networkUri}$path?${queryParameters?.keys.map((String key) => '$key=${queryParameters[key]}').toList().join('&')}');
     try {
       final Dio server = DioForBrowser(BaseOptions(baseUrl: networkUri.toString()));
       return await server.get<T>(

@@ -12,10 +12,10 @@ class StarButton extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _HeartButton();
+  State<StatefulWidget> createState() => _StarButton();
 }
 
-class _HeartButton extends State<StarButton> {
+class _StarButton extends State<StarButton> {
   late bool selected;
 
   @override

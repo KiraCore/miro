@@ -36,13 +36,6 @@ class AccountMenuList extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 12),
-        // TODO(dominik): Design change proposal. Remove or uncomment before release
-        // const SizedBox(height: 10),
-        // KiraOutlinedButton(
-        //   onPressed: _onCreateNewWalletPressed,
-        //   height: 40,
-        //   title: 'Create new wallet',
-        // ),
       ],
     );
   }
@@ -61,12 +54,6 @@ class AccountMenuList extends StatelessWidget {
     globalLocator<WalletProvider>().logout(context);
     AutoRouter.of(context).replace(const DashboardRoute());
   }
-
-// TODO(dominik): Design change proposal. Remove or uncomment before release
-// void _onCreateNewWalletPressed() {
-//   widget.popWrapperController.hideMenu();
-//   KiraScaffold.of(widget.appContext).navigateEndDrawerRoute(const CreateWalletPage());
-// }
 }
 
 class _MenuListTile extends StatelessWidget {
