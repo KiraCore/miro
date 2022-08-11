@@ -14,8 +14,8 @@ class QueryKiraTokensAliasesService implements _QueryKiraTokensAliasesService {
   final ApiKiraRepository _apiKiraRepository = globalLocator<ApiKiraRepository>();
 
   @override
-  Future<QueryKiraTokensAliasesResp> getTokenAliases({Uri? customNetworkUri}) async {
-    Uri networkUri = customNetworkUri ?? globalLocator<NetworkModuleBloc>().state.networkUri;
+  Future<QueryKiraTokensAliasesResp> getTokenAliases() async {
+    Uri networkUri = globalLocator<NetworkModuleBloc>().state.networkUri;
     final Response<dynamic> response = await _apiKiraRepository.fetchQueryKiraTokensAliases<dynamic>(networkUri);
     return QueryKiraTokensAliasesResp.fromJsonList(response.data as List<dynamic>);
   }

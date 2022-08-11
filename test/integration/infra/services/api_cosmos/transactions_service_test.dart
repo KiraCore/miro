@@ -1,8 +1,7 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:miro/blocs/specific_blocs/network_module/events/network_module_connect_event.dart';
-import 'package:miro/blocs/specific_blocs/network_module/network_module_bloc.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/broadcast_req.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/coin.dart';
@@ -20,9 +19,6 @@ import 'package:miro/infra/dto/api_cosmos/broadcast/request/transaction/unsigned
 import 'package:miro/infra/dto/api_cosmos/broadcast/response/broadcast_resp.dart';
 import 'package:miro/infra/services/api_cosmos/transactions_service.dart';
 import 'package:miro/providers/wallet_provider.dart';
-import 'package:miro/shared/models/network/data/connection_status_type.dart';
-import 'package:miro/shared/models/network/data/network_info_model.dart';
-import 'package:miro/shared/models/network/status/online/network_healthy_model.dart';
 import 'package:miro/shared/models/wallet/mnemonic.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
@@ -34,6 +30,10 @@ import 'package:miro/test/utils/test_utils.dart';
 // ignore_for_file: avoid_print
 Future<void> main() async {
   await initLocator();
+
+  final Uri networkUri = NetworkUtils.parseUrl('http://173.212.254.147:11000');
+  await TestUtils.setupNetworkModel(networkUri: networkUri);
+
   // Set up the constants to run the tests.
   const String senderMnemonicString =
       'require point property company tongue busy bench burden caution gadget knee glance thought bulk assist month cereal report quarter tool section often require shield';
@@ -46,34 +46,25 @@ Future<void> main() async {
   final Wallet recipientWallet = Wallet.derive(mnemonic: recipientMnemonic);
   const String recipientAddress = 'kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl';
 
-  final Uri customUri = NetworkUtils.parseUrl('http://173.212.254.147:11000');
   const String chainId = 'testnet-9';
   final TxFee fee = TxFee(amount: <Coin>[Coin(denom: 'ukex', value: BigInt.parse('200'))]);
 
   globalLocator<WalletProvider>().updateWallet(senderWallet);
-  TransactionsService transactionsService = TransactionsService();
-
-  NetworkHealthyModel networkHealthyModel = NetworkHealthyModel(
-    connectionStatusType: ConnectionStatusType.disconnected,
-    uri: Uri.parse('https://healthy.kira.network'),
-    name: 'healthy-mainnet',
-    networkInfoModel: NetworkInfoModel(
-      chainId: 'localnet-1',
-      interxVersion: 'v0.4.11',
-      latestBlockHeight: 108843,
-      latestBlockTime: DateTime.now(),
-    ),
-  );
-
-  globalLocator<NetworkModuleBloc>().add(NetworkModuleConnectEvent(networkHealthyModel));
-  await Future<void>.delayed(const Duration(milliseconds: 100));
+  final TransactionsService transactionsService = globalLocator<TransactionsService>();
 
   Future<void> _broadcastTransaction(SignedTransaction signedTransaction) async {
     TestUtils.printInfo('Data request');
-    BroadcastResp broadcastResp = await transactionsService.broadcastTransaction(signedTransaction, customUri: customUri);
+    try {
+      BroadcastResp actualBroadcastResp = await transactionsService.broadcastTransaction(signedTransaction);
 
-    TestUtils.printInfo('Data return');
-    print(broadcastResp);
+      TestUtils.printInfo('Data return');
+      print(actualBroadcastResp);
+      print('');
+    } on DioError catch (e) {
+      TestUtils.printError('transactions_service_test.dart: Cannot fetch BroadcastResp for URI $networkUri: ${e.message}');
+    } catch (e) {
+      TestUtils.printError('transactions_service_test.dart: Cannot parse BroadcastResp for URI $networkUri: ${e}');
+    }
   }
 
   group('Tests of TransactionsService.signTransaction() method', () {
@@ -94,7 +85,6 @@ Future<void> main() async {
 
       SignedTransaction signedTransaction = await transactionsService.signTransaction(
         unsignedTransaction,
-        customUri: customUri,
         customChainId: chainId,
       );
 
@@ -127,7 +117,6 @@ Future<void> main() async {
 
       SignedTransaction signedTransaction = await transactionsService.signTransaction(
         unsignedTransaction,
-        customUri: customUri,
         customChainId: chainId,
       );
 
@@ -155,7 +144,6 @@ Future<void> main() async {
 
       SignedTransaction signedTransaction = await transactionsService.signTransaction(
         unsignedTransaction,
-        customUri: customUri,
         customChainId: chainId,
       );
 
@@ -180,7 +168,6 @@ Future<void> main() async {
 
       SignedTransaction signedTransaction = await transactionsService.signTransaction(
         unsignedTransaction,
-        customUri: customUri,
         customChainId: chainId,
       );
 
@@ -205,7 +192,6 @@ Future<void> main() async {
 
       SignedTransaction signedTransaction = await transactionsService.signTransaction(
         unsignedTransaction,
-        customUri: customUri,
         customChainId: chainId,
       );
 
@@ -232,7 +218,6 @@ Future<void> main() async {
 
       SignedTransaction signedTransaction = await transactionsService.signTransaction(
         unsignedTransaction,
-        customUri: customUri,
         customChainId: chainId,
       );
 

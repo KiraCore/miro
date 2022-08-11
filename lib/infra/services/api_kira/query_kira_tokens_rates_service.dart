@@ -14,8 +14,8 @@ class QueryKiraTokensRatesService implements _QueryKiraTokensRatesService {
   final ApiKiraRepository _apiKiraRepository = globalLocator<ApiKiraRepository>();
 
   @override
-  Future<QueryKiraTokensRatesResp> getTokenRates({Uri? customNetworkUri}) async {
-    Uri networkUri = customNetworkUri ?? globalLocator<NetworkModuleBloc>().state.networkUri;
+  Future<QueryKiraTokensRatesResp> getTokenRates() async {
+    Uri networkUri = globalLocator<NetworkModuleBloc>().state.networkUri;
     final Response<dynamic> response = await _apiKiraRepository.fetchQueryKiraTokensRates<dynamic>(networkUri);
     return QueryKiraTokensRatesResp.fromJson(response.data as Map<String, dynamic>);
   }
