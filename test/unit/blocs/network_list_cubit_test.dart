@@ -14,13 +14,13 @@ import 'package:miro/shared/models/network/status/network_offline_model.dart';
 import 'package:miro/shared/models/network/status/network_unknown_model.dart';
 import 'package:miro/shared/models/network/status/online/network_healthy_model.dart';
 import 'package:miro/shared/models/network/status/online/network_unhealthy_model.dart';
-import 'package:miro/test/test_locator.dart';
+import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
 // To run this test type in console:
 // fvm flutter test test/unit/blocs/network_list_cubit_test.dart --platform chrome
 Future<void> main() async {
-  await initTestLocator();
+  await initMockLocator();
 
   List<NetworkUnknownModel> networkUnknownModelList = <NetworkUnknownModel>[
     NetworkUnknownModel(
@@ -83,7 +83,7 @@ Future<void> main() async {
       // Assert
       ANetworkListState expectedNetworkListState = NetworkListLoadingState();
 
-      testPrint('Should return NetworkListLoadingState');
+      TestUtils.printInfo('Should return NetworkListLoadingState');
       expect(
         actualNetworkListCubit.state,
         expectedNetworkListState,
@@ -95,7 +95,7 @@ Future<void> main() async {
       // Assert
       expectedNetworkListState = NetworkListLoadedState(networkStatusModelList: networkUnknownModelList);
 
-      testPrint('Should return NetworkListLoadedState containing NetworkUnknownModel list with disconnected status');
+      TestUtils.printInfo('Should return NetworkListLoadedState containing NetworkUnknownModel list with disconnected status');
       expect(
         actualNetworkListCubit.state,
         expectedNetworkListState,
@@ -112,7 +112,7 @@ Future<void> main() async {
         networkOfflineModel,
       ]);
 
-      testPrint('Should return NetworkListLoadedState containing ANetworkStatusModels list with disconnected status');
+      TestUtils.printInfo('Should return NetworkListLoadedState containing ANetworkStatusModels list with disconnected status');
       expect(
         actualNetworkListCubit.state,
         expectedNetworkListState,
@@ -131,7 +131,7 @@ Future<void> main() async {
         networkOfflineModel,
       ]);
 
-      testPrint(
+      TestUtils.printInfo(
           'Should return NetworkListLoadedState containing ANetworkStatusModels list with two disconnected status and one with connected status');
       expect(
         actualNetworkListCubit.state,

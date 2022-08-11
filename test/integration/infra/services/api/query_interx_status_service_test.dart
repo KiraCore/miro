@@ -19,9 +19,9 @@ Future<void> main() async {
     test('Should return network data if network belongs to kira and network is active', () async {
       final Uri uri = NetworkUtils.parseUrl('https://${testnetRpcUrl}');
 
-      testPrint('Data request');
+      TestUtils.printInfo('Data request');
       QueryInterxStatusResp queryInterxStatusResp = await queryInterxStatusService.getQueryInterxStatusResp(uri);
-      testPrint('Data return');
+      TestUtils.printInfo('Data return');
       print(queryInterxStatusResp.toString());
       print('');
     });
@@ -31,14 +31,14 @@ Future<void> main() async {
 
       try {
         await queryInterxStatusService.getQueryInterxStatusResp(uri);
-        testPrintError('Test failed');
+        TestUtils.printError('Test failed');
       } catch (e) {
         if (e.runtimeType == InterxUnavailableException) {
           print('Test passed');
           print('Exception is ${e.runtimeType}');
         } else {
-          testPrintError('Test failed');
-          testPrintError('Exception is ${e.runtimeType}');
+          TestUtils.printError('Test failed');
+          TestUtils.printError('Exception is ${e.runtimeType}');
         }
       }
     });

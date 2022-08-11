@@ -16,11 +16,10 @@ void main() {
       final QueryKiraTokensRatesService queryKiraTokensRatesService = globalLocator<QueryKiraTokensRatesService>();
       final Uri networkUri = NetworkUtils.parseUrl('https://testnet-rpc.kira.network');
 
-      testPrint('Data request');
-      QueryKiraTokensRatesResp queryKiraTokensRatesResp =
-          await queryKiraTokensRatesService.getTokenRates(customNetworkUri: networkUri);
+      TestUtils.printInfo('Data request');
+      QueryKiraTokensRatesResp queryKiraTokensRatesResp = await queryKiraTokensRatesService.getTokenRates(customNetworkUri: networkUri);
 
-      testPrint('Data return');
+      TestUtils.printInfo('Data return');
       print(queryKiraTokensRatesResp);
       print('');
     });

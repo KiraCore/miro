@@ -10,12 +10,12 @@ import 'package:miro/shared/models/network/status/network_offline_model.dart';
 import 'package:miro/shared/models/network/status/network_unknown_model.dart';
 import 'package:miro/shared/models/network/status/online/network_healthy_model.dart';
 import 'package:miro/shared/models/network/status/online/network_unhealthy_model.dart';
-import 'package:miro/test/test_locator.dart';
+import 'package:miro/test/mock_locator.dart';
 
 // To run this test type in console:
 // fvm flutter test test/unit/infra/services/network_module_service_test.dart --platform chrome
 Future<void> main() async {
-  await initTestLocator();
+  await initMockLocator();
   NetworkModuleService networkModuleService = globalLocator<NetworkModuleService>();
 
   group('Tests of getNetworkStatusModel()', () {

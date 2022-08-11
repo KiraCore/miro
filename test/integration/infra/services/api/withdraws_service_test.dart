@@ -19,10 +19,10 @@ void main() {
 
       WithdrawsReq withdrawsReq = WithdrawsReq(account: 'kira1axqn2nr8wcwy83gnx97ugypunfka30wt4xyul8');
 
-      testPrint('Data request');
+      TestUtils.printInfo('Data request');
       WithdrawsResp? withdrawsResp = await withdrawsService.getAccountWithdraws(uri, withdrawsReq);
 
-      testPrint('Data return');
+      TestUtils.printInfo('Data return');
       print(withdrawsResp);
       print('');
     });

@@ -19,10 +19,10 @@ void main() {
 
       QueryBalanceReq queryBalanceReq = QueryBalanceReq(address: 'kira1axqn2nr8wcwy83gnx97ugypunfka30wt4xyul8');
 
-      testPrint('Data request');
+      TestUtils.printInfo('Data request');
       QueryBalanceResp? queryBalanceResp = await queryBalanceService.getAccountBalance(networkUri, queryBalanceReq);
 
-      testPrint('Data return');
+      TestUtils.printInfo('Data return');
       print(queryBalanceResp);
       print('');
     });

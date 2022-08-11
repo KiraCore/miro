@@ -2,14 +2,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/cache/cache_manager.dart';
 import 'package:miro/infra/cache/favourite_cache.dart';
-import 'package:miro/test/test_locator.dart';
+import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
 // To run this test type in console:
 // fvm flutter test test/unit/infra/cache/favourites_cache_test.dart --platform chrome
 // ignore_for_file: cascade_invocations
 Future<void> main() async {
-  await initTestLocator();
+  await initMockLocator();
   await globalLocator<CacheManager>().init();
 
   group('Tests of add() method', () {
@@ -195,13 +195,13 @@ Future<void> main() async {
       );
       String expectedCacheValue = '';
 
-      testPrint('Should return empty String if favourites are not initialized');
+      TestUtils.printInfo('Should return empty String if favourites are not initialized');
       expect(actualCacheValue, expectedCacheValue);
 
       // Assert
       Set<String> expectedUniqueValues = <String>{};
 
-      testPrint('Should return empty List if favourites are not initialized');
+      TestUtils.printInfo('Should return empty List if favourites are not initialized');
       expect(
         actualFavouriteCache.getAll(),
         expectedUniqueValues,
@@ -218,13 +218,13 @@ Future<void> main() async {
       );
       expectedCacheValue = '["uniqueValue1"]';
 
-      testPrint('Should add favourite item to cache and return actual favourites as String');
+      TestUtils.printInfo('Should add favourite item to cache and return actual favourites as String');
       expect(actualCacheValue, expectedCacheValue);
 
       // Assert
       expectedUniqueValues = <String>{'uniqueValue1'};
 
-      testPrint('Should add favourite item to cache and return actual favourites as Set');
+      TestUtils.printInfo('Should add favourite item to cache and return actual favourites as Set');
       expect(
         actualFavouriteCache.getAll(),
         expectedUniqueValues,
@@ -241,13 +241,13 @@ Future<void> main() async {
       );
       expectedCacheValue = '["uniqueValue1","uniqueValue2"]';
 
-      testPrint('Should add favourite item to cache and return actual favourites as String');
+      TestUtils.printInfo('Should add favourite item to cache and return actual favourites as String');
       expect(actualCacheValue, expectedCacheValue);
 
       // Assert
       expectedUniqueValues = <String>{'uniqueValue1', 'uniqueValue2'};
 
-      testPrint('Should add favourite item to cache and return actual favourites as Set');
+      TestUtils.printInfo('Should add favourite item to cache and return actual favourites as Set');
       expect(
         actualFavouriteCache.getAll(),
         expectedUniqueValues,
@@ -264,13 +264,13 @@ Future<void> main() async {
       );
       expectedCacheValue = '["uniqueValue1","uniqueValue2"]';
 
-      testPrint('Should ignore adding favourite item if item is liked already and return actual favourites as String');
+      TestUtils.printInfo('Should ignore adding favourite item if item is liked already and return actual favourites as String');
       expect(actualCacheValue, expectedCacheValue);
 
       // Assert
       expectedUniqueValues = <String>{'uniqueValue1', 'uniqueValue2'};
 
-      testPrint('Should ignore adding favourite item if item is liked already and return actual favourites as Set');
+      TestUtils.printInfo('Should ignore adding favourite item if item is liked already and return actual favourites as Set');
       expect(
         actualFavouriteCache.getAll(),
         expectedUniqueValues,
@@ -287,13 +287,13 @@ Future<void> main() async {
       );
       expectedCacheValue = '["uniqueValue1"]';
 
-      testPrint('Should delete favourite item from cache and return actual favourites as String');
+      TestUtils.printInfo('Should delete favourite item from cache and return actual favourites as String');
       expect(actualCacheValue, expectedCacheValue);
 
       // Assert
       expectedUniqueValues = <String>{'uniqueValue1'};
 
-      testPrint('Should delete favourite item from cache and return actual favourites as Set');
+      TestUtils.printInfo('Should delete favourite item from cache and return actual favourites as Set');
       expect(
         actualFavouriteCache.getAll(),
         expectedUniqueValues,
@@ -310,15 +310,13 @@ Future<void> main() async {
       );
       expectedCacheValue = '["uniqueValue1"]';
 
-      testPrint(
-          'Should ignore removing favourite item if item not exists in favourites and return actual favourites as String');
+      TestUtils.printInfo('Should ignore removing favourite item if item not exists in favourites and return actual favourites as String');
       expect(actualCacheValue, expectedCacheValue);
 
       // Assert
       expectedUniqueValues = <String>{'uniqueValue1'};
 
-      testPrint(
-          'Should ignore removing favourite item if item not exists in favourites and return actual favourites as Set');
+      TestUtils.printInfo('Should ignore removing favourite item if item not exists in favourites and return actual favourites as Set');
       expect(
         actualFavouriteCache.getAll(),
         expectedUniqueValues,
@@ -335,13 +333,13 @@ Future<void> main() async {
       );
       expectedCacheValue = '[]';
 
-      testPrint('Should delete favourite item from cache and return empty list as String');
+      TestUtils.printInfo('Should delete favourite item from cache and return empty list as String');
       expect(actualCacheValue, expectedCacheValue);
 
       // Assert
       expectedUniqueValues = <String>{};
 
-      testPrint('Should delete favourite item from cache and return empty Set');
+      TestUtils.printInfo('Should delete favourite item from cache and return empty Set');
       expect(
         actualFavouriteCache.getAll(),
         expectedUniqueValues,

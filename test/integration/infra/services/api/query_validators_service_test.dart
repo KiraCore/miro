@@ -21,13 +21,13 @@ Future<void> main() async {
 
       QueryValidatorsReq queryValidatorsReq = QueryValidatorsReq();
 
-      testPrint('Data request');
+      TestUtils.printInfo('Data request');
       List<ValidatorModel>? validatorModels = await queryValidatorsService.getValidatorsList(
         queryValidatorsReq,
         optionalNetworkUri: networkUri,
       );
 
-      testPrint('Data return');
+      TestUtils.printInfo('Data return');
       int responseLength = validatorModels.toString().length;
       print('${validatorModels.toString().substring(0, 1000)} ....');
       print('.... ${validatorModels.toString().substring(responseLength - 1800, responseLength)}');
@@ -40,7 +40,7 @@ Future<void> main() async {
       final QueryValidatorsService queryValidatorsService = globalLocator<QueryValidatorsService>();
       final Uri networkUri = NetworkUtils.parseUrl('https://testnet-rpc.kira.network');
 
-      testPrint('Data request');
+      TestUtils.printInfo('Data request');
       List<ValidatorModel>? validatorModels = await queryValidatorsService.getValidatorsByAddresses(
         <String>[
           'kira1mpqwqe3zhejalh9zveumy3uduess5p8n09wjmh',
@@ -50,7 +50,7 @@ Future<void> main() async {
         optionalNetworkUri: networkUri,
       );
 
-      testPrint('Data return');
+      TestUtils.printInfo('Data return');
       print(validatorModels);
       print('');
     });
@@ -63,11 +63,11 @@ Future<void> main() async {
 
       QueryValidatorsReq queryValidatorsReq = QueryValidatorsReq(all: true);
 
-      testPrint('Data request');
+      TestUtils.printInfo('Data request');
       QueryValidatorsResp? queryValidatorsResp =
           await queryValidatorsService.getQueryValidatorsResp(queryValidatorsReq, optionalNetworkUri: networkUri);
 
-      testPrint('Data return');
+      TestUtils.printInfo('Data return');
       int responseLength = queryValidatorsResp.toString().length;
       print('${queryValidatorsResp.toString().substring(0, 1000)} ....');
       print('.... ${queryValidatorsResp.toString().substring(responseLength - 1800, responseLength)}');
@@ -80,10 +80,10 @@ Future<void> main() async {
       final QueryValidatorsService queryValidatorsService = globalLocator<QueryValidatorsService>();
       final Uri networkUri = NetworkUtils.parseUrl('https://testnet-rpc.kira.network');
 
-      testPrint('Data request');
+      TestUtils.printInfo('Data request');
       Status? status = await queryValidatorsService.getStatus(networkUri);
 
-      testPrint('Data return');
+      TestUtils.printInfo('Data return');
       print(status);
       print('');
     });

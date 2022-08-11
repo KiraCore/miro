@@ -69,10 +69,10 @@ Future<void> main() async {
   await Future<void>.delayed(const Duration(milliseconds: 100));
 
   Future<void> _broadcastTransaction(SignedTransaction signedTransaction) async {
-    testPrint('Data request');
+    TestUtils.printInfo('Data request');
     BroadcastResp broadcastResp = await transactionsService.broadcastTransaction(signedTransaction, customUri: customUri);
 
-    testPrint('Data return');
+    TestUtils.printInfo('Data return');
     print(broadcastResp);
   }
 
@@ -99,7 +99,7 @@ Future<void> main() async {
       );
 
       BroadcastReq broadcastReq = BroadcastReq(transaction: signedTransaction);
-      testPrint('Signed MsgSend transaction: ${json.encode(broadcastReq.toJson())}');
+      TestUtils.printInfo('Signed MsgSend transaction: ${json.encode(broadcastReq.toJson())}');
       await _broadcastTransaction(signedTransaction);
     });
 
@@ -132,7 +132,7 @@ Future<void> main() async {
       );
 
       BroadcastReq broadcastReq = BroadcastReq(transaction: signedTransaction);
-      testPrint('Signed MsgSend transaction: ${json.encode(broadcastReq.toJson())}');
+      TestUtils.printInfo('Signed MsgSend transaction: ${json.encode(broadcastReq.toJson())}');
       // await _broadcastTransaction(signedTransaction);
     });
 
@@ -160,7 +160,7 @@ Future<void> main() async {
       );
 
       BroadcastReq broadcastReq = BroadcastReq(transaction: signedTransaction);
-      testPrint('Signed MsgRequestIdentityRecordsVerify transaction: ${json.encode(broadcastReq.toJson())}');
+      TestUtils.printInfo('Signed MsgRequestIdentityRecordsVerify transaction: ${json.encode(broadcastReq.toJson())}');
       // await _broadcastTransaction(signedTransaction);
     });
 
@@ -185,7 +185,7 @@ Future<void> main() async {
       );
 
       BroadcastReq broadcastReq = BroadcastReq(transaction: signedTransaction);
-      testPrint('Signed MsgCancelIdentityRecordsVerifyRequest transaction: ${json.encode(broadcastReq.toJson())}');
+      TestUtils.printInfo('Signed MsgCancelIdentityRecordsVerifyRequest transaction: ${json.encode(broadcastReq.toJson())}');
       // await _broadcastTransaction(signedTransaction);
     });
 
@@ -210,7 +210,7 @@ Future<void> main() async {
       );
 
       BroadcastReq broadcastReq = BroadcastReq(transaction: signedTransaction);
-      testPrint('Signed MsgDeleteIdentityRecords transaction: ${json.encode(broadcastReq.toJson())}');
+      TestUtils.printInfo('Signed MsgDeleteIdentityRecords transaction: ${json.encode(broadcastReq.toJson())}');
       // await _broadcastTransaction(signedTransaction);
     });
 
@@ -237,7 +237,7 @@ Future<void> main() async {
       );
 
       BroadcastReq broadcastReq = BroadcastReq(transaction: signedTransaction);
-      testPrint('Signed MsgHandleIdentityRecordsVerifyRequest transaction: ${json.encode(broadcastReq.toJson())}');
+      TestUtils.printInfo('Signed MsgHandleIdentityRecordsVerifyRequest transaction: ${json.encode(broadcastReq.toJson())}');
       // await _broadcastTransaction(signedTransaction);
     });
   });

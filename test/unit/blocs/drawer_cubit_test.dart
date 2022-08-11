@@ -23,19 +23,19 @@ Future<void> main() async {
       drawerCubit.navigate(actualScaffoldKey, firstRoute);
 
       // Because the tested method doesn't work properly outside the test, we need to check method within one test
-      testPrint('Should return DrawerNavigate state with current route and false canPop status');
+      TestUtils.printInfo('Should return DrawerNavigate state with current route and false canPop status');
       expect(
         drawerCubit.state,
         DrawerNavigate(currentRoute: firstRoute, canPop: false),
       );
 
-      testPrint('Should return current route history');
+      TestUtils.printInfo('Should return current route history');
       expect(
         drawerCubit.pagesHistory,
         <Widget>[firstRoute],
       );
 
-      testPrint('Should return false if route history has only one item');
+      TestUtils.printInfo('Should return false if route history has only one item');
       expect(
         drawerCubit.canPop,
         false,
@@ -44,19 +44,19 @@ Future<void> main() async {
 
     test('Should navigate to provided Widget and update route history when added Widget to route stack next time', () {
       drawerCubit.navigate(actualScaffoldKey, secondRoute);
-      testPrint('Should return DrawerNavigate state with current route and true canPop status');
+      TestUtils.printInfo('Should return DrawerNavigate state with current route and true canPop status');
       expect(
         drawerCubit.state,
         DrawerNavigate(currentRoute: secondRoute, canPop: true),
       );
 
-      testPrint('Should return current route history');
+      TestUtils.printInfo('Should return current route history');
       expect(
         drawerCubit.pagesHistory,
         <Widget>[firstRoute, secondRoute],
       );
 
-      testPrint('Should return true if route history have more than one item');
+      TestUtils.printInfo('Should return true if route history have more than one item');
       expect(
         drawerCubit.canPop,
         true,
@@ -67,19 +67,19 @@ Future<void> main() async {
   group('Tests of replace() method', () {
     test('Should replace last history Widget with provided Widget and update route history', () {
       drawerCubit.replace(actualScaffoldKey, thirdRoute);
-      testPrint('Should return DrawerNavigate state with current route and true canPop status');
+      TestUtils.printInfo('Should return DrawerNavigate state with current route and true canPop status');
       expect(
         drawerCubit.state,
         DrawerNavigate(currentRoute: thirdRoute, canPop: true),
       );
 
-      testPrint('Should return current route history');
+      TestUtils.printInfo('Should return current route history');
       expect(
         drawerCubit.pagesHistory,
         <Widget>[firstRoute, thirdRoute],
       );
 
-      testPrint('Should return true if route history have more than one item');
+      TestUtils.printInfo('Should return true if route history have more than one item');
       expect(
         drawerCubit.canPop,
         true,
@@ -90,19 +90,19 @@ Future<void> main() async {
   group('Tests of pop() method', () {
     test('Should remove last history Widget and update route history', () {
       drawerCubit.pop(actualScaffoldKey);
-      testPrint('Should return DrawerNavigate state with current route and false canPop status');
+      TestUtils.printInfo('Should return DrawerNavigate state with current route and false canPop status');
       expect(
         drawerCubit.state,
         DrawerNavigate(currentRoute: firstRoute, canPop: false),
       );
 
-      testPrint('Should return current route history');
+      TestUtils.printInfo('Should return current route history');
       expect(
         drawerCubit.pagesHistory,
         <Widget>[firstRoute],
       );
 
-      testPrint('Should return false if route history has only one item');
+      TestUtils.printInfo('Should return false if route history has only one item');
       expect(
         drawerCubit.canPop,
         false,
@@ -113,19 +113,19 @@ Future<void> main() async {
   group('Tests of closeDrawer() method', () {
     test('Should clear route history stack after drawer close', () {
       drawerCubit.closeDrawer(actualScaffoldKey);
-      testPrint('Should return DrawerNoRouteState()');
+      TestUtils.printInfo('Should return DrawerNoRouteState()');
       expect(
         drawerCubit.state,
         DrawerNoRouteState(),
       );
 
-      testPrint('Should return empty route history');
+      TestUtils.printInfo('Should return empty route history');
       expect(
         drawerCubit.pagesHistory.length,
         0,
       );
 
-      testPrint('Should return false if route history is empty');
+      TestUtils.printInfo('Should return false if route history is empty');
       expect(
         drawerCubit.canPop,
         false,
