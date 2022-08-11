@@ -1,12 +1,12 @@
 import 'package:miro/blocs/abstract_blocs/abstract_list/models/a_list_item.dart';
 
-class TestListItem extends AListItem {
+class MockListItem extends AListItem {
   final int id;
   final String name;
   final String status;
   bool _favourite;
 
-  TestListItem({
+  MockListItem({
     required this.id,
     required this.name,
     required this.status,
@@ -26,6 +26,6 @@ class TestListItem extends AListItem {
 
   @override
   String toString() {
-    return 'TestListItem{id: $id, name: $name, status: $status}';
+    return 'MockListItem{id: $id, name: $name, status: $status}';
   }
 }

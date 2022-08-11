@@ -8,28 +8,28 @@ import 'package:miro/blocs/specific_blocs/list/filters/models/search_option.dart
 import 'package:miro/blocs/specific_blocs/list/filters/states/filters_empty_state.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/cache/cache_manager.dart';
-import 'package:miro/test/test_locator.dart';
+import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
-import 'test_data/test_list_item.dart';
-import 'test_data/test_list_item_filter_options.dart';
+import 'mock_data/mock_list_item.dart';
+import 'mock_data/mock_list_item_filter_options.dart';
 
 // To run this test type in console:
 // fvm flutter test test/unit/blocs/list/filters_bloc_test.dart --platform chrome
 // ignore_for_file: cascade_invocations
 Future<void> main() async {
-  await initTestLocator();
+  await initMockLocator();
   await globalLocator<CacheManager>().init();
 
   group('Tests of FiltersBloc initial state', () {
     test('Should return FiltersEmptyState', () async {
       // Arrange
-      FiltersBloc<TestListItem> actualFiltersBloc = FiltersBloc<TestListItem>(
-        searchComparator: TestListItemFilterOptions.search,
+      FiltersBloc<MockListItem> actualFiltersBloc = FiltersBloc<MockListItem>(
+        searchComparator: MockListItemFilterOptions.search,
       );
 
       // Assert
-      FiltersEmptyState<TestListItem> expectedFiltersState = FiltersEmptyState<TestListItem>();
+      FiltersEmptyState<MockListItem> expectedFiltersState = FiltersEmptyState<MockListItem>();
 
       expect(
         actualFiltersBloc.state,
@@ -41,141 +41,141 @@ Future<void> main() async {
   group('Tests of adding/removing filters process', () {
     test('Should return FiltersEmptyState or list of active filters', () async {
       // Arrange
-      FiltersBloc<TestListItem> actualFiltersBloc = FiltersBloc<TestListItem>(
-        searchComparator: TestListItemFilterOptions.search,
+      FiltersBloc<MockListItem> actualFiltersBloc = FiltersBloc<MockListItem>(
+        searchComparator: MockListItemFilterOptions.search,
       );
 
       // Assert
-      FiltersEmptyState<TestListItem> expectedFiltersState = FiltersEmptyState<TestListItem>();
+      FiltersEmptyState<MockListItem> expectedFiltersState = FiltersEmptyState<MockListItem>();
 
-      testPrint('Should return FiltersEmptyState');
+      TestUtils.printInfo('Should return FiltersEmptyState');
       expect(
         actualFiltersBloc.state,
         expectedFiltersState,
       );
 
       // Act
-      actualFiltersBloc.add(FiltersAddOptionEvent<TestListItem>(TestListItemFilterOptions.filterByActive));
+      actualFiltersBloc.add(FiltersAddOptionEvent<MockListItem>(MockListItemFilterOptions.filterByActive));
       await Future<void>.delayed(const Duration(milliseconds: 100));
 
       // Assert
-      List<FilterOption<TestListItem>> expectedFilterOptions = <FilterOption<TestListItem>>[
-        TestListItemFilterOptions.filterByActive,
+      List<FilterOption<MockListItem>> expectedFilterOptions = <FilterOption<MockListItem>>[
+        MockListItemFilterOptions.filterByActive,
       ];
 
-      testPrint('Should add new filter option and return list with one filter option');
+      TestUtils.printInfo('Should add new filter option and return list with one filter option');
       expect(
         actualFiltersBloc.state.activeFilters,
         expectedFilterOptions,
       );
 
       // Act
-      actualFiltersBloc.add(FiltersAddOptionEvent<TestListItem>(TestListItemFilterOptions.filterByPaused));
+      actualFiltersBloc.add(FiltersAddOptionEvent<MockListItem>(MockListItemFilterOptions.filterByPaused));
       await Future<void>.delayed(const Duration(milliseconds: 100));
 
       // Assert
-      expectedFilterOptions = <FilterOption<TestListItem>>[
-        TestListItemFilterOptions.filterByActive,
-        TestListItemFilterOptions.filterByPaused,
+      expectedFilterOptions = <FilterOption<MockListItem>>[
+        MockListItemFilterOptions.filterByActive,
+        MockListItemFilterOptions.filterByPaused,
       ];
 
-      testPrint('Should add new filter option and return list with two filter options');
+      TestUtils.printInfo('Should add new filter option and return list with two filter options');
       expect(
         actualFiltersBloc.state.activeFilters,
         expectedFilterOptions,
       );
 
       // Act
-      actualFiltersBloc.add(const FiltersSearchEvent<TestListItem>('apple'));
+      actualFiltersBloc.add(const FiltersSearchEvent<MockListItem>('apple'));
       await Future<void>.delayed(const Duration(milliseconds: 100));
 
       // Assert
-      expectedFilterOptions = <FilterOption<TestListItem>>[
-        TestListItemFilterOptions.filterByActive,
-        TestListItemFilterOptions.filterByPaused,
-        SearchOption<TestListItem>(TestListItemFilterOptions.search('apple')),
+      expectedFilterOptions = <FilterOption<MockListItem>>[
+        MockListItemFilterOptions.filterByActive,
+        MockListItemFilterOptions.filterByPaused,
+        SearchOption<MockListItem>(MockListItemFilterOptions.search('apple')),
       ];
 
-      testPrint('Should add search filter option and return list with three filter options');
+      TestUtils.printInfo('Should add search filter option and return list with three filter options');
       expect(
         actualFiltersBloc.state.activeFilters,
         expectedFilterOptions,
       );
 
       // Act
-      actualFiltersBloc.add(const FiltersSearchEvent<TestListItem>(''));
+      actualFiltersBloc.add(const FiltersSearchEvent<MockListItem>(''));
       await Future<void>.delayed(const Duration(milliseconds: 100));
 
       // Assert
-      expectedFilterOptions = <FilterOption<TestListItem>>[
-        TestListItemFilterOptions.filterByActive,
-        TestListItemFilterOptions.filterByPaused,
+      expectedFilterOptions = <FilterOption<MockListItem>>[
+        MockListItemFilterOptions.filterByActive,
+        MockListItemFilterOptions.filterByPaused,
       ];
 
-      testPrint('Should remove search option if searchText is empty');
+      TestUtils.printInfo('Should remove search option if searchText is empty');
       expect(
         actualFiltersBloc.state.activeFilters,
         expectedFilterOptions,
       );
 
       // Act
-      actualFiltersBloc.add(const FiltersSearchEvent<TestListItem>('apple'));
+      actualFiltersBloc.add(const FiltersSearchEvent<MockListItem>('apple'));
       await Future<void>.delayed(const Duration(milliseconds: 100));
 
       // Assert
-      expectedFilterOptions = <FilterOption<TestListItem>>[
-        TestListItemFilterOptions.filterByActive,
-        TestListItemFilterOptions.filterByPaused,
-        SearchOption<TestListItem>(TestListItemFilterOptions.search('apple')),
+      expectedFilterOptions = <FilterOption<MockListItem>>[
+        MockListItemFilterOptions.filterByActive,
+        MockListItemFilterOptions.filterByPaused,
+        SearchOption<MockListItem>(MockListItemFilterOptions.search('apple')),
       ];
 
-      testPrint('Should add search filter option and return list with three filter options');
+      TestUtils.printInfo('Should add search filter option and return list with three filter options');
       expect(
         actualFiltersBloc.state.activeFilters,
         expectedFilterOptions,
       );
 
       // Act
-      actualFiltersBloc.add(FiltersRemoveOptionEvent<TestListItem>(
-        SearchOption<TestListItem>(TestListItemFilterOptions.search('apple')),
+      actualFiltersBloc.add(FiltersRemoveOptionEvent<MockListItem>(
+        SearchOption<MockListItem>(MockListItemFilterOptions.search('apple')),
       ));
       await Future<void>.delayed(const Duration(milliseconds: 100));
 
       // Assert
-      expectedFilterOptions = <FilterOption<TestListItem>>[
-        TestListItemFilterOptions.filterByActive,
-        TestListItemFilterOptions.filterByPaused,
+      expectedFilterOptions = <FilterOption<MockListItem>>[
+        MockListItemFilterOptions.filterByActive,
+        MockListItemFilterOptions.filterByPaused,
       ];
 
-      testPrint('Should remove search filter option and return list with two filter options');
+      TestUtils.printInfo('Should remove search filter option and return list with two filter options');
       expect(
         actualFiltersBloc.state.activeFilters,
         expectedFilterOptions,
       );
 
       // Act
-      actualFiltersBloc.add(FiltersRemoveOptionEvent<TestListItem>(TestListItemFilterOptions.filterByActive));
+      actualFiltersBloc.add(FiltersRemoveOptionEvent<MockListItem>(MockListItemFilterOptions.filterByActive));
       await Future<void>.delayed(const Duration(milliseconds: 100));
 
       // Assert
-      expectedFilterOptions = <FilterOption<TestListItem>>[
-        TestListItemFilterOptions.filterByPaused,
+      expectedFilterOptions = <FilterOption<MockListItem>>[
+        MockListItemFilterOptions.filterByPaused,
       ];
 
-      testPrint('Should remove filterByActive filter option and return list with one filter option');
+      TestUtils.printInfo('Should remove filterByActive filter option and return list with one filter option');
       expect(
         actualFiltersBloc.state.activeFilters,
         expectedFilterOptions,
       );
 
       // Act
-      actualFiltersBloc.add(FiltersRemoveOptionEvent<TestListItem>(TestListItemFilterOptions.filterByPaused));
+      actualFiltersBloc.add(FiltersRemoveOptionEvent<MockListItem>(MockListItemFilterOptions.filterByPaused));
       await Future<void>.delayed(const Duration(milliseconds: 100));
 
       // Assert
-      expectedFilterOptions = <FilterOption<TestListItem>>[];
+      expectedFilterOptions = <FilterOption<MockListItem>>[];
 
-      testPrint('Should remove filterByPaused filter option and return empty list');
+      TestUtils.printInfo('Should remove filterByPaused filter option and return empty list');
       expect(
         actualFiltersBloc.state.activeFilters,
         expectedFilterOptions,

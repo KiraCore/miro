@@ -4,12 +4,12 @@ import 'package:miro/config/locator.dart';
 import 'package:miro/shared/controllers/browser/rpc_browser_url_controller.dart';
 import 'package:miro/shared/models/network/data/connection_status_type.dart';
 import 'package:miro/shared/models/network/status/network_unknown_model.dart';
-import 'package:miro/test/test_locator.dart';
+import 'package:miro/test/mock_locator.dart';
 
 // To run this test type in console:
 // fvm flutter test test/unit/config/app_config_test.dart --platform chrome
 Future<void> main() async {
-  await initTestLocator();
+  await initMockLocator();
 
   group('Tests of init() method for "refresh_interval_seconds" property', () {
     test('Should return interval value declared in config json ', () {

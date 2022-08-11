@@ -20,18 +20,18 @@ import 'package:miro/infra/cache/cache_manager.dart';
 import 'package:miro/shared/models/network/data/connection_status_type.dart';
 import 'package:miro/shared/models/network/data/network_info_model.dart';
 import 'package:miro/shared/models/network/status/online/network_healthy_model.dart';
-import 'package:miro/test/test_locator.dart';
+import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
-import 'test_data/test_list_controller.dart';
-import 'test_data/test_list_item.dart';
-import 'test_data/test_list_item_filter_options.dart';
-import 'test_data/test_list_item_sort_options.dart';
+import 'mock_data/mock_list_controller.dart';
+import 'mock_data/mock_list_item.dart';
+import 'mock_data/mock_list_item_filter_options.dart';
+import 'mock_data/mock_list_item_sort_options.dart';
 
 // To run this test type in console:
 // fvm flutter test test/unit/blocs/list/infinity_list_bloc_test.dart --platform chrome
 Future<void> main() async {
-  await initTestLocator();
+  await initMockLocator();
   await globalLocator<CacheManager>().init();
 
   final NetworkHealthyModel networkHealthyModel = NetworkHealthyModel(
@@ -48,25 +48,25 @@ Future<void> main() async {
     ),
   );
 
-  TestListItem expectedTestListItem1 = TestListItem(id: 1, name: 'apple', status: 'active');
-  TestListItem expectedTestListItem2 = TestListItem(id: 2, name: 'banana', status: 'active');
-  TestListItem expectedTestListItem3 = TestListItem(id: 3, name: 'coconut', status: 'paused');
+  MockListItem expectedMockListItem1 = MockListItem(id: 1, name: 'apple', status: 'active');
+  MockListItem expectedMockListItem2 = MockListItem(id: 2, name: 'banana', status: 'active');
+  MockListItem expectedMockListItem3 = MockListItem(id: 3, name: 'coconut', status: 'paused');
 
   group('Tests of initial list state', () {
     test('Should return ListDisconnectedState if interx is not connected', () async {
       // Arrange
-      TestListController testListController = TestListController();
-      FiltersBloc<TestListItem> actualFiltersBloc = FiltersBloc<TestListItem>(
-        searchComparator: TestListItemFilterOptions.search,
+      MockListController mockListController = MockListController();
+      FiltersBloc<MockListItem> actualFiltersBloc = FiltersBloc<MockListItem>(
+        searchComparator: MockListItemFilterOptions.search,
       );
-      SortBloc<TestListItem> actualSortBloc = SortBloc<TestListItem>(
-        defaultSortOption: TestListItemSortOptions.sortById,
+      SortBloc<MockListItem> actualSortBloc = SortBloc<MockListItem>(
+        defaultSortOption: MockListItemSortOptions.sortById,
       );
-      FavouritesBloc<TestListItem> actualFavouritesBloc = FavouritesBloc<TestListItem>(
-        listController: testListController,
+      FavouritesBloc<MockListItem> actualFavouritesBloc = FavouritesBloc<MockListItem>(
+        listController: mockListController,
       );
-      InfinityListBloc<TestListItem> actualInfinityListBloc = InfinityListBloc<TestListItem>(
-        listController: testListController,
+      InfinityListBloc<MockListItem> actualInfinityListBloc = InfinityListBloc<MockListItem>(
+        listController: mockListController,
         filterBloc: actualFiltersBloc,
         sortBloc: actualSortBloc,
         favouritesBloc: actualFavouritesBloc,
@@ -86,18 +86,18 @@ Future<void> main() async {
   group('Tests of infinity list process', () {
     test('Should return AListState assigned to specified events', () async {
       // Arrange
-      TestListController testListController = TestListController();
-      FiltersBloc<TestListItem> actualFiltersBloc = FiltersBloc<TestListItem>(
-        searchComparator: TestListItemFilterOptions.search,
+      MockListController mockListController = MockListController();
+      FiltersBloc<MockListItem> actualFiltersBloc = FiltersBloc<MockListItem>(
+        searchComparator: MockListItemFilterOptions.search,
       );
-      SortBloc<TestListItem> actualSortBloc = SortBloc<TestListItem>(
-        defaultSortOption: TestListItemSortOptions.sortById,
+      SortBloc<MockListItem> actualSortBloc = SortBloc<MockListItem>(
+        defaultSortOption: MockListItemSortOptions.sortById,
       );
-      FavouritesBloc<TestListItem> actualFavouritesBloc = FavouritesBloc<TestListItem>(
-        listController: testListController,
+      FavouritesBloc<MockListItem> actualFavouritesBloc = FavouritesBloc<MockListItem>(
+        listController: mockListController,
       );
-      InfinityListBloc<TestListItem> actualInfinityListBloc = InfinityListBloc<TestListItem>(
-        listController: testListController,
+      InfinityListBloc<MockListItem> actualInfinityListBloc = InfinityListBloc<MockListItem>(
+        listController: mockListController,
         filterBloc: actualFiltersBloc,
         sortBloc: actualSortBloc,
         favouritesBloc: actualFavouritesBloc,
@@ -108,7 +108,7 @@ Future<void> main() async {
       await Future<void>.delayed(const Duration(milliseconds: 100));
       AListState expectedListState = ListDisconnectedState();
 
-      testPrint('Should return ListDisconnectedState if network not connected');
+      TestUtils.printInfo('Should return ListDisconnectedState if network not connected');
       expect(
         actualInfinityListBloc.state,
         expectedListState,
@@ -119,12 +119,12 @@ Future<void> main() async {
       await Future<void>.delayed(const Duration(milliseconds: 100));
 
       // Assert
-      expectedListState = ListLoadedState<TestListItem>(
-        listItems: <TestListItem>[expectedTestListItem1, expectedTestListItem2],
+      expectedListState = ListLoadedState<MockListItem>(
+        listItems: <MockListItem>[expectedMockListItem1, expectedMockListItem2],
         lastPage: false,
       );
 
-      testPrint('Should return ListLoadedState with first page of list items');
+      TestUtils.printInfo('Should return ListLoadedState with first page of list items');
       expect(
         actualInfinityListBloc.state,
         expectedListState,
@@ -136,28 +136,28 @@ Future<void> main() async {
       await Future<void>.delayed(const Duration(milliseconds: 100));
 
       // Assert
-      expectedListState = ListLoadedState<TestListItem>(
-        listItems: <TestListItem>[expectedTestListItem1, expectedTestListItem2, expectedTestListItem3],
+      expectedListState = ListLoadedState<MockListItem>(
+        listItems: <MockListItem>[expectedMockListItem1, expectedMockListItem2, expectedMockListItem3],
         lastPage: true,
       );
 
-      testPrint('Should return ListLoadedState with first and second pages of list items (second page is last page)');
+      TestUtils.printInfo('Should return ListLoadedState with first and second pages of list items (second page is last page)');
       expect(
         actualInfinityListBloc.state,
         expectedListState,
       );
 
       // Act
-      actualSortBloc.add(SortChangeEvent<TestListItem>(sortOption: TestListItemSortOptions.sortById.reversed()));
+      actualSortBloc.add(SortChangeEvent<MockListItem>(sortOption: MockListItemSortOptions.sortById.reversed()));
       await Future<void>.delayed(const Duration(milliseconds: 600));
 
       // Assert
-      expectedListState = ListLoadedState<TestListItem>(
-        listItems: <TestListItem>[expectedTestListItem3, expectedTestListItem2],
+      expectedListState = ListLoadedState<MockListItem>(
+        listItems: <MockListItem>[expectedMockListItem3, expectedMockListItem2],
         lastPage: false,
       );
 
-      testPrint('Should reverse sort order and return ListLoadedState with sorted first page of list items');
+      TestUtils.printInfo('Should reverse sort order and return ListLoadedState with sorted first page of list items');
       expect(
         actualInfinityListBloc.state,
         expectedListState,
@@ -168,12 +168,12 @@ Future<void> main() async {
       await Future<void>.delayed(const Duration(milliseconds: 100));
 
       // Assert
-      expectedListState = ListLoadedState<TestListItem>(
-        listItems: <TestListItem>[expectedTestListItem3, expectedTestListItem2, expectedTestListItem1],
+      expectedListState = ListLoadedState<MockListItem>(
+        listItems: <MockListItem>[expectedMockListItem3, expectedMockListItem2, expectedMockListItem1],
         lastPage: true,
       );
 
-      testPrint('Should fetch next page and return ListLoadedState with sorted first and second pages of list items');
+      TestUtils.printInfo('Should fetch next page and return ListLoadedState with sorted first and second pages of list items');
       expect(
         actualInfinityListBloc.state,
         expectedListState,
@@ -184,44 +184,44 @@ Future<void> main() async {
       await Future<void>.delayed(const Duration(milliseconds: 100));
 
       // Assert
-      expectedListState = ListLoadedState<TestListItem>(
-        listItems: <TestListItem>[expectedTestListItem1, expectedTestListItem2],
+      expectedListState = ListLoadedState<MockListItem>(
+        listItems: <MockListItem>[expectedMockListItem1, expectedMockListItem2],
         lastPage: false,
       );
 
-      testPrint('Should clear filters and return ListLoadedState with first page of list items');
+      TestUtils.printInfo('Should clear filters and return ListLoadedState with first page of list items');
       expect(
         actualInfinityListBloc.state,
         expectedListState,
       );
 
       // Act
-      actualFiltersBloc.add(FiltersAddOptionEvent<TestListItem>(TestListItemFilterOptions.filterByActive));
+      actualFiltersBloc.add(FiltersAddOptionEvent<MockListItem>(MockListItemFilterOptions.filterByActive));
       await Future<void>.delayed(const Duration(milliseconds: 600));
 
       // Assert
-      expectedListState = ListLoadedState<TestListItem>(
-        listItems: <TestListItem>[expectedTestListItem1, expectedTestListItem2],
+      expectedListState = ListLoadedState<MockListItem>(
+        listItems: <MockListItem>[expectedMockListItem1, expectedMockListItem2],
         lastPage: false,
       );
 
-      testPrint('Should add filterByActive filter and return ListLoadedState with first page of list items that match filters');
+      TestUtils.printInfo('Should add filterByActive filter and return ListLoadedState with first page of list items that match filters');
       expect(
         actualInfinityListBloc.state,
         expectedListState,
       );
 
       // Act
-      actualSortBloc.add(SortChangeEvent<TestListItem>(sortOption: TestListItemSortOptions.sortById.reversed()));
+      actualSortBloc.add(SortChangeEvent<MockListItem>(sortOption: MockListItemSortOptions.sortById.reversed()));
       await Future<void>.delayed(const Duration(milliseconds: 600));
 
       // Assert
-      expectedListState = ListLoadedState<TestListItem>(
-        listItems: <TestListItem>[expectedTestListItem2, expectedTestListItem1],
+      expectedListState = ListLoadedState<MockListItem>(
+        listItems: <MockListItem>[expectedMockListItem2, expectedMockListItem1],
         lastPage: false,
       );
 
-      testPrint('Should return ListLoadedState with first page of sorted list items that match filters');
+      TestUtils.printInfo('Should return ListLoadedState with first page of sorted list items that match filters');
       expect(
         actualInfinityListBloc.state,
         expectedListState,
@@ -232,60 +232,60 @@ Future<void> main() async {
       await Future<void>.delayed(const Duration(milliseconds: 100));
 
       // Assert
-      expectedListState = ListLoadedState<TestListItem>(
-        listItems: <TestListItem>[expectedTestListItem2, expectedTestListItem1],
+      expectedListState = ListLoadedState<MockListItem>(
+        listItems: <MockListItem>[expectedMockListItem2, expectedMockListItem1],
         lastPage: true,
       );
 
-      testPrint('Should return ListLoadedState with first and second page of sorted list items that match filters');
+      TestUtils.printInfo('Should return ListLoadedState with first and second page of sorted list items that match filters');
       expect(
         actualInfinityListBloc.state,
         expectedListState,
       );
 
       // Act
-      actualFiltersBloc.add(FiltersRemoveOptionEvent<TestListItem>(TestListItemFilterOptions.filterByActive));
+      actualFiltersBloc.add(FiltersRemoveOptionEvent<MockListItem>(MockListItemFilterOptions.filterByActive));
       await Future<void>.delayed(const Duration(milliseconds: 100));
 
       // Assert
-      expectedListState = ListLoadedState<TestListItem>(
-        listItems: <TestListItem>[expectedTestListItem3, expectedTestListItem2],
+      expectedListState = ListLoadedState<MockListItem>(
+        listItems: <MockListItem>[expectedMockListItem3, expectedMockListItem2],
         lastPage: false,
       );
 
-      testPrint('Should remove filterByActive filter option and return ListLoadedState with first page of list items');
+      TestUtils.printInfo('Should remove filterByActive filter option and return ListLoadedState with first page of list items');
       expect(
         actualInfinityListBloc.state,
         expectedListState,
       );
 
       // Act
-      actualFavouritesBloc.add(FavouritesAddRecordEvent<TestListItem>(expectedTestListItem1));
+      actualFavouritesBloc.add(FavouritesAddRecordEvent<MockListItem>(expectedMockListItem1));
       await Future<void>.delayed(const Duration(milliseconds: 100));
 
       // Assert
-      expectedListState = ListLoadedState<TestListItem>(
-        listItems: <TestListItem>[expectedTestListItem1, expectedTestListItem3],
+      expectedListState = ListLoadedState<MockListItem>(
+        listItems: <MockListItem>[expectedMockListItem1, expectedMockListItem3],
         lastPage: false,
       );
 
-      testPrint('Should return ListLoadedState with list of list items containing favourites first ');
+      TestUtils.printInfo('Should return ListLoadedState with list of list items containing favourites first ');
       expect(
         actualInfinityListBloc.state,
         expectedListState,
       );
 
       // Act
-      actualFiltersBloc.add(const FiltersSearchEvent<TestListItem>('coco'));
+      actualFiltersBloc.add(const FiltersSearchEvent<MockListItem>('coco'));
       await Future<void>.delayed(const Duration(milliseconds: 100));
 
       // Assert
-      expectedListState = ListLoadedState<TestListItem>(
-        listItems: <TestListItem>[expectedTestListItem3],
+      expectedListState = ListLoadedState<MockListItem>(
+        listItems: <MockListItem>[expectedMockListItem3],
         lastPage: true,
       );
 
-      testPrint('Should return ListLoadedState with first page pf list items that match search query');
+      TestUtils.printInfo('Should return ListLoadedState with first page pf list items that match search query');
       expect(
         actualInfinityListBloc.state,
         expectedListState,

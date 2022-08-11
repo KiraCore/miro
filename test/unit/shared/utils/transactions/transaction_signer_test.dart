@@ -9,14 +9,14 @@ import 'package:miro/shared/models/wallet/mnemonic.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/shared/utils/transactions/transaction_signer.dart';
-import 'package:miro/test/test_locator.dart';
+import 'package:miro/test/mock_locator.dart';
 
 // To run tests use:
 // fvm flutter test "test/unit/shared/utils/transactions/transaction_signer_test.dart" --platform chrome
 Future<void> main() async {
   // Set up test
   setUpAll(TestWidgetsFlutterBinding.ensureInitialized);
-  await initTestLocator();
+  await initMockLocator();
 
   // Actual values for tests
   const String actualMnemonicString =
@@ -61,8 +61,7 @@ Future<void> main() async {
   );
 
   // Expected values for tests
-  const String expectedSignature =
-      'GJbeZ35afeBr7XVmclweWEqUE9+QZ/urq52n8wzvEZxGHwvpcSJfyY4SV4DSo4q7IMJjxkol6DTHq/Zlyj4jZA==';
+  const String expectedSignature = 'GJbeZ35afeBr7XVmclweWEqUE9+QZ/urq52n8wzvEZxGHwvpcSJfyY4SV4DSo4q7IMJjxkol6DTHq/Zlyj4jZA==';
 
   final Map<String, dynamic> expectedTransactionJson = <String, dynamic>{
     'body': <String, dynamic>{
@@ -84,10 +83,7 @@ Future<void> main() async {
     'auth_info': <String, dynamic>{
       'signer_infos': <Map<String, dynamic>>[
         <String, dynamic>{
-          'public_key': <String, dynamic>{
-            '@type': '/cosmos.crypto.secp256k1.PubKey',
-            'key': 'AlLas8CJ6lm5yZJ8h0U5Qu9nzVvgvskgHuURPB3jvUx8'
-          },
+          'public_key': <String, dynamic>{'@type': '/cosmos.crypto.secp256k1.PubKey', 'key': 'AlLas8CJ6lm5yZJ8h0U5Qu9nzVvgvskgHuURPB3jvUx8'},
           'mode_info': <String, dynamic>{
             'single': <String, dynamic>{'mode': 'SIGN_MODE_LEGACY_AMINO_JSON'}
           },

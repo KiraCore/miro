@@ -16,10 +16,10 @@ void main() {
       final DashboardService dashboardService = globalLocator<DashboardService>();
       final Uri uri = NetworkUtils.parseUrl('http://173.212.254.147:11000');
 
-      testPrint('Data request');
+      TestUtils.printInfo('Data request');
       DashboardResp? dashboardResp = await dashboardService.getData(optionalNetworkUri: uri);
 
-      testPrint('Data return');
+      TestUtils.printInfo('Data return');
 
       print(dashboardResp);
       print('');

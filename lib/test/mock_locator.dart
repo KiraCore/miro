@@ -19,9 +19,9 @@ import 'package:miro/providers/wallet_provider.dart';
 import 'package:miro/test/mock_api_cosmos_repository.dart';
 import 'package:miro/test/mock_api_kira_repository.dart';
 import 'package:miro/test/mock_api_repository.dart';
-import 'package:miro/test/mocks/mock_network_list_config.json.dart';
+import 'package:miro/test/mocks/mock_network_list_config_json.dart';
 
-Future<void> initTestLocator() async {
+Future<void> initMockLocator() async {
   globalLocator
     ..registerLazySingleton<AppConfig>(AppConfig.new)
     ..registerLazySingleton<AppConfigProvider>(AppConfigProviderImpl.new)
@@ -41,5 +41,5 @@ Future<void> initTestLocator() async {
     ..registerFactory<QueryKiraTokensAliasesService>(QueryKiraTokensAliasesService.new)
     ..registerFactory<QueryValidatorsService>(QueryValidatorsService.new);
 
-  globalLocator<AppConfig>().init(mockNetworkListConfigJson);
+  globalLocator<AppConfig>().init(MockNetworkListConfigJson.defaultNetworkListConfig);
 }

@@ -13,16 +13,15 @@ void main() {
     test('Should return all token aliases', () async {
       await initLocator();
 
-      final QueryKiraTokensAliasesService queryKiraTokensAliasesService =
-          globalLocator<QueryKiraTokensAliasesService>();
+      final QueryKiraTokensAliasesService queryKiraTokensAliasesService = globalLocator<QueryKiraTokensAliasesService>();
       final Uri networkUri = NetworkUtils.parseUrl('https://testnet-rpc.kira.network');
 
-      testPrint('Data request');
+      TestUtils.printInfo('Data request');
       QueryKiraTokensAliasesResp queryKiraTokensAliasesResp = await queryKiraTokensAliasesService.getTokenAliases(
         customNetworkUri: networkUri,
       );
 
-      testPrint('Data return');
+      TestUtils.printInfo('Data return');
       print(queryKiraTokensAliasesResp);
       print('');
     });

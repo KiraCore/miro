@@ -13,13 +13,13 @@ import 'package:miro/shared/models/network/data/network_info_model.dart';
 import 'package:miro/shared/models/network/status/network_unknown_model.dart';
 import 'package:miro/shared/models/network/status/online/network_healthy_model.dart';
 import 'package:miro/shared/models/network/status/online/network_unhealthy_model.dart';
-import 'package:miro/test/test_locator.dart';
+import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
 // To run this test type in console:
 // fvm flutter test test/unit/blocs/network_module_bloc_test.dart --platform chrome
 Future<void> main() async {
-  await initTestLocator();
+  await initMockLocator();
   setUpAll(TestWidgetsFlutterBinding.ensureInitialized);
   RpcBrowserUrlController rpcBrowserUrlController = RpcBrowserUrlController();
   NetworkUnknownModel networkUnknownModel = NetworkUnknownModel(
@@ -71,7 +71,7 @@ Future<void> main() async {
       // Assert
       NetworkModuleState expectedNetworkModuleState = NetworkModuleState.disconnected();
 
-      testPrint('Should return NetworkModuleState with NetworkEmptyModel (disconnected state)');
+      TestUtils.printInfo('Should return NetworkModuleState with NetworkEmptyModel (disconnected state)');
       expect(actualNetworkBloc.state, expectedNetworkModuleState);
 
       // Act
@@ -82,7 +82,7 @@ Future<void> main() async {
       expectedNetworkModuleState =
           NetworkModuleState.connecting(healthyNetworkUnknownModel.copyWith(connectionStatusType: ConnectionStatusType.connecting));
 
-      testPrint('Should return NetworkModuleState with NetworkUnknownModel (connecting state)');
+      TestUtils.printInfo('Should return NetworkModuleState with NetworkUnknownModel (connecting state)');
       expect(actualNetworkBloc.state, expectedNetworkModuleState);
 
       // Act
@@ -91,7 +91,7 @@ Future<void> main() async {
       // Assert
       expectedNetworkModuleState = NetworkModuleState.connected(networkHealthyModel.copyWith(connectionStatusType: ConnectionStatusType.connected));
 
-      testPrint('Should return NetworkModuleState with NetworkHealthyModel (connected state) if default network is healthy');
+      TestUtils.printInfo('Should return NetworkModuleState with NetworkHealthyModel (connected state) if default network is healthy');
       expect(actualNetworkBloc.state, expectedNetworkModuleState);
 
       rpcBrowserUrlController.removeRpcAddress();
@@ -106,7 +106,7 @@ Future<void> main() async {
       // Assert
       NetworkModuleState expectedNetworkModuleState = NetworkModuleState.disconnected();
 
-      testPrint('Should return NetworkModuleState with NetworkEmptyModel (disconnected state)');
+      TestUtils.printInfo('Should return NetworkModuleState with NetworkEmptyModel (disconnected state)');
 
       expect(actualNetworkBloc.state, expectedNetworkModuleState);
 
@@ -117,7 +117,7 @@ Future<void> main() async {
       // Assert
       expectedNetworkModuleState = NetworkModuleState.connecting(networkUnknownModel.copyWith(connectionStatusType: ConnectionStatusType.connecting));
 
-      testPrint('Should return NetworkModuleState with NetworkUnknownModel (connecting state)');
+      TestUtils.printInfo('Should return NetworkModuleState with NetworkUnknownModel (connecting state)');
       expect(actualNetworkBloc.state, expectedNetworkModuleState);
 
       // Act
@@ -126,7 +126,7 @@ Future<void> main() async {
       // Assert
       expectedNetworkModuleState = NetworkModuleState.disconnected();
 
-      testPrint('Should return NetworkModuleState with NetworkEmptyModel (disconnected state) if default network is unhealthy');
+      TestUtils.printInfo('Should return NetworkModuleState with NetworkEmptyModel (disconnected state) if default network is unhealthy');
       expect(actualNetworkBloc.state, expectedNetworkModuleState);
 
       // Act
@@ -136,7 +136,7 @@ Future<void> main() async {
       // Assert
       expectedNetworkModuleState = NetworkModuleState.connected(networkUnhealthyModel.copyWith(connectionStatusType: ConnectionStatusType.connected));
 
-      testPrint('Should return NetworkModuleState with NetworkUnhealthyModel (connected state) after select network');
+      TestUtils.printInfo('Should return NetworkModuleState with NetworkUnhealthyModel (connected state) after select network');
       expect(actualNetworkBloc.state, expectedNetworkModuleState);
     });
 
@@ -148,7 +148,7 @@ Future<void> main() async {
       // Assert
       NetworkModuleState expectedNetworkModuleState = NetworkModuleState.disconnected();
 
-      testPrint('Should return NetworkModuleState with NetworkEmptyModel (disconnected state)');
+      TestUtils.printInfo('Should return NetworkModuleState with NetworkEmptyModel (disconnected state)');
       expect(actualNetworkBloc.state, expectedNetworkModuleState);
 
       // Act
@@ -159,7 +159,7 @@ Future<void> main() async {
       expectedNetworkModuleState =
           NetworkModuleState.connecting(healthyNetworkUnknownModel.copyWith(connectionStatusType: ConnectionStatusType.connecting));
 
-      testPrint('Should return NetworkModuleState with NetworkUnknownModel (connecting state)');
+      TestUtils.printInfo('Should return NetworkModuleState with NetworkUnknownModel (connecting state)');
       expect(actualNetworkBloc.state, expectedNetworkModuleState);
 
       // Act
@@ -168,7 +168,7 @@ Future<void> main() async {
       // Assert
       expectedNetworkModuleState = NetworkModuleState.connected(networkHealthyModel.copyWith(connectionStatusType: ConnectionStatusType.connected));
 
-      testPrint('Should return NetworkModuleState with NetworkHealthyModel (connected state) if default network is healthy');
+      TestUtils.printInfo('Should return NetworkModuleState with NetworkHealthyModel (connected state) if default network is healthy');
       expect(actualNetworkBloc.state, expectedNetworkModuleState);
 
       // Act
@@ -178,7 +178,7 @@ Future<void> main() async {
       // Assert
       expectedNetworkModuleState = NetworkModuleState.connected(networkUnhealthyModel.copyWith(connectionStatusType: ConnectionStatusType.connected));
 
-      testPrint('Should return NetworkModuleState with NetworkUnhealthyModel (connected state) if network is unhealthy');
+      TestUtils.printInfo('Should return NetworkModuleState with NetworkUnhealthyModel (connected state) if network is unhealthy');
       expect(actualNetworkBloc.state, expectedNetworkModuleState);
 
       // Act
@@ -188,7 +188,7 @@ Future<void> main() async {
       // Assert
       expectedNetworkModuleState = NetworkModuleState.connected(networkHealthyModel.copyWith(connectionStatusType: ConnectionStatusType.connected));
 
-      testPrint('Should return NetworkModuleState with NetworkHealthyModel (connected state) if network is healthy');
+      TestUtils.printInfo('Should return NetworkModuleState with NetworkHealthyModel (connected state) if network is healthy');
       expect(actualNetworkBloc.state, expectedNetworkModuleState);
     });
 
@@ -200,7 +200,7 @@ Future<void> main() async {
       // Assert
       NetworkModuleState expectedNetworkModuleState = NetworkModuleState.disconnected();
 
-      testPrint('Should return NetworkModuleState with NetworkEmptyModel (disconnected state)');
+      TestUtils.printInfo('Should return NetworkModuleState with NetworkEmptyModel (disconnected state)');
       expect(actualNetworkBloc.state, expectedNetworkModuleState);
 
       // Act
@@ -211,7 +211,7 @@ Future<void> main() async {
       expectedNetworkModuleState =
           NetworkModuleState.connecting(healthyNetworkUnknownModel.copyWith(connectionStatusType: ConnectionStatusType.connecting));
 
-      testPrint('Should return NetworkModuleState with NetworkUnknownModel (connecting state)');
+      TestUtils.printInfo('Should return NetworkModuleState with NetworkUnknownModel (connecting state)');
       expect(actualNetworkBloc.state, expectedNetworkModuleState);
 
       // Act
@@ -221,7 +221,7 @@ Future<void> main() async {
       // Assert
       expectedNetworkModuleState = NetworkModuleState.disconnected();
 
-      testPrint('Should return NetworkEmptyModel if network connection was canceled');
+      TestUtils.printInfo('Should return NetworkEmptyModel if network connection was canceled');
       expect(actualNetworkBloc.state, expectedNetworkModuleState);
     });
   });
@@ -265,7 +265,7 @@ Future<void> main() async {
       // Assert
       NetworkModuleState expectedNetworkModuleState = NetworkModuleState.disconnected();
 
-      testPrint('Should return NetworkModuleState with NetworkEmptyModel (disconnected state)');
+      TestUtils.printInfo('Should return NetworkModuleState with NetworkEmptyModel (disconnected state)');
       expect(actualNetworkBloc.state, expectedNetworkModuleState);
 
       // Act
@@ -276,7 +276,7 @@ Future<void> main() async {
       expectedNetworkModuleState =
           NetworkModuleState.connecting(dynamicNetworkUnknownModel.copyWith(connectionStatusType: ConnectionStatusType.connecting));
 
-      testPrint('Should return NetworkModuleState with NetworkUnknownModel (connecting state)');
+      TestUtils.printInfo('Should return NetworkModuleState with NetworkUnknownModel (connecting state)');
       expect(actualNetworkBloc.state, expectedNetworkModuleState);
 
       // Act
@@ -286,7 +286,7 @@ Future<void> main() async {
       expectedNetworkModuleState =
           NetworkModuleState.connected(dynamicNetworkHealthyModel.copyWith(connectionStatusType: ConnectionStatusType.connected));
 
-      testPrint('Should return NetworkModuleState with NetworkHealthyModel (connected state) if default network is healthy');
+      TestUtils.printInfo('Should return NetworkModuleState with NetworkHealthyModel (connected state) if default network is healthy');
       expect(actualNetworkBloc.state, expectedNetworkModuleState);
 
       // Act
@@ -297,7 +297,8 @@ Future<void> main() async {
       expectedNetworkModuleState =
           NetworkModuleState.connected(dynamicNetworkUnhealthyModel.copyWith(connectionStatusType: ConnectionStatusType.connected));
 
-      testPrint('Should return NetworkModuleState with NetworkUnhealthyModel if current network changed status to unhealthy after refreshing');
+      TestUtils.printInfo(
+          'Should return NetworkModuleState with NetworkUnhealthyModel if current network changed status to unhealthy after refreshing');
       expect(actualNetworkBloc.state, expectedNetworkModuleState);
 
       // Act
@@ -307,7 +308,7 @@ Future<void> main() async {
       // Assert
       expectedNetworkModuleState = NetworkModuleState.disconnected();
 
-      testPrint('Should return NetworkModuleState with NetworkUnknownModel if current network changed status to offline after refreshing');
+      TestUtils.printInfo('Should return NetworkModuleState with NetworkUnknownModel if current network changed status to offline after refreshing');
       expect(actualNetworkBloc.state, expectedNetworkModuleState);
     });
   });
