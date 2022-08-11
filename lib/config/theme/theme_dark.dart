@@ -129,14 +129,3 @@ Color _getTextButtonFontColor(Set<MaterialState> states) {
   }
   return fontColor;
 }
-
-Color _getIconButtonColor(Set<MaterialState> states) {
-  Color fontColor = DesignColors.gray2_100;
-  if (states.contains(MaterialState.disabled)) {
-    fontColor = const Color(0xFF50525C);
-  }
-  if (states.contains(MaterialState.hovered)) {
-    fontColor = DesignColors.white_100;
-  }
-  return fontColor;
-}

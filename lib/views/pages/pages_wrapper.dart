@@ -76,9 +76,6 @@ class PagesWrapper extends StatelessWidget {
       endDrawer: const DrawerWrapper(),
       body: const AutoRouter(
         key: GlobalObjectKey('pages_router'),
-        // navigatorObservers: () => <AutoRouterObserver>[
-        //   CoreNavigatorObserver(context),
-        // ],
       ),
     );
   }
