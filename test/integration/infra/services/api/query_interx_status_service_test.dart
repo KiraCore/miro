@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api/query_interx_status/query_interx_status_resp.dart';
@@ -11,35 +12,40 @@ import 'package:miro/test/utils/test_utils.dart';
 // ignore_for_file: avoid_print
 Future<void> main() async {
   await initLocator();
-  final QueryInterxStatusService queryInterxStatusService = globalLocator<QueryInterxStatusService>();
 
-  String testnetRpcUrl = 'testnet-rpc.kira.network';
+  final QueryInterxStatusService queryInterxStatusService = globalLocator<QueryInterxStatusService>();
 
   group('Tests of getQueryInterxStatusResp() method', () {
     test('Should return network data if network belongs to kira and network is active', () async {
-      final Uri uri = NetworkUtils.parseUrl('https://${testnetRpcUrl}');
+      final Uri networkUri = NetworkUtils.parseUrl('http://173.212.254.147:11000');
 
       TestUtils.printInfo('Data request');
-      QueryInterxStatusResp queryInterxStatusResp = await queryInterxStatusService.getQueryInterxStatusResp(uri);
-      TestUtils.printInfo('Data return');
-      print(queryInterxStatusResp.toString());
-      print('');
+      try {
+        QueryInterxStatusResp actualQueryInterxStatusResp = await queryInterxStatusService.getQueryInterxStatusResp(networkUri);
+
+        TestUtils.printInfo('Data return');
+        print(actualQueryInterxStatusResp.toString());
+        print('');
+      } on DioError catch (e) {
+        TestUtils.printError('query_interx_status_service_test.dart: Cannot fetch QueryInterxStatusResp for URI $networkUri: ${e.message}');
+      } on InterxUnavailableException catch (_) {
+        TestUtils.printError('query_interx_status_service_test.dart: Interx unavailable for URI $networkUri');
+      } catch (e) {
+        TestUtils.printError('query_interx_status_service_test.dart: Cannot parse QueryInterxStatusResp for URI $networkUri: ${e}');
+      }
     });
 
     test('Should throw exception if network not belongs to kira or belongs to kira but network is disabled', () async {
-      final Uri uri = NetworkUtils.parseUrl('https://facebook.com/');
+      final Uri networkUri = NetworkUtils.parseUrl('https://facebook.com/');
 
       try {
-        await queryInterxStatusService.getQueryInterxStatusResp(uri);
-        TestUtils.printError('Test failed');
+        QueryInterxStatusResp actualQueryInterxStatusResp = await queryInterxStatusService.getQueryInterxStatusResp(networkUri);
+        TestUtils.printError(
+            'query_interx_status_service_test.dart: Got unexpected response for $networkUri: ${actualQueryInterxStatusResp.toString()}');
+      } on InterxUnavailableException catch (_) {
+        print('Test passed. Got InterxUnavailableException as expected');
       } catch (e) {
-        if (e.runtimeType == InterxUnavailableException) {
-          print('Test passed');
-          print('Exception is ${e.runtimeType}');
-        } else {
-          TestUtils.printError('Test failed');
-          TestUtils.printError('Exception is ${e.runtimeType}');
-        }
+        TestUtils.printError('query_interx_status_service_test.dart: Got unexpected exception for $networkUri: ${e}');
       }
     });
   });

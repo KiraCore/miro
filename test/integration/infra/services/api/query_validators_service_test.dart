@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api/query_validators/request/query_validators_req.dart';
@@ -14,78 +15,92 @@ import 'package:miro/test/utils/test_utils.dart';
 Future<void> main() async {
   await initLocator();
 
+  final Uri networkUri = NetworkUtils.parseUrl('http://173.212.254.147:11000');
+  await TestUtils.setupNetworkModel(networkUri: networkUri);
+
+  final QueryValidatorsService queryValidatorsService = globalLocator<QueryValidatorsService>();
+
   group('Tests of getValidatorsList() method', () {
     test('Should return list of validator models', () async {
-      final QueryValidatorsService queryValidatorsService = globalLocator<QueryValidatorsService>();
-      final Uri networkUri = NetworkUtils.parseUrl('https://testnet-rpc.kira.network');
-
       QueryValidatorsReq queryValidatorsReq = QueryValidatorsReq();
 
       TestUtils.printInfo('Data request');
-      List<ValidatorModel>? validatorModels = await queryValidatorsService.getValidatorsList(
-        queryValidatorsReq,
-        optionalNetworkUri: networkUri,
-      );
+      try {
+        List<ValidatorModel> actualValidatorModels = await queryValidatorsService.getValidatorsList(queryValidatorsReq);
 
-      TestUtils.printInfo('Data return');
-      int responseLength = validatorModels.toString().length;
-      print('${validatorModels.toString().substring(0, 1000)} ....');
-      print('.... ${validatorModels.toString().substring(responseLength - 1800, responseLength)}');
-      print('');
+        TestUtils.printInfo('Data return');
+        int responseLength = actualValidatorModels.toString().length;
+
+        print('${actualValidatorModels.toString().substring(0, 1000)} ....');
+        print('.... ${actualValidatorModels.toString().substring(responseLength - 1800, responseLength)}');
+        print('');
+      } on DioError catch (e) {
+        TestUtils.printError('query_validators_service_test.dart: Cannot fetch List<ValidatorModel> for URI $networkUri: ${e.message}');
+      } catch (e) {
+        TestUtils.printError('query_validators_service_test.dart: Cannot parse List<ValidatorModel> for URI $networkUri: ${e}');
+      }
     });
   });
 
   group('Tests of getValidatorsByAddresses() method', () {
     test('Should return list of validator models by specified addresses', () async {
-      final QueryValidatorsService queryValidatorsService = globalLocator<QueryValidatorsService>();
-      final Uri networkUri = NetworkUtils.parseUrl('https://testnet-rpc.kira.network');
+      List<String> validatorAddressList = <String>[
+        'kira1mpqwqe3zhejalh9zveumy3uduess5p8n09wjmh',
+        'kira1wmexfgtah5yrezm9fktflfr9d29t523czqhehj',
+        'kira1jss2r7q56k65tvfwe8s5xxdt0av2uvjdulh8kq,'
+      ];
 
       TestUtils.printInfo('Data request');
-      List<ValidatorModel>? validatorModels = await queryValidatorsService.getValidatorsByAddresses(
-        <String>[
-          'kira1mpqwqe3zhejalh9zveumy3uduess5p8n09wjmh',
-          'kira1wmexfgtah5yrezm9fktflfr9d29t523czqhehj',
-          'kira1jss2r7q56k65tvfwe8s5xxdt0av2uvjdulh8kq,'
-        ],
-        optionalNetworkUri: networkUri,
-      );
+      try {
+        List<ValidatorModel>? validatorModels = await queryValidatorsService.getValidatorsByAddresses(validatorAddressList);
 
-      TestUtils.printInfo('Data return');
-      print(validatorModels);
-      print('');
+        TestUtils.printInfo('Data return');
+        print(validatorModels);
+        print('');
+      } on DioError catch (e) {
+        TestUtils.printError('query_validators_service_test.dart: Cannot fetch List<ValidatorModel> for URI $networkUri: ${e.message}');
+      } catch (e) {
+        TestUtils.printError('query_validators_service_test.dart: Cannot parse List<ValidatorModel> for URI $networkUri: ${e}');
+      }
     });
   });
 
   group('Tests of getQueryValidatorsResp() method', () {
     test('Should return list of validators with status & waiting & validators fields', () async {
-      final QueryValidatorsService queryValidatorsService = globalLocator<QueryValidatorsService>();
-      final Uri networkUri = NetworkUtils.parseUrl('https://testnet-rpc.kira.network');
-
       QueryValidatorsReq queryValidatorsReq = QueryValidatorsReq(all: true);
 
       TestUtils.printInfo('Data request');
-      QueryValidatorsResp? queryValidatorsResp =
-          await queryValidatorsService.getQueryValidatorsResp(queryValidatorsReq, optionalNetworkUri: networkUri);
+      try {
+        QueryValidatorsResp? queryValidatorsResp = await queryValidatorsService.getQueryValidatorsResp(queryValidatorsReq);
 
-      TestUtils.printInfo('Data return');
-      int responseLength = queryValidatorsResp.toString().length;
-      print('${queryValidatorsResp.toString().substring(0, 1000)} ....');
-      print('.... ${queryValidatorsResp.toString().substring(responseLength - 1800, responseLength)}');
-      print('');
+        TestUtils.printInfo('Data return');
+        int responseLength = queryValidatorsResp.toString().length;
+
+        print('${queryValidatorsResp.toString().substring(0, 1000)} ....');
+        print('.... ${queryValidatorsResp.toString().substring(responseLength - 1800, responseLength)}');
+        print('');
+      } on DioError catch (e) {
+        TestUtils.printError('query_validators_service_test.dart: Cannot fetch List<ValidatorModel> for URI $networkUri: ${e.message}');
+      } catch (e) {
+        TestUtils.printError('query_validators_service_test.dart: Cannot parse List<ValidatorModel> for URI $networkUri: ${e}');
+      }
     });
   });
 
   group('Tests of getStatus() method', () {
     test('Should return validator status only', () async {
-      final QueryValidatorsService queryValidatorsService = globalLocator<QueryValidatorsService>();
-      final Uri networkUri = NetworkUtils.parseUrl('https://testnet-rpc.kira.network');
-
       TestUtils.printInfo('Data request');
-      Status? status = await queryValidatorsService.getStatus(networkUri);
+      try {
+        Status? status = await queryValidatorsService.getStatus(networkUri);
 
-      TestUtils.printInfo('Data return');
-      print(status);
-      print('');
+        TestUtils.printInfo('Data return');
+        print(status);
+        print('');
+      } on DioError catch (e) {
+        TestUtils.printError('query_validators_service_test.dart: Cannot fetch Status for URI $networkUri: ${e.message}');
+      } catch (e) {
+        TestUtils.printError('query_validators_service_test.dart: Cannot parse Status for URI $networkUri: ${e}');
+      }
     });
   });
 }

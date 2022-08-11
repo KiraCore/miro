@@ -10,11 +10,11 @@ import 'package:miro/shared/models/validators/validator_model.dart';
 import 'package:miro/shared/utils/app_logger.dart';
 
 abstract class _IQueryValidatorsService {
-  Future<List<ValidatorModel>> getValidatorsList(QueryValidatorsReq queryValidatorsReq, {Uri? optionalNetworkUri});
+  Future<List<ValidatorModel>> getValidatorsList(QueryValidatorsReq queryValidatorsReq);
 
-  Future<List<ValidatorModel>> getValidatorsByAddresses(List<String> validatorAddresses, {Uri? optionalNetworkUri});
+  Future<List<ValidatorModel>> getValidatorsByAddresses(List<String> validatorAddresses);
 
-  Future<QueryValidatorsResp> getQueryValidatorsResp(QueryValidatorsReq queryValidatorsReq, {Uri? optionalNetworkUri});
+  Future<QueryValidatorsResp> getQueryValidatorsResp(QueryValidatorsReq queryValidatorsReq);
 
   Future<Status?> getStatus(Uri networkUri);
 }
@@ -23,15 +23,9 @@ class QueryValidatorsService implements _IQueryValidatorsService {
   final ApiRepository _apiRepository = globalLocator<ApiRepository>();
 
   @override
-  Future<List<ValidatorModel>> getValidatorsList(
-    QueryValidatorsReq queryValidatorsReq, {
-    Uri? optionalNetworkUri,
-  }) async {
+  Future<List<ValidatorModel>> getValidatorsList(QueryValidatorsReq queryValidatorsReq) async {
     try {
-      QueryValidatorsResp queryValidatorsResp = await getQueryValidatorsResp(
-        queryValidatorsReq,
-        optionalNetworkUri: optionalNetworkUri,
-      );
+      QueryValidatorsResp queryValidatorsResp = await getQueryValidatorsResp(queryValidatorsReq);
       return queryValidatorsResp.validators.map(ValidatorModel.fromDto).toList();
     } on DioError {
       rethrow;
@@ -39,25 +33,14 @@ class QueryValidatorsService implements _IQueryValidatorsService {
   }
 
   @override
-  Future<List<ValidatorModel>> getValidatorsByAddresses(
-    List<String> validatorAddresses, {
-    Uri? optionalNetworkUri,
-  }) async {
-    QueryValidatorsResp queryValidatorsResp = await getQueryValidatorsResp(
-      QueryValidatorsReq(
-        all: true,
-      ),
-      optionalNetworkUri: optionalNetworkUri,
-    );
+  Future<List<ValidatorModel>> getValidatorsByAddresses(List<String> validatorAddresses) async {
+    QueryValidatorsResp queryValidatorsResp = await getQueryValidatorsResp(QueryValidatorsReq(all: true));
     return queryValidatorsResp.validators.where((Validator e) => validatorAddresses.contains(e.address)).map(ValidatorModel.fromDto).toList();
   }
 
   @override
-  Future<QueryValidatorsResp> getQueryValidatorsResp(
-    QueryValidatorsReq queryValidatorsReq, {
-    Uri? optionalNetworkUri,
-  }) async {
-    Uri networkUri = optionalNetworkUri ?? globalLocator<NetworkModuleBloc>().state.networkUri;
+  Future<QueryValidatorsResp> getQueryValidatorsResp(QueryValidatorsReq queryValidatorsReq) async {
+    Uri networkUri = globalLocator<NetworkModuleBloc>().state.networkUri;
     try {
       final Response<dynamic> response = await _apiRepository.fetchQueryValidators<dynamic>(networkUri, queryValidatorsReq);
       return QueryValidatorsResp.fromJson(response.data as Map<String, dynamic>);

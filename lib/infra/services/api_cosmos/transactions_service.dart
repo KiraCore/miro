@@ -16,23 +16,21 @@ import 'package:miro/shared/utils/transactions/transaction_signer.dart';
 
 abstract class _ITransactionsService {
   /// Throws [DioError]
-  Future<BroadcastResp> broadcastTransaction(SignedTransaction signedTransaction, {Uri? customUri});
+  Future<BroadcastResp> broadcastTransaction(SignedTransaction signedTransaction);
 
-  Future<SignedTransaction> signTransaction(UnsignedTransaction unsignedTransaction, {Uri? customUri});
+  Future<SignedTransaction> signTransaction(UnsignedTransaction unsignedTransaction);
 }
 
 class TransactionsService implements _ITransactionsService {
   final ApiCosmosRepository _apiCosmosRepository = globalLocator<ApiCosmosRepository>();
 
   @override
-  Future<BroadcastResp> broadcastTransaction(SignedTransaction signedTransaction, {Uri? customUri}) async {
-    Uri networkUri = customUri ?? globalLocator<NetworkModuleBloc>().state.networkUri;
+  Future<BroadcastResp> broadcastTransaction(SignedTransaction signedTransaction) async {
+    Uri networkUri = globalLocator<NetworkModuleBloc>().state.networkUri;
     try {
       final BroadcastResp response = await _apiCosmosRepository.broadcast(
         networkUri,
-        BroadcastReq(
-          transaction: signedTransaction,
-        ),
+        BroadcastReq(transaction: signedTransaction),
       );
       return response;
     } on DioError catch (e) {
@@ -42,20 +40,17 @@ class TransactionsService implements _ITransactionsService {
   }
 
   @override
-  Future<SignedTransaction> signTransaction(UnsignedTransaction unsignedTransaction, {Uri? customUri, String? customChainId}) async {
+  Future<SignedTransaction> signTransaction(UnsignedTransaction unsignedTransaction, {String? customChainId}) async {
     final NetworkModuleBloc networkModuleBloc = globalLocator<NetworkModuleBloc>();
     final QueryAccountService accountService = globalLocator<QueryAccountService>();
     final Wallet? wallet = globalLocator<WalletProvider>().currentWallet;
 
     assert(wallet != null, 'User should be logged in');
-    assert(networkModuleBloc.state.isConnected || customUri != null, 'Network should be connected');
+    assert(networkModuleBloc.state.isConnected, 'Network should be connected');
 
     final ANetworkOnlineModel networkOnlineModel = networkModuleBloc.state.networkStatusModel as ANetworkOnlineModel;
 
-    QueryAccountResp queryAccountResp = await accountService.fetchQueryAccount(
-      wallet!.address.bech32Address,
-      customUri: customUri,
-    );
+    QueryAccountResp queryAccountResp = await accountService.fetchQueryAccount(wallet!.address.bech32Address);
     SignedTransaction signedTransaction = TransactionSigner.sign(
       unsignedTransaction: unsignedTransaction,
       ecPrivateKey: wallet.ecPrivateKey,

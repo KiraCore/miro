@@ -9,7 +9,7 @@ import 'package:miro/providers/wallet_provider.dart';
 abstract class _QueryBalanceService {
   Future<QueryBalanceResp?> getMyAccountBalance();
 
-  Future<QueryBalanceResp?> getAccountBalance(Uri networkUri, QueryBalanceReq queryBalanceReq);
+  Future<QueryBalanceResp?> getAccountBalance(QueryBalanceReq queryBalanceReq);
 }
 
 class QueryBalanceService implements _QueryBalanceService {
@@ -17,16 +17,16 @@ class QueryBalanceService implements _QueryBalanceService {
 
   @override
   Future<QueryBalanceResp?> getMyAccountBalance() async {
-    Uri networkUri = globalLocator<NetworkModuleBloc>().state.networkUri;
     QueryBalanceReq queryBalanceReq = QueryBalanceReq(
       address: globalLocator<WalletProvider>().currentWallet!.address.bech32Address,
     );
-    QueryBalanceResp? queryBalanceResp = await getAccountBalance(networkUri, queryBalanceReq);
+    QueryBalanceResp? queryBalanceResp = await getAccountBalance(queryBalanceReq);
     return queryBalanceResp;
   }
 
   @override
-  Future<QueryBalanceResp?> getAccountBalance(Uri networkUri, QueryBalanceReq queryBalanceReq) async {
+  Future<QueryBalanceResp?> getAccountBalance(QueryBalanceReq queryBalanceReq) async {
+    Uri networkUri = globalLocator<NetworkModuleBloc>().state.networkUri;
     try {
       final Response<dynamic> response = await _apiCosmosRepository.fetchQueryBalance<dynamic>(networkUri, queryBalanceReq);
       return QueryBalanceResp.fromJson(response.data as Map<String, dynamic>);
