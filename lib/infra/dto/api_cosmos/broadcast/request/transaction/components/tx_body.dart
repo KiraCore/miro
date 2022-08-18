@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/tx_msg.dart';
+import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/i_tx_msg.dart';
 
 /// TxBody is the body of a transaction that all signers sign over
 ///
@@ -12,7 +12,7 @@ class TxBody {
   ///
   /// By convention, the first required signer (usually from the first message) is referred
   /// to as the primary signer and pays the fee for the whole transaction.
-  final List<TxMsg> messages;
+  final List<ITxMsg> messages;
 
   /// Arbitrary note/comment to be added to the transaction.
   ///
@@ -40,7 +40,7 @@ class TxBody {
   });
 
   Map<String, dynamic> toJson() => <String, dynamic>{
-        'messages': messages.map((TxMsg e) => e.toJson()).toList(),
+        'messages': messages.map((ITxMsg txMsg) => txMsg.toJson()).toList(),
         'memo': memo,
         'timeout_height': timeoutHeight,
         'extension_options': extensionOptions ?? <dynamic>[],

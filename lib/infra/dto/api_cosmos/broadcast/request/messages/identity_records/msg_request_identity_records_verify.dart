@@ -1,9 +1,9 @@
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/coin.dart';
-import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/tx_msg.dart';
+import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/i_tx_msg.dart';
 
 /// MsgRequestIdentityRecordsVerify defines a proposal message
 /// to request an identity record verification from a specific verifier
-class MsgRequestIdentityRecordsVerify extends TxMsg {
+class MsgRequestIdentityRecordsVerify implements ITxMsg {
   /// The address of requester
   final String address;
 
@@ -29,7 +29,7 @@ class MsgRequestIdentityRecordsVerify extends TxMsg {
       '@type': '/kira.gov.MsgRequestIdentityRecordsVerify',
       'address': address,
       // TODO(dominik): That json param, probably will be changed to record_ids in future
-      'recordIds': recordIds.map((BigInt e) => e.toString()).toList(),
+      'recordIds': recordIds.map((BigInt recordId) => recordId.toString()).toList(),
       'tip': tip.toJson(),
       'verifier': verifier,
     };
@@ -42,7 +42,7 @@ class MsgRequestIdentityRecordsVerify extends TxMsg {
       'value': <String, dynamic>{
         'address': address,
         // TODO(dominik): That json param, probably will be changed to record_ids in future
-        'recordIds': recordIds.map((BigInt e) => e.toString()).toList(),
+        'recordIds': recordIds.map((BigInt recordId) => recordId.toString()).toList(),
         'tip': tip.toJson(),
         'verifier': verifier,
       },

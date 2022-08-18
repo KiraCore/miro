@@ -1,17 +1,17 @@
-import 'package:miro/infra/dto/api_cosmos/broadcast/request/transaction/signed_transaction.dart';
+import 'package:miro/infra/dto/api_cosmos/broadcast/request/transaction/tx.dart';
 
 class BroadcastReq {
-  final SignedTransaction transaction;
+  final Tx tx;
   final String mode;
 
   BroadcastReq({
-    required this.transaction,
+    required this.tx,
     this.mode = 'block',
   });
 
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
-      'tx': transaction.toJson(),
+      'tx': tx.toJson(),
       'mode': mode,
     };
   }

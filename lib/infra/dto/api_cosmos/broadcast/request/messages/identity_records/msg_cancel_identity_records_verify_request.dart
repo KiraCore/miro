@@ -1,7 +1,7 @@
-import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/tx_msg.dart';
+import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/i_tx_msg.dart';
 
 /// MsgEditIdentityRecord defines a proposal message to edit an identity record
-class MsgCancelIdentityRecordsVerifyRequest extends TxMsg {
+class MsgCancelIdentityRecordsVerifyRequest implements ITxMsg {
   /// The address of requester
   final String executor;
 

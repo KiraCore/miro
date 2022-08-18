@@ -1,8 +1,8 @@
-import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/tx_msg.dart';
+import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/i_tx_msg.dart';
 
 /// MsgHandleIdentityRecordsVerifyRequest defines a proposal
 /// message to approve or reject an identity record request
-class MsgHandleIdentityRecordsVerifyRequest extends TxMsg {
+class MsgHandleIdentityRecordsVerifyRequest implements ITxMsg {
   /// The address of verifier
   final String verifier;
 

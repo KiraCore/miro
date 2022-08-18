@@ -1,4 +1,4 @@
-import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/tx_msg.dart';
+import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/i_tx_msg.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/vote/vote_option.dart';
 
 /// [MsgVote] represents the message that should be
@@ -8,7 +8,7 @@ import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/vote/vote_o
 ///
 /// https://docs.cosmos.network/v0.44/core/proto-docs.html#cosmos.gov.v1beta1.MsgVote
 // TODO(dominik): missing integration test because we don't have implemented proposals YET
-class MsgVote extends TxMsg {
+class MsgVote implements ITxMsg {
   /// Bech32 address of the voter.
   final String voter;
 
