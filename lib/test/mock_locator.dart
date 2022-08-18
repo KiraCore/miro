@@ -9,6 +9,7 @@ import 'package:miro/infra/repositories/api_repository.dart';
 import 'package:miro/infra/services/api/dashboard_service.dart';
 import 'package:miro/infra/services/api/query_interx_status_service.dart';
 import 'package:miro/infra/services/api/query_validators_service.dart';
+import 'package:miro/infra/services/api_cosmos/query_account_service.dart';
 import 'package:miro/infra/services/api_cosmos/query_balance_service.dart';
 import 'package:miro/infra/services/api_kira/query_kira_tokens_aliases_service.dart';
 import 'package:miro/infra/services/api_kira/query_kira_tokens_rates_service.dart';
@@ -26,6 +27,7 @@ Future<void> initMockLocator() async {
     ..registerLazySingleton<AppConfigProvider>(AppConfigProviderImpl.new)
     ..registerLazySingleton<WalletProvider>(WalletProvider.new)
     ..registerLazySingleton<CacheManager>(CacheManager.new)
+    ..registerLazySingleton<QueryAccountService>(QueryAccountService.new)
     ..registerLazySingleton<NetworkModuleBloc>(NetworkModuleBloc.new)
     ..registerLazySingleton<NetworkListCubit>(NetworkListCubit.new)
     ..registerLazySingleton<ApiRepository>(MockApiRepository.new)

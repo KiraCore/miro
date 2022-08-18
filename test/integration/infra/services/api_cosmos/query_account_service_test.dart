@@ -1,8 +1,8 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/config/locator.dart';
-import 'package:miro/infra/dto/api_cosmos/query_account/response/query_account_resp.dart';
 import 'package:miro/infra/services/api_cosmos/query_account_service.dart';
+import 'package:miro/shared/models/transactions/tx_remote_info_model.dart';
 import 'package:miro/shared/utils/network_utils.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
@@ -18,20 +18,20 @@ Future<void> main() async {
   final QueryAccountService queryAccountService = globalLocator<QueryAccountService>();
 
   group('Tests of fetchQueryAccount() method', () {
-    test('Should return the account data that contains current account number and sequence', () async {
+    test('Should return TxRemoteInfoModel containing current account number and sequence', () async {
       String actualAddress = 'kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx';
 
       TestUtils.printInfo('Data request');
       try {
-        QueryAccountResp? actualQueryAccountResp = await queryAccountService.fetchQueryAccount(actualAddress);
+        TxRemoteInfoModel? actualTxRemoteInfoModel = await queryAccountService.getTxRemoteInfo(actualAddress);
 
         TestUtils.printInfo('Data return');
-        print(actualQueryAccountResp);
+        print(actualTxRemoteInfoModel);
         print('');
       } on DioError catch (e) {
-        TestUtils.printError('query_account_service_test.dart: Cannot fetch QueryAccountResp for URI $networkUri: ${e.message}');
+        TestUtils.printError('query_account_service_test.dart: Cannot fetch TxRemoteInfoModel for URI $networkUri: ${e.message}');
       } catch (e) {
-        TestUtils.printError('query_account_service_test.dart: Cannot parse QueryAccountResp for URI $networkUri: ${e}');
+        TestUtils.printError('query_account_service_test.dart: Cannot parse TxRemoteInfoModel for URI $networkUri: ${e}');
       }
     });
   });

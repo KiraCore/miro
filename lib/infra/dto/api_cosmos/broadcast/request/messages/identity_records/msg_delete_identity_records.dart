@@ -1,7 +1,7 @@
-import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/tx_msg.dart';
+import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/i_tx_msg.dart';
 
 /// MsgDeleteIdentityRecords defines a method to delete identity records owned by an address
-class MsgDeleteIdentityRecords extends TxMsg {
+class MsgDeleteIdentityRecords implements ITxMsg {
   /// The address for the identity record
   final String address;
 
