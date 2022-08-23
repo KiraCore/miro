@@ -14,14 +14,14 @@ class ExpansionTileTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+
     return Wrap(
       crossAxisAlignment: WrapCrossAlignment.center,
       children: <Widget>[
         Text(
           title,
-          style: const TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.w400,
+          style: textTheme.bodyText1!.copyWith(
             color: DesignColors.white_100,
           ),
         ),

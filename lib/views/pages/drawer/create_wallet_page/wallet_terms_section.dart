@@ -28,6 +28,8 @@ class _WalletTermsSection extends State<WalletTermsSection> {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+
     return Column(
       children: <Widget>[
         const SizedBox(height: 20),
@@ -47,12 +49,11 @@ class _WalletTermsSection extends State<WalletTermsSection> {
                 );
               },
             ),
-            const Expanded(
+            Expanded(
               child: SizedBox(
                 child: Text(
                   'I understand that if I loose seed phrases or private key I will loose access to account forever.',
-                  style: TextStyle(
-                    fontSize: 12,
+                  style: textTheme.caption!.copyWith(
                     color: DesignColors.gray2_100,
                   ),
                 ),

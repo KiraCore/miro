@@ -20,6 +20,8 @@ class KiraOutlinedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+
     return MouseStateListener(
       onTap: onPressed,
       childBuilder: (Set<MaterialState> states) {
@@ -36,11 +38,8 @@ class KiraOutlinedButton extends StatelessWidget {
           child: Center(
             child: Text(
               title.toUpperCase(),
-              style: const TextStyle(
-                fontWeight: FontWeight.w700,
+              style: textTheme.button!.copyWith(
                 color: DesignColors.white_100,
-                letterSpacing: 0.4,
-                fontSize: 12,
               ),
             ),
           ),

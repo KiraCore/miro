@@ -81,6 +81,8 @@ class _SignInAccountButtonDesktopState extends State<_SignedInAccountButtonDeskt
   }
 
   Widget _buildButton(AnimationController animationController) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -98,8 +100,7 @@ class _SignInAccountButtonDesktopState extends State<_SignedInAccountButtonDeskt
               Text(
                 widget.wallet.address.bech32Shortcut,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  fontSize: 15,
+                style: textTheme.bodyText1!.copyWith(
                   color: DesignColors.white_100,
                 ),
               ),
@@ -107,8 +108,7 @@ class _SignInAccountButtonDesktopState extends State<_SignedInAccountButtonDeskt
               Text(
                 widget.wallet.address.bech32Shortcut,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  fontSize: 13,
+                style: textTheme.bodyText2!.copyWith(
                   color: DesignColors.gray2_100,
                 ),
               ),

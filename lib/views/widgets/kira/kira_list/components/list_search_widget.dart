@@ -25,6 +25,11 @@ class ListSearchWidget<T extends AListItem> extends StatelessWidget {
       height: kDefaultSearchBarHeight,
       width: width,
       child: SearchBar(
+        textStyle: const TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
+          color: DesignColors.white_100,
+        ),
         label: hint,
         onFieldSubmitted: (String value) {
           BlocProvider.of<FiltersBloc<T>>(context).add(FiltersSearchEvent<T>(value));

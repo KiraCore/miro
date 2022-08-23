@@ -35,6 +35,7 @@ class SortDropdownButton<T extends AListItem> extends StatelessWidget {
               overflow: TextOverflow.fade,
               style: TextStyle(
                 fontSize: ResponsiveWidget.isSmallScreen(context) ? 12 : 13,
+                fontWeight: FontWeight.w500,
                 color: DesignColors.gray2_100,
               ),
             ),

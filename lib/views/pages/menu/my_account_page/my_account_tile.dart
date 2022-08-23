@@ -17,6 +17,8 @@ class MyAccountTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+
     return Container(
       constraints: const BoxConstraints(minHeight: 62),
       child: Row(
@@ -34,9 +36,7 @@ class MyAccountTile extends StatelessWidget {
                 Text(
                   wallet.address.bech32Shortcut,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w500,
+                  style: textTheme.headline2!.copyWith(
                     color: DesignColors.white_100,
                   ),
                 ),
@@ -49,9 +49,7 @@ class MyAccountTile extends StatelessWidget {
                       wallet.address.bech32Address,
                       maxLines: 2,
                       softWrap: true,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
+                      style: textTheme.bodyText1!.copyWith(
                         color: DesignColors.blue1_100,
                       ),
                     ),

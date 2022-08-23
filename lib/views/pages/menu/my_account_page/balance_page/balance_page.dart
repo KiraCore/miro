@@ -46,7 +46,7 @@ class BalancePage extends StatelessWidget {
           defaultSortOption: BalancesSortOptions.sortByDenom,
           searchComparator: BalancesFilterOptions.search,
           listController: BalancesListController(address: address),
-          minHeight: MediaQuery.of(context).size.height - 470,
+          minHeight: MediaQuery.of(context).size.height - 490,
           itemBuilder: (BalanceModel balanceModel) {
             return BalanceListItemBuilder(
               key: Key(balanceModel.tokenAmountModel.tokenAliasModel.lowestTokenDenominationModel.name),

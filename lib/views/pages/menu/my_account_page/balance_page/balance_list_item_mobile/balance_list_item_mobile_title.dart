@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
 import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_token_prefix.dart';
@@ -17,10 +17,7 @@ class BalanceListItemMobileTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle textStyle = const TextStyle(
-      color: DesignColors.gray2_100,
-      fontSize: 16,
-    );
+    TextTheme textTheme = Theme.of(context).textTheme;
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -38,12 +35,19 @@ class BalanceListItemMobileTitle extends StatelessWidget {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(balanceModel.tokenAmountModel.tokenAliasModel.defaultTokenDenominationModel.name, style: textStyle),
+            Text(
+              balanceModel.tokenAmountModel.tokenAliasModel.defaultTokenDenominationModel.name,
+              style: textTheme.bodyText1!.copyWith(
+                color: DesignColors.white_100,
+              ),
+            ),
             const SizedBox(width: 10),
             Expanded(
               child: Text(
                 balanceModel.tokenAmountModel.getAmountInDefaultDenomination().toString(),
-                style: textStyle.copyWith(color: DesignColors.white_100),
+                style: textTheme.bodyText1!.copyWith(
+                  color: DesignColors.white_100,
+                ),
               ),
             ),
           ],

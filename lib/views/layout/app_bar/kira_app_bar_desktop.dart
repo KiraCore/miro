@@ -24,12 +24,7 @@ class KiraAppBarDesktop extends StatelessWidget {
         children: <Widget>[
           Expanded(
             child: Padding(
-              padding: const EdgeInsets.only(
-                top: 13,
-                bottom: 13,
-                right: 41,
-                left: 32,
-              ),
+              padding: const EdgeInsets.only(top: 13, bottom: 13, right: 41, left: 32),
               child: sidebar,
             ),
           ),

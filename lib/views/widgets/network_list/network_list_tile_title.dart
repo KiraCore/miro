@@ -14,6 +14,8 @@ class NetworkListTileTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -37,6 +39,8 @@ class NetworkListTileTitle extends StatelessWidget {
               style: const TextStyle(
                 color: DesignColors.white_100,
                 fontSize: 16,
+                fontWeight: FontWeight.w400,
+                letterSpacing: 0.015,
               ),
             ),
           ],
@@ -51,6 +55,8 @@ class NetworkListTileTitle extends StatelessWidget {
               style: const TextStyle(
                 color: DesignColors.gray2_100,
                 fontSize: 12,
+                fontWeight: FontWeight.w400,
+                letterSpacing: 0.015,
               ),
             ),
           ],
@@ -60,8 +66,7 @@ class NetworkListTileTitle extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
             child: Text(
               'Found ${_errorsCount} problems with server',
-              style: const TextStyle(
-                fontSize: 12,
+              style: textTheme.caption!.copyWith(
                 color: DesignColors.yellow_100,
               ),
             ),

@@ -1,4 +1,5 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/views/widgets/buttons/star_button.dart';
 import 'package:miro/views/widgets/generic/token_avatar.dart';
@@ -25,6 +26,8 @@ class BalanceTokenPrefix extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+
     Widget favouriteButton = StarButton(
       key: Key('fav_${tokenAliasModel.name}'),
       onChanged: favouritePressedCallback,
@@ -48,8 +51,8 @@ class BalanceTokenPrefix extends StatelessWidget {
             child: Text(
               tokenAliasModel.name,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
-                fontSize: 16,
+              style: textTheme.bodyText1!.copyWith(
+                color: DesignColors.gray2_100,
               ),
             ),
           ),

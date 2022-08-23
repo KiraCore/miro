@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
 
 class PrefixedWidget extends StatelessWidget {
@@ -15,6 +15,8 @@ class PrefixedWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+
     return Row(
       children: <Widget>[
         if (icon != null) ...<Widget>[
@@ -28,9 +30,8 @@ class PrefixedWidget extends StatelessWidget {
             children: <Widget>[
               Text(
                 prefix,
-                style: const TextStyle(
+                style: textTheme.bodyText2!.copyWith(
                   color: DesignColors.gray2_100,
-                  fontSize: 12,
                 ),
               ),
               const SizedBox(height: 4),

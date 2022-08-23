@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
 
 class DashboardGridTile extends StatelessWidget {
@@ -22,6 +22,8 @@ class DashboardGridTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 28),
       child: Row(
@@ -42,20 +44,16 @@ class DashboardGridTile extends StatelessWidget {
                 Text(
                   title,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w500,
+                  style: textTheme.headline4!.copyWith(
                     color: DesignColors.white_100,
-                    fontSize: 21,
                   ),
                 ),
                 const SizedBox(height: 8),
                 Text(
                   subtitle.toUpperCase(),
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w600,
+                  style: textTheme.subtitle2!.copyWith(
                     color: DesignColors.gray2_100,
-                    fontSize: 13,
                   ),
                 ),
               ],

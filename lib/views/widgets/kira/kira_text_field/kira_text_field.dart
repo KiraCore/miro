@@ -45,6 +45,8 @@ class _KiraTextField extends State<KiraTextField> {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,8 +54,7 @@ class _KiraTextField extends State<KiraTextField> {
         if (widget.label != null) ...<Widget>[
           Text(
             widget.label!,
-            style: TextStyle(
-              fontSize: 16,
+            style: textTheme.bodyText2!.copyWith(
               color: _getLabelColor(),
             ),
           ),
@@ -65,7 +66,7 @@ class _KiraTextField extends State<KiraTextField> {
           onChanged: widget.onChanged,
           obscureText: obscureTextStatus,
           readOnly: widget.readOnly,
-          style: const TextStyle(
+          style: textTheme.bodyText2!.copyWith(
             color: DesignColors.white_100,
           ),
           decoration: InputDecoration(
@@ -78,8 +79,8 @@ class _KiraTextField extends State<KiraTextField> {
             suffixIcon: _getSuffixIcon(),
             errorMaxLines: 1,
             hintText: widget.hint,
-            hintStyle: const TextStyle(
-              color: DesignColors.gray2_100,
+            hintStyle: textTheme.bodyText2!.copyWith(
+              color: DesignColors.white_100,
             ),
             border: InputBorder.none,
             enabledBorder: OutlineInputBorder(

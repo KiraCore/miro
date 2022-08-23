@@ -43,7 +43,7 @@ class _NetworkListTile extends State<NetworkListTile> {
           child: Wrap(
             children: <Widget>[
               Theme(
-                data: ThemeData().copyWith(
+                data: Theme.of(context).copyWith(
                   dividerColor: Colors.transparent,
                   splashColor: Colors.transparent,
                 ),

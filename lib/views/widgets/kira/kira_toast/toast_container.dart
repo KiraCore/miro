@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:miro/config/app_icons.dart';
 import 'package:miro/config/theme/design_colors.dart';
@@ -38,6 +37,8 @@ class ToastContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+
     Icon? toastIcon = _getIcon();
     ToastDecoration localToastDecoration = toastDecoration ?? ToastDecoration.fromToastType(toastType);
     return ClipRRect(
@@ -70,9 +71,9 @@ class ToastContainer extends StatelessWidget {
                     padding: const EdgeInsets.symmetric(vertical: 8),
                     child: Text(
                       title.data ?? '',
-                      style: (title.style ?? const TextStyle()).copyWith(
+                      style: textTheme.bodyText2!.copyWith(
                         color: title.style?.color ?? localToastDecoration.titleColor,
-                        fontSize: title.style?.fontSize ?? 14,
+                        fontSize: title.style?.fontSize ?? textTheme.bodyText2!.fontSize,
                       ),
                     ),
                   ),
@@ -80,9 +81,9 @@ class ToastContainer extends StatelessWidget {
               else
                 Text(
                   title.data ?? '',
-                  style: (title.style ?? const TextStyle()).copyWith(
+                  style: textTheme.bodyText2!.copyWith(
                     color: title.style?.color ?? localToastDecoration.titleColor,
-                    fontSize: title.style?.fontSize ?? 14,
+                    fontSize: title.style?.fontSize ?? textTheme.bodyText2!.fontSize,
                   ),
                 ),
               if (actionTitle != null) ...<Widget>[

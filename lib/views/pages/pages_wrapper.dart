@@ -135,6 +135,11 @@ class PagesWrapper extends StatelessWidget {
           border: const OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
           enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
           focusedBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
+          textStyle: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w400,
+            color: DesignColors.white_100,
+          ),
         ),
         const SizedBox(height: 12),
         Row(

@@ -13,19 +13,24 @@ class ListPopMenuHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+
     return ListTile(
       title: Text(
         title,
-        style: const TextStyle(
-          fontSize: 14,
+        style: textTheme.bodyText2!.copyWith(
           color: DesignColors.white_100,
-          fontWeight: FontWeight.w100,
         ),
       ),
       trailing: onClearPressed == null
           ? null
           : IconButton(
-              icon: const Text('Clear', style: TextStyle(fontSize: 14, color: DesignColors.gray2_100)),
+              icon: Text(
+                'Clear',
+                style: textTheme.bodyText2!.copyWith(
+                  color: DesignColors.gray2_100,
+                ),
+              ),
               onPressed: onClearPressed,
             ),
     );

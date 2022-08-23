@@ -39,46 +39,42 @@ class _NavTile extends State<NavTile> {
 
   @override
   Widget build(BuildContext context) {
-    return Theme(
-      data: ThemeData(
-        splashColor: Colors.transparent,
-        highlightColor: Colors.transparent,
-      ),
-      child: MouseStateListener(
-        onTap: widget.onTap,
-        selected: menuProvider.currentPath == widget.navItem.pageRouteInfo?.path,
-        disabled: !widget.navItem.isEnabled,
-        childBuilder: (Set<MaterialState> states) {
-          return Container(
-            width: double.infinity,
-            height: AppSizes.kKiraScaffoldMenuItemHeight,
-            decoration: BoxDecoration(
-              color: widget.navItemTheme?.getBackgroundColor(states),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Row(
-                children: <Widget>[
-                  Icon(
-                    widget.navItem.icon,
-                    size: 15,
-                    color: widget.navItemTheme?.getIconColor(states),
+    TextTheme textTheme = Theme.of(context).textTheme;
+
+    return MouseStateListener(
+      onTap: widget.onTap,
+      disableSplash: true,
+      selected: menuProvider.currentPath == widget.navItem.pageRouteInfo?.path,
+      disabled: !widget.navItem.isEnabled,
+      childBuilder: (Set<MaterialState> states) {
+        return Container(
+          width: double.infinity,
+          height: AppSizes.kKiraScaffoldMenuItemHeight,
+          decoration: BoxDecoration(
+            color: widget.navItemTheme?.getBackgroundColor(states),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Row(
+              children: <Widget>[
+                Icon(
+                  widget.navItem.icon,
+                  size: 16,
+                  color: widget.navItemTheme?.getIconColor(states),
+                ),
+                const SizedBox(width: 33),
+                Text(
+                  widget.navItem.name,
+                  style: textTheme.subtitle1!.copyWith(
+                    color: widget.navItemTheme?.getFontColor(states),
                   ),
-                  const SizedBox(width: 33),
-                  Text(
-                    widget.navItem.name,
-                    style: TextStyle(
-                      fontWeight: FontWeight.w500,
-                      color: widget.navItemTheme?.getFontColor(states),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 

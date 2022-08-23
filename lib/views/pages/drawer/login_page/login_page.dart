@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
 import 'package:miro/views/pages/drawer/login_page/create_wallet_link_button.dart';
 import 'package:miro/views/pages/drawer/login_page/login_keyfile_page/login_keyfile_page.dart';
@@ -15,11 +16,18 @@ class LoginPage extends StatefulWidget {
 class _LoginPage extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text('Connect a Wallet to Kira', style: Theme.of(context).textTheme.headline1),
+        Text(
+          'Connect a Wallet to Kira',
+          style: textTheme.headline3!.copyWith(
+            color: DesignColors.white_100,
+          ),
+        ),
         const SizedBox(height: 32),
         KiraOutlinedButton(
           title: 'Key file',

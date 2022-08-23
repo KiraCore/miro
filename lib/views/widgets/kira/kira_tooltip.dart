@@ -41,6 +41,8 @@ class KiraToolTip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+
     return Tooltip(
       message: message,
       height: height,
@@ -50,7 +52,10 @@ class KiraToolTip extends StatelessWidget {
       preferBelow: preferBelow,
       excludeFromSemantics: excludeFromSemantics,
       decoration: decoration,
-      textStyle: textStyle,
+      textStyle: textStyle ??
+          textTheme.caption!.copyWith(
+            color: DesignColors.white_100,
+          ),
       waitDuration: waitDuration,
       showDuration: showDuration,
       triggerMode: triggerMode,

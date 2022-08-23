@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/views/widgets/generic/prefixed_widget.dart';
@@ -13,10 +13,7 @@ class BalanceListItemMobileExpansion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle textStyle = const TextStyle(
-      color: DesignColors.white_100,
-      fontSize: 16,
-    );
+    TextTheme textTheme = Theme.of(context).textTheme;
 
     return Padding(
       padding: const EdgeInsets.all(25),
@@ -28,7 +25,9 @@ class BalanceListItemMobileExpansion extends StatelessWidget {
             prefix: 'Denomination',
             child: Text(
               tokenAmountModel.tokenAliasModel.lowestTokenDenominationModel.name,
-              style: textStyle,
+              style: textTheme.subtitle1!.copyWith(
+                color: DesignColors.white_100,
+              ),
             ),
           ),
           const SizedBox(height: 16),
@@ -36,7 +35,9 @@ class BalanceListItemMobileExpansion extends StatelessWidget {
             prefix: 'Amount',
             child: Text(
               tokenAmountModel.getAmountInDefaultDenomination().toString(),
-              style: textStyle.copyWith(color: DesignColors.white_100),
+              style: textTheme.subtitle1!.copyWith(
+                color: DesignColors.white_100,
+              ),
             ),
           ),
         ],

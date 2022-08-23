@@ -47,6 +47,8 @@ class _CreateWalletPage extends State<CreateWalletPage> {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+
     return ValueListenableBuilder<bool>(
       valueListenable: generateStatusNotifier,
       builder: (_, bool loading, __) {
@@ -56,7 +58,12 @@ class _CreateWalletPage extends State<CreateWalletPage> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Text('Create a wallet', style: Theme.of(context).textTheme.headline1),
+              Text(
+                'Create a wallet',
+                style: textTheme.headline3!.copyWith(
+                  color: DesignColors.white_100,
+                ),
+              ),
               const SizedBox(height: 24),
               const Divider(color: Color(0xFF343261)),
               const SizedBox(height: 24),

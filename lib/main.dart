@@ -5,7 +5,7 @@ import 'package:miro/blocs/specific_blocs/network_module/events/network_module_i
 import 'package:miro/blocs/specific_blocs/network_module/network_module_bloc.dart';
 import 'package:miro/config/app_config.dart';
 import 'package:miro/config/locator.dart';
-import 'package:miro/config/theme/theme_dark.dart';
+import 'package:miro/config/theme/theme_config.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/infra/cache/cache_manager.dart';
 import 'package:miro/providers/app_config_provider.dart';
@@ -63,7 +63,7 @@ class _CoreApp extends State<CoreApp> {
             globalLocator<AppConfigProvider>().locale,
             globalLocator<AppConfigProvider>().locale.toUpperCase(),
           ),
-          theme: buildDarkTheme(globalLocator<AppConfigProvider>().locale),
+          theme: ThemeConfig.buildTheme(),
           builder: (_, Widget? routerWidget) {
             return routerWidget as Widget;
           },

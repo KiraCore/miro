@@ -16,12 +16,16 @@ class ListPopMenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+
     return ListTile(
       onTap: onTap,
       dense: true,
       title: Text(
         title,
-        style: const TextStyle(color: DesignColors.gray2_100, fontSize: 14),
+        style: textTheme.bodyText2!.copyWith(
+          color: DesignColors.gray2_100,
+        ),
       ),
       trailing: selected
           ? const Icon(

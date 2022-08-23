@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:miro/config/theme/design_colors.dart';
 
 class CenterLoadSpinner extends StatelessWidget {
   final double? size;
@@ -11,7 +12,9 @@ class CenterLoadSpinner extends StatelessWidget {
       child: SizedBox(
         height: size,
         width: size,
-        child: const CircularProgressIndicator(),
+        child: const CircularProgressIndicator(
+          color: DesignColors.blue1_100,
+        ),
       ),
     );
   }

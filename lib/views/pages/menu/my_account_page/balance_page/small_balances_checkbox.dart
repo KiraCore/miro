@@ -43,6 +43,7 @@ class _SmallBalancesCheckbox extends State<SmallBalanceCheckbox> {
                 'Hide small balances',
                 style: TextStyle(
                   fontSize: ResponsiveWidget.isSmallScreen(context) ? 12 : 13,
+                  fontWeight: FontWeight.w500,
                   color: DesignColors.gray2_100,
                 ),
               ),
