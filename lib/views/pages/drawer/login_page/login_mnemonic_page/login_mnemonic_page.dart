@@ -26,15 +26,27 @@ class _LoginMnemonicPage extends State<LoginMnemonicPage> {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text('Connect a wallet with Mnemonic', style: Theme.of(context).textTheme.headline1),
+        Text(
+          'Connect a wallet with Mnemonic',
+          style: textTheme.headline3!.copyWith(
+            color: DesignColors.white_100,
+          ),
+        ),
         Wrap(
           crossAxisAlignment: WrapCrossAlignment.center,
           children: <Widget>[
-            Text('Write or paste your mnemonic', style: Theme.of(context).textTheme.headline2),
+            Text(
+              'Write or paste your mnemonic',
+              style: textTheme.bodyText2!.copyWith(
+                color: DesignColors.gray2_100,
+              ),
+            ),
             // TODO(dominik): Add tooltip message
             const KiraToolTip(
               message: 'Some message how to login with mnemonic',

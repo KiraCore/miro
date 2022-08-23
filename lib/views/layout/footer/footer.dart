@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/app_icons.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/views/widgets/generic/responsive/column_row_spacer.dart';
 import 'package:miro/views/widgets/generic/responsive/column_row_swapper.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 
@@ -11,7 +12,8 @@ class Footer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 10),
       width: double.infinity,
       child: ColumnRowSwapper(
         columnMainAxisAlignment: MainAxisAlignment.center,
@@ -19,6 +21,7 @@ class Footer extends StatelessWidget {
         expandOnRow: true,
         children: <Widget>[
           _buildTextSection(context),
+          const ColumnRowSpacer(size: 25),
           _buildIconSection(context),
         ],
       ),
@@ -26,9 +29,8 @@ class Footer extends StatelessWidget {
   }
 
   Widget _buildTextSection(BuildContext context) {
-    return ColumnRowSwapper(
-      rowCrossAxisAlignment: CrossAxisAlignment.center,
-      rowMainAxisAlignment: MainAxisAlignment.start,
+    return Row(
+      mainAxisAlignment: ResponsiveWidget.isSmallScreen(context) ? MainAxisAlignment.center : MainAxisAlignment.start,
       children: <Widget>[
         _buildTextButton(
           text: 'User terms',
@@ -53,7 +55,10 @@ class Footer extends StatelessWidget {
       onPressed: onPressed,
       child: Text(
         text,
-        style: const TextStyle(fontSize: 12),
+        style: const TextStyle(
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
+        ),
       ),
     );
   }

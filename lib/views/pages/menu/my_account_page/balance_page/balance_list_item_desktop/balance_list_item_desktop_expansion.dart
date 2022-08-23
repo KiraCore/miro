@@ -15,10 +15,7 @@ class BalanceListItemDesktopExpansion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextStyle textStyle = Theme.of(context).textTheme.subtitle1!.copyWith(
-          color: DesignColors.white_100,
-          fontSize: 16,
-        );
+    TextTheme textTheme = Theme.of(context).textTheme;
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -33,7 +30,9 @@ class BalanceListItemDesktopExpansion extends StatelessWidget {
             prefix: 'Denomination',
             child: Text(
               tokenAmountModel.tokenAliasModel.lowestTokenDenominationModel.name,
-              style: textStyle,
+              style: textTheme.subtitle1!.copyWith(
+                color: DesignColors.white_100,
+              ),
             ),
           ),
         ),
@@ -44,7 +43,9 @@ class BalanceListItemDesktopExpansion extends StatelessWidget {
             prefix: 'Amount',
             child: Text(
               tokenAmountModel.getAmountInLowestDenomination().toString(),
-              style: textStyle,
+              style: textTheme.subtitle1!.copyWith(
+                color: DesignColors.white_100,
+              ),
             ),
           ),
         ),

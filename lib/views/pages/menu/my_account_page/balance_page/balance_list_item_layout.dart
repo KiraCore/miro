@@ -18,11 +18,11 @@ class BalanceListItemLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return ValueListenableBuilder<bool>(
       valueListenable: expandNotifier,
-      builder: (_, bool expanded, __) => _buildItemLayout(expanded),
+      builder: (_, bool expanded, __) => _buildItemLayout(context, expanded),
     );
   }
 
-  Widget _buildItemLayout(bool expanded) {
+  Widget _buildItemLayout(BuildContext context, bool expanded) {
     return MouseStateListener(
       mouseCursor: SystemMouseCursors.click,
       onTap: () {},
@@ -40,8 +40,11 @@ class BalanceListItemLayout extends StatelessWidget {
           ),
           child: Theme(
             data: ThemeData().copyWith(
-              dividerColor: Colors.transparent,
               splashColor: Colors.transparent,
+              highlightColor: Colors.transparent,
+              dividerColor: Colors.transparent,
+              splashFactory: NoSplash.splashFactory,
+              textTheme: Theme.of(context).textTheme,
             ),
             child: itemContent,
           ),

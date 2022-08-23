@@ -128,11 +128,6 @@ dependencies:
   # https://pub.dev/packages/fluttertoast
   fluttertoast: ^8.0.9
 
-  # The google_fonts package for Flutter allows you to easily use any of the 977 fonts
-  # (and their variants) from fonts.google.com in your Flutter app.
-  # https://pub.dev/packages/google_fonts
-  google_fonts: ^2.1.0
-
   # QR.Flutter is a Flutter library for simple and fast QR code rendering via a Widget or custom painter.
   # https://pub.dev/packages/qr_flutter
   qr_flutter: ^4.0.0
@@ -144,7 +139,6 @@ dependencies:
   # This is the Dart/Flutter implementation of the Jdenticon project. Jdenticon is a quick and easy to use library for generating highly recognizable identicons using SVG.
   # https://pub.dev/packages/jdenticon_dart
   jdenticon_dart: ^2.0.0
-
 
   # A multi directional tooltip used to display any content with inbuilt support for list views
   # https://pub.dev/packages/just_the_tooltip
@@ -189,6 +183,8 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/
+    - assets/fonts/
+    - assets/fonts/inter/
     - assets/icons/
     - assets/images/
 
@@ -196,6 +192,26 @@ flutter:
     - family: IconsFont
       fonts:
         - asset: assets/fonts/IconsFont.ttf
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/inter/Inter-Thin.ttf
+          weight: 100
+        - asset: assets/fonts/inter/Inter-ExtraLight.ttf
+          weight: 200
+        - asset: assets/fonts/inter/Inter-Light.ttf
+          weight: 300
+        - asset: assets/fonts/inter/Inter-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/inter/Inter-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/inter/Inter-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/inter/Inter-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/inter/Inter-ExtraBold.ttf
+          weight: 800
+        - asset: assets/fonts/inter/Inter-Black.ttf
+          weight: 900
 
 flutter_intl:
   enabled: true

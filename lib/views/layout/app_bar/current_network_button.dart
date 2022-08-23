@@ -52,7 +52,7 @@ class CurrentNetworkButton extends StatelessWidget {
                         textDirection: TextDirection.ltr,
                         style: TextStyle(
                           color: foregroundColor,
-                          fontWeight: FontWeight.bold,
+                          fontWeight: FontWeight.w500,
                           fontSize: 12,
                         ),
                       ),

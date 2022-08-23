@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/locator.dart';
+import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/providers/wallet_provider.dart';
 import 'package:miro/shared/exceptions/invalid_keyfile_exception.dart';
 import 'package:miro/shared/exceptions/invalid_password_exception.dart';
@@ -28,13 +29,25 @@ class _LoginKeyfilePage extends State<LoginKeyfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text('Sign in with key file', style: Theme.of(context).textTheme.headline1),
+        Text(
+          'Sign in with key file',
+          style: textTheme.headline3!.copyWith(
+            color: DesignColors.white_100,
+          ),
+        ),
         const SizedBox(height: 12),
-        Text('This is not a safe option to sign in', style: Theme.of(context).textTheme.headline2),
+        Text(
+          'This is not a safe option to sign in',
+          style: textTheme.bodyText1!.copyWith(
+            color: DesignColors.gray2_100,
+          ),
+        ),
         const SizedBox(height: 37),
         KeyfileDropzone(
           controller: dropZoneController,

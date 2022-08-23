@@ -16,6 +16,8 @@ class NetworkConnectButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+
     return Row(
       children: <Widget>[
         Opacity(
@@ -27,10 +29,11 @@ class NetworkConnectButton extends StatelessWidget {
                 side: BorderSide(color: DesignColors.darkGreen_100),
               )),
             ),
-            child: Text(
-              'Connect'.toUpperCase(),
-              style: const TextStyle(fontSize: 12),
-            ),
+            child: Text('Connect'.toUpperCase(),
+                style: textTheme.button!.copyWith(
+                  color: DesignColors.white_100,
+                  fontWeight: FontWeight.w500,
+                )),
           ),
         ),
       ],

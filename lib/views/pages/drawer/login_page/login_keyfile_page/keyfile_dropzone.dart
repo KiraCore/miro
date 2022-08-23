@@ -114,27 +114,42 @@ class _KeyfileDropzone extends State<KeyfileDropzone> {
   }
 
   Widget _buildDropPreview() {
+    TextTheme textTheme = Theme.of(context).textTheme;
+
     return Center(
       child: Text(
         'Drop file'.toUpperCase(),
-        style: Theme.of(context).textTheme.headline1,
+        style: textTheme.bodyText2!.copyWith(color: DesignColors.blue1_100),
       ),
     );
   }
 
   Widget _buildEmptyPreview() {
+    TextTheme textTheme = Theme.of(context).textTheme;
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
-        const Text('Please drop a key file here'),
+        Text(
+          'Please drop a key file here',
+          style: textTheme.bodyText2!.copyWith(
+            color: DesignColors.gray3_100,
+          ),
+        ),
         Wrap(
           alignment: WrapAlignment.center,
           crossAxisAlignment: WrapCrossAlignment.center,
           children: <Widget>[
-            const Text('or '),
+            Text(
+              'or ',
+              style: textTheme.bodyText2!.copyWith(
+                color: DesignColors.gray3_100,
+              ),
+            ),
             TextLink(
-              'browse',
+              text: 'browse',
+              textStyle: textTheme.bodyText2!,
               onTap: () {
                 dropZoneController.pickFile();
               },
@@ -146,6 +161,8 @@ class _KeyfileDropzone extends State<KeyfileDropzone> {
   }
 
   Widget _buildFilePreview() {
+    TextTheme textTheme = Theme.of(context).textTheme;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -165,21 +182,25 @@ class _KeyfileDropzone extends State<KeyfileDropzone> {
               Text(
                 actualFile!.name,
                 overflow: TextOverflow.ellipsis,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
+                style: textTheme.bodyText2!.copyWith(
+                  color: DesignColors.gray3_100,
                 ),
               ),
               if (errorMessage == null)
                 Text(
                   actualFile!.sizeString,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(color: DesignColors.gray2_100),
+                  style: textTheme.bodyText2!.copyWith(
+                    color: DesignColors.gray2_100,
+                  ),
                 )
               else
                 Text(
                   errorMessage!,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(color: DesignColors.red_100),
+                  style: textTheme.bodyText2!.copyWith(
+                    color: DesignColors.red_100,
+                  ),
                 ),
             ],
           ),

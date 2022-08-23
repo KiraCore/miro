@@ -10,6 +10,8 @@ import 'package:miro/views/widgets/network_list/network_warning_container.dart';
 const TextStyle kNetworkDetailsTextStyle = TextStyle(
   color: DesignColors.gray2_100,
   fontSize: 12,
+  fontWeight: FontWeight.w400,
+  letterSpacing: 0.015,
 );
 
 class NetworkListTileContent extends StatelessWidget {

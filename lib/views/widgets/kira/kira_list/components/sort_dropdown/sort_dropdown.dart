@@ -8,7 +8,6 @@ import 'package:miro/blocs/specific_blocs/list/sort/sort_state.dart';
 import 'package:miro/config/app_icons.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/views/widgets/generic/pop_wrapper.dart';
-import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 import 'package:miro/views/widgets/kira/kira_list/components/list_pop_menu/list_pop_menu.dart';
 import 'package:miro/views/widgets/kira/kira_list/components/sort_dropdown/sort_dropdown_button.dart';
 import 'package:miro/views/widgets/kira/kira_list/models/sort_option_model.dart';
@@ -33,6 +32,8 @@ class _SortDropdown<T extends AListItem> extends State<SortDropdown<T>> {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+
     return BlocBuilder<SortBloc<T>, SortState<T>>(
       builder: (BuildContext context, SortState<T> sortState) {
         SortOptionModel<T> selectedSortOptionModel = _findSortOptionModel(sortState.activeSortOption);
@@ -40,10 +41,8 @@ class _SortDropdown<T extends AListItem> extends State<SortDropdown<T>> {
           children: <Widget>[
             Text(
               'Sort by',
-              style: TextStyle(
-                fontSize: ResponsiveWidget.isSmallScreen(context) ? 12 : 14,
+              style: textTheme.bodyText2!.copyWith(
                 color: DesignColors.gray2_100,
-                fontWeight: FontWeight.w500,
               ),
             ),
             const SizedBox(width: 10),

@@ -21,6 +21,7 @@ class NetworkButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
     bool networkConnected = networkStatusModel.connectionStatusType == ConnectionStatusType.connected;
     bool networkConnecting = networkStatusModel.connectionStatusType == ConnectionStatusType.connecting;
     bool networkOnline = networkStatusModel is ANetworkOnlineModel;
@@ -28,12 +29,11 @@ class NetworkButton extends StatelessWidget {
     bool networkOffline = networkStatusModel is NetworkOfflineModel;
 
     if (networkConnected && networkOffline) {
-      return const SizedBox(
+      return SizedBox(
         width: double.infinity,
         child: Text(
           'Selected server is offline\nPlease choose different network',
-          style: TextStyle(
-            fontSize: 13,
+          style: textTheme.caption!.copyWith(
             color: DesignColors.red_100,
           ),
         ),
@@ -60,10 +60,9 @@ class NetworkButton extends StatelessWidget {
         onPressed: null,
       );
     } else {
-      return const Text(
+      return Text(
         'Cannot connect to network',
-        style: TextStyle(
-          fontSize: 13,
+        style: textTheme.caption!.copyWith(
           color: DesignColors.red_100,
         ),
       );

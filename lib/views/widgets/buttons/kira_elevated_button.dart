@@ -29,6 +29,8 @@ class KiraElevatedButton extends StatefulWidget {
 class _KiraElevatedButton extends State<KiraElevatedButton> {
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+
     return Opacity(
       opacity: widget.disabled ? 0.3 : 1,
       child: MouseStateListener(
@@ -53,15 +55,14 @@ class _KiraElevatedButton extends State<KiraElevatedButton> {
                     color: widget.foregroundColor,
                     size: 14,
                   ),
+                  if (widget.title != null) const SizedBox(width: 12),
                 ],
                 if (widget.title != null) ...<Widget>[
-                  const SizedBox(width: 12),
                   Text(
                     widget.title!.toUpperCase(),
-                    style: TextStyle(
-                      color: widget.foregroundColor ?? DesignColors.white_100,
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
+                    textAlign: TextAlign.center,
+                    style: textTheme.button!.copyWith(
+                      color: widget.foregroundColor,
                     ),
                   ),
                 ],

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
-import 'package:miro/views/widgets/generic/controllable_expansion_tile.dart';
 import 'package:miro/views/widgets/kira/kira_expansion_tile/expansion_tile_title.dart';
 import 'package:miro/views/widgets/kira/kira_expansion_tile/kira_expansion_tile_controller.dart';
 
@@ -46,11 +45,11 @@ class _KiraExpansionTile extends State<KiraExpansionTile> {
         ),
         padding: const EdgeInsets.symmetric(vertical: 12),
         child: Theme(
-          data: ThemeData().copyWith(
+          data: Theme.of(context).copyWith(
             dividerColor: Colors.transparent,
             splashColor: Colors.transparent,
           ),
-          child: ControllableExpansionTile(
+          child: ExpansionTile(
             key: controller.expansionTileGlobalKey,
             onExpansionChanged: _onExpansionChanged,
             maintainState: true,

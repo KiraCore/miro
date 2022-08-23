@@ -4,17 +4,13 @@ import 'package:miro/views/widgets/generic/mouse_state_listener.dart';
 
 class TextLink extends StatelessWidget {
   final String text;
-  final double? fontSize;
+  final TextStyle textStyle;
   final GestureTapCallback? onTap;
-  final Color? color;
-  final Color? hoverColor;
 
-  const TextLink(
-    this.text, {
-    this.fontSize,
+  const TextLink({
+    required this.text,
+    required this.textStyle,
     this.onTap,
-    this.color,
-    this.hoverColor,
     Key? key,
   }) : super(key: key);
 
@@ -25,13 +21,28 @@ class TextLink extends StatelessWidget {
       childBuilder: (Set<MaterialState> states) {
         return Text(
           text,
-          style: TextStyle(
-            fontSize: fontSize ?? 14,
-            color: states.contains(MaterialState.pressed) ? color ?? DesignColors.blue2_100 : hoverColor ?? DesignColors.blue1_100,
-            decoration: states.contains(MaterialState.hovered) && !states.contains(MaterialState.pressed) ? TextDecoration.underline : null,
+          style: textStyle.copyWith(
+            color: _selectColor(states),
+            decoration: _selectTextDecoration(states),
           ),
         );
       },
     );
+  }
+
+  Color _selectColor(Set<MaterialState> states) {
+    if (states.contains(MaterialState.hovered)) {
+      return DesignColors.blue2_100;
+    } else {
+      return DesignColors.blue1_100;
+    }
+  }
+
+  TextDecoration? _selectTextDecoration(Set<MaterialState> states) {
+    if (states.contains(MaterialState.hovered)) {
+      return TextDecoration.underline;
+    } else {
+      return null;
+    }
   }
 }

@@ -23,7 +23,9 @@ class NetworkSelectedButton extends StatelessWidget {
             title.toUpperCase(),
             style: TextStyle(
               fontSize: 12,
+              fontWeight: FontWeight.w500,
               color: _adjustFontColor(),
+              letterSpacing: 0.18,
             ),
           ),
         ),

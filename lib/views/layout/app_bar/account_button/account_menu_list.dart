@@ -20,20 +20,16 @@ class AccountMenuList extends StatelessWidget {
       children: <Widget>[
         _MenuListTile(
           onTap: () => _onNavigateToMyAccountPressed(context),
-          title: const Text('My account'),
+          title: 'My account',
         ),
         _MenuListTile(
           onTap: () {},
-          title: const Text('Settings'),
+          title: 'Settings',
         ),
         _MenuListTile(
           onTap: () => _onLogout(context),
-          title: const Text(
-            'Log Out',
-            style: TextStyle(
-              color: DesignColors.red_100,
-            ),
-          ),
+          title: 'Log Out',
+          color: DesignColors.red_100,
         ),
         const SizedBox(height: 12),
       ],
@@ -58,30 +54,43 @@ class AccountMenuList extends StatelessWidget {
 
 class _MenuListTile extends StatelessWidget {
   final VoidCallback onTap;
-  final Text title;
+  final String title;
+  final Color? color;
 
   const _MenuListTile({
     required this.onTap,
     required this.title,
+    this.color,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+
     return MouseStateListener(
       onTap: onTap,
       childBuilder: (Set<MaterialState> states) {
         return Padding(
           padding: const EdgeInsets.all(10),
           child: Text(
-            title.data!,
-            style: TextStyle(
-              fontSize: 14,
-              color: states.contains(MaterialState.hovered) ? DesignColors.white_100 : title.style?.color ?? DesignColors.gray2_100,
+            title,
+            style: textTheme.bodyText2!.copyWith(
+              color: _selectColor(states),
             ),
           ),
         );
       },
     );
+  }
+
+  Color _selectColor(Set<MaterialState> states) {
+    if (states.contains(MaterialState.hovered)) {
+      return DesignColors.white_100;
+    } else if (color != null) {
+      return color!;
+    } else {
+      return DesignColors.gray2_100;
+    }
   }
 }

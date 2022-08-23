@@ -11,6 +11,8 @@ class LastBlockTimeWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+
     return BlocBuilder<NetworkModuleBloc, NetworkModuleState>(
       builder: (BuildContext context, NetworkModuleState networkModuleState) {
         BlockTimeModel? blockTimeModel;
@@ -23,21 +25,20 @@ class LastBlockTimeWidget extends StatelessWidget {
         return RichText(
           text: TextSpan(
             text: 'Last block time: ',
-            style: const TextStyle(
-              fontSize: 13,
+            style: textTheme.caption!.copyWith(
               color: DesignColors.gray2_100,
             ),
             children: <TextSpan>[
               TextSpan(
                 text: blockTimeModel?.toString() ?? '---',
-                style: TextStyle(
+                style: textTheme.caption!.copyWith(
                   color: _selectTextColor(blockTimeModel),
                 ),
               ),
               if (blockTimeModel != null && blockTimeModel.isOutdated())
                 TextSpan(
                   text: ' (${blockTimeModel.durationSinceBlock.inMinutes} minutes ago)',
-                  style: TextStyle(
+                  style: textTheme.caption!.copyWith(
                     color: _selectTextColor(blockTimeModel),
                   ),
                 )

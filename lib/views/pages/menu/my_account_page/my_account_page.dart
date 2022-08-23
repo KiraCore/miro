@@ -53,9 +53,7 @@ class _MyAccountPage extends State<MyAccountPage> {
     return SingleChildScrollView(
       controller: scrollController,
       child: Padding(
-        padding: ResponsiveWidget.isLargeScreen(context)
-            ? AppSizes.defaultDesktopPageMargin
-            : AppSizes.defaultMobilePageMargin,
+        padding: ResponsiveWidget.isLargeScreen(context) ? AppSizes.defaultDesktopPageMargin : AppSizes.defaultMobilePageMargin,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,7 +83,11 @@ class _MyAccountPage extends State<MyAccountPage> {
       child: Center(
         child: Text(
           title,
-          style: const TextStyle(color: DesignColors.white_100),
+          style: const TextStyle(
+            color: DesignColors.white_100,
+            fontWeight: FontWeight.w400,
+            fontSize: 12,
+          ),
         ),
       ),
     );

@@ -29,6 +29,7 @@ class _DashboardGrid extends State<DashboardGrid> {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
     _initColumnsCount();
 
     return Column(
@@ -39,8 +40,7 @@ class _DashboardGrid extends State<DashboardGrid> {
             children: <Widget>[
               Text(
                 widget.title,
-                style: const TextStyle(
-                  fontSize: 25,
+                style: textTheme.headline2!.copyWith(
                   color: DesignColors.white_100,
                 ),
               ),
