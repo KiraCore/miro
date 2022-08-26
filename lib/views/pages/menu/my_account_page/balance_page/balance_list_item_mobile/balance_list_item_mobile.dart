@@ -10,14 +10,16 @@ import 'package:miro/views/widgets/buttons/kira_outlined_button.dart';
 class BalanceListItemMobile extends StatelessWidget {
   final BalanceModel balanceModel;
   final ExpansionChangedCallback expansionChangedCallback;
-  final ValueNotifier<bool> hoverNotifier;
   final FavouritePressedCallback favouritePressedCallback;
+  final ValueNotifier<bool> hoverNotifier;
+  final VoidCallback onSendButtonPressed;
 
   const BalanceListItemMobile({
     required this.balanceModel,
     required this.expansionChangedCallback,
-    required this.hoverNotifier,
     required this.favouritePressedCallback,
+    required this.hoverNotifier,
+    required this.onSendButtonPressed,
     Key? key,
   }) : super(key: key);
 
@@ -50,7 +52,7 @@ class BalanceListItemMobile extends StatelessWidget {
           child: KiraOutlinedButton(
             height: 40,
             width: double.infinity,
-            onPressed: () {},
+            onPressed: onSendButtonPressed,
             title: 'Send',
           ),
         ),

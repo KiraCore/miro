@@ -1,13 +1,14 @@
+import 'package:equatable/equatable.dart';
 import 'package:miro/infra/dto/api_kira/query_kira_tokens_aliases/response/token_alias.dart';
 import 'package:miro/shared/models/tokens/token_denomination_model.dart';
 
-class TokenAliasModel {
+class TokenAliasModel extends Equatable {
   final String name;
   final TokenDenominationModel lowestTokenDenominationModel;
   final TokenDenominationModel defaultTokenDenominationModel;
   final String? icon;
 
-  TokenAliasModel({
+  const TokenAliasModel({
     required this.name,
     required this.lowestTokenDenominationModel,
     TokenDenominationModel? defaultTokenDenominationModel,
@@ -39,9 +40,12 @@ class TokenAliasModel {
 
   List<TokenDenominationModel> get tokenDenominations {
     Set<TokenDenominationModel> availableTokenDenominationModelSet = <TokenDenominationModel>{
-      lowestTokenDenominationModel,
       defaultTokenDenominationModel,
+      lowestTokenDenominationModel,
     };
     return availableTokenDenominationModelSet.toList();
   }
+
+  @override
+  List<Object?> get props => <Object>[lowestTokenDenominationModel];
 }

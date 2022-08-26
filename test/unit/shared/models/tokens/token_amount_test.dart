@@ -16,10 +16,10 @@ void main() {
   );
 
   TokenAliasModel actualKexTokenAliasModel = TokenAliasModel.fromDto(kexTokenAlias);
-  TokenAliasModel actualEthTokenAliasModel = TokenAliasModel(
+  TokenAliasModel actualEthTokenAliasModel = const TokenAliasModel(
     name: 'Etherum',
-    lowestTokenDenominationModel: const TokenDenominationModel(name: 'wei', decimals: 0),
-    defaultTokenDenominationModel: const TokenDenominationModel(name: 'ETH', decimals: 18),
+    lowestTokenDenominationModel: TokenDenominationModel(name: 'wei', decimals: 0),
+    defaultTokenDenominationModel: TokenDenominationModel(name: 'ETH', decimals: 18),
   );
   TokenAliasModel actualSamoleanTokenAliasModel = TokenAliasModel.local('samolean');
 
@@ -177,10 +177,10 @@ void main() {
     // Arrange
     TokenAmountModel actualTokenAmountModel = TokenAmountModel(
       lowestDenominationAmount: Decimal.fromInt(4),
-      tokenAliasModel: TokenAliasModel(
+      tokenAliasModel: const TokenAliasModel(
         name: 'test',
-        lowestTokenDenominationModel: const TokenDenominationModel(name: 'min', decimals: 0),
-        defaultTokenDenominationModel: const TokenDenominationModel(name: 'max', decimals: 50),
+        lowestTokenDenominationModel: TokenDenominationModel(name: 'min', decimals: 0),
+        defaultTokenDenominationModel: TokenDenominationModel(name: 'max', decimals: 50),
       ),
     );
 
@@ -231,10 +231,10 @@ void main() {
     // Arrange
     TokenAmountModel actualTokenAmountModel = TokenAmountModel(
       lowestDenominationAmount: Decimal.parse('400000000000000000000000000000000000000000000000000'),
-      tokenAliasModel: TokenAliasModel(
+      tokenAliasModel: const TokenAliasModel(
         name: 'test',
-        lowestTokenDenominationModel: const TokenDenominationModel(name: 'min', decimals: 0),
-        defaultTokenDenominationModel: const TokenDenominationModel(name: 'max', decimals: 50),
+        lowestTokenDenominationModel: TokenDenominationModel(name: 'min', decimals: 0),
+        defaultTokenDenominationModel: TokenDenominationModel(name: 'max', decimals: 50),
       ),
     );
 

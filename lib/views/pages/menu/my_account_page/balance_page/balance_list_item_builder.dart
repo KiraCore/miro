@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -5,6 +6,7 @@ import 'package:miro/blocs/specific_blocs/list/favourites/events/favourites_add_
 import 'package:miro/blocs/specific_blocs/list/favourites/events/favourites_remove_record_event.dart';
 import 'package:miro/blocs/specific_blocs/list/favourites/favourites_bloc.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
+import 'package:miro/shared/router/router.gr.dart';
 import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_list_item_desktop/balance_list_item_desktop.dart';
 import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_list_item_layout.dart';
 import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_list_item_mobile/balance_list_item_mobile.dart';
@@ -36,6 +38,7 @@ class _BalanceListItemBuilder extends State<BalanceListItemBuilder> {
       balanceModel: widget.balanceModel,
       expansionChangedCallback: _onExpansionChanged,
       favouritePressedCallback: _onFavouriteButtonPressed,
+      onSendButtonPressed: _handleSendButtonPressed,
       hoverNotifier: hoverNotifier,
     );
 
@@ -50,6 +53,7 @@ class _BalanceListItemBuilder extends State<BalanceListItemBuilder> {
           expansionChangedCallback: _onExpansionChanged,
           favouritePressedCallback: _onFavouriteButtonPressed,
           hoverNotifier: hoverNotifier,
+          onSendButtonPressed: _handleSendButtonPressed,
         ),
       ),
     );
@@ -72,5 +76,11 @@ class _BalanceListItemBuilder extends State<BalanceListItemBuilder> {
     } else {
       favouritesBloc.add(FavouritesAddRecordEvent<BalanceModel>(widget.balanceModel));
     }
+  }
+
+  void _handleSendButtonPressed() {
+    AutoRouter.of(context).root.push(TransactionsWrapperRoute(children: <PageRouteInfo>[
+          MsgSendCreateRoute(initialBalanceModel: widget.balanceModel),
+        ]));
   }
 }
