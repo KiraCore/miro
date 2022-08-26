@@ -7,6 +7,8 @@ import 'package:miro/views/pages/menu/dashboard_page/dashboard_page.dart';
 import 'package:miro/views/pages/menu/my_account_page/my_account_page.dart';
 import 'package:miro/views/pages/menu/validators_page/validators_page.dart';
 import 'package:miro/views/pages/pages_wrapper.dart';
+import 'package:miro/views/pages/transactions/send/msg_send_create_page.dart';
+import 'package:miro/views/pages/transactions/transactions_wrapper.dart';
 
 @CustomAutoRouter(replaceInRouteName: 'Page,Route', routes: <AutoRoute>[
   AutoRoute<void>(
@@ -45,6 +47,22 @@ import 'package:miro/views/pages/pages_wrapper.dart';
         transitionsBuilder: TransitionsBuilders.fadeIn,
       ),
       RedirectRoute(path: '', redirectTo: 'dashboard')
+    ],
+  ),
+  CustomRoute<void>(
+    page: TransactionsWrapper,
+    name: 'TransactionsWrapperRoute',
+    path: '/transactions',
+    guards: <Type>[AuthGuard, UrlParametersGuard],
+    transitionsBuilder: TransitionsBuilders.fadeIn,
+    children: <AutoRoute>[
+      CustomRoute<void>(
+        page: MsgSendCreatePage,
+        name: 'MsgSendCreateRoute',
+        path: 'tokens/send',
+        guards: <Type>[AuthGuard, UrlParametersGuard],
+        transitionsBuilder: TransitionsBuilders.fadeIn,
+      ),
     ],
   ),
   RedirectRoute(path: '', redirectTo: '/')

@@ -3,8 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:jdenticon_dart/jdenticon_dart.dart';
 
 class KiraIdentityAvatar extends StatelessWidget {
+  final String? address;
   final double size;
-  final String address;
 
   const KiraIdentityAvatar({
     required this.address,
@@ -27,13 +27,14 @@ class KiraIdentityAvatar extends StatelessWidget {
           borderRadius: BorderRadius.circular(1000),
           child: CircleAvatar(
             backgroundColor: const Color(0xFF2B2F78),
-            child: SizedBox(
-              width: size - size * 0.25,
-              height: size - size * 0.25,
-              child: SvgPicture.string(
-                Jdenticon.toSvg(address),
-                fit: BoxFit.contain,
-              ),
+            child: Padding(
+              padding: EdgeInsets.all(size - size * 0.85),
+              child: address != null && address!.isNotEmpty
+                  ? SvgPicture.string(
+                      Jdenticon.toSvg(address!),
+                      fit: BoxFit.contain,
+                    )
+                  : null,
             ),
           ),
         ),

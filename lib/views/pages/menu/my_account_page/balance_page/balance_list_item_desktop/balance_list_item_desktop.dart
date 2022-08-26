@@ -6,19 +6,21 @@ import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_list_
 import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_list_item_desktop/balance_list_item_desktop_title.dart';
 import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_token_prefix.dart';
 
-const double kSectionsSpace = 15;
-
 class BalanceListItemDesktop extends StatelessWidget {
   final BalanceModel balanceModel;
   final ExpansionChangedCallback expansionChangedCallback;
-  final ValueNotifier<bool> hoverNotifier;
   final FavouritePressedCallback favouritePressedCallback;
+  final ValueNotifier<bool> hoverNotifier;
+  final VoidCallback onSendButtonPressed;
+  final double sectionsSpace;
 
   const BalanceListItemDesktop({
     required this.balanceModel,
     required this.expansionChangedCallback,
-    required this.hoverNotifier,
     required this.favouritePressedCallback,
+    required this.hoverNotifier,
+    required this.onSendButtonPressed,
+    this.sectionsSpace = 15,
     Key? key,
   }) : super(key: key);
 
@@ -37,12 +39,13 @@ class BalanceListItemDesktop extends StatelessWidget {
         balanceModel: balanceModel,
         hoverNotifier: hoverNotifier,
         favouritePressedCallback: favouritePressedCallback,
-        sectionsSpace: kSectionsSpace,
+        onSendButtonPressed: onSendButtonPressed,
+        sectionsSpace: sectionsSpace,
       ),
       children: <Widget>[
         BalanceListItemDesktopExpansion(
           tokenAmountModel: balanceModel.tokenAmountModel,
-          sectionsSpace: kSectionsSpace,
+          sectionsSpace: sectionsSpace,
         ),
       ],
     );

@@ -17,6 +17,8 @@ class TokenAmountModel {
     }
   }
 
+  TokenAmountModel.zero({required this.tokenAliasModel}) : _lowestDenominationAmount = Decimal.zero;
+
   int compareTo(TokenAmountModel tokenAmountModel) {
     return tokenAmountModel._lowestDenominationAmount.compareTo(_lowestDenominationAmount);
   }

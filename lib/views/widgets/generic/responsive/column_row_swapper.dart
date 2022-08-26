@@ -6,6 +6,7 @@ class ColumnRowSwapper extends StatefulWidget {
   final List<Widget> children;
   final bool expandOnRow;
   final bool expandOnColumn;
+  final bool reverseOnColumn;
   final MainAxisAlignment rowMainAxisAlignment;
   final CrossAxisAlignment rowCrossAxisAlignment;
   final MainAxisAlignment columnMainAxisAlignment;
@@ -15,6 +16,7 @@ class ColumnRowSwapper extends StatefulWidget {
     required this.children,
     this.expandOnRow = false,
     this.expandOnColumn = false,
+    this.reverseOnColumn = false,
     this.rowMainAxisAlignment = MainAxisAlignment.start,
     this.rowCrossAxisAlignment = CrossAxisAlignment.center,
     this.columnMainAxisAlignment = MainAxisAlignment.start,
@@ -46,7 +48,9 @@ class _ColumnRowSwapper extends State<ColumnRowSwapper> {
       mediumScreen: Column(
         mainAxisAlignment: widget.columnMainAxisAlignment,
         crossAxisAlignment: widget.columnCrossAxisAlignment,
-        children: _buildChildren(),
+        children: <Widget>[
+          if (widget.reverseOnColumn) ..._buildChildren().reversed else ..._buildChildren(),
+        ],
       ),
     );
   }

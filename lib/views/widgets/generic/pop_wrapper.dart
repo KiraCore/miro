@@ -54,22 +54,24 @@ class PopWrapperController {
 }
 
 class PopWrapper extends StatefulWidget {
-  final PopWrapperController popWrapperController;
-  final PopWrapperPopupBuilder popupBuilder;
   final PopWrapperButtonBuilder buttonBuilder;
-  final double dropdownMargin;
-  final BoxDecoration? decoration;
-  final double buttonWidth;
   final double buttonHeight;
+  final double buttonWidth;
+  final PopWrapperPopupBuilder popupBuilder;
+  final PopWrapperController popWrapperController;
+  final BoxDecoration? decoration;
+  final bool disabled;
+  final double dropdownMargin;
 
   const PopWrapper({
-    required this.popWrapperController,
     required this.buttonBuilder,
-    required this.popupBuilder,
-    required this.buttonWidth,
     required this.buttonHeight,
-    this.dropdownMargin = 15,
+    required this.buttonWidth,
+    required this.popupBuilder,
+    required this.popWrapperController,
     this.decoration,
+    this.disabled = false,
+    this.dropdownMargin = 15,
     Key? key,
   }) : super(key: key);
 
@@ -144,6 +146,9 @@ class _PopWrapper extends State<PopWrapper> with SingleTickerProviderStateMixin 
         cursor: SystemMouseCursors.click,
         child: GestureDetector(
           onTap: () {
+            if (widget.disabled) {
+              return;
+            }
             widget.popWrapperController.showMenu();
           },
           child: Container(
@@ -165,6 +170,9 @@ class _PopWrapper extends State<PopWrapper> with SingleTickerProviderStateMixin 
   }
 
   void _showMobilePopup() {
+    if (widget.disabled) {
+      return;
+    }
     showDialog<void>(
       context: context,
       builder: (_) {

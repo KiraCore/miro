@@ -7,22 +7,22 @@ import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/tokens/token_denomination_model.dart';
 
 void main() {
-  TokenAliasModel kexTokenAliasModel = TokenAliasModel(
+  TokenAliasModel kexTokenAliasModel = const TokenAliasModel(
     name: 'Kira',
-    lowestTokenDenominationModel: const TokenDenominationModel(name: 'ukex', decimals: 0),
-    defaultTokenDenominationModel: const TokenDenominationModel(name: 'KEX', decimals: 6),
+    lowestTokenDenominationModel: TokenDenominationModel(name: 'ukex', decimals: 0),
+    defaultTokenDenominationModel: TokenDenominationModel(name: 'KEX', decimals: 6),
   );
 
-  TokenAliasModel btcTokenAliasModel = TokenAliasModel(
+  TokenAliasModel btcTokenAliasModel = const TokenAliasModel(
     name: 'Bitcoin',
-    lowestTokenDenominationModel: const TokenDenominationModel(name: 'satoshi', decimals: 0),
-    defaultTokenDenominationModel: const TokenDenominationModel(name: 'BTC', decimals: 8),
+    lowestTokenDenominationModel: TokenDenominationModel(name: 'satoshi', decimals: 0),
+    defaultTokenDenominationModel: TokenDenominationModel(name: 'BTC', decimals: 8),
   );
 
-  TokenAliasModel ethTokenAliasModel = TokenAliasModel(
+  TokenAliasModel ethTokenAliasModel = const TokenAliasModel(
     name: 'Etherum',
-    lowestTokenDenominationModel: const TokenDenominationModel(name: 'wei', decimals: 0),
-    defaultTokenDenominationModel: const TokenDenominationModel(name: 'ETH', decimals: 18),
+    lowestTokenDenominationModel: TokenDenominationModel(name: 'wei', decimals: 0),
+    defaultTokenDenominationModel: TokenDenominationModel(name: 'ETH', decimals: 18),
   );
 
   // @formatter:off
