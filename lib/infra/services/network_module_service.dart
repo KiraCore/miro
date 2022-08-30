@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api/query_interx_status/query_interx_status_resp.dart';
 import 'package:miro/infra/dto/api/query_validators/response/status.dart';
@@ -33,7 +34,12 @@ class NetworkModuleService implements _INetworkModuleService {
       if (networkUnknownModel.isHttp()) {
         return getNetworkStatusModel(networkUnknownModel.withHttps());
       } else {
-        AppLogger().log(message: 'Cannot get NetworkStatus for ${networkUnknownModel.uri}');
+        if (e is DioError) {
+          AppLogger().log(message: 'NetworkModuleService: Cannot fetch getNetworkStatusModel() for URI ${networkUnknownModel.uri} ${e.message}');
+        } else {
+          AppLogger().log(message: 'NetworkModuleService: Cannot parse getNetworkStatusModel() for URI ${networkUnknownModel.uri} ${e}');
+          rethrow;
+        }
         return NetworkOfflineModel.fromNetworkStatusModel(
           networkStatusModel: networkUnknownModel,
           connectionStatusType: ConnectionStatusType.disconnected,
@@ -43,8 +49,16 @@ class NetworkModuleService implements _INetworkModuleService {
   }
 
   Future<NetworkInfoModel> _getNetworkInfoModel(NetworkUnknownModel networkUnknownModel) async {
-    Status? status = await queryValidatorsService.getStatus(networkUnknownModel.uri);
-    QueryInterxStatusResp queryInterxStatusResp = await queryInterxStatusService.getQueryInterxStatusResp(networkUnknownModel.uri);
-    return NetworkInfoModel.fromDto(queryInterxStatusResp, status);
+    try {
+      Status? status = await queryValidatorsService.getStatus(networkUnknownModel.uri);
+      QueryInterxStatusResp queryInterxStatusResp = await queryInterxStatusService.getQueryInterxStatusResp(networkUnknownModel.uri);
+      return NetworkInfoModel.fromDto(queryInterxStatusResp, status);
+    } on DioError catch (e) {
+      AppLogger().log(message: 'NetworkModuleService: Cannot fetch _getNetworkInfoModel() for URI ${networkUnknownModel.uri} ${e.message}');
+      rethrow;
+    } catch (e) {
+      AppLogger().log(message: 'NetworkModuleService: Cannot parse _getNetworkInfoModel() for URI ${networkUnknownModel.uri} $e');
+      rethrow;
+    }
   }
 }

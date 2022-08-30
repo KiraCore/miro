@@ -8,7 +8,7 @@ import 'package:miro/shared/utils/network_utils.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
 // To run this test type in console:
-// fvm flutter test test/integration/infra/services/api_cosmos/query_balance_service_test.dart --platform chrome
+// fvm flutter test test/integration/infra/services/api_cosmos/query_balance_service_test.dart --platform chrome --null-assertions
 // ignore_for_file: avoid_print
 Future<void> main() async {
   await initLocator();

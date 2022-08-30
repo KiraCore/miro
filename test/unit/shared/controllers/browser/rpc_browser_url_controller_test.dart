@@ -6,7 +6,7 @@ import 'package:miro/shared/models/network/status/network_unknown_model.dart';
 import 'mock_data/mock_browser_url_controller.dart';
 
 // To run this test type in console:
-// fvm flutter test test/unit/shared/controllers/browser/rpc_browser_url_controller_test.dart --platform chrome
+// fvm flutter test test/unit/shared/controllers/browser/rpc_browser_url_controller_test.dart --platform chrome --null-assertions
 // ignore_for_file: cascade_invocations
 Future<void> main() async {
   group('Tests of getRpcAddress method', () {

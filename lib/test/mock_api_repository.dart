@@ -65,39 +65,29 @@ class MockApiRepository implements ApiRepository {
 
   @override
   Future<Response<T>> fetchQueryValidators<T>(Uri networkUri, QueryValidatorsReq queryValidatorsReq) async {
-    int statusCode = 404;
-    Map<String, dynamic>? mockedResponse;
-
     bool hasResponse = workingEndpoints.contains(networkUri.host);
     if (hasResponse) {
-      statusCode = 200;
       if (queryValidatorsReq.limit != null && queryValidatorsReq.offset != null) {
-        List<dynamic> mockedResponseList = MockApiValopers.all['validators'] as List<dynamic>;
-        if (queryValidatorsReq.offset == '0' && queryValidatorsReq.limit == '2') {
-          mockedResponse = <String, dynamic>{
-            'validators': mockedResponseList.sublist(0, 2),
-          };
-        } else if (queryValidatorsReq.offset == '0' && queryValidatorsReq.limit == '500') {
-          mockedResponse = <String, dynamic>{
-            'validators': mockedResponseList.sublist(0, 3),
-          };
-        } else {
-          mockedResponse = <String, dynamic>{
-            'validators': mockedResponseList.sublist(0, 3),
-          };
+        return _fetchQueryValidatorsPaginated<T>(queryValidatorsReq);
+      } else if (queryValidatorsReq.statusOnly == true) {
+        if (networkUri.host == 'unhealthy.kira.network') {
+          throw DioError(requestOptions: RequestOptions(path: networkUri.host));
         }
+        return Response<T>(
+          statusCode: 200,
+          data: MockApiValopers.statusOnly as T,
+          requestOptions: RequestOptions(path: ''),
+        );
       } else {
-        mockedResponse = MockApiValopers.all;
+        return Response<T>(
+          statusCode: 200,
+          data: MockApiValopers.all as T,
+          requestOptions: RequestOptions(path: ''),
+        );
       }
     } else {
       throw DioError(requestOptions: RequestOptions(path: networkUri.host));
     }
-
-    return Response<T>(
-      statusCode: statusCode,
-      data: mockedResponse as T,
-      requestOptions: RequestOptions(path: ''),
-    );
   }
 
   @override
@@ -133,6 +123,30 @@ class MockApiRepository implements ApiRepository {
     return Response<T>(
       statusCode: 200,
       data: MockApiDashboard.defaultResponse as T,
+      requestOptions: RequestOptions(path: ''),
+    );
+  }
+
+  Future<Response<T>> _fetchQueryValidatorsPaginated<T>(QueryValidatorsReq queryValidatorsReq) async {
+    late Map<String, dynamic> mockedResponse;
+
+    List<dynamic> mockedResponseList = MockApiValopers.all['validators'] as List<dynamic>;
+    if (queryValidatorsReq.offset == '0' && queryValidatorsReq.limit == '2') {
+      mockedResponse = <String, dynamic>{
+        'validators': mockedResponseList.sublist(0, 2),
+      };
+    } else if (queryValidatorsReq.offset == '0' && queryValidatorsReq.limit == '500') {
+      mockedResponse = <String, dynamic>{
+        'validators': mockedResponseList.sublist(0, 3),
+      };
+    } else {
+      mockedResponse = <String, dynamic>{
+        'validators': mockedResponseList.sublist(0, 3),
+      };
+    }
+    return Response<T>(
+      statusCode: 200,
+      data: mockedResponse as T,
       requestOptions: RequestOptions(path: ''),
     );
   }

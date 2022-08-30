@@ -15,7 +15,7 @@ import 'mock_data/mock_list_item.dart';
 import 'mock_data/mock_list_item_filter_options.dart';
 
 // To run this test type in console:
-// fvm flutter test test/unit/blocs/list/filters_bloc_test.dart --platform chrome
+// fvm flutter test test/unit/blocs/list/filters_bloc_test.dart --platform chrome --null-assertions
 // ignore_for_file: cascade_invocations
 Future<void> main() async {
   await initMockLocator();

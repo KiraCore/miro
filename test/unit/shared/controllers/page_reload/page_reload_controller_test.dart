@@ -10,7 +10,7 @@ import 'package:miro/shared/models/network/status/online/network_unhealthy_model
 import 'package:miro/test/utils/test_utils.dart';
 
 // To run this test type in console:
-// fvm flutter test test/unit/shared/controllers/page_reload/page_reload_controller_test.dart --platform chrome
+// fvm flutter test test/unit/shared/controllers/page_reload/page_reload_controller_test.dart --platform chrome --null-assertions
 void main() {
   NetworkUnhealthyModel networkUnhealthyModel = NetworkUnhealthyModel(
     connectionStatusType: ConnectionStatusType.disconnected,

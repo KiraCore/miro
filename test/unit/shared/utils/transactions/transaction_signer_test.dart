@@ -12,7 +12,7 @@ import 'package:miro/shared/utils/transactions/transaction_signer.dart';
 import 'package:miro/test/mock_locator.dart';
 
 // To run tests use:
-// fvm flutter test "test/unit/shared/utils/transactions/transaction_signer_test.dart" --platform chrome
+// fvm flutter test "test/unit/shared/utils/transactions/transaction_signer_test.dart" --platform chrome --null-assertions
 Future<void> main() async {
   // Set up test
   setUpAll(TestWidgetsFlutterBinding.ensureInitialized);

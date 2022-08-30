@@ -7,7 +7,7 @@ import 'package:miro/shared/models/network/status/network_unknown_model.dart';
 import 'package:miro/test/mock_locator.dart';
 
 // To run this test type in console:
-// fvm flutter test test/unit/config/app_config_test.dart --platform chrome
+// fvm flutter test test/unit/config/app_config_test.dart --platform chrome --null-assertions
 Future<void> main() async {
   await initMockLocator();
 

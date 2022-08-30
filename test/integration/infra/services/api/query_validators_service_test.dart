@@ -10,7 +10,7 @@ import 'package:miro/shared/utils/network_utils.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
 // To run this test type in console:
-// fvm flutter test test/integration/infra/services/api/query_validators_service_test.dart --platform chrome
+// fvm flutter test test/integration/infra/services/api/query_validators_service_test.dart --platform chrome --null-assertions
 // ignore_for_file: avoid_print
 Future<void> main() async {
   await initLocator();
@@ -29,10 +29,10 @@ Future<void> main() async {
         List<ValidatorModel> actualValidatorModels = await queryValidatorsService.getValidatorsList(queryValidatorsReq);
 
         TestUtils.printInfo('Data return');
-        int responseLength = actualValidatorModels.toString().length;
+        String responseString = actualValidatorModels.toString();
+        int responseLength = responseString.length;
 
-        print('${actualValidatorModels.toString().substring(0, 1000)} ....');
-        print('.... ${actualValidatorModels.toString().substring(responseLength - 1800, responseLength)}');
+        print('${responseString.substring(0, 1000 < responseLength ? 1000 : responseLength)} ....');
         print('');
       } on DioError catch (e) {
         TestUtils.printError('query_validators_service_test.dart: Cannot fetch List<ValidatorModel> for URI $networkUri: ${e.message}');
@@ -74,10 +74,11 @@ Future<void> main() async {
         QueryValidatorsResp? queryValidatorsResp = await queryValidatorsService.getQueryValidatorsResp(queryValidatorsReq);
 
         TestUtils.printInfo('Data return');
-        int responseLength = queryValidatorsResp.toString().length;
 
-        print('${queryValidatorsResp.toString().substring(0, 1000)} ....');
-        print('.... ${queryValidatorsResp.toString().substring(responseLength - 1800, responseLength)}');
+        String responseString = queryValidatorsResp.toString();
+        int responseLength = responseString.length;
+
+        print('${responseString.substring(0, 1000 < responseLength ? 1000 : responseLength)} ....');
         print('');
       } on DioError catch (e) {
         TestUtils.printError('query_validators_service_test.dart: Cannot fetch List<ValidatorModel> for URI $networkUri: ${e.message}');

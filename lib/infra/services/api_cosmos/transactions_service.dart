@@ -15,7 +15,6 @@ import 'package:miro/shared/utils/app_logger.dart';
 import 'package:miro/shared/utils/transactions/transaction_signer.dart';
 
 abstract class _ITransactionsService {
-  /// Throws [DioError]
   Future<BroadcastResp> broadcastTransaction(SignedTransaction signedTransaction);
 
   Future<SignedTransaction> signTransaction(UnsignedTransaction unsignedTransaction);
@@ -34,32 +33,46 @@ class TransactionsService implements _ITransactionsService {
       );
       return response;
     } on DioError catch (e) {
-      AppLogger().log(message: '${signedTransaction.toJson()} - ${e.toString()}', logLevel: LogLevel.error);
+      AppLogger().log(message: 'TransactionsService: Cannot fetch broadcastTransaction() for URI $networkUri: ${e.message}');
+      rethrow;
+    } catch (e) {
+      AppLogger().log(message: 'TransactionsService: Cannot parse broadcastTransaction() for URI $networkUri ${e}', logLevel: LogLevel.error);
       rethrow;
     }
   }
 
   @override
   Future<SignedTransaction> signTransaction(UnsignedTransaction unsignedTransaction, {String? customChainId}) async {
-    final NetworkModuleBloc networkModuleBloc = globalLocator<NetworkModuleBloc>();
-    final QueryAccountService accountService = globalLocator<QueryAccountService>();
-    final Wallet? wallet = globalLocator<WalletProvider>().currentWallet;
+    try {
+      final NetworkModuleBloc networkModuleBloc = globalLocator<NetworkModuleBloc>();
+      final QueryAccountService accountService = globalLocator<QueryAccountService>();
+      final Wallet? wallet = globalLocator<WalletProvider>().currentWallet;
 
-    assert(wallet != null, 'User should be logged in');
-    assert(networkModuleBloc.state.isConnected, 'Network should be connected');
+      assert(wallet != null, 'User should be logged in');
+      assert(networkModuleBloc.state.isConnected, 'Network should be connected');
 
-    final ANetworkOnlineModel networkOnlineModel = networkModuleBloc.state.networkStatusModel as ANetworkOnlineModel;
+      final ANetworkOnlineModel networkOnlineModel = networkModuleBloc.state.networkStatusModel as ANetworkOnlineModel;
 
-    QueryAccountResp queryAccountResp = await accountService.fetchQueryAccount(wallet!.address.bech32Address);
-    SignedTransaction signedTransaction = TransactionSigner.sign(
-      unsignedTransaction: unsignedTransaction,
-      ecPrivateKey: wallet.ecPrivateKey,
-      ecPublicKey: wallet.ecPublicKey,
-      chainId: customChainId ?? networkOnlineModel.networkInfoModel.chainId,
-      accountNumber: queryAccountResp.accountNumber,
-      sequence: queryAccountResp.sequence ?? '0',
-    );
+      QueryAccountResp queryAccountResp = await accountService.fetchQueryAccount(wallet!.address.bech32Address);
+      SignedTransaction signedTransaction = TransactionSigner.sign(
+        unsignedTransaction: unsignedTransaction,
+        ecPrivateKey: wallet.ecPrivateKey,
+        ecPublicKey: wallet.ecPublicKey,
+        chainId: customChainId ?? networkOnlineModel.networkInfoModel.chainId,
+        accountNumber: queryAccountResp.accountNumber,
+        sequence: queryAccountResp.sequence ?? '0',
+      );
 
-    return signedTransaction;
+      return signedTransaction;
+    } on DioError catch (e) {
+      AppLogger().log(message: 'TransactionsService: Cannot fetch signTransaction() ${e.message}');
+      rethrow;
+    } catch (e) {
+      AppLogger().log(
+        message: 'TransactionsService: Cannot parse signTransaction() ${e}',
+        logLevel: LogLevel.error,
+      );
+      rethrow;
+    }
   }
 }
