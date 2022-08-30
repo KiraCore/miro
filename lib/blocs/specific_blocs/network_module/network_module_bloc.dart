@@ -82,7 +82,7 @@ class NetworkModuleBloc extends Bloc<ANetworkModuleEvent, NetworkModuleState> {
     ANetworkStatusModel networkStatusModel = await _networkModuleService.getNetworkStatusModel(networkUnknownModel);
     _networkListCubit.setNetworkStatusModel(networkStatusModel: networkStatusModel);
 
-    bool isNetworkUnchanged = networkStatusModel.uri == state.networkStatusModel.uri;
+    bool isNetworkUnchanged = networkStatusModel.uri.host == state.networkStatusModel.uri.host;
     if (isNetworkUnchanged) {
       _rpcBrowserUrlController.setRpcAddress(networkStatusModel);
       emit(NetworkModuleState.connected(networkStatusModel));

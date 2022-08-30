@@ -26,7 +26,7 @@ class _NetworkListTile extends State<NetworkListTile> {
     return BlocBuilder<NetworkModuleBloc, NetworkModuleState>(
       builder: (BuildContext buildContext, NetworkModuleState networkModuleState) {
         ANetworkStatusModel networkStatusModel = widget.networkStatusModel;
-        if (networkStatusModel.uri == networkModuleState.networkStatusModel.uri) {
+        if (networkStatusModel.uri.host == networkModuleState.networkStatusModel.uri.host) {
           networkStatusModel = networkModuleState.networkStatusModel;
         }
         return Container(
