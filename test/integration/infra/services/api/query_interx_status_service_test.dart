@@ -2,13 +2,12 @@ import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api/query_interx_status/query_interx_status_resp.dart';
-import 'package:miro/infra/exceptions/interx_unavailable_exception.dart';
 import 'package:miro/infra/services/api/query_interx_status_service.dart';
 import 'package:miro/shared/utils/network_utils.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
 // To run this test type in console:
-// fvm flutter test test/integration/infra/services/api/query_interx_status_service_test.dart --platform chrome
+// fvm flutter test test/integration/infra/services/api/query_interx_status_service_test.dart --platform chrome --null-assertions
 // ignore_for_file: avoid_print
 Future<void> main() async {
   await initLocator();
@@ -28,8 +27,6 @@ Future<void> main() async {
         print('');
       } on DioError catch (e) {
         TestUtils.printError('query_interx_status_service_test.dart: Cannot fetch QueryInterxStatusResp for URI $networkUri: ${e.message}');
-      } on InterxUnavailableException catch (_) {
-        TestUtils.printError('query_interx_status_service_test.dart: Interx unavailable for URI $networkUri');
       } catch (e) {
         TestUtils.printError('query_interx_status_service_test.dart: Cannot parse QueryInterxStatusResp for URI $networkUri: ${e}');
       }
@@ -42,8 +39,8 @@ Future<void> main() async {
         QueryInterxStatusResp actualQueryInterxStatusResp = await queryInterxStatusService.getQueryInterxStatusResp(networkUri);
         TestUtils.printError(
             'query_interx_status_service_test.dart: Got unexpected response for $networkUri: ${actualQueryInterxStatusResp.toString()}');
-      } on InterxUnavailableException catch (_) {
-        print('Test passed. Got InterxUnavailableException as expected');
+      } on DioError catch (_) {
+        print('Test passed. Got DioError as expected');
       } catch (e) {
         TestUtils.printError('query_interx_status_service_test.dart: Got unexpected exception for $networkUri: ${e}');
       }

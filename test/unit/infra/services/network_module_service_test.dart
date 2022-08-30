@@ -13,7 +13,7 @@ import 'package:miro/shared/models/network/status/online/network_unhealthy_model
 import 'package:miro/test/mock_locator.dart';
 
 // To run this test type in console:
-// fvm flutter test test/unit/infra/services/network_module_service_test.dart --platform chrome
+// fvm flutter test test/unit/infra/services/network_module_service_test.dart --platform chrome --null-assertions
 Future<void> main() async {
   await initMockLocator();
   NetworkModuleService networkModuleService = globalLocator<NetworkModuleService>();
@@ -74,6 +74,8 @@ Future<void> main() async {
           interxVersion: 'v0.4.11',
           latestBlockHeight: 108843,
           latestBlockTime: DateTime.now(),
+          activeValidators: 319,
+          totalValidators: 475,
         ),
       );
 

@@ -10,6 +10,7 @@ import 'package:miro/infra/services/api_kira/query_kira_tokens_aliases_service.d
 import 'package:miro/shared/models/balances/balance_model.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
+import 'package:miro/shared/utils/app_logger.dart';
 
 abstract class _IQueryBalanceService {
   Future<List<BalanceModel>> getBalanceModelList(QueryBalanceReq queryBalanceReq);
@@ -21,28 +22,39 @@ class QueryBalanceService implements _IQueryBalanceService {
   @override
   Future<List<BalanceModel>> getBalanceModelList(QueryBalanceReq queryBalanceReq) async {
     Uri networkUri = globalLocator<NetworkModuleBloc>().state.networkUri;
-    QueryKiraTokensAliasesService queryKiraTokensAliasesService = globalLocator<QueryKiraTokensAliasesService>();
+    try {
+      QueryKiraTokensAliasesService queryKiraTokensAliasesService = globalLocator<QueryKiraTokensAliasesService>();
 
-    List<TokenAliasModel> tokenAliasModels = await queryKiraTokensAliasesService.getTokenAliasModels();
+      List<TokenAliasModel> tokenAliasModels = await queryKiraTokensAliasesService.getTokenAliasModels();
 
-    final Response<dynamic> response = await _apiCosmosRepository.fetchQueryBalance<dynamic>(
-      networkUri,
-      queryBalanceReq,
-    );
-    QueryBalanceResp queryBalanceResp = QueryBalanceResp.fromJson(response.data as Map<String, dynamic>);
-
-    List<BalanceModel> balanceModelList = List<BalanceModel>.empty(growable: true);
-    for (Balance balance in queryBalanceResp.balances) {
-      TokenAliasModel tokenAliasModel = tokenAliasModels.firstWhere((TokenAliasModel e) {
-        return e.lowestTokenDenominationModel.name == balance.denom;
-      }, orElse: () => TokenAliasModel.local(balance.denom));
-
-      TokenAmountModel tokenAmountModel = TokenAmountModel(
-        lowestDenominationAmount: Decimal.parse(balance.amount),
-        tokenAliasModel: tokenAliasModel,
+      final Response<dynamic> response = await _apiCosmosRepository.fetchQueryBalance<dynamic>(
+        networkUri,
+        queryBalanceReq,
       );
-      balanceModelList.add(BalanceModel(tokenAmountModel: tokenAmountModel));
+      QueryBalanceResp queryBalanceResp = QueryBalanceResp.fromJson(response.data as Map<String, dynamic>);
+
+      List<BalanceModel> balanceModelList = List<BalanceModel>.empty(growable: true);
+      for (Balance balance in queryBalanceResp.balances) {
+        TokenAliasModel tokenAliasModel = tokenAliasModels.firstWhere((TokenAliasModel e) {
+          return e.lowestTokenDenominationModel.name == balance.denom;
+        }, orElse: () => TokenAliasModel.local(balance.denom));
+
+        TokenAmountModel tokenAmountModel = TokenAmountModel(
+          lowestDenominationAmount: Decimal.parse(balance.amount),
+          tokenAliasModel: tokenAliasModel,
+        );
+        balanceModelList.add(BalanceModel(tokenAmountModel: tokenAmountModel));
+      }
+      return balanceModelList;
+    } on DioError catch (e) {
+      AppLogger().log(message: 'QueryBalanceService: Cannot fetch getBalanceModelList() for URI $networkUri: ${e.message}');
+      rethrow;
+    } catch (e) {
+      AppLogger().log(
+        message: 'QueryBalanceService: Cannot parse getBalanceModelList() for URI $networkUri ${e}',
+        logLevel: LogLevel.error,
+      );
+      rethrow;
     }
-    return balanceModelList;
   }
 }

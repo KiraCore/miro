@@ -24,7 +24,7 @@ import 'mock_data/mock_list_item_filter_options.dart';
 import 'mock_data/mock_list_item_sort_options.dart';
 
 // To run this test type in console:
-// fvm flutter test test/unit/blocs/list/infinity_list_bloc_test.dart --platform chrome
+// fvm flutter test test/unit/blocs/list/infinity_list_bloc_test.dart --platform chrome --null-assertions
 Future<void> main() async {
   await initMockLocator();
   await globalLocator<CacheManager>().init();

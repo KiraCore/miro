@@ -19,7 +19,7 @@ import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
 // To run this test type in console:
-// fvm flutter test test/unit/blocs/network_list_cubit_test.dart --platform chrome
+// fvm flutter test test/unit/blocs/network_list_cubit_test.dart --platform chrome --null-assertions
 Future<void> main() async {
   await initMockLocator();
 
@@ -66,6 +66,8 @@ Future<void> main() async {
       interxVersion: 'v0.4.11',
       latestBlockHeight: 108843,
       latestBlockTime: DateTime.now(),
+      activeValidators: 319,
+      totalValidators: 475,
     ),
   );
 

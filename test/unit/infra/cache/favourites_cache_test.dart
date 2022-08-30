@@ -6,7 +6,7 @@ import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
 // To run this test type in console:
-// fvm flutter test test/unit/infra/cache/favourites_cache_test.dart --platform chrome
+// fvm flutter test test/unit/infra/cache/favourites_cache_test.dart --platform chrome --null-assertions
 // ignore_for_file: cascade_invocations
 Future<void> main() async {
   await initMockLocator();

@@ -27,15 +27,27 @@ class QueryValidatorsService implements _IQueryValidatorsService {
     try {
       QueryValidatorsResp queryValidatorsResp = await getQueryValidatorsResp(queryValidatorsReq);
       return queryValidatorsResp.validators.map(ValidatorModel.fromDto).toList();
-    } on DioError {
+    } on DioError catch (e) {
+      AppLogger().log(message: 'QueryValidatorsService: Cannot fetch getQueryValidatorsResp() ${e.message}');
+      rethrow;
+    } catch (e) {
+      AppLogger().log(message: 'QueryValidatorsService: Cannot parse getQueryValidatorsResp() ${e}', logLevel: LogLevel.error);
       rethrow;
     }
   }
 
   @override
   Future<List<ValidatorModel>> getValidatorsByAddresses(List<String> validatorAddresses) async {
-    QueryValidatorsResp queryValidatorsResp = await getQueryValidatorsResp(QueryValidatorsReq(all: true));
-    return queryValidatorsResp.validators.where((Validator e) => validatorAddresses.contains(e.address)).map(ValidatorModel.fromDto).toList();
+    try {
+      QueryValidatorsResp queryValidatorsResp = await getQueryValidatorsResp(QueryValidatorsReq(all: true));
+      return queryValidatorsResp.validators.where((Validator e) => validatorAddresses.contains(e.address)).map(ValidatorModel.fromDto).toList();
+    } on DioError catch (e) {
+      AppLogger().log(message: 'QueryValidatorsService: Cannot fetch getValidatorsByAddresses() ${e.message}');
+      rethrow;
+    } catch (e) {
+      AppLogger().log(message: 'QueryValidatorsService: Cannot parse getValidatorsByAddresses() ${e}', logLevel: LogLevel.error);
+      rethrow;
+    }
   }
 
   @override
@@ -44,7 +56,11 @@ class QueryValidatorsService implements _IQueryValidatorsService {
     try {
       final Response<dynamic> response = await _apiRepository.fetchQueryValidators<dynamic>(networkUri, queryValidatorsReq);
       return QueryValidatorsResp.fromJson(response.data as Map<String, dynamic>);
-    } on DioError {
+    } on DioError catch (e) {
+      AppLogger().log(message: 'QueryValidatorsService: Cannot fetch getQueryValidatorsResp() for URI $networkUri: ${e.message}');
+      rethrow;
+    } catch (e) {
+      AppLogger().log(message: 'QueryValidatorsService: Cannot parse getQueryValidatorsResp() for URI $networkUri ${e}', logLevel: LogLevel.error);
       rethrow;
     }
   }
@@ -57,8 +73,14 @@ class QueryValidatorsService implements _IQueryValidatorsService {
         QueryValidatorsReq(statusOnly: true),
       );
       return Status.fromJson(response.data as Map<String, dynamic>);
-    } catch (_) {
-      AppLogger().log(message: 'Cannot fetch QueryValidators status for $networkUri');
+    } on DioError catch (e) {
+      AppLogger().log(message: 'QueryValidatorsService: Cannot fetch getStatus() ${e.message} for URI $networkUri');
+      return null;
+    } catch (e) {
+      AppLogger().log(
+        message: 'QueryValidatorsService: Cannot parse getStatus() ${e} for URI $networkUri',
+        logLevel: LogLevel.error,
+      );
       return null;
     }
   }

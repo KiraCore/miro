@@ -3,7 +3,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'mock_data/mock_browser_url_controller.dart';
 
 // To run this test type in console:
-// fvm flutter test test/unit/shared/controllers/browser/browser_url_controller_test.dart --platform chrome
+// fvm flutter test test/unit/shared/controllers/browser/browser_url_controller_test.dart --platform chrome --null-assertions
 // ignore_for_file: cascade_invocations
 void main() {
   group('Tests of queryParameters getter', () {
