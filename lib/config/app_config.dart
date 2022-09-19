@@ -1,12 +1,20 @@
 import 'package:miro/shared/controllers/browser/rpc_browser_url_controller.dart';
 import 'package:miro/shared/models/network/data/connection_status_type.dart';
 import 'package:miro/shared/models/network/status/network_unknown_model.dart';
+import 'package:miro/shared/models/tokens/token_alias_model.dart';
+import 'package:miro/shared/models/tokens/token_denomination_model.dart';
 import 'package:miro/shared/utils/app_logger.dart';
 import 'package:miro/shared/utils/network_utils.dart';
 
 class AppConfig {
   final RpcBrowserUrlController rpcBrowserUrlController = RpcBrowserUrlController();
   final int bulkSinglePageSize = 500;
+  final TokenAliasModel defaultFeeTokenAliasModel = const TokenAliasModel(
+    name: 'Kira',
+    lowestTokenDenominationModel: TokenDenominationModel(name: 'ukex', decimals: 0),
+    defaultTokenDenominationModel: TokenDenominationModel(name: 'KEX', decimals: 6),
+  );
+
   final Duration outdatedBlockDuration = const Duration(minutes: 5);
   final List<String> supportedInterxVersions = <String>['v0.4.11'];
 
