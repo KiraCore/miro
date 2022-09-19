@@ -80,7 +80,7 @@ class _BalanceListItemBuilder extends State<BalanceListItemBuilder> {
 
   void _handleSendButtonPressed() {
     AutoRouter.of(context).root.push(TransactionsWrapperRoute(children: <PageRouteInfo>[
-          MsgSendCreateRoute(initialBalanceModel: widget.balanceModel),
+          TxTokensSendFormRoute(initialBalanceModel: widget.balanceModel),
         ]));
   }
 }
