@@ -7,8 +7,9 @@ import 'package:miro/views/pages/menu/dashboard_page/dashboard_page.dart';
 import 'package:miro/views/pages/menu/my_account_page/my_account_page.dart';
 import 'package:miro/views/pages/menu/validators_page/validators_page.dart';
 import 'package:miro/views/pages/pages_wrapper.dart';
-import 'package:miro/views/pages/transactions/send/msg_send_create_page.dart';
 import 'package:miro/views/pages/transactions/transactions_wrapper.dart';
+import 'package:miro/views/pages/transactions/tx_confirm_page/tx_confirm_page.dart';
+import 'package:miro/views/pages/transactions/tx_form_page/send/tx_tokens_send_form_page.dart';
 
 @CustomAutoRouter(replaceInRouteName: 'Page,Route', routes: <AutoRoute>[
   AutoRoute<void>(
@@ -57,9 +58,16 @@ import 'package:miro/views/pages/transactions/transactions_wrapper.dart';
     transitionsBuilder: TransitionsBuilders.fadeIn,
     children: <AutoRoute>[
       CustomRoute<void>(
-        page: MsgSendCreatePage,
-        name: 'MsgSendCreateRoute',
+        page: TxTokensSendFormPage,
+        name: 'TxTokensSendFormRoute',
         path: 'tokens/send',
+        guards: <Type>[AuthGuard, UrlParametersGuard],
+        transitionsBuilder: TransitionsBuilders.fadeIn,
+      ),
+      CustomRoute<void>(
+        page: TxConfirmPage,
+        name: 'TxConfirmRoute',
+        path: 'transaction/confirm',
         guards: <Type>[AuthGuard, UrlParametersGuard],
         transitionsBuilder: TransitionsBuilders.fadeIn,
       ),

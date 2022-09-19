@@ -6,46 +6,55 @@ import 'package:miro/blocs/specific_blocs/list/filters/filters_bloc.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/views/widgets/generic/search_bar.dart';
 
-const double kDefaultSearchBarWidth = 285;
-const double kDefaultSearchBarHeight = 50;
-
 class ListSearchWidget<T extends AListItem> extends StatelessWidget {
+  final bool enabled;
+  final double height;
   final String? hint;
   final double? width;
 
   const ListSearchWidget({
+    this.enabled = true,
+    this.height = 50,
     this.hint,
-    this.width = kDefaultSearchBarWidth,
+    this.width = 285,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: kDefaultSearchBarHeight,
-      width: width,
-      child: SearchBar(
-        textStyle: const TextStyle(
-          fontSize: 14,
-          fontWeight: FontWeight.w400,
-          color: DesignColors.white_100,
-        ),
-        label: hint,
-        onFieldSubmitted: (String value) {
-          BlocProvider.of<FiltersBloc<T>>(context).add(FiltersSearchEvent<T>(value));
-        },
-        backgroundColor: DesignColors.blue1_10,
-        border: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.transparent),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.transparent),
-          borderRadius: BorderRadius.circular(8),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderSide: const BorderSide(color: Colors.transparent),
-          borderRadius: BorderRadius.circular(8),
+    return Opacity(
+      opacity: enabled ? 1 : 0.4,
+      child: SizedBox(
+        height: height,
+        width: width,
+        child: SearchBar(
+          enabled: enabled,
+          textStyle: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+            color: DesignColors.white_100,
+          ),
+          label: hint,
+          onFieldSubmitted: (String value) {
+            BlocProvider.of<FiltersBloc<T>>(context).add(FiltersSearchEvent<T>(value));
+          },
+          backgroundColor: DesignColors.blue1_10,
+          border: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.transparent),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.transparent),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          disabledBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.transparent),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: Colors.transparent),
+            borderRadius: BorderRadius.circular(8),
+          ),
         ),
       ),
     );

@@ -2,9 +2,9 @@ import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/transactions/messages/i_tx_msg_model.dart';
 import 'package:miro/shared/models/transactions/messages/msg_send_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
-import 'package:miro/views/pages/transactions/a_tx_msg_form_controller.dart';
+import 'package:miro/views/pages/transactions/tx_form_page/msg_forms/a_msg_form_controller.dart';
 
-class MsgSendFormController extends ATxMsgFormController {
+class MsgSendFormController extends AMsgFormController {
   String? _memo;
 
   WalletAddress? _senderWalletAddress;

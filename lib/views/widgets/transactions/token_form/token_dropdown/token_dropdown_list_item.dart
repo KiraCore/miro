@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:miro/config/app_icons.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
+import 'package:miro/views/widgets/generic/icon_overlay.dart';
 import 'package:miro/views/widgets/generic/token_avatar.dart';
+import 'package:miro/views/widgets/transactions/token_form/token_dropdown/token_dropdown_list_item_layout.dart';
 
 class TokenDropdownListItem extends StatelessWidget {
   final VoidCallback onTap;
@@ -22,34 +24,20 @@ class TokenDropdownListItem extends StatelessWidget {
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
 
-    return ListTile(
-      dense: true,
+    return TokenDropdownListItemLayout(
       onTap: onTap,
-      contentPadding: const EdgeInsets.symmetric(vertical: 0, horizontal: 16),
-      leading: SizedBox(
-        height: double.infinity,
-        width: 30,
-        child: Stack(
-          children: <Widget>[
-            Positioned.fill(
-              child: Center(
-                child: TokenAvatar(
-                  iconUrl: tokenAliasModel.icon,
-                  size: 30,
-                ),
-              ),
-            ),
-            if (favourite)
-              const Positioned(
-                bottom: 3,
-                right: 0,
-                child: Icon(
-                  AppIcons.star,
-                  color: DesignColors.yellow_100,
-                  size: 12,
-                ),
-              ),
-          ],
+      selected: selected,
+      icon: IconOverlay(
+        icon: favourite
+            ? const Icon(
+                AppIcons.star,
+                color: DesignColors.yellow_100,
+                size: 12,
+              )
+            : null,
+        child: TokenAvatar(
+          iconUrl: tokenAliasModel.icon,
+          size: 30,
         ),
       ),
       title: Text(
@@ -64,12 +52,6 @@ class TokenDropdownListItem extends StatelessWidget {
           color: DesignColors.gray2_100,
         ),
       ),
-      trailing: selected
-          ? const Icon(
-              AppIcons.done,
-              color: DesignColors.blue1_100,
-            )
-          : null,
     );
   }
 }
