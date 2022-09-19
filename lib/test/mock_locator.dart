@@ -13,6 +13,7 @@ import 'package:miro/infra/services/api_cosmos/query_account_service.dart';
 import 'package:miro/infra/services/api_cosmos/query_balance_service.dart';
 import 'package:miro/infra/services/api_kira/query_kira_tokens_aliases_service.dart';
 import 'package:miro/infra/services/api_kira/query_kira_tokens_rates_service.dart';
+import 'package:miro/infra/services/api_kira/query_network_properties_service.dart';
 import 'package:miro/infra/services/network_module_service.dart';
 import 'package:miro/providers/app_config_provider.dart';
 import 'package:miro/providers/wallet_provider.dart';
@@ -36,6 +37,7 @@ Future<void> initMockLocator() async {
     ..registerFactory<NetworkModuleService>(NetworkModuleService.new)
     ..registerFactory<QueryInterxStatusService>(QueryInterxStatusService.new)
     ..registerFactory<QueryBalanceService>(QueryBalanceService.new)
+    ..registerLazySingleton<QueryNetworkPropertiesService>(QueryNetworkPropertiesService.new)
     ..registerFactory<DashboardService>(DashboardService.new)
     ..registerFactory<QueryKiraTokensRatesService>(QueryKiraTokensRatesService.new)
     ..registerFactory<QueryKiraTokensAliasesService>(QueryKiraTokensAliasesService.new)

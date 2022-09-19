@@ -16,6 +16,7 @@ import 'package:miro/infra/services/api_cosmos/query_account_service.dart';
 import 'package:miro/infra/services/api_cosmos/query_balance_service.dart';
 import 'package:miro/infra/services/api_kira/query_kira_tokens_aliases_service.dart';
 import 'package:miro/infra/services/api_kira/query_kira_tokens_rates_service.dart';
+import 'package:miro/infra/services/api_kira/query_network_properties_service.dart';
 import 'package:miro/infra/services/network_module_service.dart';
 import 'package:miro/providers/app_config_provider.dart';
 import 'package:miro/providers/menu_provider.dart';
@@ -42,6 +43,7 @@ Future<void> initLocator() async {
     ..registerFactory<DepositsService>(DepositsService.new)
     ..registerFactory<QueryValidatorsService>(QueryValidatorsService.new)
     ..registerLazySingleton<BroadcastService>(BroadcastService.new)
+    ..registerLazySingleton<QueryNetworkPropertiesService>(QueryNetworkPropertiesService.new)
     ..registerFactory<QueryKiraTokensRatesService>(QueryKiraTokensRatesService.new)
     ..registerFactory<QueryKiraTokensAliasesService>(QueryKiraTokensAliasesService.new)
     ..registerFactory<QueryInterxStatusService>(QueryInterxStatusService.new)
