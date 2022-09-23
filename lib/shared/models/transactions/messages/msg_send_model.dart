@@ -1,14 +1,14 @@
 import 'package:decimal/decimal.dart';
-import 'package:equatable/equatable.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/coin.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/i_tx_msg.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/msg_send.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
-import 'package:miro/shared/models/transactions/messages/i_tx_msg_model.dart';
+import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
+import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 
-class MsgSendModel extends Equatable implements ITxMsgModel {
+class MsgSendModel extends ATxMsgModel {
   final WalletAddress fromWalletAddress;
   final WalletAddress toWalletAddress;
   final TokenAmountModel tokenAmountModel;
@@ -17,7 +17,7 @@ class MsgSendModel extends Equatable implements ITxMsgModel {
     required this.fromWalletAddress,
     required this.toWalletAddress,
     required this.tokenAmountModel,
-  });
+  }) : super(txMsgType: TxMsgType.msgSend);
 
   factory MsgSendModel.fromMsgDto(MsgSend msgSend) {
     return MsgSendModel(

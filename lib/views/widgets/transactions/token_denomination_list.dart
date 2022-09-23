@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:miro/blocs/specific_blocs/transactions/token_form/token_form_cubit.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_denomination_model.dart';
 import 'package:miro/views/widgets/kira/kira_chip_button.dart';
 
 class TokenDenominationList extends StatefulWidget {
+  final ValueChanged<TokenDenominationModel> onChanged;
+  final TokenDenominationModel? defaultTokenDenominationModel;
   final TokenAliasModel? tokenAliasModel;
 
   const TokenDenominationList({
+    required this.onChanged,
+    this.defaultTokenDenominationModel,
     this.tokenAliasModel,
     Key? key,
   }) : super(key: key);
@@ -24,7 +26,7 @@ class _TokenDenominationList extends State<TokenDenominationList> {
   @override
   void initState() {
     super.initState();
-    selectedTokenDenominationModel = widget.tokenAliasModel?.defaultTokenDenominationModel;
+    selectedTokenDenominationModel = widget.defaultTokenDenominationModel ?? widget.tokenAliasModel?.defaultTokenDenominationModel;
   }
 
   @override
@@ -71,7 +73,7 @@ class _TokenDenominationList extends State<TokenDenominationList> {
 
   void _handleTokenDenominationModelChanged(TokenDenominationModel tokenDenominationModel) {
     selectedTokenDenominationModel = tokenDenominationModel;
-    BlocProvider.of<TokenFormCubit>(context).setTokenDenominationModel(tokenDenominationModel);
+    widget.onChanged(tokenDenominationModel);
     setState(() {});
   }
 }

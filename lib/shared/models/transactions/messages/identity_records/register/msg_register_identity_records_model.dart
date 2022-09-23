@@ -1,23 +1,24 @@
-import 'package:equatable/equatable.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/i_tx_msg.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/identity_records/register/msg_register_identity_records.dart';
-import 'package:miro/shared/models/transactions/messages/i_tx_msg_model.dart';
+import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
 import 'package:miro/shared/models/transactions/messages/identity_records/register/identity_info_entry_model.dart';
+import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 
-class MsgRegisterIdentityRecordsModel extends Equatable implements ITxMsgModel {
+class MsgRegisterIdentityRecordsModel extends ATxMsgModel {
   final List<IdentityInfoEntryModel> identityInfoEntryModels;
   final WalletAddress walletAddress;
 
   const MsgRegisterIdentityRecordsModel({
     required this.identityInfoEntryModels,
     required this.walletAddress,
-  });
+  }) : super(txMsgType: TxMsgType.msgRegisterIdentityRecords);
 
   MsgRegisterIdentityRecordsModel.single({
     required this.walletAddress,
     required IdentityInfoEntryModel identityInfoEntryModel,
-  }) : identityInfoEntryModels = <IdentityInfoEntryModel>[identityInfoEntryModel];
+  })  : identityInfoEntryModels = <IdentityInfoEntryModel>[identityInfoEntryModel],
+        super(txMsgType: TxMsgType.msgRegisterIdentityRecords);
 
   factory MsgRegisterIdentityRecordsModel.fromDto(MsgRegisterIdentityRecords msgRegisterIdentityRecords) {
     return MsgRegisterIdentityRecordsModel(

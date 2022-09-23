@@ -1,10 +1,10 @@
-import 'package:equatable/equatable.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/i_tx_msg.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/identity_records/msg_handle_identity_records_verify_request.dart';
-import 'package:miro/shared/models/transactions/messages/i_tx_msg_model.dart';
+import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
+import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 
-class MsgHandleIdentityRecordsVerifyRequestModel extends Equatable implements ITxMsgModel {
+class MsgHandleIdentityRecordsVerifyRequestModel extends ATxMsgModel {
   final bool approved;
   final BigInt verifyRequestId;
   final WalletAddress walletAddress;
@@ -13,7 +13,7 @@ class MsgHandleIdentityRecordsVerifyRequestModel extends Equatable implements IT
     required this.approved,
     required this.verifyRequestId,
     required this.walletAddress,
-  });
+  }) : super(txMsgType: TxMsgType.msgHandleIdentityRecordsVerifyRequest);
 
   factory MsgHandleIdentityRecordsVerifyRequestModel.fromDto(MsgHandleIdentityRecordsVerifyRequest msgHandleIdentityRecordsVerifyRequest) {
     return MsgHandleIdentityRecordsVerifyRequestModel(
