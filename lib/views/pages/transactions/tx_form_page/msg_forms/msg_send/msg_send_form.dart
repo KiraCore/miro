@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
+import 'package:miro/shared/models/tokens/token_denomination_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/views/pages/transactions/tx_form_page/msg_forms/msg_send/msg_send_form_controller.dart';
 import 'package:miro/views/widgets/transactions/token_form/token_form.dart';
@@ -11,12 +12,14 @@ import 'package:miro/views/widgets/transactions/wallet_address_text_field.dart';
 class MsgSendForm extends StatefulWidget {
   final TokenAmountModel feeTokenAmountModel;
   final MsgSendFormController msgSendFormController;
+  final ValueChanged<TokenDenominationModel?> onTokenDenominationChanged;
   final BalanceModel? initialBalanceModel;
   final WalletAddress? initialWalletAddress;
 
   const MsgSendForm({
     required this.feeTokenAmountModel,
     required this.msgSendFormController,
+    required this.onTokenDenominationChanged,
     this.initialBalanceModel,
     this.initialWalletAddress,
     Key? key,
@@ -57,6 +60,7 @@ class _MsgSendForm extends State<MsgSendForm> {
                 feeTokenAmountModel: widget.feeTokenAmountModel,
                 initialBalanceModel: widget.initialBalanceModel,
                 onChanged: _handleTokenAmountChanged,
+                onTokenDenominationChanged: widget.onTokenDenominationChanged,
                 walletAddress: walletAddress,
               );
             },

@@ -8,6 +8,7 @@ import 'package:miro/views/pages/menu/my_account_page/my_account_page.dart';
 import 'package:miro/views/pages/menu/validators_page/validators_page.dart';
 import 'package:miro/views/pages/pages_wrapper.dart';
 import 'package:miro/views/pages/transactions/transactions_wrapper.dart';
+import 'package:miro/views/pages/transactions/tx_broadcast_page/tx_broadcast_page.dart';
 import 'package:miro/views/pages/transactions/tx_confirm_page/tx_confirm_page.dart';
 import 'package:miro/views/pages/transactions/tx_form_page/send/tx_tokens_send_form_page.dart';
 
@@ -68,6 +69,13 @@ import 'package:miro/views/pages/transactions/tx_form_page/send/tx_tokens_send_f
         page: TxConfirmPage,
         name: 'TxConfirmRoute',
         path: 'transaction/confirm',
+        guards: <Type>[AuthGuard, UrlParametersGuard],
+        transitionsBuilder: TransitionsBuilders.fadeIn,
+      ),
+      CustomRoute<void>(
+        page: TxBroadcastPage,
+        name: 'TxBroadcastRoute',
+        path: 'transaction/broadcast',
         guards: <Type>[AuthGuard, UrlParametersGuard],
         transitionsBuilder: TransitionsBuilders.fadeIn,
       ),

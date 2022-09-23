@@ -7,7 +7,8 @@ import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/providers/wallet_provider.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
-import 'package:miro/shared/models/transactions/messages/i_tx_msg_model.dart';
+import 'package:miro/shared/models/tokens/token_denomination_model.dart';
+import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
 import 'package:miro/shared/models/transactions/signed_transaction_model.dart';
 import 'package:miro/shared/models/transactions/tx_local_info_model.dart';
 import 'package:miro/shared/models/transactions/unsigned_tx_model.dart';
@@ -25,11 +26,13 @@ class TxSendFormFooter extends StatefulWidget {
   final TxSendFormCubit txSendFormCubit;
   final TokenAmountModel feeTokenAmountModel;
   final AMsgFormController msgFormController;
+  final TokenDenominationModel? tokenDenominationModel;
 
   const TxSendFormFooter({
     required this.txSendFormCubit,
     required this.feeTokenAmountModel,
     required this.msgFormController,
+    this.tokenDenominationModel,
     Key? key,
   }) : super(key: key);
 
@@ -88,12 +91,15 @@ class _TxSendFormFooter extends State<TxSendFormFooter> {
     Wallet? wallet = walletProvider.currentWallet;
     if (wallet != null) {
       SignedTxModel signedTxModel = TxSigner.sign(unsignedTxModel: unsignedTxModel, wallet: wallet);
-      await AutoRouter.of(context).navigate(TxConfirmRoute(signedTxModel: signedTxModel));
+      await AutoRouter.of(context).navigate(TxConfirmRoute(
+        signedTxModel: signedTxModel,
+        tokenDenominationModel: widget.tokenDenominationModel,
+      ));
     }
   }
 
   Future<UnsignedTxModel?> _buildUnsignedTx() async {
-    ITxMsgModel? txMsgModel = _getTxMsgModel();
+    ATxMsgModel? txMsgModel = _getTxMsgModel();
     if (txMsgModel == null) {
       AppLogger().log(message: 'Form should be valid to call _buildUnsignedTx', logLevel: LogLevel.error);
       return null;
@@ -108,8 +114,8 @@ class _TxSendFormFooter extends State<TxSendFormFooter> {
     return unsignedTxModel;
   }
 
-  ITxMsgModel? _getTxMsgModel() {
-    ITxMsgModel? txMsgModel = widget.msgFormController.buildTxMsgModel();
+  ATxMsgModel? _getTxMsgModel() {
+    ATxMsgModel? txMsgModel = widget.msgFormController.buildTxMsgModel();
     if (txMsgModel == null) {
       AppLogger().log(message: 'Unexpected error. Cannot create ITxMsgModel', logLevel: LogLevel.error);
       KiraToast.of(context).show(

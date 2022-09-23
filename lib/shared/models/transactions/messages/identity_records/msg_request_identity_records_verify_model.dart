@@ -1,14 +1,14 @@
 import 'package:decimal/decimal.dart';
-import 'package:equatable/equatable.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/coin.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/i_tx_msg.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/identity_records/msg_request_identity_records_verify.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
-import 'package:miro/shared/models/transactions/messages/i_tx_msg_model.dart';
+import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
+import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 
-class MsgRequestIdentityRecordsVerifyModel extends Equatable implements ITxMsgModel {
+class MsgRequestIdentityRecordsVerifyModel extends ATxMsgModel {
   final List<BigInt> recordIds;
   final TokenAmountModel tipTokenAmountModel;
   final WalletAddress verifierWalletAddress;
@@ -19,14 +19,15 @@ class MsgRequestIdentityRecordsVerifyModel extends Equatable implements ITxMsgMo
     required this.tipTokenAmountModel,
     required this.verifierWalletAddress,
     required this.walletAddress,
-  });
+  }) : super(txMsgType: TxMsgType.msgRequestIdentityRecordsVerify);
 
   MsgRequestIdentityRecordsVerifyModel.single({
     required BigInt recordId,
     required this.tipTokenAmountModel,
     required this.verifierWalletAddress,
     required this.walletAddress,
-  }) : recordIds = <BigInt>[recordId];
+  })  : recordIds = <BigInt>[recordId],
+        super(txMsgType: TxMsgType.msgRequestIdentityRecordsVerify);
 
   factory MsgRequestIdentityRecordsVerifyModel.fromDto(MsgRequestIdentityRecordsVerify msgRequestIdentityRecordsVerify) {
     return MsgRequestIdentityRecordsVerifyModel(

@@ -37,14 +37,16 @@ class TxSendFormCubit extends Cubit<ATxSendFormState> {
     assert(state is TxSendFormLoadedState, 'TxSendFormCubit.buildTx: state must be TxSendFormLoadedState to use this method');
 
     TxSendFormLoadedState txSendFormLoadedState = state as TxSendFormLoadedState;
-    emit(TxSendFormBuildingState(feeTokenAmountModel: txSendFormLoadedState.feeTokenAmountModel));
+    TokenAmountModel feeTokenAmountModel = txSendFormLoadedState.feeTokenAmountModel;
+    emit(TxSendFormBuildingState(feeTokenAmountModel: feeTokenAmountModel));
 
     TxRemoteInfoModel? txRemoteInfoModel = await _getTxRemoteInfoModel();
 
     if (txRemoteInfoModel == null) {
-      emit(TxSendFormBuildingErrorState(feeTokenAmountModel: txSendFormLoadedState.feeTokenAmountModel));
+      emit(TxSendFormBuildingErrorState(feeTokenAmountModel: feeTokenAmountModel));
       return null;
     } else {
+      emit(TxSendFormLoadedState(feeTokenAmountModel: feeTokenAmountModel));
       return UnsignedTxModel(
         txLocalInfoModel: txLocalInfoModel,
         txRemoteInfoModel: txRemoteInfoModel,

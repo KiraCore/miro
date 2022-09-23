@@ -1,5 +1,5 @@
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
-import 'package:miro/shared/models/transactions/messages/i_tx_msg_model.dart';
+import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
 import 'package:miro/shared/models/transactions/messages/msg_send_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/views/pages/transactions/tx_form_page/msg_forms/a_msg_form_controller.dart';
@@ -12,7 +12,7 @@ class MsgSendFormController extends AMsgFormController {
   TokenAmountModel? _tokenAmountModel;
 
   @override
-  ITxMsgModel? buildTxMsgModel() {
+  ATxMsgModel? buildTxMsgModel() {
     if (formKey.currentState == null) {
       return null;
     }
@@ -30,7 +30,7 @@ class MsgSendFormController extends AMsgFormController {
 
   @override
   String get memo {
-    return _memo ?? 'MsgSend from ${_senderWalletAddress?.bech32Address} to ${_recipientWalletAddress?.bech32Address}';
+    return _memo ?? '';
   }
 
   set memo(String? memo) {

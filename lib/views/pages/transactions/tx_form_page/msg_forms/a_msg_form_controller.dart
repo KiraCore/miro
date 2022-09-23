@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:miro/shared/models/transactions/messages/i_tx_msg_model.dart';
+import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
 
 abstract class AMsgFormController {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -11,5 +11,5 @@ abstract class AMsgFormController {
 
   String get memo;
 
-  ITxMsgModel? buildTxMsgModel();
+  ATxMsgModel? buildTxMsgModel();
 }

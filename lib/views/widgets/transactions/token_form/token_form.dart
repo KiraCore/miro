@@ -8,23 +8,26 @@ import 'package:miro/blocs/specific_blocs/transactions/token_form/token_form_sta
 import 'package:miro/shared/models/balances/balance_model.dart';
 import 'package:miro/shared/models/balances/total_balance_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
+import 'package:miro/shared/models/tokens/token_denomination_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/views/widgets/generic/responsive/column_row_spacer.dart';
 import 'package:miro/views/widgets/generic/responsive/column_row_swapper.dart';
+import 'package:miro/views/widgets/transactions/token_denomination_list.dart';
 import 'package:miro/views/widgets/transactions/token_form/token_amount_text_field/token_amount_text_field.dart';
-import 'package:miro/views/widgets/transactions/token_form/token_denomination_list.dart';
 import 'package:miro/views/widgets/transactions/token_form/token_dropdown/token_dropdown.dart';
 import 'package:miro/views/widgets/transactions/token_form/token_form_info.dart';
 
 class TokenForm extends StatefulWidget {
   final TokenAmountModel feeTokenAmountModel;
   final ValueChanged<TokenAmountModel?> onChanged;
+  final ValueChanged<TokenDenominationModel?> onTokenDenominationChanged;
   final BalanceModel? initialBalanceModel;
   final WalletAddress? walletAddress;
 
   const TokenForm({
     required this.feeTokenAmountModel,
     required this.onChanged,
+    required this.onTokenDenominationChanged,
     this.initialBalanceModel,
     this.walletAddress,
     Key? key,
@@ -45,6 +48,7 @@ class _TokenForm extends State<TokenForm> {
   @override
   void initState() {
     super.initState();
+    tokenFormCubit.tokenDenominationModelNotifier.addListener(_handleTokenDenominationModelChanged);
     tokenFormStateSubscription = tokenFormCubit.stream.listen((TokenFormState tokenFormState) {
       widget.onChanged(tokenFormState.tokenAmountModel);
     });
@@ -52,6 +56,7 @@ class _TokenForm extends State<TokenForm> {
 
   @override
   void dispose() {
+    tokenFormCubit.tokenDenominationModelNotifier.dispose();
     tokenFormStateSubscription.cancel();
     tokenFormCubit.close();
     super.dispose();
@@ -101,7 +106,10 @@ class _TokenForm extends State<TokenForm> {
               ValueListenableBuilder<TotalBalanceModel?>(
                 valueListenable: tokenFormCubit.totalBalanceModelNotifier,
                 builder: (_, TotalBalanceModel? totalBalanceModel, __) {
-                  return TokenDenominationList(tokenAliasModel: totalBalanceModel?.tokenAliasModel);
+                  return TokenDenominationList(
+                    tokenAliasModel: totalBalanceModel?.tokenAliasModel,
+                    onChanged: tokenFormCubit.setTokenDenominationModel,
+                  );
                 },
               ),
             ],
@@ -109,6 +117,10 @@ class _TokenForm extends State<TokenForm> {
         },
       ),
     );
+  }
+
+  void _handleTokenDenominationModelChanged() {
+    widget.onTokenDenominationChanged(tokenFormCubit.tokenDenominationModelNotifier.value);
   }
 
   String? _validate() {
