@@ -9,6 +9,7 @@ import 'package:miro/infra/repositories/api_repository.dart';
 import 'package:miro/infra/services/api/dashboard_service.dart';
 import 'package:miro/infra/services/api/query_interx_status_service.dart';
 import 'package:miro/infra/services/api/query_validators_service.dart';
+import 'package:miro/infra/services/api_cosmos/broadcast_service.dart';
 import 'package:miro/infra/services/api_cosmos/query_account_service.dart';
 import 'package:miro/infra/services/api_cosmos/query_balance_service.dart';
 import 'package:miro/infra/services/api_kira/query_kira_tokens_aliases_service.dart';
@@ -17,6 +18,7 @@ import 'package:miro/infra/services/api_kira/query_network_properties_service.da
 import 'package:miro/infra/services/network_module_service.dart';
 import 'package:miro/providers/app_config_provider.dart';
 import 'package:miro/providers/wallet_provider.dart';
+import 'package:miro/shared/controllers/reload_notifier/reload_notifier_controller.dart';
 import 'package:miro/test/mock_api_cosmos_repository.dart';
 import 'package:miro/test/mock_api_kira_repository.dart';
 import 'package:miro/test/mock_api_repository.dart';
@@ -41,7 +43,9 @@ Future<void> initMockLocator() async {
     ..registerFactory<DashboardService>(DashboardService.new)
     ..registerFactory<QueryKiraTokensRatesService>(QueryKiraTokensRatesService.new)
     ..registerFactory<QueryKiraTokensAliasesService>(QueryKiraTokensAliasesService.new)
-    ..registerFactory<QueryValidatorsService>(QueryValidatorsService.new);
+    ..registerFactory<QueryValidatorsService>(QueryValidatorsService.new)
+    ..registerLazySingleton<ReloadNotifierController>(ReloadNotifierController.new)
+    ..registerLazySingleton<BroadcastService>(BroadcastService.new);
 
   globalLocator<AppConfig>().init(MockNetworkListConfigJson.defaultNetworkListConfig);
 }

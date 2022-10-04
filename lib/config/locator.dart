@@ -21,6 +21,7 @@ import 'package:miro/infra/services/network_module_service.dart';
 import 'package:miro/providers/app_config_provider.dart';
 import 'package:miro/providers/menu_provider.dart';
 import 'package:miro/providers/wallet_provider.dart';
+import 'package:miro/shared/controllers/reload_notifier/reload_notifier_controller.dart';
 
 final GetIt globalLocator = GetIt.I;
 
@@ -47,5 +48,6 @@ Future<void> initLocator() async {
     ..registerFactory<QueryKiraTokensRatesService>(QueryKiraTokensRatesService.new)
     ..registerFactory<QueryKiraTokensAliasesService>(QueryKiraTokensAliasesService.new)
     ..registerFactory<QueryInterxStatusService>(QueryInterxStatusService.new)
-    ..registerFactory<QueryBalanceService>(QueryBalanceService.new);
+    ..registerFactory<QueryBalanceService>(QueryBalanceService.new)
+    ..registerLazySingleton<ReloadNotifierController>(ReloadNotifierController.new);
 }
