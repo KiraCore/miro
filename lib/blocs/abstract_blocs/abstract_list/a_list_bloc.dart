@@ -29,6 +29,7 @@ import 'package:miro/config/app_config.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/shared/controllers/page_reload/page_reload_condition_type.dart';
 import 'package:miro/shared/controllers/page_reload/page_reload_controller.dart';
+import 'package:miro/shared/controllers/reload_notifier/reload_notifier_model.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
 import 'package:miro/shared/models/network/status/network_offline_model.dart';
 import 'package:miro/shared/utils/app_logger.dart';
@@ -53,6 +54,8 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
 
   final int singlePageSize;
 
+  final ReloadNotifierModel? reloadNotifierModel;
+
   /// Stores information about current page.
   /// In case of infinity list, this is the last loaded page.
   PageData<T> currentPageData = PageData<T>.initial();
@@ -73,6 +76,7 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
     required this.sortBloc,
     required this.listController,
     required this.singlePageSize,
+    this.reloadNotifierModel,
   }) : super(ListLoadingState()) {
     // Assign events to methods
     on<ListReloadEvent>(_mapListReloadEventToState);
@@ -83,6 +87,7 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
     _favouritesStateSubscription = favouritesBloc.stream.listen((_) => add(const ListUpdatedEvent(jumpToTop: true)));
     _filtersStateSubscription = filtersBloc.stream.listen((_) => add(ListOptionsChangedEvent()));
     _networkModuleStateSubscription = networkModuleBloc.stream.listen(_handleNetworkModuleStateChanged);
+    reloadNotifierModel?.addListener(_handleReloadNotifierUpdate);
     _sortStateSubscription = sortBloc.stream.listen((_) => add(ListOptionsChangedEvent()));
 
     // Call ListReloadEvent to fetch first page
@@ -91,6 +96,8 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
 
   @override
   Future<void> close() async {
+    reloadNotifierModel?.removeListener(_handleReloadNotifierUpdate);
+
     await _favouritesStateSubscription.cancel();
     await _filtersStateSubscription.cancel();
     await _networkModuleStateSubscription.cancel();
@@ -181,6 +188,10 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
     if (canReloadStart) {
       add(ListReloadEvent());
     }
+  }
+
+  void _handleReloadNotifierUpdate() {
+    add(ListReloadEvent());
   }
 
   Future<PageData<T>> _getPageData(int pageIndex) async {

@@ -12,6 +12,7 @@ import 'package:miro/blocs/specific_blocs/list/favourites/favourites_bloc.dart';
 import 'package:miro/blocs/specific_blocs/list/filters/filters_bloc.dart';
 import 'package:miro/blocs/specific_blocs/list/infinity_list/events/infinity_list_reached_bottom_event.dart';
 import 'package:miro/blocs/specific_blocs/list/sort/sort_bloc.dart';
+import 'package:miro/shared/controllers/reload_notifier/reload_notifier_model.dart';
 import 'package:miro/shared/utils/list_utils.dart';
 
 class InfinityListBloc<T extends AListItem> extends AListBloc<T> {
@@ -23,11 +24,13 @@ class InfinityListBloc<T extends AListItem> extends AListBloc<T> {
     required SortBloc<T> sortBloc,
     required FavouritesBloc<T> favouritesBloc,
     required int singlePageSize,
+    ReloadNotifierModel? reloadNotifierModel,
   }) : super(
           listController: listController,
           filtersBloc: filterBloc,
           sortBloc: sortBloc,
           favouritesBloc: favouritesBloc,
+          reloadNotifierModel: reloadNotifierModel,
           singlePageSize: singlePageSize,
         ) {
     on<InfinityListReachedBottomEvent>(_mapInfinityListReachedBottomEventToState);

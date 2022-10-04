@@ -6,8 +6,12 @@
       "address": "https://testnet-rpc.kira.network"
     },
     {
-      "name": "testnet-ip",
+      "name": "outdated-testnet-ip",
       "address": "http://173.212.254.147:11000"
+    },
+    {
+      "name": "updated-testnet-ip",
+      "address": "http://109.205.181.158:11000"
     },
     {
       "name": "facebook",

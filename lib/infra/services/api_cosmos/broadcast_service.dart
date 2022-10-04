@@ -20,16 +20,31 @@ class BroadcastService implements _IBroadcastService {
   Future<BroadcastRespModel> broadcastTx(SignedTxModel signedTransactionModel) async {
     Uri networkUri = globalLocator<NetworkModuleBloc>().state.networkUri;
     BroadcastReq broadcastReq = BroadcastReq(tx: Tx.fromSignedTxModel(signedTransactionModel));
+
+    late Response<dynamic> response;
     try {
-      final Response<dynamic> response = await _apiCosmosRepository.broadcast<dynamic>(networkUri, broadcastReq);
-      BroadcastResp broadcastResp = BroadcastResp.fromJson(response.data as Map<String, dynamic>);
-      return BroadcastRespModel(hash: broadcastResp.hash);
+      response = await _apiCosmosRepository.broadcast<dynamic>(networkUri, broadcastReq);
     } on DioError catch (e) {
       AppLogger().log(message: 'BroadcastService: Cannot fetch broadcastTx for URI $networkUri: ${e.message}');
       rethrow;
+    }
+
+    late BroadcastRespModel broadcastRespModel;
+    try {
+      BroadcastResp broadcastResp = BroadcastResp.fromJson(response.data as Map<String, dynamic>);
+      broadcastRespModel = BroadcastRespModel.fromDto(broadcastResp);
     } catch (e) {
       AppLogger().log(message: 'BroadcastService: Cannot parse broadcastTx for URI $networkUri: ${e}');
       rethrow;
     }
+
+    if (broadcastRespModel.hasErrors) {
+      AppLogger().log(
+        message: 'BroadcastService: <${broadcastRespModel.broadcastErrorModel?.name}> ${broadcastRespModel.broadcastErrorModel?.message}',
+      );
+      throw Exception('BroadcastService: Cannot broadcastTx for URI $networkUri');
+    }
+
+    return broadcastRespModel;
   }
 }

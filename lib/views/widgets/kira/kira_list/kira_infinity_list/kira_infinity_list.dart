@@ -11,6 +11,7 @@ import 'package:miro/blocs/specific_blocs/list/filters/filters_bloc.dart';
 import 'package:miro/blocs/specific_blocs/list/infinity_list/infinity_list_bloc.dart';
 import 'package:miro/blocs/specific_blocs/list/sort/models/sort_option.dart';
 import 'package:miro/blocs/specific_blocs/list/sort/sort_bloc.dart';
+import 'package:miro/shared/controllers/reload_notifier/reload_notifier_model.dart';
 import 'package:miro/views/widgets/kira/kira_list/kira_infinity_list/kira_infinity_list_content.dart';
 import 'package:miro/views/widgets/kira/kira_list/kira_list_layout.dart';
 import 'package:miro/views/widgets/kira/kira_list/list_error_widget.dart';
@@ -24,10 +25,11 @@ class KiraInfinityList<T extends AListItem> extends StatelessWidget {
   final IListController<T> listController;
   final SearchComparator<T> searchComparator;
   final ScrollController scrollController;
-  final Widget? listHeader;
   final double? minHeight;
   final int singlePageSize;
+  final Widget? listHeader;
   final Widget? title;
+  final ReloadNotifierModel? reloadNotifierModel;
 
   KiraInfinityList({
     required this.defaultSortOption,
@@ -35,10 +37,11 @@ class KiraInfinityList<T extends AListItem> extends StatelessWidget {
     required this.listController,
     required this.searchComparator,
     ScrollController? scrollController,
-    this.listHeader,
     this.minHeight,
     this.singlePageSize = 20,
+    this.listHeader,
     this.title,
+    this.reloadNotifierModel,
     Key? key,
   })  : scrollController = scrollController ?? ScrollController(),
         super(key: key);
@@ -73,6 +76,7 @@ class KiraInfinityList<T extends AListItem> extends StatelessWidget {
             sortBloc: context.read<SortBloc<T>>(),
             favouritesBloc: context.read<FavouritesBloc<T>>(),
             singlePageSize: singlePageSize,
+            reloadNotifierModel: reloadNotifierModel,
           ),
         ),
       ],
