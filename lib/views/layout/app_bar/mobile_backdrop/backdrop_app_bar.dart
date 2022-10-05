@@ -13,8 +13,7 @@ class Backdrop extends InheritedWidget {
   }) : super(key: key, child: child);
 
   /// Provides access to the state from everywhere in the widget tree.
-  static _BackdropAppBar of(BuildContext context) =>
-      context.dependOnInheritedWidgetOfExactType<Backdrop>()!.backdropState;
+  static _BackdropAppBar of(BuildContext context) => context.dependOnInheritedWidgetOfExactType<Backdrop>()!.backdropState;
 
   @override
   bool updateShouldNotify(Backdrop oldWidget) => true;
@@ -31,7 +30,7 @@ class BackdropAppBar extends StatefulWidget {
   const BackdropAppBar({
     required this.appbarBuilder,
     this.animationCurve = Curves.ease,
-    this.headerHeight = AppSizes.kKiraAppBarHeight,
+    this.headerHeight = AppSizes.appBarHeight,
     Key? key,
   }) : super(key: key);
 
@@ -46,11 +45,9 @@ class _BackdropAppBar extends State<BackdropAppBar> with SingleTickerProviderSta
     value: 1,
   );
 
-  bool get isBackLayerConcealed =>
-      animationController.status == AnimationStatus.completed || animationController.status == AnimationStatus.forward;
+  bool get isBackLayerConcealed => animationController.status == AnimationStatus.completed || animationController.status == AnimationStatus.forward;
 
-  bool get isBackLayerRevealed =>
-      animationController.status == AnimationStatus.dismissed || animationController.status == AnimationStatus.reverse;
+  bool get isBackLayerRevealed => animationController.status == AnimationStatus.dismissed || animationController.status == AnimationStatus.reverse;
 
   @override
   void initState() {

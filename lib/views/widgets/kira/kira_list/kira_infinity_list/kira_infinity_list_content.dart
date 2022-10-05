@@ -7,8 +7,6 @@ import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/views/widgets/kira/kira_list/kira_infinity_list/infinity_list_load_indicator.dart';
 import 'package:miro/views/widgets/kira/kira_list/list_no_results_widget.dart';
 
-const double kReachedBottomOffset = 200;
-
 class KiraInfinityListContent<T extends AListItem> extends StatefulWidget {
   final ScrollController scrollController;
   final Widget Function(T item) itemBuilder;
@@ -32,6 +30,8 @@ class KiraInfinityListContent<T extends AListItem> extends StatefulWidget {
 }
 
 class _KiraInfinityListContent<T extends AListItem> extends State<KiraInfinityListContent<T>> {
+  final double reachedBottomOffset = 200;
+
   @override
   void initState() {
     super.initState();
@@ -91,7 +91,7 @@ class _KiraInfinityListContent<T extends AListItem> extends State<KiraInfinityLi
   void _fetchDataAfterReachedMax() {
     if (mounted) {
       double currentOffset = widget.scrollController.offset;
-      double maxOffset = widget.scrollController.position.maxScrollExtent - kReachedBottomOffset;
+      double maxOffset = widget.scrollController.position.maxScrollExtent - reachedBottomOffset;
       bool reachedMax = currentOffset >= maxOffset;
       if (reachedMax) {
         BlocProvider.of<InfinityListBloc<T>>(context).add(InfinityListReachedBottomEvent());

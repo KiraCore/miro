@@ -7,13 +7,6 @@ import 'package:miro/shared/models/network/status/online/a_network_online_model.
 import 'package:miro/shared/models/network/status/online/network_unhealthy_model.dart';
 import 'package:miro/views/widgets/network_list/network_warning_container.dart';
 
-const TextStyle kNetworkDetailsTextStyle = TextStyle(
-  color: DesignColors.gray2_100,
-  fontSize: 12,
-  fontWeight: FontWeight.w400,
-  letterSpacing: 0.015,
-);
-
 class NetworkListTileContent extends StatelessWidget {
   final ANetworkStatusModel networkStatusModel;
 
@@ -24,6 +17,13 @@ class NetworkListTileContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const TextStyle networkDetailsTextStyle = TextStyle(
+      color: DesignColors.gray2_100,
+      fontSize: 12,
+      fontWeight: FontWeight.w400,
+      letterSpacing: 0.015,
+    );
+
     return Padding(
       padding: const EdgeInsets.only(bottom: 8, left: 35, right: 20),
       child: Column(
@@ -48,22 +48,22 @@ class NetworkListTileContent extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              const Text('Block time', style: kNetworkDetailsTextStyle),
-              Text(_blockTime, style: kNetworkDetailsTextStyle),
+              const Text('Block time', style: networkDetailsTextStyle),
+              Text(_blockTime, style: networkDetailsTextStyle),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              const Text('Block Height', style: kNetworkDetailsTextStyle),
-              Text(_latestBlockHeight, style: kNetworkDetailsTextStyle),
+              const Text('Block Height', style: networkDetailsTextStyle),
+              Text(_latestBlockHeight, style: networkDetailsTextStyle),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              const Text('Validators', style: kNetworkDetailsTextStyle),
-              Text(_validatorsCount, style: kNetworkDetailsTextStyle),
+              const Text('Validators', style: networkDetailsTextStyle),
+              Text(_validatorsCount, style: networkDetailsTextStyle),
             ],
           ),
         ],

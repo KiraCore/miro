@@ -131,7 +131,7 @@ class PagesWrapper extends StatelessWidget {
         SearchBar(
           label: 'Search for anything',
           width: ResponsiveWidget.isLargeScreen(context) ? 342 : double.infinity,
-          height: AppSizes.kAppBarItemsHeight,
+          height: AppSizes.appBarItemsHeight,
           border: const OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
           enabledBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),
           focusedBorder: const OutlineInputBorder(borderSide: BorderSide(color: Colors.transparent)),

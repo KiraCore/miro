@@ -4,9 +4,6 @@ import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 import 'package:miro/views/widgets/kira/kira_list/models/sort_option_model.dart';
 
-const double _kButtonHeight = 30;
-const EdgeInsets _kButtonPadding = EdgeInsets.symmetric(horizontal: 12);
-
 class SortDropdownButton<T extends AListItem> extends StatelessWidget {
   final SortOptionModel<T> sortOptionModel;
 
@@ -18,8 +15,8 @@ class SortDropdownButton<T extends AListItem> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: _kButtonHeight,
-      padding: _kButtonPadding,
+      height: 30,
+      padding: const EdgeInsets.symmetric(horizontal: 12),
       decoration: BoxDecoration(
         border: Border.all(
           color: DesignColors.gray2_100,

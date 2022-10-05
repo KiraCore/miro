@@ -10,7 +10,7 @@ class ListSearchWidget<T extends AListItem> extends StatelessWidget {
   final bool enabled;
   final double height;
   final String? hint;
-  final double? width;
+  final double width;
 
   const ListSearchWidget({
     this.enabled = true,

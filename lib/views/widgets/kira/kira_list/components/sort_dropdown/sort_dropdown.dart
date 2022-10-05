@@ -12,14 +12,15 @@ import 'package:miro/views/widgets/kira/kira_list/components/list_pop_menu/list_
 import 'package:miro/views/widgets/kira/kira_list/components/sort_dropdown/sort_dropdown_button.dart';
 import 'package:miro/views/widgets/kira/kira_list/models/sort_option_model.dart';
 
-const double kDefaultButtonHeight = 30;
-const double kDefaultButtonWidth = 100;
-
 class SortDropdown<T extends AListItem> extends StatefulWidget {
   final List<SortOptionModel<T>> sortOptionModels;
+  final double height;
+  final double width;
 
   const SortDropdown({
     required this.sortOptionModels,
+    this.height = 30,
+    this.width = 100,
     Key? key,
   }) : super(key: key);
 
@@ -47,11 +48,11 @@ class _SortDropdown<T extends AListItem> extends State<SortDropdown<T>> {
             ),
             const SizedBox(width: 10),
             SizedBox(
-              width: kDefaultButtonWidth,
-              height: kDefaultButtonHeight,
+              width: widget.width,
+              height: widget.height,
               child: PopWrapper(
-                buttonWidth: kDefaultButtonWidth,
-                buttonHeight: kDefaultButtonHeight,
+                buttonWidth: widget.width,
+                buttonHeight: widget.height,
                 popWrapperController: sortOptionsController,
                 buttonBuilder: (_) => SortDropdownButton<T>(sortOptionModel: selectedSortOptionModel),
                 dropdownMargin: 0,

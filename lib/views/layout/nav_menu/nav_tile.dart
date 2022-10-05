@@ -49,7 +49,7 @@ class _NavTile extends State<NavTile> {
       childBuilder: (Set<MaterialState> states) {
         return Container(
           width: double.infinity,
-          height: AppSizes.kKiraScaffoldMenuItemHeight,
+          height: AppSizes.menuItemHeight,
           decoration: BoxDecoration(
             color: widget.navItemTheme?.getBackgroundColor(states),
             borderRadius: BorderRadius.circular(8),

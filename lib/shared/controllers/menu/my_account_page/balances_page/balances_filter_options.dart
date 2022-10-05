@@ -3,12 +3,12 @@ import 'package:miro/blocs/specific_blocs/list/filters/models/filter_mode.dart';
 import 'package:miro/blocs/specific_blocs/list/filters/models/filter_option.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
 
-Decimal kSmallValue = Decimal.parse('1');
-
 class BalancesFilterOptions {
+  static final Decimal _smallValueLimit = Decimal.fromInt(1);
+
   static FilterOption<BalanceModel> filterBySmallValues = FilterOption<BalanceModel>(
     id: 'small',
-    filterComparator: (BalanceModel a) => a.tokenAmountModel.getAmountInDefaultDenomination() > kSmallValue,
+    filterComparator: (BalanceModel a) => a.tokenAmountModel.getAmountInDefaultDenomination() > _smallValueLimit,
     filterMode: FilterMode.and,
   );
 
