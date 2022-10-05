@@ -6,15 +6,6 @@ import 'package:miro/views/layout/app_bar/account_button/signed_in_account_butto
 import 'package:miro/views/layout/app_bar/account_button/signed_out_account_button.dart';
 import 'package:provider/provider.dart';
 
-const double _kDesktopButtonWidth = 180;
-const double _kDesktopButtonHeight = AppSizes.kAppBarItemsHeight;
-
-const double _kMobileButtonWidth = 40;
-const double _kMobileButtonHeight = 40;
-
-const Size _kDesktopButtonSize = Size(_kDesktopButtonWidth, _kDesktopButtonHeight);
-const Size _kMobileButtonSize = Size(_kMobileButtonWidth, _kMobileButtonHeight);
-
 class CurrentAccountButton extends StatelessWidget {
   const CurrentAccountButton({
     Key? key,
@@ -22,19 +13,22 @@ class CurrentAccountButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size desktopButtonSize = const Size(180, AppSizes.appBarItemsHeight);
+    Size mobileButtonSize = const Size(40, 40);
+
     return Consumer<WalletProvider>(
       builder: (_, WalletProvider walletProvider, Widget? child) {
         final Wallet? wallet = walletProvider.currentWallet;
         if (wallet != null) {
           return SignedInAccountButton(
             wallet: wallet,
-            desktopSize: _kDesktopButtonSize,
-            mobileSize: _kMobileButtonSize,
+            desktopSize: desktopButtonSize,
+            mobileSize: mobileButtonSize,
           );
         }
-        return const SignedOutAccountButton(
-          desktopSize: _kDesktopButtonSize,
-          mobileSize: _kMobileButtonSize,
+        return SignedOutAccountButton(
+          desktopSize: desktopButtonSize,
+          mobileSize: mobileButtonSize,
         );
       },
     );

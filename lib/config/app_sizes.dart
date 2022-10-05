@@ -13,8 +13,9 @@ class AppSizes {
     right: 15,
   );
 
-  static const double kKiraAppBarHeight = 80;
-  static const double kKiraMenuWidth = 232;
-  static const double kKiraScaffoldMenuItemHeight = 56;
-  static const double kAppBarItemsHeight = 48;
+  static const double appBarHeight = 80;
+  static const double appBarItemsHeight = 48;
+
+  static const double menuItemWidth = 232;
+  static const double menuItemHeight = 56;
 }

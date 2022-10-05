@@ -5,8 +5,6 @@ import 'package:miro/views/widgets/generic/responsive/column_row_spacer.dart';
 import 'package:miro/views/widgets/generic/responsive/column_row_swapper.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 
-const double kFooterHeight = 50;
-
 class Footer extends StatelessWidget {
   const Footer({Key? key}) : super(key: key);
 

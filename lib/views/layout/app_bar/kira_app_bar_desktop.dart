@@ -15,7 +15,7 @@ class KiraAppBarDesktop extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: AppSizes.kKiraAppBarHeight - 1,
+      height: AppSizes.appBarHeight - 1,
       decoration: BoxDecoration(
         color: desktopDecoration.backgroundColor,
         border: desktopDecoration.border,

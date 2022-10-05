@@ -32,7 +32,7 @@ class CurrentNetworkButton extends StatelessWidget {
 
             return Container(
               width: width,
-              height: AppSizes.kAppBarItemsHeight,
+              height: AppSizes.appBarItemsHeight,
               padding: const EdgeInsets.symmetric(horizontal: 24),
               decoration: BoxDecoration(
                 border: Border.all(color: foregroundColor),

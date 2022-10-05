@@ -66,7 +66,7 @@ class _AppBarHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: AppSizes.kKiraAppBarHeight - 24,
+      height: AppSizes.appBarHeight - 24,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
@@ -97,7 +97,7 @@ class _BackdropContent extends StatelessWidget {
       duration: backdropDuration,
       child: SizedBox(
         width: double.infinity,
-        height: collapsed ? MediaQuery.of(context).size.height - AppSizes.kKiraAppBarHeight : 0,
+        height: collapsed ? MediaQuery.of(context).size.height - AppSizes.appBarHeight : 0,
         child: menu,
       ),
     );

@@ -31,13 +31,13 @@ class _NavMenu extends State<NavMenu> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: AppSizes.kKiraMenuWidth,
+      width: AppSizes.menuItemWidth,
       height: double.infinity,
       child: Column(
         children: <Widget>[
           if (ResponsiveWidget.isLargeScreen(context))
             SizedBox(
-              height: AppSizes.kKiraAppBarHeight,
+              height: AppSizes.appBarHeight,
               child: Padding(
                 padding: const EdgeInsets.only(left: 20),
                 child: Row(
