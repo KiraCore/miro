@@ -10,9 +10,11 @@ import 'package:miro/views/widgets/network_list/network_list_tile_title.dart';
 
 class NetworkListTile extends StatefulWidget {
   final ANetworkStatusModel networkStatusModel;
+  final ValueChanged<ANetworkStatusModel>? onConnected;
 
   const NetworkListTile({
     required this.networkStatusModel,
+    this.onConnected,
     Key? key,
   }) : super(key: key);
 
@@ -57,7 +59,12 @@ class _NetworkListTile extends State<NetworkListTile> {
               Row(
                 children: <Widget>[
                   const SizedBox(width: 35),
-                  Expanded(child: NetworkButton(networkStatusModel: networkStatusModel)),
+                  Expanded(
+                    child: NetworkButton(
+                      networkStatusModel: networkStatusModel,
+                      onConnected: widget.onConnected,
+                    ),
+                  ),
                   const SizedBox(width: 35),
                 ],
               )

@@ -8,21 +8,32 @@ import 'package:miro/views/widgets/generic/center_load_spinner.dart';
 import 'package:miro/views/widgets/network_list/network_list_tile.dart';
 
 class NetworkList extends StatelessWidget {
-  const NetworkList({Key? key}) : super(key: key);
+  final ValueChanged<ANetworkStatusModel>? onConnected;
+  final ANetworkStatusModel? hiddenNetworkStatusModel;
+
+  const NetworkList({
+    this.onConnected,
+    this.hiddenNetworkStatusModel,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<NetworkListCubit, ANetworkListState>(
       builder: (_, ANetworkListState networkListState) {
         if (networkListState is NetworkListLoadedState) {
-          int networkListLength = networkListState.networkStatusModelList.length;
+          List<ANetworkStatusModel> visibleNetworkStatusModelList = _getVisibleNetworkStatusModelList(networkListState);
+
           return ListView.builder(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: networkListLength,
+            itemCount: visibleNetworkStatusModelList.length,
             itemBuilder: (_, int index) {
-              ANetworkStatusModel currentNetwork = networkListState.networkStatusModelList[index];
-              return NetworkListTile(networkStatusModel: currentNetwork);
+              ANetworkStatusModel currentNetwork = visibleNetworkStatusModelList[index];
+              return NetworkListTile(
+                networkStatusModel: currentNetwork,
+                onConnected: onConnected,
+              );
             },
           );
         } else {
@@ -30,5 +41,17 @@ class NetworkList extends StatelessWidget {
         }
       },
     );
+  }
+
+  List<ANetworkStatusModel> _getVisibleNetworkStatusModelList(NetworkListLoadedState networkListLoadedState) {
+    List<ANetworkStatusModel> availableNetworkStatusModelList = networkListLoadedState.networkStatusModelList;
+    if (hiddenNetworkStatusModel == null) {
+      return availableNetworkStatusModelList;
+    } else {
+      List<ANetworkStatusModel> visibleNetworkStatusModelList = availableNetworkStatusModelList.where((ANetworkStatusModel networkStatusModel) {
+        return networkStatusModel.uri.host != hiddenNetworkStatusModel!.uri.host;
+      }).toList();
+      return visibleNetworkStatusModelList;
+    }
   }
 }

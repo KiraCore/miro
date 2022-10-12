@@ -16,6 +16,7 @@ class AppConfig {
   );
 
   final Duration outdatedBlockDuration = const Duration(minutes: 5);
+  final Duration loadingPageTimerDuration = const Duration(seconds: 4);
   final List<String> supportedInterxVersions = <String>['v0.4.11'];
 
   final int _defaultRefreshIntervalSeconds = 60;

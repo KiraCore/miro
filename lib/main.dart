@@ -6,11 +6,13 @@ import 'package:miro/blocs/specific_blocs/network_module/network_module_bloc.dar
 import 'package:miro/config/app_config.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/theme_config.dart';
+import 'package:miro/generated/assets.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/infra/cache/cache_manager.dart';
 import 'package:miro/providers/app_config_provider.dart';
 import 'package:miro/providers/app_list_providers.dart';
 import 'package:miro/shared/guards/auth_guard.dart';
+import 'package:miro/shared/guards/connection_guard.dart';
 import 'package:miro/shared/guards/navigation_guard.dart';
 import 'package:miro/shared/guards/url_parameters_guard.dart';
 import 'package:miro/shared/router/router.gr.dart';
@@ -49,7 +51,16 @@ class _CoreApp extends State<CoreApp> {
     authGuard: AuthGuard(),
     urlParametersGuard: UrlParametersGuard(),
     navigationGuard: NavigationGuard(),
+    connectionGuard: ConnectionGuard(),
   );
+
+  @override
+  void initState() {
+    super.initState();
+    precacheImage(const AssetImage(Assets.assetsLogoSygnet), context);
+    precacheImage(const AssetImage(Assets.assetsLogoLoading), context);
+    precacheImage(const AssetImage(Assets.imagesBackground), context);
+  }
 
   @override
   Widget build(BuildContext context) {
