@@ -3,18 +3,20 @@ import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/views/widgets/generic/mouse_state_listener.dart';
 
 class KiraOutlinedButton extends StatelessWidget {
-  final GestureTapCallback? onPressed;
   final String title;
+  final GestureTapCallback? onPressed;
   final double? height;
   final double? width;
+  final bool disabled;
   final Color? borderColor;
 
   const KiraOutlinedButton({
-    required this.onPressed,
     required this.title,
-    this.borderColor,
+    required this.onPressed,
     this.width,
     this.height = 51,
+    this.disabled = false,
+    this.borderColor,
     Key? key,
   }) : super(key: key);
 
@@ -22,29 +24,32 @@ class KiraOutlinedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
 
-    return MouseStateListener(
-      onTap: onPressed,
-      childBuilder: (Set<MaterialState> states) {
-        return Container(
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: _getBorderColor(states),
-              width: 1,
+    return Opacity(
+      opacity: disabled ? 0.3 : 1,
+      child: MouseStateListener(
+        onTap: onPressed,
+        childBuilder: (Set<MaterialState> states) {
+          return Container(
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: _getBorderColor(states),
+                width: 1,
+              ),
+              borderRadius: BorderRadius.circular(8),
             ),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          width: width ?? double.infinity,
-          height: height,
-          child: Center(
-            child: Text(
-              title.toUpperCase(),
-              style: textTheme.button!.copyWith(
-                color: DesignColors.white_100,
+            width: width ?? double.infinity,
+            height: height,
+            child: Center(
+              child: Text(
+                title.toUpperCase(),
+                style: textTheme.button!.copyWith(
+                  color: DesignColors.white_100,
+                ),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 

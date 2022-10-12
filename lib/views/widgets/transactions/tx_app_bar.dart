@@ -31,10 +31,11 @@ class TxAppBar extends StatelessWidget {
   }
 
   void _closeDialog(BuildContext context) {
-    if (AutoRouter.of(context).canPopSelfOrChildren) {
-      AutoRouter.of(context).pop();
+    if (AutoRouter.of(context).root.canPopSelfOrChildren) {
+      AutoRouter.of(context).root.pop();
     } else {
-      AutoRouter.of(context).replaceNamed('/');
+      AutoRouter.of(context).popUntilRoot();
+      AutoRouter.of(context).pushNamed('/app/dashboard');
     }
   }
 

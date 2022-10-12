@@ -13,9 +13,11 @@ import 'package:miro/views/widgets/network_list/network_button/network_selected_
 
 class NetworkButton extends StatelessWidget {
   final ANetworkStatusModel networkStatusModel;
+  final ValueChanged<ANetworkStatusModel>? onConnected;
 
   const NetworkButton({
     required this.networkStatusModel,
+    this.onConnected,
     Key? key,
   }) : super(key: key);
 
@@ -32,7 +34,7 @@ class NetworkButton extends StatelessWidget {
       return SizedBox(
         width: double.infinity,
         child: Text(
-          'Selected server is offline\nPlease choose different network',
+          'Selected server is offline\nPlease choose different server',
           style: textTheme.caption!.copyWith(
             color: DesignColors.red_100,
           ),
@@ -61,7 +63,7 @@ class NetworkButton extends StatelessWidget {
       );
     } else {
       return Text(
-        'Cannot connect to network',
+        'Cannot connect to server',
         style: textTheme.caption!.copyWith(
           color: DesignColors.red_100,
         ),
@@ -73,6 +75,7 @@ class NetworkButton extends StatelessWidget {
     ANetworkStatusModel networkStatusModelToConnect = networkStatusModel;
     if (networkStatusModelToConnect is ANetworkOnlineModel) {
       globalLocator<NetworkModuleBloc>().add(NetworkModuleConnectEvent(networkStatusModelToConnect));
+      onConnected?.call(networkStatusModelToConnect);
     }
   }
 }

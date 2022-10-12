@@ -14,10 +14,13 @@ import 'package:miro/config/locator.dart';
 import 'package:miro/infra/services/network_module_service.dart';
 import 'package:miro/shared/controllers/browser/rpc_browser_url_controller.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
+import 'package:miro/shared/models/network/status/network_empty_model.dart';
 import 'package:miro/shared/models/network/status/network_unknown_model.dart';
 import 'package:miro/shared/models/network/status/online/a_network_online_model.dart';
 
 class NetworkModuleBloc extends Bloc<ANetworkModuleEvent, NetworkModuleState> {
+  final Completer<void> initializationCompleter = Completer<void>();
+
   final AppConfig _appConfig = globalLocator<AppConfig>();
   final NetworkListCubit _networkListCubit = globalLocator<NetworkListCubit>();
   final NetworkModuleService _networkModuleService = globalLocator<NetworkModuleService>();
@@ -58,7 +61,8 @@ class NetworkModuleBloc extends Bloc<ANetworkModuleEvent, NetworkModuleState> {
       return;
     }
     _isRefreshing = true;
-    if (state.networkStatusModel is NetworkUnknownModel) {
+
+    if (state.networkStatusModel is NetworkEmptyModel) {
       _updateNetworkStatusModelList();
     } else {
       NetworkUnknownModel networkUnknownModel = NetworkUnknownModel.fromNetworkStatusModel(state.networkStatusModel);
@@ -79,6 +83,9 @@ class NetworkModuleBloc extends Bloc<ANetworkModuleEvent, NetworkModuleState> {
     NetworkUnknownModel networkUnknownModel = networkModuleAutoConnectEvent.networkUnknownModel;
     emit(NetworkModuleState.connecting(networkUnknownModel));
 
+    if (initializationCompleter.isCompleted == false) {
+      initializationCompleter.complete();
+    }
     ANetworkStatusModel networkStatusModel = await _networkModuleService.getNetworkStatusModel(networkUnknownModel);
     _networkListCubit.setNetworkStatusModel(networkStatusModel: networkStatusModel);
 

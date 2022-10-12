@@ -19,7 +19,7 @@ class NetworkListCubit extends Cubit<ANetworkListState> {
   }
 
   void setNetworkStatusModel({required ANetworkStatusModel networkStatusModel}) {
-    int networkStatusModelIndex = networkStatusModelList.indexWhere((ANetworkStatusModel e) => e.uri == networkStatusModel.uri);
+    int networkStatusModelIndex = networkStatusModelList.indexWhere((ANetworkStatusModel e) => e.uri.host == networkStatusModel.uri.host);
     if (networkStatusModelIndex != -1) {
       networkStatusModelList[networkStatusModelIndex] = networkStatusModel;
       emit(NetworkListLoadedState(networkStatusModelList: networkStatusModelList));
