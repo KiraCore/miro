@@ -1,11 +1,13 @@
-class Node {
+import 'package:equatable/equatable.dart';
+
+class Node extends Equatable {
   final String nodeType;
   final String seedNodeId;
   final String sentryNodeId;
   final String snapshotNodeId;
   final String validatorNodeId;
 
-  Node({
+  const Node({
     required this.nodeType,
     required this.seedNodeId,
     required this.sentryNodeId,
@@ -22,7 +24,5 @@ class Node {
       );
 
   @override
-  String toString() {
-    return 'Node{nodeType: $nodeType, seedNodeId: $seedNodeId, sentryNodeId: $sentryNodeId, snapshotNodeId: $snapshotNodeId, validatorNodeId: $validatorNodeId}';
-  }
+  List<Object?> get props => <Object?>[nodeType, seedNodeId, sentryNodeId, snapshotNodeId, validatorNodeId];
 }

@@ -1,10 +1,38 @@
 class MockApiKiraTokensRates {
   static Map<String, dynamic> defaultResponse = {
     'data': [
-      {'denom': 'frozen', 'fee_payments': true, 'rate': '100000000000000000'},
-      {'denom': 'ubtc', 'fee_payments': true, 'rate': '10000000000000000000'},
-      {'denom': 'ukex', 'fee_payments': true, 'rate': '1000000000000000000'},
-      {'denom': 'xeth', 'fee_payments': true, 'rate': '100000000000000000'}
+      {
+        'denom': 'frozen',
+        'fee_payments': true,
+        'fee_rate': '0.1',
+        'stake_cap': '0.0',
+        'stake_min': '1e-18.0',
+        'stake_token': false,
+      },
+      {
+        'denom': 'ubtc',
+        'fee_payments': true,
+        'fee_rate': '10.0',
+        'stake_cap': '0.25',
+        'stake_min': '1e-18.0',
+        'stake_token': true,
+      },
+      {
+        'denom': 'ukex',
+        'fee_payments': true,
+        'fee_rate': '1.0',
+        'stake_cap': '0.5',
+        'stake_min': '1e-18.0',
+        'stake_token': true,
+      },
+      {
+        'denom': 'xeth',
+        'fee_payments': true,
+        'fee_rate': '0.1',
+        'stake_cap': '0.1',
+        'stake_min': '1e-18.0',
+        'stake_token': false,
+      }
     ]
   };
 }

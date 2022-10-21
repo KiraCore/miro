@@ -23,8 +23,7 @@ class MsgHandleIdentityRecordsVerifyRequest implements ITxMsg {
     return <String, dynamic>{
       '@type': '/kira.gov.MsgHandleIdentityRecordsVerifyRequest',
       'verifier': verifier,
-      // TODO(dominik): That json param, probably will be changed to verify_request_id in future
-      'verifyRequestId': verifyRequestId.toString(),
+      'verify_request_id': verifyRequestId.toString(),
       'yes': yes,
     };
   }
@@ -35,8 +34,7 @@ class MsgHandleIdentityRecordsVerifyRequest implements ITxMsg {
       'type': 'kiraHub/MsgHandleIdentityRecordsVerifyRequest',
       'value': <String, dynamic>{
         'verifier': verifier,
-        // TODO(dominik): That json param, probably will be changed to verify_request_id in future
-        'verifyRequestId': verifyRequestId.toString(),
+        'verify_request_id': verifyRequestId.toString(),
         'yes': yes,
       },
     };

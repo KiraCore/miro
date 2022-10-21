@@ -279,7 +279,7 @@ Future<void> main() async {
         txRemoteInfoModel: expectedTxRemoteInfoModel,
         publicKeyCompressed: 'AlLas8CJ6lm5yZJ8h0U5Qu9nzVvgvskgHuURPB3jvUx8',
         signatureModel: const SignatureModel(
-          signature: 'O8wiAkvhlo5Wdkw3n8vkfIqcO+x6GOtJaw5LbHX6yg09VnUy0dFrsmYJTeX9Z9jOGg2kYm1L5/MQo+DLBiK7qw==',
+          signature: 'SP135sI53JAnIENl3AZJoxvDXhBwCyJXuYD0HfJBVooQEHB+tyl1kkNhbyyisobSXaHpaa/Je3J2LoRzOF1zCw==',
         ),
       );
 
@@ -300,7 +300,7 @@ Future<void> main() async {
               {
                 '@type': '/kira.gov.MsgRequestIdentityRecordsVerify',
                 'address': 'kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx',
-                'recordIds': ['964'],
+                'record_ids': ['964'],
                 'tip': {'amount': '200', 'denom': 'ukex'},
                 'verifier': 'kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'
               }
@@ -327,7 +327,7 @@ Future<void> main() async {
               'gas_limit': '999999'
             }
           },
-          'signatures': ['O8wiAkvhlo5Wdkw3n8vkfIqcO+x6GOtJaw5LbHX6yg09VnUy0dFrsmYJTeX9Z9jOGg2kYm1L5/MQo+DLBiK7qw==']
+          'signatures': ['SP135sI53JAnIENl3AZJoxvDXhBwCyJXuYD0HfJBVooQEHB+tyl1kkNhbyyisobSXaHpaa/Je3J2LoRzOF1zCw==']
         },
         'mode': 'block'
       };
@@ -362,7 +362,7 @@ Future<void> main() async {
         txRemoteInfoModel: expectedTxRemoteInfoModel,
         publicKeyCompressed: 'AlLas8CJ6lm5yZJ8h0U5Qu9nzVvgvskgHuURPB3jvUx8',
         signatureModel: const SignatureModel(
-          signature: 'Zbffla92mshrG21WHDu/T3OXU413Rym5xZsUcX+DEMoBbnoGRWRngyfJENNcdtbkzY8gb3HVjqjWrazfNTvRkg==',
+          signature: 'egYEN3Npnb6lqcQ5mStDQ0KXezrUTlj8iBIRho3yzOZXDPMIT6xEs8jYs/zeV96UVkD6cc3u/2FpeqsoT2qs2Q==',
         ),
       );
 
@@ -380,11 +380,7 @@ Future<void> main() async {
         'tx': {
           'body': {
             'messages': [
-              {
-                '@type': '/kira.gov.MsgCancelIdentityRecordsVerifyRequest',
-                'executor': 'kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx',
-                'verifyRequestId': '3'
-              }
+              {'@type': '/kira.gov.MsgCancelIdentityRecordsVerifyRequest', 'executor': 'kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx', 'verify_request_id': '3'}
             ],
             'memo': 'Test of MsgCancelIdentityRecordsVerifyRequest message',
             'timeout_height': '0',
@@ -408,7 +404,7 @@ Future<void> main() async {
               'gas_limit': '999999'
             }
           },
-          'signatures': ['Zbffla92mshrG21WHDu/T3OXU413Rym5xZsUcX+DEMoBbnoGRWRngyfJENNcdtbkzY8gb3HVjqjWrazfNTvRkg==']
+          'signatures': ['egYEN3Npnb6lqcQ5mStDQ0KXezrUTlj8iBIRho3yzOZXDPMIT6xEs8jYs/zeV96UVkD6cc3u/2FpeqsoT2qs2Q==']
         },
         'mode': 'block'
       };
@@ -443,7 +439,7 @@ Future<void> main() async {
         txRemoteInfoModel: expectedTxRemoteInfoModel,
         publicKeyCompressed: 'AlLas8CJ6lm5yZJ8h0U5Qu9nzVvgvskgHuURPB3jvUx8',
         signatureModel: const SignatureModel(
-          signature: 'SLotForGGtXPwZ61hXa7rGAj8WNnfaLBN9dJp6bePM0JlZQADV2OAbP8A2PzT7mMGKYMIoh8plO+k5ZlzmIQGQ==',
+          signature: '7RlYHsYAmMqbeqaI4C3lET3XIdqQgy3StwA1AjccFdQwtp/he34Zhhdu22JbqUTmBGc9zPWPBdTo1/X57UZQAg==',
         ),
       );
 
@@ -489,7 +485,7 @@ Future<void> main() async {
               'gas_limit': '999999'
             }
           },
-          'signatures': ['SLotForGGtXPwZ61hXa7rGAj8WNnfaLBN9dJp6bePM0JlZQADV2OAbP8A2PzT7mMGKYMIoh8plO+k5ZlzmIQGQ==']
+          'signatures': ['7RlYHsYAmMqbeqaI4C3lET3XIdqQgy3StwA1AjccFdQwtp/he34Zhhdu22JbqUTmBGc9zPWPBdTo1/X57UZQAg==']
         },
         'mode': 'block'
       };
@@ -525,7 +521,7 @@ Future<void> main() async {
         txRemoteInfoModel: expectedTxRemoteInfoModel,
         publicKeyCompressed: 'AlLas8CJ6lm5yZJ8h0U5Qu9nzVvgvskgHuURPB3jvUx8',
         signatureModel: const SignatureModel(
-          signature: 'xHQYaDL3LEXBjb+bZr1fz57HVJlCn0VjwasQxIdgGt0CpTtWIpxresOjLV+DBEtVEJy8UPMv/Watlvo2CZX5HQ==',
+          signature: 'GqNVZKBGhhE0udHNFJ+g3KhveVkT0BkWPeMQR0Jx6wlO3gYzAzN9nV/KcZQCgKSpYfxLXxEeayVucHnHM9gVGw==',
         ),
       );
 
@@ -546,7 +542,7 @@ Future<void> main() async {
               {
                 '@type': '/kira.gov.MsgHandleIdentityRecordsVerifyRequest',
                 'verifier': 'kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl',
-                'verifyRequestId': '2',
+                'verify_request_id': '2',
                 'yes': true
               }
             ],
@@ -572,7 +568,7 @@ Future<void> main() async {
               'gas_limit': '999999'
             }
           },
-          'signatures': ['xHQYaDL3LEXBjb+bZr1fz57HVJlCn0VjwasQxIdgGt0CpTtWIpxresOjLV+DBEtVEJy8UPMv/Watlvo2CZX5HQ==']
+          'signatures': ['GqNVZKBGhhE0udHNFJ+g3KhveVkT0BkWPeMQR0Jx6wlO3gYzAzN9nV/KcZQCgKSpYfxLXxEeayVucHnHM9gVGw==']
         },
         'mode': 'block'
       };

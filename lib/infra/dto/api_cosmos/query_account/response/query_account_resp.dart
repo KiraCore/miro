@@ -1,11 +1,14 @@
-class QueryAccountResp {
+import 'package:equatable/equatable.dart';
+import 'package:miro/infra/dto/api_cosmos/query_account/response/pub_key.dart';
+
+class QueryAccountResp extends Equatable {
   final String type;
   final String accountNumber;
   final String address;
-  final String? pubKey;
+  final PubKey? pubKey;
   final String? sequence;
 
-  QueryAccountResp({
+  const QueryAccountResp({
     required this.type,
     required this.accountNumber,
     required this.address,
@@ -16,17 +19,18 @@ class QueryAccountResp {
   factory QueryAccountResp.fromJson(Map<String, dynamic> json) {
     Map<String, dynamic> accountJson = json['account'] as Map<String, dynamic>;
 
+    dynamic pubKeyValue = accountJson['pub_key'];
+    Map<String, dynamic>? pubKeyJson = pubKeyValue is Map<String, dynamic> ? pubKeyValue : null;
+
     return QueryAccountResp(
       type: accountJson['@type'] as String,
       accountNumber: accountJson['account_number'] as String,
       address: accountJson['address'] as String,
-      pubKey: accountJson['pub_key'] as String?,
+      pubKey: pubKeyJson != null ? PubKey.fromJson(pubKeyJson) : null,
       sequence: accountJson['sequence'] as String?,
     );
   }
 
   @override
-  String toString() {
-    return 'QueryAccountResp{type: $type, accountNumber: $accountNumber, address: $address, pubKey: $pubKey, sequence: $sequence}';
-  }
+  List<Object?> get props => <Object?>[type, accountNumber, address, pubKey, sequence];
 }

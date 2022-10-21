@@ -28,8 +28,7 @@ class MsgRequestIdentityRecordsVerify implements ITxMsg {
     return <String, dynamic>{
       '@type': '/kira.gov.MsgRequestIdentityRecordsVerify',
       'address': address,
-      // TODO(dominik): That json param, probably will be changed to record_ids in future
-      'recordIds': recordIds.map((BigInt recordId) => recordId.toString()).toList(),
+      'record_ids': recordIds.map((BigInt recordId) => recordId.toString()).toList(),
       'tip': tip.toJson(),
       'verifier': verifier,
     };
@@ -41,8 +40,7 @@ class MsgRequestIdentityRecordsVerify implements ITxMsg {
       'type': 'kiraHub/MsgRequestIdentityRecordsVerify',
       'value': <String, dynamic>{
         'address': address,
-        // TODO(dominik): That json param, probably will be changed to record_ids in future
-        'recordIds': recordIds.map((BigInt recordId) => recordId.toString()).toList(),
+        'record_ids': recordIds.map((BigInt recordId) => recordId.toString()).toList(),
         'tip': tip.toJson(),
         'verifier': verifier,
       },

@@ -97,8 +97,6 @@ class MockApiCosmosTxs {
           "type": "message"
         }
       ],
-      "gas_used": "0",
-      "gas_wanted": "0",
       "info": "",
       "log":
           "[{\"events\":[{\"type\":\"coin_received\",\"attributes\":[{\"key\":\"receiver\",\"value\":\"kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl\"},{\"key\":\"amount\",\"value\":\"200ukex\"}]},{\"type\":\"coin_spent\",\"attributes\":[{\"key\":\"spender\",\"value\":\"kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx\"},{\"key\":\"amount\",\"value\":\"200ukex\"}]},{\"type\":\"message\",\"attributes\":[{\"key\":\"action\",\"value\":\"/cosmos.bank.v1beta1.MsgSend\"},{\"key\":\"sender\",\"value\":\"kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx\"},{\"key\":\"module\",\"value\":\"bank\"}]},{\"type\":\"transfer\",\"attributes\":[{\"key\":\"recipient\",\"value\":\"kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl\"},{\"key\":\"sender\",\"value\":\"kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx\"},{\"key\":\"amount\",\"value\":\"200ukex\"}]}]}]"
