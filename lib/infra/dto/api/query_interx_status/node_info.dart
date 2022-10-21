@@ -1,6 +1,7 @@
+import 'package:equatable/equatable.dart';
 import 'package:miro/infra/dto/api/query_interx_status/protocol_version.dart';
 
-class NodeInfo {
+class NodeInfo extends Equatable {
   final String channels;
   final String id;
   final String listenAddress;
@@ -11,7 +12,7 @@ class NodeInfo {
   final ProtocolVersion protocolVersion;
   final String version;
 
-  NodeInfo({
+  const NodeInfo({
     required this.channels,
     required this.id,
     required this.listenAddress,
@@ -39,8 +40,5 @@ class NodeInfo {
   }
 
   @override
-  String toString() {
-    return 'NodeInfo{channels: $channels, id: $id, listenAddress: $listenAddress, moniker: $moniker, network: '
-        '$network, rpcAddress: $rpcAddress, txIndex: $txIndex, protocolVersion: $protocolVersion, version: $version}';
-  }
+  List<Object?> get props => <Object?>[channels, id, listenAddress, moniker, network, rpcAddress, txIndex, protocolVersion, version];
 }

@@ -10,9 +10,7 @@ void main() {
   BroadcastTx unauthorizedBroadcastTx = BroadcastTx(
     code: 4,
     codespace: 'sdk',
-    events: <Event>[],
-    gasUsed: '0',
-    gasWanted: '0',
+    events: const <Event>[],
     info: '',
     log: unauthorizedLog,
   );
@@ -23,9 +21,7 @@ void main() {
   BroadcastTx incorrectAccountSequenceBroadcastTx = BroadcastTx(
     code: 32,
     codespace: 'sdk',
-    events: <Event>[],
-    gasUsed: '0',
-    gasWanted: '0',
+    events: const <Event>[],
     info: '',
     log: incorrectAccountSequenceLog,
   );
@@ -36,9 +32,7 @@ void main() {
   BroadcastTx insufficientFundsBroadcastTx = BroadcastTx(
     code: 5,
     codespace: 'sdk',
-    events: <Event>[],
-    gasUsed: '0',
-    gasWanted: '0',
+    events: const <Event>[],
     info: '',
     log: insufficientFundsLog,
   );

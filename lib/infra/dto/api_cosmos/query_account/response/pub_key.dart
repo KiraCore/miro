@@ -10,7 +10,7 @@ class PubKey extends Equatable {
   });
 
   factory PubKey.fromJson(Map<String, dynamic> json) => PubKey(
-        type: json['type'] as String,
+        type: json['@type'] as String,
         value: json['value'] as String,
       );
 

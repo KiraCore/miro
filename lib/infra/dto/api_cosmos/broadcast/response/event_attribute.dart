@@ -1,9 +1,11 @@
-class EventAttribute {
+import 'package:equatable/equatable.dart';
+
+class EventAttribute extends Equatable {
   final bool index;
   final String key;
   final String value;
 
-  EventAttribute({
+  const EventAttribute({
     required this.index,
     required this.key,
     required this.value,
@@ -16,4 +18,7 @@ class EventAttribute {
       value: json['value'] as String,
     );
   }
+
+  @override
+  List<Object?> get props => <Object>[index, key, value];
 }

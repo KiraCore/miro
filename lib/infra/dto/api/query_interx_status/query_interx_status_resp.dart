@@ -1,11 +1,9 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:miro/infra/dto/api/query_interx_status/interx_info.dart';
 import 'package:miro/infra/dto/api/query_interx_status/node_info.dart';
 import 'package:miro/infra/dto/api/query_interx_status/sync_info.dart';
 import 'package:miro/infra/dto/api/query_interx_status/validator_info.dart';
 
-@immutable
 class QueryInterxStatusResp extends Equatable {
   final String id;
   final InterxInfo interxInfo;
@@ -30,10 +28,5 @@ class QueryInterxStatusResp extends Equatable {
       );
 
   @override
-  String toString() {
-    return 'QueryInterxStatusResp{id: $id, interxInfo: $interxInfo, nodeInfo: $nodeInfo, syncInfo: $syncInfo, validatorInfo: $validatorInfo}';
-  }
-
-  @override
-  List<Object?> get props => <Object?>[id];
+  List<Object?> get props => <Object?>[id, interxInfo, nodeInfo, syncInfo, validatorInfo];
 }

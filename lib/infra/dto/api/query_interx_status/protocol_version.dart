@@ -1,9 +1,11 @@
-class ProtocolVersion {
+import 'package:equatable/equatable.dart';
+
+class ProtocolVersion extends Equatable {
   final String app;
   final String block;
   final String p2p;
 
-  ProtocolVersion({
+  const ProtocolVersion({
     required this.app,
     required this.block,
     required this.p2p,
@@ -16,7 +18,5 @@ class ProtocolVersion {
       );
 
   @override
-  String toString() {
-    return 'ProtocolVersion{app: $app, block: $block, p2p: $p2p}';
-  }
+  List<Object?> get props => <Object?>[app, block, p2p];
 }

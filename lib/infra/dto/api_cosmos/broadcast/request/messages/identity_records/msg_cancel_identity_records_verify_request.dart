@@ -18,8 +18,7 @@ class MsgCancelIdentityRecordsVerifyRequest implements ITxMsg {
     return <String, dynamic>{
       '@type': '/kira.gov.MsgCancelIdentityRecordsVerifyRequest',
       'executor': executor,
-      // TODO(dominik): That json param, probably will be changed to verify_request_id in future
-      'verifyRequestId': verifyRequestId.toString(),
+      'verify_request_id': verifyRequestId.toString(),
     };
   }
 
@@ -29,8 +28,7 @@ class MsgCancelIdentityRecordsVerifyRequest implements ITxMsg {
       'type': 'kiraHub/MsgCancelIdentityRecordsVerifyRequest',
       'value': <String, dynamic>{
         'executor': executor,
-        // TODO(dominik): That json param, probably will be changed to verify_request_id in future
-        'verifyRequestId': verifyRequestId.toString(),
+        'verify_request_id': verifyRequestId.toString(),
       },
     };
   }

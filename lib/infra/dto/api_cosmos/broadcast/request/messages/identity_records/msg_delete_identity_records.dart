@@ -25,8 +25,7 @@ class MsgDeleteIdentityRecords implements ITxMsg {
   @override
   Map<String, dynamic> toSignatureJson() {
     return <String, dynamic>{
-      // TODO(dominik): Update type to 'kiraHub/MsgDeleteIdentityRecords' after new testnet release
-      'type': 'kiraHub/MsgEditIdentityRecord',
+      'type': 'kiraHub/MsgDeleteIdentityRecords',
       'value': <String, dynamic>{
         'address': address,
         'keys': keys,

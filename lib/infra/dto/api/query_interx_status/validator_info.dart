@@ -1,11 +1,12 @@
+import 'package:equatable/equatable.dart';
 import 'package:miro/infra/dto/api/query_interx_status/pub_key.dart';
 
-class ValidatorInfo {
+class ValidatorInfo extends Equatable {
   final String address;
   final PubKey pubKey;
   final String votingPower;
 
-  ValidatorInfo({
+  const ValidatorInfo({
     required this.address,
     required this.pubKey,
     required this.votingPower,
@@ -18,7 +19,5 @@ class ValidatorInfo {
       );
 
   @override
-  String toString() {
-    return 'ValidatorInfo{address: $address, pubKey: $pubKey, votingPower: $votingPower}';
-  }
+  List<Object?> get props => <Object?>[address, pubKey, votingPower];
 }
