@@ -21,7 +21,7 @@ class UrlParametersGuard extends AutoRouteGuard {
         currentQueryParameters: currentQueryParameters,
         networkStatusModel: networkStatusModel,
       );
-      router.navigate(PageRouteInfo<dynamic>.fromMatch(resolver.route).copyWith(queryParams: queryParameters));
+      router.replace(PageRouteInfo<dynamic>.fromMatch(resolver.route).copyWith(queryParams: queryParameters));
     } else {
       resolver.next(true);
     }
