@@ -17,7 +17,7 @@ class NetworkListPage extends StatefulWidget {
   final RouteMatch<dynamic>? nextRoute;
 
   const NetworkListPage({
-    required this.connectionErrorType,
+    this.connectionErrorType = ConnectionErrorType.canceledByUser,
     this.canceledNetworkStatusModel,
     this.nextRoute,
     Key? key,

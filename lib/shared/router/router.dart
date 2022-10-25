@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:miro/shared/guards/auth_guard.dart';
 import 'package:miro/shared/guards/connection_guard.dart';
+import 'package:miro/shared/guards/loading_page_guard.dart';
 import 'package:miro/shared/guards/navigation_guard.dart';
 import 'package:miro/shared/guards/url_parameters_guard.dart';
 import 'package:miro/views/pages/loading/loading_page/loading_page.dart';
@@ -33,37 +34,33 @@ import 'package:miro/views/pages/transactions/tx_form_page/send/tx_tokens_send_f
         children: <AutoRoute>[
           CustomRoute<void>(
             transitionsBuilder: TransitionsBuilders.fadeIn,
-            page: LoadingPage,
-            name: 'LoadingRoute',
-            path: 'loading',
-          ),
-          CustomRoute<void>(
-            transitionsBuilder: TransitionsBuilders.fadeIn,
             page: NetworkListPage,
+            initial: true,
             name: 'NetworkListRoute',
             path: 'list',
           ),
-          RedirectRoute(path: '', redirectTo: 'list')
+          CustomRoute<void>(
+            transitionsBuilder: TransitionsBuilders.fadeIn,
+            page: LoadingPage,
+            guards: <Type>[LoadingPageGuard],
+            name: 'LoadingRoute',
+            path: 'loading',
+          ),
         ],
       ),
       CustomRoute<void>(
         transitionsBuilder: TransitionsBuilders.fadeIn,
         durationInMilliseconds: 1000,
         page: MenuWrapper,
-        name: 'MenuRoute',
+        name: 'MenuWrapperRoute',
+        initial: true,
         path: 'app',
         children: <AutoRoute>[
-          CustomRoute<void>(
-            page: AccountsPage,
-            name: 'AccountsRoute',
-            path: 'accounts',
-            transitionsBuilder: TransitionsBuilders.fadeIn,
-            guards: <Type>[UrlParametersGuard, NavigationGuard],
-          ),
           CustomRoute<void>(
             page: DashboardPage,
             name: 'DashboardRoute',
             path: 'dashboard',
+            initial: true,
             transitionsBuilder: TransitionsBuilders.fadeIn,
             guards: <Type>[UrlParametersGuard, NavigationGuard],
           ),
@@ -75,13 +72,19 @@ import 'package:miro/views/pages/transactions/tx_form_page/send/tx_tokens_send_f
             guards: <Type>[UrlParametersGuard, NavigationGuard],
           ),
           CustomRoute<void>(
+            page: AccountsPage,
+            name: 'AccountsRoute',
+            path: 'accounts',
+            transitionsBuilder: TransitionsBuilders.fadeIn,
+            guards: <Type>[UrlParametersGuard, NavigationGuard],
+          ),
+          CustomRoute<void>(
             page: MyAccountPage,
             name: 'MyAccountRoute',
             path: 'my-account',
             guards: <Type>[AuthGuard, UrlParametersGuard, NavigationGuard],
             transitionsBuilder: TransitionsBuilders.fadeIn,
           ),
-          RedirectRoute(path: '', redirectTo: 'dashboard')
         ],
       ),
       CustomRoute<void>(
@@ -91,6 +94,7 @@ import 'package:miro/views/pages/transactions/tx_form_page/send/tx_tokens_send_f
         guards: <Type>[AuthGuard, UrlParametersGuard],
         transitionsBuilder: TransitionsBuilders.fadeIn,
         children: <AutoRoute>[
+          RedirectRoute(path: '', redirectTo: '/app'),
           CustomRoute<void>(
             page: TxTokensSendFormPage,
             name: 'TxTokensSendFormRoute',
@@ -112,12 +116,9 @@ import 'package:miro/views/pages/transactions/tx_form_page/send/tx_tokens_send_f
             guards: <Type>[AuthGuard, UrlParametersGuard],
             transitionsBuilder: TransitionsBuilders.fadeIn,
           ),
-          RedirectRoute(path: '', redirectTo: '/app')
         ],
       ),
-      RedirectRoute(path: '', redirectTo: 'app')
     ],
   ),
-  RedirectRoute(path: '', redirectTo: '/')
 ])
 class $AppRouter {}

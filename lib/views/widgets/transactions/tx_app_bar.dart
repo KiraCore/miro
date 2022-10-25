@@ -31,7 +31,7 @@ class TxAppBar extends StatelessWidget {
   }
 
   void _closeDialog(BuildContext context) {
-    if (AutoRouter.of(context).root.canPopSelfOrChildren) {
+    if (AutoRouter.of(context).root.canPop()) {
       AutoRouter.of(context).root.pop();
     } else {
       AutoRouter.of(context).popUntilRoot();
