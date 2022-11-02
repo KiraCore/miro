@@ -7,6 +7,7 @@ import 'package:miro/views/layout/app_bar/kira_app_bar_mobile.dart';
 import 'package:miro/views/layout/app_bar/mobile_backdrop/backdrop_app_bar.dart';
 import 'package:miro/views/layout/nav_menu/nav_menu.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
+import 'package:miro/views/widgets/kira/kira_background.dart';
 
 class KiraScaffold extends StatefulWidget {
   final Widget body;
@@ -49,16 +50,18 @@ class KiraScaffoldState extends State<KiraScaffold> {
       drawerEnableOpenDragGesture: false,
       endDrawerEnableOpenDragGesture: false,
       endDrawer: widget.endDrawer,
-      body: ResponsiveWidget(
-        largeScreen: _DesktopScaffold(
-          appBar: widget.appBar,
-          body: _buildAppBody(),
-          navMenu: widget.navMenu,
-        ),
-        mediumScreen: _MobileScaffold(
-          body: _buildAppBody(),
-          appBar: widget.appBar,
-          navMenu: widget.navMenu,
+      body: KiraBackground(
+        child: ResponsiveWidget(
+          largeScreen: _DesktopScaffold(
+            appBar: widget.appBar,
+            body: _buildAppBody(),
+            navMenu: widget.navMenu,
+          ),
+          mediumScreen: _MobileScaffold(
+            body: _buildAppBody(),
+            appBar: widget.appBar,
+            navMenu: widget.navMenu,
+          ),
         ),
       ),
     );

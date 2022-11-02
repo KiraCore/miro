@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:miro/config/app_icons.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/views/pages/menu/dashboard_page/widgets/dashboard_grid_tile.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
@@ -47,8 +48,8 @@ class _DashboardGrid extends State<DashboardGrid> {
               IconButton(
                 onPressed: () {},
                 icon: const Icon(
-                  Icons.navigate_next,
-                  size: 16,
+                  AppIcons.chevron_right,
+                  size: 20,
                   color: DesignColors.gray2_100,
                 ),
               ),

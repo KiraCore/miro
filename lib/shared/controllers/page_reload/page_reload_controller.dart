@@ -1,39 +1,26 @@
-import 'package:miro/shared/controllers/page_reload/page_reload_condition_type.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
 
 class PageReloadController {
-  /// Stores condition when the shouldReload() method should return true
-  final PageReloadConditionType pageReloadConditionType;
+  /// Stores information about whether last query was successful
+  bool hasErrors = false;
 
   /// Holds a unique number identifying current refresh
   /// If local refresh id is different from [activeReloadId] old reload operation should be canceled
   int _activeReloadId = 0;
 
-  /// Stores information about whether last query was successful
-  bool _hasErrors = false;
-
   /// Stores network that was used to perform last query
   ANetworkStatusModel? _usedNetworkStatusModel;
 
-  PageReloadController({
-    required this.pageReloadConditionType,
-  });
+  PageReloadController();
 
   int get activeReloadId => _activeReloadId;
 
-  set hasErrors(bool value) => _hasErrors = value;
+  Uri? get usedUri => _usedNetworkStatusModel?.uri;
 
-  bool canReloadStart(ANetworkStatusModel networkStatusModel) {
+  bool hasNetworkChanged(ANetworkStatusModel networkStatusModel) {
     bool isDifferentNetwork = _usedNetworkStatusModel?.uri != networkStatusModel.uri;
 
-    if (_hasErrors) {
-      // If previous reload has errors, should always refresh
-      return true;
-    } else if (pageReloadConditionType == PageReloadConditionType.changedNetwork) {
-      return isDifferentNetwork;
-    } else {
-      return false;
-    }
+    return isDifferentNetwork;
   }
 
   bool canReloadComplete(int reloadId) {
@@ -42,7 +29,7 @@ class PageReloadController {
 
   void handleReloadCall(ANetworkStatusModel usedNetworkStatusModel) {
     _usedNetworkStatusModel = usedNetworkStatusModel;
-    _hasErrors = false;
     _activeReloadId += 1;
+    hasErrors = false;
   }
 }

@@ -120,11 +120,16 @@ class MockApiRepository implements ApiRepository {
 
   @override
   Future<Response<T>> fetchDashboard<T>(Uri networkUri) async {
-    return Response<T>(
-      statusCode: 200,
-      data: MockApiDashboard.defaultResponse as T,
-      requestOptions: RequestOptions(path: ''),
-    );
+    bool hasResponse = workingEndpoints.contains(networkUri.host);
+    if (hasResponse) {
+      return Response<T>(
+        statusCode: 200,
+        data: MockApiDashboard.defaultResponse as T,
+        requestOptions: RequestOptions(path: ''),
+      );
+    } else {
+      throw DioError(requestOptions: RequestOptions(path: networkUri.host));
+    }
   }
 
   Future<Response<T>> _fetchQueryValidatorsPaginated<T>(QueryValidatorsReq queryValidatorsReq) async {

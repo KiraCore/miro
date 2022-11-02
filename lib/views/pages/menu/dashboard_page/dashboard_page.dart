@@ -1,166 +1,98 @@
 import 'package:flutter/material.dart';
-import 'package:miro/config/app_icons.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:miro/blocs/specific_blocs/dashboard/a_dashboard_state.dart';
+import 'package:miro/blocs/specific_blocs/dashboard/dashboard_cubit.dart';
+import 'package:miro/blocs/specific_blocs/dashboard/states/dashboard_error_state.dart';
+import 'package:miro/blocs/specific_blocs/dashboard/states/dashboard_loading_state.dart';
 import 'package:miro/config/app_sizes.dart';
+import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/views/layout/footer/footer.dart';
-import 'package:miro/views/pages/menu/dashboard_page/widgets/dashboard_grid.dart';
-import 'package:miro/views/pages/menu/dashboard_page/widgets/dashboard_grid_tile.dart';
+import 'package:miro/views/pages/menu/dashboard_page/dashboard_blocs_section.dart';
+import 'package:miro/views/pages/menu/dashboard_page/dashboard_header_section.dart';
+import 'package:miro/views/pages/menu/dashboard_page/dashboard_proposals_section.dart';
+import 'package:miro/views/pages/menu/dashboard_page/dashboard_validators_section.dart';
 import 'package:miro/views/widgets/generic/filled_scroll_view.dart';
 import 'package:miro/views/widgets/generic/responsive/column_row_spacer.dart';
 import 'package:miro/views/widgets/generic/responsive/column_row_swapper.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
-import 'package:miro/views/widgets/kira/kira_card.dart';
+import 'package:miro/views/widgets/kira/kira_toast/toast_container.dart';
 
-class DashboardPage extends StatelessWidget {
+class DashboardPage extends StatefulWidget {
   const DashboardPage({Key? key}) : super(key: key);
 
   @override
+  State<StatefulWidget> createState() => _DashboardPage();
+}
+
+class _DashboardPage extends State<DashboardPage> {
+  final DashboardCubit _dashboardCubit = DashboardCubit();
+
+  @override
+  void dispose() {
+    _dashboardCubit.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return FilledScrollView(
-      child: Padding(
-        padding: ResponsiveWidget.isLargeScreen(context) ? AppSizes.defaultDesktopPageMargin : AppSizes.defaultMobilePageMargin,
-        child: Column(
-          children: const <Widget>[
-            ColumnRowSwapper(
-              expandOnRow: true,
+    TextTheme textTheme = Theme.of(context).textTheme;
+
+    return BlocBuilder<DashboardCubit, ADashboardState>(
+      bloc: _dashboardCubit,
+      builder: (BuildContext context, ADashboardState dashboardState) {
+        bool loading = dashboardState is DashboardLoadingState;
+        return FilledScrollView(
+          child: Padding(
+            padding: ResponsiveWidget.isLargeScreen(context) ? AppSizes.defaultDesktopPageMargin : AppSizes.defaultMobilePageMargin,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                KiraCard(
-                  child: DashboardGridTile.icon(
-                    title: 'speedwagon_rr',
-                    subtitle: 'Current Block Validator',
-                    icon: Icon(
-                      AppIcons.block,
-                      color: Color(0xFFF44082),
+                if (dashboardState is DashboardErrorState) ...<Widget>[
+                  ToastContainer(
+                    width: double.infinity,
+                    title: Text(
+                      'Cannot load dashboard. Please check your connection',
+                      style: textTheme.bodyText2!.copyWith(
+                        color: DesignColors.red_100,
+                      ),
                     ),
+                    toastType: ToastType.error,
                   ),
+                  const SizedBox(height: 32),
+                ],
+                DashboardHeaderSection(
+                  loading: loading,
+                  dashboardModel: dashboardState.dashboardModel,
                 ),
-                ColumnRowSpacer(size: 32),
-                KiraCard(
-                  child: DashboardGridTile.icon(
-                    title: '79%',
-                    subtitle: 'Consensus',
-                    icon: Icon(
-                      AppIcons.consensus,
-                      color: Color(0xFFD429FF),
+                DashboardValidatorsSection(
+                  loading: loading,
+                  validatorsStatusModel: dashboardState.dashboardModel?.validatorsStatusModel,
+                ),
+                ColumnRowSwapper(
+                  expandOnRow: true,
+                  children: <Widget>[
+                    DashboardBlocsSection(
+                      loading: loading,
+                      blocksModel: dashboardState.dashboardModel?.blocksModel,
                     ),
-                  ),
-                ),
-                ColumnRowSpacer(size: 32),
-                KiraCard(
-                  child: DashboardGridTile.icon(
-                    title: 'Healthy',
-                    subtitle: 'Consensus state',
-                    icon: Icon(
-                      AppIcons.health,
-                      color: Color(0xFFF2E46C),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            DashboardGrid(
-              title: 'Validators',
-              columnsCount: 6,
-              mobileColumnsCount: 2,
-              tabletColumnsCount: 3,
-              items: <DashboardGridTile>[
-                DashboardGridTile(
-                  title: '566',
-                  subtitle: 'Total',
-                ),
-                DashboardGridTile(
-                  title: '262',
-                  subtitle: 'Active',
-                ),
-                DashboardGridTile(
-                  title: '26',
-                  subtitle: 'Inactive',
-                ),
-                DashboardGridTile(
-                  title: '22',
-                  subtitle: 'Jailed',
-                ),
-                DashboardGridTile(
-                  title: '11',
-                  subtitle: 'Paused',
-                ),
-                DashboardGridTile(
-                  title: '4',
-                  subtitle: 'Waiting',
-                ),
-              ],
-            ),
-            ColumnRowSwapper(
-              expandOnRow: true,
-              children: <Widget>[
-                DashboardGrid(
-                  title: 'Blocks',
-                  columnsCount: 2,
-                  items: <DashboardGridTile>[
-                    DashboardGridTile(
-                      title: '1234',
-                      subtitle: 'Current height',
-                    ),
-                    DashboardGridTile(
-                      title: '1234',
-                      subtitle: 'Since genesis',
-                    ),
-                    DashboardGridTile(
-                      title: '11',
-                      subtitle: 'Pending transactions',
-                    ),
-                    DashboardGridTile(
-                      title: '566',
-                      subtitle: 'current transactions',
-                    ),
-                    DashboardGridTile(
-                      title: '4,1 sec',
-                      subtitle: 'Latest time',
-                    ),
-                    DashboardGridTile(
-                      title: '3,8 sec',
-                      subtitle: 'Average time',
+                    const ColumnRowSpacer(size: 32),
+                    DashboardProposalsSection(
+                      loading: loading,
+                      proposalsModel: dashboardState.dashboardModel?.proposalsModel,
                     ),
                   ],
                 ),
-                ColumnRowSpacer(size: 32),
-                DashboardGrid(
-                  title: 'Proposals',
-                  columnsCount: 2,
-                  items: <DashboardGridTile>[
-                    DashboardGridTile(
-                      title: '262/566',
-                      subtitle: 'Active',
-                    ),
-                    DashboardGridTile(
-                      title: '26',
-                      subtitle: 'Enacting',
-                    ),
-                    DashboardGridTile(
-                      title: '62',
-                      subtitle: 'Finished',
-                    ),
-                    DashboardGridTile(
-                      title: '2',
-                      subtitle: 'Successfull',
-                    ),
-                    DashboardGridTile(
-                      title: '262/566',
-                      subtitle: 'Proposers',
-                    ),
-                    DashboardGridTile(
-                      title: '211',
-                      subtitle: 'Voters',
-                    ),
-                  ],
+                const SizedBox(height: 36),
+                const Spacer(),
+                Container(
+                  constraints: const BoxConstraints(minHeight: 50),
+                  child: const Footer(),
                 ),
               ],
             ),
-            SizedBox(height: 36),
-            Spacer(),
-            Footer(),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
