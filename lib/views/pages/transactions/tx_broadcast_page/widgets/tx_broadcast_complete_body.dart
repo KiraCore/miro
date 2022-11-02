@@ -1,7 +1,7 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:miro/blocs/specific_blocs/transactions/tx_broadcast/states/tx_broadcast_completed_state.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/shared/router/kira_router.dart';
 import 'package:miro/views/pages/transactions/tx_broadcast_page/widgets/tx_broadcast_status_icon.dart';
 import 'package:miro/views/widgets/buttons/kira_outlined_button.dart';
 import 'package:miro/views/widgets/generic/copy_wrapper/copy_wrapper.dart';
@@ -55,6 +55,6 @@ class TxBroadcastCompleteBody extends StatelessWidget {
   }
 
   void _handleBackPressed(BuildContext context) {
-    AutoRouter.of(context).root.pop();
+    KiraRouter.of(context).parent?.pop();
   }
 }

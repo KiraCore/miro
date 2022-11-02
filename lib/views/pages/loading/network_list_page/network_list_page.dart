@@ -6,6 +6,7 @@ import 'package:miro/shared/models/network/connection/connection_error_model.dar
 import 'package:miro/shared/models/network/connection/connection_error_type.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
 import 'package:miro/shared/models/network/status/network_empty_model.dart';
+import 'package:miro/shared/router/kira_router.dart';
 import 'package:miro/shared/utils/router_utils.dart';
 import 'package:miro/views/widgets/network_list/network_custom_section/network_custom_section.dart';
 import 'package:miro/views/widgets/network_list/network_list.dart';
@@ -14,12 +15,12 @@ import 'package:miro/views/widgets/network_list/network_list_tile.dart';
 class NetworkListPage extends StatefulWidget {
   final ConnectionErrorType connectionErrorType;
   final ANetworkStatusModel? canceledNetworkStatusModel;
-  final RouteMatch<dynamic>? nextRoute;
+  final PageRouteInfo? nextPageRouteInfo;
 
   const NetworkListPage({
     this.connectionErrorType = ConnectionErrorType.canceledByUser,
     this.canceledNetworkStatusModel,
-    this.nextRoute,
+    this.nextPageRouteInfo,
     Key? key,
   }) : super(key: key);
 
@@ -138,8 +139,9 @@ class _ConnectionsPage extends State<NetworkListPage> {
     return widget.canceledNetworkStatusModel != null && widget.canceledNetworkStatusModel is! NetworkEmptyModel;
   }
 
-  void _handleNetworkConnected(ANetworkStatusModel networkStatusModel) {
-    PageRouteInfo<dynamic> nextRoute = RouterUtils.getNextRouteAfterLoading(widget.nextRoute);
-    AutoRouter.of(context).navigate(nextRoute);
+  Future<void> _handleNetworkConnected(ANetworkStatusModel networkStatusModel) async {
+    await Future<void>.delayed(const Duration(milliseconds: 100));
+    PageRouteInfo<dynamic> nextRoute = RouterUtils.getNextRouteAfterLoading(widget.nextPageRouteInfo);
+    await KiraRouter.of(context).navigate(nextRoute);
   }
 }

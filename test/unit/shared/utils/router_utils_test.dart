@@ -1,112 +1,32 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:miro/shared/router/router.gr.dart';
 import 'package:miro/shared/utils/router_utils.dart';
 
 // To run tests use:
 // fvm flutter test "test/unit/shared/utils/router_utils_test.dart" --platform chrome --null-assertions
 void main() {
-  RouteMatch<dynamic> dashboardRouteMatch = RouteMatch<dynamic>(
-    name: 'PagesWrapperRoute',
-    segments: const <String>['/'],
-    path: '/',
-    stringMatch: '/',
-    key: UniqueKey(),
-    children: <RouteMatch<dynamic>>[
-      RouteMatch<dynamic>(
-        name: 'MenuRoute',
-        segments: const <String>['app'],
-        path: 'app',
-        stringMatch: 'app',
-        key: UniqueKey(),
-        children: <RouteMatch<dynamic>>[
-          RouteMatch<dynamic>(
-            name: 'DashboardRoute',
-            segments: const <String>['dashboard'],
-            path: 'dashboard',
-            stringMatch: 'dashboard',
-            key: UniqueKey(),
-          ),
-        ],
-      ),
+  PageRouteInfo dashboardPageRouteInfo = const PagesWrapperRoute(
+    children: <PageRouteInfo>[
+      MenuWrapperRoute(children: <PageRouteInfo>[DashboardRoute()]),
     ],
   );
 
-  RouteMatch<dynamic> accountsRouteMatch = RouteMatch<dynamic>(
-    name: 'PagesWrapperRoute',
-    segments: const <String>['/'],
-    path: '/',
-    stringMatch: '/',
-    key: UniqueKey(),
-    children: <RouteMatch<dynamic>>[
-      RouteMatch<dynamic>(
-        name: 'MenuRoute',
-        segments: const <String>['app'],
-        path: 'app',
-        stringMatch: 'app',
-        key: UniqueKey(),
-        children: <RouteMatch<dynamic>>[
-          RouteMatch<dynamic>(
-            name: 'AccountsRoute',
-            segments: const <String>['accounts'],
-            path: 'accounts',
-            stringMatch: 'accounts',
-            key: UniqueKey(),
-          ),
-        ],
-      ),
+  PageRouteInfo accountsPageRouteInfo = const PagesWrapperRoute(
+    children: <PageRouteInfo>[
+      MenuWrapperRoute(children: <PageRouteInfo>[AccountsRoute()]),
     ],
   );
 
-  RouteMatch<dynamic> loadingPageRouteMatch = RouteMatch<dynamic>(
-    name: 'PagesWrapperRoute',
-    segments: const <String>['/'],
-    path: '/',
-    stringMatch: '/',
-    key: UniqueKey(),
-    children: <RouteMatch<dynamic>>[
-      RouteMatch<dynamic>(
-        name: 'LoadingWrapperRoute',
-        segments: const <String>['connection'],
-        path: 'connection',
-        stringMatch: 'connection',
-        key: UniqueKey(),
-        children: <RouteMatch<dynamic>>[
-          RouteMatch<dynamic>(
-            name: 'LoadingRoute',
-            segments: const <String>['loading'],
-            path: 'loading',
-            stringMatch: 'loading',
-            key: UniqueKey(),
-          ),
-        ],
-      ),
+  PageRouteInfo loadingPageRouteInfo = PagesWrapperRoute(
+    children: <PageRouteInfo>[
+      LoadingWrapperRoute(children: <PageRouteInfo>[LoadingRoute()]),
     ],
   );
 
-  RouteMatch<dynamic> networkListPagePageRouteMatch = RouteMatch<dynamic>(
-    name: 'PagesWrapperRoute',
-    segments: const <String>['/'],
-    path: '/',
-    stringMatch: '/',
-    key: UniqueKey(),
-    children: <RouteMatch<dynamic>>[
-      RouteMatch<dynamic>(
-        name: 'LoadingWrapperRoute',
-        segments: const <String>['connection'],
-        path: 'connection',
-        stringMatch: 'connection',
-        key: UniqueKey(),
-        children: <RouteMatch<dynamic>>[
-          RouteMatch<dynamic>(
-            name: 'NetworkListRoute',
-            segments: const <String>['select'],
-            path: 'select',
-            stringMatch: 'select',
-            key: UniqueKey(),
-          ),
-        ],
-      ),
+  PageRouteInfo networkListPageRouteInfo = PagesWrapperRoute(
+    children: <PageRouteInfo>[
+      LoadingWrapperRoute(children: <PageRouteInfo>[NetworkListRoute()]),
     ],
   );
 
@@ -126,7 +46,7 @@ void main() {
 
     test('Should return default route if initial path is loading page', () {
       // Act
-      String actualRoutePath = RouterUtils.getNextRouteAfterLoading(loadingPageRouteMatch).fullPath;
+      String actualRoutePath = RouterUtils.getNextRouteAfterLoading(loadingPageRouteInfo).fullPath;
 
       // Assert
       expect(
@@ -137,7 +57,7 @@ void main() {
 
     test('Should return default route if initial path is network list page', () {
       // Act
-      String actualRoutePath = RouterUtils.getNextRouteAfterLoading(networkListPagePageRouteMatch).fullPath;
+      String actualRoutePath = RouterUtils.getNextRouteAfterLoading(networkListPageRouteInfo).fullPath;
 
       // Assert
       expect(
@@ -148,7 +68,7 @@ void main() {
 
     test('Should return default route if initial path is equal default route', () {
       // Act
-      String actualRoutePath = RouterUtils.getNextRouteAfterLoading(dashboardRouteMatch).fullPath;
+      String actualRoutePath = RouterUtils.getNextRouteAfterLoading(dashboardPageRouteInfo).fullPath;
 
       // Assert
       expect(
@@ -159,7 +79,7 @@ void main() {
 
     test('Should return route from initial path if initial route is other than connecting or loading page', () {
       // Act
-      String actualRoutePath = RouterUtils.getNextRouteAfterLoading(accountsRouteMatch).fullPath;
+      String actualRoutePath = RouterUtils.getNextRouteAfterLoading(accountsPageRouteInfo).fullPath;
 
       // Assert
       String expectedRoutePath = '/app/accounts';

@@ -1,7 +1,7 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:miro/config/app_icons.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/shared/router/kira_router.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 
 class TxAppBar extends StatelessWidget {
@@ -31,12 +31,7 @@ class TxAppBar extends StatelessWidget {
   }
 
   void _closeDialog(BuildContext context) {
-    if (AutoRouter.of(context).root.canPop()) {
-      AutoRouter.of(context).root.pop();
-    } else {
-      AutoRouter.of(context).popUntilRoot();
-      AutoRouter.of(context).pushNamed('/app/dashboard');
-    }
+    KiraRouter.of(context).pop();
   }
 
   EdgeInsets _selectAppBarPadding(BuildContext context) {

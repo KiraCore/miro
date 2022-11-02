@@ -2,23 +2,22 @@ import 'package:auto_route/auto_route.dart';
 import 'package:miro/shared/router/router.gr.dart';
 
 class RouterUtils {
-  static const PageRouteInfo<dynamic> defaultRoute = PagesWrapperRoute(children: <PageRouteInfo>[
+  static PageRouteInfo<dynamic> defaultRoute = const PagesWrapperRoute(children: <PageRouteInfo>[
     MenuWrapperRoute(children: <PageRouteInfo>[
       DashboardRoute(),
     ])
   ]);
 
-  static PageRouteInfo<dynamic> getNextRouteAfterLoading(RouteMatch<dynamic>? initialRouteMatch) {
-    if (initialRouteMatch == null) {
+  static PageRouteInfo<dynamic> getNextRouteAfterLoading(PageRouteInfo? initialPageRouteInfo) {
+    if (initialPageRouteInfo == null) {
       return defaultRoute;
     }
-    List<RouteMatch<dynamic>> initialRouteMatchChildren = initialRouteMatch.children ?? List<RouteMatch<dynamic>>.empty();
-    List<String> childrenNames = initialRouteMatchChildren.map((RouteMatch<dynamic> route) => route.name).toList();
+    List<PageRouteInfo> initialRouteMatchChildren = initialPageRouteInfo.flattened;
+    List<String> childrenNames = initialRouteMatchChildren.map((PageRouteInfo pageRouteInfo) => pageRouteInfo.routeName).toList();
     if (childrenNames.contains(LoadingWrapperRoute.name)) {
       return defaultRoute;
     }
-
-    return PageRouteInfo<dynamic>.fromMatch(initialRouteMatch);
+    return initialPageRouteInfo;
   }
 
   static List<String> getParentRouterNames(StackRouter router) {

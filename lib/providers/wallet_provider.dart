@@ -1,6 +1,6 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
+import 'package:miro/shared/router/kira_router.dart';
 import 'package:miro/shared/router/router.gr.dart';
 
 class WalletProvider extends ChangeNotifier {
@@ -19,7 +19,7 @@ class WalletProvider extends ChangeNotifier {
 
   void logout(BuildContext context) {
     _currentWallet = null;
-    AutoRouter.of(context).navigate(const DashboardRoute());
+    KiraRouter.of(context).navigate(const DashboardRoute());
     notifyListeners();
   }
 }

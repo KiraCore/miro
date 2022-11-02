@@ -11,11 +11,12 @@ import 'package:miro/generated/l10n.dart';
 import 'package:miro/infra/cache/cache_manager.dart';
 import 'package:miro/providers/app_config_provider.dart';
 import 'package:miro/providers/app_list_providers.dart';
-import 'package:miro/shared/guards/auth_guard.dart';
-import 'package:miro/shared/guards/connection_guard.dart';
-import 'package:miro/shared/guards/loading_page_guard.dart';
-import 'package:miro/shared/guards/navigation_guard.dart';
-import 'package:miro/shared/guards/url_parameters_guard.dart';
+import 'package:miro/shared/router/guards/auth_guard.dart';
+import 'package:miro/shared/router/guards/connection_guard.dart';
+import 'package:miro/shared/router/guards/navigation_guard.dart';
+import 'package:miro/shared/router/guards/pages/loading_page_guard.dart';
+import 'package:miro/shared/router/guards/pages/tx_broadcast_page_guard.dart';
+import 'package:miro/shared/router/guards/pages/tx_confirm_page_guard.dart';
 import 'package:miro/shared/router/router.gr.dart';
 import 'package:miro/shared/utils/assets_manager.dart';
 import 'package:provider/provider.dart';
@@ -51,8 +52,9 @@ class _CoreApp extends State<CoreApp> {
   final ConnectionGuard connectionGuard = ConnectionGuard();
   late final AppRouter appRouter = AppRouter(
     authGuard: AuthGuard(),
-    urlParametersGuard: UrlParametersGuard(),
+    txConfirmPageGuard: TxConfirmPageGuard(),
     navigationGuard: NavigationGuard(),
+    txBroadcastPageGuard: TxBroadcastPageGuard(),
     connectionGuard: connectionGuard,
     loadingPageGuard: LoadingPageGuard(connectionGuard: connectionGuard),
   );
