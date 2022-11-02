@@ -27,7 +27,6 @@ import 'package:miro/blocs/specific_blocs/network_module/network_module_bloc.dar
 import 'package:miro/blocs/specific_blocs/network_module/network_module_state.dart';
 import 'package:miro/config/app_config.dart';
 import 'package:miro/config/locator.dart';
-import 'package:miro/shared/controllers/page_reload/page_reload_condition_type.dart';
 import 'package:miro/shared/controllers/page_reload/page_reload_controller.dart';
 import 'package:miro/shared/controllers/reload_notifier/reload_notifier_model.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
@@ -50,7 +49,7 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
 
   final IListController<T> listController;
 
-  final PageReloadController pageReloadController = PageReloadController(pageReloadConditionType: PageReloadConditionType.changedNetwork);
+  final PageReloadController pageReloadController = PageReloadController();
 
   final int singlePageSize;
 
@@ -84,10 +83,12 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
     on<ListOptionsChangedEvent>(_mapListOptionsChangedEventToState);
 
     // Init listeners
+    reloadNotifierModel?.addListener(_handleReloadNotifierUpdate);
+
     _favouritesStateSubscription = favouritesBloc.stream.listen((_) => add(const ListUpdatedEvent(jumpToTop: true)));
     _filtersStateSubscription = filtersBloc.stream.listen((_) => add(ListOptionsChangedEvent()));
-    _networkModuleStateSubscription = networkModuleBloc.stream.listen(_handleNetworkModuleStateChanged);
-    reloadNotifierModel?.addListener(_handleReloadNotifierUpdate);
+    _networkModuleStateSubscription = networkModuleBloc.stream.listen(_reloadAfterNetworkModuleStateChanged);
+    _networkModuleStateSubscription = networkModuleBloc.stream.listen(_reloadAfterNetworkModuleStateChanged);
     _sortStateSubscription = sortBloc.stream.listen((_) => add(ListOptionsChangedEvent()));
 
     // Call ListReloadEvent to fetch first page
@@ -182,16 +183,20 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
     add(const ListUpdatedEvent(jumpToTop: true));
   }
 
-  void _handleNetworkModuleStateChanged(NetworkModuleState networkModuleState) {
-    ANetworkStatusModel networkStatusModel = networkModuleBloc.state.networkStatusModel;
-    bool canReloadStart = pageReloadController.canReloadStart(networkStatusModel);
-    if (canReloadStart) {
-      add(ListReloadEvent());
-    }
-  }
-
   void _handleReloadNotifierUpdate() {
     add(ListReloadEvent());
+  }
+
+  void _reloadAfterNetworkModuleStateChanged(NetworkModuleState networkModuleState) {
+    ANetworkStatusModel networkStatusModel = networkModuleBloc.state.networkStatusModel;
+
+    bool hasErrors = pageReloadController.hasErrors;
+    bool hasNetworkChanged = pageReloadController.hasNetworkChanged(networkStatusModel);
+    bool shouldReload = hasErrors || hasNetworkChanged;
+
+    if (shouldReload) {
+      add(ListReloadEvent());
+    }
   }
 
   Future<PageData<T>> _getPageData(int pageIndex) async {

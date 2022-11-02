@@ -1,5 +1,4 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:miro/shared/controllers/page_reload/page_reload_condition_type.dart';
 import 'package:miro/shared/controllers/page_reload/page_reload_controller.dart';
 import 'package:miro/shared/models/network/data/connection_status_type.dart';
 import 'package:miro/shared/models/network/data/interx_warning_model.dart';
@@ -43,10 +42,10 @@ void main() {
   group('Tests of PageReloadController process for PageReloadConditionType.differentNetwork', () {
     test('Should return values assigned to specified actions', () {
       // Arrange
-      PageReloadController actualPageReloadController = PageReloadController(pageReloadConditionType: PageReloadConditionType.changedNetwork);
+      PageReloadController actualPageReloadController = PageReloadController();
 
       // Assert
-      TestUtils.printInfo('Should return "0" as initial value');
+      TestUtils.printInfo('Should return "0" as initial value of activeReloadId');
       expect(actualPageReloadController.activeReloadId, 0);
 
       // Assert
@@ -54,14 +53,20 @@ void main() {
       expect(actualPageReloadController.canReloadComplete(0), true);
 
       // Assert
-      TestUtils.printInfo('Should return "true" if usedReloadId is empty');
-      expect(actualPageReloadController.canReloadStart(networkHealthyModel), true);
+      TestUtils.printInfo('Should return "true" if initial network is not set');
+      expect(actualPageReloadController.hasNetworkChanged(networkHealthyModel), true);
+
+      // Assert
+      TestUtils.printInfo('Should return "false" as value of hasErrors');
+      expect(actualPageReloadController.hasErrors, false);
+
+      // ************************************************************************************************
 
       // Act
       actualPageReloadController.handleReloadCall(networkHealthyModel);
 
       // Assert
-      TestUtils.printInfo('Should return "1" after first reload called');
+      TestUtils.printInfo('Should return "1" as value of activeReloadId, after first reload called');
       expect(actualPageReloadController.activeReloadId, 1);
 
       // Assert
@@ -73,26 +78,49 @@ void main() {
       expect(actualPageReloadController.canReloadComplete(1), true);
 
       // Assert
-      TestUtils.printInfo('Should return "false" when provided NetworkStatusModel is equal used NetworkStatusModel (network refreshed)');
-      expect(actualPageReloadController.canReloadStart(networkHealthyModel), false);
-
-      // Act
-      actualPageReloadController.hasErrors = true;
+      TestUtils.printInfo('Should return "true" if used network is other than provided network');
+      expect(actualPageReloadController.hasNetworkChanged(networkUnhealthyModel), true);
 
       // Assert
-      TestUtils.printInfo('Should return "true" when provided NetworkStatusModel is equal used NetworkStatusModel but page has errors');
-      expect(actualPageReloadController.canReloadStart(networkHealthyModel), true);
+      TestUtils.printInfo('Should return "false" if used network is equal provided network');
+      expect(actualPageReloadController.hasNetworkChanged(networkHealthyModel), false);
 
       // Assert
-      TestUtils.printInfo('Should return "true" when provided NetworkStatusModel is different than used NetworkStatusModel url (network changed)');
-      expect(actualPageReloadController.canReloadStart(networkUnhealthyModel), true);
+      TestUtils.printInfo('Should return "false" if hasErrors is not set');
+      expect(actualPageReloadController.hasErrors, false);
+
+      // ************************************************************************************************
 
       // Act
       actualPageReloadController.handleReloadCall(networkUnhealthyModel);
 
       // Assert
-      TestUtils.printInfo('Should return "2" after second reload called');
+      TestUtils.printInfo('Should return "2" as value of activeReloadId, after second reload called');
       expect(actualPageReloadController.activeReloadId, 2);
+
+      // Assert
+      TestUtils.printInfo('Should return "false" if provided reloadId is inactive');
+      expect(actualPageReloadController.canReloadComplete(0), false);
+
+      // Assert
+      TestUtils.printInfo('Should return "false" if provided reloadId is inactive');
+      expect(actualPageReloadController.canReloadComplete(1), false);
+
+      // Assert
+      TestUtils.printInfo('Should return "true" if provided reloadId is active');
+      expect(actualPageReloadController.canReloadComplete(2), true);
+
+      // Assert
+      TestUtils.printInfo('Should return "false" if used network is equal provided network');
+      expect(actualPageReloadController.hasNetworkChanged(networkUnhealthyModel), false);
+
+      // Assert
+      TestUtils.printInfo('Should return "true" if used network is other than provided network');
+      expect(actualPageReloadController.hasNetworkChanged(networkHealthyModel), true);
+
+      // Assert
+      TestUtils.printInfo('Should set hasErrors to "false" after handleReloadCall');
+      expect(actualPageReloadController.hasErrors, false);
     });
   });
 }
