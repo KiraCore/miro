@@ -17,9 +17,7 @@ class DashboardPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return FilledScrollView(
       child: Padding(
-        padding: ResponsiveWidget.isLargeScreen(context)
-            ? AppSizes.defaultDesktopPageMargin
-            : AppSizes.defaultMobilePageMargin,
+        padding: ResponsiveWidget.isLargeScreen(context) ? AppSizes.defaultDesktopPageMargin : AppSizes.defaultMobilePageMargin,
         child: Column(
           children: const <Widget>[
             ColumnRowSwapper(

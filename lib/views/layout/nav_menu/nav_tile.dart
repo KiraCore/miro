@@ -79,8 +79,12 @@ class _NavTile extends State<NavTile> {
   }
 
   void _handleMenuProviderChanged() {
-    if (mounted) {
-      setState(() {});
+    try {
+      if (mounted) {
+        setState(() {});
+      }
+    } catch (_) {
+      // TODO(dominik): Refactored this widget on dp-refactor/kira-scaffold
     }
   }
 }

@@ -17,7 +17,7 @@ class AppConfig {
 
   final Duration outdatedBlockDuration = const Duration(minutes: 5);
   final Duration loadingPageTimerDuration = const Duration(seconds: 4);
-  final List<String> supportedInterxVersions = <String>['v0.4.20-rc2'];
+  final List<String> supportedInterxVersions = <String>['v0.4.20-rc2', 'v0.4.20-rc3'];
 
   final int _defaultRefreshIntervalSeconds = 60;
   final NetworkUnknownModel _defaultNetworkUnknownModel = NetworkUnknownModel(
@@ -48,8 +48,7 @@ class AppConfig {
   }
 
   NetworkUnknownModel findNetworkModelInConfig(NetworkUnknownModel networkUnknownModel) {
-    List<NetworkUnknownModel> matchingNetworkUnknownModels =
-        networkList.where((NetworkUnknownModel e) => e.uri.host == networkUnknownModel.uri.host).toList();
+    List<NetworkUnknownModel> matchingNetworkUnknownModels = networkList.where((NetworkUnknownModel e) => e.uri.host == networkUnknownModel.uri.host).toList();
 
     if (matchingNetworkUnknownModels.isEmpty) {
       return networkUnknownModel;

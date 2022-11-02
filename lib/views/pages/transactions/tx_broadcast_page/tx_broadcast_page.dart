@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/specific_blocs/transactions/tx_broadcast/a_tx_broadcast_state.dart';
@@ -7,16 +8,17 @@ import 'package:miro/blocs/specific_blocs/transactions/tx_broadcast/states/tx_br
 import 'package:miro/blocs/specific_blocs/transactions/tx_broadcast/tx_broadcast_cubit.dart';
 import 'package:miro/config/app_sizes.dart';
 import 'package:miro/shared/models/transactions/signed_transaction_model.dart';
+import 'package:miro/shared/router/kira_router.dart';
 import 'package:miro/shared/utils/app_logger.dart';
 import 'package:miro/views/pages/transactions/tx_broadcast_page/widgets/tx_broadcast_complete_body.dart';
 import 'package:miro/views/pages/transactions/tx_broadcast_page/widgets/tx_broadcast_error_body.dart';
 import 'package:miro/views/pages/transactions/tx_broadcast_page/widgets/tx_broadcast_loading_body.dart';
 
 class TxBroadcastPage extends StatefulWidget {
-  final SignedTxModel signedTxModel;
+  final SignedTxModel? signedTxModel;
 
   const TxBroadcastPage({
-    required this.signedTxModel,
+    @QueryParam('tx') this.signedTxModel,
     Key? key,
   }) : super(key: key);
 
@@ -30,11 +32,17 @@ class _TxBroadcastPage extends State<TxBroadcastPage> {
   @override
   void initState() {
     super.initState();
-    txBroadcastCubit.broadcast(widget.signedTxModel);
+    if (widget.signedTxModel != null) {
+      txBroadcastCubit.broadcast(widget.signedTxModel!);
+    }
   }
 
   @override
   Widget build(BuildContext context) {
+    if (widget.signedTxModel == null) {
+      KiraRouter.of(context).navigateBack();
+    }
+
     return Padding(
       padding: AppSizes.defaultMobilePageMargin,
       child: BlocProvider<TxBroadcastCubit>(
@@ -53,7 +61,7 @@ class _TxBroadcastPage extends State<TxBroadcastPage> {
 
   Widget _buildTxStatusWidget(ATxBroadcastState txBroadcastState) {
     if (txBroadcastState is TxBroadcastErrorState) {
-      return TxBroadcastErrorBody(txBroadcastErrorState: txBroadcastState, signedTxModel: widget.signedTxModel);
+      return TxBroadcastErrorBody(txBroadcastErrorState: txBroadcastState, signedTxModel: widget.signedTxModel!);
     } else if (txBroadcastState is TxBroadcastLoadingState) {
       return TxBroadcastLoadingBody(txBroadcastLoadingState: txBroadcastState);
     } else if (txBroadcastState is TxBroadcastCompletedState) {

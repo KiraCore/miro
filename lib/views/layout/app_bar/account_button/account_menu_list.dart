@@ -1,8 +1,8 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/providers/wallet_provider.dart';
+import 'package:miro/shared/router/kira_router.dart';
 import 'package:miro/shared/router/router.gr.dart';
 import 'package:miro/views/widgets/generic/mouse_state_listener.dart';
 
@@ -40,7 +40,7 @@ class AccountMenuList extends StatelessWidget {
     if (onItemTap != null) {
       onItemTap!();
     }
-    AutoRouter.of(context).navigate(const MyAccountRoute());
+    KiraRouter.of(context).navigate(const MyAccountRoute());
   }
 
   void _onLogout(BuildContext context) {
@@ -48,7 +48,7 @@ class AccountMenuList extends StatelessWidget {
       onItemTap!();
     }
     globalLocator<WalletProvider>().logout(context);
-    AutoRouter.of(context).replace(const DashboardRoute());
+    KiraRouter.of(context).navigate(const DashboardRoute());
   }
 }
 

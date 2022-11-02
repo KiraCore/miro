@@ -6,6 +6,7 @@ import 'package:miro/blocs/specific_blocs/list/favourites/events/favourites_add_
 import 'package:miro/blocs/specific_blocs/list/favourites/events/favourites_remove_record_event.dart';
 import 'package:miro/blocs/specific_blocs/list/favourites/favourites_bloc.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
+import 'package:miro/shared/router/kira_router.dart';
 import 'package:miro/shared/router/router.gr.dart';
 import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_list_item_desktop/balance_list_item_desktop.dart';
 import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_list_item_layout.dart';
@@ -79,12 +80,12 @@ class _BalanceListItemBuilder extends State<BalanceListItemBuilder> {
   }
 
   void _handleSendButtonPressed() {
-    AutoRouter.of(context).root.push(PagesWrapperRoute(
-          children: <PageRouteInfo>[
-            TransactionsWrapperRoute(children: <PageRouteInfo>[
-              TxTokensSendFormRoute(initialBalanceModel: widget.balanceModel),
-            ])
-          ],
-        ));
+    KiraRouter.of(context).navigate(PagesWrapperRoute(
+      children: <PageRouteInfo>[
+        TransactionsWrapperRoute(children: <PageRouteInfo>[
+          TxTokensSendFormRoute(initialBalanceModel: widget.balanceModel),
+        ])
+      ],
+    ));
   }
 }

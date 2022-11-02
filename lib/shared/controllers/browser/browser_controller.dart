@@ -2,7 +2,8 @@ import 'dart:html' as html;
 
 class BrowserController {
   static void replaceUrl(Uri newUrl) {
-    html.window.history.replaceState(<String, dynamic>{}, '', newUrl.toString());
+    String decodedUri = Uri.decodeComponent(newUrl.toString());
+    html.window.history.replaceState(<String, dynamic>{}, '', decodedUri);
   }
 
   static void downloadFile(List<dynamic> content, String name) {

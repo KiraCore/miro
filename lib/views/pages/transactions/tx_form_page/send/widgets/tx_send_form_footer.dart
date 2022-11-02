@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:miro/blocs/specific_blocs/transactions/tx_send_form/states/tx_send_form_building_error_state.dart';
 import 'package:miro/blocs/specific_blocs/transactions/tx_send_form/states/tx_send_form_building_state.dart';
@@ -13,6 +12,7 @@ import 'package:miro/shared/models/transactions/signed_transaction_model.dart';
 import 'package:miro/shared/models/transactions/tx_local_info_model.dart';
 import 'package:miro/shared/models/transactions/unsigned_tx_model.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
+import 'package:miro/shared/router/kira_router.dart';
 import 'package:miro/shared/router/router.gr.dart';
 import 'package:miro/shared/utils/app_logger.dart';
 import 'package:miro/shared/utils/transactions/tx_signer.dart';
@@ -91,7 +91,7 @@ class _TxSendFormFooter extends State<TxSendFormFooter> {
     Wallet? wallet = walletProvider.currentWallet;
     if (wallet != null) {
       SignedTxModel signedTxModel = TxSigner.sign(unsignedTxModel: unsignedTxModel, wallet: wallet);
-      await AutoRouter.of(context).navigate(TxConfirmRoute(
+      await KiraRouter.of(context).navigate(TxConfirmRoute(
         signedTxModel: signedTxModel,
         tokenDenominationModel: widget.tokenDenominationModel,
       ));
