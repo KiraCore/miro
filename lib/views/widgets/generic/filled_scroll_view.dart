@@ -13,6 +13,7 @@ class FilledScrollView extends StatelessWidget {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         return SingleChildScrollView(
+          controller: ScrollController(),
           child: ConstrainedBox(
             constraints: BoxConstraints(minWidth: constraints.maxWidth, minHeight: constraints.maxHeight),
             child: IntrinsicHeight(

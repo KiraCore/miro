@@ -10,27 +10,23 @@ import 'package:miro/views/widgets/kira/kira_identity_avatar.dart';
 
 class SignedInAccountButton extends StatelessWidget {
   final Wallet wallet;
-  final Size desktopSize;
-  final Size mobileSize;
+  final Size size;
 
   const SignedInAccountButton({
     required this.wallet,
-    required this.desktopSize,
-    required this.mobileSize,
+    required this.size,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    Widget signedInAccountButtonDesktop = _SignedInAccountButtonDesktop(wallet: wallet, size: size);
+    Widget signedInAccountButtonMobile = _SignedInAccountButtonMobile(wallet: wallet, size: size);
+
     return ResponsiveWidget(
-      largeScreen: _SignedInAccountButtonDesktop(
-        wallet: wallet,
-        size: desktopSize,
-      ),
-      mediumScreen: _SignedInAccountButtonMobile(
-        wallet: wallet,
-        size: mobileSize,
-      ),
+      largeScreen: signedInAccountButtonDesktop,
+      mediumScreen: signedInAccountButtonDesktop,
+      smallScreen: signedInAccountButtonMobile,
     );
   }
 }
