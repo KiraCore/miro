@@ -25,6 +25,7 @@ class NetworkList extends StatelessWidget {
           List<ANetworkStatusModel> visibleNetworkStatusModelList = _getVisibleNetworkStatusModelList(networkListState);
 
           return ListView.builder(
+            controller: ScrollController(),
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             itemCount: visibleNetworkStatusModelList.length,

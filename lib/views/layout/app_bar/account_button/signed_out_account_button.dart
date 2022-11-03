@@ -6,20 +6,22 @@ import 'package:miro/views/widgets/buttons/kira_elevated_button.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 
 class SignedOutAccountButton extends StatelessWidget {
-  final Size desktopSize;
-  final Size mobileSize;
+  final Size size;
 
   const SignedOutAccountButton({
-    required this.desktopSize,
-    required this.mobileSize,
+    required this.size,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    Widget signedOutButtonDesktop = _SignedOutButtonDesktop(size: size);
+    Widget signedOutButtonMobile = _SignedOutButtonMobile(size: size);
+
     return ResponsiveWidget(
-      largeScreen: _SignedOutButtonDesktop(size: desktopSize),
-      mediumScreen: _SignedOutButtonMobile(size: mobileSize),
+      largeScreen: signedOutButtonDesktop,
+      mediumScreen: signedOutButtonDesktop,
+      smallScreen: signedOutButtonMobile,
     );
   }
 }

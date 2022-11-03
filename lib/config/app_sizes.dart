@@ -1,6 +1,11 @@
 import 'package:flutter/cupertino.dart';
 
 class AppSizes {
+  static const double desktopAppbarHeight = 80;
+  static const double mobileAppbarHeight = 80;
+  static const double navMenuItemHeight = 55;
+  static const double sidebarDesktopWidth = 252;
+
   static const EdgeInsets defaultDesktopPageMargin = EdgeInsets.only(
     top: 40,
     left: 40,
@@ -12,10 +17,4 @@ class AppSizes {
     left: 15,
     right: 15,
   );
-
-  static const double appBarHeight = 80;
-  static const double appBarItemsHeight = 48;
-
-  static const double menuItemWidth = 232;
-  static const double menuItemHeight = 56;
 }

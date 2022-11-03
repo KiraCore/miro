@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/app_icons.dart';
-import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/views/layout/footer/footer_icon_button.dart';
+import 'package:miro/views/layout/footer/footer_text_button.dart';
 import 'package:miro/views/widgets/generic/responsive/column_row_spacer.dart';
 import 'package:miro/views/widgets/generic/responsive/column_row_swapper.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
@@ -18,80 +19,49 @@ class Footer extends StatelessWidget {
         columnCrossAxisAlignment: CrossAxisAlignment.center,
         expandOnRow: true,
         children: <Widget>[
-          _buildTextSection(context),
+          Row(
+            mainAxisAlignment: ResponsiveWidget.isLargeScreen(context) ? MainAxisAlignment.start : MainAxisAlignment.center,
+            children: <Widget>[
+              FooterTextButton(
+                title: 'User terms',
+                onPressed: () {},
+              ),
+              const SizedBox(width: 32),
+              FooterTextButton(
+                title: 'Privacy Policy',
+                onPressed: () {},
+              ),
+              const SizedBox(width: 32),
+              FooterTextButton(
+                title: 'White Paper',
+                onPressed: () {},
+              ),
+            ],
+          ),
           const ColumnRowSpacer(size: 25),
-          _buildIconSection(context),
+          Row(
+            mainAxisAlignment: ResponsiveWidget.isLargeScreen(context) ? MainAxisAlignment.end : MainAxisAlignment.center,
+            children: <Widget>[
+              FooterIconButton(
+                iconData: AppIcons.twitter,
+                onPressed: () {},
+              ),
+              FooterIconButton(
+                iconData: AppIcons.medium,
+                onPressed: () {},
+              ),
+              FooterIconButton(
+                iconData: AppIcons.github,
+                onPressed: () {},
+              ),
+              FooterIconButton(
+                iconData: AppIcons.telegram,
+                onPressed: () {},
+              ),
+            ],
+          ),
         ],
       ),
-    );
-  }
-
-  Widget _buildTextSection(BuildContext context) {
-    return Row(
-      mainAxisAlignment: ResponsiveWidget.isSmallScreen(context) ? MainAxisAlignment.center : MainAxisAlignment.start,
-      children: <Widget>[
-        _buildTextButton(
-          text: 'User terms',
-          onPressed: () {},
-        ),
-        const SizedBox(width: 32),
-        _buildTextButton(
-          text: 'Privacy Policy',
-          onPressed: () {},
-        ),
-        const SizedBox(width: 32),
-        _buildTextButton(
-          text: 'White Paper',
-          onPressed: () {},
-        ),
-      ],
-    );
-  }
-
-  Widget _buildTextButton({required VoidCallback onPressed, required String text}) {
-    return TextButton(
-      onPressed: onPressed,
-      child: Text(
-        text,
-        style: const TextStyle(
-          fontSize: 12,
-          fontWeight: FontWeight.w400,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildIconSection(BuildContext context) {
-    return Row(
-      mainAxisAlignment: ResponsiveWidget.isLargeScreen(context) ? MainAxisAlignment.end : MainAxisAlignment.center,
-      children: <Widget>[
-        _buildIconButton(
-          icon: const Icon(AppIcons.twitter),
-          onPressed: () {},
-        ),
-        _buildIconButton(
-          icon: const Icon(AppIcons.medium),
-          onPressed: () {},
-        ),
-        _buildIconButton(
-          icon: const Icon(AppIcons.github),
-          onPressed: () {},
-        ),
-        _buildIconButton(
-          icon: const Icon(AppIcons.telegram),
-          onPressed: () {},
-        ),
-      ],
-    );
-  }
-
-  Widget _buildIconButton({required VoidCallback onPressed, required Icon icon}) {
-    return IconButton(
-      onPressed: onPressed,
-      color: DesignColors.gray2_100,
-      splashRadius: 20,
-      icon: icon,
-      iconSize: 20,
     );
   }
 }
