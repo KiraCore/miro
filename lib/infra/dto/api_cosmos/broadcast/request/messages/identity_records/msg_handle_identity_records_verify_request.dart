@@ -1,8 +1,8 @@
-import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/i_tx_msg.dart';
+import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/a_tx_msg.dart';
 
 /// MsgHandleIdentityRecordsVerifyRequest defines a proposal
 /// message to approve or reject an identity record request
-class MsgHandleIdentityRecordsVerifyRequest implements ITxMsg {
+class MsgHandleIdentityRecordsVerifyRequest extends ATxMsg {
   /// The address of verifier
   final String verifier;
 
@@ -12,16 +12,18 @@ class MsgHandleIdentityRecordsVerifyRequest implements ITxMsg {
   /// Defines approval or rejecting an identity request
   final bool yes;
 
-  MsgHandleIdentityRecordsVerifyRequest({
+  const MsgHandleIdentityRecordsVerifyRequest({
     required this.verifier,
     required this.verifyRequestId,
     required this.yes,
-  });
+  }) : super(
+          messageType: '/kira.gov.MsgHandleIdentityRecordsVerifyRequest',
+          signatureMessageType: 'kiraHub/MsgHandleIdentityRecordsVerifyRequest',
+        );
 
   @override
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
-      '@type': '/kira.gov.MsgHandleIdentityRecordsVerifyRequest',
       'verifier': verifier,
       'verify_request_id': verifyRequestId.toString(),
       'yes': yes,
@@ -29,14 +31,5 @@ class MsgHandleIdentityRecordsVerifyRequest implements ITxMsg {
   }
 
   @override
-  Map<String, dynamic> toSignatureJson() {
-    return <String, dynamic>{
-      'type': 'kiraHub/MsgHandleIdentityRecordsVerifyRequest',
-      'value': <String, dynamic>{
-        'verifier': verifier,
-        'verify_request_id': verifyRequestId.toString(),
-        'yes': yes,
-      },
-    };
-  }
+  List<Object?> get props => <Object?>[verifier, verifyRequestId, yes];
 }

@@ -1,6 +1,5 @@
 import 'package:decimal/decimal.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/coin.dart';
-import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/i_tx_msg.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/identity_records/msg_request_identity_records_verify.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
@@ -41,7 +40,7 @@ class MsgRequestIdentityRecordsVerifyModel extends ATxMsgModel {
   }
 
   @override
-  ITxMsg toMsgDto() {
+  MsgRequestIdentityRecordsVerify toMsgDto() {
     return MsgRequestIdentityRecordsVerify(
       address: walletAddress.bech32Address,
       recordIds: recordIds,

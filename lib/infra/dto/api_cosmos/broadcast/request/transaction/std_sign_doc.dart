@@ -1,5 +1,5 @@
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/coin.dart';
-import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/i_tx_msg.dart';
+import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/a_tx_msg.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/transaction/components/tx_fee.dart';
 import 'package:miro/shared/models/transactions/tx_local_info_model.dart';
 import 'package:miro/shared/models/transactions/tx_remote_info_model.dart';
@@ -28,7 +28,7 @@ class StdSignDoc {
   final TxFee fee;
 
   /// List of messages to be executed.
-  final List<ITxMsg> messages;
+  final List<ATxMsg> messages;
 
   const StdSignDoc({
     required this.accountNumber,
@@ -51,7 +51,7 @@ class StdSignDoc {
       fee: TxFee(
         amount: <Coin>[Coin.fromTokenAmountModel(txLocalInfoModel.feeTokenAmountModel)],
       ),
-      messages: <ITxMsg>[txLocalInfoModel.txMsgModel.toMsgDto()],
+      messages: <ATxMsg>[txLocalInfoModel.txMsgModel.toMsgDto()],
     );
   }
 
@@ -62,7 +62,7 @@ class StdSignDoc {
       'chain_id': chainId,
       'memo': memo,
       'fee': fee.toSignatureJson(),
-      'msgs': messages.map((ITxMsg txMsg) => txMsg.toSignatureJson()).toList(),
+      'msgs': messages.map((ATxMsg txMsg) => txMsg.toSignatureJson()).toList(),
     };
   }
 }
