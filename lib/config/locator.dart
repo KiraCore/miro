@@ -15,6 +15,7 @@ import 'package:miro/infra/services/api/withdraws_service.dart';
 import 'package:miro/infra/services/api_cosmos/broadcast_service.dart';
 import 'package:miro/infra/services/api_cosmos/query_account_service.dart';
 import 'package:miro/infra/services/api_cosmos/query_balance_service.dart';
+import 'package:miro/infra/services/api_kira/query_execution_fee_service.dart';
 import 'package:miro/infra/services/api_kira/query_kira_tokens_aliases_service.dart';
 import 'package:miro/infra/services/api_kira/query_kira_tokens_rates_service.dart';
 import 'package:miro/infra/services/api_kira/query_network_properties_service.dart';
@@ -34,6 +35,7 @@ Future<void> initLocator() async {
     ..registerLazySingleton<CacheManager>(CacheManager.new)
     ..registerLazySingleton<NetworkListCubit>(NetworkListCubit.new)
     ..registerLazySingleton<NetworkModuleBloc>(NetworkModuleBloc.new)
+    ..registerLazySingleton<QueryExecutionFeeService>(QueryExecutionFeeService.new)
     ..registerFactory<ApiRepository>(RemoteApiRepository.new)
     ..registerFactory<ApiCosmosRepository>(RemoteApiCosmosRepository.new)
     ..registerFactory<ApiKiraRepository>(RemoteApiKiraRepository.new)

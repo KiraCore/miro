@@ -25,7 +25,7 @@ class TxSendFormCubit extends Cubit<ATxSendFormState> {
   Future<void> loadTxFee() async {
     try {
       emit(TxSendFormInitState());
-      TokenAmountModel feeTokenAmountModel = await _queryNetworkPropertiesService.getTxFee();
+      TokenAmountModel feeTokenAmountModel = await _queryNetworkPropertiesService.getMinTxFee();
       emit(TxSendFormLoadedState(feeTokenAmountModel: feeTokenAmountModel));
     } catch (e) {
       AppLogger().log(message: 'Cannot load tx fee. Error: $e', logLevel: LogLevel.error);
