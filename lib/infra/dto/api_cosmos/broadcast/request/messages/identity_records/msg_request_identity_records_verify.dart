@@ -1,9 +1,9 @@
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/coin.dart';
-import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/i_tx_msg.dart';
+import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/a_tx_msg.dart';
 
 /// MsgRequestIdentityRecordsVerify defines a proposal message
 /// to request an identity record verification from a specific verifier
-class MsgRequestIdentityRecordsVerify implements ITxMsg {
+class MsgRequestIdentityRecordsVerify extends ATxMsg {
   /// The address of requester
   final String address;
 
@@ -16,17 +16,19 @@ class MsgRequestIdentityRecordsVerify implements ITxMsg {
   /// The address of verifier
   final String verifier;
 
-  MsgRequestIdentityRecordsVerify({
+  const MsgRequestIdentityRecordsVerify({
     required this.address,
     required this.recordIds,
     required this.tip,
     required this.verifier,
-  });
+  }) : super(
+          messageType: '/kira.gov.MsgRequestIdentityRecordsVerify',
+          signatureMessageType: 'kiraHub/MsgRequestIdentityRecordsVerify',
+        );
 
   @override
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
-      '@type': '/kira.gov.MsgRequestIdentityRecordsVerify',
       'address': address,
       'record_ids': recordIds.map((BigInt recordId) => recordId.toString()).toList(),
       'tip': tip.toJson(),
@@ -35,15 +37,5 @@ class MsgRequestIdentityRecordsVerify implements ITxMsg {
   }
 
   @override
-  Map<String, dynamic> toSignatureJson() {
-    return <String, dynamic>{
-      'type': 'kiraHub/MsgRequestIdentityRecordsVerify',
-      'value': <String, dynamic>{
-        'address': address,
-        'record_ids': recordIds.map((BigInt recordId) => recordId.toString()).toList(),
-        'tip': tip.toJson(),
-        'verifier': verifier,
-      },
-    };
-  }
+  List<Object?> get props => <Object?>[address, recordIds, tip, verifier];
 }

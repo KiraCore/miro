@@ -1,5 +1,5 @@
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/coin.dart';
-import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/i_tx_msg.dart';
+import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/a_tx_msg.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/transaction/components/auth_info.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/transaction/components/mode_info/mode_info.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/transaction/components/mode_info/sign_mode.dart';
@@ -46,7 +46,7 @@ class Tx {
 
     return Tx(
       body: TxBody(
-        messages: <ITxMsg>[txLocalInfoModel.txMsgModel.toMsgDto()],
+        messages: <ATxMsg>[txLocalInfoModel.txMsgModel.toMsgDto()],
         memo: txLocalInfoModel.memo,
       ),
       authInfo: AuthInfo(

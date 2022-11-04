@@ -1,4 +1,3 @@
-import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/i_tx_msg.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/identity_records/register/msg_register_identity_records.dart';
 import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
 import 'package:miro/shared/models/transactions/messages/identity_records/register/identity_info_entry_model.dart';
@@ -28,7 +27,7 @@ class MsgRegisterIdentityRecordsModel extends ATxMsgModel {
   }
 
   @override
-  ITxMsg toMsgDto() {
+  MsgRegisterIdentityRecords toMsgDto() {
     return MsgRegisterIdentityRecords(
       address: walletAddress.bech32Address,
       infos: identityInfoEntryModels.map((IdentityInfoEntryModel identityInfoEntryModel) => identityInfoEntryModel.toDto()).toList(),

@@ -1,6 +1,5 @@
 import 'package:decimal/decimal.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/coin.dart';
-import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/i_tx_msg.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/msg_send.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
@@ -31,7 +30,7 @@ class MsgSendModel extends ATxMsgModel {
   }
 
   @override
-  ITxMsg toMsgDto() {
+  MsgSend toMsgDto() {
     return MsgSend(
       fromAddress: fromWalletAddress.bech32Address,
       toAddress: toWalletAddress.bech32Address,

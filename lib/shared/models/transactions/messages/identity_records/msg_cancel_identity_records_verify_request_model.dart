@@ -1,4 +1,3 @@
-import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/i_tx_msg.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/identity_records/msg_cancel_identity_records_verify_request.dart';
 import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
 import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
@@ -21,7 +20,7 @@ class MsgCancelIdentityRecordsVerifyRequestModel extends ATxMsgModel {
   }
 
   @override
-  ITxMsg toMsgDto() {
+  MsgCancelIdentityRecordsVerifyRequest toMsgDto() {
     return MsgCancelIdentityRecordsVerifyRequest(
       executor: walletAddress.bech32Address,
       verifyRequestId: verifyRequestId,

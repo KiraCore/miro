@@ -1,4 +1,3 @@
-import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/i_tx_msg.dart';
 import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/identity_records/msg_delete_identity_records.dart';
 import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
 import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
@@ -21,11 +20,13 @@ class MsgDeleteIdentityRecordsModel extends ATxMsgModel {
 
   factory MsgDeleteIdentityRecordsModel.fromDto(MsgDeleteIdentityRecords msgDeleteIdentityRecords) {
     return MsgDeleteIdentityRecordsModel(
-        keys: msgDeleteIdentityRecords.keys, walletAddress: WalletAddress.fromBech32(msgDeleteIdentityRecords.address));
+      keys: msgDeleteIdentityRecords.keys,
+      walletAddress: WalletAddress.fromBech32(msgDeleteIdentityRecords.address),
+    );
   }
 
   @override
-  ITxMsg toMsgDto() {
+  MsgDeleteIdentityRecords toMsgDto() {
     return MsgDeleteIdentityRecords(
       keys: keys,
       address: walletAddress.bech32Address,

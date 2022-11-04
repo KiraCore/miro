@@ -1,8 +1,10 @@
-class IdentityInfoEntry {
+import 'package:equatable/equatable.dart';
+
+class IdentityInfoEntry extends Equatable {
   final String key;
   final String info;
 
-  IdentityInfoEntry({
+  const IdentityInfoEntry({
     required this.key,
     required this.info,
   });
@@ -13,4 +15,7 @@ class IdentityInfoEntry {
       'info': info,
     };
   }
+
+  @override
+  List<Object?> get props => <Object?>[key, info];
 }

@@ -1,35 +1,29 @@
-import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/i_tx_msg.dart';
+import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/a_tx_msg.dart';
 
 /// MsgDeleteIdentityRecords defines a method to delete identity records owned by an address
-class MsgDeleteIdentityRecords implements ITxMsg {
+class MsgDeleteIdentityRecords extends ATxMsg {
   /// The address for the identity record
   final String address;
 
   /// The array string that defines identity record key values to be deleted
   final List<String> keys;
 
-  MsgDeleteIdentityRecords({
+  const MsgDeleteIdentityRecords({
     required this.address,
     required this.keys,
-  });
+  }) : super(
+          messageType: '/kira.gov.MsgDeleteIdentityRecords',
+          signatureMessageType: 'kiraHub/MsgDeleteIdentityRecords',
+        );
 
   @override
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
-      '@type': '/kira.gov.MsgDeleteIdentityRecords',
       'address': address,
       'keys': keys,
     };
   }
 
   @override
-  Map<String, dynamic> toSignatureJson() {
-    return <String, dynamic>{
-      'type': 'kiraHub/MsgDeleteIdentityRecords',
-      'value': <String, dynamic>{
-        'address': address,
-        'keys': keys,
-      },
-    };
-  }
+  List<Object?> get props => <Object?>[address, keys];
 }
