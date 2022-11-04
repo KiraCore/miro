@@ -17,11 +17,11 @@ Future<void> main() async {
 
   final QueryNetworkPropertiesService queryNetworkPropertiesService = globalLocator<QueryNetworkPropertiesService>();
 
-  group('Tests of getTxFee() method', () {
+  group('Tests of getMinTxFee() method', () {
     test('Should return TokenAmountModel with current transaction fee', () async {
       TestUtils.printInfo('Data request');
       try {
-        TokenAmountModel actualTokenAmountModel = await queryNetworkPropertiesService.getTxFee();
+        TokenAmountModel actualTokenAmountModel = await queryNetworkPropertiesService.getMinTxFee();
 
         TestUtils.printInfo('Data return');
         print(actualTokenAmountModel);

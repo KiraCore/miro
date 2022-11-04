@@ -9,7 +9,7 @@ import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/utils/app_logger.dart';
 
 abstract class _IQueryNetworkPropertiesService {
-  Future<TokenAmountModel> getTxFee();
+  Future<TokenAmountModel> getMinTxFee();
 }
 
 class QueryNetworkPropertiesService implements _IQueryNetworkPropertiesService {
@@ -17,7 +17,7 @@ class QueryNetworkPropertiesService implements _IQueryNetworkPropertiesService {
   final ApiKiraRepository _apiKiraRepository = globalLocator<ApiKiraRepository>();
 
   @override
-  Future<TokenAmountModel> getTxFee() async {
+  Future<TokenAmountModel> getMinTxFee() async {
     Uri networkUri = globalLocator<NetworkModuleBloc>().state.networkUri;
     try {
       final Response<dynamic> response = await _apiKiraRepository.fetchQueryNetworkProperties<dynamic>(networkUri);

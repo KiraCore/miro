@@ -11,7 +11,6 @@ import 'package:miro/test/utils/test_utils.dart';
 
 // To run this test type in console:
 // fvm flutter test test/unit/infra/services/api_kira/query_network_properties_service_test.dart --platform chrome --null-assertions
-// ignore_for_file: avoid_print
 Future<void> main() async {
   await initMockLocator();
 
@@ -27,9 +26,9 @@ Future<void> main() async {
   );
 
   group('Tests of getTxFee() method', () {
-    test('Should return TokenAmountModel with current transaction fee', () async {
+    test('Should return TokenAmountModel with 100 ukex', () async {
       // Act
-      TokenAmountModel actualTokenAmountModel = await queryNetworkPropertiesService.getTxFee();
+      TokenAmountModel actualTokenAmountModel = await queryNetworkPropertiesService.getMinTxFee();
 
       // Assert
       TokenAmountModel expectedTokenAmountModel = TokenAmountModel(
