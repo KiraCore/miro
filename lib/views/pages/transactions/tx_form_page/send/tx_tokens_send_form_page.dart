@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:miro/blocs/specific_blocs/transactions/tx_send_form/states/tx_send_form_loaded_state.dart';
-import 'package:miro/blocs/specific_blocs/transactions/tx_send_form/tx_send_form_cubit.dart';
+import 'package:miro/blocs/specific_blocs/transactions/tx_form_init/states/tx_form_init_loaded_state.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/providers/wallet_provider.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
 import 'package:miro/shared/models/tokens/token_denomination_model.dart';
+import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
 import 'package:miro/views/pages/transactions/tx_form_page/msg_forms/msg_send/msg_send_form.dart';
 import 'package:miro/views/pages/transactions/tx_form_page/msg_forms/msg_send/msg_send_form_controller.dart';
-import 'package:miro/views/pages/transactions/tx_form_page/send/widgets/tx_send_form_cubit_wrapper.dart';
+import 'package:miro/views/pages/transactions/tx_form_page/send/widgets/tx_form_init_cubit_wrapper.dart';
 import 'package:miro/views/pages/transactions/tx_form_page/send/widgets/tx_send_form_footer.dart';
 import 'package:miro/views/widgets/transactions/tx_dialog.dart';
 
@@ -24,7 +24,6 @@ class TxTokensSendFormPage extends StatefulWidget {
 }
 
 class _TxTokensSendFormPage extends State<TxTokensSendFormPage> {
-  final TxSendFormCubit txSendFormCubit = TxSendFormCubit();
   final WalletProvider walletProvider = globalLocator<WalletProvider>();
   final MsgSendFormController msgSendFormController = MsgSendFormController();
   final ValueNotifier<TokenDenominationModel?> tokenDenominationModelNotifier = ValueNotifier<TokenDenominationModel?>(null);
@@ -33,13 +32,13 @@ class _TxTokensSendFormPage extends State<TxTokensSendFormPage> {
   Widget build(BuildContext context) {
     return TxDialog(
       title: 'Send tokens',
-      child: TxSendFormCubitWrapper(
-        txSendFormCubit: txSendFormCubit,
-        childBuilder: (TxSendFormLoadedState txSendFormLoadedState) {
+      child: TxFormInitCubitWrapper(
+        txMsgType: TxMsgType.msgSend,
+        childBuilder: (TxFormInitLoadedState txFormInitLoadedState) {
           return Column(
             children: <Widget>[
               MsgSendForm(
-                feeTokenAmountModel: txSendFormLoadedState.feeTokenAmountModel,
+                feeTokenAmountModel: txFormInitLoadedState.feeTokenAmountModel,
                 msgSendFormController: msgSendFormController,
                 initialBalanceModel: widget.initialBalanceModel,
                 initialWalletAddress: walletProvider.currentWallet?.address,
@@ -50,8 +49,7 @@ class _TxTokensSendFormPage extends State<TxTokensSendFormPage> {
                 valueListenable: tokenDenominationModelNotifier,
                 builder: (_, TokenDenominationModel? tokenDenominationModel, __) {
                   return TxSendFormFooter(
-                    txSendFormCubit: txSendFormCubit,
-                    feeTokenAmountModel: txSendFormLoadedState.feeTokenAmountModel,
+                    feeTokenAmountModel: txFormInitLoadedState.feeTokenAmountModel,
                     msgFormController: msgSendFormController,
                     tokenDenominationModel: tokenDenominationModel,
                   );

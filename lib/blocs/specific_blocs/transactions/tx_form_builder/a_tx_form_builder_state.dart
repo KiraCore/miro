@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
 
-abstract class ATxSendFormState extends Equatable {
-  const ATxSendFormState();
+abstract class ATxFormBuilderState extends Equatable {
+  const ATxFormBuilderState();
 
   @override
   List<Object?> get props => <Object>[];
