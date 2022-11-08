@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:miro/blocs/specific_blocs/transactions/tx_send_form/a_tx_send_form_state.dart';
-import 'package:miro/blocs/specific_blocs/transactions/tx_send_form/states/tx_send_form_error_state.dart';
-import 'package:miro/blocs/specific_blocs/transactions/tx_send_form/states/tx_send_form_init_state.dart';
-import 'package:miro/blocs/specific_blocs/transactions/tx_send_form/states/tx_send_form_loaded_state.dart';
-import 'package:miro/blocs/specific_blocs/transactions/tx_send_form/tx_send_form_cubit.dart';
+import 'package:miro/blocs/specific_blocs/transactions/tx_form_init/a_tx_form_init_state.dart';
+import 'package:miro/blocs/specific_blocs/transactions/tx_form_init/states/tx_form_init_downloading_state.dart';
+import 'package:miro/blocs/specific_blocs/transactions/tx_form_init/states/tx_form_init_error_state.dart';
+import 'package:miro/blocs/specific_blocs/transactions/tx_form_init/states/tx_form_init_loaded_state.dart';
+import 'package:miro/blocs/specific_blocs/transactions/tx_form_init/tx_form_init_cubit.dart';
 import 'package:miro/config/app_icons.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
 import 'package:miro/views/widgets/generic/center_load_spinner.dart';
 
-class TxSendFormCubitWrapper extends StatefulWidget {
-  final Widget Function(TxSendFormLoadedState createTxLoadedState) childBuilder;
-  final TxSendFormCubit txSendFormCubit;
+class TxFormInitCubitWrapper extends StatefulWidget {
+  final TxMsgType txMsgType;
+  final Widget Function(TxFormInitLoadedState txFormInitLoadedState) childBuilder;
 
-  const TxSendFormCubitWrapper({
+  const TxFormInitCubitWrapper({
+    required this.txMsgType,
     required this.childBuilder,
-    required this.txSendFormCubit,
     Key? key,
   }) : super(key: key);
 
@@ -23,21 +24,23 @@ class TxSendFormCubitWrapper extends StatefulWidget {
   State<StatefulWidget> createState() => _TxSendFormCubitWrapper();
 }
 
-class _TxSendFormCubitWrapper extends State<TxSendFormCubitWrapper> {
+class _TxSendFormCubitWrapper extends State<TxFormInitCubitWrapper> {
+  late final TxFormInitCubit txFormInitCubit = TxFormInitCubit(txMsgType: widget.txMsgType);
+
   @override
   void initState() {
     super.initState();
-    widget.txSendFormCubit.loadTxFee();
+    txFormInitCubit.downloadTxFee();
   }
 
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
 
-    return BlocBuilder<TxSendFormCubit, ATxSendFormState>(
-      bloc: widget.txSendFormCubit,
-      builder: (BuildContext context, ATxSendFormState txSendFormState) {
-        if (txSendFormState is TxSendFormInitState) {
+    return BlocBuilder<TxFormInitCubit, ATxFormInitState>(
+      bloc: txFormInitCubit,
+      builder: (BuildContext context, ATxFormInitState txFormInitState) {
+        if (txFormInitState is TxFormInitDownloadingState) {
           return SizedBox(
             height: 200,
             child: Column(
@@ -54,7 +57,7 @@ class _TxSendFormCubitWrapper extends State<TxSendFormCubitWrapper> {
               ],
             ),
           );
-        } else if (txSendFormState is TxSendFormErrorState) {
+        } else if (txFormInitState is TxFormInitErrorState) {
           return SizedBox(
             height: 200,
             width: double.infinity,
@@ -70,7 +73,7 @@ class _TxSendFormCubitWrapper extends State<TxSendFormCubitWrapper> {
                 ),
                 const SizedBox(height: 20),
                 TextButton.icon(
-                  onPressed: widget.txSendFormCubit.loadTxFee,
+                  onPressed: txFormInitCubit.downloadTxFee,
                   icon: const Icon(
                     AppIcons.refresh,
                     size: 18,
@@ -86,7 +89,7 @@ class _TxSendFormCubitWrapper extends State<TxSendFormCubitWrapper> {
             ),
           );
         } else {
-          return widget.childBuilder(txSendFormState as TxSendFormLoadedState);
+          return widget.childBuilder(txFormInitState as TxFormInitLoadedState);
         }
       },
     );

@@ -11,20 +11,21 @@ class MsgSendFormController extends AMsgFormController {
   WalletAddress? _recipientWalletAddress;
   TokenAmountModel? _tokenAmountModel;
 
+  /// Method [buildTxMsgModel] throws [Exception] if at least one of the fields: 
+  /// [_senderWalletAddress], [_recipientWalletAddress] or [_tokenAmountModel]
+  /// is not filled (equal null)
   @override
-  ATxMsgModel? buildTxMsgModel() {
-    if (formKey.currentState == null) {
-      return null;
-    }
-    bool formValid = formKey.currentState?.validate() ?? false;
-    if (formValid) {
+  ATxMsgModel buildTxMsgModel() {
+    formKey.currentState?.validate();
+    bool formFilled = formFilledNotifier.value;
+    if (formFilled) {
       return MsgSendModel(
         fromWalletAddress: _senderWalletAddress!,
         toWalletAddress: _recipientWalletAddress!,
         tokenAmountModel: _tokenAmountModel!,
       );
     } else {
-      return null;
+      throw Exception('Cannot build MsgSendModel. Form is not valid');
     }
   }
 

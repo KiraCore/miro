@@ -1,10 +1,10 @@
-import 'package:miro/blocs/specific_blocs/transactions/tx_send_form/a_tx_send_form_state.dart';
+import 'package:miro/blocs/specific_blocs/transactions/tx_form_init/a_tx_form_init_state.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 
-class TxSendFormLoadedState extends ATxSendFormState {
+class TxFormInitLoadedState extends ATxFormInitState {
   final TokenAmountModel feeTokenAmountModel;
 
-  const TxSendFormLoadedState({
+  const TxFormInitLoadedState({
     required this.feeTokenAmountModel,
   });
 
