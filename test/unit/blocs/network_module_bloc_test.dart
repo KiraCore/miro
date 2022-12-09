@@ -235,11 +235,11 @@ Future<void> main() async {
       NetworkModuleBloc actualNetworkBloc = NetworkModuleBloc();
       NetworkUnknownModel dynamicNetworkUnknownModel = NetworkUnknownModel(
         connectionStatusType: ConnectionStatusType.disconnected,
-        uri: Uri.parse('https://dynamic.kira.network'),
+        uri: Uri.parse('http://dynamic.kira.network'),
       );
       NetworkHealthyModel dynamicNetworkHealthyModel = NetworkHealthyModel(
         connectionStatusType: ConnectionStatusType.disconnected,
-        uri: Uri.parse('https://dynamic.kira.network'),
+        uri: Uri.parse('http://dynamic.kira.network'),
         networkInfoModel: NetworkInfoModel(
           chainId: 'localnet-1',
           interxVersion: 'v0.4.20-rc2',
@@ -249,7 +249,7 @@ Future<void> main() async {
       );
       NetworkUnhealthyModel dynamicNetworkUnhealthyModel = NetworkUnhealthyModel(
         connectionStatusType: ConnectionStatusType.disconnected,
-        uri: Uri.parse('https://dynamic.kira.network'),
+        uri: Uri.parse('http://dynamic.kira.network'),
         networkInfoModel: NetworkInfoModel(
           chainId: 'testnet-7',
           interxVersion: 'v0.7.0.4',
@@ -263,7 +263,7 @@ Future<void> main() async {
       );
       NetworkOfflineModel dynamicNetworkOfflineModel = NetworkOfflineModel(
         connectionStatusType: ConnectionStatusType.disconnected,
-        uri: Uri.parse('https://dynamic.kira.network'),
+        uri: Uri.parse('http://dynamic.kira.network'),
       );
 
       rpcBrowserUrlController.setRpcAddress(dynamicNetworkUnknownModel);

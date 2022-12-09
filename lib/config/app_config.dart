@@ -25,6 +25,7 @@ class AppConfig {
     uri: Uri.parse('https://testnet-rpc.kira.network'),
   );
 
+  late Uri? proxyServerUri;
   late Duration _refreshInterval;
   late List<NetworkUnknownModel> _networkList = List<NetworkUnknownModel>.empty(growable: true);
 
@@ -33,6 +34,7 @@ class AppConfig {
   List<NetworkUnknownModel> get networkList => _networkList;
 
   void init(Map<String, dynamic> configJson) {
+    _initProxyServerUri(configJson['proxy_server_url'] as String?);
     _initIntervalSeconds(configJson['refresh_interval_seconds']);
     _initNetworkList(configJson['network_list']);
   }
@@ -69,10 +71,19 @@ class AppConfig {
     if (networkAddress == null) {
       return null;
     }
-    Uri uri = NetworkUtils.parseUrl(networkAddress);
+    Uri uri = NetworkUtils.parseUrlToInterxUri(networkAddress);
     NetworkUnknownModel urlNetworkUnknownModel = NetworkUnknownModel(uri: uri, connectionStatusType: ConnectionStatusType.disconnected);
     urlNetworkUnknownModel = findNetworkModelInConfig(urlNetworkUnknownModel);
     return urlNetworkUnknownModel;
+  }
+  
+  void _initProxyServerUri(String? proxyServerUrlText) {
+    try {
+      proxyServerUri = NetworkUtils.parseNoSchemeToHTTPS(proxyServerUrlText!);
+    } catch (_) {
+      AppLogger().log(message: 'Proxy server url is invalid: $proxyServerUrlText', logLevel: LogLevel.warning);
+      proxyServerUri = null;
+    }
   }
 
   void _initIntervalSeconds(dynamic refreshIntervalSecondsJson) {
