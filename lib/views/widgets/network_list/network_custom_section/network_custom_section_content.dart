@@ -163,7 +163,7 @@ class _NetworkCustomSectionContent extends State<NetworkCustomSectionContent> {
       if (networkAddress.isEmpty) {
         throw Error();
       }
-      Uri networkUri = NetworkUtils.parseUrl(networkAddress);
+      Uri networkUri = NetworkUtils.parseUrlToInterxUri(networkAddress);
       return networkUri;
     } catch (_) {
       errorMessage = 'Please enter a valid network address';

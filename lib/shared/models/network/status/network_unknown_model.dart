@@ -18,7 +18,7 @@ class NetworkUnknownModel extends ANetworkStatusModel {
   factory NetworkUnknownModel.fromJson(Map<String, dynamic> json) {
     return NetworkUnknownModel(
       connectionStatusType: ConnectionStatusType.disconnected,
-      uri: NetworkUtils.parseUrl(json['address'] as String),
+      uri: NetworkUtils.parseUrlToInterxUri(json['address'] as String),
       name: json['name'] as String,
     );
   }
@@ -40,16 +40,16 @@ class NetworkUnknownModel extends ANetworkStatusModel {
     );
   }
 
-  NetworkUnknownModel withHttps() {
+  NetworkUnknownModel copyWithHttp() {
     return NetworkUnknownModel(
       connectionStatusType: connectionStatusType,
-      uri: uri.replace(scheme: 'https'),
+      uri: uri.replace(scheme: 'http'),
       name: name,
     );
   }
-
-  bool isHttp() {
-    return uri.scheme == 'http';
+  
+  bool isHttps() {
+    return uri.isScheme('https');
   }
 
   @override

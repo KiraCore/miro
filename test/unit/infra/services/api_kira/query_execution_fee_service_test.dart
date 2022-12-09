@@ -14,7 +14,7 @@ Future<void> main() async {
   await initMockLocator();
 
   const String messageType = 'send';
-  final Uri networkUri = NetworkUtils.parseUrl('https://healthy.kira.network');
+  final Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://healthy.kira.network');
   await TestUtils.setupNetworkModel(networkUri: networkUri);
 
   final QueryExecutionFeeService queryExecutionFeeService = globalLocator<QueryExecutionFeeService>();

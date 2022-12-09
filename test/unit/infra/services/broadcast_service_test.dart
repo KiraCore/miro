@@ -32,7 +32,7 @@ import 'package:miro/test/utils/test_utils.dart';
 Future<void> main() async {
   await initMockLocator();
 
-  final Uri networkUri = NetworkUtils.parseUrl('https://healthy.kira.network/');
+  final Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://healthy.kira.network/');
   await TestUtils.setupNetworkModel(networkUri: networkUri);
 
   // Set up the constants to run the tests.

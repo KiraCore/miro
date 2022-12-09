@@ -239,7 +239,7 @@ Future<void> main() async {
       // ************************************************************************************************
 
       // Act
-      await Future<void>.delayed(const Duration(milliseconds: 100));
+      await Future<void>.delayed(const Duration(milliseconds: 300));
 
       // Assert
       expectedNetworkModuleState = NetworkModuleState.disconnected();

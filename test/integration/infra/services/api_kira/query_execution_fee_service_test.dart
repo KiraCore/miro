@@ -13,7 +13,7 @@ Future<void> main() async {
   await initLocator();
 
   const String messageType = 'send';
-  final Uri networkUri = NetworkUtils.parseUrl('http://173.212.254.147:11000');
+  final Uri networkUri = NetworkUtils.parseUrlToInterxUri('http://173.212.254.147:11000');
   await TestUtils.setupNetworkModel(networkUri: networkUri);
 
   final QueryExecutionFeeService queryExecutionFeeService = globalLocator<QueryExecutionFeeService>();

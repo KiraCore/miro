@@ -34,7 +34,7 @@ import 'package:miro/test/utils/test_utils.dart';
 Future<void> main() async {
   await initLocator();
 
-  final Uri networkUri = NetworkUtils.parseUrl('http://85.190.254.164:11000/');
+  final Uri networkUri = NetworkUtils.parseUrlToInterxUri('http://85.190.254.164:11000/');
   await TestUtils.setupNetworkModel(networkUri: networkUri);
 
   // Set up the constants to run the tests.

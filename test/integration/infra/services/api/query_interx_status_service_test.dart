@@ -16,7 +16,7 @@ Future<void> main() async {
 
   group('Tests of getQueryInterxStatusResp() method', () {
     test('Should return network data if network belongs to kira and network is active', () async {
-      final Uri networkUri = NetworkUtils.parseUrl('http://173.212.254.147:11000');
+      final Uri networkUri = NetworkUtils.parseUrlToInterxUri('http://173.212.254.147:11000');
 
       TestUtils.printInfo('Data request');
       try {
@@ -33,7 +33,7 @@ Future<void> main() async {
     });
 
     test('Should throw exception if network not belongs to kira or belongs to kira but network is disabled', () async {
-      final Uri networkUri = NetworkUtils.parseUrl('https://facebook.com/');
+      final Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://facebook.com/');
 
       try {
         QueryInterxStatusResp actualQueryInterxStatusResp = await queryInterxStatusService.getQueryInterxStatusResp(networkUri);

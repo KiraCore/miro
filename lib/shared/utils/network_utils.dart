@@ -1,24 +1,23 @@
 class NetworkUtils {
   static RegExp ipAddressRegExp = RegExp(r'^(?!0)(?!.*\.$)((1?\d?\d|25[0-5]|2[0-4]\d)(\.|$)){4}$', caseSensitive: false, multiLine: false);
 
-  static Uri parseUrl(String urlToParse) {
-    Uri uri = _parseToUriWithSchema(urlToParse);
+  static Uri parseUrlToInterxUri(String urlToParse) {
+    Uri uri = parseNoSchemeToHTTPS(urlToParse);
     uri = _assignDefaultPort(uri);
     return uri;
   }
 
-  static Uri _parseToUriWithSchema(String urlToParse) {
+  static Uri parseNoSchemeToHTTPS(String urlToParse) {
     String parsedUrl = urlToParse;
-    Uri uri;
-
     if (parsedUrl.endsWith('/')) {
       parsedUrl = parsedUrl.substring(0, parsedUrl.length - 1);
     }
 
+    late Uri uri;
     if (parsedUrl.startsWith('http://') || parsedUrl.startsWith('https://')) {
       uri = Uri.parse(parsedUrl);
     } else {
-      uri = Uri.parse('http://$parsedUrl');
+      uri = Uri.parse('https://$parsedUrl');
     }
 
     if (_isLocalhost(uri)) {
