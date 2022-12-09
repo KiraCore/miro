@@ -21,7 +21,7 @@ import 'package:miro/test/utils/test_utils.dart';
 // fvm flutter test test/unit/blocs/network_module_bloc_test.dart --platform chrome --null-assertions
 Future<void> main() async {
   await initMockLocator();
-  setUpAll(TestWidgetsFlutterBinding.ensureInitialized);
+
   RpcBrowserUrlController rpcBrowserUrlController = RpcBrowserUrlController();
   NetworkUnknownModel networkUnknownModel = NetworkUnknownModel(
     connectionStatusType: ConnectionStatusType.disconnected,

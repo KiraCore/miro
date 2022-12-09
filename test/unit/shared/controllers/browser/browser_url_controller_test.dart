@@ -18,8 +18,7 @@ void main() {
 
     test('Should return empty map for Url with path parameters and without query parameters', () {
       // Arrange
-      MockBrowserUrlController actualMockBrowserUrlController =
-          MockBrowserUrlController(mockedUri: Uri.parse('http://miro.kira.network/home/account'));
+      MockBrowserUrlController actualMockBrowserUrlController = MockBrowserUrlController(mockedUri: Uri.parse('http://miro.kira.network/home/account'));
 
       // Assert
       Map<String, dynamic> expectedQueryParameters = <String, dynamic>{};
@@ -87,8 +86,7 @@ void main() {
 
     test('Should return url with added queryParameters for Url with path parameters and without previously existed query parameters', () {
       // Arrange
-      MockBrowserUrlController actualMockBrowserUrlController =
-          MockBrowserUrlController(mockedUri: Uri.parse('http://miro.kira.network/home/account'));
+      MockBrowserUrlController actualMockBrowserUrlController = MockBrowserUrlController(mockedUri: Uri.parse('http://miro.kira.network/home/account'));
 
       // Act
       actualMockBrowserUrlController.replaceQueryParameters( <String, dynamic>{

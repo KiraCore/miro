@@ -57,7 +57,7 @@ Future<void> main() async {
     sequence: '106',
   );
 
-  Future<UnsignedTxModel> _buildUnsignedTxModel(TxLocalInfoModel actualTxLocalInfoModel, Wallet wallet) async {
+  Future<UnsignedTxModel> buildUnsignedTxModel(TxLocalInfoModel actualTxLocalInfoModel, Wallet wallet) async {
     // Act
     final TxRemoteInfoModel actualTxRemoteInfoModel = await queryAccountService.getTxRemoteInfo(
       wallet.address.bech32Address,
@@ -92,7 +92,7 @@ Future<void> main() async {
       );
 
       // Act
-      UnsignedTxModel actualUnsignedTxModel = await _buildUnsignedTxModel(actualTxLocalInfoModel, senderWallet);
+      UnsignedTxModel actualUnsignedTxModel = await buildUnsignedTxModel(actualTxLocalInfoModel, senderWallet);
       SignedTxModel actualSignedTxModel = TxSigner.sign(
         unsignedTxModel: actualUnsignedTxModel,
         wallet: senderWallet,
@@ -179,7 +179,7 @@ Future<void> main() async {
       );
 
       // Act
-      UnsignedTxModel actualUnsignedTxModel = await _buildUnsignedTxModel(actualTxLocalInfoModel, senderWallet);
+      UnsignedTxModel actualUnsignedTxModel = await buildUnsignedTxModel(actualTxLocalInfoModel, senderWallet);
       SignedTxModel actualSignedTxModel = TxSigner.sign(
         unsignedTxModel: actualUnsignedTxModel,
         wallet: senderWallet,
@@ -267,7 +267,7 @@ Future<void> main() async {
       );
 
       // Act
-      UnsignedTxModel actualUnsignedTxModel = await _buildUnsignedTxModel(actualTxLocalInfoModel, senderWallet);
+      UnsignedTxModel actualUnsignedTxModel = await buildUnsignedTxModel(actualTxLocalInfoModel, senderWallet);
       SignedTxModel actualSignedTxModel = TxSigner.sign(
         unsignedTxModel: actualUnsignedTxModel,
         wallet: senderWallet,
@@ -350,7 +350,7 @@ Future<void> main() async {
       );
 
       // Act
-      UnsignedTxModel actualUnsignedTxModel = await _buildUnsignedTxModel(actualTxLocalInfoModel, senderWallet);
+      UnsignedTxModel actualUnsignedTxModel = await buildUnsignedTxModel(actualTxLocalInfoModel, senderWallet);
       SignedTxModel actualSignedTxModel = TxSigner.sign(
         unsignedTxModel: actualUnsignedTxModel,
         wallet: senderWallet,
@@ -427,7 +427,7 @@ Future<void> main() async {
       );
 
       // Act
-      UnsignedTxModel actualUnsignedTxModel = await _buildUnsignedTxModel(actualTxLocalInfoModel, senderWallet);
+      UnsignedTxModel actualUnsignedTxModel = await buildUnsignedTxModel(actualTxLocalInfoModel, senderWallet);
       SignedTxModel actualSignedTxModel = TxSigner.sign(
         unsignedTxModel: actualUnsignedTxModel,
         wallet: senderWallet,
@@ -509,7 +509,7 @@ Future<void> main() async {
       );
 
       // Act
-      UnsignedTxModel actualUnsignedTxModel = await _buildUnsignedTxModel(actualTxLocalInfoModel, senderWallet);
+      UnsignedTxModel actualUnsignedTxModel = await buildUnsignedTxModel(actualTxLocalInfoModel, senderWallet);
       SignedTxModel actualSignedTxModel = TxSigner.sign(
         unsignedTxModel: actualUnsignedTxModel,
         wallet: senderWallet,

@@ -9,8 +9,6 @@ import 'package:miro/views/pages/drawer/login_page/login_mnemonic_page/login_mne
 // To run this test type in console:
 // fvm flutter test test/unit/blocs/drawer_cubit_test.dart --platform chrome --null-assertions
 Future<void> main() async {
-  setUpAll(TestWidgetsFlutterBinding.ensureInitialized);
-
   GlobalKey<ScaffoldState>? actualScaffoldKey;
   DrawerCubit drawerCubit = DrawerCubit();
 
