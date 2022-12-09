@@ -110,12 +110,13 @@ Future<void> main() async {
 
       // Act
       actualRpcBrowserUrlController.setRpcAddress(networkUnknownModel);
-
+      Map<String, dynamic> actualQueryParameters = actualRpcBrowserUrlController.browserUrlController.extractQueryParameters();
+      
       // Assert
       String expectedNetworkAddress = 'https://testnet-rpc.kira.network';
 
       expect(
-        actualRpcBrowserUrlController.browserUrlController.queryParameters['rpc'],
+        actualQueryParameters['rpc'],
         expectedNetworkAddress,
       );
     });
@@ -200,10 +201,11 @@ Future<void> main() async {
 
       // Act
       actualRpcBrowserUrlController.removeRpcAddress();
-
+      Map<String, dynamic> actualQueryParameters = actualRpcBrowserUrlController.browserUrlController.extractQueryParameters();
+      
       // Assert
       expect(
-        actualRpcBrowserUrlController.browserUrlController.queryParameters['rpc'],
+        actualQueryParameters['rpc'],
         null,
       );
     });

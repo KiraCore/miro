@@ -11,7 +11,8 @@ class RpcBrowserUrlController {
   });
 
   String? getRpcAddress() {
-    String? rpcAddress = browserUrlController.queryParameters[rpcQueryParameterKey] as String?;
+    Map<String, dynamic> queryParameters = browserUrlController.extractQueryParameters();
+    String? rpcAddress = queryParameters[rpcQueryParameterKey] as String?;
 
     if (rpcAddress == null) {
       return null;
@@ -24,10 +25,10 @@ class RpcBrowserUrlController {
 
   void setRpcAddress(ANetworkStatusModel networkStatusModel) {
     Map<String, dynamic> queryParameters = extractQueryParameters(
-      currentQueryParameters: browserUrlController.queryParameters,
+      currentQueryParameters: browserUrlController.extractQueryParameters(),
       networkStatusModel: networkStatusModel,
     );
-    browserUrlController.queryParameters = queryParameters;
+    browserUrlController.replaceQueryParameters(queryParameters);
   }
 
   Map<String, dynamic> extractQueryParameters({
@@ -48,7 +49,7 @@ class RpcBrowserUrlController {
   }
 
   void removeRpcAddress() {
-    Map<String, dynamic> queryParameters = browserUrlController.queryParameters..remove(rpcQueryParameterKey);
-    browserUrlController.queryParameters = queryParameters;
+    Map<String, dynamic> queryParameters = browserUrlController.extractQueryParameters()..remove(rpcQueryParameterKey);
+    browserUrlController.replaceQueryParameters(queryParameters);
   }
 }

@@ -20,7 +20,6 @@ import 'package:miro/shared/router/guards/pages/tx_confirm_page_guard.dart';
 import 'package:miro/shared/router/router.gr.dart';
 import 'package:miro/shared/utils/assets_manager.dart';
 import 'package:provider/provider.dart';
-import 'package:url_strategy/url_strategy.dart';
 
 Future<void> main() async {
   await initLocator();
@@ -32,7 +31,6 @@ Future<void> main() async {
   globalLocator<NetworkModuleBloc>().add(NetworkModuleInitEvent());
   globalLocator<NetworkListCubit>().initNetworkStatusModelList();
 
-  setPathUrlStrategy();
   runApp(
     MultiProvider(
       providers: appListProviders,
@@ -72,6 +70,7 @@ class _CoreApp extends State<CoreApp> {
     return Consumer<AppConfigProvider>(
       builder: (_, AppConfigProvider value, Widget? child) {
         return MaterialApp.router(
+          title: 'Kira Network',
           routeInformationParser: appRouter.defaultRouteParser(),
           routerDelegate: appRouter.delegate(),
           debugShowCheckedModeBanner: false,

@@ -13,7 +13,7 @@ void main() {
 
       // Assert
       Map<String, dynamic> expectedQueryParameters = <String, dynamic>{};
-      expect(actualMockBrowserUrlController.queryParameters, expectedQueryParameters);
+      expect(actualMockBrowserUrlController.extractQueryParameters(), expectedQueryParameters);
     });
 
     test('Should return empty map for Url with path parameters and without query parameters', () {
@@ -24,7 +24,7 @@ void main() {
       // Assert
       Map<String, dynamic> expectedQueryParameters = <String, dynamic>{};
 
-      expect(actualMockBrowserUrlController.queryParameters, expectedQueryParameters);
+      expect(actualMockBrowserUrlController.extractQueryParameters(), expectedQueryParameters);
     });
 
     test('Should return map containing query parameters for Url without path parameters', () {
@@ -37,7 +37,7 @@ void main() {
         'rpc': 'http://unhealthy.kira.network',
       };
 
-      expect(actualMockBrowserUrlController.queryParameters, expectedQueryParameters);
+      expect(actualMockBrowserUrlController.extractQueryParameters(), expectedQueryParameters);
     });
 
     test('Should return map with one query parameter for Url with path parameters and one query parameter', () {
@@ -50,7 +50,7 @@ void main() {
         'rpc': 'http://unhealthy.kira.network',
       };
 
-      expect(actualMockBrowserUrlController.queryParameters, expectedQueryParameters);
+      expect(actualMockBrowserUrlController.extractQueryParameters(), expectedQueryParameters);
     });
 
     test('Should return map with three query parameters for Url with path parameters and multiple query parameters', () {
@@ -65,7 +65,7 @@ void main() {
         'amount': '100',
       };
 
-      expect(actualMockBrowserUrlController.queryParameters, expectedQueryParameters);
+      expect(actualMockBrowserUrlController.extractQueryParameters(), expectedQueryParameters);
     });
   });
 
@@ -75,9 +75,9 @@ void main() {
       MockBrowserUrlController actualMockBrowserUrlController = MockBrowserUrlController(mockedUri: Uri.parse('http://miro.kira.network'));
 
       // Act
-      actualMockBrowserUrlController.queryParameters = <String, dynamic>{
+      actualMockBrowserUrlController.replaceQueryParameters(<String, dynamic>{
         'rpc': 'http://unhealthy.kira.network',
-      };
+      });
 
       // Assert
       Uri expectedUri = Uri.parse('http://miro.kira.network?rpc=http%3A%2F%2Funhealthy.kira.network');
@@ -91,9 +91,9 @@ void main() {
           MockBrowserUrlController(mockedUri: Uri.parse('http://miro.kira.network/home/account'));
 
       // Act
-      actualMockBrowserUrlController.queryParameters = <String, dynamic>{
+      actualMockBrowserUrlController.replaceQueryParameters( <String, dynamic>{
         'rpc': 'http://unhealthy.kira.network',
-      };
+      });
 
       // Assert
       Uri expectedUri = Uri.parse('http://miro.kira.network/home/account?rpc=http%3A%2F%2Funhealthy.kira.network');
@@ -107,9 +107,9 @@ void main() {
           MockBrowserUrlController(mockedUri: Uri.parse('http://miro.kira.network?rpc=http://offline.kira.network'));
 
       // Act
-      actualMockBrowserUrlController.queryParameters = <String, dynamic>{
+      actualMockBrowserUrlController.replaceQueryParameters(<String, dynamic>{
         'rpc': 'http://unhealthy.kira.network',
-      };
+      });
 
       // Assert
       Uri expectedUri = Uri.parse('http://miro.kira.network?rpc=http%3A%2F%2Funhealthy.kira.network');
@@ -123,9 +123,9 @@ void main() {
           MockBrowserUrlController(mockedUri: Uri.parse('http://miro.kira.network/home/account?rpc=http://offline.kira.network'));
 
       // Act
-      actualMockBrowserUrlController.queryParameters = <String, dynamic>{
+      actualMockBrowserUrlController.replaceQueryParameters(<String, dynamic>{
         'rpc': 'http://unhealthy.kira.network',
-      };
+      });
 
       // Assert
       Uri expectedUri = Uri.parse('http://miro.kira.network/home/account?rpc=http%3A%2F%2Funhealthy.kira.network');
