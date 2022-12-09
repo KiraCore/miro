@@ -54,7 +54,7 @@ Future<void> main() async {
   final QueryAccountService queryAccountService = globalLocator<QueryAccountService>();
   final BroadcastService broadcastService = globalLocator<BroadcastService>();
 
-  Future<SignedTxModel> _signTx(TxLocalInfoModel actualTxLocalInfoModel, Wallet wallet) async {
+  Future<SignedTxModel> signTx(TxLocalInfoModel actualTxLocalInfoModel, Wallet wallet) async {
     try {
       final TxRemoteInfoModel txRemoteInfoModel = await queryAccountService.getTxRemoteInfo(
         wallet.address.bech32Address,
@@ -80,7 +80,7 @@ Future<void> main() async {
     }
   }
 
-  Future<void> _broadcastTx(SignedTxModel signedTxModel) async {
+  Future<void> broadcastTx(SignedTxModel signedTxModel) async {
     TestUtils.printInfo('Data request');
     try {
       BroadcastRespModel broadcastRespModel = await broadcastService.broadcastTx(signedTxModel);
@@ -107,12 +107,12 @@ Future<void> main() async {
         ),
       );
 
-      SignedTxModel actualSignedTxModel = await _signTx(actualTxLocalInfoModel, senderWallet);
+      SignedTxModel actualSignedTxModel = await signTx(actualTxLocalInfoModel, senderWallet);
 
       BroadcastReq actualBroadcastReq = BroadcastReq(tx: Tx.fromSignedTxModel(actualSignedTxModel));
       TestUtils.printInfo('Signed MsgSend transaction: ${json.encode(actualBroadcastReq.toJson())}');
 
-      await _broadcastTx(actualSignedTxModel);
+      await broadcastTx(actualSignedTxModel);
     });
 
     test('Should return a signed transaction with MsgRegisterIdentityRecords message', () async {
@@ -128,7 +128,7 @@ Future<void> main() async {
         ),
       );
 
-      SignedTxModel actualSignedTxModel = await _signTx(actualTxLocalInfoModel, senderWallet);
+      SignedTxModel actualSignedTxModel = await signTx(actualTxLocalInfoModel, senderWallet);
 
       BroadcastReq actualBroadcastReq = BroadcastReq(tx: Tx.fromSignedTxModel(actualSignedTxModel));
       TestUtils.printInfo('Signed MsgRegisterIdentityRecords transaction: ${json.encode(actualBroadcastReq.toJson())}');
@@ -151,7 +151,7 @@ Future<void> main() async {
         ),
       );
 
-      SignedTxModel actualSignedTxModel = await _signTx(actualTxLocalInfoModel, senderWallet);
+      SignedTxModel actualSignedTxModel = await signTx(actualTxLocalInfoModel, senderWallet);
 
       BroadcastReq actualBroadcastReq = BroadcastReq(tx: Tx.fromSignedTxModel(actualSignedTxModel));
       TestUtils.printInfo('Signed MsgRequestIdentityRecordsVerify transaction: ${json.encode(actualBroadcastReq.toJson())}');
@@ -169,7 +169,7 @@ Future<void> main() async {
         ),
       );
 
-      SignedTxModel actualSignedTxModel = await _signTx(actualTxLocalInfoModel, senderWallet);
+      SignedTxModel actualSignedTxModel = await signTx(actualTxLocalInfoModel, senderWallet);
 
       BroadcastReq actualBroadcastReq = BroadcastReq(tx: Tx.fromSignedTxModel(actualSignedTxModel));
       TestUtils.printInfo('Signed MsgCancelIdentityRecordsVerifyRequest transaction: ${json.encode(actualBroadcastReq.toJson())}');
@@ -187,7 +187,7 @@ Future<void> main() async {
         ),
       );
 
-      SignedTxModel actualSignedTxModel = await _signTx(actualTxLocalInfoModel, senderWallet);
+      SignedTxModel actualSignedTxModel = await signTx(actualTxLocalInfoModel, senderWallet);
 
       BroadcastReq actualBroadcastReq = BroadcastReq(tx: Tx.fromSignedTxModel(actualSignedTxModel));
       TestUtils.printInfo('Signed MsgDeleteIdentityRecords transaction: ${json.encode(actualBroadcastReq.toJson())}');
@@ -206,7 +206,7 @@ Future<void> main() async {
         ),
       );
 
-      SignedTxModel actualSignedTxModel = await _signTx(actualTxLocalInfoModel, recipientWallet);
+      SignedTxModel actualSignedTxModel = await signTx(actualTxLocalInfoModel, recipientWallet);
 
       BroadcastReq actualBroadcastReq = BroadcastReq(tx: Tx.fromSignedTxModel(actualSignedTxModel));
       TestUtils.printInfo('Signed MsgHandleIdentityRecordsVerifyRequest transaction: ${json.encode(actualBroadcastReq.toJson())}');
