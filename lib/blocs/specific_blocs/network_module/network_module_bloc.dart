@@ -51,6 +51,7 @@ class NetworkModuleBloc extends Bloc<ANetworkModuleEvent, NetworkModuleState> {
 
     _timer = Timer.periodic(_appConfig.refreshInterval, (Timer timer) {
       // TODO(dominik): Debug info. Should be removed before release
+      // ignore: avoid_print
       print('Refreshing Network: ${timer.tick}');
       add(NetworkModuleRefreshEvent());
     });

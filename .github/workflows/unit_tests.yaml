@@ -1,0 +1,24 @@
+name: Start unit tests
+run-name: Start unit tests
+
+on:
+  pull_request:
+    branches:
+      - dev
+
+jobs:
+  run-unit-tests:
+    runs-on: ubuntu-20.04
+    steps:
+      # https://github.com/marketplace/actions/checkout
+      - uses: actions/checkout@main
+      # https://github.com/marketplace/actions/flutter-action
+      - name: Extract flutter SDK version from FVM
+        run: echo "FLUTTER_SDK_VERSION=$(jq -r '.flutterSdkVersion' .fvm/fvm_config.json)" >> $GITHUB_ENV
+      - uses: subosito/flutter-action@main
+        with:
+          flutter-version: ${{ env.FLUTTER_SDK_VERSION }}
+          channel: stable
+      - run: flutter pub get
+      - run: flutter analyze
+      - run: flutter test "test/unit" --platform chrome --null-assertions
