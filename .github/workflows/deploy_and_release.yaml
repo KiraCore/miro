@@ -1,0 +1,121 @@
+name: Deploy to IPFS and create release
+run-name: Deploy to IPFS and create release
+
+on:
+  pull_request:
+    branches:
+      - dev
+  push:
+    branches:
+      - dev
+
+jobs:
+  deploy-and-release:
+    runs-on: ubuntu-20.04
+    permissions:
+      contents: write
+      packages: write
+      id-token: write
+      pull-requests: write
+    container:
+      image: ghcr.io/kiracore/docker/base-image:v0.10.9
+      options: --privileged
+    steps:
+      # https://github.com/marketplace/actions/checkout
+      - uses: actions/checkout@main
+
+      - name: Setup version for branch WORKING
+        if: github.event_name == 'pull_request'
+        run: |
+          RELEASE_VER="0.0.0"
+          echo "RELEASE_VER=$RELEASE_VER" >> $GITHUB_ENV
+
+      - name: Setup version for branch DEV
+        if: github.event_name == 'push'
+        run: |
+          chmod -R 777 scripts
+          RELEASE_VER="$(./scripts/version.sh)"
+          echo "RELEASE_VER=$RELEASE_VER" >> $GITHUB_ENV
+
+      - name: Extract flutter SDK version from FVM
+        run: echo "FLUTTER_SDK_VERSION=$(jq -r '.flutterSdkVersion' .fvm/fvm_config.json)" >> $GITHUB_ENV
+
+      # https://github.com/marketplace/actions/flutter-action
+      - uses: subosito/flutter-action@main
+        with:
+          flutter-version: ${{ env.FLUTTER_SDK_VERSION }}
+          channel: stable
+      - name: Build web version
+        run: |
+          flutter build web --web-renderer canvaskit
+          sed -i 's/base href="\/"/base href=\".\/\"/' ./build/web/index.html
+          cd ./build/web
+          zip -r ../../html-web-app.zip ./*
+          cd ../..
+
+      - name: Pin/Upload files to IPFS
+        run: |
+          IPFS_HASH=""
+          IPFS_UPLOAD_NAME=miro-www-$RELEASE_VER
+          
+          bash-utils timerStart "pin-timeout"
+
+          while [ -z "$IPFS_HASH" ] || [ $(bash-utils timerSpan "pin-timeout") -gt 120 ]; do
+            bash-utils echoInfo "INFO: Attempting files pin to IPFS..."
+            [ -e ./ipfs-pin.log ] && rm ./ipfs-pin.log
+            touch ./ipfs-pin.log
+            ipfs-api delete $IPFS_UPLOAD_NAME --key=${{secrets.PINATA_API_JWT}} --verbose=true || echo "WARNING: Failed to delete file with name '$IPFS_UPLOAD_NAME' request failed or it might not exist"
+            ipfs-api pin ./build/web $IPFS_UPLOAD_NAME --key=${{secrets.PINATA_API_JWT}} --verbose=true | tee -a ./ipfs-pin.log || echo "ERROR: Failed to pin web app"
+            IPFS_HASH=$(cat ./ipfs-pin.log | tail -n 1 | bash-utils jsonParse ".hash" || echo "")
+            sleep 10
+          done
+
+          echo "IPFS_HASH=$IPFS_HASH" >> $GITHUB_ENV
+
+          echo "Private Gateway: https://ipfs.kira.network/ipfs/$IPFS_HASH"
+          echo "Public Gateway: https://ipfs.io/ipfs/$IPFS_HASH"
+          echo "Released version: $RELEASE_VER"
+          echo "Released Date Time: $(date --rfc-2822)"
+
+      - name: Create RELEASE.md
+        if: github.event_name == 'push'
+        run: |
+          touch README.md
+          echo "Private Gateway: https://ipfs.kira.network/ipfs/$IPFS_HASH" >> ./RELEASE.md
+          echo "Public Gateway: https://ipfs.io/ipfs/$IPFS_HASH" >> ./RELEASE.md
+          echo "\n\r\n\r\`\`\`" >> ./RELEASE.md
+          echo "Released Version: $RELEASE_VER" >> ./RELEASE.md
+          echo "Released Date Time: $(date --rfc-2822)" >> ./RELEASE.md
+          echo "html-web-app.zip: sha256:$(sha256sum ./html-web-app.zip | awk '{ print $1 }')" >> ./RELEASE.md
+          echo "\`\`\`"   >> ./RELEASE.md
+
+      # Install the cosign tool
+      # ref.: https://github.com/sigstore/cosign-installer, v2.2.0
+      - name: Install Cosign
+        if: github.event_name == 'push'
+        uses: sigstore/cosign-installer@main
+        with:
+          cosign-release: 'v1.13.1'
+
+      - name: Signing release files
+        if: github.event_name == 'push'
+        env:
+          COSIGN_PRIVATE_KEY: ${{ secrets.COSIGN_PRIVATE_KEY }}
+          COSIGN_PASSWORD: ${{ secrets.COSIGN_PASSWORD }}
+        run: |
+          cosign version
+          cosign sign-blob --key=env://COSIGN_PRIVATE_KEY --output-signature=./html-web-app.zip.sig ./html-web-app.zip
+
+      # ref: https://github.com/softprops/action-gh-release, v0.1.14
+      - name: Publish release
+        if: github.event_name == 'push'
+        uses: softprops/action-gh-release@v1
+        with:
+          body_path: RELEASE.md
+          tag_name: ${{ env.RELEASE_VER }}
+          name: ${{ env.RELEASE_VER }}
+          draft: false
+          fail_on_unmatched_files: true
+          files: |
+            ./html-web-app.zip
+            ./html-web-app.zip.sig

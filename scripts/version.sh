@@ -23,6 +23,6 @@ fi
 
 major_VERSION=$(echo $VERSION | cut -d. -f1 | sed 's/[^0-9]*//g')
 minor_VERSION=$(echo $VERSION | cut -d. -f2 | sed 's/[^0-9]*//g')
-build_VERSION=$(echo $VERSION | cut -d. -f4 | sed 's/[^0-9]*//g')
+build_VERSION=$(echo $VERSION | cut -d. -f3 | sed 's/[^0-9]*//g')
 
 echo "${major_VERSION}.${minor_VERSION}.${build_VERSION}"
