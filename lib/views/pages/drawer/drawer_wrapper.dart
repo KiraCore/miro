@@ -1,82 +1,45 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:miro/blocs/specific_blocs/drawer/a_drawer_state.dart';
 import 'package:miro/blocs/specific_blocs/drawer/drawer_cubit.dart';
-import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/blocs/specific_blocs/drawer/states/drawer_visible_state.dart';
 import 'package:miro/views/layout/drawer/kira_drawer.dart';
-import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
 import 'package:miro/views/widgets/generic/center_load_spinner.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 
-class DrawerWrapper extends StatefulWidget {
+class DrawerWrapper extends StatelessWidget {
   const DrawerWrapper({Key? key}) : super(key: key);
 
-  @override
-  State<StatefulWidget> createState() => _DrawerWrapper();
-}
-
-class _DrawerWrapper extends State<DrawerWrapper> {
   @override
   Widget build(BuildContext context) {
     return KiraDrawer(
       width: ResponsiveWidget.isSmallScreen(context) ? MediaQuery.of(context).size.width : 400,
-      drawerColor: const Color(0xff121420),
-      onClose: _onDrawerClose,
-      onWillPop: _onWillPop,
-      popButton: BlocBuilder<DrawerCubit, DrawerState>(builder: _buildPopButton),
-      child: BlocBuilder<DrawerCubit, DrawerState>(
-        builder: (BuildContext context, DrawerState state) {
+      child: BlocBuilder<DrawerCubit, ADrawerState>(
+        builder: (BuildContext context, ADrawerState drawerState) {
           return AnimatedSwitcher(
-            duration: const Duration(milliseconds: 200),
-            child: _buildDrawerContent(state),
+            layoutBuilder: _buildDrawerPage,
+            duration: const Duration(milliseconds: 250),
+            child: _buildDrawerContent(drawerState),
           );
         },
       ),
     );
   }
 
-  Widget _buildDrawerContent(DrawerState state) {
-    if (state is DrawerNavigate) {
-      return state.currentRoute;
-    }
-    return const CenterLoadSpinner();
-  }
-
-  Widget _buildPopButton(BuildContext context, DrawerState state) {
-    if (state is DrawerNavigate && state.canPop) {
-      return IconButton(
-        onPressed: _onDrawerPop,
-        icon: const Icon(
-          Icons.arrow_back,
-          size: 22,
-          color: DesignColors.gray2_100,
-        ),
-      );
-    }
-    return IconButton(
-      onPressed: _onDrawerClose,
-      icon: const Icon(
-        Icons.close,
-        size: 22,
-        color: DesignColors.gray2_100,
-      ),
+  Widget _buildDrawerPage(Widget? currentChild, List<Widget> previousChildren) {
+    return Stack(
+      alignment: Alignment.topCenter,
+      children: <Widget>[
+        ...previousChildren,
+        if (currentChild != null) currentChild,
+      ],
     );
   }
 
-  Future<bool> _onWillPop() async {
-    bool canPop = BlocProvider.of<DrawerCubit>(context).canPop;
-    if (canPop) {
-      _onDrawerPop();
-    } else {
-      _onDrawerClose();
+  Widget _buildDrawerContent(ADrawerState drawerState) {
+    if (drawerState is DrawerVisibleState) {
+      return drawerState.currentRoute;
     }
-    return Future<bool>.value(canPop);
-  }
-
-  void _onDrawerPop() {
-    KiraScaffold.of(context).popEndDrawer();
-  }
-
-  void _onDrawerClose() {
-    KiraScaffold.of(context).closeEndDrawer();
+    return const CenterLoadSpinner();
   }
 }

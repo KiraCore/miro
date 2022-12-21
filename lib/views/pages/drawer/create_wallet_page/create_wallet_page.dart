@@ -5,6 +5,7 @@ import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/providers/wallet_provider.dart';
 import 'package:miro/shared/models/wallet/mnemonic.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
+import 'package:miro/views/layout/drawer/drawer_subtitle.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
 import 'package:miro/views/pages/drawer/create_wallet_page/download_keyfile_section/download_keyfile_section.dart';
 import 'package:miro/views/pages/drawer/create_wallet_page/download_keyfile_section/download_keyfile_section_controller.dart';
@@ -47,116 +48,107 @@ class _CreateWalletPage extends State<CreateWalletPage> {
 
   @override
   Widget build(BuildContext context) {
-    TextTheme textTheme = Theme.of(context).textTheme;
-
     return ValueListenableBuilder<bool>(
       valueListenable: generateStatusNotifier,
       builder: (_, bool loading, __) {
-        return SizedBox(
-          height: 2000,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                'Create a wallet',
-                style: textTheme.headline3!.copyWith(
-                  color: DesignColors.white_100,
+        return Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            const DrawerTitle(title: 'Create a wallet'),
+            const SizedBox(height: 24),
+            const Divider(color: Color(0xFF343261)),
+            const SizedBox(height: 24),
+            KiraTextField(
+              label: 'Your public address',
+              readOnly: true,
+              controller: publicAddressTextController,
+              suffixIcon: IconButton(
+                onPressed: _createNewWallet,
+                icon: const Icon(
+                  AppIcons.refresh,
+                  color: DesignColors.blue1_100,
                 ),
               ),
-              const SizedBox(height: 24),
-              const Divider(color: Color(0xFF343261)),
-              const SizedBox(height: 24),
-              KiraTextField(
-                label: 'Your public address',
-                readOnly: true,
-                controller: publicAddressTextController,
-                suffixIcon: IconButton(
-                  onPressed: _createNewWallet,
-                  icon: const Icon(
-                    AppIcons.refresh,
-                    color: DesignColors.blue1_100,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              ValueListenableBuilder<Mnemonic>(
-                valueListenable: mnemonicNotifier,
-                builder: (_, Mnemonic mnemonic, __) {
-                  return KiraExpansionTile(
-                    controller: qrCodeTileController,
-                    title: 'Reveal Secret QR Code',
-                    subtitle: 'You won’t be able to see it again',
-                    tooltipMessage: 'You won’t be able to see it again',
-                    disabled: loading,
-                    children: <Widget>[QrCodeTileContent(mnemonic: mnemonic)],
-                  );
-                },
-              ),
-              ValueListenableBuilder<Mnemonic>(
-                valueListenable: mnemonicNotifier,
-                builder: (_, Mnemonic mnemonic, __) {
-                  return KiraExpansionTile(
-                    controller: mnemonicTileController,
-                    title: 'Reveal Secret Phrases',
-                    subtitle: 'You won’t be able to see it again',
-                    tooltipMessage: 'You won’t be able to see it again',
-                    disabled: loading,
-                    children: <Widget>[
-                      SecretPhrasesTileContent(
-                        mnemonicGridController: mnemonicGridController,
-                        mnemonic: mnemonic,
-                      ),
-                    ],
-                  );
-                },
-              ),
-              ValueListenableBuilder<Wallet?>(
-                valueListenable: walletNotifier,
-                builder: (_, Wallet? wallet, __) {
-                  return KiraExpansionTile(
-                    controller: keyfileTileController,
-                    title: 'Generate keyfile',
-                    tooltipMessage: 'Generate keyfile',
-                    disabled: loading,
-                    children: <Widget>[
-                      if (wallet != null)
-                        DownloadKeyfileSection(
-                          controller: downloadKeyfileSectionController,
-                          wallet: wallet,
-                        ),
-                    ],
-                  );
-                },
-              ),
-              const Divider(color: Color(0xFF343261)),
-              ValueListenableBuilder<bool>(
-                valueListenable: termsCheckedNotifier,
-                builder: (_, bool termsChecked, __) {
-                  return Opacity(
-                    opacity: loading ? 0.3 : 1,
-                    child: WalletTermsSection(
-                      checked: termsCheckedNotifier.value,
-                      onChanged: (bool value) {
-                        termsCheckedNotifier.value = value;
-                      },
+            ),
+            const SizedBox(height: 20),
+            ValueListenableBuilder<Mnemonic>(
+              valueListenable: mnemonicNotifier,
+              builder: (_, Mnemonic mnemonic, __) {
+                return KiraExpansionTile(
+                  controller: qrCodeTileController,
+                  title: 'Reveal Mnemonic QR Code',
+                  subtitle: 'You won’t be able to see it again',
+                  tooltipMessage: 'Mnemonic QR Code is coded sentence of mnemonic words into QR',
+                  disabled: loading,
+                  children: <Widget>[QrCodeTileContent(mnemonic: mnemonic)],
+                );
+              },
+            ),
+            ValueListenableBuilder<Mnemonic>(
+              valueListenable: mnemonicNotifier,
+              builder: (_, Mnemonic mnemonic, __) {
+                return KiraExpansionTile(
+                  controller: mnemonicTileController,
+                  title: 'Reveal Mnemonic Words',
+                  subtitle: 'You won’t be able to see them again',
+                  tooltipMessage: 'Mnemonic (“mnemonic code”, “seed phrase”, “seed words”)\nWay of representing a large randomly-generated number as a sequence of words,\nmaking it easier for humans to store.',
+                  disabled: loading,
+                  children: <Widget>[
+                    SecretPhrasesTileContent(
+                      mnemonicGridController: mnemonicGridController,
+                      mnemonic: mnemonic,
                     ),
-                  );
-                },
-              ),
-              const SizedBox(height: 20),
-              ValueListenableBuilder<bool>(
-                valueListenable: termsCheckedNotifier,
-                builder: (_, bool termsChecked, __) {
-                  return KiraElevatedButton(
-                    onPressed: _onConnectWalledPressed,
-                    disabled: !termsChecked,
-                    title: 'Connect wallet',
-                  );
-                },
-              ),
-            ],
-          ),
+                  ],
+                );
+              },
+            ),
+            ValueListenableBuilder<Wallet?>(
+              valueListenable: walletNotifier,
+              builder: (_, Wallet? wallet, __) {
+                return KiraExpansionTile(
+                  controller: keyfileTileController,
+                  title: 'Generate Keyfile',
+                  subtitle: 'You won’t be able to generate it again',
+                  tooltipMessage: 'Keyfile is a file which contains encrypted data',
+                  disabled: loading,
+                  children: <Widget>[
+                    if (wallet != null)
+                      DownloadKeyfileSection(
+                        controller: downloadKeyfileSectionController,
+                        wallet: wallet,
+                      ),
+                  ],
+                );
+              },
+            ),
+            const Divider(color: Color(0xFF343261)),
+            ValueListenableBuilder<bool>(
+              valueListenable: termsCheckedNotifier,
+              builder: (_, bool termsChecked, __) {
+                return Opacity(
+                  opacity: loading ? 0.3 : 1,
+                  child: WalletTermsSection(
+                    checked: termsCheckedNotifier.value,
+                    onChanged: (bool value) {
+                      termsCheckedNotifier.value = value;
+                    },
+                  ),
+                );
+              },
+            ),
+            const SizedBox(height: 20),
+            ValueListenableBuilder<bool>(
+              valueListenable: termsCheckedNotifier,
+              builder: (_, bool termsChecked, __) {
+                return KiraElevatedButton(
+                  onPressed: _onConnectWalledPressed,
+                  disabled: !termsChecked,
+                  title: 'Sign in',
+                );
+              },
+            ),
+          ],
         );
       },
     );

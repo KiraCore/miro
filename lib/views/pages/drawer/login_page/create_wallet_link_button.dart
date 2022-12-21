@@ -9,30 +9,23 @@ class CreateWalletLinkButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         const Divider(color: Color(0xff343261)),
         const SizedBox(height: 32),
-        const Text(
+        Text(
           'Don`t have a wallet?',
-          style: TextStyle(
-            fontSize: 12,
-            color: DesignColors.gray3_100,
-            letterSpacing: 0.1,
-          ),
+          style: textTheme.bodyText2!.copyWith(color: DesignColors.gray3_100),
         ),
         const SizedBox(height: 8),
         TextLink(
-          text: 'Create a wallet',
-          textStyle: const TextStyle(
-            fontSize: 12,
-            letterSpacing: 0.1,
-          ),
-          onTap: () {
-            KiraScaffold.of(context).navigateEndDrawerRoute(const CreateWalletPage());
-          },
+          text: 'Create new wallet',
+          textStyle: textTheme.bodyText2!,
+          onTap: () => KiraScaffold.of(context).navigateEndDrawerRoute(const CreateWalletPage()),
         ),
         const SizedBox(height: 15),
       ],

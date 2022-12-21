@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/blocs/specific_blocs/drawer/drawer_cubit.dart';
+import 'package:miro/blocs/specific_blocs/drawer/states/drawer_hidden_state.dart';
+import 'package:miro/blocs/specific_blocs/drawer/states/drawer_visible_state.dart';
 import 'package:miro/test/utils/test_utils.dart';
 import 'package:miro/views/pages/drawer/create_wallet_page/create_wallet_page.dart';
 import 'package:miro/views/pages/drawer/login_page/login_keyfile_page/login_keyfile_page.dart';
@@ -9,125 +11,68 @@ import 'package:miro/views/pages/drawer/login_page/login_mnemonic_page/login_mne
 // To run this test type in console:
 // fvm flutter test test/unit/blocs/drawer_cubit_test.dart --platform chrome --null-assertions
 Future<void> main() async {
-  GlobalKey<ScaffoldState>? actualScaffoldKey;
-  DrawerCubit drawerCubit = DrawerCubit();
+  setUpAll(TestWidgetsFlutterBinding.ensureInitialized);
+
+  GlobalKey<ScaffoldState> actualScaffoldKey = GlobalKey<ScaffoldState>();
+  DrawerCubit actualDrawerCubit = DrawerCubit();
 
   const Widget firstRoute = CreateWalletPage();
   const Widget secondRoute = LoginKeyfilePage();
   const Widget thirdRoute = LoginMnemonicPage();
 
-  group('Tests of navigate() method', () {
-    test('Should navigate to provided Widget and update route history when added Widget to route stack first time', () {
-      drawerCubit.navigate(actualScaffoldKey, firstRoute);
+  group('Tests of DrawerCubit process', () {
+    test('Should return ADrawerState consistent with current route', () {
+      // Act
+      actualDrawerCubit.navigate(actualScaffoldKey, firstRoute);
 
-      // Because the tested method doesn't work properly outside the test, we need to check method within one test
-      TestUtils.printInfo('Should return DrawerNavigate state with current route and false canPop status');
-      expect(
-        drawerCubit.state,
-        DrawerNavigate(currentRoute: firstRoute, canPop: false),
-      );
+      // Assert
+      TestUtils.printInfo('Should navigate to provided Widget and update route history when added Widget to route stack first time');
+      expect(actualDrawerCubit.state, DrawerVisibleState(currentRoute: firstRoute, canPop: false));
+      expect(actualDrawerCubit.routeHistory, <Widget>[firstRoute]);
+      expect(actualDrawerCubit.canPop, false);
 
-      TestUtils.printInfo('Should return current route history');
-      expect(
-        drawerCubit.pagesHistory,
-        <Widget>[firstRoute],
-      );
+      // ************************************************************************
 
-      TestUtils.printInfo('Should return false if route history has only one item');
-      expect(
-        drawerCubit.canPop,
-        false,
-      );
-    });
+      // Act
+      actualDrawerCubit.navigate(actualScaffoldKey, secondRoute);
 
-    test('Should navigate to provided Widget and update route history when added Widget to route stack next time', () {
-      drawerCubit.navigate(actualScaffoldKey, secondRoute);
-      TestUtils.printInfo('Should return DrawerNavigate state with current route and true canPop status');
-      expect(
-        drawerCubit.state,
-        DrawerNavigate(currentRoute: secondRoute, canPop: true),
-      );
+      TestUtils.printInfo('Should navigate to provided Widget and update route history when added Widget to route stack second time');
+      expect(actualDrawerCubit.state, DrawerVisibleState(currentRoute: secondRoute, canPop: true));
+      expect(actualDrawerCubit.routeHistory, <Widget>[firstRoute, secondRoute]);
+      expect(actualDrawerCubit.canPop, true);
 
-      TestUtils.printInfo('Should return current route history');
-      expect(
-        drawerCubit.pagesHistory,
-        <Widget>[firstRoute, secondRoute],
-      );
+      // ************************************************************************
 
-      TestUtils.printInfo('Should return true if route history have more than one item');
-      expect(
-        drawerCubit.canPop,
-        true,
-      );
-    });
-  });
+      // Act
+      actualDrawerCubit.replace(actualScaffoldKey, thirdRoute);
 
-  group('Tests of replace() method', () {
-    test('Should replace last history Widget with provided Widget and update route history', () {
-      drawerCubit.replace(actualScaffoldKey, thirdRoute);
-      TestUtils.printInfo('Should return DrawerNavigate state with current route and true canPop status');
-      expect(
-        drawerCubit.state,
-        DrawerNavigate(currentRoute: thirdRoute, canPop: true),
-      );
+      // Assert
+      TestUtils.printInfo('Should replace last history Widget with provided Widget and update route history');
+      expect(actualDrawerCubit.state, DrawerVisibleState(currentRoute: thirdRoute, canPop: true));
+      expect(actualDrawerCubit.routeHistory, <Widget>[firstRoute, thirdRoute]);
+      expect(actualDrawerCubit.canPop, true);
 
-      TestUtils.printInfo('Should return current route history');
-      expect(
-        drawerCubit.pagesHistory,
-        <Widget>[firstRoute, thirdRoute],
-      );
+      // ************************************************************************
 
-      TestUtils.printInfo('Should return true if route history have more than one item');
-      expect(
-        drawerCubit.canPop,
-        true,
-      );
-    });
-  });
+      // Act
+      actualDrawerCubit.pop(actualScaffoldKey);
 
-  group('Tests of pop() method', () {
-    test('Should remove last history Widget and update route history', () {
-      drawerCubit.pop(actualScaffoldKey);
-      TestUtils.printInfo('Should return DrawerNavigate state with current route and false canPop status');
-      expect(
-        drawerCubit.state,
-        DrawerNavigate(currentRoute: firstRoute, canPop: false),
-      );
+      // Assert
+      TestUtils.printInfo('Should remove last history Widget and update route history');
+      expect(actualDrawerCubit.state, DrawerVisibleState(currentRoute: firstRoute, canPop: false));
+      expect(actualDrawerCubit.routeHistory, <Widget>[firstRoute]);
+      expect(actualDrawerCubit.canPop, false);
 
-      TestUtils.printInfo('Should return current route history');
-      expect(
-        drawerCubit.pagesHistory,
-        <Widget>[firstRoute],
-      );
+      // ************************************************************************
 
-      TestUtils.printInfo('Should return false if route history has only one item');
-      expect(
-        drawerCubit.canPop,
-        false,
-      );
-    });
-  });
+      // Act
+      actualDrawerCubit.closeDrawer(actualScaffoldKey);
 
-  group('Tests of closeDrawer() method', () {
-    test('Should clear route history stack after drawer close', () {
-      drawerCubit.closeDrawer(actualScaffoldKey);
-      TestUtils.printInfo('Should return DrawerNoRouteState()');
-      expect(
-        drawerCubit.state,
-        DrawerNoRouteState(),
-      );
-
-      TestUtils.printInfo('Should return empty route history');
-      expect(
-        drawerCubit.pagesHistory.length,
-        0,
-      );
-
-      TestUtils.printInfo('Should return false if route history is empty');
-      expect(
-        drawerCubit.canPop,
-        false,
-      );
+      // Assert
+      TestUtils.printInfo('Should clear route history stack after drawer close');
+      expect(actualDrawerCubit.state, DrawerHiddenState());
+      expect(actualDrawerCubit.routeHistory.length, 0);
+      expect(actualDrawerCubit.canPop, false);
     });
   });
 }

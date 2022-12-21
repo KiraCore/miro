@@ -6,9 +6,10 @@ import 'package:miro/shared/models/wallet/mnemonic.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/shared/utils/app_logger.dart';
 import 'package:miro/shared/utils/cryptography/bip39_extension.dart';
+import 'package:miro/views/layout/drawer/drawer_subtitle.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
+import 'package:miro/views/pages/drawer/login_page/create_wallet_link_button.dart';
 import 'package:miro/views/widgets/buttons/kira_elevated_button.dart';
-import 'package:miro/views/widgets/kira/kira_tooltip.dart';
 import 'package:miro/views/widgets/kira/mnemonic_grid/mnemonic_grid.dart';
 import 'package:miro/views/widgets/kira/mnemonic_grid/model/mnemonic_grid_controller.dart';
 
@@ -26,32 +27,14 @@ class _LoginMnemonicPage extends State<LoginMnemonicPage> {
 
   @override
   Widget build(BuildContext context) {
-    TextTheme textTheme = Theme.of(context).textTheme;
-
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
-          'Connect a wallet with Mnemonic',
-          style: textTheme.headline3!.copyWith(
-            color: DesignColors.white_100,
-          ),
-        ),
-        Wrap(
-          crossAxisAlignment: WrapCrossAlignment.center,
-          children: <Widget>[
-            Text(
-              'Write or paste your mnemonic',
-              style: textTheme.bodyText2!.copyWith(
-                color: DesignColors.gray2_100,
-              ),
-            ),
-            // TODO(dominik): Add tooltip message
-            const KiraToolTip(
-              message: 'Some message how to login with mnemonic',
-            ),
-          ],
+        const DrawerTitle(
+          title: 'Sign in with Mnemonic',
+          subtitle: 'Enter your Mnemonic',
+          tooltipMessage: 'Mnemonic is your secret data',
         ),
         const SizedBox(height: 24),
         SizedBox(
@@ -79,8 +62,11 @@ class _LoginMnemonicPage extends State<LoginMnemonicPage> {
         ),
         KiraElevatedButton(
           onPressed: _onLoginButtonPressed,
-          title: 'Connect a wallet',
+          title: 'Sign in',
         ),
+        const SizedBox(height: 32),
+        const CreateWalletLinkButton(),
+        const SizedBox(height: 32),
       ],
     );
   }
@@ -118,7 +104,7 @@ class _LoginMnemonicPage extends State<LoginMnemonicPage> {
 
   String? _validateMnemonic(List<String> mnemonicArray) {
     if (mnemonicArray.isEmpty) {
-      String errorMessage = 'You have to enter some mnemonic to log in';
+      String errorMessage = 'You have to enter correct Mnemonic to sign in';
       AppLogger().log(message: errorMessage, logLevel: LogLevel.warning);
       return errorMessage;
     }

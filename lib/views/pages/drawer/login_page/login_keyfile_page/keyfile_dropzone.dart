@@ -59,9 +59,12 @@ class _KeyfileDropzone extends State<KeyfileDropzone> {
             ),
           ),
           Positioned.fill(
-            child: Padding(
-              padding: const EdgeInsets.all(10),
-              child: _buildPreview(),
+            child: InkWell(
+              onTap: () => dropZoneController.pickFile(),
+              child: Container(
+                padding: const EdgeInsets.all(10),
+                child: _buildPreview(),
+              ),
             ),
           ),
         ],
@@ -132,7 +135,7 @@ class _KeyfileDropzone extends State<KeyfileDropzone> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Text(
-          'Please drop a key file here',
+          'Please drop Keyfile here',
           style: textTheme.bodyText2!.copyWith(
             color: DesignColors.gray3_100,
           ),
@@ -150,9 +153,7 @@ class _KeyfileDropzone extends State<KeyfileDropzone> {
             TextLink(
               text: 'browse',
               textStyle: textTheme.bodyText2!,
-              onTap: () {
-                dropZoneController.pickFile();
-              },
+              onTap: () => dropZoneController.pickFile(),
             ),
           ],
         ),
