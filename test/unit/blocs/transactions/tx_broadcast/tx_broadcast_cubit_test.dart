@@ -9,7 +9,7 @@ import 'package:miro/blocs/specific_blocs/transactions/tx_broadcast/states/tx_br
 import 'package:miro/blocs/specific_blocs/transactions/tx_broadcast/states/tx_broadcast_loading_state.dart';
 import 'package:miro/blocs/specific_blocs/transactions/tx_broadcast/tx_broadcast_cubit.dart';
 import 'package:miro/config/locator.dart';
-import 'package:miro/infra/dto/api_cosmos/broadcast/response/broadcast_resp.dart';
+import 'package:miro/infra/dto/api_kira/broadcast/response/broadcast_resp.dart';
 import 'package:miro/shared/models/network/data/connection_status_type.dart';
 import 'package:miro/shared/models/network/data/network_info_model.dart';
 import 'package:miro/shared/models/network/status/network_offline_model.dart';
@@ -25,7 +25,7 @@ import 'package:miro/shared/models/transactions/tx_local_info_model.dart';
 import 'package:miro/shared/models/transactions/tx_remote_info_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/test/mock_locator.dart';
-import 'package:miro/test/mocks/api_cosmos/mock_api_cosmos_txs.dart';
+import 'package:miro/test/mocks/api_kira/mock_api_kira_txs.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
 // To run this test type in console:
@@ -51,7 +51,7 @@ Future<void> main() async {
     name: 'healthy-mainnet',
     networkInfoModel: NetworkInfoModel(
       chainId: 'localnet-1',
-      interxVersion: 'v0.4.20-rc2',
+      interxVersion: 'v0.4.22',
       latestBlockHeight: 108843,
       latestBlockTime: DateTime.now(),
       activeValidators: 319,
@@ -124,7 +124,7 @@ Future<void> main() async {
       // Assert
       expectedTxBroadcastState = TxBroadcastCompletedState(
         broadcastRespModel: BroadcastRespModel.fromDto(
-          BroadcastResp.fromJson(MockApiCosmosTxs.defaultResponse),
+          BroadcastResp.fromJson(MockApiKiraTxs.defaultResponse),
         ),
       );
 

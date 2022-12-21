@@ -1,4 +1,4 @@
-import 'package:miro/infra/dto/api_cosmos/broadcast/request/messages/identity_records/register/msg_register_identity_records.dart';
+import 'package:miro/infra/dto/api_kira/broadcast/request/messages/identity_records/register/msg_register_identity_records.dart';
 import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
 import 'package:miro/shared/models/transactions/messages/identity_records/register/identity_info_entry_model.dart';
 import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';

@@ -4,7 +4,7 @@ import 'package:miro/blocs/specific_blocs/transactions/tx_broadcast/states/tx_br
 import 'package:miro/blocs/specific_blocs/transactions/tx_broadcast/states/tx_broadcast_error_state.dart';
 import 'package:miro/blocs/specific_blocs/transactions/tx_broadcast/states/tx_broadcast_loading_state.dart';
 import 'package:miro/config/locator.dart';
-import 'package:miro/infra/services/api_cosmos/broadcast_service.dart';
+import 'package:miro/infra/services/api_kira/broadcast_service.dart';
 import 'package:miro/shared/controllers/reload_notifier/reload_notifier_controller.dart';
 import 'package:miro/shared/models/transactions/broadcast_resp_model.dart';
 import 'package:miro/shared/models/transactions/signed_transaction_model.dart';

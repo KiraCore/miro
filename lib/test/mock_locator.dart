@@ -3,15 +3,14 @@ import 'package:miro/blocs/specific_blocs/network_module/network_module_bloc.dar
 import 'package:miro/config/app_config.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/cache/cache_manager.dart';
-import 'package:miro/infra/repositories/api_cosmos_repository.dart';
 import 'package:miro/infra/repositories/api_kira_repository.dart';
 import 'package:miro/infra/repositories/api_repository.dart';
 import 'package:miro/infra/services/api/dashboard_service.dart';
 import 'package:miro/infra/services/api/query_interx_status_service.dart';
 import 'package:miro/infra/services/api/query_validators_service.dart';
-import 'package:miro/infra/services/api_cosmos/broadcast_service.dart';
-import 'package:miro/infra/services/api_cosmos/query_account_service.dart';
-import 'package:miro/infra/services/api_cosmos/query_balance_service.dart';
+import 'package:miro/infra/services/api_kira/broadcast_service.dart';
+import 'package:miro/infra/services/api_kira/query_account_service.dart';
+import 'package:miro/infra/services/api_kira/query_balance_service.dart';
 import 'package:miro/infra/services/api_kira/query_execution_fee_service.dart';
 import 'package:miro/infra/services/api_kira/query_kira_tokens_aliases_service.dart';
 import 'package:miro/infra/services/api_kira/query_kira_tokens_rates_service.dart';
@@ -20,7 +19,6 @@ import 'package:miro/infra/services/network_module_service.dart';
 import 'package:miro/providers/app_config_provider.dart';
 import 'package:miro/providers/wallet_provider.dart';
 import 'package:miro/shared/controllers/reload_notifier/reload_notifier_controller.dart';
-import 'package:miro/test/mock_api_cosmos_repository.dart';
 import 'package:miro/test/mock_api_kira_repository.dart';
 import 'package:miro/test/mock_api_repository.dart';
 import 'package:miro/test/mocks/mock_network_list_config_json.dart';
@@ -37,7 +35,6 @@ Future<void> initMockLocator() async {
     ..registerLazySingleton<ApiRepository>(MockApiRepository.new)
     ..registerLazySingleton<QueryExecutionFeeService>(QueryExecutionFeeService.new)
     ..registerFactory<ApiKiraRepository>(MockApiKiraRepository.new)
-    ..registerFactory<ApiCosmosRepository>(MockApiCosmosRepository.new)
     ..registerFactory<NetworkModuleService>(NetworkModuleService.new)
     ..registerFactory<QueryInterxStatusService>(QueryInterxStatusService.new)
     ..registerFactory<QueryBalanceService>(QueryBalanceService.new)

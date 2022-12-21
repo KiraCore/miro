@@ -1,4 +1,4 @@
-import 'package:miro/infra/dto/api_cosmos/broadcast/response/broadcast_tx.dart';
+import 'package:miro/infra/dto/api_kira/broadcast/response/broadcast_tx.dart';
 
 class BroadcastErrorModel {
   final String name;

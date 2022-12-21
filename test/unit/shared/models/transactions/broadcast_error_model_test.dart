@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:miro/infra/dto/api_cosmos/broadcast/response/broadcast_tx.dart';
-import 'package:miro/infra/dto/api_cosmos/broadcast/response/event.dart';
+import 'package:miro/infra/dto/api_kira/broadcast/response/broadcast_tx.dart';
+import 'package:miro/infra/dto/api_kira/broadcast/response/event.dart';
 import 'package:miro/shared/models/transactions/broadcast_error_model.dart';
 
 void main() {
