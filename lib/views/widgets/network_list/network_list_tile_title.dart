@@ -22,25 +22,16 @@ class NetworkListTileTitle extends StatelessWidget {
       children: <Widget>[
         Row(
           children: <Widget>[
-            SizedBox(
-              width: 12,
-              height: 12,
-              child: Center(
-                child: NetworkStatusIcon(
-                  networkStatusModel: networkStatusModel,
-                  size: 12,
-                ),
-              ),
+            NetworkStatusIcon(
+              networkStatusModel: networkStatusModel,
+              size: 12,
             ),
             const SizedBox(width: 8),
             Text(
               networkStatusModel.name,
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
+              style: textTheme.bodyText1!.copyWith(
                 color: DesignColors.white_100,
-                fontSize: 16,
-                fontWeight: FontWeight.w400,
-                letterSpacing: 0.015,
               ),
             ),
           ],
@@ -52,11 +43,8 @@ class NetworkListTileTitle extends StatelessWidget {
             Text(
               networkStatusModel.uri.toString(),
               overflow: TextOverflow.ellipsis,
-              style: const TextStyle(
+              style: textTheme.caption!.copyWith(
                 color: DesignColors.gray2_100,
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
-                letterSpacing: 0.015,
               ),
             ),
           ],

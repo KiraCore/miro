@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:miro/shared/models/network/data/interx_warning_type.dart';
 import 'package:miro/views/widgets/kira/kira_toast/toast_container.dart';
 
@@ -14,6 +14,7 @@ class NetworkWarningContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
     Map<InterxWarningType, String> interxWarningMessages = <InterxWarningType, String>{
       InterxWarningType.blockTimeOutdated:
           'The last available block on this interx was created long time ago ($latestBlockTime). The displayed data may be out of date',
@@ -26,7 +27,7 @@ class NetworkWarningContainer extends StatelessWidget {
         width: double.infinity,
         title: Text(
           interxWarningMessages[interxWarningType] ?? 'Undefined error',
-          style: const TextStyle(fontSize: 12),
+          style: textTheme.caption!,
         ),
         toastType: ToastType.warning,
       ),

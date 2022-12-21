@@ -57,11 +57,14 @@ class _KiraScaffold extends State<KiraScaffold> {
       drawerEnableOpenDragGesture: false,
       endDrawerEnableOpenDragGesture: false,
       endDrawer: widget.endDrawer,
-      body: KiraBackground(
-        child: ResponsiveWidget(
-          largeScreen: kiraScaffoldDesktop,
-          mediumScreen: kiraScaffoldDesktop,
-          smallScreen: kiraScaffoldMobile,
+      body: GestureDetector(
+        onTap: () => _handleActionLayoutFocus(context),
+        child: KiraBackground(
+          child: ResponsiveWidget(
+            largeScreen: kiraScaffoldDesktop,
+            mediumScreen: kiraScaffoldDesktop,
+            smallScreen: kiraScaffoldMobile,
+          ),
         ),
       ),
     );
@@ -81,5 +84,12 @@ class _KiraScaffold extends State<KiraScaffold> {
 
   void closeEndDrawer() {
     BlocProvider.of<DrawerCubit>(context).closeDrawer(scaffoldKey);
+  }
+
+  void _handleActionLayoutFocus(BuildContext context) {
+    FocusScopeNode isFocused = FocusScope.of(context);
+    if (!isFocused.hasPrimaryFocus) {
+      isFocused.unfocus();
+    }
   }
 }

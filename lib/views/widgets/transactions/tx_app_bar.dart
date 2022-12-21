@@ -36,7 +36,7 @@ class TxAppBar extends StatelessWidget {
 
   EdgeInsets _selectAppBarPadding(BuildContext context) {
     if (ResponsiveWidget.isSmallScreen(context)) {
-      return const EdgeInsets.symmetric(horizontal: 10, vertical: 30);
+      return const EdgeInsets.symmetric(horizontal: 10, vertical: 10);
     } else {
       return const EdgeInsets.all(40);
     }

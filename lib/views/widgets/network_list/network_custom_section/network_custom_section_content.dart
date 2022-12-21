@@ -35,6 +35,8 @@ class _NetworkCustomSectionContent extends State<NetworkCustomSectionContent> {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,15 +48,16 @@ class _NetworkCustomSectionContent extends State<NetworkCustomSectionContent> {
             decoration: InputDecoration(
               hintText: 'Custom address',
               contentPadding: const EdgeInsets.symmetric(horizontal: 12),
-              hintStyle: const TextStyle(
+              hintStyle: textTheme.bodyText1!.copyWith(
                 color: DesignColors.white_100,
-                fontSize: 16,
               ),
               suffixIcon: TextButton(
                 onPressed: _handleConnectButtonPressed,
-                child: const Text(
+                child: Text(
                   'Connect',
-                  style: TextStyle(color: DesignColors.darkGreen_100),
+                  style: textTheme.caption!.copyWith(
+                    color: DesignColors.darkGreen_100,
+                  ),
                 ),
               ),
             ),
@@ -64,17 +67,15 @@ class _NetworkCustomSectionContent extends State<NetworkCustomSectionContent> {
         if (errorMessage != null)
           Text(
             errorMessage!,
-            style: const TextStyle(
+            style: textTheme.caption!.copyWith(
               color: DesignColors.red_100,
-              fontSize: 12,
             ),
           ),
         if (successMessage != null)
           Text(
             successMessage!,
-            style: const TextStyle(
+            style: textTheme.caption!.copyWith(
               color: DesignColors.darkGreen_100,
-              fontSize: 12,
             ),
           ),
         Padding(
@@ -86,11 +87,10 @@ class _NetworkCustomSectionContent extends State<NetworkCustomSectionContent> {
                 cursor: SystemMouseCursors.click,
                 child: GestureDetector(
                   onTap: _handleTryConnectionButtonPressed,
-                  child: const Text(
+                  child: Text(
                     'Try connection',
-                    style: TextStyle(
+                    style: textTheme.caption!.copyWith(
                       color: DesignColors.gray2_100,
-                      fontSize: 12,
                     ),
                   ),
                 ),

@@ -67,26 +67,40 @@ class _CoreApp extends State<CoreApp> {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<AppConfigProvider>(
-      builder: (_, AppConfigProvider value, Widget? child) {
-        return MaterialApp.router(
-          title: 'Kira Network',
-          routeInformationParser: appRouter.defaultRouteParser(),
-          routerDelegate: appRouter.delegate(),
-          debugShowCheckedModeBanner: false,
-          locale: Locale(
-            globalLocator<AppConfigProvider>().locale,
-            globalLocator<AppConfigProvider>().locale.toUpperCase(),
-          ),
-          theme: ThemeConfig.buildTheme(),
-          builder: (_, Widget? routerWidget) {
-            return routerWidget as Widget;
+    return LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        bool isSmallScreen = constraints.maxWidth < 600;
+
+        return Consumer<AppConfigProvider>(
+          builder: (_, AppConfigProvider value, Widget? child) {
+            return MaterialApp.router(
+              title: 'Kira Network',
+              routeInformationParser: appRouter.defaultRouteParser(),
+              routerDelegate: appRouter.delegate(),
+              debugShowCheckedModeBanner: false,
+              locale: Locale(
+                globalLocator<AppConfigProvider>().locale,
+                globalLocator<AppConfigProvider>().locale.toUpperCase(),
+              ),
+              theme: ThemeConfig.buildTheme(isSmallScreen: isSmallScreen),
+              builder: (_, Widget? routerWidget) {
+                return Scaffold(
+                  body: NotificationListener<OverscrollIndicatorNotification>(
+                    onNotification: (OverscrollIndicatorNotification overscroll) {
+                      overscroll.disallowIndicator();
+                      return true;
+                    },
+                    child: routerWidget as Widget,
+                  ),
+                );
+              },
+              localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
+                S.delegate,
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+              ],
+            );
           },
-          localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
-            S.delegate,
-            GlobalMaterialLocalizations.delegate,
-            GlobalWidgetsLocalizations.delegate,
-          ],
         );
       },
     );

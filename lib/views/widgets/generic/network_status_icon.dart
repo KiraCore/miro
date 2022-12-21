@@ -15,11 +15,15 @@ class NetworkStatusIcon extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SvgPicture.asset(
-      Assets.iconsNetworkStatus,
-      color: networkStatusModel.statusColor,
-      height: size,
+    return SizedBox(
       width: size,
+      height: size,
+      child: SvgPicture.asset(
+        Assets.iconsNetworkStatus,
+        fit: BoxFit.contain,
+        allowDrawingOutsideViewBox: true,
+        color: networkStatusModel.statusColor,
+      ),
     );
   }
 }

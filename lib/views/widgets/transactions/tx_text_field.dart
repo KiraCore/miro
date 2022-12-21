@@ -5,26 +5,27 @@ import 'package:miro/config/theme/design_colors.dart';
 class TxTextField extends StatefulWidget {
   final ValueChanged<String>? onChanged;
   final TextEditingController textEditingController;
-
-  final bool disabled;
-  final FocusNode? focusNode;
-  final bool hasErrors;
+  final int? maxLines;
   final String? hintText;
+  final String? label;
+  final bool disabled;
+  final bool hasErrors;
+  final FocusNode? focusNode;
   final List<TextInputFormatter>? inputFormatters;
   final TextInputType? keyboardType;
-  final String? label;
   final FormFieldValidator<String>? validator;
 
   const TxTextField({
     required this.onChanged,
     required this.textEditingController,
-    this.disabled = false,
-    this.focusNode,
-    this.hasErrors = false,
+    this.maxLines,
     this.hintText,
+    this.label,
+    this.disabled = false,
+    this.hasErrors = false,
+    this.focusNode,
     this.inputFormatters,
     this.keyboardType,
-    this.label,
     this.validator,
     Key? key,
   }) : super(key: key);
@@ -40,6 +41,7 @@ class _TxTextField extends State<TxTextField> {
 
     return TextFormField(
       focusNode: widget.focusNode,
+      maxLines: widget.maxLines,
       controller: widget.textEditingController,
       onChanged: widget.onChanged,
       enabled: !widget.disabled,

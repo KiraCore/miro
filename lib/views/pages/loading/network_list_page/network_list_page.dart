@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:miro/config/app_sizes.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/assets.dart';
 import 'package:miro/shared/models/network/connection/connection_error_model.dart';
@@ -33,11 +34,10 @@ class _ConnectionsPage extends State<NetworkListPage> {
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
     ConnectionErrorModel? connectionErrorModel = _selectConnectionErrorModel();
-
     return SingleChildScrollView(
       child: Center(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 100, horizontal: 48),
+          padding: AppSizes.defaultMobilePageMargin.copyWith(top: 100),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -53,6 +53,7 @@ class _ConnectionsPage extends State<NetworkListPage> {
               const SizedBox(height: 16),
               Text(
                 'Connection cancelled',
+                textAlign: TextAlign.center,
                 style: textTheme.headline1!.copyWith(
                   color: DesignColors.white_100,
                 ),
@@ -108,6 +109,7 @@ class _ConnectionsPage extends State<NetworkListPage> {
                       hiddenNetworkStatusModel: _isAutoDisconnected ? widget.canceledNetworkStatusModel : null,
                     ),
                     NetworkCustomSection(onConnected: _handleNetworkConnected),
+                    const SizedBox(height: 100),
                   ],
                 ),
               )

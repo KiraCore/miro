@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/views/widgets/generic/responsive/responsive_value.dart';
 import 'package:miro/views/widgets/kira/kira_identity_avatar.dart';
 import 'package:miro/views/widgets/transactions/tx_input_wrapper.dart';
 import 'package:miro/views/widgets/transactions/tx_text_field.dart';
@@ -70,6 +71,11 @@ class _WalletAddressTextField extends State<WalletAddressTextField> {
                       alignment: Alignment.centerLeft,
                       child: TxTextField(
                         disabled: disabled,
+                        maxLines: const ResponsiveValue<int>(
+                          largeScreen: 1,
+                          mediumScreen: 1,
+                          smallScreen: 2,
+                        ).get(context),
                         hasErrors: field.hasError,
                         label: widget.label,
                         textEditingController: textEditingController,
