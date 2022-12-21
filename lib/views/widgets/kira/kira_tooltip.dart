@@ -12,7 +12,6 @@ class KiraToolTip extends StatelessWidget {
   final bool? preferBelow;
   final bool? excludeFromSemantics;
   final Widget? child;
-  final Decoration? decoration;
   final TextStyle? textStyle;
   final Duration? waitDuration;
   final Duration? showDuration;
@@ -29,7 +28,6 @@ class KiraToolTip extends StatelessWidget {
     this.verticalOffset,
     this.preferBelow,
     this.excludeFromSemantics,
-    this.decoration,
     this.textStyle,
     this.waitDuration,
     this.showDuration,
@@ -51,7 +49,14 @@ class KiraToolTip extends StatelessWidget {
       verticalOffset: verticalOffset,
       preferBelow: preferBelow,
       excludeFromSemantics: excludeFromSemantics,
-      decoration: decoration,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+        color: DesignColors.gray1_100,
+        border: Border.all(
+          color: DesignColors.white_20,
+          width: 1,
+        ),
+      ),
       textStyle: textStyle ??
           textTheme.caption!.copyWith(
             color: DesignColors.white_100,

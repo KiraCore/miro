@@ -52,7 +52,7 @@ class _WalletTermsSection extends State<WalletTermsSection> {
             Expanded(
               child: SizedBox(
                 child: Text(
-                  'I understand that if I loose seed phrases or private key I will loose access to account forever.',
+                  'I understand that if I lose Mnemonic or Keyfile I will never have access to account again.',
                   style: textTheme.caption!.copyWith(
                     color: DesignColors.gray2_100,
                   ),

@@ -58,7 +58,7 @@ class MenuWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     return KiraScaffold(
       navItemModelList: navItemModelList,
-      drawerScrimColor: const Color(0x99000000),
+      drawerScrimColor: const Color(0x960B0B18),
       endDrawer: const DrawerWrapper(),
       body: const AutoRouter(
         key: GlobalObjectKey('pages_router'),

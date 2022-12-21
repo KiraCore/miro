@@ -30,22 +30,30 @@ class KiraTextField extends StatefulWidget {
 }
 
 class _KiraTextField extends State<KiraTextField> {
-  final FocusNode inputFocusNode = FocusNode();
-  String? errorMessage;
-  bool obscureTextStatus = false;
-
   @override
   void initState() {
     super.initState();
-    obscureTextStatus = widget.obscureText;
-    widget.controller.initController(
-      validate: _validate,
-    );
+    widget.controller.obscureTextNotifier.value = widget.obscureText;
+    widget.controller.validateReloadNotifierModel.addListener(_handleValidateTextField);
+  }
+
+  @override
+  void dispose() {
+    widget.controller.validateReloadNotifierModel.removeListener(_handleValidateTextField);
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
+
+    OutlineInputBorder outlineInputBorder = OutlineInputBorder(
+      borderSide: const BorderSide(
+        color: Colors.transparent,
+        width: 1,
+      ),
+      borderRadius: BorderRadius.circular(8),
+    );
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -60,78 +68,69 @@ class _KiraTextField extends State<KiraTextField> {
           ),
           const SizedBox(height: 8),
         ],
-        TextFormField(
-          focusNode: inputFocusNode,
-          controller: widget.controller.textController,
-          onChanged: widget.onChanged,
-          obscureText: obscureTextStatus,
-          readOnly: widget.readOnly,
-          style: textTheme.bodyText2!.copyWith(
-            color: DesignColors.white_100,
-          ),
-          decoration: InputDecoration(
-            filled: true,
-            fillColor: DesignColors.gray1_100,
-            errorText: errorMessage,
-            errorStyle: const TextStyle(
-              color: DesignColors.red_100,
-            ),
-            suffixIcon: _getSuffixIcon(),
-            errorMaxLines: 1,
-            hintText: widget.hint,
-            hintStyle: textTheme.bodyText2!.copyWith(
-              color: DesignColors.white_100,
-            ),
-            border: InputBorder.none,
-            enabledBorder: OutlineInputBorder(
-              borderSide: const BorderSide(
-                color: Colors.transparent,
-                width: 1,
+        AnimatedBuilder(
+          animation: Listenable.merge(<Listenable>[
+            widget.controller.obscureTextNotifier,
+            widget.controller.errorNotifier,
+          ]),
+          builder: (BuildContext context, _) {
+            return TextField(
+              focusNode: widget.controller.focusNode,
+              controller: widget.controller.textController,
+              onChanged: widget.onChanged,
+              obscureText: widget.controller.obscureTextNotifier.value,
+              readOnly: widget.readOnly,
+              style: textTheme.bodyText1!.copyWith(
+                color: DesignColors.white_100,
               ),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderSide: const BorderSide(
-                color: DesignColors.blue1_100,
-                width: 1,
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: DesignColors.gray1_100,
+                hoverColor: Colors.transparent,
+                errorText: widget.controller.errorNotifier.value,
+                errorStyle: textTheme.caption!.copyWith(
+                  color: DesignColors.red_100,
+                ),
+                suffixIcon: _getSuffixIcon(),
+                errorMaxLines: 1,
+                hintText: widget.hint,
+                hintStyle: textTheme.bodyText1!.copyWith(
+                  color: DesignColors.gray2_100,
+                ),
+                border: outlineInputBorder,
+                enabledBorder: outlineInputBorder.copyWith(
+                  borderSide: outlineInputBorder.borderSide.copyWith(color: Colors.transparent),
+                ),
+                focusedBorder: outlineInputBorder.copyWith(
+                  borderSide: outlineInputBorder.borderSide.copyWith(color: DesignColors.blue1_100),
+                ),
+                errorBorder: outlineInputBorder.copyWith(
+                  borderSide: outlineInputBorder.borderSide.copyWith(color: DesignColors.red_100),
+                ),
+                focusedErrorBorder: outlineInputBorder.copyWith(
+                  borderSide: outlineInputBorder.borderSide.copyWith(color: DesignColors.red_100),
+                ),
               ),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            errorBorder: OutlineInputBorder(
-              borderSide: const BorderSide(
-                color: DesignColors.red_100,
-                width: 1,
-              ),
-              borderRadius: BorderRadius.circular(8),
-            ),
-            focusedErrorBorder: OutlineInputBorder(
-              borderSide: const BorderSide(
-                color: DesignColors.red_100,
-                width: 1,
-              ),
-              borderRadius: BorderRadius.circular(8),
-            ),
-          ),
+            );
+          },
         ),
       ],
     );
   }
 
-  String? _validate() {
+  void _handleValidateTextField() {
     if (widget.validator == null) {
-      errorMessage = null;
+      widget.controller.errorNotifier.value = null;
     } else {
-      errorMessage = widget.validator!(widget.controller.textController.text);
-      setState(() {});
+      widget.controller.errorNotifier.value = widget.validator!(widget.controller.textController.text);
     }
-    return errorMessage;
   }
 
   Color _getLabelColor() {
-    if (errorMessage != null) {
+    if (widget.controller.errorNotifier.value != null) {
       return DesignColors.red_100;
     }
-    if (inputFocusNode.hasFocus) {
+    if (widget.controller.focusNode.hasFocus) {
       return DesignColors.blue1_100;
     }
     return DesignColors.gray2_100;
@@ -142,11 +141,9 @@ class _KiraTextField extends State<KiraTextField> {
     if (widget.suffixIcon != null) {
       iconWidget = widget.suffixIcon;
     }
-    if (widget.obscureText == true && obscureTextStatus) {
+    if (widget.obscureText == true && widget.controller.obscureTextNotifier.value == true) {
       iconWidget = IconButton(
-        onPressed: () => setState(() {
-          obscureTextStatus = false;
-        }),
+        onPressed: () => widget.controller.obscureTextNotifier.value = false,
         icon: const Icon(
           AppIcons.eye_hidden,
           size: 16,
@@ -154,11 +151,9 @@ class _KiraTextField extends State<KiraTextField> {
         ),
       );
     }
-    if (widget.obscureText == true && !obscureTextStatus) {
+    if (widget.obscureText == true && widget.controller.obscureTextNotifier.value == false) {
       iconWidget = IconButton(
-        onPressed: () => setState(() {
-          obscureTextStatus = true;
-        }),
+        onPressed: () => widget.controller.obscureTextNotifier.value = true,
         icon: const Icon(
           AppIcons.eye_visible,
           size: 16,

@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/locator.dart';
-import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/providers/wallet_provider.dart';
 import 'package:miro/shared/exceptions/invalid_keyfile_exception.dart';
 import 'package:miro/shared/exceptions/invalid_password_exception.dart';
 import 'package:miro/shared/models/wallet/keyfile.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/shared/utils/app_logger.dart';
+import 'package:miro/views/layout/drawer/drawer_subtitle.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
 import 'package:miro/views/pages/drawer/login_page/create_wallet_link_button.dart';
 import 'package:miro/views/pages/drawer/login_page/login_keyfile_page/keyfile_dropzone.dart';
@@ -29,24 +29,14 @@ class _LoginKeyfilePage extends State<LoginKeyfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    TextTheme textTheme = Theme.of(context).textTheme;
-
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
-          'Sign in with key file',
-          style: textTheme.headline3!.copyWith(
-            color: DesignColors.white_100,
-          ),
-        ),
-        const SizedBox(height: 12),
-        Text(
-          'This is not a safe option to sign in',
-          style: textTheme.bodyText1!.copyWith(
-            color: DesignColors.gray2_100,
-          ),
+        const DrawerTitle(
+          title: 'Sign in with Keyfile',
+          subtitle: 'Drop Keyfile to the dropzone',
+          tooltipMessage: 'Keyfile is your secret data',
         ),
         const SizedBox(height: 37),
         KeyfileDropzone(
@@ -63,10 +53,11 @@ class _LoginKeyfilePage extends State<LoginKeyfilePage> {
         const SizedBox(height: 24),
         KiraElevatedButton(
           onPressed: _onLoginButtonPressed,
-          title: 'Login',
+          title: 'Sign in',
         ),
-        const Spacer(),
+        const SizedBox(height: 32),
         const CreateWalletLinkButton(),
+        const SizedBox(height: 32),
       ],
     );
   }
@@ -81,7 +72,7 @@ class _LoginKeyfilePage extends State<LoginKeyfilePage> {
       _getWalletFromKeyFileString(file.content);
       return null;
     } on InvalidKeyFileException catch (_) {
-      String errorMessage = 'Provided invalid key file';
+      String errorMessage = 'Invalid Keyfile';
       AppLogger().log(message: errorMessage, logLevel: LogLevel.warning);
       return errorMessage;
     } catch (e) {
@@ -109,7 +100,8 @@ class _LoginKeyfilePage extends State<LoginKeyfilePage> {
 
   void _onLoginButtonPressed() {
     bool keyfileValid = dropZoneController.validate() == null;
-    bool passwordValid = keyfilePasswordController.validate() == null;
+    keyfilePasswordController.validate();
+    bool passwordValid = keyfilePasswordController.errorNotifier.value == null;
 
     if (keyfileValid && passwordValid) {
       Wallet wallet = _getWalletFromKeyFileString(dropZoneController.dropzoneController.currentFile!.content);

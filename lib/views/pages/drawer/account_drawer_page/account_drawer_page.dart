@@ -13,19 +13,15 @@ class AccountDrawerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Wallet wallet = globalLocator<WalletProvider>().currentWallet!;
-    return SizedBox(
-      width: double.infinity,
-      height: double.infinity,
-      child: Column(
-        children: <Widget>[
-          MyAccountTile(wallet: wallet),
-          const Divider(color: DesignColors.blue1_20),
-          SizedBox(
-            height: 500,
-            child: AccountMenuList(onItemTap: () => KiraScaffold.of(context).closeEndDrawer()),
-          ),
-        ],
-      ),
+    return Column(
+      children: <Widget>[
+        MyAccountTile(wallet: wallet),
+        const Divider(color: DesignColors.blue1_20),
+        SizedBox(
+          height: 500,
+          child: AccountMenuList(onItemTap: () => KiraScaffold.of(context).closeEndDrawer()),
+        ),
+      ],
     );
   }
 }

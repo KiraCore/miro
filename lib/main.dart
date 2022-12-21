@@ -63,6 +63,7 @@ class _CoreApp extends State<CoreApp> {
     precacheImage(const AssetImage(Assets.assetsLogoSygnet), context);
     precacheImage(const AssetImage(Assets.assetsLogoLoading), context);
     precacheImage(const AssetImage(Assets.imagesBackground), context);
+    precacheImage(const AssetImage(Assets.imagesBackgroundDrawer), context);
   }
 
   @override
