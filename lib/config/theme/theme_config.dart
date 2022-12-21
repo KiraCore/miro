@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
 
 class ThemeConfig {
-  static ThemeData buildTheme() {
+  static ThemeData buildTheme({required bool isSmallScreen}) {
     final ThemeData themeData = ThemeData.dark();
 
     return themeData.copyWith(
@@ -16,7 +16,7 @@ class ThemeConfig {
       iconTheme: _buildIconThemeData(themeData.iconTheme),
       inputDecorationTheme: _buildInputDecorationTheme(themeData.inputDecorationTheme),
       textSelectionTheme: _buildTextSelectionThemeData(themeData.textSelectionTheme),
-      textTheme: _buildTextTheme(themeData.textTheme),
+      textTheme: isSmallScreen ? _buildSmallScreenTextTheme(themeData.textTheme) : _buildLargeScreenTextTheme(themeData.textTheme),
     );
   }
 
@@ -118,7 +118,58 @@ class ThemeConfig {
     );
   }
 
-  static TextTheme _buildTextTheme(TextTheme baseTextTheme) {
+  static TextTheme _buildSmallScreenTextTheme(TextTheme baseTextTheme) {
+    final TextTheme textTheme = baseTextTheme.apply(fontFamily: 'Inter');
+
+    return textTheme.copyWith(
+      headline1: textTheme.headline1!.copyWith(
+        fontWeight: FontWeight.w500,
+        fontSize: 25,
+      ),
+      headline2: textTheme.headline2!.copyWith(
+        fontWeight: FontWeight.w500,
+        fontSize: 23,
+      ),
+      headline3: textTheme.headline3!.copyWith(
+        fontWeight: FontWeight.w500,
+        fontSize: 20,
+        letterSpacing: 0.5,
+      ),
+      headline4: textTheme.headline4!.copyWith(
+        fontWeight: FontWeight.w500,
+        fontSize: 18,
+        letterSpacing: 0.5,
+      ),
+      subtitle1: textTheme.subtitle1!.copyWith(
+        fontWeight: FontWeight.w500,
+        fontSize: 14,
+        letterSpacing: 0.5,
+      ),
+      subtitle2: textTheme.subtitle2!.copyWith(
+        fontWeight: FontWeight.w500,
+        fontSize: 12,
+      ),
+      bodyText1: textTheme.bodyText1!.copyWith(
+        fontWeight: FontWeight.w400,
+        fontSize: 14,
+      ),
+      bodyText2: textTheme.bodyText2!.copyWith(
+        fontWeight: FontWeight.w400,
+        fontSize: 13,
+      ),
+      caption: textTheme.caption!.copyWith(
+        fontWeight: FontWeight.w400,
+        fontSize: 11,
+      ),
+      button: textTheme.button!.copyWith(
+        fontWeight: FontWeight.w700,
+        fontSize: 11,
+        letterSpacing: 0.4,
+      ),
+    );
+  }
+
+  static TextTheme _buildLargeScreenTextTheme(TextTheme baseTextTheme) {
     final TextTheme textTheme = baseTextTheme.apply(fontFamily: 'Inter');
 
     return textTheme.copyWith(

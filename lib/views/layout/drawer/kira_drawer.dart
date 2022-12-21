@@ -22,7 +22,7 @@ class KiraDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      onTap: () => _handleActionLayoutFocus(context),
       child: WillPopScope(
         onWillPop: onWillPop != null ? () => onWillPop!() : null,
         child: SizedBox(
@@ -59,5 +59,12 @@ class KiraDrawer extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _handleActionLayoutFocus(BuildContext context) {
+    FocusScopeNode isFocused = FocusScope.of(context);
+    if (!isFocused.hasPrimaryFocus) {
+      isFocused.unfocus();
+    }
   }
 }

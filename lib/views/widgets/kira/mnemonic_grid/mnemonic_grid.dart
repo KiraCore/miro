@@ -55,6 +55,8 @@ class _MnemonicGrid extends State<MnemonicGrid> {
       },
       autofocus: true,
       child: GridView.builder(
+        physics: const NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
         gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
           maxCrossAxisExtent: 200,
           childAspectRatio: 5.5,

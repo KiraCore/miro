@@ -20,15 +20,16 @@ class _NetworkCustomSectionSwitch extends State<NetworkCustomSectionSwitch> {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+    
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 17),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          const Text(
+          Text(
             'Enable custom address',
-            style: TextStyle(
-              fontSize: 16,
+            style: textTheme.bodyText1!.copyWith(
               fontWeight: FontWeight.w400,
               color: DesignColors.white_100,
             ),

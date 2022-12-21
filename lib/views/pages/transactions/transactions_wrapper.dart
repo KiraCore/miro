@@ -18,7 +18,7 @@ class TransactionsWrapper extends StatelessWidget {
             children: <Widget>[
               Positioned.fill(
                 child: Padding(
-                  padding: ResponsiveWidget.isSmallScreen(context) ? const EdgeInsets.only(top: 80) : EdgeInsets.zero,
+                  padding: ResponsiveWidget.isSmallScreen(context) ? const EdgeInsets.only(top: 48, bottom: 10) : EdgeInsets.zero,
                   child: const AutoRouter(),
                 ),
               ),

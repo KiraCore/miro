@@ -67,6 +67,7 @@ class _TxSendFormCubitWrapper extends State<TxFormInitCubitWrapper> {
               children: <Widget>[
                 Text(
                   'Cannot fetch transaction details. Check your internet connection',
+                  textAlign: TextAlign.center,
                   style: textTheme.caption!.copyWith(
                     color: DesignColors.red_100,
                   ),

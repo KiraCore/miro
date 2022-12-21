@@ -17,11 +17,9 @@ class NetworkListTileContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const TextStyle networkDetailsTextStyle = TextStyle(
+    TextTheme textTheme = Theme.of(context).textTheme;
+    TextStyle networkDetailsTextStyle = textTheme.caption!.copyWith(
       color: DesignColors.gray2_100,
-      fontSize: 12,
-      fontWeight: FontWeight.w400,
-      letterSpacing: 0.015,
     );
 
     return Padding(
@@ -48,21 +46,21 @@ class NetworkListTileContent extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              const Text('Block time', style: networkDetailsTextStyle),
+              Text('Block time', style: networkDetailsTextStyle),
               Text(_blockTime, style: networkDetailsTextStyle),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              const Text('Block Height', style: networkDetailsTextStyle),
+              Text('Block Height', style: networkDetailsTextStyle),
               Text(_latestBlockHeight, style: networkDetailsTextStyle),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              const Text('Validators', style: networkDetailsTextStyle),
+              Text('Validators', style: networkDetailsTextStyle),
               Text(_validatorsCount, style: networkDetailsTextStyle),
             ],
           ),

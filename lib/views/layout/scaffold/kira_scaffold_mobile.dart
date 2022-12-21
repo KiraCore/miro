@@ -18,7 +18,7 @@ class KiraScaffoldMobile extends StatelessWidget {
     return Backdrop(
       appbarBuilder: (bool isCollapsed) {
         return KiraAppBarMobile(
-          height: 62,
+          height: 52,
           isExpanded: isCollapsed,
           navItemModelList: navItemModelList,
         );

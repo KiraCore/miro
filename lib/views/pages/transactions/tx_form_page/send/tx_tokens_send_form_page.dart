@@ -24,6 +24,7 @@ class TxTokensSendFormPage extends StatefulWidget {
 }
 
 class _TxTokensSendFormPage extends State<TxTokensSendFormPage> {
+  final Key txFormInitCubitWrapperKey = UniqueKey();
   final WalletProvider walletProvider = globalLocator<WalletProvider>();
   final MsgSendFormController msgSendFormController = MsgSendFormController();
   final ValueNotifier<TokenDenominationModel?> tokenDenominationModelNotifier = ValueNotifier<TokenDenominationModel?>(null);
@@ -33,6 +34,7 @@ class _TxTokensSendFormPage extends State<TxTokensSendFormPage> {
     return TxDialog(
       title: 'Send tokens',
       child: TxFormInitCubitWrapper(
+        key: txFormInitCubitWrapperKey,
         txMsgType: TxMsgType.msgSend,
         childBuilder: (TxFormInitLoadedState txFormInitLoadedState) {
           return Column(
