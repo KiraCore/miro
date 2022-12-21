@@ -55,7 +55,7 @@ fvm flutter test test/integration --platform chrome --null-assertions
 fvm flutter test path/to/test.dart --platform chrome --null-assertions
 
 # Command example:
-fvm flutter test test/infra/services/api/withdraws_service_test.dart --platform chrome --null-assertions
+fvm flutter test test/unit/infra/services/api_kira/query_execution_fee_service_test.dart --platform chrome --null-assertions
 ```
 
 ## Building, Deploying and Installing
