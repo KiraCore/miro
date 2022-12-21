@@ -1,13 +1,9 @@
 import 'package:dio/dio.dart';
-import 'package:miro/infra/dto/api/deposits/request/deposit_req.dart';
 import 'package:miro/infra/dto/api/query_validators/request/query_validators_req.dart';
-import 'package:miro/infra/dto/api/withdraws/request/withdraws_req.dart';
 import 'package:miro/infra/repositories/api_repository.dart';
 import 'package:miro/test/mocks/api/mock_api_dashboard.dart';
-import 'package:miro/test/mocks/api/mock_api_deposits.dart';
 import 'package:miro/test/mocks/api/mock_api_status.dart';
 import 'package:miro/test/mocks/api/mock_api_valopers.dart';
-import 'package:miro/test/mocks/api/mock_api_withdraws.dart';
 
 enum DynamicNetworkStatus {
   healthy,
@@ -85,34 +81,6 @@ class MockApiRepository implements ApiRepository {
           requestOptions: RequestOptions(path: ''),
         );
       }
-    } else {
-      throw DioError(requestOptions: RequestOptions(path: networkUri.host));
-    }
-  }
-
-  @override
-  Future<Response<T>> fetchDeposits<T>(Uri networkUri, DepositsReq depositsReq) async {
-    bool hasResponse = workingEndpoints.contains(networkUri.host);
-    if (hasResponse) {
-      return Response<T>(
-        statusCode: 200,
-        data: MockApiDeposits.defaultResponse as T,
-        requestOptions: RequestOptions(path: ''),
-      );
-    } else {
-      throw DioError(requestOptions: RequestOptions(path: networkUri.host));
-    }
-  }
-
-  @override
-  Future<Response<T>> fetchWithdraws<T>(Uri networkUri, WithdrawsReq withdrawsReq) async {
-    bool hasResponse = workingEndpoints.contains(networkUri.host);
-    if (hasResponse) {
-      return Response<T>(
-        statusCode: 200,
-        data: MockApiWithdraws.defaultResponse as T,
-        requestOptions: RequestOptions(path: ''),
-      );
     } else {
       throw DioError(requestOptions: RequestOptions(path: networkUri.host));
     }
