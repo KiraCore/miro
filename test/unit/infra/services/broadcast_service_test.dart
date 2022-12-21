@@ -1,9 +1,9 @@
 import 'package:decimal/decimal.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/config/locator.dart';
-import 'package:miro/infra/dto/api_cosmos/broadcast/request/broadcast_req.dart';
-import 'package:miro/infra/dto/api_cosmos/broadcast/request/transaction/tx.dart';
-import 'package:miro/infra/services/api_cosmos/query_account_service.dart';
+import 'package:miro/infra/dto/api_kira/broadcast/request/broadcast_req.dart';
+import 'package:miro/infra/dto/api_kira/broadcast/request/transaction/tx.dart';
+import 'package:miro/infra/services/api_kira/query_account_service.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/transactions/messages/identity_records/msg_cancel_identity_records_verify_request_model.dart';

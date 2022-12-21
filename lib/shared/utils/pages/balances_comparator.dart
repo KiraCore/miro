@@ -1,4 +1,4 @@
-import 'package:miro/infra/dto/api_cosmos/query_balance/response/balance.dart';
+import 'package:miro/infra/dto/api_kira/query_balance/response/balance.dart';
 import 'package:miro/shared/utils/string_utils.dart';
 
 class BalancesComparator {

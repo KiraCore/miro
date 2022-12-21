@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:miro/infra/dto/api_cosmos/broadcast/response/broadcast_resp.dart';
+import 'package:miro/infra/dto/api_kira/broadcast/response/broadcast_resp.dart';
 import 'package:miro/shared/models/transactions/broadcast_error_model.dart';
 
 class BroadcastRespModel extends Equatable {

@@ -17,7 +17,7 @@ class AppConfig {
 
   final Duration outdatedBlockDuration = const Duration(minutes: 5);
   final Duration loadingPageTimerDuration = const Duration(seconds: 4);
-  final List<String> supportedInterxVersions = <String>['v0.4.20-rc2', 'v0.4.20-rc3'];
+  final List<String> supportedInterxVersions = <String>['v0.4.22'];
 
   final int _defaultRefreshIntervalSeconds = 60;
   final NetworkUnknownModel _defaultNetworkUnknownModel = NetworkUnknownModel(
@@ -76,7 +76,7 @@ class AppConfig {
     urlNetworkUnknownModel = findNetworkModelInConfig(urlNetworkUnknownModel);
     return urlNetworkUnknownModel;
   }
-  
+
   void _initProxyServerUri(String? proxyServerUrlText) {
     try {
       proxyServerUri = NetworkUtils.parseNoSchemeToHTTPS(proxyServerUrlText!);

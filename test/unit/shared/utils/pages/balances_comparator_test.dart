@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:miro/infra/dto/api_cosmos/query_balance/response/balance.dart';
+import 'package:miro/infra/dto/api_kira/query_balance/response/balance.dart';
 import 'package:miro/shared/utils/pages/balances_comparator.dart';
 
 void main() {

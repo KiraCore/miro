@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:miro/infra/dto/api_cosmos/broadcast/request/transaction/std_sign_doc.dart';
+import 'package:miro/infra/dto/api_kira/broadcast/request/transaction/std_sign_doc.dart';
 import 'package:miro/shared/models/transactions/signature_model.dart';
 import 'package:miro/shared/models/transactions/signed_transaction_model.dart';
 import 'package:miro/shared/models/transactions/unsigned_tx_model.dart';

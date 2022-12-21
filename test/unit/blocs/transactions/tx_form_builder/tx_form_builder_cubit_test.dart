@@ -40,7 +40,7 @@ Future<void> main() async {
   // @formatter:off
   final Mnemonic senderMnemonic = Mnemonic(value: 'require point property company tongue busy bench burden caution gadget knee glance thought bulk assist month cereal report quarter tool section often require shield');
   final Wallet senderWallet = Wallet.derive(mnemonic: senderMnemonic);
-  
+
   final Mnemonic recipientMnemonic = Mnemonic(value: 'nature light entire memory garden ostrich bottom ensure brand fantasy curtain coast also solve cannon wealth hole quantum fantasy purchase check drift cloth ecology');
   final Wallet recipientWallet = Wallet.derive(mnemonic: recipientMnemonic);
   // @formatter:on
@@ -65,7 +65,7 @@ Future<void> main() async {
     name: 'healthy-mainnet',
     networkInfoModel: NetworkInfoModel(
       chainId: 'localnet-1',
-      interxVersion: 'v0.4.20-rc2',
+      interxVersion: 'v0.4.22',
       latestBlockHeight: 108843,
       latestBlockTime: DateTime.now(),
       activeValidators: 319,
@@ -321,7 +321,7 @@ Future<void> main() async {
 
       // Act
       await Future<void>.delayed(const Duration(milliseconds: 100));
-      
+
       // Assert
       expectedTxFormBuilderState = TxFormBuilderErrorState();
 

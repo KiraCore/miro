@@ -5,7 +5,7 @@ import 'package:miro/blocs/specific_blocs/transactions/tx_form_builder/states/tx
 import 'package:miro/blocs/specific_blocs/transactions/tx_form_builder/states/tx_form_builder_empty_state.dart';
 import 'package:miro/blocs/specific_blocs/transactions/tx_form_builder/states/tx_form_builder_error_state.dart';
 import 'package:miro/config/locator.dart';
-import 'package:miro/infra/services/api_cosmos/query_account_service.dart';
+import 'package:miro/infra/services/api_kira/query_account_service.dart';
 import 'package:miro/providers/wallet_provider.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';

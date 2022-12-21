@@ -33,7 +33,7 @@ void main() {
     name: 'healthy-mainnet',
     networkInfoModel: NetworkInfoModel(
       chainId: 'localnet-1',
-      interxVersion: 'v0.4.20-rc2',
+      interxVersion: 'v0.4.22',
       latestBlockHeight: 108843,
       latestBlockTime: DateTime.now(),
     ),

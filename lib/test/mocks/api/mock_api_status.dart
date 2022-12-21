@@ -57,7 +57,7 @@ class MockApiStatus {
       'faucet_addr': 'kira1ev7mnj286y3dx3p0pysg7llxhy5s8hggfygnpp',
       'genesis_checksum': '3c7dw72740fbd6f840e9757feaa81a3575cabbdb0a213c1e2c1e30913b8771274',
       'chain_id': 'localnet-1',
-      'version': 'v0.4.20-rc2',
+      'version': 'v0.4.22',
       'latest_block_height': '108843',
       'catching_up': false,
       'node': {
