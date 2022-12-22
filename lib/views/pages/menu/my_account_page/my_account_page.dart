@@ -1,18 +1,12 @@
-import 'package:flutter/cupertino.dart';
-import 'package:miro/config/app_sizes.dart';
-import 'package:miro/config/locator.dart';
-import 'package:miro/config/theme/design_colors.dart';
+import 'package:flutter/material.dart';
 import 'package:miro/providers/wallet_provider.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_page.dart';
-import 'package:miro/views/pages/menu/my_account_page/my_account_tile.dart';
+import 'package:miro/views/pages/menu/my_account_page/my_account_page_header.dart';
 import 'package:miro/views/pages/menu/my_account_page/transactions_page/transactions_page.dart';
-import 'package:miro/views/widgets/buttons/kira_elevated_button.dart';
-import 'package:miro/views/widgets/generic/responsive/column_row_spacer.dart';
-import 'package:miro/views/widgets/generic/responsive/column_row_swapper.dart';
-import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
-import 'package:miro/views/widgets/generic/responsive/screen_size.dart';
-import 'package:miro/views/widgets/generic/responsive/sized_box_expanded.dart';
+import 'package:miro/views/widgets/generic/page_layout.dart';
+import 'package:miro/views/widgets/kira/kira_tab_bar/kira_tab_bar.dart';
+import 'package:provider/provider.dart';
 
 class MyAccountPage extends StatefulWidget {
   const MyAccountPage({Key? key}) : super(key: key);
@@ -21,120 +15,78 @@ class MyAccountPage extends StatefulWidget {
   State<StatefulWidget> createState() => _MyAccountPage();
 }
 
-class _MyAccountPage extends State<MyAccountPage> {
-  late Map<Widget, Widget> pages;
+class _MyAccountPage extends State<MyAccountPage> with SingleTickerProviderStateMixin {
+  final List<String> tabs = <String>['Balance', 'Transactions'];
 
-  ScrollController scrollController = ScrollController();
-  late Wallet wallet;
-  late Widget currentPage;
+  late final ValueNotifier<String> selectedPageNotifier = ValueNotifier<String>(tabs[0]);
+  late final TabController tabController = TabController(length: tabs.length, vsync: this);
+
+  final ScrollController scrollController = ScrollController();
 
   @override
   void initState() {
     super.initState();
-    wallet = globalLocator<WalletProvider>().currentWallet!;
-    pages = <Widget, Widget>{
-      BalancePage(
-        parentScrollController: scrollController,
-        address: wallet.address.bech32Address,
-      ): _buildNavigationTab('Balance'),
-      const TransactionsPage(): _buildNavigationTab('Transactions')
-    };
-    currentPage = pages.keys.first;
+    tabController.addListener(_handleTabChange);
   }
 
   @override
-  void didUpdateWidget(covariant MyAccountPage oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    wallet = globalLocator<WalletProvider>().currentWallet!;
+  void dispose() {
+    tabController.dispose();
+    scrollController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      controller: scrollController,
-      child: Padding(
-        padding: ResponsiveWidget.isLargeScreen(context) ? AppSizes.defaultDesktopPageMargin : AppSizes.defaultMobilePageMargin,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            _buildHeaderSection(),
-            const SizedBox(height: 20),
-            CupertinoSlidingSegmentedControl<Widget>(
-              groupValue: currentPage,
-              children: pages,
-              onValueChanged: _onPageChanged,
-              backgroundColor: DesignColors.blue1_10,
-              thumbColor: DesignColors.blue1_100,
-              padding: const EdgeInsets.all(8),
-            ),
-            const SizedBox(height: 20),
-            currentPage,
-          ],
-        ),
+    return PageLayout(
+      scrollController: scrollController,
+      child: Consumer<WalletProvider>(
+        builder: (BuildContext context, WalletProvider walletProvider, _) {
+          Wallet? wallet = walletProvider.currentWallet;
+          if(wallet == null) {
+            return const SizedBox();
+          }
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              MyAccountPageHeader(wallet: wallet),
+              const SizedBox(height: 20),
+              KiraTabBar(
+                tabController: tabController,
+                tabs: tabs.map((String tabTitle) => Tab(text: tabTitle)).toList(),
+              ),
+              const SizedBox(height: 20),
+              ValueListenableBuilder<String>(
+                valueListenable: selectedPageNotifier,
+                builder: (_, String pageName, __) {
+                  return _selectCurrentPage(pageName: pageName, wallet: wallet);
+                },
+              ),
+            ],
+          );
+        },
       ),
     );
   }
 
-  static Widget _buildNavigationTab(String title) {
-    return SizedBox(
-      height: 30,
-      width: 138,
-      child: Center(
-        child: Text(
-          title,
-          style: const TextStyle(
-            color: DesignColors.white_100,
-            fontWeight: FontWeight.w400,
-            fontSize: 12,
-          ),
-        ),
-      ),
-    );
+  void _handleTabChange() {
+    int selectedIndex = tabController.index;
+    String selectedTab = tabs[selectedIndex];
+    selectedPageNotifier.value = selectedTab;
   }
 
-  Widget _buildHeaderSection() {
-    return ColumnRowSwapper(
-      expandOnRow: true,
-      children: <Widget>[
-        MyAccountTile(wallet: wallet),
-        const ColumnRowSpacer(size: 16),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            SizedBoxExpanded(
-              width: 105,
-              expandOn: const <ScreenSize>[
-                ScreenSize.mobile,
-                ScreenSize.tablet,
-              ],
-              child: KiraElevatedButton(
-                onPressed: () {},
-                title: 'Pay',
-              ),
-            ),
-            const SizedBox(width: 12),
-            SizedBoxExpanded(
-              width: 105,
-              expandOn: const <ScreenSize>[
-                ScreenSize.mobile,
-                ScreenSize.tablet,
-              ],
-              child: KiraElevatedButton(
-                onPressed: () {},
-                title: 'Request',
-              ),
-            ),
-          ],
-        ),
-      ],
-    );
-  }
-
-  void _onPageChanged(Widget? page) {
-    setState(() {
-      currentPage = page!;
-    });
+  Widget _selectCurrentPage({required String pageName, required Wallet wallet}) {
+    switch (pageName) {
+      case 'Balance':
+        return BalancePage(
+          address: wallet.address.bech32Address,
+          parentScrollController: scrollController,
+        );
+      case 'Transactions':
+        return const TransactionsPage();
+      default:
+        return const SizedBox();
+    }
   }
 }

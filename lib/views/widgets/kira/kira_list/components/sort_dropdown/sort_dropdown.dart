@@ -8,6 +8,8 @@ import 'package:miro/blocs/specific_blocs/list/sort/sort_state.dart';
 import 'package:miro/config/app_icons.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/views/widgets/generic/pop_wrapper.dart';
+import 'package:miro/views/widgets/generic/responsive/responsive_value.dart';
+import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 import 'package:miro/views/widgets/kira/kira_list/components/list_pop_menu/list_pop_menu.dart';
 import 'package:miro/views/widgets/kira/kira_list/components/sort_dropdown/sort_dropdown_button.dart';
 import 'package:miro/views/widgets/kira/kira_list/models/sort_option_model.dart';
@@ -42,11 +44,20 @@ class _SortDropdown<T extends AListItem> extends State<SortDropdown<T>> {
           children: <Widget>[
             Text(
               'Sort by',
-              style: textTheme.bodyText2!.copyWith(
-                color: DesignColors.gray2_100,
-              ),
+              style: ResponsiveValue<TextStyle>(
+                largeScreen: textTheme.bodyText2!.copyWith(
+                  color: DesignColors.gray2_100,
+                ),
+                smallScreen: textTheme.caption!.copyWith(
+                  color: DesignColors.gray2_100,
+                ),
+              ).get(context),
             ),
-            const SizedBox(width: 10),
+            const ResponsiveWidget(
+              largeScreen: SizedBox(width: 10),
+              mediumScreen: SizedBox(width: 10),
+              smallScreen: SizedBox(width: 8),
+            ),
             SizedBox(
               width: widget.width,
               height: widget.height,
@@ -72,18 +83,19 @@ class _SortDropdown<T extends AListItem> extends State<SortDropdown<T>> {
                 },
               ),
             ),
-            Opacity(
-              opacity: 1,
-              child: IconButton(
-                onPressed: () => _reverseCurrentSortOption(selectedSortOptionModel),
-                splashRadius: 20,
-                icon: const Icon(
-                  AppIcons.up_down,
-                  size: 16,
-                  color: DesignColors.gray2_100,
-                ),
+            const ResponsiveWidget(
+              largeScreen: SizedBox(width: 10),
+              mediumScreen: SizedBox(width: 10),
+              smallScreen: SizedBox(width: 8),
+            ),
+            InkWell(
+              onTap: () => _reverseCurrentSortOption(selectedSortOptionModel),
+              child: const Icon(
+                AppIcons.up_down,
+                size: 16,
+                color: DesignColors.gray2_100,
               ),
-            )
+            ),
           ],
         );
       },
