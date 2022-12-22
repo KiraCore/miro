@@ -18,6 +18,14 @@ class KiraCheckbox extends StatefulWidget {
 
 class _KiraCheckbox extends State<KiraCheckbox> {
   late bool checked = widget.value;
+  
+  @override
+  void didUpdateWidget(covariant KiraCheckbox oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if( oldWidget.value != widget.value ) {
+      checked = widget.value;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

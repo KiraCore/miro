@@ -7,7 +7,8 @@ import 'package:miro/blocs/specific_blocs/list/filters/filters_bloc.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/shared/controllers/menu/my_account_page/balances_page/balances_filter_options.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
-import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
+import 'package:miro/views/widgets/generic/responsive/responsive_value.dart';
+import 'package:miro/views/widgets/kira/kira_checkbox.dart';
 
 class SmallBalanceCheckbox extends StatefulWidget {
   const SmallBalanceCheckbox({Key? key}) : super(key: key);
@@ -22,6 +23,8 @@ class _SmallBalancesCheckbox extends State<SmallBalanceCheckbox> {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+    
     return InkWell(
       splashColor: Colors.transparent,
       hoverColor: Colors.transparent,
@@ -29,23 +32,23 @@ class _SmallBalancesCheckbox extends State<SmallBalanceCheckbox> {
       child: BlocBuilder<FiltersBloc<BalanceModel>, AFiltersState<BalanceModel>>(
         builder: (_, AFiltersState<BalanceModel> filtersState) {
           return Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Checkbox(
+              KiraCheckbox(
                 value: selectedStatus,
                 onChanged: (bool? status) => _updateSelectedStatus(),
-                splashRadius: 0,
-                activeColor: DesignColors.blue1_100,
-                checkColor: Theme.of(context).scaffoldBackgroundColor,
-                fillColor: MaterialStateProperty.all(DesignColors.blue1_100),
               ),
               const SizedBox(width: 5),
               Text(
                 'Hide small balances',
-                style: TextStyle(
-                  fontSize: ResponsiveWidget.isSmallScreen(context) ? 12 : 13,
-                  fontWeight: FontWeight.w500,
-                  color: DesignColors.gray2_100,
-                ),
+                style: ResponsiveValue<TextStyle>(
+                  largeScreen: textTheme.bodyText2!.copyWith(
+                    color: DesignColors.gray2_100,
+                  ),
+                  smallScreen: textTheme.caption!.copyWith(
+                    color: DesignColors.gray2_100,
+                  ),
+                ).get(context),
               ),
             ],
           );

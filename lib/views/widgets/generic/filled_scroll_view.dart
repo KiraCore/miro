@@ -2,18 +2,20 @@ import 'package:flutter/cupertino.dart';
 
 class FilledScrollView extends StatelessWidget {
   final Widget child;
+  final ScrollController scrollController;
 
-  const FilledScrollView({
+  FilledScrollView({
     required this.child,
+    ScrollController? scrollController,
     Key? key,
-  }) : super(key: key);
+  }) : scrollController = scrollController ?? ScrollController(), super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {
         return SingleChildScrollView(
-          controller: ScrollController(),
+          controller: scrollController,
           child: ConstrainedBox(
             constraints: BoxConstraints(minWidth: constraints.maxWidth, minHeight: constraints.maxHeight),
             child: IntrinsicHeight(
