@@ -12,16 +12,16 @@ class KiraInfinityListContent<T extends AListItem> extends StatefulWidget {
   final Widget Function(T item) itemBuilder;
   final List<T> items;
   final bool lastPage;
-  final Widget? listHeader;
   final double? minHeight;
+  final Widget? listHeader;
 
   const KiraInfinityListContent({
     required this.scrollController,
     required this.itemBuilder,
     required this.items,
     required this.lastPage,
-    required this.listHeader,
     this.minHeight,
+    this.listHeader,
     Key? key,
   }) : super(key: key);
 
@@ -30,7 +30,8 @@ class KiraInfinityListContent<T extends AListItem> extends StatefulWidget {
 }
 
 class _KiraInfinityListContent<T extends AListItem> extends State<KiraInfinityListContent<T>> {
-  final double reachedBottomOffset = 200;
+  final double nextPageActivatorOffset = 200;
+  double previousMaxScrollOffset = 0;
 
   @override
   void initState() {
@@ -87,13 +88,14 @@ class _KiraInfinityListContent<T extends AListItem> extends State<KiraInfinityLi
       },
     );
   }
-
+  
   void _fetchDataAfterReachedMax() {
     if (mounted) {
       double currentOffset = widget.scrollController.offset;
-      double maxOffset = widget.scrollController.position.maxScrollExtent - reachedBottomOffset;
+      double maxOffset = widget.scrollController.position.maxScrollExtent - nextPageActivatorOffset;
       bool reachedMax = currentOffset >= maxOffset;
-      if (reachedMax) {
+      if (reachedMax && previousMaxScrollOffset != maxOffset) {
+        previousMaxScrollOffset = maxOffset;
         BlocProvider.of<InfinityListBloc<T>>(context).add(InfinityListReachedBottomEvent());
       }
     }
