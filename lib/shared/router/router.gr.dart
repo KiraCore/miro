@@ -11,40 +11,41 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i13;
-import 'package:flutter/material.dart' as _i14;
+import 'package:auto_route/auto_route.dart' as _i14;
+import 'package:flutter/material.dart' as _i15;
 
 import '../../views/pages/loading/loading_page/loading_page.dart' as _i6;
 import '../../views/pages/loading/loading_wrapper.dart' as _i2;
 import '../../views/pages/loading/network_list_page/network_list_page.dart'
     as _i5;
-import '../../views/pages/menu/accounts_page/accounts_page.dart' as _i8;
+import '../../views/pages/menu/accounts_page/accounts_page.dart' as _i9;
 import '../../views/pages/menu/dashboard_page/dashboard_page.dart' as _i7;
 import '../../views/pages/menu/menu_wrapper.dart' as _i3;
-import '../../views/pages/menu/my_account_page/my_account_page.dart' as _i9;
+import '../../views/pages/menu/my_account_page/my_account_page.dart' as _i10;
+import '../../views/pages/menu/validators_page/validators_page.dart' as _i8;
 import '../../views/pages/pages_wrapper.dart' as _i1;
 import '../../views/pages/transactions/transactions_wrapper.dart' as _i4;
 import '../../views/pages/transactions/tx_broadcast_page/tx_broadcast_page.dart'
-    as _i12;
+    as _i13;
 import '../../views/pages/transactions/tx_confirm_page/tx_confirm_page.dart'
-    as _i11;
+    as _i12;
 import '../../views/pages/transactions/tx_form_page/send/tx_tokens_send_form_page.dart'
-    as _i10;
-import '../models/balances/balance_model.dart' as _i23;
-import '../models/network/connection/connection_error_type.dart' as _i21;
-import '../models/network/status/a_network_status_model.dart' as _i22;
-import '../models/tokens/token_denomination_model.dart' as _i25;
-import '../models/transactions/signed_transaction_model.dart' as _i24;
-import 'guards/auth_guard.dart' as _i16;
-import 'guards/connection_guard.dart' as _i15;
-import 'guards/navigation_guard.dart' as _i18;
-import 'guards/pages/loading_page_guard.dart' as _i17;
-import 'guards/pages/tx_broadcast_page_guard.dart' as _i20;
-import 'guards/pages/tx_confirm_page_guard.dart' as _i19;
+    as _i11;
+import '../models/balances/balance_model.dart' as _i24;
+import '../models/network/connection/connection_error_type.dart' as _i22;
+import '../models/network/status/a_network_status_model.dart' as _i23;
+import '../models/tokens/token_denomination_model.dart' as _i26;
+import '../models/transactions/signed_transaction_model.dart' as _i25;
+import 'guards/auth_guard.dart' as _i17;
+import 'guards/connection_guard.dart' as _i16;
+import 'guards/navigation_guard.dart' as _i19;
+import 'guards/pages/loading_page_guard.dart' as _i18;
+import 'guards/pages/tx_broadcast_page_guard.dart' as _i21;
+import 'guards/pages/tx_confirm_page_guard.dart' as _i20;
 
-class AppRouter extends _i13.RootStackRouter {
+class AppRouter extends _i14.RootStackRouter {
   AppRouter({
-    _i14.GlobalKey<_i14.NavigatorState>? navigatorKey,
+    _i15.GlobalKey<_i15.NavigatorState>? navigatorKey,
     required this.connectionGuard,
     required this.authGuard,
     required this.loadingPageGuard,
@@ -53,22 +54,22 @@ class AppRouter extends _i13.RootStackRouter {
     required this.txBroadcastPageGuard,
   }) : super(navigatorKey);
 
-  final _i15.ConnectionGuard connectionGuard;
+  final _i16.ConnectionGuard connectionGuard;
 
-  final _i16.AuthGuard authGuard;
+  final _i17.AuthGuard authGuard;
 
-  final _i17.LoadingPageGuard loadingPageGuard;
+  final _i18.LoadingPageGuard loadingPageGuard;
 
-  final _i18.NavigationGuard navigationGuard;
+  final _i19.NavigationGuard navigationGuard;
 
-  final _i19.TxConfirmPageGuard txConfirmPageGuard;
+  final _i20.TxConfirmPageGuard txConfirmPageGuard;
 
-  final _i20.TxBroadcastPageGuard txBroadcastPageGuard;
+  final _i21.TxBroadcastPageGuard txBroadcastPageGuard;
 
   @override
-  final Map<String, _i13.PageFactory> pagesMap = {
+  final Map<String, _i14.PageFactory> pagesMap = {
     PagesWrapperRoute.name: (routeData) {
-      return _i13.CustomPage<void>(
+      return _i14.CustomPage<void>(
         routeData: routeData,
         child: const _i1.PagesWrapper(),
         opaque: true,
@@ -76,29 +77,29 @@ class AppRouter extends _i13.RootStackRouter {
       );
     },
     LoadingWrapperRoute.name: (routeData) {
-      return _i13.CustomPage<void>(
+      return _i14.CustomPage<void>(
         routeData: routeData,
         child: const _i2.LoadingWrapper(),
-        transitionsBuilder: _i13.TransitionsBuilders.fadeIn,
+        transitionsBuilder: _i14.TransitionsBuilders.fadeIn,
         opaque: true,
         barrierDismissible: false,
       );
     },
     MenuWrapperRoute.name: (routeData) {
-      return _i13.CustomPage<void>(
+      return _i14.CustomPage<void>(
         routeData: routeData,
         child: const _i3.MenuWrapper(),
-        transitionsBuilder: _i13.TransitionsBuilders.fadeIn,
+        transitionsBuilder: _i14.TransitionsBuilders.fadeIn,
         durationInMilliseconds: 1000,
         opaque: true,
         barrierDismissible: false,
       );
     },
     TransactionsWrapperRoute.name: (routeData) {
-      return _i13.CustomPage<void>(
+      return _i14.CustomPage<void>(
         routeData: routeData,
         child: const _i4.TransactionsWrapper(),
-        transitionsBuilder: _i13.TransitionsBuilders.fadeIn,
+        transitionsBuilder: _i14.TransitionsBuilders.fadeIn,
         opaque: true,
         barrierDismissible: false,
       );
@@ -106,7 +107,7 @@ class AppRouter extends _i13.RootStackRouter {
     NetworkListRoute.name: (routeData) {
       final args = routeData.argsAs<NetworkListRouteArgs>(
           orElse: () => const NetworkListRouteArgs());
-      return _i13.CustomPage<void>(
+      return _i14.CustomPage<void>(
         routeData: routeData,
         child: _i5.NetworkListPage(
           connectionErrorType: args.connectionErrorType,
@@ -114,7 +115,7 @@ class AppRouter extends _i13.RootStackRouter {
           nextPageRouteInfo: args.nextPageRouteInfo,
           key: args.key,
         ),
-        transitionsBuilder: _i13.TransitionsBuilders.fadeIn,
+        transitionsBuilder: _i14.TransitionsBuilders.fadeIn,
         opaque: true,
         barrierDismissible: false,
       );
@@ -122,40 +123,49 @@ class AppRouter extends _i13.RootStackRouter {
     LoadingRoute.name: (routeData) {
       final args = routeData.argsAs<LoadingRouteArgs>(
           orElse: () => const LoadingRouteArgs());
-      return _i13.CustomPage<void>(
+      return _i14.CustomPage<void>(
         routeData: routeData,
         child: _i6.LoadingPage(
           nextPageRouteInfo: args.nextPageRouteInfo,
           key: args.key,
         ),
-        transitionsBuilder: _i13.TransitionsBuilders.fadeIn,
+        transitionsBuilder: _i14.TransitionsBuilders.fadeIn,
         opaque: true,
         barrierDismissible: false,
       );
     },
     DashboardRoute.name: (routeData) {
-      return _i13.CustomPage<void>(
+      return _i14.CustomPage<void>(
         routeData: routeData,
         child: const _i7.DashboardPage(),
-        transitionsBuilder: _i13.TransitionsBuilders.fadeIn,
+        transitionsBuilder: _i14.TransitionsBuilders.fadeIn,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    ValidatorsRoute.name: (routeData) {
+      return _i14.CustomPage<void>(
+        routeData: routeData,
+        child: const _i8.ValidatorsPage(),
+        transitionsBuilder: _i14.TransitionsBuilders.fadeIn,
         opaque: true,
         barrierDismissible: false,
       );
     },
     AccountsRoute.name: (routeData) {
-      return _i13.CustomPage<void>(
+      return _i14.CustomPage<void>(
         routeData: routeData,
-        child: const _i8.AccountsPage(),
-        transitionsBuilder: _i13.TransitionsBuilders.fadeIn,
+        child: const _i9.AccountsPage(),
+        transitionsBuilder: _i14.TransitionsBuilders.fadeIn,
         opaque: true,
         barrierDismissible: false,
       );
     },
     MyAccountRoute.name: (routeData) {
-      return _i13.CustomPage<void>(
+      return _i14.CustomPage<void>(
         routeData: routeData,
-        child: const _i9.MyAccountPage(),
-        transitionsBuilder: _i13.TransitionsBuilders.fadeIn,
+        child: const _i10.MyAccountPage(),
+        transitionsBuilder: _i14.TransitionsBuilders.fadeIn,
         opaque: true,
         barrierDismissible: false,
       );
@@ -163,13 +173,13 @@ class AppRouter extends _i13.RootStackRouter {
     TxTokensSendFormRoute.name: (routeData) {
       final args = routeData.argsAs<TxTokensSendFormRouteArgs>(
           orElse: () => const TxTokensSendFormRouteArgs());
-      return _i13.CustomPage<void>(
+      return _i14.CustomPage<void>(
         routeData: routeData,
-        child: _i10.TxTokensSendFormPage(
+        child: _i11.TxTokensSendFormPage(
           initialBalanceModel: args.initialBalanceModel,
           key: args.key,
         ),
-        transitionsBuilder: _i13.TransitionsBuilders.fadeIn,
+        transitionsBuilder: _i14.TransitionsBuilders.fadeIn,
         opaque: true,
         barrierDismissible: false,
       );
@@ -181,14 +191,14 @@ class AppRouter extends _i13.RootStackRouter {
                 signedTxModel: queryParams.get('tx'),
                 tokenDenominationModel: queryParams.get('denom'),
               ));
-      return _i13.CustomPage<void>(
+      return _i14.CustomPage<void>(
         routeData: routeData,
-        child: _i11.TxConfirmPage(
+        child: _i12.TxConfirmPage(
           signedTxModel: args.signedTxModel,
           tokenDenominationModel: args.tokenDenominationModel,
           key: args.key,
         ),
-        transitionsBuilder: _i13.TransitionsBuilders.fadeIn,
+        transitionsBuilder: _i14.TransitionsBuilders.fadeIn,
         opaque: true,
         barrierDismissible: false,
       );
@@ -198,13 +208,13 @@ class AppRouter extends _i13.RootStackRouter {
       final args = routeData.argsAs<TxBroadcastRouteArgs>(
           orElse: () =>
               TxBroadcastRouteArgs(signedTxModel: queryParams.get('tx')));
-      return _i13.CustomPage<void>(
+      return _i14.CustomPage<void>(
         routeData: routeData,
-        child: _i12.TxBroadcastPage(
+        child: _i13.TxBroadcastPage(
           signedTxModel: args.signedTxModel,
           key: args.key,
         ),
-        transitionsBuilder: _i13.TransitionsBuilders.fadeIn,
+        transitionsBuilder: _i14.TransitionsBuilders.fadeIn,
         opaque: true,
         barrierDismissible: false,
       );
@@ -212,37 +222,37 @@ class AppRouter extends _i13.RootStackRouter {
   };
 
   @override
-  List<_i13.RouteConfig> get routes => [
-        _i13.RouteConfig(
+  List<_i14.RouteConfig> get routes => [
+        _i14.RouteConfig(
           PagesWrapperRoute.name,
           path: '/',
           guards: [connectionGuard],
           children: [
-            _i13.RouteConfig(
+            _i14.RouteConfig(
               '#redirect',
               path: '',
               parent: PagesWrapperRoute.name,
               redirectTo: 'network',
               fullMatch: true,
             ),
-            _i13.RouteConfig(
+            _i14.RouteConfig(
               LoadingWrapperRoute.name,
               path: 'network',
               parent: PagesWrapperRoute.name,
               children: [
-                _i13.RouteConfig(
+                _i14.RouteConfig(
                   '#redirect',
                   path: '',
                   parent: LoadingWrapperRoute.name,
                   redirectTo: 'list',
                   fullMatch: true,
                 ),
-                _i13.RouteConfig(
+                _i14.RouteConfig(
                   NetworkListRoute.name,
                   path: 'list',
                   parent: LoadingWrapperRoute.name,
                 ),
-                _i13.RouteConfig(
+                _i14.RouteConfig(
                   LoadingRoute.name,
                   path: 'loading',
                   parent: LoadingWrapperRoute.name,
@@ -250,24 +260,30 @@ class AppRouter extends _i13.RootStackRouter {
                 ),
               ],
             ),
-            _i13.RouteConfig(
+            _i14.RouteConfig(
               MenuWrapperRoute.name,
               path: 'app',
               parent: PagesWrapperRoute.name,
               children: [
-                _i13.RouteConfig(
+                _i14.RouteConfig(
                   DashboardRoute.name,
                   path: 'dashboard',
                   parent: MenuWrapperRoute.name,
                   guards: [navigationGuard],
                 ),
-                _i13.RouteConfig(
+                _i14.RouteConfig(
+                  ValidatorsRoute.name,
+                  path: 'validators',
+                  parent: MenuWrapperRoute.name,
+                  guards: [navigationGuard],
+                ),
+                _i14.RouteConfig(
                   AccountsRoute.name,
                   path: 'accounts',
                   parent: MenuWrapperRoute.name,
                   guards: [navigationGuard],
                 ),
-                _i13.RouteConfig(
+                _i14.RouteConfig(
                   MyAccountRoute.name,
                   path: 'my-account',
                   parent: MenuWrapperRoute.name,
@@ -278,19 +294,19 @@ class AppRouter extends _i13.RootStackRouter {
                 ),
               ],
             ),
-            _i13.RouteConfig(
+            _i14.RouteConfig(
               TransactionsWrapperRoute.name,
               path: 'transactions',
               parent: PagesWrapperRoute.name,
               guards: [authGuard],
               children: [
-                _i13.RouteConfig(
+                _i14.RouteConfig(
                   TxTokensSendFormRoute.name,
                   path: 'tokens/send',
                   parent: TransactionsWrapperRoute.name,
                   guards: [authGuard],
                 ),
-                _i13.RouteConfig(
+                _i14.RouteConfig(
                   TxConfirmRoute.name,
                   path: 'transaction/confirm',
                   parent: TransactionsWrapperRoute.name,
@@ -299,7 +315,7 @@ class AppRouter extends _i13.RootStackRouter {
                     txConfirmPageGuard,
                   ],
                 ),
-                _i13.RouteConfig(
+                _i14.RouteConfig(
                   TxBroadcastRoute.name,
                   path: 'transaction/broadcast',
                   parent: TransactionsWrapperRoute.name,
@@ -312,7 +328,7 @@ class AppRouter extends _i13.RootStackRouter {
             ),
           ],
         ),
-        _i13.RouteConfig(
+        _i14.RouteConfig(
           '*#redirect',
           path: '*',
           redirectTo: '/',
@@ -323,8 +339,8 @@ class AppRouter extends _i13.RootStackRouter {
 
 /// generated route for
 /// [_i1.PagesWrapper]
-class PagesWrapperRoute extends _i13.PageRouteInfo<void> {
-  const PagesWrapperRoute({List<_i13.PageRouteInfo>? children})
+class PagesWrapperRoute extends _i14.PageRouteInfo<void> {
+  const PagesWrapperRoute({List<_i14.PageRouteInfo>? children})
       : super(
           PagesWrapperRoute.name,
           path: '/',
@@ -336,8 +352,8 @@ class PagesWrapperRoute extends _i13.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.LoadingWrapper]
-class LoadingWrapperRoute extends _i13.PageRouteInfo<void> {
-  const LoadingWrapperRoute({List<_i13.PageRouteInfo>? children})
+class LoadingWrapperRoute extends _i14.PageRouteInfo<void> {
+  const LoadingWrapperRoute({List<_i14.PageRouteInfo>? children})
       : super(
           LoadingWrapperRoute.name,
           path: 'network',
@@ -349,8 +365,8 @@ class LoadingWrapperRoute extends _i13.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.MenuWrapper]
-class MenuWrapperRoute extends _i13.PageRouteInfo<void> {
-  const MenuWrapperRoute({List<_i13.PageRouteInfo>? children})
+class MenuWrapperRoute extends _i14.PageRouteInfo<void> {
+  const MenuWrapperRoute({List<_i14.PageRouteInfo>? children})
       : super(
           MenuWrapperRoute.name,
           path: 'app',
@@ -362,8 +378,8 @@ class MenuWrapperRoute extends _i13.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i4.TransactionsWrapper]
-class TransactionsWrapperRoute extends _i13.PageRouteInfo<void> {
-  const TransactionsWrapperRoute({List<_i13.PageRouteInfo>? children})
+class TransactionsWrapperRoute extends _i14.PageRouteInfo<void> {
+  const TransactionsWrapperRoute({List<_i14.PageRouteInfo>? children})
       : super(
           TransactionsWrapperRoute.name,
           path: 'transactions',
@@ -375,13 +391,13 @@ class TransactionsWrapperRoute extends _i13.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i5.NetworkListPage]
-class NetworkListRoute extends _i13.PageRouteInfo<NetworkListRouteArgs> {
+class NetworkListRoute extends _i14.PageRouteInfo<NetworkListRouteArgs> {
   NetworkListRoute({
-    _i21.ConnectionErrorType connectionErrorType =
-        _i21.ConnectionErrorType.canceledByUser,
-    _i22.ANetworkStatusModel? canceledNetworkStatusModel,
-    _i13.PageRouteInfo<dynamic>? nextPageRouteInfo,
-    _i14.Key? key,
+    _i22.ConnectionErrorType connectionErrorType =
+        _i22.ConnectionErrorType.canceledByUser,
+    _i23.ANetworkStatusModel? canceledNetworkStatusModel,
+    _i14.PageRouteInfo<dynamic>? nextPageRouteInfo,
+    _i15.Key? key,
   }) : super(
           NetworkListRoute.name,
           path: 'list',
@@ -398,19 +414,19 @@ class NetworkListRoute extends _i13.PageRouteInfo<NetworkListRouteArgs> {
 
 class NetworkListRouteArgs {
   const NetworkListRouteArgs({
-    this.connectionErrorType = _i21.ConnectionErrorType.canceledByUser,
+    this.connectionErrorType = _i22.ConnectionErrorType.canceledByUser,
     this.canceledNetworkStatusModel,
     this.nextPageRouteInfo,
     this.key,
   });
 
-  final _i21.ConnectionErrorType connectionErrorType;
+  final _i22.ConnectionErrorType connectionErrorType;
 
-  final _i22.ANetworkStatusModel? canceledNetworkStatusModel;
+  final _i23.ANetworkStatusModel? canceledNetworkStatusModel;
 
-  final _i13.PageRouteInfo<dynamic>? nextPageRouteInfo;
+  final _i14.PageRouteInfo<dynamic>? nextPageRouteInfo;
 
-  final _i14.Key? key;
+  final _i15.Key? key;
 
   @override
   String toString() {
@@ -420,10 +436,10 @@ class NetworkListRouteArgs {
 
 /// generated route for
 /// [_i6.LoadingPage]
-class LoadingRoute extends _i13.PageRouteInfo<LoadingRouteArgs> {
+class LoadingRoute extends _i14.PageRouteInfo<LoadingRouteArgs> {
   LoadingRoute({
-    _i13.PageRouteInfo<dynamic>? nextPageRouteInfo,
-    _i14.Key? key,
+    _i14.PageRouteInfo<dynamic>? nextPageRouteInfo,
+    _i15.Key? key,
   }) : super(
           LoadingRoute.name,
           path: 'loading',
@@ -442,9 +458,9 @@ class LoadingRouteArgs {
     this.key,
   });
 
-  final _i13.PageRouteInfo<dynamic>? nextPageRouteInfo;
+  final _i14.PageRouteInfo<dynamic>? nextPageRouteInfo;
 
-  final _i14.Key? key;
+  final _i15.Key? key;
 
   @override
   String toString() {
@@ -454,7 +470,7 @@ class LoadingRouteArgs {
 
 /// generated route for
 /// [_i7.DashboardPage]
-class DashboardRoute extends _i13.PageRouteInfo<void> {
+class DashboardRoute extends _i14.PageRouteInfo<void> {
   const DashboardRoute()
       : super(
           DashboardRoute.name,
@@ -465,8 +481,20 @@ class DashboardRoute extends _i13.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i8.AccountsPage]
-class AccountsRoute extends _i13.PageRouteInfo<void> {
+/// [_i8.ValidatorsPage]
+class ValidatorsRoute extends _i14.PageRouteInfo<void> {
+  const ValidatorsRoute()
+      : super(
+          ValidatorsRoute.name,
+          path: 'validators',
+        );
+
+  static const String name = 'ValidatorsRoute';
+}
+
+/// generated route for
+/// [_i9.AccountsPage]
+class AccountsRoute extends _i14.PageRouteInfo<void> {
   const AccountsRoute()
       : super(
           AccountsRoute.name,
@@ -477,8 +505,8 @@ class AccountsRoute extends _i13.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i9.MyAccountPage]
-class MyAccountRoute extends _i13.PageRouteInfo<void> {
+/// [_i10.MyAccountPage]
+class MyAccountRoute extends _i14.PageRouteInfo<void> {
   const MyAccountRoute()
       : super(
           MyAccountRoute.name,
@@ -489,12 +517,12 @@ class MyAccountRoute extends _i13.PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [_i10.TxTokensSendFormPage]
+/// [_i11.TxTokensSendFormPage]
 class TxTokensSendFormRoute
-    extends _i13.PageRouteInfo<TxTokensSendFormRouteArgs> {
+    extends _i14.PageRouteInfo<TxTokensSendFormRouteArgs> {
   TxTokensSendFormRoute({
-    _i23.BalanceModel? initialBalanceModel,
-    _i14.Key? key,
+    _i24.BalanceModel? initialBalanceModel,
+    _i15.Key? key,
   }) : super(
           TxTokensSendFormRoute.name,
           path: 'tokens/send',
@@ -513,9 +541,9 @@ class TxTokensSendFormRouteArgs {
     this.key,
   });
 
-  final _i23.BalanceModel? initialBalanceModel;
+  final _i24.BalanceModel? initialBalanceModel;
 
-  final _i14.Key? key;
+  final _i15.Key? key;
 
   @override
   String toString() {
@@ -524,12 +552,12 @@ class TxTokensSendFormRouteArgs {
 }
 
 /// generated route for
-/// [_i11.TxConfirmPage]
-class TxConfirmRoute extends _i13.PageRouteInfo<TxConfirmRouteArgs> {
+/// [_i12.TxConfirmPage]
+class TxConfirmRoute extends _i14.PageRouteInfo<TxConfirmRouteArgs> {
   TxConfirmRoute({
-    _i24.SignedTxModel? signedTxModel,
-    _i25.TokenDenominationModel? tokenDenominationModel,
-    _i14.Key? key,
+    _i25.SignedTxModel? signedTxModel,
+    _i26.TokenDenominationModel? tokenDenominationModel,
+    _i15.Key? key,
   }) : super(
           TxConfirmRoute.name,
           path: 'transaction/confirm',
@@ -554,11 +582,11 @@ class TxConfirmRouteArgs {
     this.key,
   });
 
-  final _i24.SignedTxModel? signedTxModel;
+  final _i25.SignedTxModel? signedTxModel;
 
-  final _i25.TokenDenominationModel? tokenDenominationModel;
+  final _i26.TokenDenominationModel? tokenDenominationModel;
 
-  final _i14.Key? key;
+  final _i15.Key? key;
 
   @override
   String toString() {
@@ -567,11 +595,11 @@ class TxConfirmRouteArgs {
 }
 
 /// generated route for
-/// [_i12.TxBroadcastPage]
-class TxBroadcastRoute extends _i13.PageRouteInfo<TxBroadcastRouteArgs> {
+/// [_i13.TxBroadcastPage]
+class TxBroadcastRoute extends _i14.PageRouteInfo<TxBroadcastRouteArgs> {
   TxBroadcastRoute({
-    _i24.SignedTxModel? signedTxModel,
-    _i14.Key? key,
+    _i25.SignedTxModel? signedTxModel,
+    _i15.Key? key,
   }) : super(
           TxBroadcastRoute.name,
           path: 'transaction/broadcast',
@@ -591,9 +619,9 @@ class TxBroadcastRouteArgs {
     this.key,
   });
 
-  final _i24.SignedTxModel? signedTxModel;
+  final _i25.SignedTxModel? signedTxModel;
 
-  final _i14.Key? key;
+  final _i15.Key? key;
 
   @override
   String toString() {

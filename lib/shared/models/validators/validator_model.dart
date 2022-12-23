@@ -5,24 +5,34 @@ import 'package:miro/shared/utils/enum_utils.dart';
 
 class ValidatorModel extends AListItem {
   final int top;
+  final int uptime;
   final String address;
   final String moniker;
+  final String streak;
   final ValidatorStatus validatorStatus;
   bool _favourite = false;
 
   ValidatorModel({
     required this.top,
+    required this.uptime,
     required this.address,
     required this.moniker,
+    required this.streak,
     required this.validatorStatus,
   });
 
   factory ValidatorModel.fromDto(Validator validator) {
+    int top = int.parse(validator.top);
+    int uptime = _calcUptime(validator);
+    ValidatorStatus validatorStatus = EnumUtils.parseFromString(ValidatorStatus.values, validator.status);
+
     return ValidatorModel(
-      top: int.parse(validator.top),
+      top: top,
+      uptime: uptime,
       address: validator.address,
       moniker: validator.moniker,
-      validatorStatus: EnumUtils.parseFromString(ValidatorStatus.values, validator.status),
+      streak: validator.streak,
+      validatorStatus: validatorStatus,
     );
   }
 
@@ -35,15 +45,19 @@ class ValidatorModel extends AListItem {
   @override
   set favourite(bool value) => _favourite = value;
 
-  @override
-  String toString() {
-    return 'ValidatorModel{top: $top, address: $address, moniker: $moniker, validatorStatus: $validatorStatus, favourite: $_favourite}';
+  static int _calcUptime(Validator validator) {
+    int producedBlockCounter = int.parse(validator.producedBlocksCounter);
+    int missedBlockCounter = int.parse(validator.missedBlocksCounter);
+
+    if (producedBlockCounter + missedBlockCounter > 0) {
+      double uptime = producedBlockCounter / (producedBlockCounter + missedBlockCounter) * 100;
+      return uptime.round();
+    }
+    return 0;
   }
 
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) || other is ValidatorModel && runtimeType == other.runtimeType && address == other.address;
-
-  @override
-  int get hashCode => address.hashCode;
+  String toString() {
+    return 'ValidatorModel{top: $top, address: $address, moniker: $moniker, validatorStatus: $validatorStatus, favourite: $isFavourite}';
+  }
 }

@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:miro/config/app_icons.dart';
 import 'package:miro/config/theme/design_colors.dart';
 
 class StarButton extends StatefulWidget {
-  final bool value;
   final void Function(bool value) onChanged;
+  final bool value;
+  final double size;
 
   const StarButton({
     required this.onChanged,
     this.value = false,
+    this.size = 18,
     Key? key,
   }) : super(key: key);
 
@@ -45,16 +48,16 @@ class _StarButton extends State<StarButton> {
 
   Widget _getHeartIcon() {
     if (selected) {
-      return const Icon(
-        Icons.star,
+      return Icon(
+        AppIcons.star,
         color: DesignColors.yellow_100,
-        size: 18,
+        size: widget.size,
       );
     }
-    return const Icon(
-      Icons.star_border,
+    return Icon(
+      AppIcons.star_outlined,
       color: DesignColors.gray2_100,
-      size: 18,
+      size: widget.size,
     );
   }
 }

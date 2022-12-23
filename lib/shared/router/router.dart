@@ -12,6 +12,7 @@ import 'package:miro/views/pages/menu/accounts_page/accounts_page.dart';
 import 'package:miro/views/pages/menu/dashboard_page/dashboard_page.dart';
 import 'package:miro/views/pages/menu/menu_wrapper.dart';
 import 'package:miro/views/pages/menu/my_account_page/my_account_page.dart';
+import 'package:miro/views/pages/menu/validators_page/validators_page.dart';
 import 'package:miro/views/pages/pages_wrapper.dart';
 import 'package:miro/views/pages/transactions/transactions_wrapper.dart';
 import 'package:miro/views/pages/transactions/tx_broadcast_page/tx_broadcast_page.dart';
@@ -60,6 +61,13 @@ import 'package:miro/views/pages/transactions/tx_form_page/send/tx_tokens_send_f
             page: DashboardPage,
             name: 'DashboardRoute',
             path: 'dashboard',
+            guards: <Type>[NavigationGuard],
+            transitionsBuilder: TransitionsBuilders.fadeIn,
+          ),
+          CustomRoute<void>(
+            page: ValidatorsPage,
+            name: 'ValidatorsRoute',
+            path: 'validators',
             guards: <Type>[NavigationGuard],
             transitionsBuilder: TransitionsBuilders.fadeIn,
           ),

@@ -12,6 +12,7 @@ class KiraInfinityListContent<T extends AListItem> extends StatefulWidget {
   final Widget Function(T item) itemBuilder;
   final List<T> items;
   final bool lastPage;
+  final bool hasBackground;
   final double? minHeight;
   final Widget? listHeader;
 
@@ -20,6 +21,7 @@ class KiraInfinityListContent<T extends AListItem> extends StatefulWidget {
     required this.itemBuilder,
     required this.items,
     required this.lastPage,
+    this.hasBackground = false,
     this.minHeight,
     this.listHeader,
     Key? key,
@@ -57,7 +59,7 @@ class _KiraInfinityListContent<T extends AListItem> extends State<KiraInfinityLi
               Container(
                 width: double.infinity,
                 decoration: BoxDecoration(
-                  color: DesignColors.blue1_10,
+                  color: widget.hasBackground ? DesignColors.blue1_10 : Colors.transparent,
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: ListView.builder(
@@ -88,7 +90,7 @@ class _KiraInfinityListContent<T extends AListItem> extends State<KiraInfinityLi
       },
     );
   }
-  
+
   void _fetchDataAfterReachedMax() {
     if (mounted) {
       double currentOffset = widget.scrollController.offset;

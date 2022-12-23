@@ -18,8 +18,7 @@ class MenuWrapper extends StatelessWidget {
       icon: AppIcons.dashboard,
     ),
     const NavItemModel(
-      pageRouteInfo: null,
-      disabled: true,
+      pageRouteInfo: ValidatorsRoute(),
       name: 'Validators',
       icon: AppIcons.shield,
     ),
