@@ -6,7 +6,6 @@ import 'package:miro/blocs/specific_blocs/dashboard/states/dashboard_error_state
 import 'package:miro/blocs/specific_blocs/dashboard/states/dashboard_loading_state.dart';
 import 'package:miro/config/app_sizes.dart';
 import 'package:miro/config/theme/design_colors.dart';
-import 'package:miro/views/layout/footer/footer.dart';
 import 'package:miro/views/pages/menu/dashboard_page/dashboard_blocs_section.dart';
 import 'package:miro/views/pages/menu/dashboard_page/dashboard_header_section.dart';
 import 'package:miro/views/pages/menu/dashboard_page/dashboard_proposals_section.dart';
@@ -82,12 +81,7 @@ class _DashboardPage extends State<DashboardPage> {
                     ),
                   ],
                 ),
-                const SizedBox(height: 36),
-                const Spacer(),
-                Container(
-                  constraints: const BoxConstraints(minHeight: 50),
-                  child: const Footer(),
-                ),
+                const SizedBox(height: 50),
               ],
             ),
           ),

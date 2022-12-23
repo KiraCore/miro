@@ -14,7 +14,7 @@ void main() {
 
   PageRouteInfo accountsPageRouteInfo = const PagesWrapperRoute(
     children: <PageRouteInfo>[
-      MenuWrapperRoute(children: <PageRouteInfo>[AccountsRoute()]),
+      MenuWrapperRoute(children: <PageRouteInfo>[ValidatorsRoute()]),
     ],
   );
 
@@ -82,7 +82,7 @@ void main() {
       String actualRoutePath = RouterUtils.getNextRouteAfterLoading(accountsPageRouteInfo).fullPath;
 
       // Assert
-      String expectedRoutePath = '/app/accounts';
+      String expectedRoutePath = '/app/validators';
 
       expect(
         actualRoutePath,

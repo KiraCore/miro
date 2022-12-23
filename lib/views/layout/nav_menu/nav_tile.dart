@@ -39,6 +39,7 @@ class _NavTile extends State<NavTile> {
           return MouseStateListener(
             onTap: widget.onTap,
             disableSplash: true,
+            mouseCursor: widget.navItemModel.disabled ? SystemMouseCursors.forbidden : SystemMouseCursors.click,
             disabled: widget.navItemModel.disabled,
             childBuilder: (Set<MaterialState> materialStates) {
               Color foregroundColor = _selectForegroundColor(materialStates: materialStates, selected: selected);

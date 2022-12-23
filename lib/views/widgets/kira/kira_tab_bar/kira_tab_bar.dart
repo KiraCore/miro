@@ -29,23 +29,26 @@ class KiraTabBar extends StatelessWidget {
           color: DesignColors.blue1_10,
           borderRadius: BorderRadius.circular(8),
         ),
-        child: TabBar(
-          controller: tabController,
-          isScrollable: true,
-          indicator: ShapeDecoration(
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
-            color: DesignColors.blue2_100,
+        // TODO(dominik): remove [IgnorePointer] after implementing transactions
+        child: IgnorePointer(
+          child: TabBar(
+            controller: tabController,
+            isScrollable: true,
+            indicator: ShapeDecoration(
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(6)),
+              color: DesignColors.blue2_100,
+            ),
+            labelPadding: const EdgeInsets.symmetric(horizontal: 20),
+            tabs: tabs.map((Tab tab) {
+              return Tab(
+                height: 30,
+                child: Text(
+                  tab.text ?? '',
+                  style: textTheme.caption!.copyWith(color: DesignColors.white_100),
+                ),
+              );
+            }).toList(),
           ),
-          labelPadding: const EdgeInsets.symmetric(horizontal: 20),
-          tabs: tabs.map((Tab tab) {
-            return Tab(
-              height: 30,
-              child: Text(
-                tab.text ?? '',
-                style: textTheme.caption!.copyWith(color: DesignColors.white_100),
-              ),
-            );
-          }).toList(),
         ),
       ),
     );

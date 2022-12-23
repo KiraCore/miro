@@ -11,6 +11,7 @@ class DashboardGrid extends StatefulWidget {
   final int? tabletColumnsCount;
   final int? mobileColumnsCount;
   final List<DashboardGridTile> items;
+  final VoidCallback? onTap;
 
   const DashboardGrid({
     required this.title,
@@ -18,6 +19,7 @@ class DashboardGrid extends StatefulWidget {
     required this.items,
     this.tabletColumnsCount,
     this.mobileColumnsCount,
+    this.onTap,
     Key? key,
   }) : super(key: key);
 
@@ -46,7 +48,7 @@ class _DashboardGrid extends State<DashboardGrid> {
                 ),
               ),
               IconButton(
-                onPressed: () {},
+                onPressed: widget.onTap,
                 icon: const Icon(
                   AppIcons.chevron_right,
                   size: 20,

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:miro/blocs/specific_blocs/nav_menu/nav_menu_cubit.dart';
 import 'package:miro/config/locator.dart';
@@ -35,7 +34,7 @@ class _NavMenu extends State<NavMenu> {
 
         return NavTile(
           navItemModel: navItemModel,
-          onTap: () => _handleMenuItemTap(navItemModel),
+          onTap: navItemModel.disabled ? null : () => _handleMenuItemTap(navItemModel),
         );
       },
     );

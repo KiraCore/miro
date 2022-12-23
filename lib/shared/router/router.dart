@@ -8,7 +8,6 @@ import 'package:miro/shared/router/guards/pages/tx_confirm_page_guard.dart';
 import 'package:miro/views/pages/loading/loading_page/loading_page.dart';
 import 'package:miro/views/pages/loading/loading_wrapper.dart';
 import 'package:miro/views/pages/loading/network_list_page/network_list_page.dart';
-import 'package:miro/views/pages/menu/accounts_page/accounts_page.dart';
 import 'package:miro/views/pages/menu/dashboard_page/dashboard_page.dart';
 import 'package:miro/views/pages/menu/menu_wrapper.dart';
 import 'package:miro/views/pages/menu/my_account_page/my_account_page.dart';
@@ -68,13 +67,6 @@ import 'package:miro/views/pages/transactions/tx_form_page/send/tx_tokens_send_f
             page: ValidatorsPage,
             name: 'ValidatorsRoute',
             path: 'validators',
-            guards: <Type>[NavigationGuard],
-            transitionsBuilder: TransitionsBuilders.fadeIn,
-          ),
-          CustomRoute<void>(
-            page: AccountsPage,
-            name: 'AccountsRoute',
-            path: 'accounts',
             guards: <Type>[NavigationGuard],
             transitionsBuilder: TransitionsBuilders.fadeIn,
           ),

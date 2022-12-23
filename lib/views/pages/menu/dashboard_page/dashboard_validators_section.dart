@@ -1,5 +1,7 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/widgets.dart';
 import 'package:miro/shared/models/dashboard/validators_status_model.dart';
+import 'package:miro/shared/router/router.gr.dart';
 import 'package:miro/views/pages/menu/dashboard_page/widgets/dashboard_grid.dart';
 import 'package:miro/views/pages/menu/dashboard_page/widgets/dashboard_grid_tile.dart';
 
@@ -17,6 +19,7 @@ class DashboardValidatorsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return DashboardGrid(
       title: 'Validators',
+      onTap: () => AutoRouter.of(context).push(const ValidatorsRoute()),
       columnsCount: 6,
       mobileColumnsCount: 2,
       tabletColumnsCount: 3,

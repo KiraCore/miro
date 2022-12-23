@@ -47,7 +47,8 @@ class MenuWrapper extends StatelessWidget {
       icon: AppIcons.proposals,
     ),
     const NavItemModel(
-      pageRouteInfo: AccountsRoute(),
+      pageRouteInfo: null,
+      disabled: true,
       name: 'Accounts',
       icon: AppIcons.account,
     ),
