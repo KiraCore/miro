@@ -25,8 +25,9 @@ class KiraInfinityList<T extends AListItem> extends StatelessWidget {
   final IListController<T> listController;
   final SearchComparator<T> searchComparator;
   final ScrollController scrollController;
-  final double? minHeight;
   final int singlePageSize;
+  final double? minHeight;
+  final bool hasBackground;
   final Widget? listHeader;
   final Widget? title;
   final ReloadNotifierModel? reloadNotifierModel;
@@ -37,8 +38,9 @@ class KiraInfinityList<T extends AListItem> extends StatelessWidget {
     required this.listController,
     required this.searchComparator,
     ScrollController? scrollController,
-    this.minHeight,
     this.singlePageSize = 20,
+    this.minHeight,
+    this.hasBackground = true,
     this.listHeader,
     this.title,
     this.reloadNotifierModel,
@@ -94,6 +96,7 @@ class KiraInfinityList<T extends AListItem> extends StatelessWidget {
                 return KiraInfinityListContent<T>(
                   scrollController: scrollController,
                   itemBuilder: itemBuilder,
+                  hasBackground: hasBackground,
                   items: state.listItems.toList(),
                   lastPage: state.lastPage,
                   listHeader: listHeader,
