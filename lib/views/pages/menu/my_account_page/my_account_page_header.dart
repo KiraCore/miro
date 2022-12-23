@@ -25,27 +25,29 @@ class MyAccountPageHeader extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
+          children: const <Widget>[
             SizedBoxExpanded(
               width: 118,
-              expandOn: const <ScreenSize>[
+              expandOn: <ScreenSize>[
                 ScreenSize.mobile,
                 ScreenSize.tablet,
               ],
               child: KiraElevatedButton(
-                onPressed: () {},
+                onPressed: null,
+                disabled: true,
                 title: 'Pay',
               ),
             ),
-            const SizedBox(width: 12),
+            SizedBox(width: 12),
             SizedBoxExpanded(
               width: 137,
-              expandOn: const <ScreenSize>[
+              expandOn: <ScreenSize>[
                 ScreenSize.mobile,
                 ScreenSize.tablet,
               ],
               child: KiraElevatedButton(
-                onPressed: () {},
+                onPressed: null,
+                disabled: true,
                 title: 'Request',
               ),
             ),

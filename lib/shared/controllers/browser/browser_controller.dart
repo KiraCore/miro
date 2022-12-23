@@ -22,4 +22,8 @@ class BrowserController {
     html.document.body!.children.remove(anchor);
     html.Url.revokeObjectUrl(url);
   }
+
+  static void openUrl(String url) {
+    html.window.open(url, 'new tab');
+  }
 }

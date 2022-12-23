@@ -22,8 +22,8 @@ class AccountMenuList extends StatelessWidget {
           onTap: () => _onNavigateToMyAccountPressed(context),
           title: 'My account',
         ),
-        _MenuListTile(
-          onTap: () {},
+        const _MenuListTile(
+          onTap: null,
           title: 'Settings',
         ),
         _MenuListTile(
@@ -53,13 +53,13 @@ class AccountMenuList extends StatelessWidget {
 }
 
 class _MenuListTile extends StatelessWidget {
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   final String title;
   final Color? color;
 
   const _MenuListTile({
-    required this.onTap,
     required this.title,
+    this.onTap,
     this.color,
     Key? key,
   }) : super(key: key);
@@ -71,12 +71,14 @@ class _MenuListTile extends StatelessWidget {
     return MouseStateListener(
       onTap: onTap,
       childBuilder: (Set<MaterialState> states) {
+        Color color =  _selectColor(states);
+        
         return Padding(
           padding: const EdgeInsets.all(10),
           child: Text(
             title,
             style: textTheme.bodyText2!.copyWith(
-              color: _selectColor(states),
+              color: onTap != null ? color : color.withOpacity(0.5),
             ),
           ),
         );

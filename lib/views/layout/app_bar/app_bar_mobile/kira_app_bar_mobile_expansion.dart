@@ -3,6 +3,7 @@ import 'package:miro/views/layout/app_bar/current_network_button.dart';
 import 'package:miro/views/layout/app_bar/kira_scaffold_search_bar.dart';
 import 'package:miro/views/layout/nav_menu/model/nav_item_model.dart';
 import 'package:miro/views/layout/nav_menu/nav_menu.dart';
+import 'package:miro/views/layout/report_bug_button.dart';
 
 class KiraAppBarMobileExpansion extends StatelessWidget {
   final List<NavItemModel> navItemModelList;
@@ -20,12 +21,14 @@ class KiraAppBarMobileExpansion extends StatelessWidget {
         child: Column(
           children: <Widget>[
             const SizedBox(height: 20),
-            const KiraScaffoldSearchBar(),
+            const KiraScaffoldSearchBar(enabled: false),
             const SizedBox(height: 40),
             const CurrentNetworkButton(size: Size(double.infinity, 48)),
             const SizedBox(height: 30),
             NavMenu(navItemModelList: navItemModelList),
             const SizedBox(height: 30),
+            const ReportBugButton(),
+            const SizedBox(height: 40),
           ],
         ),
       ),

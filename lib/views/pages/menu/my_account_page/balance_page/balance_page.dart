@@ -6,7 +6,6 @@ import 'package:miro/shared/controllers/menu/my_account_page/balances_page/balan
 import 'package:miro/shared/controllers/menu/my_account_page/balances_page/balances_sort_options.dart';
 import 'package:miro/shared/controllers/reload_notifier/reload_notifier_controller.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
-import 'package:miro/views/layout/footer/footer.dart';
 import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_list_item_builder.dart';
 import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_list_title/balance_list_title.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_value.dart';
@@ -47,7 +46,6 @@ class BalancePage extends StatelessWidget {
           title: const BalanceListTitle(),
         ),
         const SizedBox(height: 50),
-        const Footer(),
       ],
     );
   }

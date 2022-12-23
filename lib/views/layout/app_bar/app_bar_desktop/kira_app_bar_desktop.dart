@@ -27,7 +27,7 @@ class KiraAppBarDesktop extends StatelessWidget {
       ).get(context),
       child: Row(
         children: const <Widget>[
-          Expanded(child: KiraScaffoldSearchBar()),
+          Expanded(child: KiraScaffoldSearchBar(enabled: false)),
           SizedBox(width: 40),
           CurrentNetworkButton(size: Size(192, 48)),
           SizedBox(width: 16),

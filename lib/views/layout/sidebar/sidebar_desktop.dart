@@ -3,6 +3,7 @@ import 'package:miro/config/app_sizes.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/views/layout/nav_menu/model/nav_item_model.dart';
 import 'package:miro/views/layout/nav_menu/nav_menu.dart';
+import 'package:miro/views/layout/report_bug_button.dart';
 import 'package:miro/views/widgets/kira/kira_logo.dart';
 
 class SidebarDesktop extends StatelessWidget {
@@ -19,15 +20,28 @@ class SidebarDesktop extends StatelessWidget {
       width: AppSizes.sidebarDesktopWidth,
       height: double.infinity,
       color: DesignColors.blue1_10,
-      padding: const EdgeInsets.only(left: 20, right: 26, top: 26, bottom: 26),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           const Padding(
-            padding: EdgeInsets.only(left: 20, bottom: 64),
+            padding: EdgeInsets.only(left: 40, bottom: 64, top: 26),
             child: KiraLogo(height: 30),
           ),
-          NavMenu(navItemModelList: navItemModelList),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.only(left: 20, right: 26, bottom: 26),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    NavMenu(navItemModelList: navItemModelList),
+                    const SizedBox(height: 30),
+                    const ReportBugButton(),
+                  ],
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
