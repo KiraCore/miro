@@ -1,6 +1,11 @@
 import 'package:decimal/decimal.dart';
+import 'package:uuid/uuid.dart';
 
 class StringUtils {
+  static String generateUuid() {
+    return const Uuid().v4();
+  }
+
   static String splitBigNumber(String number) {
     bool isInteger = Decimal.tryParse(number)?.isInteger == true;
     if (isInteger == false) {

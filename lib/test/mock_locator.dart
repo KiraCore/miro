@@ -1,5 +1,6 @@
 import 'package:miro/blocs/specific_blocs/network_list/network_list_cubit.dart';
 import 'package:miro/blocs/specific_blocs/network_module/network_module_bloc.dart';
+import 'package:miro/blocs/specific_blocs/views/widgets/network_list/network_custom_section/network_custom_section_cubit.dart';
 import 'package:miro/config/app_config.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/cache/cache_manager.dart';
@@ -27,6 +28,7 @@ Future<void> initMockLocator() async {
   globalLocator
     ..registerLazySingleton<AppConfig>(AppConfig.new)
     ..registerLazySingleton<AppConfigProvider>(AppConfigProviderImpl.new)
+    ..registerLazySingleton<NetworkCustomSectionCubit>(NetworkCustomSectionCubit.new)
     ..registerLazySingleton<WalletProvider>(WalletProvider.new)
     ..registerLazySingleton<CacheManager>(CacheManager.new)
     ..registerLazySingleton<QueryAccountService>(QueryAccountService.new)

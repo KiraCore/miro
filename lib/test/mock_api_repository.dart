@@ -12,7 +12,12 @@ enum DynamicNetworkStatus {
 }
 
 class MockApiRepository implements ApiRepository {
-  static List<String> workingEndpoints = <String>['unhealthy.kira.network', 'healthy.kira.network'];
+  static List<String> workingEndpoints = <String>[
+    'unhealthy.kira.network',
+    'custom-unhealthy.kira.network',
+    'healthy.kira.network',
+    'custom-healthy.kira.network',
+  ];
 
   DynamicNetworkStatus dynamicNetworkStatus = DynamicNetworkStatus.healthy;
 
@@ -24,10 +29,12 @@ class MockApiRepository implements ApiRepository {
 
     switch (networkUri.host) {
       case 'unhealthy.kira.network':
+      case 'custom-unhealthy.kira.network':
         statusCode = 200;
         mockedResponse = MockApiStatus.unhealthyResponse;
         break;
       case 'healthy.kira.network':
+      case 'custom-healthy.kira.network':
         statusCode = 200;
         mockedResponse = MockApiStatus.healthyResponse;
         break;

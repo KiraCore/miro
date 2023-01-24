@@ -12,7 +12,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.1.6
+version: 1.1.7
 
 environment:
   sdk: ">=2.18.5 <3.0.0"
@@ -168,6 +168,10 @@ dependencies:
   # A package provides an easy way to add shimmer effect in Flutter project
   # https://pub.dev/packages/shimmer
   shimmer: ^2.0.0
+  
+  # RFC4122 (v1, v4, v5) UUID Generator and Parser for all Dart platforms (Web, VM, Flutter)
+  # https://pub.dev/packages/uuid
+  uuid: ^3.0.7
 
 dev_dependencies:
   # AutoRoute is a declartive routing solution, where everything needed for navigation is automatically generated for you.

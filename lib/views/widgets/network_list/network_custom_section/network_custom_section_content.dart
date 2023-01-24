@@ -1,21 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:miro/blocs/specific_blocs/network_module/events/network_module_connect_event.dart';
-import 'package:miro/blocs/specific_blocs/network_module/network_module_bloc.dart';
-import 'package:miro/config/app_config.dart';
-import 'package:miro/config/locator.dart';
+import 'package:miro/blocs/specific_blocs/views/widgets/network_list/network_custom_section/network_custom_section_cubit.dart';
 import 'package:miro/config/theme/design_colors.dart';
-import 'package:miro/infra/services/network_module_service.dart';
-import 'package:miro/shared/models/network/data/connection_status_type.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
-import 'package:miro/shared/models/network/status/network_unknown_model.dart';
-import 'package:miro/shared/models/network/status/online/a_network_online_model.dart';
 import 'package:miro/shared/utils/network_utils.dart';
-import 'package:miro/views/widgets/generic/center_load_spinner.dart';
+import 'package:miro/views/widgets/buttons/kira_elevated_button.dart';
+import 'package:miro/views/widgets/network_list/network_list_tile.dart';
 
 class NetworkCustomSectionContent extends StatefulWidget {
+  final TextEditingController textEditingController;
+  final NetworkCustomSectionCubit networkCustomSectionCubit;
   final ValueChanged<ANetworkStatusModel>? onConnected;
 
   const NetworkCustomSectionContent({
+    required this.textEditingController,
+    required this.networkCustomSectionCubit,
     this.onConnected,
     Key? key,
   }) : super(key: key);
@@ -25,149 +23,113 @@ class NetworkCustomSectionContent extends StatefulWidget {
 }
 
 class _NetworkCustomSectionContent extends State<NetworkCustomSectionContent> {
-  final AppConfig appConfig = globalLocator<AppConfig>();
-  final NetworkModuleBloc networkModuleBloc = globalLocator<NetworkModuleBloc>();
-  final NetworkModuleService networkModuleService = globalLocator<NetworkModuleService>();
-  final TextEditingController textEditingController = TextEditingController();
-  String? errorMessage;
-  String? successMessage;
-  bool loadingStatus = false;
+  final ValueNotifier<String?> errorNotifier = ValueNotifier<String?>(null);
 
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
+    bool connectedNetworkExist = widget.networkCustomSectionCubit.state.connectedNetworkStatusModel != null;
+    bool checkedNetworkExist = widget.networkCustomSectionCubit.state.checkedNetworkStatusModel != null;
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
+        if (connectedNetworkExist) ...<Widget>[
+          NetworkListTile(
+            networkStatusModel: widget.networkCustomSectionCubit.state.connectedNetworkStatusModel!,
+            onConnected: widget.onConnected,
+          ),
+        ],
+        if (checkedNetworkExist) ...<Widget>[
+          if (connectedNetworkExist) const SizedBox(height: 16),
+          Text(
+            'Checked connection',
+            style: textTheme.subtitle2!.copyWith(color: DesignColors.gray2_100),
+          ),
+          NetworkListTile(
+            networkStatusModel: widget.networkCustomSectionCubit.state.checkedNetworkStatusModel!,
+            onConnected: widget.onConnected,
+          ),
+        ],
+        const SizedBox(height: 16),
         SizedBox(
           width: double.infinity,
           child: TextFormField(
-            controller: textEditingController,
+            controller: widget.textEditingController,
             decoration: InputDecoration(
               hintText: 'Custom address',
               contentPadding: const EdgeInsets.symmetric(horizontal: 12),
-              hintStyle: textTheme.bodyText1!.copyWith(
-                color: DesignColors.white_100,
-              ),
-              suffixIcon: TextButton(
-                onPressed: _handleConnectButtonPressed,
-                child: Text(
-                  'Connect',
-                  style: textTheme.caption!.copyWith(
-                    color: DesignColors.darkGreen_100,
-                  ),
-                ),
-              ),
+              hintStyle: textTheme.bodyText1!.copyWith(color: DesignColors.white_50),
             ),
           ),
         ),
-        const SizedBox(height: 4),
-        if (errorMessage != null)
-          Text(
-            errorMessage!,
-            style: textTheme.caption!.copyWith(
-              color: DesignColors.red_100,
-            ),
-          ),
-        if (successMessage != null)
-          Text(
-            successMessage!,
-            style: textTheme.caption!.copyWith(
-              color: DesignColors.darkGreen_100,
-            ),
-          ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 7),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              MouseRegion(
-                cursor: SystemMouseCursors.click,
-                child: GestureDetector(
-                  onTap: _handleTryConnectionButtonPressed,
-                  child: Text(
-                    'Try connection',
-                    style: textTheme.caption!.copyWith(
-                      color: DesignColors.gray2_100,
-                    ),
-                  ),
+        ValueListenableBuilder<String?>(
+          valueListenable: errorNotifier,
+          builder: (_, String? errorMessage, __) {
+            if (errorMessage == null) {
+              return const SizedBox.shrink();
+            }
+
+            return Padding(
+              padding: const EdgeInsets.only(top: 8),
+              child: Text(
+                errorMessage,
+                style: textTheme.caption!.copyWith(
+                  color: DesignColors.red_100,
                 ),
               ),
-              if (loadingStatus) const CenterLoadSpinner(size: 15) else const SizedBox(),
-            ],
+            );
+          },
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 7),
+          child: KiraElevatedButton(
+            title: 'Check connection',
+            onPressed: _pressCheckConnectionButton,
           ),
         ),
       ],
     );
   }
 
-  Future<void> _handleConnectButtonPressed() async {
-    _clearMessages();
-    Uri? networkUri = _tryGetNetworkUri();
-    if (networkUri == null) {
+  Future<void> _pressCheckConnectionButton() async {
+    Uri? uri = _buildUri();
+    if (uri == null) {
       return;
     }
-    ANetworkStatusModel? networkStatusModel = await _getNetworkStatusModel(networkUri);
-    if (networkStatusModel is ANetworkOnlineModel) {
-      successMessage = 'Connected';
-      networkModuleBloc.add(NetworkModuleConnectEvent(networkStatusModel));
-      widget.onConnected?.call(networkStatusModel);
+    widget.textEditingController.clear();
+    await widget.networkCustomSectionCubit.checkConnection(uri);
+  }
+
+  Uri? _buildUri() {
+    bool addressValid = _validateNetworkAddress();
+    if (addressValid == false) {
+      return null;
+    }
+    Uri uri = _parseTextFieldToUri()!;
+    return uri;
+  }
+
+  bool _validateNetworkAddress() {
+    Uri? networkUri = _parseTextFieldToUri();
+    String networkAddress = widget.textEditingController.text;
+    if (networkAddress.isEmpty) {
+      errorNotifier.value = "Field can't be empty";
+    } else if (networkUri == null) {
+      errorNotifier.value = 'Invalid network address';
     } else {
-      errorMessage = "Can't connect to network";
+      errorNotifier.value = null;
     }
-    setState(() {});
+    return errorNotifier.value == null;
   }
 
-  Future<void> _handleTryConnectionButtonPressed() async {
-    _clearMessages();
-    Uri? networkUri = _tryGetNetworkUri();
-    if (networkUri == null) {
-      return;
-    }
-
-    ANetworkStatusModel? networkStatusModel = await _getNetworkStatusModel(networkUri);
-    if (networkStatusModel is ANetworkOnlineModel) {
-      successMessage = 'Can connect to network';
-    } else {
-      errorMessage = "Can't connect to network";
-    }
-    setState(() {});
-  }
-
-  void _clearMessages() {
-    successMessage = null;
-    errorMessage = null;
-    setState(() {});
-  }
-
-  Future<ANetworkStatusModel?> _getNetworkStatusModel(Uri networkUri) async {
-    setState(() {
-      loadingStatus = true;
-    });
-    NetworkUnknownModel? networkUnknownModel = NetworkUnknownModel(uri: networkUri, connectionStatusType: ConnectionStatusType.disconnected);
-    networkUnknownModel = appConfig.findNetworkModelInConfig(networkUnknownModel);
-    ANetworkStatusModel networkStatusModel = await networkModuleService.getNetworkStatusModel(
-      networkUnknownModel,
-    );
-    setState(() {
-      loadingStatus = false;
-    });
-    return networkStatusModel;
-  }
-
-  Uri? _tryGetNetworkUri() {
+  Uri? _parseTextFieldToUri() {
     try {
-      String networkAddress = textEditingController.text;
-      if (networkAddress.isEmpty) {
-        throw Error();
-      }
+      String networkAddress = widget.textEditingController.text;
       Uri networkUri = NetworkUtils.parseUrlToInterxUri(networkAddress);
       return networkUri;
     } catch (_) {
-      errorMessage = 'Please enter a valid network address';
-      setState(() {});
       return null;
     }
   }
