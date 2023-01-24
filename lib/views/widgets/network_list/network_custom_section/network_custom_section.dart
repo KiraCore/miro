@@ -1,4 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:miro/blocs/specific_blocs/views/widgets/network_list/network_custom_section/network_custom_section_cubit.dart';
+import 'package:miro/blocs/specific_blocs/views/widgets/network_list/network_custom_section/network_custom_section_state.dart';
+import 'package:miro/config/locator.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
 import 'package:miro/views/widgets/network_list/network_custom_section/network_custom_section_content.dart';
 import 'package:miro/views/widgets/network_list/network_custom_section/network_custom_section_switch.dart';
@@ -16,20 +20,33 @@ class NetworkCustomSection extends StatefulWidget {
 }
 
 class _NetworkCustomSection extends State<NetworkCustomSection> {
-  bool sectionExpanded = false;
+  final TextEditingController textEditingController = TextEditingController();
+  final NetworkCustomSectionCubit networkCustomSectionCubit = globalLocator<NetworkCustomSectionCubit>();
+  late bool isSectionExpanded = networkCustomSectionCubit.state.isExpanded;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.infinity,
-      child: Column(
-        children: <Widget>[
-          NetworkCustomSectionSwitch(
-            onChanged: (bool value) => setState(() => sectionExpanded = value),
+    return BlocBuilder<NetworkCustomSectionCubit, NetworkCustomSectionState>(
+      bloc: networkCustomSectionCubit,
+      builder: (_, NetworkCustomSectionState networkCustomSectionState) {
+        return SizedBox(
+          width: double.infinity,
+          child: Column(
+            children: <Widget>[
+              NetworkCustomSectionSwitch(
+                initialExpanded: isSectionExpanded,
+                onChanged: (bool value) => setState(() => isSectionExpanded = value),
+              ),
+              if (isSectionExpanded)
+                NetworkCustomSectionContent(
+                  textEditingController: textEditingController,
+                  onConnected: widget.onConnected,
+                  networkCustomSectionCubit: networkCustomSectionCubit,
+                ),
+            ],
           ),
-          if (sectionExpanded) NetworkCustomSectionContent(onConnected: widget.onConnected),
-        ],
-      ),
+        );
+      },
     );
   }
 }
