@@ -60,7 +60,7 @@ class KeyFile extends Equatable {
   }
 
   String get fileName {
-    return 'keyfile_${wallet.address.bech32Shortcut}.json';
+    return 'keyfile_${wallet.address.buildBech32AddressShort(delimiter: '_')}.json';
   }
 
   Map<String, dynamic> _encryptJson(String password) {
