@@ -94,7 +94,7 @@ class _SignInAccountButtonDesktopState extends State<_SignedInAccountButtonDeskt
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                widget.wallet.address.bech32Shortcut,
+                widget.wallet.address.buildBech32AddressShort(delimiter: '...'),
                 overflow: TextOverflow.ellipsis,
                 style: textTheme.bodyText1!.copyWith(
                   color: DesignColors.white_100,
@@ -102,7 +102,7 @@ class _SignInAccountButtonDesktopState extends State<_SignedInAccountButtonDeskt
               ),
               const SizedBox(height: 6),
               Text(
-                widget.wallet.address.bech32Shortcut,
+                widget.wallet.address.buildBech32AddressShort(delimiter: '...'),
                 overflow: TextOverflow.ellipsis,
                 style: textTheme.bodyText2!.copyWith(
                   color: DesignColors.gray2_100,

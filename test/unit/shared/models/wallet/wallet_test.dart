@@ -89,10 +89,10 @@ void main() {
       );
     });
 
-    test('Should build bech32 in predefined format ex. keyfile_kiraXXXX_XXXX', () async {
+    test('Should return short bech32 address ex. keyfile_kiraXXXX_XXXX', () async {
       expect(
-        actualWallet.address.bech32Shortcut,
-        'kira1gdu_l7u3',
+        actualWallet.address.buildBech32AddressShort(delimiter: '...'),
+        'kira1gdu...l7u3',
       );
     });
   });

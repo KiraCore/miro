@@ -42,7 +42,7 @@ class _AccountTile extends State<AccountTile> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
-                widget.walletAddress.bech32Shortcut,
+                widget.walletAddress.buildBech32AddressShort(delimiter: '...'),
                 overflow: TextOverflow.ellipsis,
                 style: ResponsiveValue<TextStyle>(
                   largeScreen: textTheme.headline2!.copyWith(color: DesignColors.white_100),

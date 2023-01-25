@@ -81,11 +81,11 @@ class WalletAddress extends Equatable {
   String get bech32Address => Bech32.encode(bech32Hrp, addressBytes);
 
   /// Returns the associated [address] as a Bech32 string.
-  String get bech32Shortcut {
+  String buildBech32AddressShort({required String delimiter}) {
     String address = bech32Address;
     String firstPart = address.substring(0, 8);
     String lastPart = address.substring(address.length - 4, address.length);
-    return '${firstPart}_$lastPart';
+    return '${firstPart}$delimiter$lastPart';
   }
 
   @override

@@ -77,4 +77,20 @@ void main() {
       );
     });
   });
+
+  group('Tests of buildBech32AddressShort()', () {
+    test('Should return short bech32 address with underscore as delimiter', () {
+      expect(
+        actualWalletAddress.buildBech32AddressShort(delimiter: '_'),
+        'kira1gdu_l7u3',
+      );
+    });
+
+    test('Should return short bech32 address with three dots as delimiter', () {
+      expect(
+        actualWalletAddress.buildBech32AddressShort(delimiter: '...'),
+        'kira1gdu...l7u3',
+      );
+    });
+  });
 }
