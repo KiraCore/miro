@@ -42,6 +42,7 @@ class KiraOutlinedButton extends StatelessWidget {
             child: Center(
               child: Text(
                 title.toUpperCase(),
+                textAlign: TextAlign.center,
                 style: textTheme.button!.copyWith(
                   color: DesignColors.white_100,
                 ),
