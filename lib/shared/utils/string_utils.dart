@@ -2,6 +2,9 @@ import 'package:decimal/decimal.dart';
 import 'package:uuid/uuid.dart';
 
 class StringUtils {
+  static RegExp basicCharactersRegExp = RegExp('[a-zA-Z0-9 !"#\$%\'()*+,-./:;=?@\\[\\\\\\]^_`{|}~]');
+  static RegExp whitespacesRegExp = RegExp(r'\s');
+
   static String generateUuid() {
     return const Uuid().v4();
   }

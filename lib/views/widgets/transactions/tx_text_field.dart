@@ -5,6 +5,7 @@ import 'package:miro/config/theme/design_colors.dart';
 class TxTextField extends StatefulWidget {
   final ValueChanged<String>? onChanged;
   final TextEditingController textEditingController;
+  final int? maxLength;
   final int? maxLines;
   final String? hintText;
   final String? label;
@@ -18,6 +19,7 @@ class TxTextField extends StatefulWidget {
   const TxTextField({
     required this.onChanged,
     required this.textEditingController,
+    this.maxLength,
     this.maxLines,
     this.hintText,
     this.label,
@@ -47,6 +49,7 @@ class _TxTextField extends State<TxTextField> {
       enabled: !widget.disabled,
       keyboardType: widget.keyboardType,
       inputFormatters: widget.inputFormatters,
+      maxLength: widget.maxLength,
       style: textTheme.bodyText1!.copyWith(
         color: widget.hasErrors ? DesignColors.red_100 : DesignColors.white_100,
       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:miro/config/app_icons.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/views/widgets/kira/kira_text_field/kira_text_field_controller.dart';
@@ -8,20 +9,22 @@ class KiraTextField extends StatefulWidget {
   final String? hint;
   final String? label;
   final bool obscureText;
-  final FormFieldValidator<String>? validator;
-  final Widget? suffixIcon;
-  final ValueChanged<String>? onChanged;
   final bool readOnly;
+  final Widget? suffixIcon;
+  final List<TextInputFormatter>? inputFormatters;
+  final ValueChanged<String>? onChanged;
+  final FormFieldValidator<String>? validator;
 
   const KiraTextField({
     required this.controller,
-    this.validator,
-    this.onChanged,
-    this.readOnly = false,
     this.hint,
     this.label,
-    this.suffixIcon,
     this.obscureText = false,
+    this.readOnly = false,
+    this.suffixIcon,
+    this.inputFormatters,
+    this.onChanged,
+    this.validator,
     Key? key,
   }) : super(key: key);
 
@@ -80,6 +83,7 @@ class _KiraTextField extends State<KiraTextField> {
               onChanged: widget.onChanged,
               obscureText: widget.controller.obscureTextNotifier.value,
               readOnly: widget.readOnly,
+              inputFormatters: widget.inputFormatters,
               style: textTheme.bodyText1!.copyWith(
                 color: DesignColors.white_100,
               ),

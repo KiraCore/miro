@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/services.dart';
 import 'package:miro/config/app_icons.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/shared/controllers/browser/browser_controller.dart';
 import 'package:miro/shared/models/wallet/keyfile.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
+import 'package:miro/shared/utils/string_utils.dart';
 import 'package:miro/views/pages/drawer/create_wallet_page/download_keyfile_section/download_keyfile_section_controller.dart';
 import 'package:miro/views/widgets/buttons/kira_elevated_button.dart';
 import 'package:miro/views/widgets/kira/kira_text_field/kira_text_field.dart';
@@ -44,9 +46,12 @@ class _DownloadKeyfileSection extends State<DownloadKeyfileSection> {
       child: Column(
         children: <Widget>[
           KiraTextField(
+            controller: passwordTextController,
             label: 'Create password for keyfile',
             hint: 'Password',
-            controller: passwordTextController,
+            inputFormatters: <TextInputFormatter>[
+              FilteringTextInputFormatter.deny(StringUtils.whitespacesRegExp),
+            ],
             obscureText: true,
             onChanged: (_) => _onPasswordChanged(),
           ),
@@ -54,6 +59,9 @@ class _DownloadKeyfileSection extends State<DownloadKeyfileSection> {
           KiraTextField(
             controller: repeatPasswordTextController,
             hint: 'Repeat password',
+            inputFormatters: <TextInputFormatter>[
+              FilteringTextInputFormatter.deny(StringUtils.whitespacesRegExp),
+            ],
             obscureText: true,
             onChanged: (_) {
               _onPasswordChanged();
