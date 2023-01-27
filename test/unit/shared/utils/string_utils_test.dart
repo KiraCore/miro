@@ -2,6 +2,58 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/shared/utils/string_utils.dart';
 
 void main() {
+  group('Tests of basicCharactersRegExp', () {
+    test(
+        'Should return true for string containing only basic characters ["abcdefghijklmnoprstuwyzxABCDEFGHIJKLMNOPRSTUWYZX0123456789 !"#\$%\'()*+,-./:;=?@[\\]^_`{|}~"]',
+        () {
+      // Arrange
+      String testString = 'abcdefghijklmnoprstuwyzxABCDEFGHIJKLMNOPRSTUWYZX0123456789 !"#\$%\'()*+,-./:;=?@[\\]^_`{|}~';
+
+      // Act
+      int actualMatchLength = StringUtils.basicCharactersRegExp.allMatches(testString).length;
+
+      // Assert
+      expect(actualMatchLength, 88);
+    });
+
+    test('Should return false for string containing complex characters ["©Ω௵⇊⇊"]', () {
+      // Arrange
+      String testString = '©Ω௵⇊⇊';
+
+      // Act
+      int actualMatchLength = StringUtils.basicCharactersRegExp.allMatches(testString).length;
+
+      // Assert
+      expect(actualMatchLength, 0);
+    });
+  });
+
+  group('Tests of whitespacesRegExp', () {
+    test('Should return true for string containing whitespaces [" "]', () {
+      // Act
+      bool actualHasMatch = StringUtils.whitespacesRegExp.hasMatch(' ');
+
+      // Assert
+      expect(actualHasMatch, true);
+    });
+
+    test('Should return true for string containing whitespaces [" t e st "]', () {
+      // Act
+      bool actualHasMatch = StringUtils.whitespacesRegExp.hasMatch(' t e st ');
+
+      // Assert
+      expect(actualHasMatch, true);
+    });
+
+    test('Should return false for string not containing whitespaces ["test"]', () {
+      // Act
+      bool actualHasMatch = StringUtils.whitespacesRegExp.hasMatch('test');
+
+      // Assert
+      expect(actualHasMatch, false);
+    });
+  });
+
   group('Tests of splitBigNumber() method', () {
     test('Should return parsed "10000000000000000000000000000000000000" to "10 000 000 000 000 000 000 000 000 000 000 000 000"', () {
       // Actual
@@ -59,21 +111,21 @@ void main() {
 
     test('Should throw AssertionError for floating point number', () {
       expect(
-        () => StringUtils.splitBigNumber('1.5'),
+            () => StringUtils.splitBigNumber('1.5'),
         throwsAssertionError,
       );
     });
 
     test('Should throw AssertionError for invalid number string', () {
       expect(
-        () => StringUtils.splitBigNumber('100000 0000000000000 000'),
+            () => StringUtils.splitBigNumber('100000 0000000000000 000'),
         throwsAssertionError,
       );
     });
 
     test('Should throw AssertionError for invalid number string', () {
       expect(
-        () => StringUtils.splitBigNumber('abcdefg'),
+            () => StringUtils.splitBigNumber('abcdefg'),
         throwsAssertionError,
       );
     });

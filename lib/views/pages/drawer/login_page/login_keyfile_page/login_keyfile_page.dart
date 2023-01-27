@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/providers/wallet_provider.dart';
 import 'package:miro/shared/exceptions/invalid_keyfile_exception.dart';
@@ -6,6 +7,7 @@ import 'package:miro/shared/exceptions/invalid_password_exception.dart';
 import 'package:miro/shared/models/wallet/keyfile.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/shared/utils/app_logger.dart';
+import 'package:miro/shared/utils/string_utils.dart';
 import 'package:miro/views/layout/drawer/drawer_subtitle.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
 import 'package:miro/views/pages/drawer/login_page/create_wallet_link_button.dart';
@@ -47,6 +49,9 @@ class _LoginKeyfilePage extends State<LoginKeyfilePage> {
         KiraTextField(
           controller: keyfilePasswordController,
           hint: 'Enter password',
+          inputFormatters: <TextInputFormatter>[
+            FilteringTextInputFormatter.deny(StringUtils.whitespacesRegExp),
+          ],
           obscureText: true,
           validator: (_) => _validateKeyFilePassword(),
         ),
