@@ -59,7 +59,7 @@ class _SignedOutButtonMobile extends StatelessWidget {
       width: size.width,
       height: size.height,
       onPressed: () => KiraScaffold.of(context).navigateEndDrawerRoute(const LoginPage()),
-      iconData: AppIcons.account,
+      icon: const Icon(AppIcons.account, size: 14),
     );
   }
 }

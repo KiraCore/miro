@@ -5,18 +5,18 @@ import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_token
 import 'package:miro/views/widgets/buttons/kira_outlined_button.dart';
 
 class BalanceListItemDesktopTitle extends StatelessWidget {
+  final double sectionsSpace;
   final BalanceModel balanceModel;
   final FavouritePressedCallback favouritePressedCallback;
   final ValueNotifier<bool> hoverNotifier;
   final VoidCallback onSendButtonPressed;
-  final double sectionsSpace;
 
   const BalanceListItemDesktopTitle({
+    required this.sectionsSpace,
     required this.balanceModel,
     required this.favouritePressedCallback,
     required this.hoverNotifier,
     required this.onSendButtonPressed,
-    required this.sectionsSpace,
     Key? key,
   }) : super(key: key);
 

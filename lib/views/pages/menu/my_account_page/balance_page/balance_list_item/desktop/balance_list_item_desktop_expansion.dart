@@ -50,9 +50,7 @@ class BalanceListItemDesktopExpansion extends StatelessWidget {
           ),
         ),
         SizedBox(width: sectionsSpace),
-        const SizedBox(
-          width: 70,
-        ),
+        const SizedBox(width: 70),
       ],
     );
   }

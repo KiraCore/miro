@@ -75,7 +75,7 @@ class _DownloadKeyfileSection extends State<DownloadKeyfileSection> {
             foregroundColor: downloadButtonForegroundColor,
             disabled: !downloadKeyfileButtonEnabled,
             title: downloadButtonText ?? 'Download',
-            iconData: downloadButtonIcon,
+            icon: Icon(downloadButtonIcon, size: 14),
           ),
         ],
       ),

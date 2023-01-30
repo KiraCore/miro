@@ -4,7 +4,7 @@ import 'package:miro/providers/wallet_provider.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/views/layout/app_bar/account_button/account_menu_list.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
-import 'package:miro/views/pages/menu/my_account_page/account_tile.dart';
+import 'package:miro/views/widgets/generic/account_tile.dart';
 import 'package:provider/provider.dart';
 
 class AccountDrawerPage extends StatelessWidget {

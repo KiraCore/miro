@@ -8,9 +8,9 @@ import 'package:miro/blocs/specific_blocs/list/favourites/favourites_bloc.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
 import 'package:miro/shared/router/kira_router.dart';
 import 'package:miro/shared/router/router.gr.dart';
-import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_list_item_desktop/balance_list_item_desktop.dart';
-import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_list_item_layout.dart';
-import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_list_item_mobile/balance_list_item_mobile.dart';
+import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_list_item/balance_list_item_layout.dart';
+import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_list_item/desktop/balance_list_item_desktop.dart';
+import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_list_item/mobile/balance_list_item_mobile.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 
 typedef ExpansionChangedCallback = void Function(bool status);
@@ -35,21 +35,18 @@ class _BalanceListItemBuilder extends State<BalanceListItemBuilder> {
 
   @override
   Widget build(BuildContext context) {
-    Widget desktopListItem = BalanceListItemDesktop(
-      balanceModel: widget.balanceModel,
-      expansionChangedCallback: _onExpansionChanged,
-      favouritePressedCallback: _onFavouriteButtonPressed,
-      onSendButtonPressed: _handleSendButtonPressed,
-      hoverNotifier: hoverNotifier,
-    );
-
     return BalanceListItemLayout(
       expandNotifier: expandNotifier,
       hoverNotifier: hoverNotifier,
       itemContent: ResponsiveWidget(
-        largeScreen: desktopListItem,
-        mediumScreen: desktopListItem,
-        smallScreen: BalanceListItemMobile(
+        largeScreen: BalanceListItemDesktop(
+          balanceModel: widget.balanceModel,
+          expansionChangedCallback: _onExpansionChanged,
+          favouritePressedCallback: _onFavouriteButtonPressed,
+          onSendButtonPressed: _handleSendButtonPressed,
+          hoverNotifier: hoverNotifier,
+        ),
+        mediumScreen: BalanceListItemMobile(
           balanceModel: widget.balanceModel,
           expansionChangedCallback: _onExpansionChanged,
           favouritePressedCallback: _onFavouriteButtonPressed,

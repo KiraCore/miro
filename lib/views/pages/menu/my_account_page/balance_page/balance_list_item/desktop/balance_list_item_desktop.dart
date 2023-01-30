@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
-import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_list_item_builder.dart';
-import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_list_item_desktop/balance_list_item_desktop_expansion.dart';
-import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_list_item_desktop/balance_list_item_desktop_title.dart';
+import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_list_item/balance_list_item_builder.dart';
+import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_list_item/desktop/balance_list_item_desktop_expansion.dart';
+import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_list_item/desktop/balance_list_item_desktop_title.dart';
 import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_token_prefix.dart';
 
 class BalanceListItemDesktop extends StatelessWidget {
