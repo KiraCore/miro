@@ -47,14 +47,15 @@ class _DashboardGrid extends State<DashboardGrid> {
                   color: DesignColors.white_100,
                 ),
               ),
-              IconButton(
-                onPressed: widget.onTap,
-                icon: const Icon(
-                  AppIcons.chevron_right,
-                  size: 20,
-                  color: DesignColors.gray2_100,
+              if (widget.onTap != null)
+                IconButton(
+                  onPressed: widget.onTap,
+                  icon: const Icon(
+                    AppIcons.chevron_right,
+                    size: 20,
+                    color: DesignColors.gray2_100,
+                  ),
                 ),
-              ),
             ],
           ),
         ),

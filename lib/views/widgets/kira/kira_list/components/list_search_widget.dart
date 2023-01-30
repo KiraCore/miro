@@ -6,57 +6,55 @@ import 'package:miro/blocs/specific_blocs/list/filters/filters_bloc.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/views/widgets/generic/search_bar.dart';
 
-class ListSearchWidget<T extends AListItem> extends StatelessWidget {
+class ListSearchWidget<T extends AListItem> extends StatefulWidget {
   final bool enabled;
   final double height;
-  final String? hint;
   final double width;
+  final String? hint;
 
   const ListSearchWidget({
     this.enabled = true,
     this.height = 50,
-    this.hint,
     this.width = 285,
+    this.hint,
     Key? key,
   }) : super(key: key);
 
   @override
+  State<StatefulWidget> createState() => _ListSearchWidget<T>();
+}
+
+class _ListSearchWidget<T extends AListItem> extends State<ListSearchWidget<T>> {
+  final TextEditingController textEditingController = TextEditingController();
+
+  @override
   Widget build(BuildContext context) {
-    return Opacity(
-      opacity: enabled ? 1 : 0.4,
-      child: SizedBox(
-        height: height,
-        width: width,
-        child: SearchBar(
-          enabled: enabled,
-          textStyle: const TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.w400,
-            color: DesignColors.white_100,
-          ),
-          label: hint,
-          onFieldSubmitted: (String value) {
-            BlocProvider.of<FiltersBloc<T>>(context).add(FiltersSearchEvent<T>(value));
-          },
-          backgroundColor: DesignColors.blue1_10,
-          border: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.transparent),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.transparent),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          disabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.transparent),
-            borderRadius: BorderRadius.circular(8),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.transparent),
-            borderRadius: BorderRadius.circular(8),
-          ),
-        ),
+    return SearchBar(
+      textEditingController: textEditingController,
+      textStyle: const TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
+        color: DesignColors.white_100,
+      ),
+      enabled: widget.enabled,
+      height: widget.height,
+      width: widget.width,
+      label: widget.hint,
+      backgroundColor: DesignColors.blue1_10,
+      onClear: _onClearSearchBar,
+      onSubmit: _onSubmitSearchBar,
+      border: OutlineInputBorder(
+        borderSide: const BorderSide(color: Colors.transparent),
+        borderRadius: BorderRadius.circular(8),
       ),
     );
+  }
+
+  void _onClearSearchBar() {
+    BlocProvider.of<FiltersBloc<T>>(context).add(FiltersSearchEvent<T>(''));
+  }
+
+  void _onSubmitSearchBar(String value) {
+    BlocProvider.of<FiltersBloc<T>>(context).add(FiltersSearchEvent<T>(value));
   }
 }
