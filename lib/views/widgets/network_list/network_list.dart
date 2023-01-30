@@ -10,10 +10,12 @@ import 'package:miro/views/widgets/network_list/network_list_tile.dart';
 class NetworkList extends StatelessWidget {
   final ValueChanged<ANetworkStatusModel>? onConnected;
   final ANetworkStatusModel? hiddenNetworkStatusModel;
+  final Widget? emptyListWidget;
 
   const NetworkList({
     this.onConnected,
     this.hiddenNetworkStatusModel,
+    this.emptyListWidget,
     Key? key,
   }) : super(key: key);
 
@@ -23,7 +25,9 @@ class NetworkList extends StatelessWidget {
       builder: (_, ANetworkListState networkListState) {
         if (networkListState is NetworkListLoadedState) {
           List<ANetworkStatusModel> visibleNetworkStatusModelList = _getVisibleNetworkStatusModelList(networkListState);
-
+          if (visibleNetworkStatusModelList.isEmpty && emptyListWidget != null) {
+            return emptyListWidget!;
+          }
           return ListView.builder(
             controller: ScrollController(),
             shrinkWrap: true,

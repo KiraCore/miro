@@ -3,7 +3,6 @@ import 'package:miro/config/app_sizes.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/views/layout/app_bar/account_button/current_account_button.dart';
 import 'package:miro/views/layout/app_bar/current_network_button.dart';
-import 'package:miro/views/layout/app_bar/kira_scaffold_search_bar.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_value.dart';
 
 class KiraAppBarDesktop extends StatelessWidget {
@@ -27,8 +26,7 @@ class KiraAppBarDesktop extends StatelessWidget {
       ).get(context),
       child: Row(
         children: const <Widget>[
-          Expanded(child: KiraScaffoldSearchBar(enabled: false)),
-          SizedBox(width: 40),
+          Spacer(),
           CurrentNetworkButton(size: Size(192, 48)),
           SizedBox(width: 16),
           CurrentAccountButton(size: Size(180, 48)),

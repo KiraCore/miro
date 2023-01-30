@@ -2,70 +2,117 @@ import 'package:flutter/material.dart';
 import 'package:miro/config/app_icons.dart';
 import 'package:miro/config/theme/design_colors.dart';
 
-class SearchBar extends StatelessWidget {
+class SearchBar extends StatefulWidget {
+  final TextEditingController textEditingController;
   final TextStyle textStyle;
-  final Color? backgroundColor;
   final bool enabled;
   final double height;
-  final String? label;
-  final ValueChanged<String>? onFieldSubmitted;
   final double width;
+  final String? label;
+  final Color? backgroundColor;
+  final VoidCallback? onClear;
+  final ValueChanged<String>? onSubmit;
   final InputBorder? border;
-  final InputBorder? disabledBorder;
-  final InputBorder? enabledBorder;
-  final InputBorder? errorBorder;
-  final InputBorder? focusedBorder;
-  final InputBorder? focusedErrorBorder;
 
   const SearchBar({
+    required this.textEditingController,
     required this.textStyle,
-    this.backgroundColor,
     this.enabled = true,
     this.height = double.infinity,
-    this.label,
-    this.onFieldSubmitted,
     this.width = double.infinity,
+    this.label,
+    this.backgroundColor,
+    this.onClear,
+    this.onSubmit,
     this.border,
-    this.disabledBorder,
-    this.enabledBorder,
-    this.errorBorder,
-    this.focusedBorder,
-    this.focusedErrorBorder,
     Key? key,
   }) : super(key: key);
 
   @override
+  State<StatefulWidget> createState() => _SearchBar();
+}
+
+class _SearchBar extends State<SearchBar> {
+  final ValueNotifier<bool> clearButtonVisibleNotifier = ValueNotifier<bool>(false);
+
+  @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: width,
-      height: height,
-      child: TextFormField(
-        enabled: enabled,
-        onFieldSubmitted: onFieldSubmitted,
-        style: textStyle,
-        decoration: InputDecoration(
-          fillColor: backgroundColor,
-          filled: backgroundColor != null,
-          hintText: label,
-          hintStyle: textStyle.copyWith(
-            color: DesignColors.gray2_100,
-          ),
-          prefixIcon: const Padding(
-            padding: EdgeInsets.symmetric(vertical: 12),
-            child: Icon(
-              AppIcons.search,
-              size: 18,
-              color: DesignColors.gray2_100,
+    Widget searchBarWidget = SizedBox(
+      width: widget.width,
+      height: widget.height,
+      child: ValueListenableBuilder<bool>(
+        valueListenable: clearButtonVisibleNotifier,
+        builder: (BuildContext context, bool clearButtonVisible, _) {
+          return TextFormField(
+            enabled: widget.enabled,
+            controller: widget.textEditingController,
+            onFieldSubmitted: (_) => _onSubmitSearchBar(),
+            onChanged: _onChangedSearchBar,
+            style: widget.textStyle,
+            decoration: InputDecoration(
+              fillColor: widget.backgroundColor,
+              filled: widget.backgroundColor != null,
+              hintText: widget.label,
+              hintStyle: widget.textStyle.copyWith(color: DesignColors.gray2_100),
+              prefixIcon: IconButton(
+                icon: const Icon(
+                  AppIcons.search,
+                  color: DesignColors.gray2_100,
+                  size: 18,
+                ),
+                onPressed: _onSubmitSearchBar,
+              ),
+              suffixIcon: clearButtonVisible
+                  ? Padding(
+                      padding: const EdgeInsets.only(right: 8),
+                      child: IconButton(
+                          icon: const Icon(
+                            AppIcons.cancel,
+                            color: DesignColors.white_100,
+                            size: 18,
+                          ),
+                          onPressed: _pressClearButton),
+                    )
+                  : null,
+              border: widget.border,
+              disabledBorder: widget.border,
+              enabledBorder: widget.border,
+              errorBorder: widget.border,
+              focusedBorder: widget.border,
+              focusedErrorBorder: widget.border,
             ),
-          ),
-          border: border,
-          disabledBorder: disabledBorder,
-          enabledBorder: enabledBorder,
-          errorBorder: errorBorder,
-          focusedBorder: focusedBorder,
-          focusedErrorBorder: focusedErrorBorder,
-        ),
+          );
+        },
       ),
     );
+
+    if (widget.enabled == false) {
+      searchBarWidget = Opacity(
+        opacity: 0.4,
+        child: IgnorePointer(
+          child: searchBarWidget,
+        ),
+      );
+    }
+
+    return searchBarWidget;
+  }
+
+  void _onChangedSearchBar(String value) {
+    clearButtonVisibleNotifier.value = value.isNotEmpty;
+
+    if (value.isEmpty) {
+      widget.onClear?.call();
+    }
+  }
+
+  void _onSubmitSearchBar() {
+    widget.onSubmit?.call(widget.textEditingController.text);
+  }
+
+  void _pressClearButton() {
+    widget.textEditingController.clear();
+    clearButtonVisibleNotifier.value = false;
+    widget.onClear?.call();
   }
 }

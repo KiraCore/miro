@@ -107,6 +107,10 @@ class _ConnectionsPage extends State<NetworkListPage> {
                     NetworkList(
                       onConnected: _handleNetworkConnected,
                       hiddenNetworkStatusModel: _isAutoDisconnected ? widget.canceledNetworkStatusModel : null,
+                      emptyListWidget: Text(
+                        'No available networks',
+                        style: textTheme.bodyText2!.copyWith(color: DesignColors.gray2_100),
+                      ),
                     ),
                     NetworkCustomSection(onConnected: _handleNetworkConnected),
                     const SizedBox(height: 100),
