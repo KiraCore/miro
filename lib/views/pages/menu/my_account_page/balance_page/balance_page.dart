@@ -6,7 +6,7 @@ import 'package:miro/shared/controllers/menu/my_account_page/balances_page/balan
 import 'package:miro/shared/controllers/menu/my_account_page/balances_page/balances_sort_options.dart';
 import 'package:miro/shared/controllers/reload_notifier/reload_notifier_controller.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
-import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_list_item_builder.dart';
+import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_list_item/balance_list_item_builder.dart';
 import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_list_title/balance_list_title.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_value.dart';
 import 'package:miro/views/widgets/kira/kira_list/kira_infinity_list/kira_infinity_list.dart';

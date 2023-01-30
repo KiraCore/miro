@@ -36,41 +36,43 @@ class BalanceTokenPrefix extends StatelessWidget {
 
     return SizedBox(
       height: height,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
-          TokenAvatar(
-            iconUrl: tokenAliasModel.icon,
-            size: height,
-          ),
-          const SizedBox(width: 10),
-          Container(
-            constraints: const BoxConstraints(
-              maxWidth: 150,
-            ),
-            child: Text(
-              tokenAliasModel.name,
-              overflow: TextOverflow.ellipsis,
-              style: textTheme.bodyText1!.copyWith(
-                color: DesignColors.gray2_100,
+      child: LayoutBuilder(
+        builder: (BuildContext context, BoxConstraints constraints) {
+          return Row(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              TokenAvatar(
+                iconUrl: tokenAliasModel.icon,
+                size: height,
               ),
-            ),
-          ),
-          const SizedBox(width: 10),
-          if (favouriteAlwaysVisible)
-            favouriteButton
-          else ...<Widget>[
-            ValueListenableBuilder<bool>(
-              valueListenable: hoverNotifier,
-              builder: (_, bool hovered, __) {
-                if (_isFavouriteButtonVisible(hovered: hovered)) {
-                  return favouriteButton;
-                }
-                return const SizedBox();
-              },
-            ),
-          ],
-        ],
+              const SizedBox(width: 10),
+              Container(
+                constraints: BoxConstraints(maxWidth: constraints.maxWidth - 100),
+                child: Text(
+                  tokenAliasModel.name,
+                  overflow: TextOverflow.ellipsis,
+                  style: textTheme.bodyText1!.copyWith(
+                    color: DesignColors.gray2_100,
+                  ),
+                ),
+              ),
+              const SizedBox(width: 10),
+              if (favouriteAlwaysVisible)
+                favouriteButton
+              else ...<Widget>[
+                ValueListenableBuilder<bool>(
+                  valueListenable: hoverNotifier,
+                  builder: (_, bool hovered, __) {
+                    if (_isFavouriteButtonVisible(hovered: hovered)) {
+                      return favouriteButton;
+                    }
+                    return const SizedBox();
+                  },
+                ),
+              ],
+            ],
+          );
+        },
       ),
     );
   }

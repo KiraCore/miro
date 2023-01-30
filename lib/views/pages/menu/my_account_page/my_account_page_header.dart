@@ -1,7 +1,10 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:miro/config/app_icons.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
-import 'package:miro/views/pages/menu/my_account_page/account_tile.dart';
 import 'package:miro/views/widgets/buttons/kira_elevated_button.dart';
+import 'package:miro/views/widgets/generic/account_tile.dart';
 import 'package:miro/views/widgets/generic/responsive/column_row_spacer.dart';
 import 'package:miro/views/widgets/generic/responsive/column_row_swapper.dart';
 import 'package:miro/views/widgets/generic/responsive/desktop_expanded.dart';
@@ -25,10 +28,10 @@ class MyAccountPageHeader extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.end,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: const <Widget>[
+          children: <Widget>[
             SizedBoxExpanded(
               width: 118,
-              expandOn: <ScreenSize>[
+              expandOn: const <ScreenSize>[
                 ScreenSize.mobile,
                 ScreenSize.tablet,
               ],
@@ -36,12 +39,19 @@ class MyAccountPageHeader extends StatelessWidget {
                 onPressed: null,
                 disabled: true,
                 title: 'Pay',
+                icon: Transform.rotate(
+                  angle: -pi / 2,
+                  child: const Icon(
+                    AppIcons.arrow_up_right,
+                    size: 20,
+                  ),
+                ),
               ),
             ),
-            SizedBox(width: 12),
+            const SizedBox(width: 12),
             SizedBoxExpanded(
               width: 137,
-              expandOn: <ScreenSize>[
+              expandOn: const <ScreenSize>[
                 ScreenSize.mobile,
                 ScreenSize.tablet,
               ],
@@ -49,6 +59,13 @@ class MyAccountPageHeader extends StatelessWidget {
                 onPressed: null,
                 disabled: true,
                 title: 'Request',
+                icon: Transform.rotate(
+                  angle: pi / 2,
+                  child: const Icon(
+                    AppIcons.arrow_up_right,
+                    size: 20,
+                  ),
+                ),
               ),
             ),
           ],
