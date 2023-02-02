@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:miro/config/app_sizes.dart';
 import 'package:miro/providers/wallet_provider.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_page.dart';
 import 'package:miro/views/pages/menu/my_account_page/my_account_page_header.dart';
 import 'package:miro/views/pages/menu/my_account_page/transactions_page/transactions_page.dart';
-import 'package:miro/views/widgets/generic/page_layout.dart';
 import 'package:miro/views/widgets/kira/kira_tab_bar/kira_tab_bar.dart';
 import 'package:provider/provider.dart';
+import 'package:sliver_tools/sliver_tools.dart';
 
 class MyAccountPage extends StatefulWidget {
   const MyAccountPage({Key? key}) : super(key: key);
@@ -38,35 +39,46 @@ class _MyAccountPage extends State<MyAccountPage> with SingleTickerProviderState
 
   @override
   Widget build(BuildContext context) {
-    return PageLayout(
-      scrollController: scrollController,
-      child: Consumer<WalletProvider>(
-        builder: (BuildContext context, WalletProvider walletProvider, _) {
-          Wallet? wallet = walletProvider.currentWallet;
-          if(wallet == null) {
-            return const SizedBox();
-          }
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              MyAccountPageHeader(wallet: wallet),
-              const SizedBox(height: 20),
-              KiraTabBar(
-                tabController: tabController,
-                tabs: tabs.map((String tabTitle) => Tab(text: tabTitle)).toList(),
+    return Consumer<WalletProvider>(
+      builder: (BuildContext context, WalletProvider walletProvider, _) {
+        Wallet? wallet = walletProvider.currentWallet;
+        if (wallet == null) {
+          return const SizedBox();
+        }
+        return CustomScrollView(
+          controller: scrollController,
+          slivers: <Widget>[
+            SliverPadding(
+              padding: AppSizes.getPagePadding(context),
+              sliver: MultiSliver(
+                children: <Widget>[
+                  SliverToBoxAdapter(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        MyAccountPageHeader(wallet: wallet),
+                        const SizedBox(height: 20),
+                        KiraTabBar(
+                          tabController: tabController,
+                          tabs: tabs.map((String tabTitle) => Tab(text: tabTitle)).toList(),
+                        ),
+                        const SizedBox(height: 20),
+                      ],
+                    ),
+                  ),
+                  ValueListenableBuilder<String>(
+                    valueListenable: selectedPageNotifier,
+                    builder: (_, String pageName, __) {
+                      return _selectCurrentPage(pageName: pageName, wallet: wallet);
+                    },
+                  ),
+                ],
               ),
-              const SizedBox(height: 20),
-              ValueListenableBuilder<String>(
-                valueListenable: selectedPageNotifier,
-                builder: (_, String pageName, __) {
-                  return _selectCurrentPage(pageName: pageName, wallet: wallet);
-                },
-              ),
-            ],
-          );
-        },
-      ),
+            ),
+          ],
+        );
+      },
     );
   }
 

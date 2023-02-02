@@ -5,7 +5,7 @@ import 'package:miro/shared/controllers/menu/my_account_page/balances_page/balan
 import 'package:miro/shared/models/balances/balance_model.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
-import 'package:miro/views/widgets/kira/kira_list/kira_popup_infinity_list/kira_popup_infinity_list.dart';
+import 'package:miro/views/widgets/kira/kira_list/infinity_list/popup_infinity_list/popup_infinity_list.dart';
 import 'package:miro/views/widgets/transactions/token_form/token_dropdown/token_dropdown_list_item.dart';
 
 class TokenDropdownList extends StatefulWidget {
@@ -35,15 +35,10 @@ class _TokenDropdownList extends State<TokenDropdownList> {
 
   @override
   Widget build(BuildContext context) {
-    return KiraPopupInfinityList<BalanceModel>(
-      singlePageSize: 20,
-      searchBarTitle: 'Search tokens',
-      listController: BalancesListController(address: widget.walletAddress?.bech32Address ?? ''),
-      searchComparator: BalancesFilterOptions.search,
+    return PopupInfinityList<BalanceModel>(
       defaultSortOption: BalancesSortOptions.sortByDenom,
       itemBuilder: (BalanceModel balanceModel) {
         TokenAliasModel tokenAliasModel = balanceModel.tokenAmountModel.tokenAliasModel;
-
         return TokenDropdownListItem(
           tokenAliasModel: tokenAliasModel,
           selected: selectedTokenAliasModel == tokenAliasModel,
@@ -51,6 +46,10 @@ class _TokenDropdownList extends State<TokenDropdownList> {
           favourite: balanceModel.isFavourite,
         );
       },
+      listController: BalancesListController(address: widget.walletAddress?.bech32Address ?? ''),
+      searchComparator: BalancesFilterOptions.search,
+      singlePageSize: 20,
+      searchBarTitle: 'Search tokens',
     );
   }
 

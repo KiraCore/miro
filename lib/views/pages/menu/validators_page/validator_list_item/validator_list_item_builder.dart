@@ -47,13 +47,14 @@ class _ValidatorListItemBuilder extends State<ValidatorListItemBuilder> {
   }
 
   Future<void> _onFavouriteButtonPressed(bool status) async {
+    FavouritesBloc<ValidatorModel> favouritesBloc = BlocProvider.of<FavouritesBloc<ValidatorModel>>(context);
+
     await widget.scrollController.animateTo(
       widget.scrollController.position.minScrollExtent,
       duration: const Duration(seconds: 1),
       curve: Curves.ease,
     );
 
-    FavouritesBloc<ValidatorModel> favouritesBloc = BlocProvider.of<FavouritesBloc<ValidatorModel>>(context);
     if (widget.validatorModel.isFavourite) {
       favouritesBloc.add(FavouritesRemoveRecordEvent<ValidatorModel>(widget.validatorModel));
     } else {
