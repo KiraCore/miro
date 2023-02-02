@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 
 class AppSizes {
   static const double desktopAppbarHeight = 80;
@@ -17,4 +18,12 @@ class AppSizes {
     left: 15,
     right: 15,
   );
+
+  static EdgeInsets getPagePadding(BuildContext context) {
+    if (ResponsiveWidget.isLargeScreen(context)) {
+      return AppSizes.defaultDesktopPageMargin;
+    } else {
+      return AppSizes.defaultMobilePageMargin;
+    }
+  }
 }

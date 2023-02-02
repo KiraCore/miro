@@ -194,7 +194,7 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
     bool hasNetworkChanged = pageReloadController.hasNetworkChanged(networkStatusModel);
     bool shouldReload = hasErrors || hasNetworkChanged;
 
-    if (shouldReload) {
+    if (isClosed == false && shouldReload) {
       add(ListReloadEvent());
     }
   }
