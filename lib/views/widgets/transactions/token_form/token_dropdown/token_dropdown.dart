@@ -3,8 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/specific_blocs/transactions/token_form/token_form_cubit.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
-import 'package:miro/views/widgets/generic/pop_wrapper.dart';
-import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
+import 'package:miro/views/widgets/generic/pop_wrapper/pop_wrapper.dart';
+import 'package:miro/views/widgets/generic/pop_wrapper/pop_wrapper_controller.dart';
+import 'package:miro/views/widgets/generic/responsive/responsive_value.dart';
 import 'package:miro/views/widgets/transactions/token_form/token_dropdown/token_dropdown_button.dart';
 import 'package:miro/views/widgets/transactions/token_form/token_dropdown/token_dropdown_list.dart';
 import 'package:miro/views/widgets/transactions/tx_input_wrapper.dart';
@@ -34,23 +35,17 @@ class _TokenDropdown extends State<TokenDropdown> {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints boxConstraints) {
         return PopWrapper(
+          buttonSize: Size(boxConstraints.maxWidth, 80),
           disabled: widget.disabled,
-          buttonWidth: boxConstraints.maxWidth,
-          buttonHeight: 80,
           popWrapperController: popWrapperController,
-          buttonBuilder: _buildSelectedTokenButton,
-          dropdownMargin: 15,
-          decoration: BoxDecoration(
-            color: const Color(0xFF12143D),
-            borderRadius: BorderRadius.circular(8),
-          ),
+          buttonBuilder: () => _buildSelectedTokenButton(boxConstraints),
           popupBuilder: () => _buildPopupTokensList(boxConstraints),
         );
       },
     );
   }
 
-  Widget _buildSelectedTokenButton(AnimationController animationController) {
+  Widget _buildSelectedTokenButton(BoxConstraints boxConstraints) {
     return ValueListenableBuilder<BalanceModel?>(
       valueListenable: selectedBalanceModelNotifier,
       builder: (_, BalanceModel? balanceModel, __) {
@@ -59,7 +54,6 @@ class _TokenDropdown extends State<TokenDropdown> {
           disabled: widget.disabled,
           padding: EdgeInsets.zero,
           child: Container(
-            width: double.infinity,
             padding: const EdgeInsets.all(16),
             child: TokenDropdownButton(
               tokenAliasModel: balanceModel?.tokenAmountModel.tokenAliasModel,
@@ -75,9 +69,16 @@ class _TokenDropdown extends State<TokenDropdown> {
       valueListenable: selectedBalanceModelNotifier,
       builder: (_, BalanceModel? balanceModel, __) {
         return Container(
-          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
+          padding: const EdgeInsets.all(8),
           width: boxConstraints.maxWidth,
-          height: ResponsiveWidget.isSmallScreen(context) ? 250 : 250,
+          height: const ResponsiveValue<double?>(
+            largeScreen: 250,
+            mediumScreen: 250,
+            smallScreen: null,
+          ).get(context),
+          constraints: BoxConstraints(
+            maxHeight: MediaQuery.of(context).size.height * 0.7,
+          ),
           child: TokenDropdownList(
             initialTokenAliasModel: balanceModel?.tokenAmountModel.tokenAliasModel,
             onBalanceModelSelected: _handleBalanceModelChanged,
@@ -89,7 +90,7 @@ class _TokenDropdown extends State<TokenDropdown> {
   }
 
   void _handleBalanceModelChanged(BalanceModel balanceModel) {
-    popWrapperController.hideMenu();
+    popWrapperController.hideTooltip();
     if (selectedBalanceModelNotifier.value != balanceModel) {
       selectedBalanceModelNotifier.value = balanceModel;
       BlocProvider.of<TokenFormCubit>(context).setBalanceModel(balanceModel);

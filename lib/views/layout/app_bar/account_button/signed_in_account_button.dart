@@ -4,17 +4,18 @@ import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/views/layout/app_bar/account_button/account_menu_list.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
 import 'package:miro/views/pages/drawer/account_drawer_page/account_drawer_page.dart';
-import 'package:miro/views/widgets/generic/pop_wrapper.dart';
+import 'package:miro/views/widgets/generic/pop_wrapper/pop_wrapper.dart';
+import 'package:miro/views/widgets/generic/pop_wrapper/pop_wrapper_controller.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 import 'package:miro/views/widgets/kira/kira_identity_avatar.dart';
 
 class SignedInAccountButton extends StatelessWidget {
-  final Wallet wallet;
   final Size size;
+  final Wallet wallet;
 
   const SignedInAccountButton({
-    required this.wallet,
     required this.size,
+    required this.wallet,
     Key? key,
   }) : super(key: key);
 
@@ -32,12 +33,12 @@ class SignedInAccountButton extends StatelessWidget {
 }
 
 class _SignedInAccountButtonDesktop extends StatefulWidget {
-  final Wallet wallet;
   final Size size;
+  final Wallet wallet;
 
   const _SignedInAccountButtonDesktop({
-    required this.wallet,
     required this.size,
+    required this.wallet,
     Key? key,
   }) : super(key: key);
 
@@ -54,14 +55,9 @@ class _SignInAccountButtonDesktopState extends State<_SignedInAccountButtonDeskt
       width: widget.size.width,
       height: widget.size.height,
       child: PopWrapper(
-        buttonWidth: widget.size.width,
-        buttonHeight: widget.size.height,
+        buttonSize: Size(widget.size.width, widget.size.height),
         popWrapperController: popWrapperController,
         popupBuilder: _buildAccountPopMenu,
-        decoration: BoxDecoration(
-          color: DesignColors.blue1_10,
-          borderRadius: BorderRadius.circular(8),
-        ),
         buttonBuilder: _buildButton,
       ),
     );
@@ -70,13 +66,11 @@ class _SignInAccountButtonDesktopState extends State<_SignedInAccountButtonDeskt
   Widget _buildAccountPopMenu() {
     return _AccountPopMenu(
       popWrapperController: popWrapperController,
-      height: 130,
       width: widget.size.width,
-      appContext: context,
     );
   }
 
-  Widget _buildButton(AnimationController animationController) {
+  Widget _buildButton() {
     TextTheme textTheme = Theme.of(context).textTheme;
 
     return Row(
@@ -111,12 +105,9 @@ class _SignInAccountButtonDesktopState extends State<_SignedInAccountButtonDeskt
             ],
           ),
         ),
-        RotationTransition(
-          turns: Tween<double>(begin: 0.0, end: 0.5).animate(animationController),
-          child: const Icon(
-            Icons.arrow_drop_down,
-            color: DesignColors.gray2_100,
-          ),
+        const Icon(
+          Icons.arrow_drop_down,
+          color: DesignColors.gray2_100,
         ),
       ],
     );
@@ -124,12 +115,12 @@ class _SignInAccountButtonDesktopState extends State<_SignedInAccountButtonDeskt
 }
 
 class _SignedInAccountButtonMobile extends StatelessWidget {
-  final Wallet wallet;
   final Size size;
+  final Wallet wallet;
 
   const _SignedInAccountButtonMobile({
-    required this.wallet,
     required this.size,
+    required this.wallet,
     Key? key,
   }) : super(key: key);
 
@@ -149,31 +140,25 @@ class _SignedInAccountButtonMobile extends StatelessWidget {
 }
 
 class _AccountPopMenu extends StatelessWidget {
-  final PopWrapperController popWrapperController;
-  final double height;
   final double width;
-  final BuildContext appContext;
+  final PopWrapperController popWrapperController;
 
   const _AccountPopMenu({
-    required this.popWrapperController,
-    required this.height,
     required this.width,
-    required this.appContext,
+    required this.popWrapperController,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: height,
       width: width,
-      margin: EdgeInsets.zero,
-      padding: const EdgeInsets.all(12),
-      child: LayoutBuilder(builder: (_, __) => AccountMenuList(onItemTap: _onTap)),
+      padding: const EdgeInsets.symmetric(vertical: 8),
+      child: AccountMenuList(onItemTap: _onTap),
     );
   }
 
   void _onTap() {
-    popWrapperController.hideMenu();
+    popWrapperController.hideTooltip();
   }
 }

@@ -20,6 +20,7 @@ class AccountDrawerPage extends StatelessWidget {
         }
 
         return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             AccountTile(walletAddress: wallet.address),
             const Divider(color: DesignColors.blue1_20),

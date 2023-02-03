@@ -7,7 +7,8 @@ import 'package:miro/blocs/specific_blocs/list/filters/events/filters_remove_opt
 import 'package:miro/blocs/specific_blocs/list/filters/filters_bloc.dart';
 import 'package:miro/blocs/specific_blocs/list/filters/models/filter_option.dart';
 import 'package:miro/config/theme/design_colors.dart';
-import 'package:miro/views/widgets/generic/pop_wrapper.dart';
+import 'package:miro/views/widgets/generic/pop_wrapper/pop_wrapper.dart';
+import 'package:miro/views/widgets/generic/pop_wrapper/pop_wrapper_controller.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_value.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 import 'package:miro/views/widgets/kira/kira_list/components/filter_dropdown/filter_dropdown_button.dart';
@@ -65,15 +66,9 @@ class _FilterDropdown<T extends AListItem> extends State<FilterDropdown<T>> {
               width: widget.width,
               height: widget.height,
               child: PopWrapper(
-                buttonWidth: widget.width,
-                buttonHeight: widget.height,
+                buttonSize: Size(widget.width, widget.height),
                 popWrapperController: filterOptionsController,
-                buttonBuilder: (_) => FilterDropdownButton<T>(filterOptionModelList: selectedFilterOptions),
-                dropdownMargin: 0,
-                decoration: BoxDecoration(
-                  color: const Color(0xFF12143D),
-                  borderRadius: BorderRadius.circular(8),
-                ),
+                buttonBuilder: () => FilterDropdownButton<T>(filterOptionModelList: selectedFilterOptions),
                 popupBuilder: () {
                   return ListPopMenu<FilterOptionModel<T>>(
                     isMultiSelect: true,
