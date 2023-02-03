@@ -7,7 +7,8 @@ import 'package:miro/blocs/specific_blocs/list/sort/sort_bloc.dart';
 import 'package:miro/blocs/specific_blocs/list/sort/sort_state.dart';
 import 'package:miro/config/app_icons.dart';
 import 'package:miro/config/theme/design_colors.dart';
-import 'package:miro/views/widgets/generic/pop_wrapper.dart';
+import 'package:miro/views/widgets/generic/pop_wrapper/pop_wrapper.dart';
+import 'package:miro/views/widgets/generic/pop_wrapper/pop_wrapper_controller.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_value.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 import 'package:miro/views/widgets/kira/kira_list/components/list_pop_menu/list_pop_menu.dart';
@@ -58,30 +59,20 @@ class _SortDropdown<T extends AListItem> extends State<SortDropdown<T>> {
               mediumScreen: SizedBox(width: 10),
               smallScreen: SizedBox(width: 8),
             ),
-            SizedBox(
-              width: widget.width,
-              height: widget.height,
-              child: PopWrapper(
-                buttonWidth: widget.width,
-                buttonHeight: widget.height,
-                popWrapperController: sortOptionsController,
-                buttonBuilder: (_) => SortDropdownButton<T>(sortOptionModel: selectedSortOptionModel),
-                dropdownMargin: 0,
-                decoration: BoxDecoration(
-                  color: const Color(0xFF12143D),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                popupBuilder: () {
-                  return ListPopMenu<SortOptionModel<T>>(
-                    isMultiSelect: false,
-                    itemToString: (SortOptionModel<T> item) => item.title,
-                    listItems: widget.sortOptionModels,
-                    onItemSelected: _changeCurrentSortOption,
-                    selectedListItems: <SortOptionModel<T>>{selectedSortOptionModel},
-                    title: 'Sort by',
-                  );
-                },
-              ),
+            PopWrapper(
+              buttonSize: Size(widget.width, widget.height),
+              popWrapperController: sortOptionsController,
+              buttonBuilder: () => SortDropdownButton<T>(sortOptionModel: selectedSortOptionModel),
+              popupBuilder: () {
+                return ListPopMenu<SortOptionModel<T>>(
+                  isMultiSelect: false,
+                  itemToString: (SortOptionModel<T> item) => item.title,
+                  listItems: widget.sortOptionModels,
+                  onItemSelected: _changeCurrentSortOption,
+                  selectedListItems: <SortOptionModel<T>>{selectedSortOptionModel},
+                  title: 'Sort by',
+                );
+              },
             ),
             const ResponsiveWidget(
               largeScreen: SizedBox(width: 10),
@@ -113,7 +104,7 @@ class _SortDropdown<T extends AListItem> extends State<SortDropdown<T>> {
   }
 
   void _changeCurrentSortOption(SortOptionModel<T> sortOptionModel) {
-    sortOptionsController.hideMenu();
+    sortOptionsController.hideTooltip();
     setState(() {});
     BlocProvider.of<SortBloc<T>>(context).add(SortChangeEvent<T>(sortOption: sortOptionModel.sortOption));
   }

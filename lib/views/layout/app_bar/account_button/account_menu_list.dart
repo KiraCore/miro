@@ -16,7 +16,9 @@ class AccountMenuList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         _MenuListTile(
           onTap: () => _onNavigateToMyAccountPressed(context),
@@ -31,7 +33,6 @@ class AccountMenuList extends StatelessWidget {
           title: 'Log Out',
           color: DesignColors.red_100,
         ),
-        const SizedBox(height: 12),
       ],
     );
   }
@@ -53,14 +54,14 @@ class AccountMenuList extends StatelessWidget {
 }
 
 class _MenuListTile extends StatelessWidget {
-  final VoidCallback? onTap;
   final String title;
   final Color? color;
+  final VoidCallback? onTap;
 
   const _MenuListTile({
     required this.title,
-    this.onTap,
     this.color,
+    this.onTap,
     Key? key,
   }) : super(key: key);
 
@@ -71,10 +72,11 @@ class _MenuListTile extends StatelessWidget {
     return MouseStateListener(
       onTap: onTap,
       childBuilder: (Set<MaterialState> states) {
-        Color color =  _selectColor(states);
-        
-        return Padding(
-          padding: const EdgeInsets.all(10),
+        Color color = _selectColor(states);
+
+        return Container(
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
           child: Text(
             title,
             style: textTheme.bodyText2!.copyWith(

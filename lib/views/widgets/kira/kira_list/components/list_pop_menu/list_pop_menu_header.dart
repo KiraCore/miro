@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/views/widgets/generic/responsive/responsive_value.dart';
 
 class ListPopMenuHeader extends StatelessWidget {
   final String title;
@@ -15,24 +16,34 @@ class ListPopMenuHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
 
-    return ListTile(
-      title: Text(
-        title,
-        style: textTheme.bodyText2!.copyWith(
-          color: DesignColors.white_100,
-        ),
-      ),
-      trailing: onClearPressed == null
-          ? null
-          : IconButton(
+    return Padding(
+      padding: const ResponsiveValue<EdgeInsets>(
+        largeScreen: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+        mediumScreen: EdgeInsets.symmetric(horizontal: 16, vertical: 4),
+        smallScreen: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      ).get(context),
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: Text(
+              title,
+              style: ResponsiveValue<TextStyle>(
+                largeScreen: textTheme.bodyText2!.copyWith(color: DesignColors.white_100),
+                mediumScreen: textTheme.bodyText2!.copyWith(color: DesignColors.white_100),
+                smallScreen: textTheme.subtitle2!.copyWith(color: DesignColors.white_100),
+              ).get(context),
+            ),
+          ),
+          if (onClearPressed != null)
+            IconButton(
               icon: Text(
                 'Clear',
-                style: textTheme.bodyText2!.copyWith(
-                  color: DesignColors.gray2_100,
-                ),
+                style: textTheme.bodyText2!.copyWith(color: DesignColors.gray2_100),
               ),
               onPressed: onClearPressed,
             ),
+        ],
+      ),
     );
   }
 }
