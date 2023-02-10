@@ -1,4 +1,26 @@
 class MockApiKiraTxs {
+  static Map<String, dynamic> dioParseExceptionResponse = <String, dynamic>{
+    'unexpected_key': 'unexpected_value',
+  };
+
+  static Map<String, dynamic> txBroadcastExceptionResponse = <String, dynamic>{
+    "check_tx": {
+      "code": 32,
+      "codespace": "sdk",
+      "data": null,
+      "events": [],
+      "info": "",
+      "log":
+          "\ngithub.com/cosmos/cosmos-sdk/x/auth/ante.SigVerificationDecorator.AnteHandle\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/x/auth/ante/sigverify.go:265\ngithub.com/cosmos/cosmos-sdk/types.ChainAnteDecorators.func1\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/types/handler.go:40\ngithub.com/cosmos/cosmos-sdk/x/auth/ante.SigGasConsumeDecorator.AnteHandle\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/x/auth/ante/sigverify.go:190\ngithub.com/cosmos/cosmos-sdk/types.ChainAnteDecorators.func1\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/types/handler.go:40\ngithub.com/KiraCore/sekai/app/ante.ExecutionFeeRegistrationDecorator.AnteHandle\n\t/root/sekai/app/ante/ante.go:265\ngithub.com/cosmos/cosmos-sdk/types.ChainAnteDecorators.func1\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/types/handler.go:40\ngithub.com/KiraCore/sekai/app/ante.BlackWhiteTokensCheckDecorator.AnteHandle\n\t/root/sekai/app/ante/ante.go:365\ngithub.com/cosmos/cosmos-sdk/types.ChainAnteDecorators.func1\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/types/handler.go:40\ngithub.com/KiraCore/sekai/app/ante.PoorNetworkManagementDecorator.AnteHandle\n\t/root/sekai/app/ante/ante.go:302\ngithub.com/cosmos/cosmos-sdk/types.ChainAnteDecorators.func1\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/types/handler.go:40\ngithub.com/cosmos/cosmos-sdk/x/auth/ante.DeductFeeDecorator.AnteHandle\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/x/auth/ante/fee.go:128\ngithub.com/cosmos/cosmos-sdk/types.ChainAnteDecorators.func1\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/types/handler.go:40\ngithub.com/cosmos/cosmos-sdk/x/auth/ante.ValidateSigCountDecorator.AnteHandle\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/x/auth/ante/sigverify.go:378\ngithub.com/cosmos/cosmos-sdk/types.ChainAnteDecorators.func1\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/types/handler.go:40\ngithub.com/cosmos/cosmos-sdk/x/auth/ante.SetPubKeyDecorator.AnteHandle\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/x/auth/ante/sigverify.go:126\ngithub.com/cosmos/cosmos-sdk/types.ChainAnteDecorators.func1\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/types/handler.go:40\ngithub.com/KiraCore/sekai/app/ante.ValidateFeeRangeDecorator.AnteHandle\n\t/root/sekai/app/ante/ante.go:231\ngithub.com/cosmos/cosmos-sdk/types.ChainAnteDecorators.func1\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/types/handler.go:40\ngithub.com/cosmos/cosmos-sdk/x/auth/ante.ConsumeTxSizeGasDecorator.AnteHandle\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/x/auth/ante/basic.go:142\ngithub.com/cosmos/cosmos-sdk/types.ChainAnteDecorators.func1\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/types/handler.go:40\ngithub.com/cosmos/cosmos-sdk/x/auth/ante.ValidateMemoDecorator.AnteHandle\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/x/auth/ante/basic.go:66\ngithub.com/cosmos/cosmos-sdk/types.ChainAnteDecorators.func1\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/types/handler.go:40\ngithub.com/cosmos/cosmos-sdk/x/auth/ante.TxTimeoutHeightDecorator.AnteHandle\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/x/auth/ante/basic.go:205\ngithub.com/cosmos/cosmos-sdk/types.ChainAnteDecorators.func1\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/types/handler.go:40\ngithub.com/cosmos/cosmos-sdk/x/auth/ante.ValidateBasicDecorator.AnteHandle\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/x/auth/ante/basic.go:34\ngithub.com/cosmos/cosmos-sdk/types.ChainAnteDecorators.func1\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/types/handler.go:40\ngithub.com/cosmos/cosmos-sdk/x/auth/ante.MempoolFeeDecorator.AnteHandle\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/x/auth/ante/fee.go:54\ngithub.com/cosmos/cosmos-sdk/types.ChainAnteDecorators.func1\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/types/handler.go:40\ngithub.com/cosmos/cosmos-sdk/x/auth/ante.RejectExtensionOptionsDecorator.AnteHandle\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/x/auth/ante/ext.go:35\ngithub.com/cosmos/cosmos-sdk/types.ChainAnteDecorators.func1\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/types/handler.go:40\naccount sequence mismatch, expected 47, got 34: incorrect account sequence",
+      "mempoolError": "",
+      "priority": "0",
+      "sender": ""
+    },
+    "deliver_tx": {"code": 0, "codespace": "", "data": null, "events": [], "info": "", "log": ""},
+    "hash": "7A856AA342E265F1AD2BA2A2838608EB2A00B6C96A967365E78385EF285ED781",
+    "height": "0"
+  };
+
   static Map<String, dynamic> defaultResponse = <String, dynamic>{
     "check_tx": {"code": 0, "codespace": "", "data": "", "events": [], "gas_used": "0", "gas_wanted": "0", "info": "", "log": "[]"},
     "deliver_tx": {

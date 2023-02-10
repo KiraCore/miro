@@ -1,8 +1,16 @@
 import 'package:decimal/decimal.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:miro/blocs/specific_blocs/network_module/events/network_module_connect_event.dart';
+import 'package:miro/blocs/specific_blocs/network_module/events/network_module_disconnect_event.dart';
+import 'package:miro/blocs/specific_blocs/network_module/network_module_bloc.dart';
+import 'package:miro/blocs/specific_blocs/network_module/network_module_state.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api_kira/broadcast/request/broadcast_req.dart';
 import 'package:miro/infra/dto/api_kira/broadcast/request/transaction/tx.dart';
+import 'package:miro/infra/exceptions/dio_connect_exception.dart';
+import 'package:miro/infra/exceptions/dio_parse_exception.dart';
+import 'package:miro/infra/exceptions/tx_broadcast_exception.dart';
+import 'package:miro/infra/services/api_kira/broadcast_service.dart';
 import 'package:miro/infra/services/api_kira/query_account_service.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
@@ -26,9 +34,9 @@ import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
 // To run this test type in console:
-// fvm flutter test test/unit/infra/services/broadcast_service_test.dart --platform chrome --null-assertions
-// ignore_for_file: avoid_print
+// fvm flutter test test/unit/infra/services/api_kira/broadcast_service_test.dart --platform chrome --null-assertions
 // ignore_for_file: always_specify_types
+// ignore_for_file: cascade_invocations
 Future<void> main() async {
   await initMockLocator();
 
@@ -64,7 +72,7 @@ Future<void> main() async {
     );
 
     // Assert
-    TestUtils.printInfo('Should return TxRemoteInfoModel, basing on interx response');
+    TestUtils.printInfo('Should return [TxRemoteInfoModel], basing on interx response');
     expect(
       actualTxRemoteInfoModel,
       expectedTxRemoteInfoModel,
@@ -78,8 +86,8 @@ Future<void> main() async {
     return actualUnsignedTxModel;
   }
 
-  group('Tests of preparation transaction for broadcast', () {
-    test('Should return a signed transaction with MsgSend message', () async {
+  group('Tests of transaction preparation for broadcast', () {
+    test('Should return a signed transaction with [MsgSend] message', () async {
       // Arrange
       final TxLocalInfoModel actualTxLocalInfoModel = TxLocalInfoModel(
         memo: 'Test of MsgSend message',
@@ -108,7 +116,7 @@ Future<void> main() async {
         ),
       );
 
-      TestUtils.printInfo('Should return SignedTxModel with MsgSend message');
+      TestUtils.printInfo('Should return [SignedTxModel] with [MsgSend] message');
       expect(
         actualSignedTxModel,
         expectedSignedTxModel,
@@ -158,14 +166,14 @@ Future<void> main() async {
         'mode': 'block'
       };
 
-      TestUtils.printInfo('Should return Tx json with MsgSend message');
+      TestUtils.printInfo('Should return [Tx] as json with [MsgSend] message');
       expect(
         actualBroadcastReq.toJson(),
         expectedBroadcastReqJson,
       );
     });
 
-    test('Should return a signed transaction with MsgRegisterIdentityRecords message', () async {
+    test('Should return a signed transaction with [MsgRegisterIdentityRecords] message', () async {
       final TxLocalInfoModel actualTxLocalInfoModel = TxLocalInfoModel(
         memo: 'Test of MsgRegisterIdentityRecords message',
         feeTokenAmountModel: feeTokenAmountModel,
@@ -195,7 +203,7 @@ Future<void> main() async {
         ),
       );
 
-      TestUtils.printInfo('Should return SignedTxModel with MsgRegisterIdentityRecords message');
+      TestUtils.printInfo('Should return [SignedTxModel] with [MsgRegisterIdentityRecords] message');
       expect(
         actualSignedTxModel,
         expectedSignedTxModel,
@@ -244,14 +252,14 @@ Future<void> main() async {
         'mode': 'block'
       };
 
-      TestUtils.printInfo('Should return Tx json with MsgRegisterIdentityRecords message');
+      TestUtils.printInfo('Should return [Tx] as json with [MsgRegisterIdentityRecords] message');
       expect(
         actualBroadcastReq.toJson(),
         expectedBroadcastReqJson,
       );
     });
 
-    test('Should return a signed transaction with MsgRequestIdentityRecordsVerify message', () async {
+    test('Should return a signed transaction with [MsgRequestIdentityRecordsVerify] message', () async {
       final TxLocalInfoModel actualTxLocalInfoModel = TxLocalInfoModel(
         memo: 'Test of MsgRequestIdentityRecordsVerify message',
         feeTokenAmountModel: feeTokenAmountModel,
@@ -283,7 +291,7 @@ Future<void> main() async {
         ),
       );
 
-      TestUtils.printInfo('Should return SignedTxModel with MsgRequestIdentityRecordsVerify message');
+      TestUtils.printInfo('Should return [SignedTxModel] with [MsgRequestIdentityRecordsVerify] message');
       expect(
         actualSignedTxModel,
         expectedSignedTxModel,
@@ -332,14 +340,14 @@ Future<void> main() async {
         'mode': 'block'
       };
 
-      TestUtils.printInfo('Should return Tx json with MsgRequestIdentityRecordsVerify message');
+      TestUtils.printInfo('Should return [Tx] as json with [MsgRequestIdentityRecordsVerify] message');
       expect(
         actualBroadcastReq.toJson(),
         expectedBroadcastReqJson,
       );
     });
 
-    test('Should return a signed transaction with MsgCancelIdentityRecordsVerifyRequest message', () async {
+    test('Should return a signed transaction with [MsgCancelIdentityRecordsVerifyRequest] message', () async {
       final TxLocalInfoModel actualTxLocalInfoModel = TxLocalInfoModel(
         memo: 'Test of MsgCancelIdentityRecordsVerifyRequest message',
         feeTokenAmountModel: feeTokenAmountModel,
@@ -366,7 +374,7 @@ Future<void> main() async {
         ),
       );
 
-      TestUtils.printInfo('Should return SignedTxModel with MsgCancelIdentityRecordsVerifyRequest message');
+      TestUtils.printInfo('Should return [SignedTxModel] with [MsgCancelIdentityRecordsVerifyRequest] message');
       expect(
         actualSignedTxModel,
         expectedSignedTxModel,
@@ -409,14 +417,14 @@ Future<void> main() async {
         'mode': 'block'
       };
 
-      TestUtils.printInfo('Should return Tx json with MsgRequestIdentityRecordsVerify message');
+      TestUtils.printInfo('Should return [Tx] as json with [MsgRequestIdentityRecordsVerify] message');
       expect(
         actualBroadcastReq.toJson(),
         expectedBroadcastReqJson,
       );
     });
 
-    test('Should return a signed transaction with MsgDeleteIdentityRecords message', () async {
+    test('Should return a signed transaction with [MsgDeleteIdentityRecords] message', () async {
       final TxLocalInfoModel actualTxLocalInfoModel = TxLocalInfoModel(
         memo: 'Test of MsgDeleteIdentityRecords message',
         feeTokenAmountModel: feeTokenAmountModel,
@@ -443,7 +451,7 @@ Future<void> main() async {
         ),
       );
 
-      TestUtils.printInfo('Should return SignedTxModel with MsgDeleteIdentityRecordsModel message');
+      TestUtils.printInfo('Should return [SignedTxModel] with [MsgDeleteIdentityRecordsModel] message');
       expect(
         actualSignedTxModel,
         expectedSignedTxModel,
@@ -490,14 +498,14 @@ Future<void> main() async {
         'mode': 'block'
       };
 
-      TestUtils.printInfo('Should return Tx json with MsgDeleteIdentityRecordsModel message');
+      TestUtils.printInfo('Should return [Tx] as json with [MsgDeleteIdentityRecordsModel] message');
       expect(
         actualBroadcastReq.toJson(),
         expectedBroadcastReqJson,
       );
     });
 
-    test('Should return a signed transaction with MsgHandleIdentityRecordsVerifyRequest message', () async {
+    test('Should return a signed transaction with [MsgHandleIdentityRecordsVerifyRequest] message', () async {
       final TxLocalInfoModel actualTxLocalInfoModel = TxLocalInfoModel(
         memo: 'Test of MsgHandleIdentityRecordsVerifyRequest message',
         feeTokenAmountModel: feeTokenAmountModel,
@@ -577,6 +585,116 @@ Future<void> main() async {
       expect(
         actualBroadcastReq.toJson(),
         expectedBroadcastReqJson,
+      );
+    });
+  });
+
+  group('Tests for possible exceptions that can be thrown in [BroadcastService]', () {
+    // Arrange
+    late BroadcastService actualBroadcastService;
+    late SignedTxModel actualSignedTxModel;
+
+    setUpAll(() {
+      actualBroadcastService = BroadcastService();
+      actualSignedTxModel = SignedTxModel(
+        txLocalInfoModel: TxLocalInfoModel(
+          memo: 'Test of MsgRegisterIdentityRecords message',
+          feeTokenAmountModel: feeTokenAmountModel,
+          txMsgModel: MsgRegisterIdentityRecordsModel.single(
+            walletAddress: senderWallet.address,
+            identityInfoEntryModel: const IdentityInfoEntryModel(
+              key: 'avatar',
+              info: 'https://paganresearch.io/images/kiracore.jpg',
+            ),
+          ),
+        ),
+        txRemoteInfoModel: expectedTxRemoteInfoModel,
+        publicKeyCompressed: 'AlLas8CJ6lm5yZJ8h0U5Qu9nzVvgvskgHuURPB3jvUx8',
+        signatureModel: const SignatureModel(
+          signature: '+Odo/kQ6xBNJCakUnZkmFq0H1tW3pgRYgnLB9ul3iMkj/XElK6pU+bHluRmiONMovMNEDKjvphZeahabtkWTiw==',
+        ),
+      );
+    });
+
+    test('Should throw [DioConnectException] if cannot reach server (e.g. No network connection or interx is offline)', () async {
+      // Arrange
+      NetworkModuleBloc networkModuleBloc = globalLocator<NetworkModuleBloc>();
+
+      // Act
+      networkModuleBloc.add(NetworkModuleDisconnectEvent());
+      await Future<void>.delayed(const Duration(milliseconds: 500));
+
+      // Assert
+      NetworkModuleState expectedNetworkModuleState = NetworkModuleState.disconnected();
+
+      TestUtils.printInfo('Should return [NetworkModuleState.disconnected()]');
+      expect(networkModuleBloc.state, expectedNetworkModuleState);
+
+      // ****************************************************************************************
+
+      // Assert
+      TestUtils.printInfo('Should throw [DioConnectException] if network is disconnected');
+      expect(
+        () async => actualBroadcastService.broadcastTx(actualSignedTxModel),
+        throwsA(isA<DioConnectException>()),
+      );
+    });
+
+    test('Should throw [DioParseException] if broadcast response is other than expected', () async {
+      // Arrange
+      NetworkModuleBloc networkModuleBloc = globalLocator<NetworkModuleBloc>();
+
+      // Act
+      networkModuleBloc.add(NetworkModuleConnectEvent(TestUtils.networkUnhealthyModel));
+      await Future<void>.delayed(const Duration(milliseconds: 500));
+
+      // Assert
+      NetworkModuleState expectedNetworkModuleState = NetworkModuleState.connected(TestUtils.networkUnhealthyModel);
+
+      TestUtils.printInfo('Should return [NetworkModuleState.connected()] with unhealthy network');
+      expect(networkModuleBloc.state, expectedNetworkModuleState);
+
+      // ****************************************************************************************
+
+      // Assert
+      // To perform this test created mocked API response [/lib/test/mocks/api_kira/mock_api_kira_txs.dart][dioParseExceptionResponse]
+      // Assumed that a server with the uri "https://unhealthy.kira.network" will return a response that is not supported by the application.
+      // Because of that, the application will throw [DioParseException] exception.
+      // Repository mocks for this test are handled by class located in [/lib/test/mock_api_kira_repository.dart]
+
+      TestUtils.printInfo('Should throw [DioParseException]');
+      expect(
+        () async => actualBroadcastService.broadcastTx(actualSignedTxModel),
+        throwsA(isA<DioParseException>()),
+      );
+    });
+
+    test('Should throw [TxBroadcastException] if broadcast response contains server errors', () async {
+      // Arrange
+      NetworkModuleBloc networkModuleBloc = globalLocator<NetworkModuleBloc>();
+
+      // Act
+      networkModuleBloc.add(NetworkModuleConnectEvent(TestUtils.customNetworkUnhealthyModel));
+      await Future<void>.delayed(const Duration(milliseconds: 500));
+
+      // Assert
+      NetworkModuleState expectedNetworkModuleState = NetworkModuleState.connected(TestUtils.customNetworkUnhealthyModel);
+
+      TestUtils.printInfo('Should return [NetworkModuleState.connected()] with custom unhealthy network');
+      expect(networkModuleBloc.state, expectedNetworkModuleState);
+
+      // ****************************************************************************************
+
+      // Assert
+      // To perform this test created mocked API response [/lib/test/mocks/api_kira/mock_api_kira_txs.dart][txBroadcastExceptionResponse]
+      // Assumed that a server with the uri "https://custom-unhealthy.kira.network" will return a response with error message created by interx or sekai.
+      // Because of that, the application will throw [TxBroadcastException] exception.
+      // Repository mocks for this test are handled by class located in [/lib/test/mock_api_kira_repository.dart]
+
+      TestUtils.printInfo('Should throw [TxBroadcastException]');
+      expect(
+        () async => actualBroadcastService.broadcastTx(actualSignedTxModel),
+        throwsA(isA<TxBroadcastException>()),
       );
     });
   });

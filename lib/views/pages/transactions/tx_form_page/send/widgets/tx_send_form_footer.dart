@@ -21,11 +21,13 @@ import 'package:miro/views/pages/transactions/tx_form_page/send/widgets/tx_send_
 import 'package:miro/views/pages/transactions/tx_form_page/send/widgets/tx_send_form_next_button.dart';
 
 class TxSendFormFooter extends StatefulWidget {
+  final String txFormPageName;
   final TokenAmountModel feeTokenAmountModel;
   final AMsgFormController msgFormController;
   final TokenDenominationModel? tokenDenominationModel;
 
   const TxSendFormFooter({
+    required this.txFormPageName,
     required this.feeTokenAmountModel,
     required this.msgFormController,
     this.tokenDenominationModel,
@@ -103,6 +105,7 @@ class _TxSendFormFooter extends State<TxSendFormFooter> {
       await KiraRouter.of(context).navigate(TxConfirmRoute(
         signedTxModel: signedTxModel,
         tokenDenominationModel: widget.tokenDenominationModel,
+        txFormPageName: widget.txFormPageName,
       ));
     }
   }

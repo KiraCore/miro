@@ -4,7 +4,7 @@ import 'package:miro/shared/models/transactions/broadcast_resp_model.dart';
 class TxBroadcastCompletedState extends ATxBroadcastState {
   final BroadcastRespModel broadcastRespModel;
 
-  TxBroadcastCompletedState({
+  const TxBroadcastCompletedState({
     required this.broadcastRespModel,
   });
 

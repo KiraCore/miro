@@ -5,6 +5,7 @@ import 'package:miro/providers/wallet_provider.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
 import 'package:miro/shared/models/tokens/token_denomination_model.dart';
 import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
+import 'package:miro/shared/router/router.gr.dart';
 import 'package:miro/views/pages/transactions/tx_form_page/msg_forms/msg_send/msg_send_form.dart';
 import 'package:miro/views/pages/transactions/tx_form_page/msg_forms/msg_send/msg_send_form_controller.dart';
 import 'package:miro/views/pages/transactions/tx_form_page/send/widgets/tx_form_init_cubit_wrapper.dart';
@@ -51,6 +52,7 @@ class _TxTokensSendFormPage extends State<TxTokensSendFormPage> {
                 valueListenable: tokenDenominationModelNotifier,
                 builder: (_, TokenDenominationModel? tokenDenominationModel, __) {
                   return TxSendFormFooter(
+                    txFormPageName: TxTokensSendFormRoute.name,
                     feeTokenAmountModel: txFormInitLoadedState.feeTokenAmountModel,
                     msgFormController: msgSendFormController,
                     tokenDenominationModel: tokenDenominationModel,

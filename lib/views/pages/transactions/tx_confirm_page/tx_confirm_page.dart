@@ -10,10 +10,12 @@ import 'package:miro/views/widgets/buttons/kira_outlined_button.dart';
 import 'package:miro/views/widgets/transactions/tx_dialog.dart';
 
 class TxConfirmPage extends StatelessWidget {
+  final String? txFormPageName;
   final SignedTxModel? signedTxModel;
   final TokenDenominationModel? tokenDenominationModel;
 
   const TxConfirmPage({
+    @QueryParam('txFormPageName') this.txFormPageName,
     @QueryParam('tx') this.signedTxModel,
     @QueryParam('denom') this.tokenDenominationModel,
     Key? key,
@@ -42,7 +44,7 @@ class TxConfirmPage extends StatelessWidget {
           const SizedBox(height: 30),
           KiraElevatedButton(
             width: 160,
-            onPressed: () => KiraRouter.of(context).navigate(TxBroadcastRoute(signedTxModel: signedTxModel!)),
+            onPressed: () => KiraRouter.of(context).navigate(TxBroadcastRoute(signedTxModel: signedTxModel, txFormPageName: txFormPageName)),
             title: 'Confirm & send',
           ),
         ],

@@ -7,7 +7,7 @@ class TxDialog extends StatelessWidget {
   final Widget child;
   final String title;
   final double maxWidth;
-  final String? subtitle;
+  final List<String>? subtitle;
   final Widget? suffixWidget;
 
   const TxDialog({
@@ -66,10 +66,17 @@ class TxDialog extends StatelessWidget {
                     ),
                     if (subtitle != null) ...<Widget>[
                       const SizedBox(height: 12),
-                      Text(
-                        subtitle!,
-                        style: textTheme.bodyText1!.copyWith(color: DesignColors.gray2_100),
-                      ),
+                      ...subtitle!
+                          .map(
+                            (String message) => Padding(
+                              padding: const EdgeInsets.symmetric(vertical: 3),
+                              child: Text(
+                                message,
+                                style: textTheme.bodyText1!.copyWith(color: DesignColors.gray2_100),
+                              ),
+                            ),
+                          )
+                          .toList(),
                     ],
                     const SizedBox(height: 30),
                     child,

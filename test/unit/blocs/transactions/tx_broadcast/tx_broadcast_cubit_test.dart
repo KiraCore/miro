@@ -1,6 +1,7 @@
 import 'package:decimal/decimal.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/blocs/specific_blocs/network_module/events/network_module_auto_connect_event.dart';
+import 'package:miro/blocs/specific_blocs/network_module/events/network_module_connect_event.dart';
 import 'package:miro/blocs/specific_blocs/network_module/network_module_bloc.dart';
 import 'package:miro/blocs/specific_blocs/network_module/network_module_state.dart';
 import 'package:miro/blocs/specific_blocs/transactions/tx_broadcast/a_tx_broadcast_state.dart';
@@ -10,11 +11,7 @@ import 'package:miro/blocs/specific_blocs/transactions/tx_broadcast/states/tx_br
 import 'package:miro/blocs/specific_blocs/transactions/tx_broadcast/tx_broadcast_cubit.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api_kira/broadcast/response/broadcast_resp.dart';
-import 'package:miro/shared/models/network/data/connection_status_type.dart';
-import 'package:miro/shared/models/network/data/network_info_model.dart';
-import 'package:miro/shared/models/network/status/network_offline_model.dart';
-import 'package:miro/shared/models/network/status/network_unknown_model.dart';
-import 'package:miro/shared/models/network/status/online/network_healthy_model.dart';
+import 'package:miro/shared/models/network/error_explorer_model.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/transactions/broadcast_resp_model.dart';
@@ -32,38 +29,6 @@ import 'package:miro/test/utils/test_utils.dart';
 // fvm flutter test test/unit/blocs/transactions/tx_broadcast/tx_broadcast_cubit_test.dart --platform chrome --null-assertions
 Future<void> main() async {
   await initMockLocator();
-
-  NetworkUnknownModel healthyNetworkUnknownModel = NetworkUnknownModel(
-    connectionStatusType: ConnectionStatusType.disconnected,
-    uri: Uri.parse('https://healthy.kira.network'),
-    name: 'healthy-mainnet',
-  );
-
-  NetworkUnknownModel offlineNetworkUnknownModel = NetworkUnknownModel(
-    connectionStatusType: ConnectionStatusType.disconnected,
-    uri: Uri.parse('https://offline.kira.network'),
-    name: 'offline-mainnet',
-  );
-
-  NetworkHealthyModel networkHealthyModel = NetworkHealthyModel(
-    connectionStatusType: ConnectionStatusType.disconnected,
-    uri: Uri.parse('https://healthy.kira.network'),
-    name: 'healthy-mainnet',
-    networkInfoModel: NetworkInfoModel(
-      chainId: 'localnet-1',
-      interxVersion: 'v0.4.22',
-      latestBlockHeight: 108843,
-      latestBlockTime: DateTime.now(),
-      activeValidators: 319,
-      totalValidators: 475,
-    ),
-  );
-
-  NetworkOfflineModel networkOfflineModel = NetworkOfflineModel(
-    connectionStatusType: ConnectionStatusType.disconnected,
-    uri: Uri.parse('https://offline.kira.network'),
-    name: 'offline-mainnet',
-  );
 
   SignedTxModel signedTxModel = SignedTxModel(
     publicKeyCompressed: 'AlLas8CJ6lm5yZJ8h0U5Qu9nzVvgvskgHuURPB3jvUx8',
@@ -107,11 +72,11 @@ Future<void> main() async {
       // ************************************************************************************************
 
       // Act
-      actualNetworkModuleBloc.add(NetworkModuleAutoConnectEvent(healthyNetworkUnknownModel));
+      actualNetworkModuleBloc.add(NetworkModuleConnectEvent(TestUtils.networkHealthyModel));
       await Future<void>.delayed(const Duration(milliseconds: 100));
 
       // Assert
-      NetworkModuleState expectedNetworkModuleState = NetworkModuleState.connected(networkHealthyModel);
+      NetworkModuleState expectedNetworkModuleState = NetworkModuleState.connected(TestUtils.networkHealthyModel);
 
       TestUtils.printInfo('Should return NetworkModuleState.connected with NetworkHealthyModel');
       expect(actualNetworkModuleBloc.state, expectedNetworkModuleState);
@@ -146,11 +111,11 @@ Future<void> main() async {
       // ************************************************************************************************
 
       // Act
-      actualNetworkModuleBloc.add(NetworkModuleAutoConnectEvent(offlineNetworkUnknownModel));
+      actualNetworkModuleBloc.add(NetworkModuleAutoConnectEvent(TestUtils.offlineNetworkUnknownModel));
       await Future<void>.delayed(const Duration(milliseconds: 500));
 
       // Assert
-      NetworkModuleState expectedNetworkModuleState = NetworkModuleState.connected(networkOfflineModel);
+      NetworkModuleState expectedNetworkModuleState = NetworkModuleState.connected(TestUtils.networkOfflineModel);
 
       TestUtils.printInfo('Should return NetworkModuleState.connected with NetworkOfflineModel');
       expect(actualNetworkModuleBloc.state, expectedNetworkModuleState);
@@ -161,7 +126,15 @@ Future<void> main() async {
       await actualTxBroadcastCubit.broadcast(signedTxModel);
 
       // Assert
-      expectedTxBroadcastState = TxBroadcastErrorState();
+      expectedTxBroadcastState = TxBroadcastErrorState(
+        errorExplorerModel: ErrorExplorerModel(
+          code: 'NETWORK_ERROR',
+          message: 'Cannot reach the server. Please check your internet connection.',
+          uri: Uri.parse('offline.kira.network'),
+          method: 'GET',
+          response: '',
+        ),
+      );
 
       TestUtils.printInfo('Should return TxBroadcastErrorState() if cannot broadcast transaction');
       expect(actualTxBroadcastCubit.state, expectedTxBroadcastState);
