@@ -13,15 +13,31 @@ import 'package:miro/test/mocks/api_kira/mock_api_kira_tokens_rates.dart';
 import 'package:miro/test/mocks/api_kira/mock_api_kira_txs.dart';
 
 class MockApiKiraRepository implements ApiKiraRepository {
-  static List<String> workingEndpoints = <String>['unhealthy.kira.network', 'healthy.kira.network'];
+  static List<String> workingEndpoints = <String>[
+    'custom-healthy.kira.network',
+    'custom-unhealthy.kira.network',
+    'unhealthy.kira.network',
+    'healthy.kira.network'
+  ];
 
   @override
   Future<Response<T>> broadcast<T>(Uri networkUri, BroadcastReq request) async {
     bool hasResponse = workingEndpoints.contains(networkUri.host);
     if (hasResponse) {
+      late T response;
+      switch (networkUri.host) {
+        case 'unhealthy.kira.network':
+          response = MockApiKiraTxs.dioParseExceptionResponse as T;
+          break;
+        case 'custom-unhealthy.kira.network':
+          response = MockApiKiraTxs.txBroadcastExceptionResponse as T;
+          break;
+        default:
+          response = MockApiKiraTxs.defaultResponse as T;
+      }
       return Response<T>(
         statusCode: 200,
-        data: MockApiKiraTxs.defaultResponse as T,
+        data: response,
         requestOptions: RequestOptions(path: ''),
       );
     } else {
@@ -57,7 +73,7 @@ class MockApiKiraRepository implements ApiKiraRepository {
       throw DioError(requestOptions: RequestOptions(path: networkUri.host));
     }
   }
-  
+
   @override
   Future<Response<T>> fetchQueryKiraTokensAliases<T>(Uri networkUri) async {
     bool hasResponse = workingEndpoints.contains(networkUri.host);

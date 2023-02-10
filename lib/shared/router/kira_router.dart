@@ -25,6 +25,10 @@ class KiraRouter {
     await _stackRouter.pop();
   }
 
+  Future<void> popUntilRouteWithName(String name) async {
+    _stackRouter.popUntilRouteWithName(name);
+  }
+
   Future<void> navigateBack() async {
     _stackRouter.navigateBack();
   }

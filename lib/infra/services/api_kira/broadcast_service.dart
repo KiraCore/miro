@@ -4,6 +4,9 @@ import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api_kira/broadcast/request/broadcast_req.dart';
 import 'package:miro/infra/dto/api_kira/broadcast/request/transaction/tx.dart';
 import 'package:miro/infra/dto/api_kira/broadcast/response/broadcast_resp.dart';
+import 'package:miro/infra/exceptions/dio_connect_exception.dart';
+import 'package:miro/infra/exceptions/dio_parse_exception.dart';
+import 'package:miro/infra/exceptions/tx_broadcast_exception.dart';
 import 'package:miro/infra/repositories/api_kira_repository.dart';
 import 'package:miro/shared/models/transactions/broadcast_resp_model.dart';
 import 'package:miro/shared/models/transactions/signed_transaction_model.dart';
@@ -24,9 +27,9 @@ class BroadcastService implements _IBroadcastService {
     late Response<dynamic> response;
     try {
       response = await _apiKiraRepository.broadcast<dynamic>(networkUri, broadcastReq);
-    } on DioError catch (e) {
-      AppLogger().log(message: 'BroadcastService: Cannot fetch broadcastTx for URI $networkUri: ${e.message}');
-      rethrow;
+    } on DioError catch (dioError) {
+      AppLogger().log(message: 'BroadcastService: Cannot fetch broadcastTx for URI $networkUri: ${dioError.message}');
+      throw DioConnectException(dioError: dioError);
     }
 
     late BroadcastRespModel broadcastRespModel;
@@ -35,14 +38,11 @@ class BroadcastService implements _IBroadcastService {
       broadcastRespModel = BroadcastRespModel.fromDto(broadcastResp);
     } catch (e) {
       AppLogger().log(message: 'BroadcastService: Cannot parse broadcastTx for URI $networkUri: ${e}');
-      rethrow;
+      throw DioParseException(response: response, error: e);
     }
 
     if (broadcastRespModel.hasErrors) {
-      AppLogger().log(
-        message: 'BroadcastService: <${broadcastRespModel.broadcastErrorModel?.name}> ${broadcastRespModel.broadcastErrorModel?.message}',
-      );
-      throw Exception('BroadcastService: Cannot broadcastTx for URI $networkUri');
+      throw TxBroadcastException(broadcastErrorLogModel: broadcastRespModel.broadcastErrorLogModel!, response: response);
     }
 
     return broadcastRespModel;

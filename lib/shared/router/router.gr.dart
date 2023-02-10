@@ -174,12 +174,14 @@ class AppRouter extends _i13.RootStackRouter {
       final queryParams = routeData.queryParams;
       final args = routeData.argsAs<TxConfirmRouteArgs>(
           orElse: () => TxConfirmRouteArgs(
+            txFormPageName: queryParams.optString('txFormPageName'),
                 signedTxModel: queryParams.get('tx'),
                 tokenDenominationModel: queryParams.get('denom'),
               ));
       return _i13.CustomPage<void>(
         routeData: routeData,
         child: _i11.TxConfirmPage(
+          txFormPageName: args.txFormPageName,
           signedTxModel: args.signedTxModel,
           tokenDenominationModel: args.tokenDenominationModel,
           key: args.key,
@@ -192,11 +194,14 @@ class AppRouter extends _i13.RootStackRouter {
     TxBroadcastRoute.name: (routeData) {
       final queryParams = routeData.queryParams;
       final args = routeData.argsAs<TxBroadcastRouteArgs>(
-          orElse: () =>
-              TxBroadcastRouteArgs(signedTxModel: queryParams.get('tx')));
+          orElse: () => TxBroadcastRouteArgs(
+                txFormPageName: queryParams.optString('txFormPageName'),
+                signedTxModel: queryParams.get('tx'),
+              ));
       return _i13.CustomPage<void>(
         routeData: routeData,
         child: _i12.TxBroadcastPage(
+          txFormPageName: args.txFormPageName,
           signedTxModel: args.signedTxModel,
           key: args.key,
         ),
@@ -521,6 +526,7 @@ class TxTokensSendFormRouteArgs {
 /// [_i11.TxConfirmPage]
 class TxConfirmRoute extends _i13.PageRouteInfo<TxConfirmRouteArgs> {
   TxConfirmRoute({
+    String? txFormPageName,
     _i24.SignedTxModel? signedTxModel,
     _i25.TokenDenominationModel? tokenDenominationModel,
     _i14.Key? key,
@@ -528,11 +534,13 @@ class TxConfirmRoute extends _i13.PageRouteInfo<TxConfirmRouteArgs> {
           TxConfirmRoute.name,
           path: 'transaction/confirm',
           args: TxConfirmRouteArgs(
+            txFormPageName: txFormPageName,
             signedTxModel: signedTxModel,
             tokenDenominationModel: tokenDenominationModel,
             key: key,
           ),
           rawQueryParams: {
+            'txFormPageName': txFormPageName,
             'tx': signedTxModel,
             'denom': tokenDenominationModel,
           },
@@ -543,10 +551,13 @@ class TxConfirmRoute extends _i13.PageRouteInfo<TxConfirmRouteArgs> {
 
 class TxConfirmRouteArgs {
   const TxConfirmRouteArgs({
+    this.txFormPageName,
     this.signedTxModel,
     this.tokenDenominationModel,
     this.key,
   });
+
+  final String? txFormPageName;
 
   final _i24.SignedTxModel? signedTxModel;
 
@@ -556,7 +567,7 @@ class TxConfirmRouteArgs {
 
   @override
   String toString() {
-    return 'TxConfirmRouteArgs{signedTxModel: $signedTxModel, tokenDenominationModel: $tokenDenominationModel, key: $key}';
+    return 'TxConfirmRouteArgs{txFormPageName: $txFormPageName, signedTxModel: $signedTxModel, tokenDenominationModel: $tokenDenominationModel, key: $key}';
   }
 }
 
@@ -564,16 +575,21 @@ class TxConfirmRouteArgs {
 /// [_i12.TxBroadcastPage]
 class TxBroadcastRoute extends _i13.PageRouteInfo<TxBroadcastRouteArgs> {
   TxBroadcastRoute({
+    String? txFormPageName,
     _i24.SignedTxModel? signedTxModel,
     _i14.Key? key,
   }) : super(
-          TxBroadcastRoute.name,
+    TxBroadcastRoute.name,
           path: 'transaction/broadcast',
           args: TxBroadcastRouteArgs(
+            txFormPageName: txFormPageName,
             signedTxModel: signedTxModel,
             key: key,
           ),
-          rawQueryParams: {'tx': signedTxModel},
+          rawQueryParams: {
+            'txFormPageName': txFormPageName,
+            'tx': signedTxModel,
+          },
         );
 
   static const String name = 'TxBroadcastRoute';
@@ -581,9 +597,12 @@ class TxBroadcastRoute extends _i13.PageRouteInfo<TxBroadcastRouteArgs> {
 
 class TxBroadcastRouteArgs {
   const TxBroadcastRouteArgs({
+    this.txFormPageName,
     this.signedTxModel,
     this.key,
   });
+
+  final String? txFormPageName;
 
   final _i24.SignedTxModel? signedTxModel;
 
@@ -591,6 +610,6 @@ class TxBroadcastRouteArgs {
 
   @override
   String toString() {
-    return 'TxBroadcastRouteArgs{signedTxModel: $signedTxModel, key: $key}';
+    return 'TxBroadcastRouteArgs{txFormPageName: $txFormPageName, signedTxModel: $signedTxModel, key: $key}';
   }
 }
