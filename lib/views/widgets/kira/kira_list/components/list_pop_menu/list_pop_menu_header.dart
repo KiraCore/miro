@@ -28,9 +28,9 @@ class ListPopMenuHeader extends StatelessWidget {
             child: Text(
               title,
               style: ResponsiveValue<TextStyle>(
-                largeScreen: textTheme.bodyText2!.copyWith(color: DesignColors.white_100),
-                mediumScreen: textTheme.bodyText2!.copyWith(color: DesignColors.white_100),
-                smallScreen: textTheme.subtitle2!.copyWith(color: DesignColors.white_100),
+                largeScreen: textTheme.bodyText2!.copyWith(color: DesignColors.white1),
+                mediumScreen: textTheme.bodyText2!.copyWith(color: DesignColors.white1),
+                smallScreen: textTheme.subtitle2!.copyWith(color: DesignColors.white1),
               ).get(context),
             ),
           ),
@@ -38,7 +38,7 @@ class ListPopMenuHeader extends StatelessWidget {
             IconButton(
               icon: Text(
                 'Clear',
-                style: textTheme.bodyText2!.copyWith(color: DesignColors.gray2_100),
+                style: textTheme.bodyText2!.copyWith(color: DesignColors.white1),
               ),
               onPressed: onClearPressed,
             ),

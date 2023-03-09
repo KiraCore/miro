@@ -38,7 +38,7 @@ class TxSendFormNextButton extends StatelessWidget {
           Text(
             'Cannot create transaction. Check your connection',
             style: textTheme.caption!.copyWith(
-              color: DesignColors.red_100,
+              color: DesignColors.redStatus1,
             ),
           )
       ],

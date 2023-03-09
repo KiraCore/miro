@@ -17,11 +17,11 @@ class TxAppBar extends StatelessWidget {
         children: <Widget>[
           IconButton(
             onPressed: () => _closeDialog(context),
-            color: DesignColors.gray2_100,
+            color: DesignColors.white1,
             icon: const Icon(
               AppIcons.cancel,
               size: 24,
-              color: DesignColors.gray2_100,
+              color: DesignColors.white1,
             ),
           ),
           const Spacer(),

@@ -28,12 +28,14 @@ class CurrentNetworkButton extends StatelessWidget {
           disableSplash: true,
           childBuilder: (Set<MaterialState> states) {
             Color foregroundColor = _selectForegroundColor(states);
+            Color backgroundColor = _selectBackgroundColor(states);
 
             return Container(
               width: size.width,
               height: size.height,
               padding: const EdgeInsets.symmetric(horizontal: 24),
               decoration: BoxDecoration(
+                color: backgroundColor,
                 border: Border.all(color: foregroundColor),
                 borderRadius: BorderRadius.circular(8),
               ),
@@ -50,9 +52,9 @@ class CurrentNetworkButton extends StatelessWidget {
                         networkStatusModel.name,
                         overflow: TextOverflow.ellipsis,
                         textDirection: TextDirection.ltr,
-                        style: TextStyle(
+                        style: const TextStyle(
                           height: 1,
-                          color: foregroundColor,
+                          color: DesignColors.white1,
                           fontWeight: FontWeight.w500,
                           fontSize: 13,
                         ),
@@ -80,8 +82,15 @@ class CurrentNetworkButton extends StatelessWidget {
 
   Color _selectForegroundColor(Set<MaterialState> states) {
     if (states.contains(MaterialState.hovered) || states.contains(MaterialState.pressed)) {
-      return DesignColors.blue1_100;
+      return DesignColors.white1;
     }
-    return DesignColors.gray2_100;
+    return DesignColors.greyOutline;
+  }
+
+  Color _selectBackgroundColor(Set<MaterialState> states) {
+    if (states.contains(MaterialState.hovered) || states.contains(MaterialState.pressed)) {
+      return DesignColors.greyHover2;
+    }
+    return Colors.transparent;
   }
 }

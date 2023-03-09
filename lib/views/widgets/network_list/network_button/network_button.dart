@@ -36,7 +36,7 @@ class NetworkButton extends StatelessWidget {
         child: Text(
           'Selected server is offline\nPlease choose different server',
           style: textTheme.caption!.copyWith(
-            color: DesignColors.red_100,
+            color: DesignColors.redStatus1,
           ),
         ),
       );
@@ -65,7 +65,7 @@ class NetworkButton extends StatelessWidget {
       return Text(
         'Cannot connect to server',
         style: textTheme.caption!.copyWith(
-          color: DesignColors.red_100,
+          color: DesignColors.redStatus1,
         ),
       );
     }

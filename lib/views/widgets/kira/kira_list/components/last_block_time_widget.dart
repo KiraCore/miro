@@ -26,7 +26,7 @@ class LastBlockTimeWidget extends StatelessWidget {
           text: TextSpan(
             text: 'Last block time: ',
             style: textTheme.caption!.copyWith(
-              color: DesignColors.gray2_100,
+              color: DesignColors.grey1,
             ),
             children: <TextSpan>[
               TextSpan(
@@ -51,11 +51,11 @@ class LastBlockTimeWidget extends StatelessWidget {
 
   Color _selectTextColor(BlockTimeModel? blockTimeModel) {
     if (blockTimeModel == null) {
-      return DesignColors.white_100;
+      return DesignColors.white2;
     } else if (blockTimeModel.isOutdated()) {
-      return DesignColors.red_100;
+      return DesignColors.redStatus1;
     } else {
-      return DesignColors.darkGreen_100;
+      return DesignColors.greenStatus1;
     }
   }
 }

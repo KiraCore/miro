@@ -7,9 +7,9 @@ class ThemeConfig {
 
     return themeData.copyWith(
       colorScheme: const ColorScheme.dark(),
-      backgroundColor: DesignColors.gray1_100,
-      canvasColor: DesignColors.gray1_100,
-      scaffoldBackgroundColor: DesignColors.gray1_100,
+      backgroundColor: DesignColors.background,
+      canvasColor: DesignColors.background,
+      scaffoldBackgroundColor: DesignColors.background,
       elevatedButtonTheme: _buildElevatedButtonThemeData(themeData.elevatedButtonTheme),
       outlinedButtonTheme: _buildOutlinedButtonThemeData(themeData.outlinedButtonTheme),
       textButtonTheme: _buildTextButtonThemeData(themeData.textButtonTheme),
@@ -23,7 +23,8 @@ class ThemeConfig {
   static ElevatedButtonThemeData _buildElevatedButtonThemeData(ElevatedButtonThemeData elevatedButtonThemeData) {
     return ElevatedButtonThemeData(
       style: (elevatedButtonThemeData.style ?? const ButtonStyle()).copyWith(
-        foregroundColor: MaterialStateProperty.all(const Color(0xFFFFFFFF)),
+        foregroundColor: MaterialStateProperty.all(DesignColors.white1),
+        backgroundColor: MaterialStateProperty.all(DesignColors.grey3),
         padding: MaterialStateProperty.all(const EdgeInsets.all(10.0)),
         shape: MaterialStateProperty.all(RoundedRectangleBorder(borderRadius: BorderRadius.circular(4))),
       ),
@@ -34,7 +35,7 @@ class ThemeConfig {
     return OutlinedButtonThemeData(
       style: (baseOutlinedButtonThemeData.style ?? const ButtonStyle()).copyWith(
         foregroundColor: MaterialStateProperty.resolveWith(_selectOutlinedButtonFontColor),
-        textStyle: MaterialStateProperty.all(const TextStyle(fontSize: 12, color: DesignColors.white_100)),
+        textStyle: MaterialStateProperty.all(const TextStyle(fontSize: 12, color: DesignColors.white1)),
         padding: MaterialStateProperty.all(const EdgeInsets.all(10.0)),
         shape: MaterialStateProperty.resolveWith(_selectOutlinedButtonShape),
       ),
@@ -42,20 +43,17 @@ class ThemeConfig {
   }
 
   static Color _selectOutlinedButtonFontColor(Set<MaterialState> states) {
-    Color fontColor = DesignColors.white_100;
+    Color fontColor = DesignColors.white1;
     if (states.contains(MaterialState.disabled)) {
-      fontColor = const Color(0xFF50525C);
+      fontColor = DesignColors.grey2;
     }
     return fontColor;
   }
 
   static OutlinedBorder _selectOutlinedButtonShape(Set<MaterialState> states) {
-    Color borderColor = DesignColors.gray2_100;
+    Color borderColor = DesignColors.white1;
     if (states.contains(MaterialState.hovered) || states.contains(MaterialState.pressed)) {
-      borderColor = DesignColors.gray3_100;
-    }
-    if (states.contains(MaterialState.disabled)) {
-      borderColor = const Color(0xFF222F46);
+      borderColor = DesignColors.white2;
     }
     return RoundedRectangleBorder(
       side: BorderSide(
@@ -74,25 +72,25 @@ class ThemeConfig {
   }
 
   static Color _selectTextButtonFontColor(Set<MaterialState> states) {
-    Color fontColor = DesignColors.gray2_100;
+    Color fontColor = DesignColors.white1;
     if (states.contains(MaterialState.disabled)) {
-      fontColor = const Color(0xFF50525C);
+      fontColor = DesignColors.grey2;
     }
     if (states.contains(MaterialState.hovered)) {
-      fontColor = DesignColors.white_100;
+      fontColor = DesignColors.white1;
     }
     return fontColor;
   }
 
   static IconThemeData _buildIconThemeData(IconThemeData baseIconThemeData) {
     return baseIconThemeData.copyWith(
-      color: Colors.white,
+      color: DesignColors.white1,
     );
   }
 
   static InputDecorationTheme _buildInputDecorationTheme(InputDecorationTheme baseInputDecorationTheme) {
     InputBorder defaultInputBorder = OutlineInputBorder(
-      borderSide: const BorderSide(color: Color(0xFF6F6C99)),
+      borderSide: const BorderSide(color: DesignColors.accent),
       borderRadius: BorderRadius.circular(4),
     );
 
@@ -103,18 +101,18 @@ class ThemeConfig {
       focusedErrorBorder: defaultInputBorder,
       disabledBorder: defaultInputBorder,
       enabledBorder: defaultInputBorder,
-      focusColor: const Color(0xFF121958),
       contentPadding: const EdgeInsets.all(10.0),
-      suffixStyle: const TextStyle(fontWeight: FontWeight.w400, color: Color(0xFF6F6C99)),
-      prefixStyle: const TextStyle(fontWeight: FontWeight.w400, color: Color(0xFF6F6C99)),
-      labelStyle: const TextStyle(fontWeight: FontWeight.w400, fontSize: 14, color: Color(0xFF6F6C99)),
-      hintStyle: const TextStyle(fontWeight: FontWeight.w400, fontSize: 14, color: Color(0xFF6F6C99)),
+      suffixStyle: const TextStyle(fontWeight: FontWeight.w400, color: DesignColors.accent),
+      prefixStyle: const TextStyle(fontWeight: FontWeight.w400, color: DesignColors.accent),
+      labelStyle: const TextStyle(fontWeight: FontWeight.w400, fontSize: 14, color: DesignColors.accent),
+      hintStyle: const TextStyle(fontWeight: FontWeight.w400, fontSize: 14, color: DesignColors.accent),
     );
   }
 
   static TextSelectionThemeData _buildTextSelectionThemeData(TextSelectionThemeData baseTextSelectionThemeData) {
     return baseTextSelectionThemeData.copyWith(
-      cursorColor: const Color(0xFF6F6C99),
+      cursorColor: DesignColors.white2,
+      selectionColor: DesignColors.grey2,
     );
   }
 

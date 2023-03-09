@@ -85,9 +85,11 @@ class _NavTile extends State<NavTile> {
     }
     bool hovered = materialStates.contains(MaterialState.hovered);
     if (hovered && selected) {
-      return DesignColors.blue1_20;
-    } else if (hovered || selected) {
-      return DesignColors.blue1_10;
+      return DesignColors.greyHover1;
+    } else if (hovered) {
+      return DesignColors.greyHover2;
+    } else if (selected) {
+      return DesignColors.greyHover1;
     } else {
       return Colors.transparent;
     }
@@ -95,13 +97,13 @@ class _NavTile extends State<NavTile> {
 
   Color _selectForegroundColor({required Set<MaterialState> materialStates, required bool selected}) {
     if (widget.navItemModel.disabled) {
-      return DesignColors.gray2_100;
+      return DesignColors.white2;
     }
     bool hovered = materialStates.contains(MaterialState.hovered);
     if (hovered || selected) {
-      return DesignColors.blue1_100;
+      return DesignColors.white1;
     } else {
-      return DesignColors.gray2_100;
+      return DesignColors.white2;
     }
   }
 }

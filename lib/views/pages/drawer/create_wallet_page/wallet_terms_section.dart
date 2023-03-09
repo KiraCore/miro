@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/views/widgets/kira/kira_checkbox.dart';
 
 class WalletTermsSection extends StatefulWidget {
   final void Function(bool value) onChanged;
@@ -40,10 +41,9 @@ class _WalletTermsSection extends State<WalletTermsSection> {
               builder: (_, bool termsChecked, __) {
                 return SizedBox(
                   width: 40,
-                  child: Checkbox(
+                  child: KiraCheckbox(
+                    size: 28,
                     value: termsChecked,
-                    activeColor: DesignColors.blue2_100,
-                    checkColor: DesignColors.gray3_100,
                     onChanged: _onCheckboxValueChanged,
                   ),
                 );
@@ -54,7 +54,7 @@ class _WalletTermsSection extends State<WalletTermsSection> {
                 child: Text(
                   'I understand that if I lose Mnemonic or Keyfile I will never have access to account again.',
                   style: textTheme.caption!.copyWith(
-                    color: DesignColors.gray2_100,
+                    color: DesignColors.white1,
                   ),
                 ),
               ),

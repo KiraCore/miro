@@ -55,12 +55,12 @@ class _LoadingPage extends State<LoadingPage> {
                     String separator = ResponsiveWidget.isSmallScreen(context) ? '\n' : '.';
                     String networkName = loadingPageState.networkStatusModel?.name ?? 'undefined';
                     String parsedRemainingTime = remainingTime > 0 ? '$remainingTime' : '';
-                        
+
                     return Text(
                       'Connecting to <$networkName>$separator Please wait... ${parsedRemainingTime}',
                       textAlign: TextAlign.center,
                       style: textTheme.headline3!.copyWith(
-                        color: DesignColors.white_100,
+                        color: DesignColors.white1,
                       ),
                     );
                   }),

@@ -56,7 +56,7 @@ class _MnemonicGridItem extends State<MnemonicGridItem> {
       maxLines: 1,
       style: const TextStyle(
         fontSize: 12,
-        color: DesignColors.gray3_100,
+        color: DesignColors.white2,
         letterSpacing: 3,
       ),
       inputFormatters: <TextInputFormatter>[
@@ -71,11 +71,11 @@ class _MnemonicGridItem extends State<MnemonicGridItem> {
         errorText: null,
         errorMaxLines: null,
         filled: mnemonicState == MnemonicState.invalid,
-        fillColor: mnemonicState == MnemonicState.invalid ? DesignColors.red_5 : null,
+        fillColor: mnemonicState == MnemonicState.invalid ? DesignColors.redStatus2 : null,
         errorStyle: const TextStyle(height: 0, color: Colors.transparent),
         label: const Text('------'),
         labelStyle: const TextStyle(
-          color: DesignColors.white_100,
+          color: DesignColors.white1,
           fontSize: 12,
           letterSpacing: 4,
         ),
@@ -87,7 +87,7 @@ class _MnemonicGridItem extends State<MnemonicGridItem> {
               '${widget.index + 1}',
               style: const TextStyle(
                 fontSize: 12,
-                color: DesignColors.gray2_100,
+                color: DesignColors.accent,
               ),
             ),
           ),
@@ -108,7 +108,7 @@ class _MnemonicGridItem extends State<MnemonicGridItem> {
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: const BorderSide(
-            color: DesignColors.blue1_100,
+            color: DesignColors.white1,
             width: 1,
           ),
           borderRadius: BorderRadius.circular(8),
@@ -151,7 +151,7 @@ class _MnemonicGridItem extends State<MnemonicGridItem> {
 
   Color _getBorderColor() {
     if (mnemonicState == MnemonicState.invalid) {
-      return DesignColors.red_100;
+      return DesignColors.redStatus1;
     }
     return Colors.transparent;
   }

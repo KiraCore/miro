@@ -35,7 +35,7 @@ class ValidatorListItemDesktop extends StatelessWidget {
         validatorModel.top.toString(),
         overflow: TextOverflow.ellipsis,
         style: textTheme.bodyText1!.copyWith(
-          color: DesignColors.gray2_100,
+          color: DesignColors.white2,
         ),
       ),
       monikerWidget: Row(
@@ -50,7 +50,7 @@ class ValidatorListItemDesktop extends StatelessWidget {
               validatorModel.moniker,
               overflow: TextOverflow.ellipsis,
               style: textTheme.bodyText2!.copyWith(
-                color: DesignColors.gray2_100,
+                color: DesignColors.white2,
               ),
             ),
           ),
@@ -60,7 +60,7 @@ class ValidatorListItemDesktop extends StatelessWidget {
         StringUtils.splitBigNumber(validatorModel.streak),
         overflow: TextOverflow.ellipsis,
         style: textTheme.bodyText2!.copyWith(
-          color: DesignColors.gray2_100,
+          color: DesignColors.white2,
         ),
       ),
       statusWidget: ValidatorStatusTip(validatorStatus: validatorModel.validatorStatus),
@@ -68,7 +68,7 @@ class ValidatorListItemDesktop extends StatelessWidget {
         '${validatorModel.uptime}%',
         overflow: TextOverflow.ellipsis,
         style: textTheme.bodyText2!.copyWith(
-          color: DesignColors.gray2_100,
+          color: DesignColors.white2,
         ),
       ),
     );

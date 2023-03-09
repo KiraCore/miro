@@ -28,7 +28,7 @@ class _KiraAppBarMobile extends State<KiraAppBarMobile> with TickerProviderState
       padding: EdgeInsets.only(left: 12, right: 12, top: 12, bottom: widget.isExpanded ? 6 : 2),
       child: Container(
         decoration: BoxDecoration(
-          color: DesignColors.blue1_10,
+          color: DesignColors.black,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Wrap(

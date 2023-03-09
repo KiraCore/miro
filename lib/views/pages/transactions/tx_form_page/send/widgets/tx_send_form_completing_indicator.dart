@@ -23,7 +23,7 @@ class TxSendFormCompletingIndicator extends StatelessWidget {
             return Text(
               'Signing transaction',
               style: textTheme.caption!.copyWith(
-                color: DesignColors.gray2_100,
+                color: DesignColors.white1,
               ),
             );
           },

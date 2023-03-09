@@ -10,6 +10,4 @@ class Assets {
   static const String fontsIconsFont = 'assets/fonts/IconsFont.ttf';
   static const String fontsIconsFontConfig = 'assets/fonts/icons_font_config.json';
   static const String iconsNetworkStatus = 'assets/icons/network_status.svg';
-  static const String imagesBackground = 'assets/images/background.jpg';
-  static const String imagesBackgroundDrawer = 'assets/images/background_drawer.jpg';
 }

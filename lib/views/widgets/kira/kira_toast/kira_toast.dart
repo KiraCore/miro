@@ -33,6 +33,7 @@ class KiraToast {
           actionTitle: actionTitle,
           icon: icon,
           showDefaultIcon: showDefaultIcon,
+          showBorder: true,
         ),
       );
   }

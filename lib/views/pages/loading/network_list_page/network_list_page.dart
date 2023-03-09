@@ -55,7 +55,7 @@ class _ConnectionsPage extends State<NetworkListPage> {
                 'Connection cancelled',
                 textAlign: TextAlign.center,
                 style: textTheme.headline1!.copyWith(
-                  color: DesignColors.white_100,
+                  color: DesignColors.white1,
                 ),
               ),
               const SizedBox(height: 4),
@@ -73,7 +73,7 @@ class _ConnectionsPage extends State<NetworkListPage> {
                 Text(
                   'Select available servers',
                   style: textTheme.bodyText1!.copyWith(
-                    color: DesignColors.white_100,
+                    color: DesignColors.white1,
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -90,7 +90,7 @@ class _ConnectionsPage extends State<NetworkListPage> {
                     if (_isAutoDisconnected) ...<Widget>[
                       Text(
                         'Server you are trying to connect:',
-                        style: textTheme.bodyText1!.copyWith(color: DesignColors.white_100),
+                        style: textTheme.bodyText1!.copyWith(color: DesignColors.white1),
                       ),
                       const SizedBox(height: 10),
                       NetworkListTile(
@@ -100,7 +100,7 @@ class _ConnectionsPage extends State<NetworkListPage> {
                       const SizedBox(height: 20),
                       Text(
                         'Other available servers:',
-                        style: textTheme.bodyText1!.copyWith(color: DesignColors.white_100),
+                        style: textTheme.bodyText1!.copyWith(color: DesignColors.white1),
                       ),
                       const SizedBox(height: 10),
                     ],
@@ -109,7 +109,7 @@ class _ConnectionsPage extends State<NetworkListPage> {
                       hiddenNetworkStatusModel: _isAutoDisconnected ? widget.canceledNetworkStatusModel : null,
                       emptyListWidget: Text(
                         'No available networks',
-                        style: textTheme.bodyText2!.copyWith(color: DesignColors.gray2_100),
+                        style: textTheme.bodyText2!.copyWith(color: DesignColors.white2),
                       ),
                     ),
                     NetworkCustomSection(onConnected: _handleNetworkConnected),
@@ -129,12 +129,12 @@ class _ConnectionsPage extends State<NetworkListPage> {
       case ConnectionErrorType.serverOffline:
         return ConnectionErrorModel(
           message: 'Reason: Server is offline',
-          color: DesignColors.red_100,
+          color: DesignColors.redStatus1,
         );
       case ConnectionErrorType.serverUnhealthy:
         return ConnectionErrorModel(
           message: 'Reason: Found problems with server you are trying to connect',
-          color: DesignColors.yellow_100,
+          color: DesignColors.yellowStatus1,
         );
       default:
         return null;

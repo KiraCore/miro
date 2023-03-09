@@ -29,7 +29,7 @@ class TxBroadcastLoadingBody extends StatelessWidget {
           'Your transaction is being broadcast',
           textAlign: TextAlign.center,
           style: textTheme.headline3!.copyWith(
-            color: DesignColors.white_100,
+            color: DesignColors.white1,
           ),
         ),
         const SizedBox(height: 12),
@@ -37,7 +37,7 @@ class TxBroadcastLoadingBody extends StatelessWidget {
           'Do not close this window',
           textAlign: TextAlign.center,
           style: textTheme.caption!.copyWith(
-            color: DesignColors.gray2_100,
+            color: DesignColors.white2,
           ),
         ),
       ],

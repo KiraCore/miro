@@ -56,7 +56,7 @@ class TokenDropdownListItemLayout extends StatelessWidget {
                 const Icon(
                   AppIcons.done,
                   size: 24,
-                  color: DesignColors.blue1_100,
+                  color: DesignColors.white1,
                 )
               else
                 const SizedBox(width: 24, height: 24),
@@ -70,7 +70,7 @@ class TokenDropdownListItemLayout extends StatelessWidget {
   Color _selectColor(Set<MaterialState> materialStates) {
     bool isHovered = materialStates.contains(MaterialState.hovered);
     if (isHovered || selected) {
-      return DesignColors.blue1_10;
+      return DesignColors.black;
     } else {
       return Colors.transparent;
     }

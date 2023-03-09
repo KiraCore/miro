@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/specific_blocs/network_module/network_module_bloc.dart';
 import 'package:miro/blocs/specific_blocs/network_module/network_module_state.dart';
+import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/shared/models/network/data/connection_status_type.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
 import 'package:miro/views/widgets/network_list/network_button/network_button.dart';
@@ -23,6 +24,8 @@ class NetworkListTile extends StatefulWidget {
 }
 
 class _NetworkListTile extends State<NetworkListTile> {
+  Color outlineColor = DesignColors.greyOutline;
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<NetworkModuleBloc, NetworkModuleState>(
@@ -51,7 +54,8 @@ class _NetworkListTile extends State<NetworkListTile> {
                 ),
                 child: ExpansionTile(
                   title: NetworkListTileTitle(networkStatusModel: networkStatusModel),
-                  collapsedIconColor: Colors.white,
+                  iconColor: DesignColors.white1,
+                  onExpansionChanged: _swapBorderColor,
                   children: <Widget>[NetworkListTileContent(networkStatusModel: networkStatusModel)],
                 ),
               ),
@@ -75,12 +79,24 @@ class _NetworkListTile extends State<NetworkListTile> {
     );
   }
 
+  void _swapBorderColor(bool expandedStatus) {
+    if (expandedStatus) {
+      setState(() {
+        outlineColor = DesignColors.white1;
+      });
+    } else {
+      setState(() {
+        outlineColor = DesignColors.greyOutline;
+      });
+    }
+  }
+
   Color _selectBorderColor(ANetworkStatusModel networkStatusModel) {
     switch (networkStatusModel.connectionStatusType) {
       case ConnectionStatusType.connected:
         return networkStatusModel.statusColor;
       default:
-        return const Color(0xFF4E4C71);
+        return outlineColor;
     }
   }
 

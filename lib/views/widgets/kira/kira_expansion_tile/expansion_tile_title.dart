@@ -22,7 +22,7 @@ class ExpansionTileTitle extends StatelessWidget {
         Text(
           title,
           style: textTheme.bodyText1!.copyWith(
-            color: DesignColors.white_100,
+            color: DesignColors.white1,
           ),
         ),
         if (tooltipMessage != null) KiraToolTip(message: tooltipMessage!),

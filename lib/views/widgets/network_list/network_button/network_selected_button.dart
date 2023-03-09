@@ -37,8 +37,8 @@ class NetworkSelectedButton extends StatelessWidget {
     final double luminance = networkStatusModel.statusColor.computeLuminance() * 255;
     Brightness brightness = luminance > 127 ? Brightness.light : Brightness.dark;
     if (brightness == Brightness.light) {
-      return DesignColors.gray1_100;
+      return DesignColors.background;
     }
-    return DesignColors.white_100;
+    return DesignColors.white1;
   }
 }

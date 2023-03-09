@@ -122,7 +122,7 @@ class _DownloadKeyfileSection extends State<DownloadKeyfileSection> {
     setState(() {
       downloadButtonText = 'Downloaded';
       downloadButtonIcon = AppIcons.done;
-      downloadButtonForegroundColor = DesignColors.green_100;
+      downloadButtonForegroundColor = DesignColors.white1;
     });
   }
 

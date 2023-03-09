@@ -8,7 +8,7 @@ class NetworkOfflineModel extends ANetworkStatusModel {
     required Uri uri,
     String? name,
   }) : super(
-          statusColor: DesignColors.red_100,
+          statusColor: DesignColors.redStatus1,
           connectionStatusType: connectionStatusType,
           uri: uri,
           name: name,

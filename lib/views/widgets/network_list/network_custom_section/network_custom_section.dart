@@ -4,6 +4,7 @@ import 'package:miro/blocs/specific_blocs/views/widgets/network_list/network_cus
 import 'package:miro/blocs/specific_blocs/views/widgets/network_list/network_custom_section/network_custom_section_state.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
+import 'package:miro/views/widgets/kira/kira_text_field/kira_text_field_controller.dart';
 import 'package:miro/views/widgets/network_list/network_custom_section/network_custom_section_content.dart';
 import 'package:miro/views/widgets/network_list/network_custom_section/network_custom_section_switch.dart';
 
@@ -20,7 +21,7 @@ class NetworkCustomSection extends StatefulWidget {
 }
 
 class _NetworkCustomSection extends State<NetworkCustomSection> {
-  final TextEditingController textEditingController = TextEditingController();
+  final KiraTextFieldController kiraTextFieldController = KiraTextFieldController();
   final NetworkCustomSectionCubit networkCustomSectionCubit = globalLocator<NetworkCustomSectionCubit>();
   late bool isSectionExpanded = networkCustomSectionCubit.state.isExpanded;
 
@@ -39,7 +40,7 @@ class _NetworkCustomSection extends State<NetworkCustomSection> {
               ),
               if (isSectionExpanded)
                 NetworkCustomSectionContent(
-                  textEditingController: textEditingController,
+                  kiraTextFieldController: kiraTextFieldController,
                   onConnected: widget.onConnected,
                   networkCustomSectionCubit: networkCustomSectionCubit,
                 ),

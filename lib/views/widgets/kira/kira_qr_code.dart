@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
-import 'package:miro/generated/assets.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 class KiraQrCode extends StatelessWidget {
@@ -13,8 +12,8 @@ class KiraQrCode extends StatelessWidget {
   const KiraQrCode({
     required this.data,
     this.size = 150,
-    this.foregroundColor = Colors.black,
-    this.backgroundColor = DesignColors.white_100,
+    this.foregroundColor = DesignColors.black,
+    this.backgroundColor = DesignColors.white1,
     this.version = QrVersions.auto,
     Key? key,
   }) : super(key: key);
@@ -26,7 +25,7 @@ class KiraQrCode extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
           width: 4,
-          color: DesignColors.pink_100,
+          color: DesignColors.white1,
         ),
       ),
       child: ClipRRect(
@@ -34,7 +33,6 @@ class KiraQrCode extends StatelessWidget {
         child: QrImage(
           data: data,
           version: version,
-          embeddedImage: const AssetImage(Assets.assetsLogoSygnet),
           size: size,
           foregroundColor: foregroundColor,
           backgroundColor: backgroundColor,

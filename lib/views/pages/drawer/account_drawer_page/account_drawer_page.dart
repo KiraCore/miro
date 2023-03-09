@@ -15,7 +15,7 @@ class AccountDrawerPage extends StatelessWidget {
     return Consumer<WalletProvider>(
       builder: (BuildContext context, WalletProvider walletProvider, _) {
         Wallet? wallet = walletProvider.currentWallet;
-        if(wallet == null) {
+        if (wallet == null) {
           return const SizedBox();
         }
 
@@ -23,7 +23,7 @@ class AccountDrawerPage extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             AccountTile(walletAddress: wallet.address),
-            const Divider(color: DesignColors.blue1_20),
+            const Divider(color: DesignColors.grey2),
             SizedBox(
               height: 500,
               child: AccountMenuList(onItemTap: () => KiraScaffold.of(context).closeEndDrawer()),

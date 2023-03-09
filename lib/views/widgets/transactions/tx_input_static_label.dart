@@ -24,7 +24,7 @@ class TxInputStaticLabel extends StatelessWidget {
           style: const TextStyle(
             fontSize: 12,
             fontWeight: FontWeight.w400,
-            color: DesignColors.gray2_100,
+            color: DesignColors.accent,
             letterSpacing: 0.01,
           ),
         ),

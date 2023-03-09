@@ -29,10 +29,10 @@ class BalanceListItemMobile extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         ExpansionTile(
-          collapsedTextColor: DesignColors.gray2_100,
-          collapsedIconColor: DesignColors.gray2_100,
-          textColor: DesignColors.gray2_100,
-          iconColor: DesignColors.gray2_100,
+          collapsedTextColor: DesignColors.white1,
+          collapsedIconColor: DesignColors.white1,
+          textColor: DesignColors.white1,
+          iconColor: DesignColors.white1,
           onExpansionChanged: expansionChangedCallback,
           controlAffinity: ListTileControlAffinity.trailing,
           tilePadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 25),

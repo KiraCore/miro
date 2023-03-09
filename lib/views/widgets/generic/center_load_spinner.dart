@@ -13,7 +13,7 @@ class CenterLoadSpinner extends StatelessWidget {
         height: size,
         width: size,
         child: const CircularProgressIndicator(
-          color: DesignColors.blue1_100,
+          color: DesignColors.white1,
         ),
       ),
     );

@@ -19,15 +19,11 @@ class TxBroadcastStatusIcon extends StatelessWidget {
     if (status) {
       boxDecoration = const BoxDecoration(
         shape: BoxShape.circle,
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: <Color>[Color(0xFF23E73C), Color(0xFF95E09F)],
-        ),
+        color: DesignColors.greenStatus1,
       );
     } else {
       boxDecoration = const BoxDecoration(
-        color: DesignColors.red_100,
+        color: DesignColors.redStatus1,
         shape: BoxShape.circle,
       );
     }
@@ -40,7 +36,7 @@ class TxBroadcastStatusIcon extends StatelessWidget {
         child: Icon(
           status ? AppIcons.done : AppIcons.cancel,
           size: 35,
-          color: DesignColors.white_100,
+          color: DesignColors.white1,
         ),
       ),
     );

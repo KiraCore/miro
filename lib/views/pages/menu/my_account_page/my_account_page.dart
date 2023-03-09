@@ -5,6 +5,7 @@ import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_page.dart';
 import 'package:miro/views/pages/menu/my_account_page/my_account_page_header.dart';
 import 'package:miro/views/pages/menu/my_account_page/transactions_page/transactions_page.dart';
+import 'package:miro/views/widgets/kira/kira_list/components/last_block_time_widget.dart';
 import 'package:miro/views/widgets/kira/kira_tab_bar/kira_tab_bar.dart';
 import 'package:provider/provider.dart';
 import 'package:sliver_tools/sliver_tools.dart';
@@ -63,7 +64,8 @@ class _MyAccountPage extends State<MyAccountPage> with SingleTickerProviderState
                           tabController: tabController,
                           tabs: tabs.map((String tabTitle) => Tab(text: tabTitle)).toList(),
                         ),
-                        const SizedBox(height: 20),
+                        const SizedBox(height: 15),
+                        const LastBlockTimeWidget(),
                       ],
                     ),
                   ),

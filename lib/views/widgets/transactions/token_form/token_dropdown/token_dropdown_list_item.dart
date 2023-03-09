@@ -31,7 +31,7 @@ class TokenDropdownListItem extends StatelessWidget {
         icon: favourite
             ? const Icon(
                 AppIcons.star,
-                color: DesignColors.yellow_100,
+                color: DesignColors.yellowStatus1,
                 size: 12,
               )
             : null,
@@ -43,13 +43,13 @@ class TokenDropdownListItem extends StatelessWidget {
       title: Text(
         tokenAliasModel.defaultTokenDenominationModel.name,
         style: textTheme.subtitle2!.copyWith(
-          color: DesignColors.white_100,
+          color: DesignColors.white1,
         ),
       ),
       subtitle: Text(
         tokenAliasModel.name,
         style: textTheme.caption!.copyWith(
-          color: DesignColors.gray2_100,
+          color: DesignColors.white1,
         ),
       ),
     );

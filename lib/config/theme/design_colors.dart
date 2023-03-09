@@ -1,51 +1,45 @@
 import 'package:flutter/material.dart';
 
 class DesignColors {
-  static const Color red_100 = Color(0xFFFD5F5F);
-  static const Color red_20 = Color(0x1AFD5F5F);
-  static const Color red_5 = Color(0x0DFD5F5F);
+  static const Color accent = Color(0xFF83cf8c);
 
-  static const Color darkGreen_100 = Color(0xFF35AE83);
-  static const Color darkGreen_20 = Color(0x1A35AE83);
+  static const Color white1 = Color(0xFFf7f7f7);
+  static const Color white2 = Color(0xFFcccccc);
 
-  static const Color purple_100 = Color(0xFFD429FF);
-  static const Color purple_20 = Color(0x1AD429FF);
+  static const Color grey1 = Color(0xFF999999);
+  static const Color grey2 = Color(0xFF404040);
+  static const Color grey3 = Color(0xFF2f2f2f);
+  static const Color greyHover1 = Color(0xFF2f2f2f);
+  static const Color greyHover2 = Color(0xFF212121);
+  static const Color greyOutline = Color(0xFF595959);
+  static const Color greyTransparent = Color(0x801c1c1c);
 
-  static const Color yellow_100 = Color(0xFFF2E46C);
-  static const Color yellow_20 = Color(0x1AF2E46C);
+  static const Color background = Color(0xFF1d1f1d);
+  static const Color black = Color(0xFF161816);
 
-  static const Color green_100 = Color(0xFF23E73C);
-  static const Color pink_100 = Color(0xFFD429FF);
+  static const Color redStatus1 = Color(0xFFff5454);
+  static const Color redStatus2 = Color(0xFF3a3234);
+  static const Color redStatus3 = Color(0xFF2E2222);
 
-  static const Color blue1_100 = Color(0xFF298DFF);
-  static const Color blue1_20 = Color(0x33298DFF);
-  static const Color blue1_10 = Color(0x1A298DFF);
+  static const Color yellowStatus1 = Color(0xFFF2e46c);
+  static const Color yellowStatus2 = Color(0xFF3d3d33);
 
-  static const Color blue2_100 = Color(0xFF4264F2);
-  static const Color blue2_10 = Color(0x1A4264F2);
+  static const Color greenStatus1 = Color(0xFF76cf80);
+  static const Color greenStatus2 = Color(0xFF2E3D2D);
 
-  static const Color blue3_100 = Color(0xFF344AE6);
-  static const Color blue3_10 = Color(0x1A344AE6);
+  static const Color pink = Color(0xFFf549e7);
+  static const Color orange = Color(0xFFf4a040);
+  static const Color turquoise = Color(0xFF31d2d2);
 
-  static const Color gray1_100 = Color(0xFF060817);
-
-  static const Color gray2_100 = Color(0xFF6489B4);
-  static const Color gray2_40 = Color(0x666489B4);
-
-  static const Color gray3_100 = Color(0xFFCFEBFF);
-  static const Color gray3_5 = Color(0x0DCFEBFF);
-
-  static const Color white_100 = Color(0xFFFFFFFF);
-  static const Color white_50 = Color(0x80FFFFFF);
-  static const Color white_20 = Color(0x1AFFFFFF);
-  static const Color white_5 = Color(0x0DFFFFFF);
+  static const Color avatar = Color(0xFF303430);
 
   static const Gradient primaryButtonGradient = LinearGradient(
     begin: Alignment.topRight,
     end: Alignment.bottomLeft,
     colors: <Color>[
-      Color(0xFF298DFF),
-      Color(0xFF344AE6),
+      white2,
+      white1,
+      white2,
     ],
   );
 
@@ -53,8 +47,9 @@ class DesignColors {
     begin: Alignment.topRight,
     end: Alignment.bottomLeft,
     colors: <Color>[
-      Color(0xFF344AE6),
-      Color(0xFF298DFF),
+      white1,
+      white2,
+      white1,
     ],
   );
 }

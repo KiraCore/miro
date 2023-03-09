@@ -31,7 +31,7 @@ class NetworkListTileTitle extends StatelessWidget {
               networkStatusModel.name,
               overflow: TextOverflow.ellipsis,
               style: textTheme.bodyText1!.copyWith(
-                color: DesignColors.white_100,
+                color: DesignColors.white1,
               ),
             ),
           ],
@@ -44,7 +44,7 @@ class NetworkListTileTitle extends StatelessWidget {
               networkStatusModel.uri.toString(),
               overflow: TextOverflow.ellipsis,
               style: textTheme.caption!.copyWith(
-                color: DesignColors.gray2_100,
+                color: DesignColors.white2,
               ),
             ),
           ],
@@ -55,7 +55,7 @@ class NetworkListTileTitle extends StatelessWidget {
             child: Text(
               'Found ${_errorsCount} problems with server',
               style: textTheme.caption!.copyWith(
-                color: DesignColors.yellow_100,
+                color: DesignColors.yellowStatus1,
               ),
             ),
           ),

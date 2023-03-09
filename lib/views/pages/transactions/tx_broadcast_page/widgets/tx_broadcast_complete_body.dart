@@ -28,7 +28,7 @@ class TxBroadcastCompleteBody extends StatelessWidget {
           'Transaction completed',
           textAlign: TextAlign.center,
           style: textTheme.headline3!.copyWith(
-            color: DesignColors.white_100,
+            color: DesignColors.white1,
           ),
         ),
         const SizedBox(height: 12),
@@ -39,7 +39,7 @@ class TxBroadcastCompleteBody extends StatelessWidget {
             'Transaction hash: 0x${txBroadcastCompletedState.broadcastRespModel.hash}',
             textAlign: TextAlign.center,
             style: textTheme.caption!.copyWith(
-              color: DesignColors.gray2_100,
+              color: DesignColors.white1,
             ),
           ),
         ),

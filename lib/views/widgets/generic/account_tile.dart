@@ -45,8 +45,8 @@ class _AccountTile extends State<AccountTile> {
                 widget.walletAddress.buildBech32AddressShort(delimiter: '...'),
                 overflow: TextOverflow.ellipsis,
                 style: ResponsiveValue<TextStyle>(
-                  largeScreen: textTheme.headline2!.copyWith(color: DesignColors.white_100),
-                  smallScreen: textTheme.subtitle1!.copyWith(color: DesignColors.white_100),
+                  largeScreen: textTheme.headline2!.copyWith(color: DesignColors.white1),
+                  smallScreen: textTheme.subtitle1!.copyWith(color: DesignColors.white1),
                 ).get(context),
               ),
               const ResponsiveValue<SizedBox>(
@@ -61,8 +61,8 @@ class _AccountTile extends State<AccountTile> {
                   maxLines: 1,
                   softWrap: true,
                   style: ResponsiveValue<TextStyle>(
-                    largeScreen: textTheme.bodyText2!.copyWith(color: DesignColors.blue1_100),
-                    smallScreen: textTheme.caption!.copyWith(color: DesignColors.blue1_100),
+                    largeScreen: textTheme.bodyText2!.copyWith(color: DesignColors.white2),
+                    smallScreen: textTheme.caption!.copyWith(color: DesignColors.white2),
                   ).get(context),
                 ),
               ),

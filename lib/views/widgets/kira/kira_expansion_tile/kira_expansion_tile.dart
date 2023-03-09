@@ -38,7 +38,7 @@ class _KiraExpansionTile extends State<KiraExpansionTile> {
         decoration: BoxDecoration(
           border: Border.all(
             width: 1,
-            color: expandedStatus ? DesignColors.blue1_100 : const Color(0xFF4E4C71),
+            color: expandedStatus ? DesignColors.white1 : DesignColors.greyOutline,
           ),
           color: Colors.transparent,
           borderRadius: BorderRadius.circular(8),
@@ -59,7 +59,7 @@ class _KiraExpansionTile extends State<KiraExpansionTile> {
               tooltipMessage: widget.tooltipMessage,
             ),
             subtitle: _buildSubtitle(),
-            collapsedIconColor: DesignColors.white_100,
+            iconColor: DesignColors.white1,
             children: widget.children,
           ),
         ),
@@ -80,7 +80,7 @@ class _KiraExpansionTile extends State<KiraExpansionTile> {
         style: const TextStyle(
           fontSize: 12,
           fontWeight: FontWeight.w400,
-          color: DesignColors.yellow_100,
+          color: DesignColors.yellowStatus1,
         ),
       );
     }

@@ -18,7 +18,7 @@ class NetworkWarningContainer extends StatelessWidget {
     Map<InterxWarningType, String> interxWarningMessages = <InterxWarningType, String>{
       InterxWarningType.blockTimeOutdated:
           'The last available block on this interx was created long time ago ($latestBlockTime). The displayed data may be out of date',
-      InterxWarningType.versionOutdated: 'Interx is not updated to the latest version. Some views may not work correctly',
+      InterxWarningType.versionOutdated: 'The application is incompatible with this server. Some views may not work correctly',
     };
 
     return Padding(

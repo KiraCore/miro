@@ -47,10 +47,10 @@ class _SortDropdown<T extends AListItem> extends State<SortDropdown<T>> {
               'Sort by',
               style: ResponsiveValue<TextStyle>(
                 largeScreen: textTheme.bodyText2!.copyWith(
-                  color: DesignColors.gray2_100,
+                  color: DesignColors.white2,
                 ),
                 smallScreen: textTheme.caption!.copyWith(
-                  color: DesignColors.gray2_100,
+                  color: DesignColors.white2,
                 ),
               ).get(context),
             ),
@@ -84,7 +84,7 @@ class _SortDropdown<T extends AListItem> extends State<SortDropdown<T>> {
               child: const Icon(
                 AppIcons.up_down,
                 size: 16,
-                color: DesignColors.gray2_100,
+                color: DesignColors.white2,
               ),
             ),
           ],

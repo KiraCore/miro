@@ -13,7 +13,7 @@ class KiraCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: DesignColors.blue1_10,
+        color: DesignColors.black,
         borderRadius: BorderRadius.circular(12),
       ),
       child: child,

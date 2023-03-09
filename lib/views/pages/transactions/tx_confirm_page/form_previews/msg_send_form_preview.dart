@@ -76,7 +76,7 @@ class _MsgSendFormPreview extends State<MsgSendFormPreview> {
           ),
         ),
         const SizedBox(height: 15),
-        const Divider(color: DesignColors.blue1_10),
+        const Divider(color: DesignColors.grey2),
         const SizedBox(height: 15),
         TxInputPreview(
           label: 'Recipient will get',
@@ -87,7 +87,7 @@ class _MsgSendFormPreview extends State<MsgSendFormPreview> {
         Text(
           'Transaction fee: $feeAmountText',
           style: textTheme.caption!.copyWith(
-            color: DesignColors.gray2_100,
+            color: DesignColors.white1,
           ),
         ),
         const SizedBox(height: 15),

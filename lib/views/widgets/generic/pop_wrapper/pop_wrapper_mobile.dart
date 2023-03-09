@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/views/widgets/generic/mouse_state_listener.dart';
 import 'package:miro/views/widgets/generic/pop_wrapper/pop_wrapper.dart';
 import 'package:miro/views/widgets/generic/pop_wrapper/pop_wrapper_controller.dart';
@@ -75,6 +76,15 @@ class _PopWrapperMobile extends State<PopWrapperMobile> {
             decoration: BoxDecoration(
               color: widget.backgroundColor,
               borderRadius: BorderRadius.circular(8),
+              border: Border.all(color: DesignColors.grey3),
+              boxShadow: const <BoxShadow>[
+                BoxShadow(
+                  color: DesignColors.greyTransparent,
+                  spreadRadius: 3,
+                  blurRadius: 7,
+                  offset: Offset.zero,
+                ),
+              ],
             ),
             width: double.infinity,
             child: widget.popupBuilder(),

@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:miro/config/app_icons.dart';
+import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/shared/models/dashboard/consensus_state_type.dart';
 import 'package:miro/shared/models/dashboard/dashboard_model.dart';
 import 'package:miro/views/pages/menu/dashboard_page/widgets/dashboard_grid_tile.dart';
@@ -34,7 +35,7 @@ class DashboardHeaderSection extends StatelessWidget {
             loading: loading,
             icon: const Icon(
               AppIcons.block,
-              color: Color(0xFFF44082),
+              color: DesignColors.pink,
             ),
           ),
         ),
@@ -46,7 +47,7 @@ class DashboardHeaderSection extends StatelessWidget {
             loading: loading,
             icon: const Icon(
               AppIcons.consensus,
-              color: Color(0xFFD429FF),
+              color: DesignColors.orange,
             ),
           ),
         ),
@@ -58,7 +59,7 @@ class DashboardHeaderSection extends StatelessWidget {
             loading: loading,
             icon: const Icon(
               AppIcons.health,
-              color: Color(0xFFF2E46C),
+              color: DesignColors.turquoise,
             ),
           ),
         ),

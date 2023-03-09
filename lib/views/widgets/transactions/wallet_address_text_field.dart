@@ -91,7 +91,7 @@ class _WalletAddressTextField extends State<WalletAddressTextField> {
               Text(
                 field.errorText!,
                 style: textTheme.caption!.copyWith(
-                  color: DesignColors.red_100,
+                  color: DesignColors.redStatus1,
                 ),
               ),
             ],

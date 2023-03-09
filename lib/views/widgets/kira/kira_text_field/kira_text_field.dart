@@ -52,7 +52,7 @@ class _KiraTextField extends State<KiraTextField> {
 
     OutlineInputBorder outlineInputBorder = OutlineInputBorder(
       borderSide: const BorderSide(
-        color: Colors.transparent,
+        color: DesignColors.grey3,
         width: 1,
       ),
       borderRadius: BorderRadius.circular(8),
@@ -85,34 +85,34 @@ class _KiraTextField extends State<KiraTextField> {
               readOnly: widget.readOnly,
               inputFormatters: widget.inputFormatters,
               style: textTheme.bodyText1!.copyWith(
-                color: DesignColors.white_100,
+                color: DesignColors.white1,
               ),
               decoration: InputDecoration(
                 filled: true,
-                fillColor: DesignColors.gray1_100,
-                hoverColor: Colors.transparent,
+                fillColor: DesignColors.black,
+                hoverColor: DesignColors.greyHover2,
                 errorText: widget.controller.errorNotifier.value,
                 errorStyle: textTheme.caption!.copyWith(
-                  color: DesignColors.red_100,
+                  color: DesignColors.redStatus1,
                 ),
                 suffixIcon: _getSuffixIcon(),
                 errorMaxLines: 1,
                 hintText: widget.hint,
                 hintStyle: textTheme.bodyText1!.copyWith(
-                  color: DesignColors.gray2_100,
+                  color: DesignColors.grey1,
                 ),
                 border: outlineInputBorder,
                 enabledBorder: outlineInputBorder.copyWith(
-                  borderSide: outlineInputBorder.borderSide.copyWith(color: Colors.transparent),
+                  borderSide: outlineInputBorder.borderSide.copyWith(color: DesignColors.greyOutline),
                 ),
                 focusedBorder: outlineInputBorder.copyWith(
-                  borderSide: outlineInputBorder.borderSide.copyWith(color: DesignColors.blue1_100),
+                  borderSide: outlineInputBorder.borderSide.copyWith(color: DesignColors.white1),
                 ),
                 errorBorder: outlineInputBorder.copyWith(
-                  borderSide: outlineInputBorder.borderSide.copyWith(color: DesignColors.red_100),
+                  borderSide: outlineInputBorder.borderSide.copyWith(color: DesignColors.redStatus1),
                 ),
                 focusedErrorBorder: outlineInputBorder.copyWith(
-                  borderSide: outlineInputBorder.borderSide.copyWith(color: DesignColors.red_100),
+                  borderSide: outlineInputBorder.borderSide.copyWith(color: DesignColors.redStatus1),
                 ),
               ),
             );
@@ -132,12 +132,12 @@ class _KiraTextField extends State<KiraTextField> {
 
   Color _getLabelColor() {
     if (widget.controller.errorNotifier.value != null) {
-      return DesignColors.red_100;
+      return DesignColors.redStatus1;
     }
     if (widget.controller.focusNode.hasFocus) {
-      return DesignColors.blue1_100;
+      return DesignColors.white1;
     }
-    return DesignColors.gray2_100;
+    return DesignColors.white2;
   }
 
   Widget? _getSuffixIcon() {
@@ -151,7 +151,7 @@ class _KiraTextField extends State<KiraTextField> {
         icon: const Icon(
           AppIcons.eye_hidden,
           size: 16,
-          color: DesignColors.gray2_100,
+          color: DesignColors.accent,
         ),
       );
     }
@@ -161,7 +161,7 @@ class _KiraTextField extends State<KiraTextField> {
         icon: const Icon(
           AppIcons.eye_visible,
           size: 16,
-          color: DesignColors.gray2_100,
+          color: DesignColors.accent,
         ),
       );
     }

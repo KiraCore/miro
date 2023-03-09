@@ -47,7 +47,7 @@ class _LoginPage extends State<LoginPage> {
         Text(
           "Don't have a wallet?",
           style: textTheme.bodyText2!.copyWith(
-            color: DesignColors.gray2_100,
+            color: DesignColors.white1,
           ),
         ),
         const SizedBox(height: 16),

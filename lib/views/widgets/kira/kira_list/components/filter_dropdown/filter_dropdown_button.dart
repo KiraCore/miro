@@ -28,7 +28,7 @@ class FilterDropdownButton<T extends AListItem> extends StatelessWidget {
       ).get(context),
       decoration: BoxDecoration(
         border: Border.all(
-          color: DesignColors.gray2_100,
+          color: DesignColors.greyOutline,
           width: 1,
         ),
         borderRadius: BorderRadius.circular(4),
@@ -43,7 +43,7 @@ class FilterDropdownButton<T extends AListItem> extends StatelessWidget {
               textAlign: TextAlign.start,
               maxLines: 1,
               style: textTheme.caption!.copyWith(
-                color: DesignColors.gray2_100,
+                color: DesignColors.white1,
               ),
             ),
           ),
@@ -51,7 +51,7 @@ class FilterDropdownButton<T extends AListItem> extends StatelessWidget {
             const SizedBox(width: 4),
             const Icon(
               Icons.keyboard_arrow_down,
-              color: DesignColors.gray2_100,
+              color: DesignColors.white1,
               size: 15,
             ),
           ],

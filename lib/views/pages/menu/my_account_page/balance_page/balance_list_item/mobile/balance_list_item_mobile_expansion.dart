@@ -26,7 +26,7 @@ class BalanceListItemMobileExpansion extends StatelessWidget {
             child: Text(
               tokenAmountModel.tokenAliasModel.lowestTokenDenominationModel.name,
               style: textTheme.subtitle1!.copyWith(
-                color: DesignColors.white_100,
+                color: DesignColors.white1,
               ),
             ),
           ),
@@ -36,7 +36,7 @@ class BalanceListItemMobileExpansion extends StatelessWidget {
             child: Text(
               tokenAmountModel.getAmountInDefaultDenomination().toString(),
               style: textTheme.subtitle1!.copyWith(
-                color: DesignColors.white_100,
+                color: DesignColors.white1,
               ),
             ),
           ),

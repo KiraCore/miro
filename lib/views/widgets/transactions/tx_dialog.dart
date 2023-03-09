@@ -37,7 +37,7 @@ class TxDialog extends StatelessWidget {
               smallScreen: double.infinity,
             ).get(context),
             decoration: BoxDecoration(
-              color: DesignColors.blue1_10,
+              color: DesignColors.black,
               borderRadius: BorderRadius.circular(16),
             ),
             constraints: BoxConstraints(maxWidth: maxWidth),
@@ -57,7 +57,7 @@ class TxDialog extends StatelessWidget {
                           child: Text(
                             title,
                             style: textTheme.headline2!.copyWith(
-                              color: DesignColors.white_100,
+                              color: DesignColors.white1,
                             ),
                           ),
                         ),
@@ -72,7 +72,7 @@ class TxDialog extends StatelessWidget {
                               padding: const EdgeInsets.symmetric(vertical: 3),
                               child: Text(
                                 message,
-                                style: textTheme.bodyText1!.copyWith(color: DesignColors.gray2_100),
+                                style: textTheme.bodyText1!.copyWith(color: DesignColors.orange),
                               ),
                             ),
                           )

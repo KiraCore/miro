@@ -17,14 +17,14 @@ class ListErrorWidget extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 40),
       constraints: const BoxConstraints(minHeight: 500),
       decoration: BoxDecoration(
-        color: DesignColors.blue1_10,
+        color: DesignColors.black,
         borderRadius: BorderRadius.circular(8),
       ),
       width: double.infinity,
       child: Center(
         child: Text(
           errorMessage,
-          style: const TextStyle(color: DesignColors.red_100),
+          style: const TextStyle(color: DesignColors.redStatus1),
         ),
       ),
     );

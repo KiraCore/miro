@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:miro/config/app_icons.dart';
+import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/views/widgets/buttons/kira_elevated_button.dart';
 import 'package:miro/views/widgets/generic/account_tile.dart';
@@ -44,6 +45,7 @@ class MyAccountPageHeader extends StatelessWidget {
                   child: const Icon(
                     AppIcons.arrow_up_right,
                     size: 20,
+                    color: DesignColors.background,
                   ),
                 ),
               ),
@@ -64,6 +66,7 @@ class MyAccountPageHeader extends StatelessWidget {
                   child: const Icon(
                     AppIcons.arrow_up_right,
                     size: 20,
+                    color: DesignColors.background,
                   ),
                 ),
               ),

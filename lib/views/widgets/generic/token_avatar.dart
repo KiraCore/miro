@@ -14,11 +14,16 @@ class TokenAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
       width: size,
       height: size,
+      padding: const EdgeInsets.all(1),
+      decoration: const BoxDecoration(
+        shape: BoxShape.circle,
+        color: DesignColors.grey2,
+      ),
       child: CircleAvatar(
-        backgroundColor: DesignColors.gray1_100,
+        backgroundColor: DesignColors.background,
         radius: size / 2,
         child: Padding(
           padding: EdgeInsets.all(size - size * 0.75),

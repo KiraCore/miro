@@ -66,20 +66,20 @@ class DashboardGridTile extends StatelessWidget {
                     text: TextSpan(
                       text: title ?? '---',
                       style: textTheme.headline4!.copyWith(
-                        color: DesignColors.white_100,
+                        color: DesignColors.white2,
                       ),
                       children: <InlineSpan>[
                         if (titleSuffix != null) ...<InlineSpan>[
                           TextSpan(
                             text: '/',
                             style: textTheme.headline4!.copyWith(
-                              color: DesignColors.white_100,
+                              color: DesignColors.white2,
                             ),
                           ),
                           TextSpan(
                             text: titleSuffix,
                             style: textTheme.headline4!.copyWith(
-                              color: DesignColors.gray2_100,
+                              color: DesignColors.accent,
                             ),
                           ),
                         ],
@@ -95,7 +95,7 @@ class DashboardGridTile extends StatelessWidget {
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                     style: textTheme.subtitle2!.copyWith(
-                      color: DesignColors.gray2_100,
+                      color: DesignColors.accent,
                     ),
                   ),
                 ),

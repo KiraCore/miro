@@ -31,7 +31,7 @@ class PrefixedWidget extends StatelessWidget {
               Text(
                 prefix,
                 style: textTheme.bodyText2!.copyWith(
-                  color: DesignColors.gray2_100,
+                  color: DesignColors.accent,
                 ),
               ),
               const SizedBox(height: 4),

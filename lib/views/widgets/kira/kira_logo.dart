@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:miro/generated/assets.dart';
 
-
 class KiraLogo extends StatelessWidget {
   final double? width;
   final double? height;
@@ -12,7 +11,7 @@ class KiraLogo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SvgPicture.asset(
-      Assets.assetsLogoDark,
+      Assets.assetsLogoLight,
       height: height,
       width: width,
     );

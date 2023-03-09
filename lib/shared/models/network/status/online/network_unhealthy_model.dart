@@ -14,7 +14,7 @@ class NetworkUnhealthyModel extends ANetworkOnlineModel {
     required Uri uri,
     String? name,
   }) : super(
-          statusColor: DesignColors.yellow_100,
+          statusColor: DesignColors.yellowStatus1,
           networkInfoModel: networkInfoModel,
           connectionStatusType: connectionStatusType,
           uri: uri,

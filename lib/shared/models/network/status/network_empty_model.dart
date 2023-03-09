@@ -6,7 +6,7 @@ class NetworkEmptyModel extends ANetworkStatusModel {
   NetworkEmptyModel({
     required ConnectionStatusType connectionStatusType,
   }) : super(
-          statusColor: DesignColors.red_100,
+          statusColor: DesignColors.redStatus1,
           connectionStatusType: connectionStatusType,
           uri: Uri(),
         );
