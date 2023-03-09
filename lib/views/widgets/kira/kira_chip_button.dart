@@ -28,18 +28,15 @@ class KiraChipButton extends StatelessWidget {
           margin: margin,
           padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
           decoration: BoxDecoration(
-            color: selected ? DesignColors.blue1_100 : Colors.transparent,
-            border: Border.all(
-              color: selected ? DesignColors.blue1_100 : DesignColors.gray2_100,
-              width: 1,
-            ),
+            color: selected ? DesignColors.white1 : DesignColors.grey3,
             borderRadius: BorderRadius.circular(100),
           ),
           child: Center(
             child: Text(
               label,
               style: textTheme.caption!.copyWith(
-                color: DesignColors.white_100,
+                color: selected ? DesignColors.black : DesignColors.white1,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ),

@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:miro/config/app_icons.dart';
+import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/shared/router/router.gr.dart';
 import 'package:miro/views/layout/nav_menu/model/nav_item_model.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
@@ -58,7 +59,7 @@ class MenuWrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     return KiraScaffold(
       navItemModelList: navItemModelList,
-      drawerScrimColor: const Color(0x960B0B18),
+      drawerScrimColor: DesignColors.greyTransparent,
       endDrawer: const DrawerWrapper(),
       body: const AutoRouter(
         key: GlobalObjectKey('pages_router'),

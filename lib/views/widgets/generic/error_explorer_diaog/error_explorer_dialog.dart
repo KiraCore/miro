@@ -28,7 +28,7 @@ class ErrorExplorerDialog extends StatelessWidget {
       suffixWidget: IconButton(
         icon: const Icon(
           AppIcons.cancel,
-          color: DesignColors.white_100,
+          color: DesignColors.white1,
         ),
         onPressed: () => Navigator.of(context).pop(),
       ),

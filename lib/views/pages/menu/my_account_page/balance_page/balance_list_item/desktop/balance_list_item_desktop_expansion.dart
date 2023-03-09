@@ -31,7 +31,7 @@ class BalanceListItemDesktopExpansion extends StatelessWidget {
             child: Text(
               tokenAmountModel.tokenAliasModel.lowestTokenDenominationModel.name,
               style: textTheme.subtitle1!.copyWith(
-                color: DesignColors.white_100,
+                color: DesignColors.white2,
               ),
             ),
           ),
@@ -44,7 +44,7 @@ class BalanceListItemDesktopExpansion extends StatelessWidget {
             child: Text(
               tokenAmountModel.getAmountInLowestDenomination().toString(),
               style: textTheme.subtitle1!.copyWith(
-                color: DesignColors.white_100,
+                color: DesignColors.white2,
               ),
             ),
           ),

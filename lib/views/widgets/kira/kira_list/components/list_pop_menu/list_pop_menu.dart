@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_value.dart';
 import 'package:miro/views/widgets/kira/kira_list/components/list_pop_menu/list_pop_menu_header.dart';
 import 'package:miro/views/widgets/kira/kira_list/components/list_pop_menu/list_pop_menu_item.dart';
@@ -57,7 +58,7 @@ class _ListPopMenuState<T> extends State<ListPopMenu<T>> {
               title: widget.title,
               onClearPressed: widget.onClearPressed,
             ),
-            const Divider(color: Color(0xFF343261)),
+            const Divider(color: DesignColors.grey2),
             ...widget.listItems.map<Widget>(
               (T item) {
                 return ListPopMenuItem(

@@ -25,7 +25,7 @@ class ValidatorListItemMobile extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 16),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        color: DesignColors.blue1_10,
+        color: DesignColors.black,
       ),
       child: Column(
         children: <Widget>[
@@ -37,7 +37,7 @@ class ValidatorListItemMobile extends StatelessWidget {
                   validatorModel.top.toString(),
                   overflow: TextOverflow.ellipsis,
                   style: textTheme.bodyText2!.copyWith(
-                    color: DesignColors.gray2_100,
+                    color: DesignColors.white2,
                   ),
                 ),
               ),
@@ -51,7 +51,7 @@ class ValidatorListItemMobile extends StatelessWidget {
                   validatorModel.moniker,
                   overflow: TextOverflow.ellipsis,
                   style: textTheme.bodyText2!.copyWith(
-                    color: DesignColors.gray2_100,
+                    color: DesignColors.white2,
                   ),
                 ),
               ),
@@ -64,7 +64,7 @@ class ValidatorListItemMobile extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 8),
-          const Divider(color: Color(0xFF343261)),
+          const Divider(color: DesignColors.grey2),
           const SizedBox(height: 8),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -78,7 +78,7 @@ class ValidatorListItemMobile extends StatelessWidget {
                       'Status',
                       overflow: TextOverflow.ellipsis,
                       style: textTheme.bodyText2!.copyWith(
-                        color: DesignColors.gray2_100,
+                        color: DesignColors.white2,
                       ),
                     ),
                     const SizedBox(width: 10),
@@ -94,7 +94,7 @@ class ValidatorListItemMobile extends StatelessWidget {
                       'Uptime',
                       overflow: TextOverflow.ellipsis,
                       style: textTheme.bodyText2!.copyWith(
-                        color: DesignColors.gray2_100,
+                        color: DesignColors.white2,
                       ),
                     ),
                     const SizedBox(width: 10),
@@ -102,7 +102,7 @@ class ValidatorListItemMobile extends StatelessWidget {
                       '${validatorModel.uptime}%',
                       overflow: TextOverflow.ellipsis,
                       style: textTheme.bodyText2!.copyWith(
-                        color: DesignColors.white_100,
+                        color: DesignColors.white1,
                       ),
                     ),
                   ],
@@ -119,7 +119,7 @@ class ValidatorListItemMobile extends StatelessWidget {
                 'Streak',
                 overflow: TextOverflow.ellipsis,
                 style: textTheme.bodyText2!.copyWith(
-                  color: DesignColors.gray2_100,
+                  color: DesignColors.white2,
                 ),
               ),
               const SizedBox(width: 10),
@@ -127,7 +127,7 @@ class ValidatorListItemMobile extends StatelessWidget {
                 StringUtils.splitBigNumber(validatorModel.streak),
                 overflow: TextOverflow.ellipsis,
                 style: textTheme.bodyText2!.copyWith(
-                  color: DesignColors.white_100,
+                  color: DesignColors.white1,
                 ),
               ),
             ],

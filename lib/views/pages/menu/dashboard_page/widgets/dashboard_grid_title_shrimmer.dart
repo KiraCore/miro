@@ -23,11 +23,11 @@ class DashboardGridTileShimmer extends StatelessWidget {
           borderRadius: BorderRadius.circular(8),
           child: Shimmer.fromColors(
             enabled: enabled,
-            baseColor: DesignColors.blue1_100,
-            highlightColor: DesignColors.blue1_20,
+            baseColor: DesignColors.grey3,
+            highlightColor: DesignColors.grey2,
             child: Container(
               width: 100,
-              color: DesignColors.blue1_20,
+              color: DesignColors.grey2,
               constraints: const BoxConstraints(minWidth: 100),
               child: Text('', style: textTheme.headline4),
             ),

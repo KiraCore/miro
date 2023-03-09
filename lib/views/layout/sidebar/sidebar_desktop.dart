@@ -3,7 +3,7 @@ import 'package:miro/config/app_sizes.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/views/layout/nav_menu/model/nav_item_model.dart';
 import 'package:miro/views/layout/nav_menu/nav_menu.dart';
-import 'package:miro/views/layout/report_bug_button.dart';
+import 'package:miro/views/layout/report_issues_button.dart';
 import 'package:miro/views/widgets/kira/kira_logo.dart';
 
 class SidebarDesktop extends StatelessWidget {
@@ -19,7 +19,7 @@ class SidebarDesktop extends StatelessWidget {
     return Container(
       width: AppSizes.sidebarDesktopWidth,
       height: double.infinity,
-      color: DesignColors.blue1_10,
+      color: DesignColors.black,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -36,7 +36,7 @@ class SidebarDesktop extends StatelessWidget {
                   children: <Widget>[
                     NavMenu(navItemModelList: navItemModelList),
                     const SizedBox(height: 30),
-                    const ReportBugButton(),
+                    const ReportIssuesButton(),
                   ],
                 ),
               ),

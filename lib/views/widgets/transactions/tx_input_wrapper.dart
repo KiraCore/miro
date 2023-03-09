@@ -25,10 +25,10 @@ class TxInputWrapper extends StatelessWidget {
         height: height,
         padding: padding,
         decoration: BoxDecoration(
-          color: DesignColors.gray1_100,
+          color: DesignColors.background,
           borderRadius: BorderRadius.circular(8),
           border: Border.all(
-            color: hasErrors ? DesignColors.red_100 : Colors.transparent,
+            color: hasErrors ? DesignColors.redStatus1 : Colors.transparent,
             width: 1,
           ),
         ),

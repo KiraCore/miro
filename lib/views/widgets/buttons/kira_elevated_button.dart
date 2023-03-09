@@ -58,7 +58,7 @@ class _KiraElevatedButton extends State<KiraElevatedButton> {
                     widget.title!.toUpperCase(),
                     textAlign: TextAlign.center,
                     style: textTheme.button!.copyWith(
-                      color: widget.foregroundColor,
+                      color: widget.foregroundColor ?? DesignColors.background,
                     ),
                   ),
                 ],
@@ -72,8 +72,8 @@ class _KiraElevatedButton extends State<KiraElevatedButton> {
 
   Gradient _getButtonGradient(Set<MaterialState> states) {
     if (!widget.disabled && states.contains(MaterialState.hovered)) {
-      return DesignColors.primaryButtonGradient;
+      return DesignColors.primaryButtonGradientHover;
     }
-    return DesignColors.primaryButtonGradientHover;
+    return DesignColors.primaryButtonGradient;
   }
 }

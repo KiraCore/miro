@@ -4,15 +4,17 @@ import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
 import 'package:miro/shared/utils/network_utils.dart';
 import 'package:miro/views/widgets/buttons/kira_elevated_button.dart';
+import 'package:miro/views/widgets/kira/kira_text_field/kira_text_field.dart';
+import 'package:miro/views/widgets/kira/kira_text_field/kira_text_field_controller.dart';
 import 'package:miro/views/widgets/network_list/network_list_tile.dart';
 
 class NetworkCustomSectionContent extends StatefulWidget {
-  final TextEditingController textEditingController;
+  final KiraTextFieldController kiraTextFieldController;
   final NetworkCustomSectionCubit networkCustomSectionCubit;
   final ValueChanged<ANetworkStatusModel>? onConnected;
 
   const NetworkCustomSectionContent({
-    required this.textEditingController,
+    required this.kiraTextFieldController,
     required this.networkCustomSectionCubit,
     this.onConnected,
     Key? key,
@@ -45,7 +47,7 @@ class _NetworkCustomSectionContent extends State<NetworkCustomSectionContent> {
           if (connectedNetworkExist) const SizedBox(height: 16),
           Text(
             'Checked connection',
-            style: textTheme.subtitle2!.copyWith(color: DesignColors.gray2_100),
+            style: textTheme.subtitle2!.copyWith(color: DesignColors.white2),
           ),
           NetworkListTile(
             networkStatusModel: widget.networkCustomSectionCubit.state.checkedNetworkStatusModel!,
@@ -55,13 +57,9 @@ class _NetworkCustomSectionContent extends State<NetworkCustomSectionContent> {
         const SizedBox(height: 16),
         SizedBox(
           width: double.infinity,
-          child: TextFormField(
-            controller: widget.textEditingController,
-            decoration: InputDecoration(
-              hintText: 'Custom address',
-              contentPadding: const EdgeInsets.symmetric(horizontal: 12),
-              hintStyle: textTheme.bodyText1!.copyWith(color: DesignColors.white_50),
-            ),
+          child: KiraTextField(
+            controller: widget.kiraTextFieldController,
+            hint: 'Custom address',
           ),
         ),
         ValueListenableBuilder<String?>(
@@ -76,7 +74,7 @@ class _NetworkCustomSectionContent extends State<NetworkCustomSectionContent> {
               child: Text(
                 errorMessage,
                 style: textTheme.caption!.copyWith(
-                  color: DesignColors.red_100,
+                  color: DesignColors.redStatus1,
                 ),
               ),
             );
@@ -98,7 +96,7 @@ class _NetworkCustomSectionContent extends State<NetworkCustomSectionContent> {
     if (uri == null) {
       return;
     }
-    widget.textEditingController.clear();
+    widget.kiraTextFieldController.textController.clear();
     await widget.networkCustomSectionCubit.checkConnection(uri);
   }
 
@@ -113,7 +111,7 @@ class _NetworkCustomSectionContent extends State<NetworkCustomSectionContent> {
 
   bool _validateNetworkAddress() {
     Uri? networkUri = _parseTextFieldToUri();
-    String networkAddress = widget.textEditingController.text;
+    String networkAddress = widget.kiraTextFieldController.textController.text;
     if (networkAddress.isEmpty) {
       errorNotifier.value = "Field can't be empty";
     } else if (networkUri == null) {
@@ -126,7 +124,7 @@ class _NetworkCustomSectionContent extends State<NetworkCustomSectionContent> {
 
   Uri? _parseTextFieldToUri() {
     try {
-      String networkAddress = widget.textEditingController.text;
+      String networkAddress = widget.kiraTextFieldController.textController.text;
       Uri networkUri = NetworkUtils.parseUrlToInterxUri(networkAddress);
       return networkUri;
     } catch (_) {

@@ -44,7 +44,7 @@ class _DashboardGrid extends State<DashboardGrid> {
               Text(
                 widget.title,
                 style: textTheme.headline2!.copyWith(
-                  color: DesignColors.white_100,
+                  color: DesignColors.white1,
                 ),
               ),
               if (widget.onTap != null)
@@ -53,7 +53,7 @@ class _DashboardGrid extends State<DashboardGrid> {
                   icon: const Icon(
                     AppIcons.chevron_right,
                     size: 20,
-                    color: DesignColors.gray2_100,
+                    color: DesignColors.white1,
                   ),
                 ),
             ],

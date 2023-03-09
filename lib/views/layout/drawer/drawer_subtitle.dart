@@ -27,7 +27,7 @@ class DrawerTitle extends StatelessWidget {
             Text(
               title,
               style: textTheme.headline3!.copyWith(
-                color: DesignColors.white_100,
+                color: DesignColors.white1,
               ),
             ),
             if (subtitle == null && tooltipMessage != null) KiraToolTip(message: tooltipMessage!),
@@ -40,7 +40,7 @@ class DrawerTitle extends StatelessWidget {
               Text(
                 subtitle!,
                 style: textTheme.bodyText1!.copyWith(
-                  color: DesignColors.gray2_100,
+                  color: DesignColors.accent,
                 ),
               ),
               if (tooltipMessage != null) KiraToolTip(message: tooltipMessage!)

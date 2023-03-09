@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
 import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_sort_dropdown.dart';
 import 'package:miro/views/pages/menu/my_account_page/balance_page/small_balances_checkbox.dart';
-import 'package:miro/views/widgets/kira/kira_list/components/last_block_time_widget.dart';
 import 'package:miro/views/widgets/kira/kira_list/components/list_search_widget.dart';
 
 class BalanceListTitleDesktop extends StatelessWidget {
@@ -19,9 +18,8 @@ class BalanceListTitleDesktop extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
           children: const <Widget>[
+            SizedBox(height: 15),
             BalanceSortDropdown(),
-            SizedBox(height: 5),
-            LastBlockTimeWidget(),
           ],
         ),
         const SizedBox(width: 32),

@@ -52,7 +52,7 @@ class BalanceTokenPrefix extends StatelessWidget {
                   tokenAliasModel.name,
                   overflow: TextOverflow.ellipsis,
                   style: textTheme.bodyText1!.copyWith(
-                    color: DesignColors.gray2_100,
+                    color: DesignColors.white1,
                   ),
                 ),
               ),

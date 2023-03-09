@@ -23,7 +23,10 @@ class ListPopMenuItem extends StatelessWidget {
       onTap: onTap,
       mouseCursor: SystemMouseCursors.click,
       childBuilder: (Set<MaterialState> states) {
-        return Padding(
+        return Container(
+          decoration: BoxDecoration(
+            color: states.contains(MaterialState.hovered) || selected ? DesignColors.greyHover2 : Colors.transparent,
+          ),
           padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
           child: Row(
             children: <Widget>[
@@ -32,7 +35,7 @@ class ListPopMenuItem extends StatelessWidget {
                 child: Text(
                   title,
                   style: textTheme.bodyText2!.copyWith(
-                    color: states.contains(MaterialState.hovered) ? DesignColors.white_100 : DesignColors.gray2_100,
+                    color: states.contains(MaterialState.hovered) || selected ? DesignColors.white1 : DesignColors.white2,
                   ),
                 ),
               ),
@@ -40,7 +43,7 @@ class ListPopMenuItem extends StatelessWidget {
                 const Icon(
                   AppIcons.done,
                   size: 24,
-                  color: DesignColors.blue1_100,
+                  color: DesignColors.white1,
                 )
             ],
           ),

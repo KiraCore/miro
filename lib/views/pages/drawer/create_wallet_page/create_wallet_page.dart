@@ -61,19 +61,20 @@ class _CreateWalletPage extends State<CreateWalletPage> {
           children: <Widget>[
             const DrawerTitle(title: 'Create a wallet'),
             const SizedBox(height: 24),
-            const Divider(color: Color(0xFF343261)),
+            const Divider(color: DesignColors.grey2),
             const SizedBox(height: 24),
             Text(
               'Your public address:',
-              style: textTheme.bodyText2!.copyWith(color: DesignColors.white_100),
+              style: textTheme.bodyText2!.copyWith(color: DesignColors.white1),
             ),
             const SizedBox(height: 8),
             Container(
               width: double.infinity,
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 16),
               decoration: BoxDecoration(
-                color: DesignColors.gray1_100,
+                color: DesignColors.black,
                 borderRadius: BorderRadius.circular(8),
+                border: Border.all(color: DesignColors.grey2),
               ),
               child: ValueListenableBuilder<TextEditingValue>(
                 valueListenable: publicAddressTextController.textController,
@@ -82,7 +83,7 @@ class _CreateWalletPage extends State<CreateWalletPage> {
                     textEditingValue.text,
                     style: textTheme.caption!.copyWith(
                       fontSize: 13,
-                      color: DesignColors.white_100,
+                      color: DesignColors.white1,
                     ),
                   );
                 },
@@ -160,7 +161,7 @@ class _CreateWalletPage extends State<CreateWalletPage> {
                 );
               },
             ),
-            const Divider(color: Color(0xFF343261)),
+            const Divider(color: DesignColors.grey2),
             ValueListenableBuilder<bool>(
               valueListenable: termsCheckedNotifier,
               builder: (_, bool termsChecked, __) {
@@ -186,6 +187,7 @@ class _CreateWalletPage extends State<CreateWalletPage> {
                 );
               },
             ),
+            const SizedBox(height: 30),
           ],
         );
       },

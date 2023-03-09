@@ -17,7 +17,7 @@ class ValidatorListTitleMobile extends StatelessWidget {
         Text(
           'List of Validators',
           style: textTheme.headline3!.copyWith(
-            color: DesignColors.white_100,
+            color: DesignColors.white1,
           ),
         ),
         const SizedBox(height: 12),

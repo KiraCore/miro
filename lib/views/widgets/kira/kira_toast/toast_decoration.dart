@@ -19,31 +19,31 @@ class ToastDecoration {
     switch (toastType) {
       case ToastType.success:
         return const ToastDecoration(
-          backgroundColor: DesignColors.darkGreen_20,
-          titleColor: DesignColors.green_100,
-          iconColor: DesignColors.green_100,
-          actionButtonBorderColor: DesignColors.white_50,
+          backgroundColor: DesignColors.greenStatus2,
+          titleColor: DesignColors.greenStatus1,
+          iconColor: DesignColors.greenStatus1,
+          actionButtonBorderColor: DesignColors.greenStatus1,
         );
       case ToastType.error:
         return const ToastDecoration(
-          backgroundColor: DesignColors.red_20,
-          titleColor: DesignColors.red_100,
-          iconColor: DesignColors.red_100,
-          actionButtonBorderColor: DesignColors.gray2_100,
+          backgroundColor: DesignColors.redStatus3,
+          titleColor: DesignColors.redStatus1,
+          iconColor: DesignColors.redStatus1,
+          actionButtonBorderColor: DesignColors.redStatus1,
         );
       case ToastType.warning:
         return const ToastDecoration(
-          backgroundColor: DesignColors.yellow_20,
-          titleColor: DesignColors.yellow_100,
-          iconColor: DesignColors.yellow_100,
-          actionButtonBorderColor: DesignColors.gray2_100,
+          backgroundColor: DesignColors.yellowStatus2,
+          titleColor: DesignColors.yellowStatus1,
+          iconColor: DesignColors.yellowStatus1,
+          actionButtonBorderColor: DesignColors.yellowStatus1,
         );
       default:
         return const ToastDecoration(
-          backgroundColor: DesignColors.purple_20,
-          titleColor: DesignColors.white_100,
-          iconColor: DesignColors.white_100,
-          actionButtonBorderColor: DesignColors.gray2_100,
+          backgroundColor: DesignColors.grey3,
+          titleColor: DesignColors.white1,
+          iconColor: DesignColors.white1,
+          actionButtonBorderColor: DesignColors.white1,
         );
     }
   }

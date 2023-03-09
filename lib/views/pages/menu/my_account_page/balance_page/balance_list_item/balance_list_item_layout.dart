@@ -34,7 +34,7 @@ class BalanceListItemLayout extends StatelessWidget {
             color: _selectBackgroundColor(states, expanded),
             borderRadius: BorderRadius.circular(8),
             border: Border.all(
-              color: expanded ? DesignColors.blue1_100 : Colors.transparent,
+              color: expanded ? DesignColors.white2 : Colors.transparent,
               width: 1,
             ),
           ),
@@ -55,7 +55,7 @@ class BalanceListItemLayout extends StatelessWidget {
 
   Color _selectBackgroundColor(Set<MaterialState> states, bool expanded) {
     if (expanded || states.contains(MaterialState.hovered)) {
-      return DesignColors.blue1_10;
+      return DesignColors.black;
     }
     return Colors.transparent;
   }

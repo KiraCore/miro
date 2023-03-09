@@ -53,7 +53,7 @@ class _TokenDenominationList extends State<TokenDenominationList> {
         Text(
           'Denomination',
           style: textTheme.caption!.copyWith(
-            color: DesignColors.gray2_100,
+            color: DesignColors.white2,
           ),
         ),
         const SizedBox(width: 10),

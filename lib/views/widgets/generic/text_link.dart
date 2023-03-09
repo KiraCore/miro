@@ -32,9 +32,9 @@ class TextLink extends StatelessWidget {
 
   Color _selectColor(Set<MaterialState> states) {
     if (states.contains(MaterialState.hovered)) {
-      return DesignColors.blue2_100;
+      return DesignColors.white1;
     } else {
-      return DesignColors.blue1_100;
+      return DesignColors.accent;
     }
   }
 

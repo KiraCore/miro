@@ -55,7 +55,7 @@ class _LoginMnemonicPage extends State<LoginMnemonicPage> {
             child: Text(
               errorMessage ?? '',
               style: const TextStyle(
-                color: DesignColors.red_100,
+                color: DesignColors.redStatus1,
               ),
             ),
           ),

@@ -34,17 +34,17 @@ class _ListSearchWidget<T extends AListItem> extends State<ListSearchWidget<T>> 
       textStyle: const TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.w400,
-        color: DesignColors.white_100,
+        color: DesignColors.white1,
       ),
       enabled: widget.enabled,
       height: widget.height,
       width: widget.width,
       label: widget.hint,
-      backgroundColor: DesignColors.blue1_10,
+      backgroundColor: DesignColors.black,
       onClear: _onClearSearchBar,
       onSubmit: _onSubmitSearchBar,
       border: OutlineInputBorder(
-        borderSide: const BorderSide(color: Colors.transparent),
+        borderSide: const BorderSide(color: DesignColors.greyOutline),
         borderRadius: BorderRadius.circular(8),
       ),
     );

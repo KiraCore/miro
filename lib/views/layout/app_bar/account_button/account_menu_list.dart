@@ -31,7 +31,7 @@ class AccountMenuList extends StatelessWidget {
         _MenuListTile(
           onTap: () => _onLogout(context),
           title: 'Log Out',
-          color: DesignColors.red_100,
+          color: DesignColors.redStatus1,
         ),
       ],
     );
@@ -77,6 +77,7 @@ class _MenuListTile extends StatelessWidget {
         return Container(
           width: double.infinity,
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+          decoration: BoxDecoration(color: _selectBackgroundColor(states)),
           child: Text(
             title,
             style: textTheme.bodyText2!.copyWith(
@@ -90,11 +91,19 @@ class _MenuListTile extends StatelessWidget {
 
   Color _selectColor(Set<MaterialState> states) {
     if (states.contains(MaterialState.hovered)) {
-      return DesignColors.white_100;
+      return DesignColors.white1;
     } else if (color != null) {
       return color!;
     } else {
-      return DesignColors.gray2_100;
+      return DesignColors.white2;
+    }
+  }
+
+  Color _selectBackgroundColor(Set<MaterialState> states) {
+    if (states.contains(MaterialState.hovered)) {
+      return DesignColors.greyHover2;
+    } else {
+      return Colors.transparent;
     }
   }
 }

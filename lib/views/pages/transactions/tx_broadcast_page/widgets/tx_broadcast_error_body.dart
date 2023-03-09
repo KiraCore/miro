@@ -36,7 +36,7 @@ class TxBroadcastErrorBody extends StatelessWidget {
           'Transaction failed',
           textAlign: TextAlign.center,
           style: textTheme.headline3!.copyWith(
-            color: DesignColors.white_100,
+            color: DesignColors.white1,
           ),
         ),
         const SizedBox(height: 12),
@@ -47,13 +47,13 @@ class TxBroadcastErrorBody extends StatelessWidget {
             Text(
               '<${errorExplorerModel.code}>',
               style: textTheme.caption!.copyWith(
-                color: DesignColors.gray2_100,
+                color: DesignColors.white1,
               ),
             ),
             const SizedBox(width: 8),
             TextLink(
               textStyle: textTheme.caption!.copyWith(
-                color: DesignColors.blue1_100,
+                color: DesignColors.white1,
               ),
               onTap: () => _showErrorExplorerDialog(context),
               text: 'See more on Explorer',

@@ -37,15 +37,15 @@ class ValidatorStatusTip extends StatelessWidget {
   ValidatorStatusChipModel get _validatorStatusChipModel {
     switch (validatorStatus) {
       case ValidatorStatus.active:
-        return const ValidatorStatusChipModel(color: DesignColors.darkGreen_100, title: 'Active');
+        return const ValidatorStatusChipModel(color: DesignColors.greenStatus1, title: 'Active');
       case ValidatorStatus.inactive:
-        return const ValidatorStatusChipModel(color: DesignColors.blue1_100, title: 'Inactive');
+        return const ValidatorStatusChipModel(color: DesignColors.yellowStatus1, title: 'Inactive');
       case ValidatorStatus.jailed:
-        return const ValidatorStatusChipModel(color: DesignColors.red_100, title: 'Jailed');
+        return const ValidatorStatusChipModel(color: DesignColors.redStatus1, title: 'Jailed');
       case ValidatorStatus.paused:
-        return const ValidatorStatusChipModel(color: DesignColors.blue1_100, title: 'Paused');
+        return const ValidatorStatusChipModel(color: DesignColors.white1, title: 'Paused');
       case ValidatorStatus.waiting:
-        return const ValidatorStatusChipModel(color: DesignColors.blue1_100, title: 'Waiting');
+        return const ValidatorStatusChipModel(color: DesignColors.white1, title: 'Waiting');
     }
   }
 }

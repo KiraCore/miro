@@ -50,10 +50,10 @@ class _FilterDropdown<T extends AListItem> extends State<FilterDropdown<T>> {
               widget.title,
               style: ResponsiveValue<TextStyle>(
                 largeScreen: textTheme.bodyText2!.copyWith(
-                  color: DesignColors.gray2_100,
+                  color: DesignColors.white2,
                 ),
                 smallScreen: textTheme.caption!.copyWith(
-                  color: DesignColors.gray2_100,
+                  color: DesignColors.white2,
                 ),
               ).get(context),
             ),

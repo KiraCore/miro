@@ -5,10 +5,12 @@ import 'package:miro/config/theme/design_colors.dart';
 class KiraCheckbox extends StatefulWidget {
   final ValueChanged<bool> onChanged;
   final bool value;
+  final double? size;
 
   const KiraCheckbox({
     required this.onChanged,
     required this.value,
+    this.size,
     Key? key,
   }) : super(key: key);
 
@@ -18,11 +20,12 @@ class KiraCheckbox extends StatefulWidget {
 
 class _KiraCheckbox extends State<KiraCheckbox> {
   late bool checked = widget.value;
-  
+  late double? size = widget.size;
+
   @override
   void didUpdateWidget(covariant KiraCheckbox oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if( oldWidget.value != widget.value ) {
+    if (oldWidget.value != widget.value) {
       checked = widget.value;
     }
   }
@@ -35,8 +38,8 @@ class _KiraCheckbox extends State<KiraCheckbox> {
         padding: const EdgeInsets.all(2),
         child: Icon(
           checked ? AppIcons.checkbox_checked : AppIcons.checkbox_empty,
-          size: 18,
-          color: DesignColors.blue1_100,
+          size: size ?? 18,
+          color: checked ? DesignColors.white1 : DesignColors.accent,
         ),
       ),
     );

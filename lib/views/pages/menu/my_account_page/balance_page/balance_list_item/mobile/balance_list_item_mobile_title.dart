@@ -38,7 +38,7 @@ class BalanceListItemMobileTitle extends StatelessWidget {
             Text(
               balanceModel.tokenAmountModel.tokenAliasModel.defaultTokenDenominationModel.name,
               style: textTheme.bodyText1!.copyWith(
-                color: DesignColors.white_100,
+                color: DesignColors.white1,
               ),
             ),
             const SizedBox(width: 10),
@@ -46,7 +46,7 @@ class BalanceListItemMobileTitle extends StatelessWidget {
               child: Text(
                 balanceModel.tokenAmountModel.getAmountInDefaultDenomination().toString(),
                 style: textTheme.bodyText1!.copyWith(
-                  color: DesignColors.white_100,
+                  color: DesignColors.white1,
                 ),
               ),
             ),

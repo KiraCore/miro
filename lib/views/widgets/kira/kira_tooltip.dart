@@ -51,15 +51,15 @@ class KiraToolTip extends StatelessWidget {
       excludeFromSemantics: excludeFromSemantics,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        color: DesignColors.gray1_100,
+        color: DesignColors.background,
         border: Border.all(
-          color: DesignColors.white_20,
+          color: DesignColors.grey2,
           width: 1,
         ),
       ),
       textStyle: textStyle ??
           textTheme.caption!.copyWith(
-            color: DesignColors.white_100,
+            color: DesignColors.white1,
           ),
       waitDuration: waitDuration,
       showDuration: showDuration,
@@ -70,7 +70,7 @@ class KiraToolTip extends StatelessWidget {
         child: child ??
             const Icon(
               Icons.info_outline,
-              color: DesignColors.gray2_100,
+              color: DesignColors.accent,
               size: 17,
             ),
       ),

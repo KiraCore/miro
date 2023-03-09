@@ -17,7 +17,7 @@ class AppConfig {
 
   final Duration outdatedBlockDuration = const Duration(minutes: 5);
   final Duration loadingPageTimerDuration = const Duration(seconds: 4);
-  final List<String> supportedInterxVersions = <String>['v0.4.22', 'v0.4.23'];
+  final List<String> supportedInterxVersions = <String>['v0.4.22', 'v0.4.23', 'v0.4.26'];
 
   final int _defaultRefreshIntervalSeconds = 60;
   final NetworkUnknownModel _defaultNetworkUnknownModel = NetworkUnknownModel(

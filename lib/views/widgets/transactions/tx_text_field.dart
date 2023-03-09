@@ -51,7 +51,7 @@ class _TxTextField extends State<TxTextField> {
       inputFormatters: widget.inputFormatters,
       maxLength: widget.maxLength,
       style: textTheme.bodyText1!.copyWith(
-        color: widget.hasErrors ? DesignColors.red_100 : DesignColors.white_100,
+        color: widget.hasErrors ? DesignColors.redStatus1 : DesignColors.white1,
       ),
       validator: widget.validator,
       autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -59,15 +59,15 @@ class _TxTextField extends State<TxTextField> {
         contentPadding: EdgeInsets.zero,
         label: widget.label != null ? Text(widget.label!) : null,
         labelStyle: textTheme.bodyText1!.copyWith(
-          color: DesignColors.gray2_100,
+          color: DesignColors.accent,
           height: 0.5,
         ),
         hintText: widget.hintText,
         hintStyle: textTheme.bodyText1!.copyWith(
-          color: widget.hasErrors ? DesignColors.red_100 : DesignColors.white_100,
+          color: widget.hasErrors ? DesignColors.redStatus1 : DesignColors.white1,
         ),
         errorStyle: textTheme.caption!.copyWith(
-          color: DesignColors.red_100,
+          color: DesignColors.redStatus1,
         ),
         isDense: true,
         floatingLabelBehavior: widget.hintText != null ? FloatingLabelBehavior.always : FloatingLabelBehavior.auto,

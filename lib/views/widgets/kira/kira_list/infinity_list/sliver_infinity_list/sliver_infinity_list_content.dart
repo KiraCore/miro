@@ -74,7 +74,7 @@ class _SliverInfinityListContent<T extends AListItem> extends State<SliverInfini
                   margin: const EdgeInsets.only(bottom: 40),
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    color: widget.hasBackground ? DesignColors.blue1_10 : Colors.transparent,
+                    color: widget.hasBackground ? DesignColors.black : Colors.transparent,
                     borderRadius: BorderRadius.circular(8),
                   ),
                 ),

@@ -12,7 +12,7 @@ class ListNoResultsWidget extends StatelessWidget {
       margin: const EdgeInsets.only(bottom: 40),
       constraints: const BoxConstraints(minHeight: 500),
       decoration: BoxDecoration(
-        color: DesignColors.blue1_10,
+        color: DesignColors.black,
         borderRadius: BorderRadius.circular(8),
       ),
       width: double.infinity,

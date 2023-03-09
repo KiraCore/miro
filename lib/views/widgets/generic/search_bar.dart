@@ -50,14 +50,15 @@ class _SearchBar extends State<SearchBar> {
             onChanged: _onChangedSearchBar,
             style: widget.textStyle,
             decoration: InputDecoration(
+              hoverColor: DesignColors.greyHover1,
               fillColor: widget.backgroundColor,
               filled: widget.backgroundColor != null,
               hintText: widget.label,
-              hintStyle: widget.textStyle.copyWith(color: DesignColors.gray2_100),
+              hintStyle: widget.textStyle.copyWith(color: DesignColors.grey1),
               prefixIcon: IconButton(
                 icon: const Icon(
                   AppIcons.search,
-                  color: DesignColors.gray2_100,
+                  color: DesignColors.grey1,
                   size: 18,
                 ),
                 onPressed: _onSubmitSearchBar,
@@ -68,7 +69,7 @@ class _SearchBar extends State<SearchBar> {
                       child: IconButton(
                           icon: const Icon(
                             AppIcons.cancel,
-                            color: DesignColors.white_100,
+                            color: DesignColors.accent,
                             size: 18,
                           ),
                           onPressed: _pressClearButton),
@@ -78,7 +79,7 @@ class _SearchBar extends State<SearchBar> {
               disabledBorder: widget.border,
               enabledBorder: widget.border,
               errorBorder: widget.border,
-              focusedBorder: widget.border,
+              focusedBorder: OutlineInputBorder(borderSide: const BorderSide(color: DesignColors.white1), borderRadius: BorderRadius.circular(8)),
               focusedErrorBorder: widget.border,
             ),
           );

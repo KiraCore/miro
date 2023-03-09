@@ -16,7 +16,7 @@ class SortDropdownButton<T extends AListItem> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
-    
+
     return Container(
       padding: const ResponsiveValue<EdgeInsets>(
         largeScreen: EdgeInsets.symmetric(horizontal: 12, vertical: 0),
@@ -24,7 +24,7 @@ class SortDropdownButton<T extends AListItem> extends StatelessWidget {
       ).get(context),
       decoration: BoxDecoration(
         border: Border.all(
-          color: DesignColors.gray2_100,
+          color: DesignColors.greyOutline,
           width: 1,
         ),
         borderRadius: BorderRadius.circular(4),
@@ -39,7 +39,7 @@ class SortDropdownButton<T extends AListItem> extends StatelessWidget {
               textAlign: TextAlign.center,
               maxLines: 1,
               style: textTheme.caption!.copyWith(
-                color: DesignColors.gray2_100,
+                color: DesignColors.white1,
               ),
             ),
           ),
@@ -47,7 +47,7 @@ class SortDropdownButton<T extends AListItem> extends StatelessWidget {
             const SizedBox(width: 4),
             const Icon(
               Icons.keyboard_arrow_down,
-              color: DesignColors.gray2_100,
+              color: DesignColors.white1,
               size: 15,
             ),
           ],

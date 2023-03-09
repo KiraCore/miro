@@ -33,8 +33,6 @@ class _PopWrapperState extends State<PopWrapper> {
 
   @override
   Widget build(BuildContext context) {
-    Color backgroundColor = DesignColors.blue1_10;
-
     Widget desktopWidget = PopWrapperDesktop(
       justTheController: justTheController,
       buttonSize: widget.buttonSize,
@@ -42,14 +40,14 @@ class _PopWrapperState extends State<PopWrapper> {
       popupBuilder: widget.popupBuilder,
       popWrapperController: widget.popWrapperController,
       disabled: widget.disabled,
-      backgroundColor: backgroundColor,
+      backgroundColor: DesignColors.black,
     );
     Widget mobileWidget = PopWrapperMobile(
       buttonBuilder: widget.buttonBuilder,
       popupBuilder: widget.popupBuilder,
       popWrapperController: widget.popWrapperController,
       disabled: widget.disabled,
-      backgroundColor: backgroundColor,
+      backgroundColor: DesignColors.black,
     );
 
     return SizedBox(

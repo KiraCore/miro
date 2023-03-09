@@ -28,7 +28,7 @@ class TokenFormInfo extends StatelessWidget {
           Text(
             formFieldState.errorText!,
             style: textTheme.caption!.copyWith(
-              color: DesignColors.red_100,
+              color: DesignColors.redStatus1,
             ),
           ),
         ],
@@ -48,7 +48,7 @@ class TokenFormInfo extends StatelessWidget {
                 Text(
                   'Available: ${availableAmountText} ${tokenDenominationModel.name}',
                   style: textTheme.caption!.copyWith(
-                    color: formFieldState.hasError ? DesignColors.red_100 : DesignColors.gray2_100,
+                    color: formFieldState.hasError ? DesignColors.redStatus1 : DesignColors.white2,
                   ),
                 ),
                 const SizedBox(height: 15),

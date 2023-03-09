@@ -39,7 +39,7 @@ class _KiraDropzone extends State<KiraDropzone> {
   Widget build(BuildContext context) {
     return DropzoneView(
       operation: DragOperation.all,
-      cursor: CursorType.grab,
+      cursor: CursorType.pointer,
       onCreated: (DropzoneViewController controller) => dropzoneViewController = controller,
       onError: widget.onError,
       onHover: widget.onHover,

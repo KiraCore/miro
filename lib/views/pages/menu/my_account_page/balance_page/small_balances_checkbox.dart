@@ -24,7 +24,7 @@ class _SmallBalancesCheckbox extends State<SmallBalanceCheckbox> {
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
-    
+
     return InkWell(
       splashColor: Colors.transparent,
       hoverColor: Colors.transparent,
@@ -43,10 +43,10 @@ class _SmallBalancesCheckbox extends State<SmallBalanceCheckbox> {
                 'Hide small balances',
                 style: ResponsiveValue<TextStyle>(
                   largeScreen: textTheme.bodyText2!.copyWith(
-                    color: DesignColors.gray2_100,
+                    color: DesignColors.white1,
                   ),
                   smallScreen: textTheme.caption!.copyWith(
-                    color: DesignColors.gray2_100,
+                    color: DesignColors.white1,
                   ),
                 ).get(context),
               ),

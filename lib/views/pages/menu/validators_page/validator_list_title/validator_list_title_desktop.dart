@@ -17,7 +17,7 @@ class ValidatorListTitleDesktop extends StatelessWidget {
           child: Text(
             'List of Validators',
             style: textTheme.headline2!.copyWith(
-              color: DesignColors.white_100,
+              color: DesignColors.white1,
             ),
           ),
         ),

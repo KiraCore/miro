@@ -22,9 +22,9 @@ class CopyButton extends StatelessWidget {
       onTap: () => _copy(context),
       disableSplash: true,
       childBuilder: (Set<MaterialState> states) {
-        Color color = DesignColors.gray2_100;
+        Color color = DesignColors.white2;
         if (states.contains(MaterialState.hovered)) {
-          color = DesignColors.white_100;
+          color = DesignColors.white1;
         }
         return Icon(
           AppIcons.copy,

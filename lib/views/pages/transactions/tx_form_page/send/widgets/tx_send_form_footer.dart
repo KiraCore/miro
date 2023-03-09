@@ -77,7 +77,7 @@ class _TxSendFormFooter extends State<TxSendFormFooter> {
                 Text(
                   'Transaction fee ${widget.feeTokenAmountModel}',
                   style: textTheme.caption!.copyWith(
-                    color: DesignColors.gray2_100,
+                    color: DesignColors.white1,
                   ),
                 ),
               ],
@@ -92,12 +92,12 @@ class _TxSendFormFooter extends State<TxSendFormFooter> {
     try {
       UnsignedTxModel unsignedTxModel = await txFormBuilderCubit.buildUnsignedTx();
       await _navigateToNextPage(unsignedTxModel);
-    } catch(e) {
+    } catch (e) {
       AppLogger().log(message: e.toString());
       return;
     }
   }
-  
+
   Future<void> _navigateToNextPage(UnsignedTxModel unsignedTxModel) async {
     Wallet? wallet = walletProvider.currentWallet;
     if (wallet != null) {

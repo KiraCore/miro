@@ -5,7 +5,6 @@ import 'package:miro/blocs/specific_blocs/dashboard/dashboard_cubit.dart';
 import 'package:miro/blocs/specific_blocs/dashboard/states/dashboard_error_state.dart';
 import 'package:miro/blocs/specific_blocs/dashboard/states/dashboard_loading_state.dart';
 import 'package:miro/config/app_sizes.dart';
-import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/views/pages/menu/dashboard_page/dashboard_blocs_section.dart';
 import 'package:miro/views/pages/menu/dashboard_page/dashboard_header_section.dart';
 import 'package:miro/views/pages/menu/dashboard_page/dashboard_proposals_section.dart';
@@ -51,9 +50,7 @@ class _DashboardPage extends State<DashboardPage> {
                     width: double.infinity,
                     title: Text(
                       'Cannot load dashboard. Please check your connection',
-                      style: textTheme.bodyText2!.copyWith(
-                        color: DesignColors.red_100,
-                      ),
+                      style: textTheme.bodyText2!,
                     ),
                     toastType: ToastType.error,
                   ),

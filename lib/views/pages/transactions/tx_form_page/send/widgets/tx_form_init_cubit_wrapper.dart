@@ -51,7 +51,7 @@ class _TxSendFormCubitWrapper extends State<TxFormInitCubitWrapper> {
                 Text(
                   'Fetching remote data. Please wait...',
                   style: textTheme.bodyText1!.copyWith(
-                    color: DesignColors.white_100,
+                    color: DesignColors.white1,
                   ),
                 ),
               ],
@@ -69,7 +69,7 @@ class _TxSendFormCubitWrapper extends State<TxFormInitCubitWrapper> {
                   'Cannot fetch transaction details. Check your internet connection',
                   textAlign: TextAlign.center,
                   style: textTheme.caption!.copyWith(
-                    color: DesignColors.red_100,
+                    color: DesignColors.redStatus1,
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -82,7 +82,7 @@ class _TxSendFormCubitWrapper extends State<TxFormInitCubitWrapper> {
                   label: Text(
                     'Try again',
                     style: textTheme.subtitle2!.copyWith(
-                      color: DesignColors.white_100,
+                      color: DesignColors.white1,
                     ),
                   ),
                 ),

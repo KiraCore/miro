@@ -15,11 +15,11 @@ class CreateWalletLinkButton extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const Divider(color: Color(0xff343261)),
+        const Divider(color: DesignColors.grey2),
         const SizedBox(height: 32),
         Text(
           'Don`t have a wallet?',
-          style: textTheme.bodyText2!.copyWith(color: DesignColors.gray3_100),
+          style: textTheme.bodyText2!.copyWith(color: DesignColors.white1),
         ),
         const SizedBox(height: 8),
         TextLink(

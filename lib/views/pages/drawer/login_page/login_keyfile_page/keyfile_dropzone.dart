@@ -44,7 +44,7 @@ class _KeyfileDropzone extends State<KeyfileDropzone> {
       decoration: BoxDecoration(
         border: Border.all(
           width: 1,
-          color: errorMessage != null ? DesignColors.red_100 : DesignColors.blue1_100,
+          color: errorMessage != null ? DesignColors.redStatus1 : DesignColors.white1,
         ),
         borderRadius: BorderRadius.circular(8),
       ),
@@ -122,7 +122,7 @@ class _KeyfileDropzone extends State<KeyfileDropzone> {
     return Center(
       child: Text(
         'Drop file'.toUpperCase(),
-        style: textTheme.bodyText2!.copyWith(color: DesignColors.blue1_100),
+        style: textTheme.bodyText2!.copyWith(color: DesignColors.white1),
       ),
     );
   }
@@ -137,7 +137,7 @@ class _KeyfileDropzone extends State<KeyfileDropzone> {
         Text(
           'Please drop Keyfile here',
           style: textTheme.bodyText2!.copyWith(
-            color: DesignColors.gray3_100,
+            color: DesignColors.white1,
           ),
         ),
         Wrap(
@@ -147,7 +147,7 @@ class _KeyfileDropzone extends State<KeyfileDropzone> {
             Text(
               'or ',
               style: textTheme.bodyText2!.copyWith(
-                color: DesignColors.gray3_100,
+                color: DesignColors.white1,
               ),
             ),
             TextLink(
@@ -170,7 +170,7 @@ class _KeyfileDropzone extends State<KeyfileDropzone> {
       children: <Widget>[
         const Icon(
           Icons.insert_drive_file,
-          color: DesignColors.gray2_100,
+          color: DesignColors.white1,
           size: 50,
         ),
         const SizedBox(width: 8),
@@ -184,7 +184,7 @@ class _KeyfileDropzone extends State<KeyfileDropzone> {
                 actualFile!.name,
                 overflow: TextOverflow.ellipsis,
                 style: textTheme.bodyText2!.copyWith(
-                  color: DesignColors.gray3_100,
+                  color: DesignColors.white2,
                 ),
               ),
               if (errorMessage == null)
@@ -192,7 +192,7 @@ class _KeyfileDropzone extends State<KeyfileDropzone> {
                   actualFile!.sizeString,
                   overflow: TextOverflow.ellipsis,
                   style: textTheme.bodyText2!.copyWith(
-                    color: DesignColors.gray2_100,
+                    color: DesignColors.white1,
                   ),
                 )
               else
@@ -200,7 +200,7 @@ class _KeyfileDropzone extends State<KeyfileDropzone> {
                   errorMessage!,
                   overflow: TextOverflow.ellipsis,
                   style: textTheme.bodyText2!.copyWith(
-                    color: DesignColors.red_100,
+                    color: DesignColors.redStatus1,
                   ),
                 ),
             ],

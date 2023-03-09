@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:just_the_tooltip/just_the_tooltip.dart';
+import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/views/widgets/generic/mouse_state_listener.dart';
 import 'package:miro/views/widgets/generic/pop_wrapper/pop_wrapper.dart';
 import 'package:miro/views/widgets/generic/pop_wrapper/pop_wrapper_controller.dart';
@@ -31,7 +32,6 @@ class PopWrapperDesktop extends StatefulWidget {
 }
 
 class _PopWrapperDesktop extends State<PopWrapperDesktop> {
-
   @override
   void initState() {
     super.initState();
@@ -60,10 +60,11 @@ class _PopWrapperDesktop extends State<PopWrapperDesktop> {
         decoration: BoxDecoration(
           color: Theme.of(context).scaffoldBackgroundColor,
           borderRadius: BorderRadius.circular(8),
+          border: Border.all(color: DesignColors.grey3),
           boxShadow: const <BoxShadow>[
             BoxShadow(
-              color: Colors.black45,
-              spreadRadius: 5,
+              color: DesignColors.greyTransparent,
+              spreadRadius: 3,
               blurRadius: 7,
               offset: Offset.zero,
             ),

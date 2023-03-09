@@ -32,11 +32,11 @@ class _ValidatorsPage extends State<ValidatorsPage> {
     Widget listHeaderWidget = ValidatorListItemDesktopLayout(
       height: 64,
       favouriteButtonWidget: const SizedBox(),
-      topWidget: Text('Top', style: textTheme.caption!.copyWith(color: DesignColors.gray2_100)),
-      monikerWidget: Text('Moniker', style: textTheme.caption!.copyWith(color: DesignColors.gray2_100)),
-      statusWidget: Text('Status', style: textTheme.caption!.copyWith(color: DesignColors.gray2_100)),
-      uptimeWidget: Text('Uptime', style: textTheme.caption!.copyWith(color: DesignColors.gray2_100)),
-      streakWidget: Text('Streak', style: textTheme.caption!.copyWith(color: DesignColors.gray2_100)),
+      topWidget: Text('Top', style: textTheme.caption!.copyWith(color: DesignColors.white1)),
+      monikerWidget: Text('Moniker', style: textTheme.caption!.copyWith(color: DesignColors.white1)),
+      statusWidget: Text('Status', style: textTheme.caption!.copyWith(color: DesignColors.white1)),
+      uptimeWidget: Text('Uptime', style: textTheme.caption!.copyWith(color: DesignColors.white1)),
+      streakWidget: Text('Streak', style: textTheme.caption!.copyWith(color: DesignColors.white1)),
     );
 
     return CustomScrollView(

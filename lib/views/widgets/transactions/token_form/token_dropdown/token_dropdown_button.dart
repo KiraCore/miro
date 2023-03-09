@@ -37,7 +37,7 @@ class TokenDropdownButton extends StatelessWidget {
                 Text(
                   tokenAliasModel?.defaultTokenDenominationModel.name ?? '---',
                   style: textTheme.bodyText1!.copyWith(
-                    color: DesignColors.white_100,
+                    color: DesignColors.white1,
                   ),
                 ),
               ],
@@ -46,7 +46,7 @@ class TokenDropdownButton extends StatelessWidget {
         ),
         const Icon(
           AppIcons.check,
-          color: DesignColors.gray2_100,
+          color: DesignColors.white1,
           size: 16,
         ),
       ],

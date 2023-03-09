@@ -43,7 +43,7 @@ class BalanceListItemDesktopTitle extends StatelessWidget {
           child: Text(
             balanceModel.tokenAmountModel.tokenAliasModel.defaultTokenDenominationModel.name,
             style: textTheme.bodyText1!.copyWith(
-              color: DesignColors.gray2_100,
+              color: DesignColors.white2,
             ),
           ),
         ),
@@ -53,7 +53,7 @@ class BalanceListItemDesktopTitle extends StatelessWidget {
           child: Text(
             balanceModel.tokenAmountModel.getAmountInDefaultDenomination().toString(),
             style: textTheme.subtitle1!.copyWith(
-              color: DesignColors.white_100,
+              color: DesignColors.white1,
             ),
           ),
         ),

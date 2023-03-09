@@ -50,13 +50,13 @@ class _StarButton extends State<StarButton> {
     if (selected) {
       return Icon(
         AppIcons.star,
-        color: DesignColors.yellow_100,
+        color: DesignColors.white1,
         size: widget.size,
       );
     }
     return Icon(
       AppIcons.star_outlined,
-      color: DesignColors.gray2_100,
+      color: DesignColors.accent,
       size: widget.size,
     );
   }

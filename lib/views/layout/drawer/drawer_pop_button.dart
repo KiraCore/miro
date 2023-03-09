@@ -15,7 +15,7 @@ class DrawerPopButton extends StatelessWidget {
     required this.onClose,
     required this.onPop,
     this.size = 24,
-    this.color = DesignColors.gray2_100,
+    this.color = DesignColors.white1,
     Key? key,
   }) : super(key: key);
 

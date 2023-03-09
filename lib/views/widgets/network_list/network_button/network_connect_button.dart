@@ -25,18 +25,24 @@ class NetworkConnectButton extends StatelessWidget {
           child: OutlinedButton(
             onPressed: onPressed,
             style: ButtonStyle(
-              shape: MaterialStateProperty.all(const RoundedRectangleBorder(
-                side: BorderSide(color: DesignColors.darkGreen_100),
+              overlayColor: MaterialStateProperty.resolveWith(_setOverlayColor),
+              side: MaterialStateProperty.all(const BorderSide(color: DesignColors.greyOutline)),
+              shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(5.0),
               )),
             ),
             child: Text('Connect'.toUpperCase(),
                 style: textTheme.button!.copyWith(
-                  color: DesignColors.white_100,
+                  color: DesignColors.white1,
                   fontWeight: FontWeight.w500,
                 )),
           ),
         ),
       ],
     );
+  }
+
+  Color _setOverlayColor(Set<MaterialState> states) {
+    return DesignColors.greyHover1;
   }
 }

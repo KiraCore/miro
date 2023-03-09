@@ -33,7 +33,7 @@ class TxInputPreview extends StatelessWidget {
               Text(
                 label,
                 style: textTheme.caption!.copyWith(
-                  color: DesignColors.gray2_100,
+                  color: DesignColors.accent,
                 ),
               ),
               const SizedBox(height: 8),
@@ -42,7 +42,7 @@ class TxInputPreview extends StatelessWidget {
                 style: TextStyle(
                   fontSize: large ? 22 : 16,
                   fontWeight: large ? FontWeight.w500 : FontWeight.w400,
-                  color: DesignColors.white_100,
+                  color: DesignColors.white1,
                 ),
               ),
             ],

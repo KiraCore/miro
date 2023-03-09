@@ -31,6 +31,7 @@ class KiraOutlinedButton extends StatelessWidget {
         childBuilder: (Set<MaterialState> states) {
           return Container(
             decoration: BoxDecoration(
+              color: _getBackgroundColor(states),
               border: Border.all(
                 color: _getBorderColor(states),
                 width: 1,
@@ -44,7 +45,7 @@ class KiraOutlinedButton extends StatelessWidget {
                 title.toUpperCase(),
                 textAlign: TextAlign.center,
                 style: textTheme.button!.copyWith(
-                  color: DesignColors.white_100,
+                  color: DesignColors.white1,
                 ),
               ),
             ),
@@ -56,8 +57,15 @@ class KiraOutlinedButton extends StatelessWidget {
 
   Color _getBorderColor(Set<MaterialState> states) {
     if (states.contains(MaterialState.hovered)) {
-      return DesignColors.gray3_100;
+      return DesignColors.white1;
     }
-    return borderColor ?? DesignColors.gray2_100;
+    return borderColor ?? DesignColors.greyOutline;
+  }
+
+  Color _getBackgroundColor(Set<MaterialState> states) {
+    if (states.contains(MaterialState.hovered)) {
+      return DesignColors.greyHover1;
+    }
+    return Colors.transparent;
   }
 }

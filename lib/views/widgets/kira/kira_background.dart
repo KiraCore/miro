@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:miro/generated/assets.dart';
+import 'package:miro/config/theme/design_colors.dart';
 
 class KiraBackground extends StatelessWidget {
   final Widget child;
@@ -13,10 +13,7 @@ class KiraBackground extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage(Assets.imagesBackground),
-          fit: BoxFit.fill,
-        ),
+        color: DesignColors.background,
       ),
       child: child,
     );
