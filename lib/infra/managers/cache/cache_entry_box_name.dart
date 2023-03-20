@@ -1,0 +1,4 @@
+enum CacheEntryBoxName {
+  favourites,
+  config,
+}

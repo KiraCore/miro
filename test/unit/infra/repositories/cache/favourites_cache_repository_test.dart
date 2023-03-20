@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:miro/infra/managers/cache/cache_entry_key.dart';
+import 'package:miro/infra/managers/cache/cache_entry_box_name.dart';
 import 'package:miro/infra/managers/cache/i_cache_manager.dart';
 import 'package:miro/infra/managers/cache/impl/memory_cache_manager.dart';
 import 'package:miro/infra/repositories/cache/favourites_cache_repository.dart';
@@ -12,7 +12,7 @@ import 'package:miro/test/utils/test_utils.dart';
 Future<void> main() async {
   await initMockLocator();
 
-  String actualHiveKey = CacheEntryKey.favourites.name;
+  String actualHiveKey = CacheEntryBoxName.favourites.name;
   String actualConfigKey = 'test';
 
   late ICacheManager actualCacheManager;

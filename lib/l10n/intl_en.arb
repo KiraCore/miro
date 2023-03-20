@@ -1,5 +1,6 @@
 {
   "@@locale": "en",
+  "language": "English",
   "kiraNetwork": "Kira Network",
 
   "balances": "Balances",
@@ -424,14 +425,21 @@
     }
   },
   "validatorsHintSearch": "Search validators",
+  "validatorsList": "List of Validators",
+  "validatorsDropdownAll": "All",
   "validatorsTotal": "Total",
   "validatorsActive": "Active",
   "validatorsInactive": "Inactive",
   "validatorsJailed": "Jailed",
   "validatorsPaused": "Paused",
   "validatorsWaiting": "Waiting",
-  "validatorsList": "List of Validators",
-  "validatorsDropdownAll": "All",
+
+  "validatorActive": "Active",
+  "validatorInactive": "Inactive",
+  "validatorJailed": "Jailed",
+  "validatorPaused": "Paused",
+  "validatorWaiting": "Waiting",
+
   "validatorsTableTop": "Top",
   "validatorsTableMoniker": "Moniker",
   "validatorsTableStatus": "Status",

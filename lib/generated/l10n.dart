@@ -47,6 +47,16 @@ class S {
     return Localizations.of<S>(context, S);
   }
 
+  /// `English`
+  String get language {
+    return Intl.message(
+      'English',
+      name: 'language',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Kira Network`
   String get kiraNetwork {
     return Intl.message(
@@ -2997,6 +3007,26 @@ class S {
     );
   }
 
+  /// `List of Validators`
+  String get validatorsList {
+    return Intl.message(
+      'List of Validators',
+      name: 'validatorsList',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `All`
+  String get validatorsDropdownAll {
+    return Intl.message(
+      'All',
+      name: 'validatorsDropdownAll',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Total`
   String get validatorsTotal {
     return Intl.message(
@@ -3057,21 +3087,51 @@ class S {
     );
   }
 
-  /// `List of Validators`
-  String get validatorsList {
+  /// `Active`
+  String get validatorActive {
     return Intl.message(
-      'List of Validators',
-      name: 'validatorsList',
+      'Active',
+      name: 'validatorActive',
       desc: '',
       args: [],
     );
   }
 
-  /// `All`
-  String get validatorsDropdownAll {
+  /// `Inactive`
+  String get validatorInactive {
     return Intl.message(
-      'All',
-      name: 'validatorsDropdownAll',
+      'Inactive',
+      name: 'validatorInactive',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Jailed`
+  String get validatorJailed {
+    return Intl.message(
+      'Jailed',
+      name: 'validatorJailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Paused`
+  String get validatorPaused {
+    return Intl.message(
+      'Paused',
+      name: 'validatorPaused',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Waiting`
+  String get validatorWaiting {
+    return Intl.message(
+      'Waiting',
+      name: 'validatorWaiting',
       desc: '',
       args: [],
     );
@@ -3414,6 +3474,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
   List<Locale> get supportedLocales {
     return const <Locale>[
       Locale.fromSubtags(languageCode: 'en'),
+      Locale.fromSubtags(languageCode: 'pl'),
     ];
   }
 

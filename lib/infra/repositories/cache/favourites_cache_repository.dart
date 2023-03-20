@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:miro/config/locator.dart';
-import 'package:miro/infra/managers/cache/cache_entry_key.dart';
+import 'package:miro/infra/managers/cache/cache_entry_box_name.dart';
 import 'package:miro/infra/managers/cache/i_cache_manager.dart';
 
 /// Current architecture of FavouritesCacheRepository:
@@ -16,7 +16,7 @@ import 'package:miro/infra/managers/cache/i_cache_manager.dart';
 ///   balances: ['ukex', 'samolean'],
 /// }
 class FavouritesCacheRepository {
-  static const CacheEntryKey _cacheEntryKey = CacheEntryKey.favourites;
+  static const CacheEntryBoxName _cacheEntryBoxName = CacheEntryBoxName.favourites;
   final ICacheManager _cacheManager;
 
   FavouritesCacheRepository({
@@ -35,7 +35,7 @@ class FavouritesCacheRepository {
 
   Set<String> getAll(String domainName) {
     String result = _cacheManager.get<String>(
-      boxName: _cacheEntryKey.name,
+      boxName: _cacheEntryBoxName.name,
       key: domainName,
       defaultValue: '',
     );
@@ -49,7 +49,7 @@ class FavouritesCacheRepository {
   // Save values as a [List] converted to [String] because [Set] is not a json encodable object
   Future<void> _saveInCache(String domainName, Set<String> values) async {
     await _cacheManager.add<String>(
-      boxName: _cacheEntryKey.name,
+      boxName: _cacheEntryBoxName.name,
       key: domainName,
       value: jsonEncode(values.toList()),
     );

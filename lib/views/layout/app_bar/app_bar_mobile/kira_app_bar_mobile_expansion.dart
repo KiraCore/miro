@@ -3,6 +3,7 @@ import 'package:miro/views/layout/app_bar/current_network_button.dart';
 import 'package:miro/views/layout/nav_menu/model/nav_item_model.dart';
 import 'package:miro/views/layout/nav_menu/nav_menu.dart';
 import 'package:miro/views/layout/report_issues_button.dart';
+import 'package:miro/views/widgets/kira/kira_list/components/language_dropdown/language_dropdown.dart';
 
 class KiraAppBarMobileExpansion extends StatelessWidget {
   final List<NavItemModel> navItemModelList;
@@ -24,6 +25,11 @@ class KiraAppBarMobileExpansion extends StatelessWidget {
             const SizedBox(height: 30),
             NavMenu(navItemModelList: navItemModelList),
             const SizedBox(height: 30),
+            const Align(
+              alignment: Alignment.centerLeft,
+              child: LanguageDropdown(),
+            ),
+            const SizedBox(height: 10),
             const ReportIssuesButton(),
             const SizedBox(height: 40),
           ],

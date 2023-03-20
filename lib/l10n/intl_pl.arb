@@ -1,0 +1,329 @@
+{
+  "@@locale": "pl",
+  "language": "Polski",
+  "kiraNetwork": "Kira Network",
+
+  "balances": "Zasoby",
+  "balancesButtonPay": "Zapłać",
+  "balancesButtonRequest": "Generuj QR",
+  "balancesName": "Nazwa",
+  "balancesAmount": "Kwota",
+  "balancesDenomination": "Denominacja",
+  "balancesSend": "Wyślij",
+  "balancesHideSmall": "Ukryj niskie zasoby",
+  "balancesLastBlockTime": "Czas ostatniego bloku: ",
+  "balancesSearch": "Szukaj zasobów",
+  "balancesTimeSinceBlock": " ({time} minut temu)",
+  "@balancesTimeSinceBlock": {
+    "placeholders": {
+      "time": {
+        "type": "int"
+      }
+    }
+  },
+
+  "blocks": "Bloki",
+  "blocksCurrentHeight": "Aktualna wysokość",
+  "blocksSinceGenesis": "Od początku",
+  "blocksPendingTransactions": "Transakcje w toku",
+  "blocksCurrentTransactions": "Aktualne transakcje",
+  "blocksLatestTime": "Ostatni czas",
+  "blocksAverageTime": "Średni czas",
+
+  "consensus": "Konsensus",
+  "consensusHealthy": "Zdrowy",
+  "consensusUnhealthy": "Niezdrowy",
+  "consensusCurrentBlockValidator": "Aktualny walidator bloków",
+  "consensusState": "Stan konsensusu",
+
+  "connectWallet": "Podłącz portfel",
+  "connectWalletButtonSignIn": "Zaloguj się",
+  "connectWalletOptions": "Wybierz jedną z poniższych opcji:",
+  "connectWalletConnecting": "Łączenie z kontem...",
+
+  "createWalletTitle": "Utwórz portfel",
+  "createWalletButton": "Utwórz nowy portfel",
+  "createWalletButtonGenerateAddress": "Generuj\nnowy adres",
+  "createWalletAddress": "Twój adres publiczny:",
+  "createWalletAddressGenerating": "Generowanie...",
+  "createWalletAcknowledgement": "Rozumiem, że w przypadku utraty Mnemoniki lub Keyfile'a, dostęp do konta zostanie na zawsze utracony.",
+  "createWalletDontHave": "Nie masz portfela?",
+
+  "ir": "Rejestr Tożsamości",
+  "irEntries": "Pozycje",
+  "irAvatar": "Awatar",
+  "irUsername": "Nazwa użytkownika",
+  "irDescription": "Opis",
+  "irSocialMedia": "Social media",
+  "irAddCustomEntry": "Dodaj własną pozycję",
+
+  "irRecordAdd": "Dodaj",
+  "irRecordDelete": "Usuń",
+  "irRecordEdit": "Edytuj",
+  "irRecordVerify": "Zweryfikuj",
+
+  "irRecordStatus": "Status",
+  "irRecordStatusVerified": "Zweryfikowano",
+  "irRecordStatusNotVerified": "Nie zweryfikowano",
+  "irRecordStatusPending": "W trakcie",
+
+  "keyfile": "Keyfile",
+  "keyfileButtonDownload": "Pobierz",
+  "keyfileErrorPasswordEmpty": "Pola nie mogą być puste",
+  "keyfileErrorPasswordMatch": "Hasła się nie zgadzają",
+  "keyfileHintPassword": "Hasło",
+  "keyfileHintRepeatPassword": "Powtórz hasło",
+  "keyfileTip": "Keyfile to plik, który zawiera zaszyfrowane dane.",
+  "keyfileTipSecretData": "Keyfile zawiera Twoje poufne dane",
+  "keyfileTitleDownload": "Pobierz Keyfile",
+  "keyfileWarning": "Nie będziesz mieć możliwości pobrania go ponownie",
+  "keyfileSignIn": "Zaloguj się Keyfile'em",
+  "keyfileToDropzone": "Przeciągnij Keyfile do tego pola",
+  "keyfileDropHere": "Przeciągnij plik do okna poniżej",
+  "keyfileEnterPassword": "Wpisz hasło",
+  "keyfileCannotBeEmpty": "Keyfile nie może być pusty",
+  "keyfileInvalid": "Nieprawidłowy plik",
+  "keyfileWrongPassword": "Nieprawidłowe hasło",
+  "keyfileCreatePassword": "Utwórz hasło do Keyfile'a",
+  "keyfileDropFile": "Przeciągnij plik",
+
+  "mnemonic": "Mnemonik",
+  "mnemonicErrorUnexpected": "Coś poszło nie tak",
+  "mnemonicErrorEnterCorrect": "Musisz wpisać Mnemonik poprawnie, aby się zalogować",
+  "mnemonicErrorInvalid": "Nieprawidłowy mnemonik",
+  "mnemonicErrorInvalidEntropy": "Nieprawidłowa entropia",
+  "mnemonicErrorInvalidChecksum": "Nieprawidłowa suma",
+  "mnemonicErrorTooShort": "Mnemonik zbyt krótki",
+  "mnemonicToastCopied": "Pomyślnie skopiowano mnemonik",
+  "mnemonicSignIn": "Zaloguj się Mnemonikiem",
+  "mnemonicEnter": "Wpisz Mnemonik",
+  "mnemonicIsYourSecretData": "Mnemonik zawiera Twoje poufne dane",
+
+  "mnemonicWordsButtonCopy": "Kopiuj mnemonik",
+  "mnemonicWordsTip": "Mnemonik (“mnemonic code”, “seed phrase”, “seed words”)\nSposób przedstawienia dużej, losowo wygenerowanej liczby jako ciągu słów,\nułatwiając użytkownikowi przechowywanie tej liczby.",
+  "mnemonicWordsWarning": "Nie będziesz mieć możliwości wyświetlenia go ponownie",
+  "mnemonicWordsReveal": "Pokaż Mnemonik",
+
+  "mnemonicQrTip": "Wygenerowany kod QR reprezentuje wartość Mnemonika.",
+  "mnemonicQrWarning": "Nie będziesz mieć możliwości wyświetlenia go ponownie",
+  "mnemonicQrReveal": "Pokaż Mnemonik jako kod QR",
+
+  "myAccount": "Moje konto",
+  "myAccountSettings": "Ustawienia",
+  "myAccountSignOut": "Wyloguj się",
+
+  "networkButtonCancelConnection": "Przerwij połączenie",
+  "networkButtonConnect": "Połącz",
+  "networkButtonConnected": "Połączono",
+  "networkButtonCheckConnection": "Sprawdź połączenie",
+  "networkButtonConnecting": "Łączenie...",
+  "networkButtonArrowTip": "Przejdź do następnej strony",
+  "networkErrorUndefinedName": "nie zdefiniowano",
+  "networkErrorCannotConnect": "Nie można połączyć z serwerem",
+  "networkErrorAddressEmpty": "Pola nie mogą być puste",
+  "networkErrorAddressInvalid": "Nieprawidłowy adres sieci",
+  "networkHintCustomAddress": "Niestandardowy adres",
+  "networkWarningIncompatible": "Aplikacja nie jest kompatybilna z tym serwerem. Niektóre sekcje mogą nie działać poprawnie.",
+  "networkWarningWhenLastBlock": "Ostatni dostępny blok na tym interx został utworzony {latestBlockTime}. Wyświetlane dane mogą być nieaktualne.",
+  "@networkWarningWhenLastBlock": {
+    "placeholders": {
+      "latestBlockTime": {
+        "type": "String"
+      }
+    }
+  },
+  "networkSelectServers": "Wybierz dostępne serwery",
+  "networkConnectionCancelled": "Przerwano połączenie",
+  "networkConnectionEstablished": "Połączono",
+  "networkProblemReason": "Powód: Znaleziono problemy z serwerem, z którym próbujesz się połączyć",
+  "networkServerToConnect": "Serwer do którego próbujesz się połączyć:",
+  "networkBlockTime": "Czas utworzenia bloku",
+  "networkBlockHeight": "Wysokość bloku",
+  "networkOtherServers": "Inne dostępne serwery:",
+  "networkNoAvailable": "Brak dostępnych sieci",
+  "networkSwitchCustomAddress": "Niestandardowy adres",
+  "networkCheckedConnection": "Sprawdzany serwer",
+  "networkServerOfflineReason": "Powód: Serwer jest offline",
+  "networkServerOffline": "Wybrany serwer jest offline\nProszę wybrać inny serwer",
+  "networkChoose": "Wybierz sieć",
+  "networkList": "Lista sieci",
+  "networkHowManyProblems": "{errorsCount, plural, one{Znaleziono {errorsCount} problem z serwerem} few{Znaleziono {errorsCount} problemy z serwerem} other{Znaleziono {errorsCount} problemów z serwerem}}",
+  "@networkHowManyProblems": {
+    "placeholders": {
+      "errorsCount": {
+        "type": "int"
+      }
+    }
+  },
+  "networkConnectingTo": "Łączenie z <{networkName}>{separator} Proszę czekać... {parsedRemainingTime}",
+  "@networkConnectingTo": {
+    "placeholders": {
+      "separator": {
+        "type": "String"
+      },
+      "networkName": {
+        "type": "String"
+      },
+      "parsedRemainingTime": {
+        "type": "String"
+      }
+    }
+  },
+
+  "paginatedListPageSize": "Ilość wyników",
+
+  "proposals": "Wnioski",
+  "proposalsActive": "Aktywne",
+  "proposalsEnacting": "Uchwalane",
+  "proposalsFinished": "Zakończone",
+  "proposalsSuccessful": "Pomyślne",
+  "proposalsProposers": "Proponenci",
+  "proposalsVoters": "Głosujący",
+
+  "tx": "Transakcje",
+  "txButtonSendAll": "Wyślij wszystkie",
+  "txButtonClear": "Wyczyść",
+  "txButtonNext": "Następny",
+  "txButtonEdit": "Edytuj",
+  "txButtonConfirmSend": "Potwierdź i wyślij",
+  "txButtonBackToAccount": "Powrót do konta",
+  "txButtonEditTransaction": "Edytuj transakcję",
+  "txErrorNotEnoughTokens": "Niewystarczająca ilość tokenów",
+  "txErrorCannotCreate": "Nie można utworzyć transakcji. Proszę sprawdzić połączenie z siecią.",
+  "txErrorCannotFetchDetails": "Cannot fetch transaction details. Check your internet connection.",
+  "txErrorEnterValidAddress": "Proszę wpisać poprawny adres",
+  "txErrorFailed": "Transakcja nie powiodła się",
+  "txErrorSeeMore": "Dowiedz się więcej w Explorerze",
+  "txErrorHttpRequest": "Zapytanie",
+  "txErrorHttpResponse": "Odpowiedź",
+  "txHintSendFrom": "Wyślij od",
+  "txHintSendTo": "Wyślij do",
+  "txHintMemo": "Memo",
+  "txNoticeFee": "Opłata za transakcję {widgetFeeTokenAmountModel}",
+  "@txNoticeFee": {
+    "placeholders": {
+      "widgetFeeTokenAmountModel": {
+        "type": "String"
+      }
+    }
+  },
+  "txTryAgain": "Spróbuj ponownie",
+  "txFetchingRemoteData": "Pobieranie danych z serwera. Proszę czekać...",
+  "txSendTokens": "Wyślij tokeny",
+  "txTotalAmount": "Łączna kwota",
+  "txRecipientWillGet": "Odbiorca otrzyma",
+  "txSigning": "Podpisywanie transakcji",
+  "txSearchTokens": "Szukaj tokenów",
+  "txConfirm": "Potwierdź transakcję",
+  "txIsBeingBroadcast": "Twoja transakcja jest przetwarzana",
+  "txWarningDoNotCloseWindow": "Nie zamykaj tego okna",
+  "txCompleted": "Transakcja zakończona",
+  "txToastHashCopied": "Hash transakcji skopiowany do schowka",
+  "txToken": "Token",
+  "txPleaseSelectToken": "Proszę wybrać token",
+  "txHash": "Hash transakcji: 0x{hash}",
+  "@txHash": {
+    "placeholders": {
+      "hash": {
+        "type": "String"
+      }
+    }
+  },
+  "txAvailableBalances": "Dostępne: {availableAmountText} {tokenDenominationModelName}",
+  "@txAvailableBalances": {
+    "placeholders": {
+      "availableAmountText": {
+        "type": "String"
+      },
+      "tokenDenominationModelName": {
+        "type": "String"
+      }
+    }
+  },
+  "txPreviewUnavailable": "Podgląd dla ${txMsgType} niedostępny",
+  "@txPreviewUnavailable": {
+    "placeholders": {
+      "txMsgType": {
+        "type": "String"
+      }
+    }
+  },
+
+  "txMsgRegisterIdentityRecords": "Zarejestruj rekordy tożsamości",
+  "txMsgCancelIdentityRecordsVerifyRequest": "Anuluj wniosek o weryfikację",
+  "txMsgDeleteIdentityRecords": "Usuń rekordy tożsamości",
+  "txMsgHandleIdentityRecordsVerifyRequest": "Obsłuż wniosek o weryfikację",
+  "txMsgRequestIdentityRecordsVerify": "Wnioskuj o weryfikację",
+  "txMsgSendSendTokens": "Wyślij",
+  "txMsgSendReceiveTokens": "Odbierz",
+  "txMsgUndefined": "Nieznany rodzaj transakcji",
+  "txMsgMulti": "Multi transakcja",
+
+  "txListDetails": "Szczegóły",
+  "txListHash": "Hash transakcji",
+  "txListStatus": "Status",
+  "txListDate": "Data",
+
+  "txListAmount": "Kwota",
+  "txListAmountPlusMore": "+ {amount} więcej",
+  "txListAmountPlusFees": "+ opłata",
+  "txListAmountFeesOnly": "Tylko opłaty",
+
+  "txListStatusConfirmed": "Potwierdzono",
+  "txListStatusPending": "W trakcie",
+  "txListStatusFailed": "Odrzucono",
+
+  "validators": "Walidatorzy",
+  "validatorsButtonFilter": "{selected} wybrano",
+  "@validatorsButtonFilter": {
+    "placeholders": {
+      "selected": {
+        "type": "int"
+      }
+    }
+  },
+  "validatorsHintSearch": "Szukaj walidatorów",
+  "validatorsList": "Lista Walidatorów",
+  "validatorsDropdownAll": "Wszyscy",
+  "validatorsTotal": "Wszystkich",
+  "validatorsActive": "Aktywni",
+  "validatorsInactive": "Nieaktywni",
+  "validatorsJailed": "Zablokowani",
+  "validatorsPaused": "Zatrzymani",
+  "validatorsWaiting": "Oczekujący",
+
+  "validatorActive": "Aktywny",
+  "validatorInactive": "Nieaktywny",
+  "validatorJailed": "Zablokowany",
+  "validatorPaused": "Zatrzymany",
+  "validatorWaiting": "Oczekujący",
+
+  "validatorsTableTop": "Pozycja",
+  "validatorsTableMoniker": "Moniker",
+  "validatorsTableStatus": "Status",
+  "validatorsTableUptime": "Czas działania",
+  "validatorsTableStreak": "Bezawaryjna seria",
+
+  "buttonReportIssues": "Zgłoś problem",
+  "error": "Błąd",
+  "errorUndefined": "Niezdefiniowany błąd",
+  "errorUnknown": "Nieznany błąd",
+  "errorExplorer": "Eksplorator błędów",
+  "errorNoResults": "Brak wyników",
+  "errorCannotFetchData": "Nie można pobrać danych",
+  "errorPreviewNotAvailable": "Podgląd niedostępny",
+
+  "toastSuccessfullyCopied": "Pomyślnie skopiowano",
+  "toastPublicAddressCopied": "Adres publiczny skopiowany do schowka",
+  "toastHashCopied": "Hash pomyślnie skopiowano",
+  "toastCannotLoadDashboard": "Nie można załadować strony. Sprawdź swoje połączenie z siecią.",
+
+  "dashboard": "Panel",
+  "governance": "Komitet",
+  "accounts": "Konta",
+  "sortBy": "Sortuj według",
+  "sec": "sek.",
+  "copy": "Kopiuj",
+  "or": "lub ",
+  "browse": "przeglądaj"
+}

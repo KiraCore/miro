@@ -262,6 +262,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "keyfileWarning": MessageLookupByLibrary.simpleMessage(
             "You won’t be able to download it again"),
         "kiraNetwork": MessageLookupByLibrary.simpleMessage("Kira Network"),
+        "language": MessageLookupByLibrary.simpleMessage("English"),
         "mnemonic": MessageLookupByLibrary.simpleMessage("Mnemonic"),
         "mnemonicEnter":
             MessageLookupByLibrary.simpleMessage("Enter your Mnemonic"),
@@ -570,6 +571,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "unstakedLabelLockedUntil":
             MessageLookupByLibrary.simpleMessage("Locked until"),
         "validator": MessageLookupByLibrary.simpleMessage("Validator"),
+        "validatorActive": MessageLookupByLibrary.simpleMessage("Active"),
+        "validatorInactive": MessageLookupByLibrary.simpleMessage("Inactive"),
+        "validatorJailed": MessageLookupByLibrary.simpleMessage("Jailed"),
+        "validatorPaused": MessageLookupByLibrary.simpleMessage("Paused"),
+        "validatorWaiting": MessageLookupByLibrary.simpleMessage("Waiting"),
         "validators": MessageLookupByLibrary.simpleMessage("Validators"),
         "validatorsAbout":
             MessageLookupByLibrary.simpleMessage("About Validator"),

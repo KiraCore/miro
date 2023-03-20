@@ -4,6 +4,7 @@ import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/views/layout/app_bar/account_button/account_button.dart';
 import 'package:miro/views/layout/app_bar/current_network_button.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_value.dart';
+import 'package:miro/views/widgets/kira/kira_list/components/language_dropdown/language_dropdown.dart';
 
 class KiraAppBarDesktop extends StatelessWidget {
   final double height;
@@ -27,6 +28,8 @@ class KiraAppBarDesktop extends StatelessWidget {
       child: Row(
         children: <Widget>[
           const Spacer(),
+          const LanguageDropdown(),
+          const SizedBox(width: 16),
           CurrentNetworkButton(size: const Size(192, 48)),
           const SizedBox(width: 16),
           AccountButton(),

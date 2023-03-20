@@ -1,3 +1,4 @@
+import 'package:miro/blocs/generic/app_config/app_config_cubit.dart';
 import 'package:miro/blocs/generic/auth/auth_cubit.dart';
 import 'package:miro/blocs/generic/identity_registrar/identity_registrar_cubit.dart';
 import 'package:miro/blocs/generic/network_module/network_module_bloc.dart';
@@ -78,6 +79,7 @@ void _initServices() {
 
 void _initControllers() {
   globalLocator
+    ..registerLazySingleton<AppConfigCubit>(AppConfigCubit.new)
     ..registerLazySingleton<AuthCubit>(AuthCubit.new)
     ..registerLazySingleton<DrawerCubit>(DrawerCubit.new)
     ..registerLazySingleton<GlobalNavController>(GlobalNavController.new)
