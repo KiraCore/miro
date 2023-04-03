@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:miro/blocs/specific_blocs/auth/auth_cubit.dart';
 import 'package:miro/config/locator.dart';
-import 'package:miro/providers/wallet_provider.dart';
 import 'package:miro/shared/exceptions/invalid_keyfile_exception.dart';
 import 'package:miro/shared/exceptions/invalid_password_exception.dart';
 import 'package:miro/shared/models/wallet/keyfile.dart';
@@ -26,6 +26,7 @@ class LoginKeyfilePage extends StatefulWidget {
 }
 
 class _LoginKeyfilePage extends State<LoginKeyfilePage> {
+  final AuthCubit authCubit = globalLocator<AuthCubit>();
   final KiraTextFieldController keyfilePasswordController = KiraTextFieldController();
   final KeyfileDropzoneController dropZoneController = KeyfileDropzoneController();
 
@@ -57,7 +58,7 @@ class _LoginKeyfilePage extends State<LoginKeyfilePage> {
         ),
         const SizedBox(height: 24),
         KiraElevatedButton(
-          onPressed: _onLoginButtonPressed,
+          onPressed: _pressSignInButton,
           title: 'Sign in',
         ),
         const SizedBox(height: 32),
@@ -103,14 +104,14 @@ class _LoginKeyfilePage extends State<LoginKeyfilePage> {
     return null;
   }
 
-  void _onLoginButtonPressed() {
+  void _pressSignInButton() {
     bool keyfileValid = dropZoneController.validate() == null;
     keyfilePasswordController.validate();
     bool passwordValid = keyfilePasswordController.errorNotifier.value == null;
 
     if (keyfileValid && passwordValid) {
       Wallet wallet = _getWalletFromKeyFileString(dropZoneController.dropzoneController.currentFile!.content);
-      globalLocator<WalletProvider>().updateWallet(wallet);
+      authCubit.signIn(wallet);
       KiraScaffold.of(context).closeEndDrawer();
     }
   }

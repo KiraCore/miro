@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:miro/blocs/specific_blocs/auth/auth_cubit.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';
-import 'package:miro/providers/wallet_provider.dart';
 import 'package:miro/shared/router/kira_router.dart';
 import 'package:miro/shared/router/router.gr.dart';
 import 'package:miro/views/widgets/generic/mouse_state_listener.dart';
 
 class AccountMenuList extends StatelessWidget {
+  final AuthCubit authCubit = globalLocator<AuthCubit>();
   final VoidCallback? onItemTap;
 
-  const AccountMenuList({
+  AccountMenuList({
     this.onItemTap,
     Key? key,
   }) : super(key: key);
@@ -29,8 +30,8 @@ class AccountMenuList extends StatelessWidget {
           title: 'Settings',
         ),
         _MenuListTile(
-          onTap: () => _onLogout(context),
-          title: 'Log Out',
+          onTap: () => _pressSignOutButton(context),
+          title: 'Sign Out',
           color: DesignColors.redStatus1,
         ),
       ],
@@ -44,11 +45,11 @@ class AccountMenuList extends StatelessWidget {
     KiraRouter.of(context).navigate(const MyAccountRoute());
   }
 
-  void _onLogout(BuildContext context) {
+  void _pressSignOutButton(BuildContext context) {
     if (onItemTap != null) {
       onItemTap!();
     }
-    globalLocator<WalletProvider>().logout(context);
+    authCubit.signOut();
     KiraRouter.of(context).navigate(const DashboardRoute());
   }
 }

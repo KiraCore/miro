@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:miro/blocs/specific_blocs/auth/auth_cubit.dart';
 import 'package:miro/config/app_sizes.dart';
-import 'package:miro/providers/wallet_provider.dart';
+import 'package:miro/config/locator.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_page.dart';
 import 'package:miro/views/pages/menu/my_account_page/my_account_page_header.dart';
 import 'package:miro/views/pages/menu/my_account_page/transactions_page/transactions_page.dart';
 import 'package:miro/views/widgets/kira/kira_list/components/last_block_time_widget.dart';
 import 'package:miro/views/widgets/kira/kira_tab_bar/kira_tab_bar.dart';
-import 'package:provider/provider.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 
 class MyAccountPage extends StatefulWidget {
@@ -18,6 +19,7 @@ class MyAccountPage extends StatefulWidget {
 }
 
 class _MyAccountPage extends State<MyAccountPage> with SingleTickerProviderStateMixin {
+  final AuthCubit authCubit = globalLocator<AuthCubit>();
   final List<String> tabs = <String>['Balance', 'Transactions'];
 
   late final ValueNotifier<String> selectedPageNotifier = ValueNotifier<String>(tabs[0]);
@@ -40,10 +42,10 @@ class _MyAccountPage extends State<MyAccountPage> with SingleTickerProviderState
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<WalletProvider>(
-      builder: (BuildContext context, WalletProvider walletProvider, _) {
-        Wallet? wallet = walletProvider.currentWallet;
-        if (wallet == null) {
+    return BlocBuilder<AuthCubit, Wallet?>(
+      bloc: authCubit,
+      builder: (BuildContext context, Wallet? wallet) {
+        if (authCubit.isSignedIn == false) {
           return const SizedBox();
         }
         return CustomScrollView(
@@ -58,7 +60,7 @@ class _MyAccountPage extends State<MyAccountPage> with SingleTickerProviderState
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        MyAccountPageHeader(wallet: wallet),
+                        MyAccountPageHeader(wallet: wallet!),
                         const SizedBox(height: 20),
                         KiraTabBar(
                           tabController: tabController,

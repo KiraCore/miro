@@ -129,7 +129,7 @@ class _SignedInAccountButtonMobile extends StatelessWidget {
     return MouseRegion(
       cursor: SystemMouseCursors.click,
       child: GestureDetector(
-        onTap: () => KiraScaffold.of(context).navigateEndDrawerRoute(const AccountDrawerPage()),
+        onTap: () => KiraScaffold.of(context).navigateEndDrawerRoute(AccountDrawerPage()),
         child: KiraIdentityAvatar(
           size: size.height,
           address: wallet.address.bech32Address,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:miro/blocs/specific_blocs/auth/auth_cubit.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';
-import 'package:miro/providers/wallet_provider.dart';
 import 'package:miro/shared/models/wallet/mnemonic.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/views/layout/drawer/drawer_subtitle.dart';
@@ -181,7 +181,7 @@ class _CreateWalletPage extends State<CreateWalletPage> {
               valueListenable: termsCheckedNotifier,
               builder: (_, bool termsChecked, __) {
                 return KiraElevatedButton(
-                  onPressed: _onConnectWalledPressed,
+                  onPressed: _pressSignInButton,
                   disabled: !termsChecked,
                   title: 'Sign in',
                 );
@@ -229,9 +229,9 @@ class _CreateWalletPage extends State<CreateWalletPage> {
     }
   }
 
-  void _onConnectWalledPressed() {
+  void _pressSignInButton() {
     if (walletNotifier.value != null) {
-      globalLocator<WalletProvider>().updateWallet(walletNotifier.value!);
+      globalLocator<AuthCubit>().signIn(walletNotifier.value!);
       KiraScaffold.of(context).closeEndDrawer();
     }
   }

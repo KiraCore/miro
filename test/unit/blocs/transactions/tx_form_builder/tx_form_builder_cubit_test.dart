@@ -1,6 +1,7 @@
 import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:miro/blocs/specific_blocs/auth/auth_cubit.dart';
 import 'package:miro/blocs/specific_blocs/network_module/events/network_module_auto_connect_event.dart';
 import 'package:miro/blocs/specific_blocs/network_module/network_module_bloc.dart';
 import 'package:miro/blocs/specific_blocs/network_module/network_module_state.dart';
@@ -9,7 +10,6 @@ import 'package:miro/blocs/specific_blocs/transactions/tx_form_builder/states/tx
 import 'package:miro/blocs/specific_blocs/transactions/tx_form_builder/states/tx_form_builder_error_state.dart';
 import 'package:miro/blocs/specific_blocs/transactions/tx_form_builder/tx_form_builder_cubit.dart';
 import 'package:miro/config/locator.dart';
-import 'package:miro/providers/wallet_provider.dart';
 import 'package:miro/shared/models/network/data/connection_status_type.dart';
 import 'package:miro/shared/models/network/data/network_info_model.dart';
 import 'package:miro/shared/models/network/status/network_offline_model.dart';
@@ -35,7 +35,7 @@ Future<void> main() async {
   await initMockLocator();
 
   NetworkModuleBloc actualNetworkModuleBloc = globalLocator<NetworkModuleBloc>();
-  WalletProvider walletProvider = globalLocator<WalletProvider>();
+  AuthCubit authCubit = globalLocator<AuthCubit>();
 
   // @formatter:off
   final Mnemonic senderMnemonic = Mnemonic(value: 'require point property company tongue busy bench burden caution gadget knee glance thought bulk assist month cereal report quarter tool section often require shield');
@@ -45,7 +45,7 @@ Future<void> main() async {
   final Wallet recipientWallet = Wallet.derive(mnemonic: recipientMnemonic);
   // @formatter:on
 
-  walletProvider.updateWallet(senderWallet);
+  await authCubit.signIn(senderWallet);
 
   NetworkUnknownModel healthyNetworkUnknownModel = NetworkUnknownModel(
     connectionStatusType: ConnectionStatusType.disconnected,

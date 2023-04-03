@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:miro/blocs/specific_blocs/auth/auth_cubit.dart';
+import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';
-import 'package:miro/providers/wallet_provider.dart';
+import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/views/widgets/generic/center_load_spinner.dart';
-import 'package:provider/provider.dart';
 
 class TxSendFormCompletingIndicator extends StatelessWidget {
-  const TxSendFormCompletingIndicator({
+  final AuthCubit authCubit = globalLocator<AuthCubit>();
+
+  TxSendFormCompletingIndicator({
     Key? key,
   }) : super(key: key);
 
@@ -18,8 +22,9 @@ class TxSendFormCompletingIndicator extends StatelessWidget {
       children: <Widget>[
         const CenterLoadSpinner(size: 12),
         const SizedBox(width: 10),
-        Consumer<WalletProvider>(
-          builder: (BuildContext context, WalletProvider walletProvider, _) {
+        BlocBuilder<AuthCubit, Wallet?>(
+          bloc: authCubit,
+          builder: (BuildContext context, Wallet? wallet) {
             return Text(
               'Signing transaction',
               style: textTheme.caption!.copyWith(

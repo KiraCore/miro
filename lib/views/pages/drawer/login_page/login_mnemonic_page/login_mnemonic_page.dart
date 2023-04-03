@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:miro/blocs/specific_blocs/auth/auth_cubit.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';
-import 'package:miro/providers/wallet_provider.dart';
 import 'package:miro/shared/models/wallet/mnemonic.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/shared/utils/app_logger.dart';
@@ -21,6 +21,7 @@ class LoginMnemonicPage extends StatefulWidget {
 }
 
 class _LoginMnemonicPage extends State<LoginMnemonicPage> {
+  final AuthCubit authCubit = globalLocator<AuthCubit>();
   final MnemonicGridController mnemonicGridController = MnemonicGridController();
   String? errorMessage;
   bool loadingStatus = false;
@@ -61,7 +62,7 @@ class _LoginMnemonicPage extends State<LoginMnemonicPage> {
           ),
         ),
         KiraElevatedButton(
-          onPressed: _onLoginButtonPressed,
+          onPressed: _pressSignInButton,
           title: 'Sign in',
         ),
         const SizedBox(height: 32),
@@ -71,7 +72,7 @@ class _LoginMnemonicPage extends State<LoginMnemonicPage> {
     );
   }
 
-  Future<void> _onLoginButtonPressed() async {
+  Future<void> _pressSignInButton() async {
     _setErrorMessage(null);
     List<String> mnemonicArray = mnemonicGridController.getValues();
     String? mnemonicErrorMessage = _validateMnemonic(mnemonicArray);
@@ -86,7 +87,7 @@ class _LoginMnemonicPage extends State<LoginMnemonicPage> {
     try {
       Mnemonic mnemonic = Mnemonic.fromArray(array: mnemonicArray);
       Wallet wallet = Wallet.derive(mnemonic: mnemonic);
-      globalLocator<WalletProvider>().updateWallet(wallet);
+      await authCubit.signIn(wallet);
       KiraScaffold.of(context).closeEndDrawer();
     } catch (e) {
       String errorMessage = 'Something unexpected happened';
