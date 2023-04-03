@@ -1,3 +1,4 @@
+import 'package:miro/blocs/specific_blocs/auth/auth_cubit.dart';
 import 'package:miro/blocs/specific_blocs/network_list/network_list_cubit.dart';
 import 'package:miro/blocs/specific_blocs/network_module/network_module_bloc.dart';
 import 'package:miro/blocs/specific_blocs/views/widgets/network_list/network_custom_section/network_custom_section_cubit.dart';
@@ -18,7 +19,6 @@ import 'package:miro/infra/services/api_kira/query_kira_tokens_rates_service.dar
 import 'package:miro/infra/services/api_kira/query_network_properties_service.dart';
 import 'package:miro/infra/services/network_module_service.dart';
 import 'package:miro/providers/app_config_provider.dart';
-import 'package:miro/providers/wallet_provider.dart';
 import 'package:miro/shared/controllers/reload_notifier/reload_notifier_controller.dart';
 import 'package:miro/test/mock_api_kira_repository.dart';
 import 'package:miro/test/mock_api_repository.dart';
@@ -29,7 +29,7 @@ Future<void> initMockLocator() async {
     ..registerLazySingleton<AppConfig>(AppConfig.new)
     ..registerLazySingleton<AppConfigProvider>(AppConfigProviderImpl.new)
     ..registerLazySingleton<NetworkCustomSectionCubit>(NetworkCustomSectionCubit.new)
-    ..registerLazySingleton<WalletProvider>(WalletProvider.new)
+    ..registerLazySingleton<AuthCubit>(AuthCubit.new)
     ..registerLazySingleton<CacheManager>(CacheManager.new)
     ..registerLazySingleton<QueryAccountService>(QueryAccountService.new)
     ..registerLazySingleton<NetworkModuleBloc>(NetworkModuleBloc.new)

@@ -1,15 +1,15 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:miro/blocs/specific_blocs/auth/auth_cubit.dart';
 import 'package:miro/config/locator.dart';
-import 'package:miro/providers/wallet_provider.dart';
 import 'package:miro/shared/router/kira_router.dart';
 import 'package:miro/shared/utils/router_utils.dart';
 
 class AuthGuard extends AutoRouteGuard {
-  final WalletProvider _walletProvider = globalLocator<WalletProvider>();
+  final AuthCubit _authCubit = globalLocator<AuthCubit>();
 
   @override
   void onNavigation(NavigationResolver resolver, StackRouter router) {
-    if (_walletProvider.isLoggedIn) {
+    if (_authCubit.isSignedIn) {
       resolver.next(true);
     } else {
       resolver.next(false);

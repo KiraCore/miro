@@ -25,11 +25,11 @@ class KiraAppBarDesktop extends StatelessWidget {
         smallScreen: EdgeInsets.symmetric(horizontal: AppSizes.defaultMobilePageMargin.left),
       ).get(context),
       child: Row(
-        children: const <Widget>[
-          Spacer(),
-          CurrentNetworkButton(size: Size(192, 48)),
-          SizedBox(width: 16),
-          CurrentAccountButton(size: Size(180, 48)),
+        children: <Widget>[
+          const Spacer(),
+          const CurrentNetworkButton(size: Size(192, 48)),
+          const SizedBox(width: 16),
+          CurrentAccountButton(size: const Size(180, 48)),
         ],
       ),
     );

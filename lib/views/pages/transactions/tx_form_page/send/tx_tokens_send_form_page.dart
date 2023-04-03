@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:miro/blocs/specific_blocs/auth/auth_cubit.dart';
 import 'package:miro/blocs/specific_blocs/transactions/tx_form_init/states/tx_form_init_loaded_state.dart';
 import 'package:miro/config/locator.dart';
-import 'package:miro/providers/wallet_provider.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
 import 'package:miro/shared/models/tokens/token_denomination_model.dart';
 import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
@@ -25,8 +25,8 @@ class TxTokensSendFormPage extends StatefulWidget {
 }
 
 class _TxTokensSendFormPage extends State<TxTokensSendFormPage> {
+  final AuthCubit authCubit = globalLocator<AuthCubit>();
   final Key txFormInitCubitWrapperKey = UniqueKey();
-  final WalletProvider walletProvider = globalLocator<WalletProvider>();
   final MsgSendFormController msgSendFormController = MsgSendFormController();
   final ValueNotifier<TokenDenominationModel?> tokenDenominationModelNotifier = ValueNotifier<TokenDenominationModel?>(null);
 
@@ -44,7 +44,7 @@ class _TxTokensSendFormPage extends State<TxTokensSendFormPage> {
                 feeTokenAmountModel: txFormInitLoadedState.feeTokenAmountModel,
                 msgSendFormController: msgSendFormController,
                 initialBalanceModel: widget.initialBalanceModel,
-                initialWalletAddress: walletProvider.currentWallet?.address,
+                initialWalletAddress: authCubit.state?.address,
                 onTokenDenominationChanged: _handleTokenDenominationChanged,
               ),
               const SizedBox(height: 30),

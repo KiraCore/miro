@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:miro/blocs/specific_blocs/auth/auth_cubit.dart';
 import 'package:miro/blocs/specific_blocs/transactions/tx_form_builder/a_tx_form_builder_state.dart';
 import 'package:miro/blocs/specific_blocs/transactions/tx_form_builder/states/tx_form_builder_downloading_state.dart';
 import 'package:miro/blocs/specific_blocs/transactions/tx_form_builder/states/tx_form_builder_error_state.dart';
 import 'package:miro/blocs/specific_blocs/transactions/tx_form_builder/tx_form_builder_cubit.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';
-import 'package:miro/providers/wallet_provider.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/tokens/token_denomination_model.dart';
 import 'package:miro/shared/models/transactions/signed_transaction_model.dart';
@@ -39,11 +39,11 @@ class TxSendFormFooter extends StatefulWidget {
 }
 
 class _TxSendFormFooter extends State<TxSendFormFooter> {
+  final AuthCubit authCubit = globalLocator<AuthCubit>();
   late final TxFormBuilderCubit txFormBuilderCubit = TxFormBuilderCubit(
     feeTokenAmountModel: widget.feeTokenAmountModel,
     msgFormController: widget.msgFormController,
   );
-  final WalletProvider walletProvider = globalLocator<WalletProvider>();
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +57,7 @@ class _TxSendFormFooter extends State<TxSendFormFooter> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             if (txFormBuilderState is TxFormBuilderDownloadingState)
-              const TxSendFormCompletingIndicator()
+              TxSendFormCompletingIndicator()
             else
               ValueListenableBuilder<bool>(
                 valueListenable: widget.msgFormController.formFilledNotifier,
@@ -99,7 +99,7 @@ class _TxSendFormFooter extends State<TxSendFormFooter> {
   }
 
   Future<void> _navigateToNextPage(UnsignedTxModel unsignedTxModel) async {
-    Wallet? wallet = walletProvider.currentWallet;
+    Wallet? wallet = authCubit.state;
     if (wallet != null) {
       SignedTxModel signedTxModel = TxSigner.sign(unsignedTxModel: unsignedTxModel, wallet: wallet);
       await KiraRouter.of(context).navigate(TxConfirmRoute(

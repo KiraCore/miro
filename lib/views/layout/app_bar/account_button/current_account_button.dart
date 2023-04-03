@@ -1,27 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:miro/providers/wallet_provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:miro/blocs/specific_blocs/auth/auth_cubit.dart';
+import 'package:miro/config/locator.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/views/layout/app_bar/account_button/signed_in_account_button.dart';
 import 'package:miro/views/layout/app_bar/account_button/signed_out_account_button.dart';
-import 'package:provider/provider.dart';
 
 class CurrentAccountButton extends StatelessWidget {
+  final AuthCubit authCubit = globalLocator<AuthCubit>();
   final Size size;
 
-  const CurrentAccountButton({
+  CurrentAccountButton({
     required this.size,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<WalletProvider>(
-      builder: (_, WalletProvider walletProvider, Widget? child) {
-        final Wallet? wallet = walletProvider.currentWallet;
-        if (wallet != null) {
-          return SignedInAccountButton(wallet: wallet, size: size);
+    return BlocBuilder<AuthCubit, Wallet?>(
+      bloc: authCubit,
+      builder: (BuildContext context, Wallet? wallet) {
+        if (authCubit.isSignedIn) {
+          return SignedInAccountButton(wallet: wallet!, size: size);
+        } else {
+          return SignedOutAccountButton(size: size);
         }
-        return SignedOutAccountButton(size: size);
       },
     );
   }
