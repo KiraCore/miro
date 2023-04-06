@@ -7,6 +7,7 @@ import 'package:miro/blocs/specific_blocs/transactions/tx_form_builder/states/tx
 import 'package:miro/blocs/specific_blocs/transactions/tx_form_builder/tx_form_builder_cubit.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/tokens/token_denomination_model.dart';
 import 'package:miro/shared/models/transactions/signed_transaction_model.dart';
@@ -75,7 +76,7 @@ class _TxSendFormFooter extends State<TxSendFormFooter> {
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
                 Text(
-                  'Transaction fee ${widget.feeTokenAmountModel}',
+                  S.of(context).txNoticeFee(widget.feeTokenAmountModel.toString()),
                   style: textTheme.caption!.copyWith(
                     color: DesignColors.white1,
                   ),

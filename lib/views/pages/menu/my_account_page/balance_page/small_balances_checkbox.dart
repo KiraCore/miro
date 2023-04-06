@@ -5,6 +5,7 @@ import 'package:miro/blocs/specific_blocs/list/filters/events/filters_add_option
 import 'package:miro/blocs/specific_blocs/list/filters/events/filters_remove_option_event.dart';
 import 'package:miro/blocs/specific_blocs/list/filters/filters_bloc.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/controllers/menu/my_account_page/balances_page/balances_filter_options.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_value.dart';
@@ -40,7 +41,7 @@ class _SmallBalancesCheckbox extends State<SmallBalanceCheckbox> {
               ),
               const SizedBox(width: 5),
               Text(
-                'Hide small balances',
+                S.of(context).balancesHideSmall,
                 style: ResponsiveValue<TextStyle>(
                   largeScreen: textTheme.bodyText2!.copyWith(
                     color: DesignColors.white1,

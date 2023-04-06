@@ -28,7 +28,7 @@ class TokenAvatar extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.all(size - size * 0.75),
           child: iconUrl == null || iconUrl!.isEmpty
-              ? Image.asset(Assets.assetsLogoSygnet)
+              ? Image.asset(Assets.assetsLogoSignet)
               : Image.network(
                   iconUrl ?? '',
                   errorBuilder: (_, __, ___) {

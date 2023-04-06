@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/controllers/menu/my_account_page/balances_page/balances_filter_options.dart';
 import 'package:miro/shared/controllers/menu/my_account_page/balances_page/balances_list_controller.dart';
 import 'package:miro/shared/controllers/menu/my_account_page/balances_page/balances_sort_options.dart';
@@ -49,7 +50,7 @@ class _TokenDropdownList extends State<TokenDropdownList> {
       listController: BalancesListController(address: widget.walletAddress?.bech32Address ?? ''),
       searchComparator: BalancesFilterOptions.search,
       singlePageSize: 20,
-      searchBarTitle: 'Search tokens',
+      searchBarTitle: S.of(context).txSearchTokens,
     );
   }
 

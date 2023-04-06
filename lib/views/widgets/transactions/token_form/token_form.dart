@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/specific_blocs/transactions/token_form/token_form_cubit.dart';
 import 'package:miro/blocs/specific_blocs/transactions/token_form/token_form_state.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
 import 'package:miro/shared/models/balances/total_balance_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
@@ -131,9 +132,9 @@ class _TokenForm extends State<TokenForm> {
     Decimal availableTokenAmount = availableTokenAmountModel?.getAmountInLowestDenomination() ?? Decimal.zero;
 
     if (availableTokenAmount < selectedTokenAmount) {
-      return 'Not enough tokens';
+      return S.of(context).txErrorNotEnoughTokens;
     } else if (selectedTokenAmountModel == null || availableTokenAmountModel == null) {
-      return 'Please select a token';
+      return S.of(context).txPleaseSelectToken;
     } else {
       return null;
     }

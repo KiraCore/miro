@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/specific_blocs/transactions/token_form/token_form_cubit.dart';
+import 'package:miro/generated/l10n.dart';
 
 class TokenAmountTextFieldActions extends StatefulWidget {
   final bool disabled;
@@ -25,14 +26,14 @@ class _TokenAmountTextFieldActions extends State<TokenAmountTextFieldActions> {
           style: ButtonStyle(
             padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
           ),
-          child: const Text('Send all'),
+          child: Text(S.of(context).txButtonSendAll),
         ),
         TextButton(
           onPressed: widget.disabled ? null : _handleClearPressed,
           style: ButtonStyle(
             padding: MaterialStateProperty.all<EdgeInsets>(EdgeInsets.zero),
           ),
-          child: const Text('Clear'),
+          child: Text(S.of(context).txButtonClear),
         )
       ],
     );

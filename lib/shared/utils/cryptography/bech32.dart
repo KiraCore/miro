@@ -42,7 +42,7 @@ class Bech32 {
     int acc = 0;
     int bits = 0;
     final List<int> result = <int>[];
-    final int maxv = (1 << to) - 1;
+    final int maxV = (1 << to) - 1;
 
     for (final int v in data) {
       if (v < 0 || (v >> from) != 0) {
@@ -52,17 +52,17 @@ class Bech32 {
       bits += from;
       while (bits >= to) {
         bits -= to;
-        result.add((acc >> bits) & maxv);
+        result.add((acc >> bits) & maxV);
       }
     }
 
     if (pad) {
       if (bits > 0) {
-        result.add((acc << (to - bits)) & maxv);
+        result.add((acc << (to - bits)) & maxV);
       }
     } else if (bits >= from) {
       throw Exception('illegal zero padding');
-    } else if (((acc << (to - bits)) & maxv) != 0) {
+    } else if (((acc << (to - bits)) & maxV) != 0) {
       throw Exception('non zero');
     }
 

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/validators/validator_model.dart';
 import 'package:miro/shared/utils/string_utils.dart';
 import 'package:miro/views/pages/menu/validators_page/validator_status_chip/validator_status_chip.dart';
@@ -75,7 +76,7 @@ class ValidatorListItemMobile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      'Status',
+                      S.of(context).validatorsTableStatus,
                       overflow: TextOverflow.ellipsis,
                       style: textTheme.bodyText2!.copyWith(
                         color: DesignColors.white2,
@@ -91,7 +92,7 @@ class ValidatorListItemMobile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     Text(
-                      'Uptime',
+                      S.of(context).validatorsTableUptime,
                       overflow: TextOverflow.ellipsis,
                       style: textTheme.bodyText2!.copyWith(
                         color: DesignColors.white2,
@@ -116,7 +117,7 @@ class ValidatorListItemMobile extends StatelessWidget {
             children: <Widget>[
               const SizedBox(width: 30),
               Text(
-                'Streak',
+                S.of(context).validatorsTableStreak,
                 overflow: TextOverflow.ellipsis,
                 style: textTheme.bodyText2!.copyWith(
                   color: DesignColors.white2,

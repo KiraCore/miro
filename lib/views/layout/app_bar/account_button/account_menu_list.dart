@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:miro/blocs/specific_blocs/auth/auth_cubit.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/router/kira_router.dart';
 import 'package:miro/shared/router/router.gr.dart';
 import 'package:miro/views/widgets/generic/mouse_state_listener.dart';
@@ -23,15 +24,15 @@ class AccountMenuList extends StatelessWidget {
       children: <Widget>[
         _MenuListTile(
           onTap: () => _onNavigateToMyAccountPressed(context),
-          title: 'My account',
+          title: S.of(context).myAccount,
         ),
-        const _MenuListTile(
+        _MenuListTile(
           onTap: null,
-          title: 'Settings',
+          title: S.of(context).myAccountSettings,
         ),
         _MenuListTile(
           onTap: () => _pressSignOutButton(context),
-          title: 'Sign Out',
+          title: S.of(context).myAccountSignOut,
           color: DesignColors.redStatus1,
         ),
       ],

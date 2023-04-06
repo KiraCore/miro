@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:miro/blocs/specific_blocs/auth/auth_cubit.dart';
 import 'package:miro/blocs/specific_blocs/transactions/tx_form_init/states/tx_form_init_loaded_state.dart';
 import 'package:miro/config/locator.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
 import 'package:miro/shared/models/tokens/token_denomination_model.dart';
 import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
@@ -33,7 +34,7 @@ class _TxTokensSendFormPage extends State<TxTokensSendFormPage> {
   @override
   Widget build(BuildContext context) {
     return TxDialog(
-      title: 'Send tokens',
+      title: S.of(context).txSendTokens,
       child: TxFormInitCubitWrapper(
         key: txFormInitCubitWrapperKey,
         txMsgType: TxMsgType.msgSend,

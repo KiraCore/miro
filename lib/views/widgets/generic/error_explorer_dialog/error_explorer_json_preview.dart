@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:json_view/json_view.dart';
 import 'package:miro/config/app_icons.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_value.dart';
 import 'package:miro/views/widgets/generic/responsive/screen_size.dart';
 import 'package:miro/views/widgets/generic/responsive/sized_box_expanded.dart';
@@ -39,7 +40,7 @@ class ErrorExplorerJsonPreview extends StatelessWidget {
               TextButton.icon(
                 onPressed: () => _handleCopy(context),
                 icon: const Icon(AppIcons.copy, size: 18),
-                label: const Text('Copy'),
+                label: Text(S.of(context).copy),
               ),
             ],
           ),
@@ -73,7 +74,7 @@ class ErrorExplorerJsonPreview extends StatelessWidget {
           else if (jsonObject != null)
             Text(jsonObject.toString())
           else
-            const Text('Preview not available')
+            Text(S.of(context).errorPreviewNotAvailable)
         ],
       ),
     );
@@ -84,6 +85,6 @@ class ErrorExplorerJsonPreview extends StatelessWidget {
     String jsonData = encoder.convert(jsonObject);
 
     Clipboard.setData(ClipboardData(text: jsonData));
-    KiraToast.of(context).show(message: 'Successfully copied!', type: ToastType.success);
+    KiraToast.of(context).show(message: S.of(context).toastSuccessfullyCopied, type: ToastType.success);
   }
 }

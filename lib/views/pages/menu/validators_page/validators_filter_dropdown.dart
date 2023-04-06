@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/controllers/menu/validators_page/validators_filter_options.dart';
 import 'package:miro/shared/models/validators/validator_model.dart';
 import 'package:miro/views/widgets/kira/kira_list/components/filter_dropdown/filter_dropdown.dart';
@@ -16,22 +17,22 @@ class ValidatorsFilterDropdown extends StatelessWidget {
   Widget build(BuildContext context) {
     return FilterDropdown<ValidatorModel>(
       width: width,
-      title: 'Status',
+      title: S.of(context).validatorsTableStatus,
       filterOptionModels: <FilterOptionModel<ValidatorModel>>[
         FilterOptionModel<ValidatorModel>(
-          title: 'Active',
+          title: S.of(context).validatorsActive,
           filterOption: ValidatorsFilterOptions.filterByActiveValidators,
         ),
         FilterOptionModel<ValidatorModel>(
-          title: 'Inactive',
+          title: S.of(context).validatorsInactive,
           filterOption: ValidatorsFilterOptions.filterByInactiveValidators,
         ),
         FilterOptionModel<ValidatorModel>(
-          title: 'Jailed',
+          title: S.of(context).validatorsJailed,
           filterOption: ValidatorsFilterOptions.filterByJailedValidators,
         ),
         FilterOptionModel<ValidatorModel>(
-          title: 'Paused',
+          title: S.of(context).validatorsPaused,
           filterOption: ValidatorsFilterOptions.filterByPausedValidators,
         ),
       ],

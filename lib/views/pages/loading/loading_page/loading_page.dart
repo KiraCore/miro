@@ -8,6 +8,7 @@ import 'package:miro/blocs/specific_blocs/loading_page/states/loading_page_disco
 import 'package:miro/config/app_sizes.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/assets.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/router/kira_router.dart';
 import 'package:miro/shared/router/router.gr.dart';
 import 'package:miro/shared/utils/router_utils.dart';
@@ -53,11 +54,11 @@ class _LoadingPage extends State<LoadingPage> {
                   valueListenable: loadingPageCubit.loadingTimerController.timeNotifier,
                   builder: (_, int remainingTime, __) {
                     String separator = ResponsiveWidget.isSmallScreen(context) ? '\n' : '.';
-                    String networkName = loadingPageState.networkStatusModel?.name ?? 'undefined';
+                    String networkName = loadingPageState.networkStatusModel?.name ?? S.of(context).networkErrorUndefinedName;
                     String parsedRemainingTime = remainingTime > 0 ? '$remainingTime' : '';
 
                     return Text(
-                      'Connecting to <$networkName>$separator Please wait... ${parsedRemainingTime}',
+                      S.of(context).networkConnectingTo(separator, networkName, parsedRemainingTime),
                       textAlign: TextAlign.center,
                       style: textTheme.headline3!.copyWith(
                         color: DesignColors.white1,
@@ -71,7 +72,7 @@ class _LoadingPage extends State<LoadingPage> {
                   return KiraOutlinedButton(
                     width: 192,
                     disabled: !cancelButtonEnabled,
-                    title: 'Cancel connection',
+                    title: S.of(context).networkButtonCancelConnection,
                     onPressed: cancelButtonEnabled ? loadingPageCubit.cancelConnection : null,
                   );
                 },

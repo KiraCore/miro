@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/generated/l10n.dart';
 
 class ListNoResultsWidget extends StatelessWidget {
   const ListNoResultsWidget({
@@ -16,8 +17,8 @@ class ListNoResultsWidget extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
       ),
       width: double.infinity,
-      child: const Center(
-        child: Text('No results'),
+      child: Center(
+        child: Text(S.of(context).errorNoResults),
       ),
     );
   }

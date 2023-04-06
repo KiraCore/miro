@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/app_sizes.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/controllers/menu/validators_page/validators_filter_options.dart';
 import 'package:miro/shared/controllers/menu/validators_page/validators_list_controller.dart';
 import 'package:miro/shared/controllers/menu/validators_page/validators_sort_options.dart';
@@ -32,11 +33,11 @@ class _ValidatorsPage extends State<ValidatorsPage> {
     Widget listHeaderWidget = ValidatorListItemDesktopLayout(
       height: 64,
       favouriteButtonWidget: const SizedBox(),
-      topWidget: Text('Top', style: textTheme.caption!.copyWith(color: DesignColors.white1)),
-      monikerWidget: Text('Moniker', style: textTheme.caption!.copyWith(color: DesignColors.white1)),
-      statusWidget: Text('Status', style: textTheme.caption!.copyWith(color: DesignColors.white1)),
-      uptimeWidget: Text('Uptime', style: textTheme.caption!.copyWith(color: DesignColors.white1)),
-      streakWidget: Text('Streak', style: textTheme.caption!.copyWith(color: DesignColors.white1)),
+      topWidget: Text(S.of(context).validatorsTableTop, style: textTheme.caption!.copyWith(color: DesignColors.white1)),
+      monikerWidget: Text(S.of(context).validatorsTableMoniker, style: textTheme.caption!.copyWith(color: DesignColors.white1)),
+      statusWidget: Text(S.of(context).validatorsTableStatus, style: textTheme.caption!.copyWith(color: DesignColors.white1)),
+      uptimeWidget: Text(S.of(context).validatorsTableUptime, style: textTheme.caption!.copyWith(color: DesignColors.white1)),
+      streakWidget: Text(S.of(context).validatorsTableStreak, style: textTheme.caption!.copyWith(color: DesignColors.white1)),
     );
 
     return CustomScrollView(

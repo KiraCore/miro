@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/validators/validator_model.dart';
 import 'package:miro/views/pages/menu/validators_page/validators_filter_dropdown.dart';
 import 'package:miro/views/widgets/kira/kira_list/components/list_search_widget.dart';
@@ -15,13 +16,13 @@ class ValidatorListTitleMobile extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
         Text(
-          'List of Validators',
+          S.of(context).validatorsList,
           style: textTheme.headline3!.copyWith(
             color: DesignColors.white1,
           ),
         ),
         const SizedBox(height: 12),
-        const ListSearchWidget<ValidatorModel>(hint: 'Search validators'),
+        ListSearchWidget<ValidatorModel>(hint: S.of(context).validatorsHintSearch),
         const SizedBox(height: 12),
         const ValidatorsFilterDropdown(),
       ],

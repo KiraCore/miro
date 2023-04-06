@@ -5,7 +5,7 @@ class Assets {
   static const String assetsLogoDark = 'assets/logo_dark.svg';
   static const String assetsLogoLight = 'assets/logo_light.svg';
   static const String assetsLogoLoading = 'assets/logo_loading.gif';
-  static const String assetsLogoSygnet = 'assets/logo_sygnet.png';
+  static const String assetsLogoSignet = 'assets/logo_signet.png';
   static const String assetsNetworkListConfig = 'assets/network_list_config.json';
   static const String fontsIconsFont = 'assets/fonts/IconsFont.ttf';
   static const String fontsIconsFontConfig = 'assets/fonts/icons_font_config.json';

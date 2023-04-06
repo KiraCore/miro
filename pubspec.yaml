@@ -12,7 +12,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.2.1
+version: 1.2.2
 
 environment:
   sdk: ">=2.18.5 <3.0.0"
@@ -96,7 +96,7 @@ dependencies:
   # https://pub.dev/packages/pointycastle
   pointycastle: ^3.6.2
 
-  # Easy hexadecimal convertion using dart:convert API.
+  # Easy hexadecimal conversion using dart:convert API.
   # https://pub.dev/packages/hex
   hex: ^0.2.0
 
@@ -183,7 +183,7 @@ dependencies:
   sliver_tools: ^0.2.8
 
 dev_dependencies:
-  # AutoRoute is a declartive routing solution, where everything needed for navigation is automatically generated for you.
+  # AutoRoute is a declarative routing solution, where everything needed for navigation is automatically generated for you.
   # https://pub.dev/packages/auto_route_generator
   auto_route_generator: ^5.0.2
 
@@ -243,3 +243,5 @@ flutter:
 
 flutter_intl:
   enabled: true
+  class_name: S
+  main_locale: en

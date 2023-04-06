@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/views/widgets/generic/copy_wrapper/copy_wrapper.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_value.dart';
@@ -55,7 +56,7 @@ class _AccountTile extends State<AccountTile> {
               ).get(context),
               CopyWrapper(
                 value: widget.walletAddress.bech32Address,
-                notificationText: 'Copied!',
+                notificationText: S.of(context).toastSuccessfullyCopied,
                 child: Text(
                   widget.walletAddress.bech32Address,
                   maxLines: 1,

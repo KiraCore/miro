@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
-import 'package:miro/views/pages/menu/dashboard_page/widgets/dashboard_grid_title_shrimmer.dart';
+import 'package:miro/views/pages/menu/dashboard_page/widgets/dashboard_grid_title_shimmer.dart';
 
 class DashboardGridTile extends StatelessWidget {
   final String? title;

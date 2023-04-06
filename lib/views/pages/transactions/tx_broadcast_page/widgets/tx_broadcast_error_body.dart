@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/specific_blocs/transactions/tx_broadcast/tx_broadcast_cubit.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/network/error_explorer_model.dart';
 import 'package:miro/shared/models/transactions/signed_transaction_model.dart';
 import 'package:miro/shared/router/kira_router.dart';
 import 'package:miro/views/pages/transactions/tx_broadcast_page/widgets/tx_broadcast_status_icon.dart';
 import 'package:miro/views/widgets/buttons/kira_outlined_button.dart';
-import 'package:miro/views/widgets/generic/error_explorer_diaog/error_explorer_dialog.dart';
+import 'package:miro/views/widgets/generic/error_explorer_dialog/error_explorer_dialog.dart';
 import 'package:miro/views/widgets/generic/text_link.dart';
 
 class TxBroadcastErrorBody extends StatelessWidget {
@@ -33,7 +34,7 @@ class TxBroadcastErrorBody extends StatelessWidget {
         const TxBroadcastStatusIcon(status: false, size: 57),
         const SizedBox(height: 30),
         Text(
-          'Transaction failed',
+          S.of(context).txErrorFailed,
           textAlign: TextAlign.center,
           style: textTheme.headline3!.copyWith(
             color: DesignColors.white1,
@@ -56,7 +57,7 @@ class TxBroadcastErrorBody extends StatelessWidget {
                 color: DesignColors.white1,
               ),
               onTap: () => _showErrorExplorerDialog(context),
-              text: 'See more on Explorer',
+              text: S.of(context).txErrorSeeMore,
             ),
           ],
         ),
@@ -69,21 +70,21 @@ class TxBroadcastErrorBody extends StatelessWidget {
               height: 51,
               width: 163,
               onPressed: () => _pressBackButton(context),
-              title: 'Back to account',
+              title: S.of(context).txButtonBackToAccount,
             ),
             const SizedBox(height: 8),
             KiraOutlinedButton(
               height: 51,
               width: 163,
               onPressed: () => _pressEditTransactionButton(context),
-              title: 'Edit transaction',
+              title: S.of(context).txButtonEditTransaction,
             ),
             const SizedBox(height: 8),
             KiraOutlinedButton(
               height: 51,
               width: 163,
               onPressed: () => _pressTryAgainButton(context),
-              title: 'Try again',
+              title: S.of(context).txTryAgain,
             ),
           ],
         ),

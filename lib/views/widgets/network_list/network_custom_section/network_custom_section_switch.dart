@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/generated/l10n.dart';
 
 class NetworkCustomSectionSwitch extends StatefulWidget {
   final ValueChanged<bool> onChanged;
@@ -28,7 +29,7 @@ class _NetworkCustomSectionSwitch extends State<NetworkCustomSectionSwitch> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Text(
-            'Enable custom address',
+            S.of(context).networkSwitchCustomAddress,
             style: textTheme.bodyText1!.copyWith(
               fontWeight: FontWeight.w400,
               color: DesignColors.white1,

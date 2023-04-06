@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/network/data/interx_warning_type.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
 import 'package:miro/shared/models/network/status/online/a_network_online_model.dart';
@@ -46,21 +47,21 @@ class NetworkListTileContent extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Text('Block time', style: networkDetailsTextStyle),
+              Text(S.of(context).networkBlockTime, style: networkDetailsTextStyle),
               Text(_blockTime, style: networkDetailsTextStyle),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Text('Block Height', style: networkDetailsTextStyle),
+              Text(S.of(context).networkBlockHeight, style: networkDetailsTextStyle),
               Text(_latestBlockHeight, style: networkDetailsTextStyle),
             ],
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Text('Validators', style: networkDetailsTextStyle),
+              Text(S.of(context).validators, style: networkDetailsTextStyle),
               Text(_validatorsCount, style: networkDetailsTextStyle),
             ],
           ),

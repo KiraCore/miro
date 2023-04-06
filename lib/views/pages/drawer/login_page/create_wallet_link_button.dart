@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
 import 'package:miro/views/pages/drawer/create_wallet_page/create_wallet_page.dart';
 import 'package:miro/views/widgets/generic/text_link.dart';
@@ -18,12 +19,12 @@ class CreateWalletLinkButton extends StatelessWidget {
         const Divider(color: DesignColors.grey2),
         const SizedBox(height: 32),
         Text(
-          'Don`t have a wallet?',
+          S.of(context).signInDontHaveWallet,
           style: textTheme.bodyText2!.copyWith(color: DesignColors.white1),
         ),
         const SizedBox(height: 8),
         TextLink(
-          text: 'Create new wallet',
+          text: S.of(context).createWalletButton,
           textStyle: textTheme.bodyText2!,
           onTap: () => KiraScaffold.of(context).navigateEndDrawerRoute(const CreateWalletPage()),
         ),

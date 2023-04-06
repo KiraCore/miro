@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:miro/config/app_icons.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
 import 'package:miro/views/pages/drawer/login_page/login_page.dart';
 import 'package:miro/views/widgets/buttons/kira_elevated_button.dart';
@@ -41,7 +42,7 @@ class _SignedOutButtonDesktop extends StatelessWidget {
       width: size.width,
       height: size.height,
       onPressed: () => KiraScaffold.of(context).navigateEndDrawerRoute(const LoginPage()),
-      title: 'Connect a Wallet',
+      title: S.of(context).signInConnectWallet,
     );
   }
 }

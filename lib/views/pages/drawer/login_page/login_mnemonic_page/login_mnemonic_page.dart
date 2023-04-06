@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:miro/blocs/specific_blocs/auth/auth_cubit.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/wallet/mnemonic.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/shared/utils/app_logger.dart';
@@ -32,18 +33,18 @@ class _LoginMnemonicPage extends State<LoginMnemonicPage> {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const DrawerTitle(
-          title: 'Sign in with Mnemonic',
-          subtitle: 'Enter your Mnemonic',
-          tooltipMessage: 'Mnemonic is your secret data',
+        DrawerTitle(
+          title: S.of(context).mnemonicSignIn,
+          subtitle: S.of(context).mnemonicEnter,
+          tooltipMessage: S.of(context).mnemonicIsYourSecretData,
         ),
         const SizedBox(height: 24),
         SizedBox(
           width: double.infinity,
           height: 450,
           child: loadingStatus
-              ? const Center(
-                  child: Text('Connecting into account...'),
+              ? Center(
+                  child: Text(S.of(context).signInConnecting),
                 )
               : MnemonicGrid(
                   controller: mnemonicGridController,
@@ -63,7 +64,7 @@ class _LoginMnemonicPage extends State<LoginMnemonicPage> {
         ),
         KiraElevatedButton(
           onPressed: _pressSignInButton,
-          title: 'Sign in',
+          title: S.of(context).signInButton,
         ),
         const SizedBox(height: 32),
         const CreateWalletLinkButton(),
@@ -90,7 +91,7 @@ class _LoginMnemonicPage extends State<LoginMnemonicPage> {
       await authCubit.signIn(wallet);
       KiraScaffold.of(context).closeEndDrawer();
     } catch (e) {
-      String errorMessage = 'Something unexpected happened';
+      String errorMessage = S.of(context).mnemonicErrorUnexpected;
       AppLogger().log(message: errorMessage, logLevel: LogLevel.terribleFailure);
       _setErrorMessage(errorMessage);
       _setLoadingState(state: false);
@@ -105,7 +106,7 @@ class _LoginMnemonicPage extends State<LoginMnemonicPage> {
 
   String? _validateMnemonic(List<String> mnemonicArray) {
     if (mnemonicArray.isEmpty) {
-      String errorMessage = 'You have to enter correct Mnemonic to sign in';
+      String errorMessage = S.of(context).mnemonicErrorEnterCorrect;
       AppLogger().log(message: errorMessage, logLevel: LogLevel.warning);
       return errorMessage;
     }
@@ -114,7 +115,7 @@ class _LoginMnemonicPage extends State<LoginMnemonicPage> {
     if (validateResult == MnemonicValidateResult.success) {
       return null;
     } else {
-      String errorMessage = Bip39Extension.statusToMessage(validateResult);
+      String errorMessage = Bip39Extension.parseStatusToMessage(validateResult, context);
       AppLogger().log(message: errorMessage, logLevel: LogLevel.warning);
       return errorMessage;
     }

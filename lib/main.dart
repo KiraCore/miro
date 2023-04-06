@@ -60,7 +60,7 @@ class _CoreApp extends State<CoreApp> {
   @override
   void initState() {
     super.initState();
-    precacheImage(const AssetImage(Assets.assetsLogoSygnet), context);
+    precacheImage(const AssetImage(Assets.assetsLogoSignet), context);
     precacheImage(const AssetImage(Assets.assetsLogoLoading), context);
   }
 
@@ -73,7 +73,7 @@ class _CoreApp extends State<CoreApp> {
         return Consumer<AppConfigProvider>(
           builder: (_, AppConfigProvider value, Widget? child) {
             return MaterialApp.router(
-              title: 'Kira Network',
+              onGenerateTitle: (BuildContext context) => S.of(context).kiraNetwork,
               routeInformationParser: appRouter.defaultRouteParser(),
               routerDelegate: appRouter.delegate(),
               debugShowCheckedModeBanner: false,
@@ -93,11 +93,12 @@ class _CoreApp extends State<CoreApp> {
                   ),
                 );
               },
-              localizationsDelegates: const <LocalizationsDelegate<dynamic>>[
-                S.delegate,
-                GlobalMaterialLocalizations.delegate,
-                GlobalWidgetsLocalizations.delegate,
-              ],
+              localizationsDelegates: GlobalMaterialLocalizations.delegates +
+                  <LocalizationsDelegate<dynamic>>[
+                    S.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                  ],
+              supportedLocales: S.delegate.supportedLocales,
             );
           },
         );

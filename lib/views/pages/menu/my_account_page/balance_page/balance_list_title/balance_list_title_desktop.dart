@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
 import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_sort_dropdown.dart';
 import 'package:miro/views/pages/menu/my_account_page/balance_page/small_balances_checkbox.dart';
@@ -31,11 +32,11 @@ class BalanceListTitleDesktop extends StatelessWidget {
               constraints: const BoxConstraints(maxWidth: 500),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
-                children: const <Widget>[
-                  SmallBalanceCheckbox(),
-                  SizedBox(width: 32),
+                children: <Widget>[
+                  const SmallBalanceCheckbox(),
+                  const SizedBox(width: 32),
                   Expanded(
-                    child: ListSearchWidget<BalanceModel>(hint: 'Search balances'),
+                    child: ListSearchWidget<BalanceModel>(hint: S.of(context).balancesSearch),
                   )
                 ],
               ),

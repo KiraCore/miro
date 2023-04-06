@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/validators/validator_model.dart';
 import 'package:miro/views/pages/menu/validators_page/validators_filter_dropdown.dart';
 import 'package:miro/views/widgets/kira/kira_list/components/list_search_widget.dart';
@@ -15,7 +16,7 @@ class ValidatorListTitleDesktop extends StatelessWidget {
       children: <Widget>[
         Expanded(
           child: Text(
-            'List of Validators',
+            S.of(context).validatorsList,
             style: textTheme.headline2!.copyWith(
               color: DesignColors.white1,
             ),
@@ -29,11 +30,11 @@ class ValidatorListTitleDesktop extends StatelessWidget {
               constraints: const BoxConstraints(maxWidth: 500),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
-                children: const <Widget>[
-                  ValidatorsFilterDropdown(),
-                  SizedBox(width: 32),
+                children: <Widget>[
+                  const ValidatorsFilterDropdown(),
+                  const SizedBox(width: 32),
                   Expanded(
-                    child: ListSearchWidget<ValidatorModel>(hint: 'Search validators'),
+                    child: ListSearchWidget<ValidatorModel>(hint: S.of(context).validatorsHintSearch),
                   )
                 ],
               ),

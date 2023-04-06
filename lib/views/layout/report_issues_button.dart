@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/controllers/browser/browser_controller.dart';
 
 class ReportIssuesButton extends StatelessWidget {
@@ -20,7 +21,7 @@ class ReportIssuesButton extends StatelessWidget {
         ),
         onPressed: () => BrowserController.openUrl('https://forms.gle/mFysxpo1ZPKVkYyu5'),
         icon: const Icon(Icons.bug_report_outlined),
-        label: const Text('Report issues'),
+        label: Text(S.of(context).buttonReportIssues),
       ),
     );
   }

@@ -10,7 +10,7 @@ class SignerInfo {
   final TxPubKey publicKey;
 
   /// ModeInfo describes the signing mode of the signer and is a nested
-  /// structure to support nested multisig pubkey's
+  /// structure to support nested multisign pubkey's
   final ModeInfo modeInfo;
 
   /// sequence is the sequence of the account, which describes the

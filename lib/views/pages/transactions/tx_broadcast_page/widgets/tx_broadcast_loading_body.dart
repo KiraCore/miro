@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:miro/blocs/specific_blocs/transactions/tx_broadcast/states/tx_broadcast_loading_state.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/assets.dart';
+import 'package:miro/generated/l10n.dart';
 
 class TxBroadcastLoadingBody extends StatelessWidget {
   final TxBroadcastLoadingState txBroadcastLoadingState;
@@ -26,7 +27,7 @@ class TxBroadcastLoadingBody extends StatelessWidget {
         ),
         const SizedBox(height: 30),
         Text(
-          'Your transaction is being broadcast',
+          S.of(context).txIsBeingBroadcast,
           textAlign: TextAlign.center,
           style: textTheme.headline3!.copyWith(
             color: DesignColors.white1,
@@ -34,7 +35,7 @@ class TxBroadcastLoadingBody extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         Text(
-          'Do not close this window',
+          S.of(context).txWarningDoNotCloseWindow,
           textAlign: TextAlign.center,
           style: textTheme.caption!.copyWith(
             color: DesignColors.white2,

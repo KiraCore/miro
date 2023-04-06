@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
 import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_sort_dropdown.dart';
 import 'package:miro/views/pages/menu/my_account_page/balance_page/small_balances_checkbox.dart';
@@ -16,9 +17,9 @@ class BalanceListTitleMobile extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         const SizedBox(height: 15),
-        const ListSearchWidget<BalanceModel>(
+        ListSearchWidget<BalanceModel>(
           width: double.infinity,
-          hint: 'Search balances',
+          hint: S.of(context).balancesSearch,
         ),
         const SizedBox(height: 15),
         Row(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_denomination_model.dart';
 import 'package:miro/views/widgets/kira/kira_chip_button.dart';
@@ -51,7 +52,7 @@ class _TokenDenominationList extends State<TokenDenominationList> {
     return Row(
       children: <Widget>[
         Text(
-          'Denomination',
+          S.of(context).balancesDenomination,
           style: textTheme.caption!.copyWith(
             color: DesignColors.white2,
           ),

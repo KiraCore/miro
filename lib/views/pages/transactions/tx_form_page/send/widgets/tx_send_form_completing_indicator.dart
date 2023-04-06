@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/specific_blocs/auth/auth_cubit.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/views/widgets/generic/center_load_spinner.dart';
 
@@ -26,7 +27,7 @@ class TxSendFormCompletingIndicator extends StatelessWidget {
           bloc: authCubit,
           builder: (BuildContext context, Wallet? wallet) {
             return Text(
-              'Signing transaction',
+              S.of(context).txSigning,
               style: textTheme.caption!.copyWith(
                 color: DesignColors.white1,
               ),

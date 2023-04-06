@@ -7,6 +7,7 @@ import 'package:miro/blocs/specific_blocs/list/sort/sort_bloc.dart';
 import 'package:miro/blocs/specific_blocs/list/sort/sort_state.dart';
 import 'package:miro/config/app_icons.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/views/widgets/generic/pop_wrapper/pop_wrapper.dart';
 import 'package:miro/views/widgets/generic/pop_wrapper/pop_wrapper_controller.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_value.dart';
@@ -44,7 +45,7 @@ class _SortDropdown<T extends AListItem> extends State<SortDropdown<T>> {
         return Row(
           children: <Widget>[
             Text(
-              'Sort by',
+              S.of(context).sortBy,
               style: ResponsiveValue<TextStyle>(
                 largeScreen: textTheme.bodyText2!.copyWith(
                   color: DesignColors.white2,
@@ -70,7 +71,7 @@ class _SortDropdown<T extends AListItem> extends State<SortDropdown<T>> {
                   listItems: widget.sortOptionModels,
                   onItemSelected: _changeCurrentSortOption,
                   selectedListItems: <SortOptionModel<T>>{selectedSortOptionModel},
-                  title: 'Sort by',
+                  title: S.of(context).sortBy,
                 );
               },
             ),
@@ -96,7 +97,7 @@ class _SortDropdown<T extends AListItem> extends State<SortDropdown<T>> {
   SortOptionModel<T> _findSortOptionModel(SortOption<T> sortOption) {
     SortOptionModel<T> sortOptionModel = widget.sortOptionModels.firstWhere(
       (SortOptionModel<T> sortOptionModel) => sortOptionModel.sortOption == sortOption,
-      orElse: () => SortOptionModel<T>(title: 'Error', sortOption: sortOption),
+      orElse: () => SortOptionModel<T>(title: S.of(context).error, sortOption: sortOption),
     );
     return sortOptionModel.copyWith(
       sortOption: sortOption,

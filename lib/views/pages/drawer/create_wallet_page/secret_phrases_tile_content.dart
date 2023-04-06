@@ -1,5 +1,6 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/wallet/mnemonic.dart';
 import 'package:miro/views/widgets/kira/kira_toast/kira_toast.dart';
 import 'package:miro/views/widgets/kira/kira_toast/toast_container.dart';
@@ -35,7 +36,7 @@ class SecretPhrasesTileContent extends StatelessWidget {
         TextButton.icon(
           onPressed: () => _copyCurrentMnemonic(context),
           icon: const Icon(Icons.copy),
-          label: const Text('Copy mnemonic'),
+          label: Text(S.of(context).mnemonicWordsButtonCopy),
         ),
       ],
     );
@@ -45,7 +46,7 @@ class SecretPhrasesTileContent extends StatelessWidget {
     await FlutterClipboard.copy(mnemonic.value);
     await KiraToast.of(context).show(
       type: ToastType.success,
-      message: 'Mnemonic successfully copied',
+      message: S.of(context).mnemonicToastCopied,
     );
   }
 }

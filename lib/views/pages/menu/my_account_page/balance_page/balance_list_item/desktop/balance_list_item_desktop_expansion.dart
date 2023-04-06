@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/views/widgets/generic/prefixed_widget.dart';
 
@@ -27,7 +28,7 @@ class BalanceListItemDesktopExpansion extends StatelessWidget {
         SizedBox(width: sectionsSpace),
         Expanded(
           child: PrefixedWidget(
-            prefix: 'Denomination',
+            prefix: S.of(context).balancesDenomination,
             child: Text(
               tokenAmountModel.tokenAliasModel.lowestTokenDenominationModel.name,
               style: textTheme.subtitle1!.copyWith(
@@ -40,7 +41,7 @@ class BalanceListItemDesktopExpansion extends StatelessWidget {
         Expanded(
           flex: 2,
           child: PrefixedWidget(
-            prefix: 'Amount',
+            prefix: S.of(context).balancesAmount,
             child: Text(
               tokenAmountModel.getAmountInLowestDenomination().toString(),
               style: textTheme.subtitle1!.copyWith(

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/specific_blocs/network_module/network_module_bloc.dart';
 import 'package:miro/blocs/specific_blocs/network_module/network_module_state.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/network/data/block_time_model.dart';
 import 'package:miro/shared/models/network/status/online/a_network_online_model.dart';
 
@@ -24,7 +25,7 @@ class LastBlockTimeWidget extends StatelessWidget {
 
         return RichText(
           text: TextSpan(
-            text: 'Last block time: ',
+            text: S.of(context).balancesLastBlockTime,
             style: textTheme.caption!.copyWith(
               color: DesignColors.grey1,
             ),
@@ -37,7 +38,7 @@ class LastBlockTimeWidget extends StatelessWidget {
               ),
               if (blockTimeModel != null && blockTimeModel.isOutdated())
                 TextSpan(
-                  text: ' (${blockTimeModel.durationSinceBlock.inMinutes} minutes ago)',
+                  text: S.of(context).balancesTimeSinceBlock(blockTimeModel.durationSinceBlock.inMinutes),
                   style: textTheme.caption!.copyWith(
                     color: _selectTextColor(blockTimeModel),
                   ),

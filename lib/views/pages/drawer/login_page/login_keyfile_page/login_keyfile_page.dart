@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:miro/blocs/specific_blocs/auth/auth_cubit.dart';
 import 'package:miro/config/locator.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/exceptions/invalid_keyfile_exception.dart';
 import 'package:miro/shared/exceptions/invalid_password_exception.dart';
 import 'package:miro/shared/models/wallet/keyfile.dart';
@@ -36,10 +37,10 @@ class _LoginKeyfilePage extends State<LoginKeyfilePage> {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        const DrawerTitle(
-          title: 'Sign in with Keyfile',
-          subtitle: 'Drop Keyfile to the dropzone',
-          tooltipMessage: 'Keyfile is your secret data',
+        DrawerTitle(
+          title: S.of(context).keyfileSignIn,
+          subtitle: S.of(context).keyfileToDropzone,
+          tooltipMessage: S.of(context).keyfileTipSecretData,
         ),
         const SizedBox(height: 37),
         KeyfileDropzone(
@@ -49,7 +50,7 @@ class _LoginKeyfilePage extends State<LoginKeyfilePage> {
         const SizedBox(height: 16),
         KiraTextField(
           controller: keyfilePasswordController,
-          hint: 'Enter password',
+          hint: S.of(context).keyfileEnterPassword,
           inputFormatters: <TextInputFormatter>[
             FilteringTextInputFormatter.deny(StringUtils.whitespacesRegExp),
           ],
@@ -59,7 +60,7 @@ class _LoginKeyfilePage extends State<LoginKeyfilePage> {
         const SizedBox(height: 24),
         KiraElevatedButton(
           onPressed: _pressSignInButton,
-          title: 'Sign in',
+          title: S.of(context).signInButton,
         ),
         const SizedBox(height: 32),
         const CreateWalletLinkButton(),
@@ -70,7 +71,7 @@ class _LoginKeyfilePage extends State<LoginKeyfilePage> {
 
   String? _validateKeyFile(DropzoneFile? file) {
     if (file == null) {
-      String errorMessage = 'Keyfile cannot be empty';
+      String errorMessage = S.of(context).keyfileCannotBeEmpty;
       AppLogger().log(message: errorMessage, logLevel: LogLevel.warning);
       return errorMessage;
     }
@@ -78,7 +79,7 @@ class _LoginKeyfilePage extends State<LoginKeyfilePage> {
       _getWalletFromKeyFileString(file.content);
       return null;
     } on InvalidKeyFileException catch (_) {
-      String errorMessage = 'Invalid Keyfile';
+      String errorMessage = S.of(context).keyfileInvalid;
       AppLogger().log(message: errorMessage, logLevel: LogLevel.warning);
       return errorMessage;
     } catch (e) {
@@ -90,14 +91,14 @@ class _LoginKeyfilePage extends State<LoginKeyfilePage> {
   String? _validateKeyFilePassword() {
     DropzoneFile? file = dropZoneController.dropzoneController.currentFile;
     if (file == null) {
-      String errorMessage = 'Keyfile cannot be empty';
+      String errorMessage = S.of(context).keyfileCannotBeEmpty;
       AppLogger().log(message: errorMessage, logLevel: LogLevel.warning);
       dropZoneController.setErrorMessage(errorMessage);
     }
     try {
       _getWalletFromKeyFileString(file!.content);
     } on InvalidPasswordException {
-      String errorMessage = 'Wrong password';
+      String errorMessage = S.of(context).keyfileWrongPassword;
       AppLogger().log(message: errorMessage, logLevel: LogLevel.warning);
       return errorMessage;
     }

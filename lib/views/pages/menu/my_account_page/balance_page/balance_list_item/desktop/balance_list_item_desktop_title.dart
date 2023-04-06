@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
 import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_token_prefix.dart';
 import 'package:miro/views/widgets/buttons/kira_outlined_button.dart';
@@ -62,7 +63,7 @@ class BalanceListItemDesktopTitle extends StatelessWidget {
           height: 40,
           width: 70,
           onPressed: onSendButtonPressed,
-          title: 'Send',
+          title: S.of(context).balancesSend,
         ),
       ],
     );

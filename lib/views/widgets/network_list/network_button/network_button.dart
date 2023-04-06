@@ -3,6 +3,7 @@ import 'package:miro/blocs/specific_blocs/network_module/events/network_module_c
 import 'package:miro/blocs/specific_blocs/network_module/network_module_bloc.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/network/data/connection_status_type.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
 import 'package:miro/shared/models/network/status/network_offline_model.dart';
@@ -34,7 +35,7 @@ class NetworkButton extends StatelessWidget {
       return SizedBox(
         width: double.infinity,
         child: Text(
-          'Selected server is offline\nPlease choose different server',
+          S.of(context).networkServerOffline,
           style: textTheme.caption!.copyWith(
             color: DesignColors.redStatus1,
           ),
@@ -43,12 +44,12 @@ class NetworkButton extends StatelessWidget {
     } else if (networkConnected) {
       return NetworkSelectedButton(
         networkStatusModel: networkStatusModel,
-        title: 'Connected',
+        title: S.of(context).networkButtonConnected,
       );
     } else if (networkConnecting) {
       return NetworkSelectedButton(
         networkStatusModel: networkStatusModel,
-        title: 'Connecting...',
+        title: S.of(context).networkButtonConnecting,
       );
     } else if (networkOnline) {
       return NetworkConnectButton(
@@ -63,7 +64,7 @@ class NetworkButton extends StatelessWidget {
       );
     } else {
       return Text(
-        'Cannot connect to server',
+        S.of(context).networkErrorCannotConnect,
         style: textTheme.caption!.copyWith(
           color: DesignColors.redStatus1,
         ),

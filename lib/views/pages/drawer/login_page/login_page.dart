@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/views/layout/drawer/drawer_subtitle.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
 import 'package:miro/views/pages/drawer/create_wallet_page/create_wallet_page.dart';
@@ -25,34 +26,34 @@ class _LoginPage extends State<LoginPage> {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.max,
       children: <Widget>[
-        const DrawerTitle(
-          title: 'Connect a wallet',
-          subtitle: 'Choose one of the following options:',
+        DrawerTitle(
+          title: S.of(context).signInConnectWallet,
+          subtitle: S.of(context).signInOptions,
         ),
         const SizedBox(height: 32),
         KiraElevatedButton(
-          title: 'Keyfile',
+          title: S.of(context).keyfile,
           onPressed: () {
             KiraScaffold.of(context).navigateEndDrawerRoute(const LoginKeyfilePage());
           },
         ),
         const SizedBox(height: 16),
         KiraElevatedButton(
-          title: 'Mnemonic',
+          title: S.of(context).mnemonic,
           onPressed: () {
             KiraScaffold.of(context).navigateEndDrawerRoute(const LoginMnemonicPage());
           },
         ),
         const SizedBox(height: 32),
         Text(
-          "Don't have a wallet?",
+          S.of(context).signInDontHaveWallet,
           style: textTheme.bodyText2!.copyWith(
             color: DesignColors.white1,
           ),
         ),
         const SizedBox(height: 16),
         KiraOutlinedButton(
-          title: 'Create new wallet',
+          title: S.of(context).createWalletButton,
           onPressed: () {
             KiraScaffold.of(context).navigateEndDrawerRoute(const CreateWalletPage());
           },

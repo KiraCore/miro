@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:miro/config/app_icons.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/dashboard/consensus_state_type.dart';
 import 'package:miro/shared/models/dashboard/dashboard_model.dart';
 import 'package:miro/views/pages/menu/dashboard_page/widgets/dashboard_grid_tile.dart';
@@ -21,8 +22,8 @@ class DashboardHeaderSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Map<ConsensusStateType, String> consensusStateTypeMessages = <ConsensusStateType, String>{
-      ConsensusStateType.healthy: 'Healthy',
-      ConsensusStateType.unhealthy: 'Unhealthy',
+      ConsensusStateType.healthy: S.of(context).consensusHealthy,
+      ConsensusStateType.unhealthy: S.of(context).consensusUnhealthy,
     };
 
     return ColumnRowSwapper(
@@ -31,7 +32,7 @@ class DashboardHeaderSection extends StatelessWidget {
         KiraCard(
           child: DashboardGridTile.icon(
             title: dashboardModel?.currentBlockValidatorModel.moniker,
-            subtitle: 'Current Block Validator',
+            subtitle: S.of(context).consensusCurrentBlockValidator,
             loading: loading,
             icon: const Icon(
               AppIcons.block,
@@ -43,7 +44,7 @@ class DashboardHeaderSection extends StatelessWidget {
         KiraCard(
           child: DashboardGridTile.icon(
             title: dashboardModel?.consensusHealthPercentage,
-            subtitle: 'Consensus',
+            subtitle: S.of(context).consensus,
             loading: loading,
             icon: const Icon(
               AppIcons.consensus,
@@ -55,7 +56,7 @@ class DashboardHeaderSection extends StatelessWidget {
         KiraCard(
           child: DashboardGridTile.icon(
             title: consensusStateTypeMessages[dashboardModel?.validatorsStatusModel.consensusStateType],
-            subtitle: 'Consensus state',
+            subtitle: S.of(context).consensusState,
             loading: loading,
             icon: const Icon(
               AppIcons.health,

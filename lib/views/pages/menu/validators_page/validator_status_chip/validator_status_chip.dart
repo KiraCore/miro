@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/validators/validator_status.dart';
 import 'package:miro/views/pages/menu/validators_page/validator_status_chip/validator_status_chip_model.dart';
 
@@ -14,7 +15,7 @@ class ValidatorStatusTip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
-    ValidatorStatusChipModel validatorStatusChipModel = _validatorStatusChipModel;
+    ValidatorStatusChipModel validatorStatusChipModel = _assignValidatorStatusChipModel(context);
 
     return Align(
       alignment: Alignment.centerLeft,
@@ -34,18 +35,18 @@ class ValidatorStatusTip extends StatelessWidget {
     );
   }
 
-  ValidatorStatusChipModel get _validatorStatusChipModel {
+  ValidatorStatusChipModel _assignValidatorStatusChipModel(BuildContext context) {
     switch (validatorStatus) {
       case ValidatorStatus.active:
-        return const ValidatorStatusChipModel(color: DesignColors.greenStatus1, title: 'Active');
+        return ValidatorStatusChipModel(color: DesignColors.greenStatus1, title: S.of(context).validatorsActive);
       case ValidatorStatus.inactive:
-        return const ValidatorStatusChipModel(color: DesignColors.yellowStatus1, title: 'Inactive');
+        return ValidatorStatusChipModel(color: DesignColors.yellowStatus1, title: S.of(context).validatorsInactive);
       case ValidatorStatus.jailed:
-        return const ValidatorStatusChipModel(color: DesignColors.redStatus1, title: 'Jailed');
+        return ValidatorStatusChipModel(color: DesignColors.redStatus1, title: S.of(context).validatorsJailed);
       case ValidatorStatus.paused:
-        return const ValidatorStatusChipModel(color: DesignColors.white1, title: 'Paused');
+        return ValidatorStatusChipModel(color: DesignColors.white1, title: S.of(context).validatorsPaused);
       case ValidatorStatus.waiting:
-        return const ValidatorStatusChipModel(color: DesignColors.white1, title: 'Waiting');
+        return ValidatorStatusChipModel(color: DesignColors.white1, title: S.of(context).validatorsWaiting);
     }
   }
 }
