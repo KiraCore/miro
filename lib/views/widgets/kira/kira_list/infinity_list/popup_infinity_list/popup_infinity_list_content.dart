@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/abstract_blocs/abstract_list/models/a_list_item.dart';
 import 'package:miro/blocs/specific_blocs/list/infinity_list/infinity_list_bloc.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/views/widgets/kira/kira_list/infinity_list/infinity_list_controller.dart';
 import 'package:miro/views/widgets/kira/kira_list/infinity_list/infinity_list_load_indicator.dart';
 
@@ -58,7 +59,7 @@ class _PopupInfinityListContent<T extends AListItem> extends State<PopupInfinity
           return const InfinityListLoadIndicator();
         }
         if (widget.items.isEmpty) {
-          return const Text('No results');
+          return Text(S.of(context).errorNoResults);
         }
         T item = widget.items[index - _additionalStartItemsCount];
         return widget.itemBuilder(item);

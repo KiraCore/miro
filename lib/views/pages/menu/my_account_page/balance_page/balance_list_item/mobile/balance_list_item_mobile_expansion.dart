@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/views/widgets/generic/prefixed_widget.dart';
 
@@ -22,7 +23,7 @@ class BalanceListItemMobileExpansion extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           PrefixedWidget(
-            prefix: 'Denomination',
+            prefix: S.of(context).balancesDenomination,
             child: Text(
               tokenAmountModel.tokenAliasModel.lowestTokenDenominationModel.name,
               style: textTheme.subtitle1!.copyWith(
@@ -32,7 +33,7 @@ class BalanceListItemMobileExpansion extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           PrefixedWidget(
-            prefix: 'Amount',
+            prefix: S.of(context).balancesAmount,
             child: Text(
               tokenAmountModel.getAmountInDefaultDenomination().toString(),
               style: textTheme.subtitle1!.copyWith(

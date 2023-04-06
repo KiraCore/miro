@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/tokens/token_denomination_model.dart';
@@ -45,13 +46,13 @@ class _MsgSendForm extends State<MsgSendForm> {
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           WalletAddressTextField(
-            label: 'Send from',
+            label: S.of(context).txHintSendFrom,
             onChanged: _handleSenderAddressChanged,
             initialWalletAddress: widget.initialWalletAddress,
           ),
           const SizedBox(height: 14),
           WalletAddressTextField(
-            label: 'Send to',
+            label: S.of(context).txHintSendTo,
             onChanged: _handleRecipientAddressChanged,
           ),
           const SizedBox(height: 14),
@@ -71,7 +72,7 @@ class _MsgSendForm extends State<MsgSendForm> {
           TxInputWrapper(
             padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 20),
             child: TxTextField(
-              label: 'Memo',
+              label: S.of(context).txHintMemo,
               maxLength: 256,
               onChanged: _handleMemoChanged,
               inputFormatters: <TextInputFormatter>[

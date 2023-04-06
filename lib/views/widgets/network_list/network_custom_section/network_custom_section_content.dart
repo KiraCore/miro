@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:miro/blocs/specific_blocs/views/widgets/network_list/network_custom_section/network_custom_section_cubit.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
 import 'package:miro/shared/utils/network_utils.dart';
 import 'package:miro/views/widgets/buttons/kira_elevated_button.dart';
@@ -46,7 +47,7 @@ class _NetworkCustomSectionContent extends State<NetworkCustomSectionContent> {
         if (checkedNetworkExist) ...<Widget>[
           if (connectedNetworkExist) const SizedBox(height: 16),
           Text(
-            'Checked connection',
+            S.of(context).networkCheckedConnection,
             style: textTheme.subtitle2!.copyWith(color: DesignColors.white2),
           ),
           NetworkListTile(
@@ -59,7 +60,7 @@ class _NetworkCustomSectionContent extends State<NetworkCustomSectionContent> {
           width: double.infinity,
           child: KiraTextField(
             controller: widget.kiraTextFieldController,
-            hint: 'Custom address',
+            hint: S.of(context).networkHintCustomAddress,
           ),
         ),
         ValueListenableBuilder<String?>(
@@ -83,7 +84,7 @@ class _NetworkCustomSectionContent extends State<NetworkCustomSectionContent> {
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 7),
           child: KiraElevatedButton(
-            title: 'Check connection',
+            title: S.of(context).networkButtonCheckConnection,
             onPressed: _pressCheckConnectionButton,
           ),
         ),
@@ -113,9 +114,9 @@ class _NetworkCustomSectionContent extends State<NetworkCustomSectionContent> {
     Uri? networkUri = _parseTextFieldToUri();
     String networkAddress = widget.kiraTextFieldController.textController.text;
     if (networkAddress.isEmpty) {
-      errorNotifier.value = "Field can't be empty";
+      errorNotifier.value = S.of(context).networkErrorAddressEmpty;
     } else if (networkUri == null) {
-      errorNotifier.value = 'Invalid network address';
+      errorNotifier.value = S.of(context).networkErrorAddressInvalid;
     } else {
       errorNotifier.value = null;
     }

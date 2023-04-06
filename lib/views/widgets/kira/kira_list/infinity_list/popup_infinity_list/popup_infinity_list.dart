@@ -11,6 +11,7 @@ import 'package:miro/blocs/specific_blocs/list/filters/filters_bloc.dart';
 import 'package:miro/blocs/specific_blocs/list/infinity_list/infinity_list_bloc.dart';
 import 'package:miro/blocs/specific_blocs/list/sort/models/sort_option.dart';
 import 'package:miro/blocs/specific_blocs/list/sort/sort_bloc.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/views/widgets/generic/center_load_spinner.dart';
 import 'package:miro/views/widgets/kira/kira_list/components/list_search_widget.dart';
 import 'package:miro/views/widgets/kira/kira_list/infinity_list/popup_infinity_list/popup_infinity_list_content.dart';
@@ -85,11 +86,11 @@ class _PopupInfinityList<T extends AListItem> extends State<PopupInfinityList<T>
                         ),
                       )
                     else if (state is ListErrorState)
-                        const Expanded(
-                          child: Center(
-                            child: Text('Cannot fetch data'),
-                          ),
+                      Expanded(
+                        child: Center(
+                          child: Text(S.of(context).errorCannotFetchData),
                         ),
+                      ),
                   ],
                 );
               },

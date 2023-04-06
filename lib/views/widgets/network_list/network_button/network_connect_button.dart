@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
 
 class NetworkConnectButton extends StatelessWidget {
@@ -31,7 +32,7 @@ class NetworkConnectButton extends StatelessWidget {
                 borderRadius: BorderRadius.circular(5.0),
               )),
             ),
-            child: Text('Connect'.toUpperCase(),
+            child: Text(S.of(context).networkButtonConnect.toUpperCase(),
                 style: textTheme.button!.copyWith(
                   color: DesignColors.white1,
                   fontWeight: FontWeight.w500,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_denomination_model.dart';
 import 'package:miro/shared/models/tokens/tx_price_model.dart';
@@ -50,7 +51,7 @@ class _MsgSendFormPreview extends State<MsgSendFormPreview> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         TxInputPreview(
-          label: 'Send from',
+          label: S.of(context).txHintSendFrom,
           value: msgSendModel.fromWalletAddress.bech32Address,
           icon: KiraIdentityAvatar(
             address: msgSendModel.fromWalletAddress.bech32Address,
@@ -59,7 +60,7 @@ class _MsgSendFormPreview extends State<MsgSendFormPreview> {
         ),
         const SizedBox(height: 28),
         TxInputPreview(
-          label: 'Send to',
+          label: S.of(context).txHintSendTo,
           value: msgSendModel.toWalletAddress.bech32Address,
           icon: KiraIdentityAvatar(
             address: msgSendModel.toWalletAddress.bech32Address,
@@ -68,7 +69,7 @@ class _MsgSendFormPreview extends State<MsgSendFormPreview> {
         ),
         const SizedBox(height: 28),
         TxInputPreview(
-          label: 'Total amount',
+          label: S.of(context).txTotalAmount,
           value: totalAmountText,
           icon: TokenAvatar(
             iconUrl: widget.txLocalInfoModel.feeTokenAmountModel.tokenAliasModel.icon,
@@ -79,13 +80,13 @@ class _MsgSendFormPreview extends State<MsgSendFormPreview> {
         const Divider(color: DesignColors.grey2),
         const SizedBox(height: 15),
         TxInputPreview(
-          label: 'Recipient will get',
+          label: S.of(context).txRecipientWillGet,
           value: netAmountText,
           large: true,
         ),
         const SizedBox(height: 15),
         Text(
-          'Transaction fee: $feeAmountText',
+          S.of(context).txFeeAmount(feeAmountText),
           style: textTheme.caption!.copyWith(
             color: DesignColors.white1,
           ),
@@ -102,7 +103,7 @@ class _MsgSendFormPreview extends State<MsgSendFormPreview> {
         ),
         const SizedBox(height: 25),
         TxInputPreview(
-          label: 'Memo',
+          label: S.of(context).txHintMemo,
           value: widget.txLocalInfoModel.memo,
         ),
       ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/network/data/interx_warning_type.dart';
 import 'package:miro/views/widgets/kira/kira_toast/toast_container.dart';
 
@@ -16,9 +17,8 @@ class NetworkWarningContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
     Map<InterxWarningType, String> interxWarningMessages = <InterxWarningType, String>{
-      InterxWarningType.blockTimeOutdated:
-          'The last available block on this interx was created long time ago ($latestBlockTime). The displayed data may be out of date',
-      InterxWarningType.versionOutdated: 'The application is incompatible with this server. Some views may not work correctly',
+      InterxWarningType.blockTimeOutdated: S.of(context).networkWarningWhenLastBlock(latestBlockTime),
+      InterxWarningType.versionOutdated: S.of(context).networkWarningIncompatible,
     };
 
     return Padding(
@@ -26,7 +26,7 @@ class NetworkWarningContainer extends StatelessWidget {
       child: ToastContainer(
         width: double.infinity,
         title: Text(
-          interxWarningMessages[interxWarningType] ?? 'Undefined error',
+          interxWarningMessages[interxWarningType] ?? S.of(context).errorUndefined,
           style: textTheme.caption!,
         ),
         toastType: ToastType.warning,

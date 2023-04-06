@@ -11,6 +11,7 @@ import 'package:miro/blocs/specific_blocs/list/filters/filters_bloc.dart';
 import 'package:miro/blocs/specific_blocs/list/infinity_list/infinity_list_bloc.dart';
 import 'package:miro/blocs/specific_blocs/list/sort/models/sort_option.dart';
 import 'package:miro/blocs/specific_blocs/list/sort/sort_bloc.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/controllers/reload_notifier/reload_notifier_model.dart';
 import 'package:miro/views/widgets/kira/kira_list/infinity_list/sliver_infinity_list/sliver_infinity_list_content.dart';
 import 'package:miro/views/widgets/kira/kira_list/list_error_widget.dart';
@@ -104,14 +105,14 @@ class _SliverInfinityList<T extends AListItem> extends State<SliverInfinityList<
                         listHeaderWidget: widget.listHeaderWidget,
                       )
                     else if (state is ListErrorState)
-                      const SliverFillRemaining(
+                      SliverFillRemaining(
                         hasScrollBody: false,
-                        child: ListErrorWidget(errorMessage: 'Cannot fetch data'),
+                        child: ListErrorWidget(errorMessage: S.of(context).errorCannotFetchData),
                       )
                     else
-                      const SliverFillRemaining(
+                      SliverFillRemaining(
                         hasScrollBody: false,
-                        child: ListErrorWidget(errorMessage: 'Unknown error'),
+                        child: ListErrorWidget(errorMessage: S.of(context).errorUnknown),
                       ),
                   ],
                 );

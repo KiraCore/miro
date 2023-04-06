@@ -7,6 +7,7 @@ import 'package:miro/blocs/specific_blocs/transactions/tx_form_init/states/tx_fo
 import 'package:miro/blocs/specific_blocs/transactions/tx_form_init/tx_form_init_cubit.dart';
 import 'package:miro/config/app_icons.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
 import 'package:miro/views/widgets/generic/center_load_spinner.dart';
 
@@ -49,7 +50,7 @@ class _TxSendFormCubitWrapper extends State<TxFormInitCubitWrapper> {
                 const CenterLoadSpinner(),
                 const SizedBox(height: 20),
                 Text(
-                  'Fetching remote data. Please wait...',
+                  S.of(context).txFetchingRemoteData,
                   style: textTheme.bodyText1!.copyWith(
                     color: DesignColors.white1,
                   ),
@@ -66,7 +67,7 @@ class _TxSendFormCubitWrapper extends State<TxFormInitCubitWrapper> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  'Cannot fetch transaction details. Check your internet connection',
+                  S.of(context).txErrorCannotFetchDetails,
                   textAlign: TextAlign.center,
                   style: textTheme.caption!.copyWith(
                     color: DesignColors.redStatus1,
@@ -80,7 +81,7 @@ class _TxSendFormCubitWrapper extends State<TxFormInitCubitWrapper> {
                     size: 18,
                   ),
                   label: Text(
-                    'Try again',
+                    S.of(context).txTryAgain,
                     style: textTheme.subtitle2!.copyWith(
                       color: DesignColors.white1,
                     ),

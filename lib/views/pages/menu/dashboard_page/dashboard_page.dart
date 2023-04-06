@@ -5,7 +5,8 @@ import 'package:miro/blocs/specific_blocs/dashboard/dashboard_cubit.dart';
 import 'package:miro/blocs/specific_blocs/dashboard/states/dashboard_error_state.dart';
 import 'package:miro/blocs/specific_blocs/dashboard/states/dashboard_loading_state.dart';
 import 'package:miro/config/app_sizes.dart';
-import 'package:miro/views/pages/menu/dashboard_page/dashboard_blocs_section.dart';
+import 'package:miro/generated/l10n.dart';
+import 'package:miro/views/pages/menu/dashboard_page/dashboard_blocks_section.dart';
 import 'package:miro/views/pages/menu/dashboard_page/dashboard_header_section.dart';
 import 'package:miro/views/pages/menu/dashboard_page/dashboard_proposals_section.dart';
 import 'package:miro/views/pages/menu/dashboard_page/dashboard_validators_section.dart';
@@ -49,7 +50,7 @@ class _DashboardPage extends State<DashboardPage> {
                   ToastContainer(
                     width: double.infinity,
                     title: Text(
-                      'Cannot load dashboard. Please check your connection',
+                      S.of(context).toastCannotLoadDashboard,
                       style: textTheme.bodyText2!,
                     ),
                     toastType: ToastType.error,
@@ -67,7 +68,7 @@ class _DashboardPage extends State<DashboardPage> {
                 ColumnRowSwapper(
                   expandOnRow: true,
                   children: <Widget>[
-                    DashboardBlocsSection(
+                    DashboardBlocksSection(
                       loading: loading,
                       blocksModel: dashboardState.dashboardModel?.blocksModel,
                     ),

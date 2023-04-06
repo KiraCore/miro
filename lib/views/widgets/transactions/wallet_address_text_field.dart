@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_value.dart';
 import 'package:miro/views/widgets/kira/kira_identity_avatar.dart';
@@ -117,7 +118,7 @@ class _WalletAddressTextField extends State<WalletAddressTextField> {
     String addressText = textEditingController.text;
     WalletAddress? walletAddress = _tryCreateWalletAddress(addressText);
     if (walletAddress == null) {
-      return 'Please enter a valid address';
+      return S.of(context).txErrorEnterValidAddress;
     }
     return null;
   }

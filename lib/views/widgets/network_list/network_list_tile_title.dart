@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
 import 'package:miro/shared/models/network/status/online/network_unhealthy_model.dart';
 import 'package:miro/views/widgets/generic/network_status_icon.dart';
@@ -53,7 +54,7 @@ class NetworkListTileTitle extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
             child: Text(
-              'Found ${_errorsCount} problems with server',
+              S.of(context).networkHowManyProblems(_errorsCount),
               style: textTheme.caption!.copyWith(
                 color: DesignColors.yellowStatus1,
               ),

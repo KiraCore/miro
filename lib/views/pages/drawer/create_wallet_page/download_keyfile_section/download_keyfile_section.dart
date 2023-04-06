@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 import 'package:miro/config/app_icons.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/controllers/browser/browser_controller.dart';
 import 'package:miro/shared/models/wallet/keyfile.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
@@ -47,8 +48,8 @@ class _DownloadKeyfileSection extends State<DownloadKeyfileSection> {
         children: <Widget>[
           KiraTextField(
             controller: passwordTextController,
-            label: 'Create password for keyfile',
-            hint: 'Password',
+            label: S.of(context).keyfileCreatePassword,
+            hint: S.of(context).keyfileHintPassword,
             inputFormatters: <TextInputFormatter>[
               FilteringTextInputFormatter.deny(StringUtils.whitespacesRegExp),
             ],
@@ -58,7 +59,7 @@ class _DownloadKeyfileSection extends State<DownloadKeyfileSection> {
           const SizedBox(height: 12),
           KiraTextField(
             controller: repeatPasswordTextController,
-            hint: 'Repeat password',
+            hint: S.of(context).keyfileHintRepeatPassword,
             inputFormatters: <TextInputFormatter>[
               FilteringTextInputFormatter.deny(StringUtils.whitespacesRegExp),
             ],
@@ -74,7 +75,7 @@ class _DownloadKeyfileSection extends State<DownloadKeyfileSection> {
             onPressed: _downloadKeyFile,
             foregroundColor: downloadButtonForegroundColor,
             disabled: !downloadKeyfileButtonEnabled,
-            title: downloadButtonText ?? 'Download',
+            title: downloadButtonText ?? S.of(context).keyfileButtonDownload,
             icon: Icon(downloadButtonIcon, size: 14),
           ),
         ],
@@ -120,7 +121,7 @@ class _DownloadKeyfileSection extends State<DownloadKeyfileSection> {
       BrowserController.downloadFile(<String>[encryptedKeyFileAsString], keyFile.fileName);
     }
     setState(() {
-      downloadButtonText = 'Downloaded';
+      downloadButtonText = S.of(context).keyfileButtonDownloaded;
       downloadButtonIcon = AppIcons.done;
       downloadButtonForegroundColor = DesignColors.white1;
     });
@@ -128,10 +129,10 @@ class _DownloadKeyfileSection extends State<DownloadKeyfileSection> {
 
   String? _validatePasswords() {
     if (repeatPasswordTextController.textController.text.isEmpty) {
-      return 'Field cannot be empty';
+      return S.of(context).keyfileErrorPasswordEmpty;
     }
     if (repeatPasswordTextController.textController.text != passwordTextController.textController.text) {
-      return "Passwords doesn't match";
+      return S.of(context).keyfileErrorPasswordMatch;
     }
     return null;
   }

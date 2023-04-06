@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/views/widgets/kira/kira_checkbox.dart';
 
 class WalletTermsSection extends StatefulWidget {
@@ -52,7 +53,7 @@ class _WalletTermsSection extends State<WalletTermsSection> {
             Expanded(
               child: SizedBox(
                 child: Text(
-                  'I understand that if I lose Mnemonic or Keyfile I will never have access to account again.',
+                  S.of(context).createWalletAcknowledgement,
                   style: textTheme.caption!.copyWith(
                     color: DesignColors.white1,
                   ),

@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:miro/blocs/specific_blocs/auth/auth_cubit.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/wallet/mnemonic.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/views/layout/drawer/drawer_subtitle.dart';
@@ -10,7 +11,7 @@ import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
 import 'package:miro/views/pages/drawer/create_wallet_page/download_keyfile_section/download_keyfile_section.dart';
 import 'package:miro/views/pages/drawer/create_wallet_page/download_keyfile_section/download_keyfile_section_controller.dart';
 import 'package:miro/views/pages/drawer/create_wallet_page/qr_code_tile_content.dart';
-import 'package:miro/views/pages/drawer/create_wallet_page/secret_pharses_tile_content.dart';
+import 'package:miro/views/pages/drawer/create_wallet_page/secret_phrases_tile_content.dart';
 import 'package:miro/views/pages/drawer/create_wallet_page/wallet_terms_section.dart';
 import 'package:miro/views/widgets/buttons/kira_elevated_button.dart';
 import 'package:miro/views/widgets/buttons/kira_outlined_button.dart';
@@ -59,12 +60,12 @@ class _CreateWalletPage extends State<CreateWalletPage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            const DrawerTitle(title: 'Create a wallet'),
+            DrawerTitle(title: S.of(context).createWalletTitle),
             const SizedBox(height: 24),
             const Divider(color: DesignColors.grey2),
             const SizedBox(height: 24),
             Text(
-              'Your public address:',
+              S.of(context).createWalletAddress,
               style: textTheme.bodyText2!.copyWith(color: DesignColors.white1),
             ),
             const SizedBox(height: 8),
@@ -80,7 +81,7 @@ class _CreateWalletPage extends State<CreateWalletPage> {
                 valueListenable: publicAddressTextController.textController,
                 builder: (_, TextEditingValue textEditingValue, __) {
                   return SelectableText(
-                    textEditingValue.text,
+                    textEditingValue.text.isEmpty ? S.of(context).createWalletAddressGenerating : textEditingValue.text,
                     style: textTheme.caption!.copyWith(
                       fontSize: 13,
                       color: DesignColors.white1,
@@ -94,7 +95,7 @@ class _CreateWalletPage extends State<CreateWalletPage> {
               children: <Widget>[
                 Expanded(
                   child: KiraOutlinedButton(
-                    title: 'Copy',
+                    title: S.of(context).copy,
                     disabled: loading,
                     onPressed: _copyPublicAddress,
                   ),
@@ -102,7 +103,7 @@ class _CreateWalletPage extends State<CreateWalletPage> {
                 const SizedBox(width: 30),
                 Expanded(
                   child: KiraOutlinedButton(
-                    title: 'Generate\nnew address',
+                    title: S.of(context).createWalletButtonGenerateAddress,
                     disabled: loading,
                     onPressed: _createNewWallet,
                   ),
@@ -115,9 +116,9 @@ class _CreateWalletPage extends State<CreateWalletPage> {
               builder: (_, Mnemonic mnemonic, __) {
                 return KiraExpansionTile(
                   controller: qrCodeTileController,
-                  title: 'Reveal Mnemonic QR Code',
-                  subtitle: 'You won’t be able to see it again',
-                  tooltipMessage: 'Mnemonic QR Code is coded sentence of mnemonic words into QR',
+                  title: S.of(context).mnemonicQrReveal,
+                  subtitle: S.of(context).mnemonicQrWarning,
+                  tooltipMessage: S.of(context).mnemonicQrTip,
                   disabled: loading,
                   children: <Widget>[QrCodeTileContent(mnemonic: mnemonic)],
                 );
@@ -128,10 +129,9 @@ class _CreateWalletPage extends State<CreateWalletPage> {
               builder: (_, Mnemonic mnemonic, __) {
                 return KiraExpansionTile(
                   controller: mnemonicTileController,
-                  title: 'Reveal Mnemonic Words',
-                  subtitle: 'You won’t be able to see them again',
-                  tooltipMessage:
-                      'Mnemonic (“mnemonic code”, “seed phrase”, “seed words”)\nWay of representing a large randomly-generated number as a sequence of words,\nmaking it easier for humans to store.',
+                  title: S.of(context).mnemonicWordsReveal,
+                  subtitle: S.of(context).mnemonicWordsWarning,
+                  tooltipMessage: S.of(context).mnemonicWordsTip,
                   disabled: loading,
                   children: <Widget>[
                     SecretPhrasesTileContent(
@@ -147,9 +147,9 @@ class _CreateWalletPage extends State<CreateWalletPage> {
               builder: (_, Wallet? wallet, __) {
                 return KiraExpansionTile(
                   controller: keyfileTileController,
-                  title: 'Download Keyfile',
-                  subtitle: 'You won’t be able to download it again',
-                  tooltipMessage: 'Keyfile is a file which contains encrypted data',
+                  title: S.of(context).keyfileTitleDownload,
+                  subtitle: S.of(context).keyfileWarning,
+                  tooltipMessage: S.of(context).keyfileTip,
                   disabled: loading,
                   children: <Widget>[
                     if (wallet != null)
@@ -183,7 +183,7 @@ class _CreateWalletPage extends State<CreateWalletPage> {
                 return KiraElevatedButton(
                   onPressed: _pressSignInButton,
                   disabled: !termsChecked,
-                  title: 'Sign in',
+                  title: S.of(context).signInButton,
                 );
               },
             ),
@@ -212,11 +212,11 @@ class _CreateWalletPage extends State<CreateWalletPage> {
 
   void _copyPublicAddress() {
     Clipboard.setData(ClipboardData(text: publicAddressTextController.textController.text));
-    KiraToast.of(context).show(message: 'Public address copied to clipboard', type: ToastType.success);
+    KiraToast.of(context).show(message: S.of(context).toastPublicAddressCopied, type: ToastType.success);
   }
 
   void _resetPage() {
-    publicAddressTextController.textController.text = 'Generating...';
+    publicAddressTextController.textController.clear();
     termsCheckedNotifier.value = false;
     qrCodeTileController.collapse();
     mnemonicTileController.collapse();

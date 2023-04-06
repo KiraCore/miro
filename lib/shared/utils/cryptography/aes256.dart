@@ -82,7 +82,7 @@ class Aes256 {
     final Key key = Key.fromBase16(hashedPassword.toString());
     final Encrypter encrypter = Encrypter(AES(key));
 
-    // First compontent of HIVP is used for AES encryption of data
+    // First component of HIVP is used for AES encryption of data
     final List<int> prefixHivp = hivp.bytes.getRange(0, 16).toList();
     final Uint8List unit8Prefix = Uint8List.fromList(prefixHivp);
     // Generate IV for AES encryption of data from first component of HIVP

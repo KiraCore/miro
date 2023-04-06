@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:miro/blocs/abstract_blocs/abstract_list/models/a_list_item.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_value.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 import 'package:miro/views/widgets/kira/kira_list/models/filter_option_model.dart';
@@ -16,7 +17,7 @@ class FilterDropdownButton<T extends AListItem> extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
-    String filtersTitle = 'All';
+    String filtersTitle = S.of(context).validatorsDropdownAll;
     if (filterOptionModelList.isNotEmpty) {
       filtersTitle = filterOptionModelList.map((FilterOptionModel<T> filterOptionModel) => filterOptionModel.title).join(', ');
     }

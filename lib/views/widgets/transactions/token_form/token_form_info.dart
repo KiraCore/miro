@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/balances/total_balance_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/tokens/token_denomination_model.dart';
@@ -46,7 +47,7 @@ class TokenFormInfo extends StatelessWidget {
               children: <Widget>[
                 const SizedBox(height: 7),
                 Text(
-                  'Available: ${availableAmountText} ${tokenDenominationModel.name}',
+                  S.of(context).txAvailableBalances(availableAmountText, tokenDenominationModel.name),
                   style: textTheme.caption!.copyWith(
                     color: formFieldState.hasError ? DesignColors.redStatus1 : DesignColors.white2,
                   ),

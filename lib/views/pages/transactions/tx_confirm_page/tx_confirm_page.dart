@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/tokens/token_denomination_model.dart';
 import 'package:miro/shared/models/transactions/signed_transaction_model.dart';
 import 'package:miro/shared/router/kira_router.dart';
@@ -30,10 +31,10 @@ class TxConfirmPage extends StatelessWidget {
       suffixWidget: KiraOutlinedButton(
         width: 68,
         height: 39,
-        title: 'Edit',
+        title: S.of(context).txButtonEdit,
         onPressed: () => KiraRouter.of(context).navigateBack(),
       ),
-      title: 'Confirm transaction',
+      title: S.of(context).txConfirm,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
@@ -45,7 +46,7 @@ class TxConfirmPage extends StatelessWidget {
           KiraElevatedButton(
             width: 160,
             onPressed: () => KiraRouter.of(context).navigate(TxBroadcastRoute(signedTxModel: signedTxModel, txFormPageName: txFormPageName)),
-            title: 'Confirm & send',
+            title: S.of(context).txButtonConfirmSend,
           ),
         ],
       ),

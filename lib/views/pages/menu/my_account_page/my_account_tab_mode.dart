@@ -1,0 +1,4 @@
+enum MyAccountTabMode {
+  balances,
+  transactions
+}

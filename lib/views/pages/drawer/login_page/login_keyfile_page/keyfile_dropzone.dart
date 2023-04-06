@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/views/pages/drawer/login_page/login_keyfile_page/keyfile_dropzone_controller.dart';
 import 'package:miro/views/widgets/generic/text_link.dart';
 import 'package:miro/views/widgets/kira/kira_dropzone/kira_dropzone.dart';
@@ -121,7 +122,7 @@ class _KeyfileDropzone extends State<KeyfileDropzone> {
 
     return Center(
       child: Text(
-        'Drop file'.toUpperCase(),
+        S.of(context).signInDropFile.toUpperCase(),
         style: textTheme.bodyText2!.copyWith(color: DesignColors.white1),
       ),
     );
@@ -135,7 +136,7 @@ class _KeyfileDropzone extends State<KeyfileDropzone> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
         Text(
-          'Please drop Keyfile here',
+          S.of(context).keyfileDropHere,
           style: textTheme.bodyText2!.copyWith(
             color: DesignColors.white1,
           ),
@@ -145,13 +146,13 @@ class _KeyfileDropzone extends State<KeyfileDropzone> {
           crossAxisAlignment: WrapCrossAlignment.center,
           children: <Widget>[
             Text(
-              'or ',
+              S.of(context).or,
               style: textTheme.bodyText2!.copyWith(
                 color: DesignColors.white1,
               ),
             ),
             TextLink(
-              text: 'browse',
+              text: S.of(context).browse,
               textStyle: textTheme.bodyText2!,
               onTap: () => dropZoneController.pickFile(),
             ),

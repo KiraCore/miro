@@ -3,9 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/specific_blocs/auth/auth_cubit.dart';
 import 'package:miro/config/app_sizes.dart';
 import 'package:miro/config/locator.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_page.dart';
 import 'package:miro/views/pages/menu/my_account_page/my_account_page_header.dart';
+import 'package:miro/views/pages/menu/my_account_page/my_account_tab_mode.dart';
 import 'package:miro/views/pages/menu/my_account_page/transactions_page/transactions_page.dart';
 import 'package:miro/views/widgets/kira/kira_list/components/last_block_time_widget.dart';
 import 'package:miro/views/widgets/kira/kira_tab_bar/kira_tab_bar.dart';
@@ -19,13 +21,11 @@ class MyAccountPage extends StatefulWidget {
 }
 
 class _MyAccountPage extends State<MyAccountPage> with SingleTickerProviderStateMixin {
+  late final TabController tabController = TabController(length: MyAccountTabMode.values.length, vsync: this);
+
   final AuthCubit authCubit = globalLocator<AuthCubit>();
-  final List<String> tabs = <String>['Balance', 'Transactions'];
-
-  late final ValueNotifier<String> selectedPageNotifier = ValueNotifier<String>(tabs[0]);
-  late final TabController tabController = TabController(length: tabs.length, vsync: this);
-
   final ScrollController scrollController = ScrollController();
+  final ValueNotifier<MyAccountTabMode> selectedPageNotifier = ValueNotifier<MyAccountTabMode>(MyAccountTabMode.values.first);
 
   @override
   void initState() {
@@ -42,6 +42,11 @@ class _MyAccountPage extends State<MyAccountPage> with SingleTickerProviderState
 
   @override
   Widget build(BuildContext context) {
+    Map<MyAccountTabMode, String> tabNames = <MyAccountTabMode, String>{
+      MyAccountTabMode.balances: S.of(context).balances,
+      MyAccountTabMode.transactions: S.of(context).tx,
+    };
+
     return BlocBuilder<AuthCubit, Wallet?>(
       bloc: authCubit,
       builder: (BuildContext context, Wallet? wallet) {
@@ -64,17 +69,17 @@ class _MyAccountPage extends State<MyAccountPage> with SingleTickerProviderState
                         const SizedBox(height: 20),
                         KiraTabBar(
                           tabController: tabController,
-                          tabs: tabs.map((String tabTitle) => Tab(text: tabTitle)).toList(),
+                          tabs: MyAccountTabMode.values.map((MyAccountTabMode myAccountTabMode) => Tab(text: tabNames[myAccountTabMode])).toList(),
                         ),
                         const SizedBox(height: 15),
                         const LastBlockTimeWidget(),
                       ],
                     ),
                   ),
-                  ValueListenableBuilder<String>(
+                  ValueListenableBuilder<MyAccountTabMode>(
                     valueListenable: selectedPageNotifier,
-                    builder: (_, String pageName, __) {
-                      return _selectCurrentPage(pageName: pageName, wallet: wallet);
+                    builder: (_, MyAccountTabMode myAccountTabMode, __) {
+                      return _selectCurrentPage(myAccountTabMode: myAccountTabMode, wallet: wallet);
                     },
                   ),
                 ],
@@ -88,18 +93,18 @@ class _MyAccountPage extends State<MyAccountPage> with SingleTickerProviderState
 
   void _handleTabChange() {
     int selectedIndex = tabController.index;
-    String selectedTab = tabs[selectedIndex];
-    selectedPageNotifier.value = selectedTab;
+    MyAccountTabMode myAccountTabMode = MyAccountTabMode.values[selectedIndex];
+    selectedPageNotifier.value = myAccountTabMode;
   }
 
-  Widget _selectCurrentPage({required String pageName, required Wallet wallet}) {
-    switch (pageName) {
-      case 'Balance':
+  Widget _selectCurrentPage({required MyAccountTabMode myAccountTabMode, required Wallet wallet}) {
+    switch (myAccountTabMode) {
+      case MyAccountTabMode.balances:
         return BalancePage(
           address: wallet.address.bech32Address,
           parentScrollController: scrollController,
         );
-      case 'Transactions':
+      case MyAccountTabMode.transactions:
         return const TransactionsPage();
       default:
         return const SizedBox();

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:miro/config/app_sizes.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/assets.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/network/connection/connection_error_model.dart';
 import 'package:miro/shared/models/network/connection/connection_error_type.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
@@ -46,13 +47,13 @@ class _ConnectionsPage extends State<NetworkListPage> {
                 width: 40,
                 height: 42,
                 child: Image.asset(
-                  Assets.assetsLogoSygnet,
+                  Assets.assetsLogoSignet,
                   fit: BoxFit.contain,
                 ),
               ),
               const SizedBox(height: 16),
               Text(
-                'Connection cancelled',
+                S.of(context).networkConnectionCancelled,
                 textAlign: TextAlign.center,
                 style: textTheme.headline1!.copyWith(
                   color: DesignColors.white1,
@@ -71,7 +72,7 @@ class _ConnectionsPage extends State<NetworkListPage> {
               ],
               if (_isAutoDisconnected == false) ...<Widget>[
                 Text(
-                  'Select available servers',
+                  S.of(context).networkSelectServers,
                   style: textTheme.bodyText1!.copyWith(
                     color: DesignColors.white1,
                   ),
@@ -89,7 +90,7 @@ class _ConnectionsPage extends State<NetworkListPage> {
                     const SizedBox(height: 20),
                     if (_isAutoDisconnected) ...<Widget>[
                       Text(
-                        'Server you are trying to connect:',
+                        S.of(context).networkServerToConnect,
                         style: textTheme.bodyText1!.copyWith(color: DesignColors.white1),
                       ),
                       const SizedBox(height: 10),
@@ -99,7 +100,7 @@ class _ConnectionsPage extends State<NetworkListPage> {
                       ),
                       const SizedBox(height: 20),
                       Text(
-                        'Other available servers:',
+                        S.of(context).networkOtherServers,
                         style: textTheme.bodyText1!.copyWith(color: DesignColors.white1),
                       ),
                       const SizedBox(height: 10),
@@ -108,7 +109,7 @@ class _ConnectionsPage extends State<NetworkListPage> {
                       onConnected: _handleNetworkConnected,
                       hiddenNetworkStatusModel: _isAutoDisconnected ? widget.canceledNetworkStatusModel : null,
                       emptyListWidget: Text(
-                        'No available networks',
+                        S.of(context).networkNoAvailable,
                         style: textTheme.bodyText2!.copyWith(color: DesignColors.white2),
                       ),
                     ),
@@ -128,12 +129,12 @@ class _ConnectionsPage extends State<NetworkListPage> {
     switch (widget.connectionErrorType) {
       case ConnectionErrorType.serverOffline:
         return ConnectionErrorModel(
-          message: 'Reason: Server is offline',
+          message: S.of(context).networkServerOfflineReason,
           color: DesignColors.redStatus1,
         );
       case ConnectionErrorType.serverUnhealthy:
         return ConnectionErrorModel(
-          message: 'Reason: Found problems with server you are trying to connect',
+          message: S.of(context).networkProblemReason,
           color: DesignColors.yellowStatus1,
         );
       default:

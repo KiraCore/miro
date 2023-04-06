@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/tokens/token_denomination_model.dart';
 import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
 import 'package:miro/shared/models/transactions/tx_local_info_model.dart';
@@ -24,7 +25,7 @@ class TxConfirmFormPreview extends StatelessWidget {
           tokenDenominationModel: tokenDenominationModel,
         );
       default:
-        return Text('Preview for ${txMsgType} unavailable');
+        return Text(S.of(context).txPreviewUnavailable(txMsgType.toString()));
     }
   }
 }

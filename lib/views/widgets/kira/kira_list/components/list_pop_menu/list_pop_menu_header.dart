@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_value.dart';
 
 class ListPopMenuHeader extends StatelessWidget {
@@ -37,7 +38,7 @@ class ListPopMenuHeader extends StatelessWidget {
           if (onClearPressed != null)
             IconButton(
               icon: Text(
-                'Clear',
+                S.of(context).txButtonClear,
                 style: textTheme.bodyText2!.copyWith(color: DesignColors.white1),
               ),
               onPressed: onClearPressed,

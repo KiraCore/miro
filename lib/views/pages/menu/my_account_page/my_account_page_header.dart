@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:miro/config/app_icons.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/views/widgets/buttons/kira_elevated_button.dart';
 import 'package:miro/views/widgets/generic/account_tile.dart';
@@ -39,7 +40,7 @@ class MyAccountPageHeader extends StatelessWidget {
               child: KiraElevatedButton(
                 onPressed: null,
                 disabled: true,
-                title: 'Pay',
+                title: S.of(context).balancesButtonPay,
                 icon: Transform.rotate(
                   angle: -pi / 2,
                   child: const Icon(
@@ -60,7 +61,7 @@ class MyAccountPageHeader extends StatelessWidget {
               child: KiraElevatedButton(
                 onPressed: null,
                 disabled: true,
-                title: 'Request',
+                title: S.of(context).balancesButtonRequest,
                 icon: Transform.rotate(
                   angle: pi / 2,
                   child: const Icon(

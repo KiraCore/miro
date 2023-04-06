@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/dashboard/proposals_model.dart';
 import 'package:miro/views/pages/menu/dashboard_page/widgets/dashboard_grid.dart';
 import 'package:miro/views/pages/menu/dashboard_page/widgets/dashboard_grid_tile.dart';
@@ -16,38 +17,38 @@ class DashboardProposalsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DashboardGrid(
-      title: 'Proposals',
+      title: S.of(context).proposals,
       columnsCount: 2,
       items: <DashboardGridTile>[
         DashboardGridTile(
           title: proposalsModel?.active.toString(),
           titleSuffix: proposalsModel?.total.toString() ?? '---',
-          subtitle: 'Active',
+          subtitle: S.of(context).proposalsActive,
           loading: loading,
         ),
         DashboardGridTile(
           title: proposalsModel?.enacting.toString(),
-          subtitle: 'Enacting',
+          subtitle: S.of(context).proposalsEnacting,
           loading: loading,
         ),
         DashboardGridTile(
           title: proposalsModel?.finished.toString(),
-          subtitle: 'Finished',
+          subtitle: S.of(context).proposalsFinished,
           loading: loading,
         ),
         DashboardGridTile(
           title: proposalsModel?.successful.toString(),
-          subtitle: 'Successfull',
+          subtitle: S.of(context).proposalsSuccessful,
           loading: loading,
         ),
         DashboardGridTile(
           title: proposalsModel?.proposers.toString(),
-          subtitle: 'Proposers',
+          subtitle: S.of(context).proposalsProposers,
           loading: loading,
         ),
         DashboardGridTile(
           title: proposalsModel?.voters.toString(),
-          subtitle: 'Voters',
+          subtitle: S.of(context).proposalsVoters,
           loading: loading,
         ),
       ],

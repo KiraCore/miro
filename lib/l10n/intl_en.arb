@@ -1,3 +1,274 @@
 {
+  "@@locale": "en",
+  "kiraNetwork": "Kira Network",
 
+  "balances": "Balances",
+  "balancesButtonPay": "Pay",
+  "balancesButtonRequest": "Request",
+  "balancesName": "Name",
+  "balancesAmount": "Amount",
+  "balancesDenomination": "Denomination",
+  "balancesSend": "Send",
+  "balancesHideSmall": "Hide small balances",
+  "balancesLastBlockTime": "Last block time: ",
+  "balancesSearch": "Search balances",
+  "balancesTimeSinceBlock": " ({time} minutes ago)",
+  "@balancesTimeSinceBlock": {
+    "placeholders": {
+      "time": {
+        "type": "int"
+      }
+    }
+  },
+
+  "blocks": "Blocks",
+  "blocksCurrentHeight": "Current height",
+  "blocksSinceGenesis": "Since genesis",
+  "blocksPendingTransactions": "Pending transactions",
+  "blocksCurrentTransactions": "Current transactions",
+  "blocksLatestTime": "Latest time",
+  "blocksAverageTime": "Average time",
+
+  "consensus": "Consensus",
+  "consensusHealthy": "Healthy",
+  "consensusUnhealthy": "Unhealthy",
+  "consensusCurrentBlockValidator": "Current Block Validator",
+  "consensusState": "Consensus state",
+
+  "createWalletTitle": "Create a wallet",
+  "createWalletButton": "Create new wallet",
+  "createWalletButtonGenerateAddress": "Generate\nnew address",
+  "createWalletAddress": "Your public address:",
+  "createWalletAddressGenerating": "Generating...",
+  "createWalletAcknowledgement": "I understand that if I lose Mnemonic or Keyfile I will never have access to account again.",
+
+  "keyfile": "Keyfile",
+  "keyfileButtonDownload": "Download",
+  "keyfileButtonDownloaded": "Downloaded",
+  "keyfileErrorPasswordEmpty": "Field cannot be empty",
+  "keyfileErrorPasswordMatch": "Passwords doesn't match",
+  "keyfileHintPassword": "Password",
+  "keyfileHintRepeatPassword": "Repeat password",
+  "keyfileTip": "Keyfile is a file which contains encrypted data.",
+  "keyfileTipSecretData": "Keyfile is your secret data",
+  "keyfileTitleDownload": "Download Keyfile",
+  "keyfileWarning": "You won’t be able to download it again",
+  "keyfileSignIn": "Sign in with Keyfile",
+  "keyfileToDropzone": "Drop Keyfile to the dropzone",
+  "keyfileDropHere": "Please drop Keyfile here",
+  "keyfileEnterPassword": "Enter password",
+  "keyfileCannotBeEmpty": "Keyfile cannot be empty",
+  "keyfileInvalid": "Invalid Keyfile",
+  "keyfileWrongPassword": "Wrong password",
+  "keyfileCreatePassword": "Create password for keyfile",
+
+  "mnemonic": "Mnemonic",
+  "mnemonicErrorUnexpected": "Something unexpected happened",
+  "mnemonicErrorEnterCorrect": "You have to enter correct Mnemonic to sign in",
+  "mnemonicErrorInvalid": "Invalid mnemonic",
+  "mnemonicErrorInvalidEntropy": "Invalid entropy",
+  "mnemonicErrorInvalidChecksum": "Invalid checksum",
+  "mnemonicErrorTooShort": "Mnemonic too short",
+  "mnemonicToastCopied": "Mnemonic successfully copied",
+  "mnemonicSignIn": "Sign in with Mnemonic",
+  "mnemonicEnter": "Enter your Mnemonic",
+  "mnemonicIsYourSecretData": "Mnemonic is your secret data",
+
+  "mnemonicWordsButtonCopy": "Copy mnemonic",
+  "mnemonicWordsTip": "Mnemonic (“mnemonic code”, “seed phrase”, “seed words”)\nWay of representing a large randomly-generated number as a sequence of words,\nmaking it easier for humans to store.",
+  "mnemonicWordsWarning": "You won’t be able to see them again",
+  "mnemonicWordsReveal": "Reveal Mnemonic Words",
+
+  "mnemonicQrTip": "Mnemonic QR Code is coded sentence of mnemonic words into QR.",
+  "mnemonicQrWarning": "You won’t be able to see it again",
+  "mnemonicQrReveal": "Reveal Mnemonic QR Code",
+
+  "myAccount": "My account",
+  "myAccountSettings": "Settings",
+  "myAccountSignOut": "Sign Out",
+
+  "networkButtonCancelConnection": "Cancel connection",
+  "networkButtonConnect": "Connect",
+  "networkButtonConnected": "Connected",
+  "networkButtonCheckConnection": "Check connection",
+  "networkButtonConnecting": "Connecting...",
+  "networkErrorUndefinedName": "undefined",
+  "networkErrorCannotConnect": "Cannot connect to server",
+  "networkErrorAddressEmpty": "Field can't be empty",
+  "networkErrorAddressInvalid": "Invalid network address",
+  "networkHintCustomAddress": "Custom address",
+  "networkWarningIncompatible": "The application is incompatible with this server. Some views may not work correctly.",
+  "networkWarningWhenLastBlock": "The last available block on this interx was created long time ago {latestBlockTime}. The displayed contents may be out of date.",
+  "@networkWarningWhenLastBlock": {
+    "placeholders": {
+      "latestBlockTime": {
+        "type": "String"
+      }
+    }
+  },
+  "networkSelectServers": "Select available servers",
+  "networkConnectionCancelled": "Connection cancelled",
+  "networkProblemReason": "Reason: Found problems with server you are trying to connect",
+  "networkServerToConnect": "Server you are trying to connect:",
+  "networkBlockTime": "Block time",
+  "networkBlockHeight": "Block Height",
+  "networkOtherServers": "Other available servers:",
+  "networkNoAvailable": "No available networks",
+  "networkSwitchCustomAddress": "Enable custom address",
+  "networkCheckedConnection": "Checked connection",
+  "networkServerOfflineReason": "Reason: Server is offline",
+  "networkServerOffline": "Selected server is offline\nPlease choose different server",
+  "networkChoose": "Choose network",
+  "networkList": "List of networks",
+  "networkHowManyProblems": "Found {errorsCount} problems with server",
+  "@networkHowManyProblems": {
+    "placeholders": {
+      "errorsCount": {
+        "type": "int"
+      }
+    }
+  },
+  "networkConnectingTo": "Connecting to <{networkName}>{separator} Please wait... {parsedRemainingTime}",
+  "@networkConnectingTo": {
+    "placeholders": {
+      "separator": {
+        "type": "String"
+      },
+      "networkName": {
+        "type": "String"
+      },
+      "parsedRemainingTime": {
+        "type": "String"
+      }
+    }
+  },
+
+  "proposals": "Proposals",
+  "proposalsActive": "Active",
+  "proposalsEnacting": "Enacting",
+  "proposalsFinished": "Finished",
+  "proposalsSuccessful": "Successful",
+  "proposalsProposers": "Proposers",
+  "proposalsVoters": "Voters",
+
+  "signInButton": "Sign in",
+  "signInDropFile": "Drop file",
+  "signInConnectWallet": "Connect a Wallet",
+  "signInOptions": "Choose one of the following options:",
+  "signInConnecting": "Connecting into account...",
+  "signInDontHaveWallet": "Don't have a wallet?",
+
+  "tx": "Transactions",
+  "txButtonSendAll": "Send all",
+  "txButtonClear": "Clear",
+  "txButtonNext": "Next",
+  "txButtonEdit": "Edit",
+  "txButtonConfirmSend": "Confirm & send",
+  "txButtonBackToAccount": "Back to account",
+  "txButtonEditTransaction": "Edit transaction",
+  "txErrorNotEnoughTokens": "Not enough tokens",
+  "txErrorCannotCreate": "Cannot create transaction. Check your connection.",
+  "txErrorCannotFetchDetails": "Cannot fetch transaction details. Check your internet connection.",
+  "txErrorEnterValidAddress": "Please enter a valid address",
+  "txErrorFailed": "Transaction failed",
+  "txErrorSeeMore": "See more on Explorer",
+  "txErrorHttpRequest": "Request",
+  "txErrorHttpResponse": "Response",
+  "txHintSendFrom": "Send from",
+  "txHintSendTo": "Send to",
+  "txHintMemo": "Memo",
+  "txNoticeFee": "Transaction fee {widgetFeeTokenAmountModel}",
+  "@txNoticeFee": {
+    "placeholders": {
+      "widgetFeeTokenAmountModel": {
+        "type": "String"
+      }
+    }
+  },
+  "txTryAgain": "Try again",
+  "txFetchingRemoteData": "Fetching remote data. Please wait...",
+  "txSendTokens": "Send tokens",
+  "txTotalAmount": "Total amount",
+  "txRecipientWillGet": "Recipient will get",
+  "txSigning": "Signing transaction",
+  "txSearchTokens": "Search tokens",
+  "txConfirm": "Confirm transaction",
+  "txIsBeingBroadcast": "Your transaction is being broadcast",
+  "txWarningDoNotCloseWindow": "Do not close this window",
+  "txCompleted": "Transaction completed",
+  "txToastHashCopied": "Transaction hash copied to clipboard",
+  "txToken": "Token",
+  "txPleaseSelectToken": "Please select a token",
+  "txHash": "Transaction hash: 0x{hash}",
+  "@txHash": {
+    "placeholders": {
+      "hash": {
+        "type": "String"
+      }
+    }
+  },
+  "txAvailableBalances": "Available: {availableAmountText} {tokenDenominationModelName}",
+  "@txAvailableBalances": {
+    "placeholders": {
+      "availableAmountText": {
+        "type": "String"
+      },
+      "tokenDenominationModelName": {
+        "type": "String"
+      }
+    }
+  },
+  "txPreviewUnavailable": "Preview for {txMsgType} unavailable",
+  "@txPreviewUnavailable": {
+    "placeholders": {
+      "txMsgType": {
+        "type": "String"
+      }
+    }
+  },
+  "txFeeAmount": "Transaction fee: {feeAmountText}",
+  "@txFeeAmount": {
+    "placeholders": {
+      "feeAmountText": {
+        "type": "String"
+      }
+    }
+  },
+
+  "validators": "Validators",
+  "validatorsHintSearch": "Search validators",
+  "validatorsTotal": "Total",
+  "validatorsActive": "Active",
+  "validatorsInactive": "Inactive",
+  "validatorsJailed": "Jailed",
+  "validatorsPaused": "Paused",
+  "validatorsWaiting": "Waiting",
+  "validatorsList": "List of Validators",
+  "validatorsDropdownAll": "All",
+
+  "validatorsTableTop": "Top",
+  "validatorsTableMoniker": "Moniker",
+  "validatorsTableStatus": "Status",
+  "validatorsTableUptime": "Uptime",
+  "validatorsTableStreak": "Streak",
+
+  "buttonReportIssues": "Report issues",
+  "error": "Error",
+  "errorUndefined": "Undefined error",
+  "errorUnknown": "Unknown error",
+  "errorExplorer": "Error explorer",
+  "errorNoResults": "No results",
+  "errorCannotFetchData": "Cannot fetch data",
+  "errorPreviewNotAvailable": "Preview not available",
+  "toastSuccessfullyCopied": "Successfully copied",
+  "toastPublicAddressCopied": "Public address copied to clipboard",
+  "toastCannotLoadDashboard": "Cannot load dashboard. Please check your connection.",
+  "dashboard": "Dashboard",
+  "governance": "Governance",
+  "accounts": "Accounts",
+  "sortBy": "Sort by",
+  "sec": "sec.",
+  "copy": "Copy",
+  "or": "or ",
+  "browse": "browse"
 }

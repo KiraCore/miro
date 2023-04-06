@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/specific_blocs/auth/auth_cubit.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/views/widgets/buttons/kira_elevated_button.dart';
 
@@ -31,7 +32,7 @@ class TxSendFormNextButton extends StatelessWidget {
           builder: (_, Wallet? wallet) {
             return KiraElevatedButton(
               disabled: disabled,
-              title: 'Next',
+              title: S.of(context).txButtonNext,
               width: 82,
               onPressed: onPressed,
             );
@@ -40,7 +41,7 @@ class TxSendFormNextButton extends StatelessWidget {
         const SizedBox(height: 8),
         if (hasError)
           Text(
-            'Cannot create transaction. Check your connection',
+            S.of(context).txErrorCannotCreate,
             style: textTheme.caption!.copyWith(
               color: DesignColors.redStatus1,
             ),

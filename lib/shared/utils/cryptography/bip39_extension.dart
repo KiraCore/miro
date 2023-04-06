@@ -1,4 +1,6 @@
 import 'package:bip39/bip39.dart' as bip39;
+import 'package:flutter/material.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/utils/app_logger.dart';
 
 enum MnemonicValidateResult {
@@ -48,19 +50,19 @@ class Bip39Extension {
     }
   }
 
-  static String statusToMessage(MnemonicValidateResult status) {
+  static String parseStatusToMessage(MnemonicValidateResult status, BuildContext context) {
     switch (status) {
       case MnemonicValidateResult.invalidMnemonic:
-        return 'Invalid mnemonic';
+        return S.of(context).mnemonicErrorInvalid;
       case MnemonicValidateResult.invalidEntropy:
-        return 'Invalid entropy';
+        return S.of(context).mnemonicErrorInvalidEntropy;
       case MnemonicValidateResult.invalidChecksum:
-        return 'Invalid checksum';
+        return S.of(context).mnemonicErrorInvalidChecksum;
       case MnemonicValidateResult.mnemonicTooShort:
-        return 'Mnemonic too short';
+        return S.of(context).mnemonicErrorTooShort;
       case MnemonicValidateResult.undefinedError:
       default:
-        return 'Undefined error';
+        return S.of(context).errorUndefined;
     }
   }
 }
