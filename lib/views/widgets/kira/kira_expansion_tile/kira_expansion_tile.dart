@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/views/widgets/generic/controllable_expansion_tile.dart';
 import 'package:miro/views/widgets/kira/kira_expansion_tile/expansion_tile_title.dart';
 import 'package:miro/views/widgets/kira/kira_expansion_tile/kira_expansion_tile_controller.dart';
 
 class KiraExpansionTile extends StatefulWidget {
-  final KiraExpansionTileController? controller;
   final String title;
+  final List<Widget> children;
+  final KiraExpansionTileController kiraExpansionTileController;
+  final bool disabled;
   final String? subtitle;
   final String? tooltipMessage;
-  final List<Widget> children;
-  final bool disabled;
 
   const KiraExpansionTile({
     required this.title,
     required this.children,
-    this.controller,
+    required this.kiraExpansionTileController,
+    this.disabled = false,
     this.subtitle,
     this.tooltipMessage,
-    this.disabled = false,
     Key? key,
   }) : super(key: key);
 
@@ -26,8 +27,13 @@ class KiraExpansionTile extends StatefulWidget {
 }
 
 class _KiraExpansionTile extends State<KiraExpansionTile> {
-  late final KiraExpansionTileController controller = widget.controller ?? KiraExpansionTileController();
-  bool expandedStatus = false;
+  bool expandedBool = false;
+
+  @override
+  void initState() {
+    super.initState();
+    widget.kiraExpansionTileController.addListener(_updateVisibility);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +44,7 @@ class _KiraExpansionTile extends State<KiraExpansionTile> {
         decoration: BoxDecoration(
           border: Border.all(
             width: 1,
-            color: expandedStatus ? DesignColors.white1 : DesignColors.greyOutline,
+            color: expandedBool ? DesignColors.white1 : DesignColors.greyOutline,
           ),
           color: Colors.transparent,
           borderRadius: BorderRadius.circular(8),
@@ -49,11 +55,11 @@ class _KiraExpansionTile extends State<KiraExpansionTile> {
             dividerColor: Colors.transparent,
             splashColor: Colors.transparent,
           ),
-          child: ExpansionTile(
-            key: controller.expansionTileGlobalKey,
-            onExpansionChanged: _onExpansionChanged,
+          child: ControllableExpansionTile(
+            key: widget.kiraExpansionTileController.expansionTileGlobalKey,
+            onExpansionChanged: (_) => widget.kiraExpansionTileController.notifyExpansionChanged(),
             maintainState: true,
-            initiallyExpanded: expandedStatus,
+            initiallyExpanded: expandedBool,
             title: ExpansionTileTitle(
               title: widget.title,
               tooltipMessage: widget.tooltipMessage,
@@ -67,10 +73,12 @@ class _KiraExpansionTile extends State<KiraExpansionTile> {
     );
   }
 
-  void _onExpansionChanged(bool status) {
-    expandedStatus = status;
-    controller.notifyExpansionChanged();
-    setState(() {});
+  void _updateVisibility() {
+    if (mounted) {
+      setState(() {
+        expandedBool = widget.kiraExpansionTileController.isExpanded;
+      });
+    }
   }
 
   Widget? _buildSubtitle() {

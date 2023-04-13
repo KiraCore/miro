@@ -107,7 +107,7 @@ class _LoginKeyfilePage extends State<LoginKeyfilePage> {
 
   void _pressSignInButton() {
     bool keyfileValid = dropZoneController.validate() == null;
-    keyfilePasswordController.validate();
+    keyfilePasswordController.reloadErrorMessage();
     bool passwordValid = keyfilePasswordController.errorNotifier.value == null;
 
     if (keyfileValid && passwordValid) {

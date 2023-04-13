@@ -330,7 +330,7 @@ class ControllableExpansionTileState extends State<ControllableExpansionTile> wi
             iconColor: _iconColor.value,
             textColor: _headerColor.value,
             child: ListTile(
-              onTap: _handleTap,
+              onTap: invertVisibility,
               contentPadding: widget.tilePadding,
               leading: widget.leading ?? _buildLeadingIcon(context),
               title: widget.title,
@@ -404,13 +404,12 @@ class ControllableExpansionTileState extends State<ControllableExpansionTile> wi
     _setExpanded(false);
   }
 
-  void toggle() {
-    _setExpanded(!_isExpanded);
+  void invertVisibility() {
+    bool invertedVisibilityBool = !_isExpanded;
+    _setExpanded(invertedVisibilityBool);
   }
 
-  void _handleTap() {
-    _setExpanded(!_isExpanded);
-  }
+  bool get isExpanded => _isExpanded;
 
   void _setExpanded(bool expandedStatus) {
     setState(() {

@@ -6,9 +6,8 @@ class KiraExpansionTileController extends ChangeNotifier {
 
   KiraExpansionTileController();
 
-  void expand() {
-    expansionTileGlobalKey.currentState?.expand();
-    notifyExpansionChanged();
+  bool get isExpanded {
+    return expansionTileGlobalKey.currentState?.isExpanded ?? false;
   }
 
   void collapse() {
@@ -16,8 +15,13 @@ class KiraExpansionTileController extends ChangeNotifier {
     notifyExpansionChanged();
   }
 
-  void toggle() {
-    expansionTileGlobalKey.currentState?.toggle();
+  void expand() {
+    expansionTileGlobalKey.currentState?.expand();
+    notifyExpansionChanged();
+  }
+
+  void invertVisibility() {
+    expansionTileGlobalKey.currentState?.invertVisibility();
     notifyExpansionChanged();
   }
 

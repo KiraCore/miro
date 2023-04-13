@@ -62,7 +62,7 @@ class _Backdrop extends State<Backdrop> with SingleTickerProviderStateMixin {
     );
   }
 
-  void toggle() {
+  void invertVisibility() {
     FocusScope.of(context).unfocus();
     if (_isCollapsed) {
       expand();

@@ -111,8 +111,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "keyfile": MessageLookupByLibrary.simpleMessage("Keyfile"),
         "keyfileButtonDownload":
             MessageLookupByLibrary.simpleMessage("Download"),
-        "keyfileButtonDownloaded":
-            MessageLookupByLibrary.simpleMessage("Downloaded"),
         "keyfileCannotBeEmpty":
             MessageLookupByLibrary.simpleMessage("Keyfile cannot be empty"),
         "keyfileCreatePassword":
@@ -121,10 +119,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Please drop Keyfile here"),
         "keyfileEnterPassword":
             MessageLookupByLibrary.simpleMessage("Enter password"),
-        "keyfileErrorPasswordEmpty":
-            MessageLookupByLibrary.simpleMessage("Field cannot be empty"),
-        "keyfileErrorPasswordMatch":
-            MessageLookupByLibrary.simpleMessage("Passwords doesn\'t match"),
+        "keyfileErrorPasswordsMatch":
+            MessageLookupByLibrary.simpleMessage("Passwords don\'t match"),
         "keyfileHintPassword": MessageLookupByLibrary.simpleMessage("Password"),
         "keyfileHintRepeatPassword":
             MessageLookupByLibrary.simpleMessage("Repeat password"),
@@ -140,6 +136,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Download Keyfile"),
         "keyfileToDropzone": MessageLookupByLibrary.simpleMessage(
             "Drop Keyfile to the dropzone"),
+        "keyfileToastDownloaded":
+            MessageLookupByLibrary.simpleMessage("Keyfile downloaded!"),
         "keyfileWarning": MessageLookupByLibrary.simpleMessage(
             "You won’t be able to download it again"),
         "keyfileWrongPassword":

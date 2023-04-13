@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miro/views/layout/app_bar/account_button/current_account_button.dart';
-import 'package:miro/views/layout/scaffold/backdrop/backdrop_toggle_button.dart';
+import 'package:miro/views/layout/scaffold/backdrop/backdrop_menu_button.dart';
 import 'package:miro/views/widgets/kira/kira_logo.dart';
 
 class KiraAppBarMobileHeader extends StatelessWidget {
@@ -18,7 +18,7 @@ class KiraAppBarMobileHeader extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          const BackdropToggleButton(),
+          const BackdropMenuButton(),
           const KiraLogo(height: 30),
           CurrentAccountButton(size: const Size(40, 40)),
         ],

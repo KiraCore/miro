@@ -370,31 +370,11 @@ class S {
     );
   }
 
-  /// `Downloaded`
-  String get keyfileButtonDownloaded {
+  /// `Passwords don't match`
+  String get keyfileErrorPasswordsMatch {
     return Intl.message(
-      'Downloaded',
-      name: 'keyfileButtonDownloaded',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Field cannot be empty`
-  String get keyfileErrorPasswordEmpty {
-    return Intl.message(
-      'Field cannot be empty',
-      name: 'keyfileErrorPasswordEmpty',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Passwords doesn't match`
-  String get keyfileErrorPasswordMatch {
-    return Intl.message(
-      'Passwords doesn\'t match',
-      name: 'keyfileErrorPasswordMatch',
+      'Passwords don\'t match',
+      name: 'keyfileErrorPasswordsMatch',
       desc: '',
       args: [],
     );
@@ -445,6 +425,16 @@ class S {
     return Intl.message(
       'Download Keyfile',
       name: 'keyfileTitleDownload',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Keyfile downloaded!`
+  String get keyfileToastDownloaded {
+    return Intl.message(
+      'Keyfile downloaded!',
+      name: 'keyfileToastDownloaded',
       desc: '',
       args: [],
     );
