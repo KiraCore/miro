@@ -11,7 +11,7 @@ class PopWrapperController {
     isTooltipVisibleNotifier.value = false;
   }
 
-  void toggleTooltip() {
+  void invertVisibility() {
     isTooltipVisibleNotifier.value = !isTooltipVisibleNotifier.value;
   }
 }

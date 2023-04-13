@@ -53,7 +53,7 @@ class _NavMenu extends State<NavMenu> {
 
   void _closeBackdrop() {
     try {
-      Backdrop.of(context).toggle();
+      Backdrop.of(context).invertVisibility();
     } catch (_) {
       AppLogger().log(message: 'Backdrop doesn`t exists in current context', logLevel: LogLevel.terribleFailure);
     }

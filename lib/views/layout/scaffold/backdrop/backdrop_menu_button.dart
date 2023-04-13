@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/views/layout/scaffold/backdrop/backdrop.dart';
 
-class BackdropToggleButton extends StatelessWidget {
+class BackdropMenuButton extends StatelessWidget {
   final AnimatedIconData animatedIconData;
   final Color color;
 
-  const BackdropToggleButton({
+  const BackdropMenuButton({
     this.animatedIconData = AnimatedIcons.close_menu,
     this.color = DesignColors.white1,
     Key? key,
@@ -20,7 +20,7 @@ class BackdropToggleButton extends StatelessWidget {
         color: color,
         progress: Backdrop.of(context).animationController.view,
       ),
-      onPressed: Backdrop.of(context).toggle,
+      onPressed: Backdrop.of(context).invertVisibility,
     );
   }
 }

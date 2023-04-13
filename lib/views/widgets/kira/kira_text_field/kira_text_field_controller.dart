@@ -8,7 +8,7 @@ class KiraTextFieldController {
   final TextEditingController textController = TextEditingController();
   final FocusNode focusNode = FocusNode();
 
-  void validate() {
+  void reloadErrorMessage() {
     validateReloadNotifierModel.reload();
   }
 
