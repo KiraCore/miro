@@ -1,7 +1,8 @@
+import 'package:equatable/equatable.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 
 /// Defines a token with a denomination and an amount.
-class Coin {
+class Coin extends Equatable {
   final String amount;
   final String denom;
 
@@ -23,4 +24,7 @@ class Coin {
       'denom': denom,
     };
   }
+
+  @override
+  List<Object?> get props => <Object?>[amount, denom];
 }

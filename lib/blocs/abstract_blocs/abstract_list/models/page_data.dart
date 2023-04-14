@@ -1,9 +1,11 @@
-class PageData<T> {
+import 'package:equatable/equatable.dart';
+
+class PageData<T> extends Equatable {
   final int index;
   final List<T> listItems;
-  bool isLastPage;
+  final bool isLastPage;
 
-  PageData({
+  const PageData({
     required this.index,
     required this.listItems,
     this.isLastPage = false,
@@ -15,7 +17,5 @@ class PageData<T> {
         isLastPage = false;
 
   @override
-  String toString() {
-    return 'PageData{index: $index, listItems: $listItems, isLastPage: $isLastPage}';
-  }
+  List<Object?> get props => <Object?>[index, listItems, isLastPage];
 }

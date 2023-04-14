@@ -20,9 +20,4 @@ class QueryKiraTokensAliasesResp extends Equatable {
 
   @override
   List<Object?> get props => <Object>[tokenAliases.hashCode];
-
-  @override
-  String toString() {
-    return 'QueryKiraTokensAliasesResp{tokenAliases: $tokenAliases}';
-  }
 }

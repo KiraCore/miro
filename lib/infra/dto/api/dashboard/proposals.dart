@@ -32,18 +32,5 @@ class Proposals extends Equatable {
   }
 
   @override
-  String toString() {
-    return 'Proposals{total: $total, active: $active, enacting: $enacting, finished: $finished, successful: $successful, proposers: $proposers, voters: $voters}';
-  }
-
-  @override
-  List<Object?> get props => <Object>[
-        total,
-        active,
-        enacting,
-        finished,
-        successful,
-        proposers,
-        voters,
-      ];
+  List<Object?> get props => <Object>[total, active, enacting, finished, successful, proposers, voters];
 }

@@ -1,4 +1,6 @@
-class QueryValidatorsReq {
+import 'package:equatable/equatable.dart';
+
+class QueryValidatorsReq extends Equatable {
   /// This is an option to query validator by a given kira address
   final String? address;
 
@@ -45,7 +47,7 @@ class QueryValidatorsReq {
   /// Returns [Status] class only
   final bool? statusOnly;
 
-  QueryValidatorsReq({
+  const QueryValidatorsReq({
     this.address,
     this.all,
     this.countTotal,
@@ -76,4 +78,7 @@ class QueryValidatorsReq {
       'status_only': statusOnly,
     };
   }
+
+  @override
+  List<Object?> get props => <Object?>[address, all, countTotal, key, limit, moniker, offset, proposer, pubkey, status, valkey, statusOnly];
 }

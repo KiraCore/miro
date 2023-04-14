@@ -22,7 +22,7 @@ Future<void> main() async {
 
   group('Tests of getValidatorsList() method', () {
     test('Should return list of validator models', () async {
-      QueryValidatorsReq queryValidatorsReq = QueryValidatorsReq();
+      QueryValidatorsReq queryValidatorsReq = const QueryValidatorsReq();
 
       TestUtils.printInfo('Data request');
       try {
@@ -67,7 +67,7 @@ Future<void> main() async {
 
   group('Tests of getQueryValidatorsResp() method', () {
     test('Should return list of validators with status & waiting & validators fields', () async {
-      QueryValidatorsReq queryValidatorsReq = QueryValidatorsReq(all: true);
+      QueryValidatorsReq queryValidatorsReq = const QueryValidatorsReq(all: true);
 
       TestUtils.printInfo('Data request');
       try {

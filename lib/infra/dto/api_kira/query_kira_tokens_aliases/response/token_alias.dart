@@ -29,17 +29,5 @@ class TokenAlias extends Equatable {
   }
 
   @override
-  List<Object?> get props => <Object>[
-        decimals.hashCode,
-        denoms.hashCode,
-        name.hashCode,
-        symbol.hashCode,
-        icon.hashCode,
-        amount.hashCode,
-      ];
-
-  @override
-  String toString() {
-    return 'TokenAlias{decimals: $decimals, denoms: $denoms, name: $name, symbol: $symbol, icon: $icon, amount: $amount}';
-  }
+  List<Object?> get props => <Object>[decimals, denoms, name, symbol, icon, amount];
 }

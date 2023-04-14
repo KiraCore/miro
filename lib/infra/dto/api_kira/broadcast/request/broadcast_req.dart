@@ -1,10 +1,11 @@
+import 'package:equatable/equatable.dart';
 import 'package:miro/infra/dto/api_kira/broadcast/request/transaction/tx.dart';
 
-class BroadcastReq {
+class BroadcastReq extends Equatable {
   final Tx tx;
   final String mode;
 
-  BroadcastReq({
+  const BroadcastReq({
     required this.tx,
     this.mode = 'block',
   });
@@ -15,4 +16,7 @@ class BroadcastReq {
       'mode': mode,
     };
   }
+
+  @override
+  List<Object?> get props => <Object?>[tx, mode];
 }

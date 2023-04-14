@@ -1,10 +1,11 @@
+import 'package:equatable/equatable.dart';
 import 'package:miro/infra/dto/api_kira/broadcast/request/transaction/components/mode_info/mode_info.dart';
 import 'package:miro/infra/dto/api_kira/broadcast/request/transaction/components/tx_pub_key.dart';
 
 /// Describes the public key and signing mode of a single top-level signer.
 ///
 /// https://docs.cosmos.network/v0.44/core/proto-docs.html#cosmos.tx.v1beta1.SignerInfo
-class SignerInfo {
+class SignerInfo extends Equatable {
   /// The public key is optional for accounts that already exist in state. If unset, the
   /// verifier can use the required signer address for this position and lookup the public key.
   final TxPubKey publicKey;
@@ -29,4 +30,7 @@ class SignerInfo {
         'mode_info': modeInfo.toJson(),
         'sequence': sequence,
       };
+
+  @override
+  List<Object?> get props => <Object?>[publicKey, modeInfo, sequence];
 }

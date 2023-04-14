@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:miro/infra/dto/api_kira/broadcast/request/coin.dart';
 import 'package:miro/infra/dto/api_kira/broadcast/request/messages/a_tx_msg.dart';
 import 'package:miro/infra/dto/api_kira/broadcast/request/transaction/components/auth_info.dart';
@@ -15,7 +16,7 @@ import 'package:miro/shared/models/transactions/tx_remote_info_model.dart';
 /// Standard type used for broadcasting transactions.
 ///
 /// https://docs.cosmos.network/v0.44/core/proto-docs.html#cosmos.tx.v1beta1.Tx
-class Tx {
+class Tx extends Equatable {
   /// Processable content of the transaction
   final TxBody body;
 
@@ -66,4 +67,7 @@ class Tx {
         'auth_info': authInfo.toJson(),
         'signatures': signatures,
       };
+
+  @override
+  List<Object?> get props => <Object?>[body, authInfo, signatures];
 }

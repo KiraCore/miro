@@ -1,4 +1,6 @@
-class Status {
+import 'package:equatable/equatable.dart';
+
+class Status extends Equatable {
   final int activeValidators;
   final int pausedValidators;
   final int inactiveValidators;
@@ -6,7 +8,7 @@ class Status {
   final int totalValidators;
   final int waitingValidators;
 
-  Status({
+  const Status({
     required this.activeValidators,
     required this.pausedValidators,
     required this.inactiveValidators,
@@ -27,9 +29,5 @@ class Status {
   }
 
   @override
-  String toString() {
-    return 'Status{activeValidators: $activeValidators, pausedValidators: $pausedValidators, '
-        'inactiveValidators: $inactiveValidators, jailedValidators: $jailedValidators, '
-        'totalValidators: $totalValidators, waitingValidators: $waitingValidators}';
-  }
+  List<Object?> get props => <Object>[activeValidators, pausedValidators, inactiveValidators, jailedValidators, totalValidators, waitingValidators];
 }

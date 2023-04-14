@@ -17,13 +17,5 @@ class CurrentBlockValidator extends Equatable {
   }
 
   @override
-  String toString() {
-    return 'CurrentBlockValidator{moniker: $moniker, address: $address}';
-  }
-
-  @override
-  List<Object?> get props => <Object>[
-        moniker,
-        address,
-      ];
+  List<Object?> get props => <Object>[moniker, address];
 }

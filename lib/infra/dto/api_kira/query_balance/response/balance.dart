@@ -16,9 +16,4 @@ class Balance extends Equatable {
 
   @override
   List<Object?> get props => <Object>[amount, denom];
-
-  @override
-  String toString() {
-    return 'Balance{amount: $amount, denom: $denom}';
-  }
 }

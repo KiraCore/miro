@@ -1,11 +1,10 @@
-import 'dart:convert';
-
+import 'package:equatable/equatable.dart';
 import 'package:miro/infra/dto/api_kira/broadcast/request/messages/a_tx_msg.dart';
 
 /// TxBody is the body of a transaction that all signers sign over
 ///
 /// https://docs.cosmos.network/v0.44/core/proto-docs.html#cosmos.tx.v1beta1.TxBody
-class TxBody {
+class TxBody extends Equatable {
   /// A list of messages to be executed. The required signers of those messages define
   /// the number and order of elements in AuthInfo's signer_infos and Tx's signatures.
   /// Each required signer address is added to the list only the first time it occurs.
@@ -31,7 +30,7 @@ class TxBody {
   /// If any of these are present and can't be handled, they will be ignored
   final List<dynamic>? nonCriticalExtensionOptions;
 
-  TxBody({
+  const TxBody({
     required this.messages,
     required this.memo,
     this.timeoutHeight = '0',
@@ -48,7 +47,5 @@ class TxBody {
       };
 
   @override
-  String toString() {
-    return jsonEncode(toJson());
-  }
+  List<Object?> get props => <Object?>[messages, memo, timeoutHeight, extensionOptions, nonCriticalExtensionOptions];
 }
