@@ -84,8 +84,5 @@ class KeyFile extends Equatable {
   }
 
   @override
-  String toString() => 'KeyFile{wallet: $wallet, version: $version}';
-
-  @override
   List<Object?> get props => <Object>[wallet, version];
 }

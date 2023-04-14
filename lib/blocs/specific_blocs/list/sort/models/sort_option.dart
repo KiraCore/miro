@@ -49,9 +49,4 @@ class SortOption<T extends AListItem> extends Equatable {
 
   @override
   List<Object?> get props => <Object>[id];
-
-  @override
-  String toString() {
-    return 'SortOption{id: $id, comparator: $comparator, sortMode: $sortMode}';
-  }
 }

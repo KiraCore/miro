@@ -1,7 +1,8 @@
+import 'package:equatable/equatable.dart';
 import 'package:miro/infra/dto/api_kira/broadcast/request/transaction/components/mode_info/sign_mode.dart';
 import 'package:miro/shared/utils/enum_utils.dart';
 
-class SingleModeInfo {
+class SingleModeInfo extends Equatable {
   final SignMode mode;
 
   const SingleModeInfo({
@@ -20,4 +21,7 @@ class SingleModeInfo {
   Map<String, dynamic> toJson() => <String, dynamic>{
         'mode': EnumUtils.parseToString(mode),
       };
+
+  @override
+  List<Object?> get props => <Object?>[mode];
 }

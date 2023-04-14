@@ -1,3 +1,4 @@
+import 'package:equatable/equatable.dart';
 import 'package:miro/infra/dto/api_kira/broadcast/request/coin.dart';
 import 'package:miro/infra/dto/api_kira/broadcast/request/messages/a_tx_msg.dart';
 import 'package:miro/infra/dto/api_kira/broadcast/request/transaction/components/tx_fee.dart';
@@ -8,7 +9,7 @@ import 'package:miro/shared/models/transactions/unsigned_tx_model.dart';
 /// StdSignDoc is replay-prevention structure.
 ///
 /// https://docs.cosmos.network/master/core/transactions.html
-class StdSignDoc {
+class StdSignDoc extends Equatable {
   /// The account number of the account in state
   final String accountNumber;
 
@@ -65,4 +66,7 @@ class StdSignDoc {
       'msgs': messages.map((ATxMsg txMsg) => txMsg.toSignatureJson()).toList(),
     };
   }
+
+  @override
+  List<Object?> get props => <Object?>[accountNumber, sequence, chainId, memo, fee, messages];
 }

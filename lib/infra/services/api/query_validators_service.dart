@@ -39,7 +39,7 @@ class QueryValidatorsService implements _IQueryValidatorsService {
   @override
   Future<List<ValidatorModel>> getValidatorsByAddresses(List<String> validatorAddresses) async {
     try {
-      QueryValidatorsResp queryValidatorsResp = await getQueryValidatorsResp(QueryValidatorsReq(all: true));
+      QueryValidatorsResp queryValidatorsResp = await getQueryValidatorsResp(const QueryValidatorsReq(all: true));
       return queryValidatorsResp.validators.where((Validator e) => validatorAddresses.contains(e.address)).map(ValidatorModel.fromDto).toList();
     } on DioError catch (e) {
       AppLogger().log(message: 'QueryValidatorsService: Cannot fetch getValidatorsByAddresses() ${e.message}');
@@ -70,7 +70,7 @@ class QueryValidatorsService implements _IQueryValidatorsService {
     try {
       final Response<dynamic> response = await _apiRepository.fetchQueryValidators<dynamic>(
         networkUri,
-        QueryValidatorsReq(statusOnly: true),
+        const QueryValidatorsReq(statusOnly: true),
       );
       return Status.fromJson(response.data as Map<String, dynamic>);
     } on DioError catch (e) {

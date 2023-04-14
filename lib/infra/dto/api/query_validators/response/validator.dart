@@ -1,4 +1,6 @@
-class Validator {
+import 'package:equatable/equatable.dart';
+
+class Validator extends Equatable {
   final String top;
   final String address;
   final String valkey;
@@ -16,7 +18,7 @@ class Validator {
   final String missedBlocksCounter;
   final String producedBlocksCounter;
 
-  Validator({
+  const Validator({
     required this.top,
     required this.address,
     required this.valkey,
@@ -57,11 +59,22 @@ class Validator {
   }
 
   @override
-  String toString() {
-    return '\n\nValidator{\ntop: $top,\naddress: $address,\nvalkey: $valkey,\npubkey: $pubkey,\nproposer: $proposer,'
-        '\nmoniker: $moniker,\nstatus: $status,\nrank: $rank,\nstreak: $streak,\nmischance: $mischance,'
-        '\nmischanceConfidence: $mischanceConfidence,\nstartHeight: $startHeight,\ninactiveUntil: $inactiveUntil,'
-        '\nlastPresentBlock: $lastPresentBlock,\nmissedBlocksCounter: $missedBlocksCounter,'
-        '\nproducedBlocksCounter: $producedBlocksCounter}';
-  }
+  List<Object?> get props => <Object>[
+        top,
+        address,
+        valkey,
+        pubkey,
+        proposer,
+        moniker,
+        status,
+        rank,
+        streak,
+        mischance,
+        mischanceConfidence,
+        startHeight,
+        inactiveUntil,
+        lastPresentBlock,
+        missedBlocksCounter,
+        producedBlocksCounter,
+      ];
 }

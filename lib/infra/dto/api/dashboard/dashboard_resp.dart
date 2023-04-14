@@ -30,16 +30,5 @@ class DashboardResp extends Equatable {
   }
 
   @override
-  String toString() {
-    return 'DashboardResp{consensusHealth: $consensusHealth, currentBlockValidator: $currentBlockValidator, validators: $validators, blocks: $blocks, proposals: $proposals}';
-  }
-
-  @override
-  List<Object?> get props => <Object>[
-        consensusHealth,
-        currentBlockValidator,
-        validators,
-        blocks,
-        proposals,
-      ];
+  List<Object?> get props => <Object>[consensusHealth, currentBlockValidator, validators, blocks, proposals];
 }

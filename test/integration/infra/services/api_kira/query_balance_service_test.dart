@@ -20,7 +20,7 @@ Future<void> main() async {
 
   group('Tests of getBalanceModelList() method', () {
     test('Should return specific account balances list', () async {
-      QueryBalanceReq queryBalanceReq = QueryBalanceReq(address: 'kira1axqn2nr8wcwy83gnx97ugypunfka30wt4xyul8');
+      QueryBalanceReq queryBalanceReq = const QueryBalanceReq(address: 'kira1axqn2nr8wcwy83gnx97ugypunfka30wt4xyul8');
 
       TestUtils.printInfo('Data request');
       try {

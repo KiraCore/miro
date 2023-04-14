@@ -29,17 +29,5 @@ class Validators extends Equatable {
   }
 
   @override
-  String toString() {
-    return 'Validators{activeValidators: $activeValidators, pausedValidators: $pausedValidators, inactiveValidators: $inactiveValidators, jailedValidators: $jailedValidators, totalValidators: $totalValidators, waitingValidators: $waitingValidators}';
-  }
-
-  @override
-  List<Object?> get props => <Object>[
-        activeValidators,
-        pausedValidators,
-        inactiveValidators,
-        jailedValidators,
-        totalValidators,
-        waitingValidators,
-      ];
+  List<Object?> get props => <Object>[activeValidators, pausedValidators, inactiveValidators, jailedValidators, totalValidators, waitingValidators];
 }

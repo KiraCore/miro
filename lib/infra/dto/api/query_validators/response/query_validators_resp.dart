@@ -31,10 +31,5 @@ class QueryValidatorsResp extends Equatable {
   }
 
   @override
-  String toString() {
-    return 'QueryValidatorsResp{\n$status,\nWaiting: $waiting,\nValidators: $validators}';
-  }
-
-  @override
   List<Object?> get props => <Object?>[status];
 }

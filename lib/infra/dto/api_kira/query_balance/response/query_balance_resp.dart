@@ -1,26 +1,25 @@
+import 'package:equatable/equatable.dart';
 import 'package:miro/infra/dto/api_kira/query_balance/response/balance.dart';
 import 'package:miro/infra/dto/api_kira/query_balance/response/pagination.dart';
 
-class QueryBalanceResp {
+class QueryBalanceResp extends Equatable {
   final List<Balance> balances;
   final Pagination pagination;
 
-  QueryBalanceResp({
+  const QueryBalanceResp({
     required this.balances,
     required this.pagination,
   });
 
-  factory QueryBalanceResp.fromJson(Map<String, dynamic> json) => QueryBalanceResp(
-        balances: json['balances'] == null
-            ? List<Balance>.empty()
-            : (json['balances'] as List<dynamic>)
-                .map((dynamic e) => Balance.fromJson(e as Map<String, dynamic>))
-                .toList(),
-        pagination: Pagination.fromJson(json['pagination'] as Map<String, dynamic>),
-      );
+  factory QueryBalanceResp.fromJson(Map<String, dynamic> json) {
+    List<dynamic> balancesList = json['balances'] != null ? json['balances'] as List<dynamic> : List<dynamic>.empty();
+
+    return QueryBalanceResp(
+      balances: balancesList.map((dynamic e) => Balance.fromJson(e as Map<String, dynamic>)).toList(),
+      pagination: Pagination.fromJson(json['pagination'] as Map<String, dynamic>),
+    );
+  }
 
   @override
-  String toString(){
-    return 'QueryBalanceResp{balances: ${balances.map((Balance e) => e.toString())}, pagination: $pagination}';
-  }
+  List<Object?> get props => <Object?>[balances, pagination];
 }

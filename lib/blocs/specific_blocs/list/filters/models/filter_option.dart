@@ -33,9 +33,4 @@ class FilterOption<T extends AListItem> extends Equatable {
 
   @override
   List<Object?> get props => <Object>[id];
-
-  @override
-  String toString() {
-    return 'FilterOption{id: $id, comparator: $filterComparator}';
-  }
 }

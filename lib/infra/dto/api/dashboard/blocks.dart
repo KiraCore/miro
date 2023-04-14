@@ -29,17 +29,5 @@ class Blocks extends Equatable {
   }
 
   @override
-  String toString() {
-    return 'Blocks{currentHeight: $currentHeight, sinceGenesis: $sinceGenesis, pendingTransactions: $pendingTransactions, currentTransactions: $currentTransactions, latestTime: $latestTime, averageTime: $averageTime}';
-  }
-
-  @override
-  List<Object?> get props => <Object>[
-        currentHeight,
-        sinceGenesis,
-        pendingTransactions,
-        currentTransactions,
-        latestTime,
-        averageTime,
-      ];
+  List<Object?> get props => <Object>[currentHeight, sinceGenesis, pendingTransactions, currentTransactions, latestTime, averageTime];
 }

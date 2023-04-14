@@ -26,10 +26,5 @@ class InterxWarningModel extends Equatable {
   bool get hasErrors => interxWarningTypes.isNotEmpty;
 
   @override
-  String toString() {
-    return 'InterxWarningModel{interxWarningTypes: $interxWarningTypes}';
-  }
-
-  @override
   List<Object?> get props => <Object>[interxWarningTypes];
 }
