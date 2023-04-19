@@ -8,7 +8,30 @@ import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/shared/utils/map_utils.dart';
 import 'package:miro/shared/utils/transactions/signature_utils.dart';
 
-class TxSigner {
+class TxUtils {
+  static Map<String, String> memoReplacements = <String, String>{
+    '<': r'\u003c',
+    '>': r'\u003e',
+  };
+
+  static String trimMemoToLength(String rawMemo, int maxLength) {
+    String trimmedMemo = rawMemo;
+    String replacedMemo = TxUtils.replaceMemoRestrictedChars(trimmedMemo);
+    while(replacedMemo.length > maxLength) {
+      trimmedMemo = trimmedMemo.substring(0, trimmedMemo.length - 1);
+      replacedMemo = TxUtils.replaceMemoRestrictedChars(trimmedMemo);
+    }
+    return trimmedMemo;
+  }
+
+  static String replaceMemoRestrictedChars(String memo) {
+    String replacedMemo = memo;
+    memoReplacements.forEach((String pattern, String replacement) {
+      replacedMemo = replacedMemo.replaceAll(pattern, replacement);
+    });
+    return replacedMemo;
+  }
+
   static SignedTxModel sign({required UnsignedTxModel unsignedTxModel, required Wallet wallet}) {
     StdSignDoc stdSignDoc = StdSignDoc.fromUnsignedTxModel(unsignedTxModel);
     Map<String, dynamic> signatureDataJson = MapUtils.sort(stdSignDoc.toSignatureJson());

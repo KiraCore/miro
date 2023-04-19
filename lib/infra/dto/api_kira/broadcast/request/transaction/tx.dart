@@ -48,7 +48,7 @@ class Tx extends Equatable {
     return Tx(
       body: TxBody(
         messages: <ATxMsg>[txLocalInfoModel.txMsgModel.toMsgDto()],
-        memo: txLocalInfoModel.memo,
+        memo: txLocalInfoModel.replacedMemo,
       ),
       authInfo: AuthInfo(
         signerInfos: <SignerInfo>[signerInfo],

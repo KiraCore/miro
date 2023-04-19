@@ -25,7 +25,7 @@ import 'package:miro/shared/models/transactions/unsigned_tx_model.dart';
 import 'package:miro/shared/models/wallet/mnemonic.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/shared/utils/network_utils.dart';
-import 'package:miro/shared/utils/transactions/tx_signer.dart';
+import 'package:miro/shared/utils/transactions/tx_utils.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
 // To run this test type in console:
@@ -65,7 +65,7 @@ Future<void> main() async {
         txRemoteInfoModel: txRemoteInfoModel,
       );
 
-      final SignedTxModel actualSignedTxModel = TxSigner.sign(
+      final SignedTxModel actualSignedTxModel = TxUtils.sign(
         unsignedTxModel: actualUnsignedTxModel,
         wallet: wallet,
       );

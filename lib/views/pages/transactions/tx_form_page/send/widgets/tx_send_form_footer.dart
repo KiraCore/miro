@@ -16,7 +16,7 @@ import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/shared/router/kira_router.dart';
 import 'package:miro/shared/router/router.gr.dart';
 import 'package:miro/shared/utils/app_logger.dart';
-import 'package:miro/shared/utils/transactions/tx_signer.dart';
+import 'package:miro/shared/utils/transactions/tx_utils.dart';
 import 'package:miro/views/pages/transactions/tx_form_page/msg_forms/a_msg_form_controller.dart';
 import 'package:miro/views/pages/transactions/tx_form_page/send/widgets/tx_send_form_completing_indicator.dart';
 import 'package:miro/views/pages/transactions/tx_form_page/send/widgets/tx_send_form_next_button.dart';
@@ -62,10 +62,10 @@ class _TxSendFormFooter extends State<TxSendFormFooter> {
             else
               ValueListenableBuilder<bool>(
                 valueListenable: widget.msgFormController.formFilledNotifier,
-                builder: (_, bool formFilled, __) {
+                builder: (_, bool formFilledBool, __) {
                   return TxSendFormNextButton(
                     hasError: txFormBuilderState is TxFormBuilderErrorState,
-                    disabled: formFilled == false,
+                    disabled: formFilledBool == false,
                     onPressed: () => _handleNextButtonPressed(context),
                   );
                 },
@@ -102,7 +102,7 @@ class _TxSendFormFooter extends State<TxSendFormFooter> {
   Future<void> _navigateToNextPage(UnsignedTxModel unsignedTxModel) async {
     Wallet? wallet = authCubit.state;
     if (wallet != null) {
-      SignedTxModel signedTxModel = TxSigner.sign(unsignedTxModel: unsignedTxModel, wallet: wallet);
+      SignedTxModel signedTxModel = TxUtils.sign(unsignedTxModel: unsignedTxModel, wallet: wallet);
       await KiraRouter.of(context).navigate(TxConfirmRoute(
         signedTxModel: signedTxModel,
         tokenDenominationModel: widget.tokenDenominationModel,
