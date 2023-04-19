@@ -2,18 +2,18 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/shared/utils/string_utils.dart';
 
 void main() {
-  group('Tests of basicCharactersRegExp', () {
+  group('Tests of [StringUtils.basicCharactersRegExp]', () {
     test(
-        'Should return true for string containing only basic characters ["abcdefghijklmnoprstuwyzxABCDEFGHIJKLMNOPRSTUWYZX0123456789 !"#\$%\'()*+,-./:;=?@[\\]^_`{|}~"]',
+        'Should return true for string containing only basic characters ["abcdefghijklmnoprstuwyzxABCDEFGHIJKLMNOPRSTUWYZX0123456789 !"#\$%\'()*+,-./<>:;=?@[\\]^_`{|}~"]',
         () {
       // Arrange
-      String testString = 'abcdefghijklmnoprstuwyzxABCDEFGHIJKLMNOPRSTUWYZX0123456789 !"#\$%\'()*+,-./:;=?@[\\]^_`{|}~';
+      String testString = 'abcdefghijklmnoprstuwyzxABCDEFGHIJKLMNOPRSTUWYZX0123456789 !"#\$%\'()*+,-./<>:;=?@[\\]^_`{|}~';
 
       // Act
       int actualMatchLength = StringUtils.basicCharactersRegExp.allMatches(testString).length;
 
       // Assert
-      expect(actualMatchLength, 88);
+      expect(actualMatchLength, 90);
     });
 
     test('Should return false for string containing complex characters ["©Ω௵⇊⇊"]', () {
@@ -28,33 +28,33 @@ void main() {
     });
   });
 
-  group('Tests of whitespacesRegExp', () {
+  group('Tests of [StringUtils.whitespacesRegExp]', () {
     test('Should return true for string containing whitespaces [" "]', () {
       // Act
-      bool actualHasMatch = StringUtils.whitespacesRegExp.hasMatch(' ');
+      bool actualMatchExistsBool = StringUtils.whitespacesRegExp.hasMatch(' ');
 
       // Assert
-      expect(actualHasMatch, true);
+      expect(actualMatchExistsBool, true);
     });
 
     test('Should return true for string containing whitespaces [" t e st "]', () {
       // Act
-      bool actualHasMatch = StringUtils.whitespacesRegExp.hasMatch(' t e st ');
+      bool actualMatchExistsBool = StringUtils.whitespacesRegExp.hasMatch(' t e st ');
 
       // Assert
-      expect(actualHasMatch, true);
+      expect(actualMatchExistsBool, true);
     });
 
     test('Should return false for string not containing whitespaces ["test"]', () {
       // Act
-      bool actualHasMatch = StringUtils.whitespacesRegExp.hasMatch('test');
+      bool actualMatchExistsBool = StringUtils.whitespacesRegExp.hasMatch('test');
 
       // Assert
-      expect(actualHasMatch, false);
+      expect(actualMatchExistsBool, false);
     });
   });
 
-  group('Tests of splitBigNumber() method', () {
+  group('Tests of StringUtils.splitBigNumber() method', () {
     test('Should return parsed "10000000000000000000000000000000000000" to "10 000 000 000 000 000 000 000 000 000 000 000 000"', () {
       // Actual
       String actualNumberString = StringUtils.splitBigNumber('10000000000000000000000000000000000000');
@@ -111,47 +111,57 @@ void main() {
 
     test('Should throw AssertionError for floating point number', () {
       expect(
-            () => StringUtils.splitBigNumber('1.5'),
+        () => StringUtils.splitBigNumber('1.5'),
         throwsAssertionError,
       );
     });
 
     test('Should throw AssertionError for invalid number string', () {
       expect(
-            () => StringUtils.splitBigNumber('100000 0000000000000 000'),
+        () => StringUtils.splitBigNumber('100000 0000000000000 000'),
         throwsAssertionError,
       );
     });
 
     test('Should throw AssertionError for invalid number string', () {
       expect(
-            () => StringUtils.splitBigNumber('abcdefg'),
+        () => StringUtils.splitBigNumber('abcdefg'),
         throwsAssertionError,
       );
     });
   });
 
-  group('Tests of compareStrings() method', () {
-    test('Should return true if text contains formatted pattern', () {
+  group('Tests of StringUtils.compareStrings() method', () {
+    test('Should return "true" if text contains formatted pattern', () {
       // Act
-      bool actualContainsPattern = StringUtils.compareStrings('Zażółć gęślą jaźń', 'ges');
+      bool actualContainsPatternBool = StringUtils.compareStrings('Zażółć gęślą jaźń', 'ges');
 
       // Assert
-      expect(actualContainsPattern, true);
+      expect(actualContainsPatternBool, true);
     });
-    test('Should remove blank spaces and return true', () {
+
+    test('Should remove blank spaces and return "true"', () {
       // Act
-      bool actualContainsPattern = StringUtils.compareStrings('Genesis of Decentralized Finance', 'sisof');
+      bool actualContainsPatternBool = StringUtils.compareStrings('Genesis of Decentralized Finance', 'sisof');
 
       // Assert
-      expect(actualContainsPattern, true);
+      expect(actualContainsPatternBool, true);
     });
-    test('Should return true if text contains formatted pattern', () {
+
+    test('Should return "true" if text contains formatted pattern', () {
       // Act
-      bool actualContainsPattern = StringUtils.compareStrings('Zażółć gęślą jaźń', 'GęŚląJAzŃ');
+      bool actualContainsPatternBool = StringUtils.compareStrings('Zażółć gęślą jaźń', 'GęŚląJAzŃ');
 
       // Assert
-      expect(actualContainsPattern, true);
+      expect(actualContainsPatternBool, true);
+    });
+
+    test('Should return "false" if text doesn`t contain formatted pattern', () {
+      // Act
+      bool actualContainsPatternBool = StringUtils.compareStrings('Zażółć gęślą jaźń', 'Hello world!');
+
+      // Assert
+      expect(actualContainsPatternBool, false);
     });
   });
 }

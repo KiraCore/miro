@@ -29,7 +29,7 @@ import 'package:miro/shared/models/transactions/unsigned_tx_model.dart';
 import 'package:miro/shared/models/wallet/mnemonic.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/shared/utils/network_utils.dart';
-import 'package:miro/shared/utils/transactions/tx_signer.dart';
+import 'package:miro/shared/utils/transactions/tx_utils.dart';
 import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
@@ -101,7 +101,7 @@ Future<void> main() async {
 
       // Act
       UnsignedTxModel actualUnsignedTxModel = await buildUnsignedTxModel(actualTxLocalInfoModel, senderWallet);
-      SignedTxModel actualSignedTxModel = TxSigner.sign(
+      SignedTxModel actualSignedTxModel = TxUtils.sign(
         unsignedTxModel: actualUnsignedTxModel,
         wallet: senderWallet,
       );
@@ -188,7 +188,7 @@ Future<void> main() async {
 
       // Act
       UnsignedTxModel actualUnsignedTxModel = await buildUnsignedTxModel(actualTxLocalInfoModel, senderWallet);
-      SignedTxModel actualSignedTxModel = TxSigner.sign(
+      SignedTxModel actualSignedTxModel = TxUtils.sign(
         unsignedTxModel: actualUnsignedTxModel,
         wallet: senderWallet,
       );
@@ -276,7 +276,7 @@ Future<void> main() async {
 
       // Act
       UnsignedTxModel actualUnsignedTxModel = await buildUnsignedTxModel(actualTxLocalInfoModel, senderWallet);
-      SignedTxModel actualSignedTxModel = TxSigner.sign(
+      SignedTxModel actualSignedTxModel = TxUtils.sign(
         unsignedTxModel: actualUnsignedTxModel,
         wallet: senderWallet,
       );
@@ -359,7 +359,7 @@ Future<void> main() async {
 
       // Act
       UnsignedTxModel actualUnsignedTxModel = await buildUnsignedTxModel(actualTxLocalInfoModel, senderWallet);
-      SignedTxModel actualSignedTxModel = TxSigner.sign(
+      SignedTxModel actualSignedTxModel = TxUtils.sign(
         unsignedTxModel: actualUnsignedTxModel,
         wallet: senderWallet,
       );
@@ -436,7 +436,7 @@ Future<void> main() async {
 
       // Act
       UnsignedTxModel actualUnsignedTxModel = await buildUnsignedTxModel(actualTxLocalInfoModel, senderWallet);
-      SignedTxModel actualSignedTxModel = TxSigner.sign(
+      SignedTxModel actualSignedTxModel = TxUtils.sign(
         unsignedTxModel: actualUnsignedTxModel,
         wallet: senderWallet,
       );
@@ -518,7 +518,7 @@ Future<void> main() async {
 
       // Act
       UnsignedTxModel actualUnsignedTxModel = await buildUnsignedTxModel(actualTxLocalInfoModel, senderWallet);
-      SignedTxModel actualSignedTxModel = TxSigner.sign(
+      SignedTxModel actualSignedTxModel = TxUtils.sign(
         unsignedTxModel: actualUnsignedTxModel,
         wallet: senderWallet,
       );

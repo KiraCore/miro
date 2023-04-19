@@ -48,7 +48,7 @@ class StdSignDoc extends Equatable {
       accountNumber: txRemoteInfoModel.accountNumber,
       sequence: txRemoteInfoModel.sequence,
       chainId: txRemoteInfoModel.chainId,
-      memo: txLocalInfoModel.memo,
+      memo: txLocalInfoModel.replacedMemo,
       fee: TxFee(
         amount: <Coin>[Coin.fromTokenAmountModel(txLocalInfoModel.feeTokenAmountModel)],
       ),
