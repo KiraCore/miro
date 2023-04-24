@@ -71,7 +71,7 @@ class _LoginKeyfilePage extends State<LoginKeyfilePage> {
 
   String? _validateKeyFile(DropzoneFile? file) {
     if (file == null) {
-      String errorMessage = S.of(context).keyfileCannotBeEmpty;
+      String errorMessage = S.of(context).keyfileErrorCannotBeEmpty;
       AppLogger().log(message: errorMessage, logLevel: LogLevel.warning);
       return errorMessage;
     }
@@ -91,7 +91,7 @@ class _LoginKeyfilePage extends State<LoginKeyfilePage> {
   String? _validateKeyFilePassword() {
     DropzoneFile? file = dropZoneController.dropzoneController.currentFile;
     if (file == null) {
-      String errorMessage = S.of(context).keyfileCannotBeEmpty;
+      String errorMessage = S.of(context).keyfileErrorCannotBeEmpty;
       AppLogger().log(message: errorMessage, logLevel: LogLevel.warning);
       dropZoneController.setErrorMessage(errorMessage);
     }

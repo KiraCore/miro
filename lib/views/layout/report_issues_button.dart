@@ -19,7 +19,7 @@ class ReportIssuesButton extends StatelessWidget {
           overlayColor: MaterialStateProperty.resolveWith(_setOverlayColor),
           padding: MaterialStateProperty.all(const EdgeInsets.symmetric(vertical: 16)),
         ),
-        onPressed: () => BrowserController.openUrl('https://forms.gle/mFysxpo1ZPKVkYyu5'),
+        onPressed: () => BrowserController.openUrl('https://report.kira.network/'),
         icon: const Icon(Icons.bug_report_outlined),
         label: Text(S.of(context).buttonReportIssues),
       ),

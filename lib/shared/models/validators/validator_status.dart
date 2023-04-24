@@ -3,5 +3,4 @@ enum ValidatorStatus {
   inactive,
   jailed,
   paused,
-  waiting,
 }

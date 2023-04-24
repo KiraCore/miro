@@ -9,14 +9,12 @@ import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 typedef PopWrapperBuilder = Widget Function();
 
 class PopWrapper extends StatefulWidget {
-  final Size buttonSize;
   final PopWrapperBuilder buttonBuilder;
   final PopWrapperBuilder popupBuilder;
   final PopWrapperController popWrapperController;
   final bool disabled;
 
   const PopWrapper({
-    required this.buttonSize,
     required this.buttonBuilder,
     required this.popupBuilder,
     required this.popWrapperController,
@@ -35,7 +33,6 @@ class _PopWrapperState extends State<PopWrapper> {
   Widget build(BuildContext context) {
     Widget desktopWidget = PopWrapperDesktop(
       justTheController: justTheController,
-      buttonSize: widget.buttonSize,
       buttonBuilder: widget.buttonBuilder,
       popupBuilder: widget.popupBuilder,
       popWrapperController: widget.popWrapperController,
@@ -50,14 +47,10 @@ class _PopWrapperState extends State<PopWrapper> {
       backgroundColor: DesignColors.black,
     );
 
-    return SizedBox(
-      width: widget.buttonSize.width,
-      height: widget.buttonSize.height,
-      child: ResponsiveWidget(
-        largeScreen: desktopWidget,
-        mediumScreen: mobileWidget,
-        smallScreen: mobileWidget,
-      ),
+    return ResponsiveWidget(
+      largeScreen: desktopWidget,
+      mediumScreen: mobileWidget,
+      smallScreen: mobileWidget,
     );
   }
 }

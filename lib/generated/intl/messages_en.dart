@@ -33,14 +33,14 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m4(availableAmountText, tokenDenominationModelName) =>
       "Available: ${availableAmountText} ${tokenDenominationModelName}";
 
-  static String m5(feeAmountText) => "Transaction fee: ${feeAmountText}";
+  static String m5(hash) => "Transaction hash: 0x${hash}";
 
-  static String m6(hash) => "Transaction hash: 0x${hash}";
-
-  static String m7(widgetFeeTokenAmountModel) =>
+  static String m6(widgetFeeTokenAmountModel) =>
       "Transaction fee ${widgetFeeTokenAmountModel}";
 
-  static String m8(txMsgType) => "Preview for ${txMsgType} unavailable";
+  static String m7(txMsgType) => "Preview for ${txMsgType} unavailable";
+
+  static String m8(selected) => "${selected} selected";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -111,14 +111,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "keyfile": MessageLookupByLibrary.simpleMessage("Keyfile"),
         "keyfileButtonDownload":
             MessageLookupByLibrary.simpleMessage("Download"),
-        "keyfileCannotBeEmpty":
-            MessageLookupByLibrary.simpleMessage("Keyfile cannot be empty"),
         "keyfileCreatePassword":
             MessageLookupByLibrary.simpleMessage("Create password for keyfile"),
         "keyfileDropHere":
             MessageLookupByLibrary.simpleMessage("Please drop Keyfile here"),
         "keyfileEnterPassword":
             MessageLookupByLibrary.simpleMessage("Enter password"),
+        "keyfileErrorCannotBeEmpty":
+            MessageLookupByLibrary.simpleMessage("Keyfile cannot be empty"),
         "keyfileErrorPasswordsMatch":
             MessageLookupByLibrary.simpleMessage("Passwords don\'t match"),
         "keyfileHintPassword": MessageLookupByLibrary.simpleMessage("Password"),
@@ -137,7 +137,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "keyfileToDropzone": MessageLookupByLibrary.simpleMessage(
             "Drop Keyfile to the dropzone"),
         "keyfileToastDownloaded":
-            MessageLookupByLibrary.simpleMessage("Keyfile downloaded!"),
+            MessageLookupByLibrary.simpleMessage("Keyfile downloaded"),
         "keyfileWarning": MessageLookupByLibrary.simpleMessage(
             "You won’t be able to download it again"),
         "keyfileWrongPassword":
@@ -287,19 +287,18 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Not enough tokens"),
         "txErrorSeeMore":
             MessageLookupByLibrary.simpleMessage("See more on Explorer"),
-        "txFeeAmount": m5,
         "txFetchingRemoteData": MessageLookupByLibrary.simpleMessage(
             "Fetching remote data. Please wait..."),
-        "txHash": m6,
+        "txHash": m5,
         "txHintMemo": MessageLookupByLibrary.simpleMessage("Memo"),
         "txHintSendFrom": MessageLookupByLibrary.simpleMessage("Send from"),
         "txHintSendTo": MessageLookupByLibrary.simpleMessage("Send to"),
         "txIsBeingBroadcast": MessageLookupByLibrary.simpleMessage(
             "Your transaction is being broadcast"),
-        "txNoticeFee": m7,
+        "txNoticeFee": m6,
         "txPleaseSelectToken":
             MessageLookupByLibrary.simpleMessage("Please select a token"),
-        "txPreviewUnavailable": m8,
+        "txPreviewUnavailable": m7,
         "txRecipientWillGet":
             MessageLookupByLibrary.simpleMessage("Recipient will get"),
         "txSearchTokens": MessageLookupByLibrary.simpleMessage("Search tokens"),
@@ -315,6 +314,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Do not close this window"),
         "validators": MessageLookupByLibrary.simpleMessage("Validators"),
         "validatorsActive": MessageLookupByLibrary.simpleMessage("Active"),
+        "validatorsButtonFilter": m8,
         "validatorsDropdownAll": MessageLookupByLibrary.simpleMessage("All"),
         "validatorsHintSearch":
             MessageLookupByLibrary.simpleMessage("Search validators"),

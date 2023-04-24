@@ -135,6 +135,7 @@ class _KeyfileDropzone extends State<KeyfileDropzone> {
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: <Widget>[
+        const SizedBox(height: 28),
         Text(
           S.of(context).keyfileDropHere,
           style: textTheme.bodyText2!.copyWith(
@@ -157,6 +158,13 @@ class _KeyfileDropzone extends State<KeyfileDropzone> {
               onTap: () => dropZoneController.pickFile(),
             ),
           ],
+        ),
+        const SizedBox(height: 10),
+        Text(
+          errorMessage ?? '',
+          style: textTheme.bodyText2!.copyWith(
+            color: DesignColors.redStatus1,
+          ),
         ),
       ],
     );

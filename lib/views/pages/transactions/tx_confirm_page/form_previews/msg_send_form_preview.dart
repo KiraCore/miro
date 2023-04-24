@@ -86,7 +86,7 @@ class _MsgSendFormPreview extends State<MsgSendFormPreview> {
         ),
         const SizedBox(height: 15),
         Text(
-          S.of(context).txFeeAmount(feeAmountText),
+          S.of(context).txNoticeFee(feeAmountText),
           style: textTheme.caption!.copyWith(
             color: DesignColors.white1,
           ),

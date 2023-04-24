@@ -9,7 +9,6 @@ final GlobalKey _popupKey = GlobalKey();
 
 class PopWrapperDesktop extends StatefulWidget {
   final bool disabled;
-  final Size buttonSize;
   final Color backgroundColor;
   final JustTheController justTheController;
   final PopWrapperBuilder buttonBuilder;
@@ -18,7 +17,6 @@ class PopWrapperDesktop extends StatefulWidget {
 
   const PopWrapperDesktop({
     required this.disabled,
-    required this.buttonSize,
     required this.backgroundColor,
     required this.justTheController,
     required this.buttonBuilder,
@@ -83,8 +81,7 @@ class _PopWrapperDesktop extends State<PopWrapperDesktop> {
         onTap: widget.popWrapperController.showTooltip,
         childBuilder: (Set<MaterialState> states) {
           return Container(
-            width: widget.buttonSize.width,
-            height: widget.buttonSize.height,
+            constraints: const BoxConstraints(maxWidth: 200),
             color: Colors.transparent,
             child: widget.buttonBuilder(),
           );

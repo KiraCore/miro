@@ -19,10 +19,18 @@ class FilterDropdownButton<T extends AListItem> extends StatelessWidget {
     TextTheme textTheme = Theme.of(context).textTheme;
     String filtersTitle = S.of(context).validatorsDropdownAll;
     if (filterOptionModelList.isNotEmpty) {
-      filtersTitle = filterOptionModelList.map((FilterOptionModel<T> filterOptionModel) => filterOptionModel.title).join(', ');
+      filtersTitle = S.of(context).validatorsButtonFilter(filterOptionModelList.length);
     }
 
     return Container(
+      height: 30,
+      constraints: BoxConstraints(
+        minWidth: const ResponsiveValue<double>(
+          largeScreen: 105,
+          smallScreen: 80,
+        ).get(context),
+        maxWidth: 200,
+      ),
       padding: const ResponsiveValue<EdgeInsets>(
         largeScreen: EdgeInsets.symmetric(horizontal: 12, vertical: 0),
         smallScreen: EdgeInsets.symmetric(horizontal: 8, vertical: 0),
@@ -35,17 +43,17 @@ class FilterDropdownButton<T extends AListItem> extends StatelessWidget {
         borderRadius: BorderRadius.circular(4),
       ),
       child: Row(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Expanded(
-            child: Text(
-              filtersTitle,
-              overflow: TextOverflow.ellipsis,
-              textAlign: TextAlign.start,
-              maxLines: 1,
-              style: textTheme.caption!.copyWith(
-                color: DesignColors.white1,
-              ),
+          Text(
+            filtersTitle,
+            overflow: TextOverflow.ellipsis,
+            textAlign: TextAlign.start,
+            maxLines: 1,
+            style: textTheme.caption!.copyWith(
+              color: DesignColors.white1,
             ),
           ),
           if (ResponsiveWidget.isSmallScreen(context) == false) ...<Widget>[

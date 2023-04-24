@@ -370,6 +370,16 @@ class S {
     );
   }
 
+  /// `Keyfile cannot be empty`
+  String get keyfileErrorCannotBeEmpty {
+    return Intl.message(
+      'Keyfile cannot be empty',
+      name: 'keyfileErrorCannotBeEmpty',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Passwords don't match`
   String get keyfileErrorPasswordsMatch {
     return Intl.message(
@@ -430,10 +440,10 @@ class S {
     );
   }
 
-  /// `Keyfile downloaded!`
+  /// `Keyfile downloaded`
   String get keyfileToastDownloaded {
     return Intl.message(
-      'Keyfile downloaded!',
+      'Keyfile downloaded',
       name: 'keyfileToastDownloaded',
       desc: '',
       args: [],
@@ -485,16 +495,6 @@ class S {
     return Intl.message(
       'Enter password',
       name: 'keyfileEnterPassword',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Keyfile cannot be empty`
-  String get keyfileCannotBeEmpty {
-    return Intl.message(
-      'Keyfile cannot be empty',
-      name: 'keyfileCannotBeEmpty',
       desc: '',
       args: [],
     );
@@ -1522,16 +1522,6 @@ class S {
     );
   }
 
-  /// `Transaction fee: {feeAmountText}`
-  String txFeeAmount(String feeAmountText) {
-    return Intl.message(
-      'Transaction fee: $feeAmountText',
-      name: 'txFeeAmount',
-      desc: '',
-      args: [feeAmountText],
-    );
-  }
-
   /// `Validators`
   String get validators {
     return Intl.message(
@@ -1539,6 +1529,16 @@ class S {
       name: 'validators',
       desc: '',
       args: [],
+    );
+  }
+
+  /// `{selected} selected`
+  String validatorsButtonFilter(int selected) {
+    return Intl.message(
+      '$selected selected',
+      name: 'validatorsButtonFilter',
+      desc: '',
+      args: [selected],
     );
   }
 

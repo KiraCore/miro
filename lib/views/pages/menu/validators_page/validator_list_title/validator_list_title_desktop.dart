@@ -12,36 +12,47 @@ class ValidatorListTitleDesktop extends StatelessWidget {
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
 
-    return Row(
-      children: <Widget>[
-        Expanded(
-          child: Text(
+    return SizedBox(
+      height: 64,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Text(
             S.of(context).validatorsList,
             style: textTheme.headline2!.copyWith(
               color: DesignColors.white1,
             ),
           ),
-        ),
-        Expanded(
-          child: Align(
-            alignment: Alignment.centerRight,
-            child: Container(
-              width: double.infinity,
-              constraints: const BoxConstraints(maxWidth: 500),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  const ValidatorsFilterDropdown(),
-                  const SizedBox(width: 32),
-                  Expanded(
-                    child: ListSearchWidget<ValidatorModel>(hint: S.of(context).validatorsHintSearch),
-                  )
-                ],
+          Expanded(
+            child: Align(
+              alignment: Alignment.centerRight,
+              child: Container(
+                width: double.infinity,
+                constraints: const BoxConstraints(maxWidth: 700),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: <Widget>[
+                    SizedBox(
+                      width: 340,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: const <Widget>[
+                          ValidatorsFilterDropdown(),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 24),
+                    Expanded(
+                      child: ListSearchWidget<ValidatorModel>(hint: S.of(context).validatorsHintSearch),
+                    )
+                  ],
+                ),
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
