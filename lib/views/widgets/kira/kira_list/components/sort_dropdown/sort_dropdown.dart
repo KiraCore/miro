@@ -61,7 +61,6 @@ class _SortDropdown<T extends AListItem> extends State<SortDropdown<T>> {
               smallScreen: SizedBox(width: 8),
             ),
             PopWrapper(
-              buttonSize: Size(widget.width, widget.height),
               popWrapperController: sortOptionsController,
               buttonBuilder: () => SortDropdownButton<T>(sortOptionModel: selectedSortOptionModel),
               popupBuilder: () {

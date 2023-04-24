@@ -12,18 +12,19 @@ import 'package:miro/views/widgets/generic/pop_wrapper/pop_wrapper_controller.da
 import 'package:miro/views/widgets/generic/responsive/responsive_value.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 import 'package:miro/views/widgets/kira/kira_list/components/filter_dropdown/filter_dropdown_button.dart';
+import 'package:miro/views/widgets/kira/kira_list/components/filter_dropdown/kira_filter_chip.dart';
 import 'package:miro/views/widgets/kira/kira_list/components/list_pop_menu/list_pop_menu.dart';
 import 'package:miro/views/widgets/kira/kira_list/models/filter_option_model.dart';
 
 class FilterDropdown<T extends AListItem> extends StatefulWidget {
-  final List<FilterOptionModel<T>> filterOptionModels;
   final String title;
+  final List<FilterOptionModel<T>> filterOptionModels;
   final double height;
   final double width;
 
   const FilterDropdown({
-    required this.filterOptionModels,
     required this.title,
+    required this.filterOptionModels,
     this.height = 30,
     this.width = 100,
     Key? key,
@@ -44,49 +45,79 @@ class _FilterDropdown<T extends AListItem> extends State<FilterDropdown<T>> {
       builder: (BuildContext context, AFiltersState<T> filtersState) {
         List<FilterOptionModel<T>>? selectedFilterOptions = _findActiveFilters(filtersState.activeFilters);
 
-        return Row(
+        return Column(
+          crossAxisAlignment: const ResponsiveValue<CrossAxisAlignment>(
+            largeScreen: CrossAxisAlignment.end,
+            mediumScreen: CrossAxisAlignment.start,
+            smallScreen: CrossAxisAlignment.start,
+          ).get(context),
+          mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            Text(
-              widget.title,
-              style: ResponsiveValue<TextStyle>(
-                largeScreen: textTheme.bodyText2!.copyWith(
-                  color: DesignColors.white2,
-                ),
-                smallScreen: textTheme.caption!.copyWith(
-                  color: DesignColors.white2,
-                ),
+            Wrap(
+              spacing: const ResponsiveValue<double>(
+                largeScreen: 8,
+                mediumScreen: 12,
+                smallScreen: 12,
               ).get(context),
+              runSpacing: const ResponsiveValue<double>(
+                largeScreen: 8,
+                mediumScreen: 10,
+                smallScreen: 10,
+              ).get(context),
+              crossAxisAlignment: WrapCrossAlignment.center,
+              children: <Widget>[
+                Text(
+                  widget.title,
+                  style: ResponsiveValue<TextStyle>(
+                    largeScreen: textTheme.bodyText2!.copyWith(
+                      color: DesignColors.white2,
+                    ),
+                    smallScreen: textTheme.caption!.copyWith(
+                      color: DesignColors.white2,
+                    ),
+                  ).get(context),
+                ),
+                PopWrapper(
+                  popWrapperController: filterOptionsController,
+                  buttonBuilder: () => FilterDropdownButton<T>(filterOptionModelList: selectedFilterOptions),
+                  popupBuilder: () {
+                    return ListPopMenu<FilterOptionModel<T>>(
+                      isMultiSelect: true,
+                      itemToString: (FilterOptionModel<T> item) => item.title,
+                      listItems: widget.filterOptionModels,
+                      onItemSelected: _addFilterOption,
+                      onItemRemoved: _removeFilterOption,
+                      selectedListItems: selectedFilterOptions.toSet(),
+                      title: widget.title,
+                    );
+                  },
+                ),
+                if (ResponsiveWidget.isSmallScreen(context) || ResponsiveWidget.isMediumScreen(context)) ...<Widget>[
+                  for (int index = 0; index < selectedFilterOptions.length; index++)
+                    KiraFilterChip(
+                      title: selectedFilterOptions[index].title,
+                      textTheme: textTheme,
+                      onTap: () => _removeFilterOption(selectedFilterOptions[index]),
+                      size: 12,
+                    ),
+                ],
+              ],
             ),
-            const ResponsiveWidget(
-              largeScreen: SizedBox(width: 10),
-              mediumScreen: SizedBox(width: 10),
-              smallScreen: SizedBox(width: 8),
-            ),
-            SizedBox(
-              width: widget.width,
-              height: widget.height,
-              child: PopWrapper(
-                buttonSize: Size(widget.width, widget.height),
-                popWrapperController: filterOptionsController,
-                buttonBuilder: () => FilterDropdownButton<T>(filterOptionModelList: selectedFilterOptions),
-                popupBuilder: () {
-                  return ListPopMenu<FilterOptionModel<T>>(
-                    isMultiSelect: true,
-                    itemToString: (FilterOptionModel<T> item) => item.title,
-                    listItems: widget.filterOptionModels,
-                    onItemSelected: _addFilterOption,
-                    onItemRemoved: _removeFilterOption,
-                    selectedListItems: selectedFilterOptions.toSet(),
-                    title: widget.title,
-                  );
-                },
-              ),
-            ),
-            const ResponsiveWidget(
-              largeScreen: SizedBox(width: 10),
-              mediumScreen: SizedBox(width: 10),
-              smallScreen: SizedBox(width: 8),
-            ),
+            if (ResponsiveWidget.isLargeScreen(context) && selectedFilterOptions.isNotEmpty) ...<Widget>[
+              const SizedBox(height: 10),
+              Wrap(
+                spacing: 8,
+                children: <Widget>[
+                  for (int index = 0; index < selectedFilterOptions.length; index++)
+                    KiraFilterChip(
+                      title: selectedFilterOptions[index].title,
+                      textTheme: textTheme,
+                      onTap: () => _removeFilterOption(selectedFilterOptions[index]),
+                      size: 10,
+                    ),
+                ],
+              )
+            ],
           ],
         );
       },

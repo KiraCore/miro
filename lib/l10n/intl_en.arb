@@ -34,27 +34,30 @@
   "consensusUnhealthy": "Unhealthy",
   "consensusCurrentBlockValidator": "Current Block Validator",
   "consensusState": "Consensus state",
+
   "createWalletTitle": "Create a wallet",
   "createWalletButton": "Create new wallet",
   "createWalletButtonGenerateAddress": "Generate\nnew address",
   "createWalletAddress": "Your public address:",
   "createWalletAddressGenerating": "Generating...",
   "createWalletAcknowledgement": "I understand that if I lose Mnemonic or Keyfile I will never have access to account again.",
+
   "keyfile": "Keyfile",
   "keyfileButtonDownload": "Download",
+  "keyfileErrorCannotBeEmpty": "Keyfile cannot be empty",
   "keyfileErrorPasswordsMatch": "Passwords don't match",
   "keyfileHintPassword": "Password",
   "keyfileHintRepeatPassword": "Repeat password",
   "keyfileTip": "Keyfile is a file which contains encrypted data.",
   "keyfileTipSecretData": "Keyfile is your secret data",
   "keyfileTitleDownload": "Download Keyfile",
-  "keyfileToastDownloaded": "Keyfile downloaded!",
+  "keyfileToastDownloaded": "Keyfile downloaded",
   "keyfileWarning": "You won’t be able to download it again",
   "keyfileSignIn": "Sign in with Keyfile",
   "keyfileToDropzone": "Drop Keyfile to the dropzone",
   "keyfileDropHere": "Please drop Keyfile here",
   "keyfileEnterPassword": "Enter password",
-  "keyfileCannotBeEmpty": "Keyfile cannot be empty",
+
   "keyfileInvalid": "Invalid Keyfile",
   "keyfileWrongPassword": "Wrong password",
   "keyfileCreatePassword": "Create password for keyfile",
@@ -223,16 +226,16 @@
       }
     }
   },
-  "txFeeAmount": "Transaction fee: {feeAmountText}",
-  "@txFeeAmount": {
-    "placeholders": {
-      "feeAmountText": {
-        "type": "String"
-      }
-    }
-  },
 
   "validators": "Validators",
+  "validatorsButtonFilter" : "{selected} selected",
+  "@validatorsButtonFilter": {
+      "placeholders": {
+        "selected": {
+          "type": "int"
+        }
+      }
+    },
   "validatorsHintSearch": "Search validators",
   "validatorsTotal": "Total",
   "validatorsActive": "Active",

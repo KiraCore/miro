@@ -55,7 +55,6 @@ class _SignInAccountButtonDesktopState extends State<_SignedInAccountButtonDeskt
       width: widget.size.width,
       height: widget.size.height,
       child: PopWrapper(
-        buttonSize: Size(widget.size.width, widget.size.height),
         popWrapperController: popWrapperController,
         popupBuilder: _buildAccountPopMenu,
         buttonBuilder: _buildButton,

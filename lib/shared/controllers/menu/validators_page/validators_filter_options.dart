@@ -23,11 +23,6 @@ class ValidatorsFilterOptions {
     filterComparator: (ValidatorModel a) => a.validatorStatus == ValidatorStatus.paused,
   );
 
-  static FilterOption<ValidatorModel> filterByWaitingValidators = FilterOption<ValidatorModel>(
-    id: 'waiting',
-    filterComparator: (ValidatorModel a) => a.validatorStatus == ValidatorStatus.waiting,
-  );
-
   static FilterComparator<ValidatorModel> search(String searchText) {
     return (ValidatorModel item) {
       bool monikerMatch = item.moniker.toLowerCase().contains(searchText.toLowerCase());

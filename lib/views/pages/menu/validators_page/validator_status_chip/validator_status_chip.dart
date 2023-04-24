@@ -45,8 +45,6 @@ class ValidatorStatusTip extends StatelessWidget {
         return ValidatorStatusChipModel(color: DesignColors.redStatus1, title: S.of(context).validatorsJailed);
       case ValidatorStatus.paused:
         return ValidatorStatusChipModel(color: DesignColors.white1, title: S.of(context).validatorsPaused);
-      case ValidatorStatus.waiting:
-        return ValidatorStatusChipModel(color: DesignColors.white1, title: S.of(context).validatorsWaiting);
     }
   }
 }

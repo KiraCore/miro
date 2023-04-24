@@ -35,7 +35,6 @@ class _TokenDropdown extends State<TokenDropdown> {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints boxConstraints) {
         return PopWrapper(
-          buttonSize: Size(boxConstraints.maxWidth, 80),
           disabled: widget.disabled,
           popWrapperController: popWrapperController,
           buttonBuilder: () => _buildSelectedTokenButton(boxConstraints),
