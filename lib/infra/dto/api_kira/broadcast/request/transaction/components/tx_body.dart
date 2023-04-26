@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:miro/infra/dto/api_kira/broadcast/request/messages/a_tx_msg.dart';
+import 'package:miro/infra/dto/shared/messages/a_tx_msg.dart';
 
 /// TxBody is the body of a transaction that all signers sign over
 ///

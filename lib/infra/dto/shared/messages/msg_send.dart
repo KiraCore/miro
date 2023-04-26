@@ -1,11 +1,9 @@
 import 'package:miro/infra/dto/api_kira/broadcast/request/coin.dart';
-import 'package:miro/infra/dto/api_kira/broadcast/request/messages/a_tx_msg.dart';
+import 'package:miro/infra/dto/shared/messages/a_tx_msg.dart';
 
-/// [MsgSend] represents the message that should be
-/// used when sending tokens from one user to another one.
-/// It requires to specify the address from which to send the tokens,
-/// the one that should receive the tokens and the amount of tokens
-/// to send.
+/// Message to send coins from one account to another
+/// Represents MsgSend interface from Cosmos SDK:
+/// https://github.com/cosmos/groups-ui/blob/master/src/generated/cosmos/bank/v1beta1/tx.ts
 class MsgSend extends ATxMsg {
   /// Bech32 address of the sender.
   final String fromAddress;

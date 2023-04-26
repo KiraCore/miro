@@ -18,8 +18,40 @@ Future<void> main() async {
   await initMockLocator();
   NetworkModuleService networkModuleService = globalLocator<NetworkModuleService>();
 
-  group('Tests of getNetworkStatusModel()', () {
-    test('Should return NetworkUnhealthyModel', () async {
+  group('Tests of NetworkModuleService.getNetworkStatusModel()', () {
+    test('Should return [NetworkHealthyModel] if [server HEALTHY]', () async {
+      // Arrange
+      NetworkUnknownModel networkUnknownModel = NetworkUnknownModel(
+        connectionStatusType: ConnectionStatusType.disconnected,
+        uri: Uri.parse('https://healthy.kira.network'),
+      );
+
+      // Act
+      ANetworkStatusModel actualNetworkStatusModel = await networkModuleService.getNetworkStatusModel(
+        networkUnknownModel,
+      );
+
+      // Assert
+      NetworkHealthyModel expectedNetworkHealthyModel = NetworkHealthyModel(
+        connectionStatusType: ConnectionStatusType.disconnected,
+        uri: Uri.parse('https://healthy.kira.network'),
+        networkInfoModel: NetworkInfoModel(
+          chainId: 'localnet-1',
+          interxVersion: 'v0.4.22',
+          latestBlockHeight: 108843,
+          latestBlockTime: DateTime.now(),
+          activeValidators: 319,
+          totalValidators: 475,
+        ),
+      );
+
+      expect(
+        actualNetworkStatusModel,
+        expectedNetworkHealthyModel,
+      );
+    });
+
+    test('Should return [NetworkUnhealthyModel] if [server UNHEALTHY]', () async {
       // Arrange
       NetworkUnknownModel networkUnknownModel = NetworkUnknownModel(
         uri: Uri.parse('https://unhealthy.kira.network'),
@@ -53,39 +85,7 @@ Future<void> main() async {
       );
     });
 
-    test('Should return NetworkHealthyModel', () async {
-      // Arrange
-      NetworkUnknownModel networkUnknownModel = NetworkUnknownModel(
-        connectionStatusType: ConnectionStatusType.disconnected,
-        uri: Uri.parse('https://healthy.kira.network'),
-      );
-
-      // Act
-      ANetworkStatusModel actualNetworkStatusModel = await networkModuleService.getNetworkStatusModel(
-        networkUnknownModel,
-      );
-
-      // Assert
-      NetworkHealthyModel expectedNetworkHealthyModel = NetworkHealthyModel(
-        connectionStatusType: ConnectionStatusType.disconnected,
-        uri: Uri.parse('https://healthy.kira.network'),
-        networkInfoModel: NetworkInfoModel(
-          chainId: 'localnet-1',
-          interxVersion: 'v0.4.22',
-          latestBlockHeight: 108843,
-          latestBlockTime: DateTime.now(),
-          activeValidators: 319,
-          totalValidators: 475,
-        ),
-      );
-
-      expect(
-        actualNetworkStatusModel,
-        expectedNetworkHealthyModel,
-      );
-    });
-
-    test('Should return NetworkOfflineModel', () async {
+    test('Should return [NetworkOfflineModel] if [server OFFLINE]', () async {
       // Arrange
       NetworkUnknownModel networkUnknownModel = NetworkUnknownModel(
         connectionStatusType: ConnectionStatusType.disconnected,

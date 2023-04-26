@@ -16,18 +16,16 @@ abstract class _IQueryExecutionFeeService {
 
 class QueryExecutionFeeService implements _IQueryExecutionFeeService {
   final AppConfig _appConfig = AppConfig();
+  final IApiKiraRepository _apiKiraRepository = globalLocator<IApiKiraRepository>();
   final QueryNetworkPropertiesService _queryNetworkPropertiesService = globalLocator<QueryNetworkPropertiesService>();
-  final ApiKiraRepository _apiKiraRepository = globalLocator<ApiKiraRepository>();
 
   @override
   Future<TokenAmountModel> getExecutionFeeForMessage(String messageName) async {
     Uri networkUri = globalLocator<NetworkModuleBloc>().state.networkUri;
 
     try {
-      final Response<dynamic> response = await _apiKiraRepository.fetchQueryExecutionFee<dynamic>(
-        networkUri,
-        QueryExecutionFeeRequest(message: messageName),
-      );
+      Response<dynamic> response = await _apiKiraRepository.fetchQueryExecutionFee<dynamic>(networkUri, QueryExecutionFeeRequest(message: messageName));
+
       QueryExecutionFeeResponse queryExecutionFeeResponse = QueryExecutionFeeResponse.fromJson(response.data as Map<String, dynamic>);
       TokenAmountModel feeTokenAmountModel = TokenAmountModel(
         lowestDenominationAmount: Decimal.parse(queryExecutionFeeResponse.fee.executionFee),
@@ -35,15 +33,9 @@ class QueryExecutionFeeService implements _IQueryExecutionFeeService {
         tokenAliasModel: _appConfig.defaultFeeTokenAliasModel,
       );
       return feeTokenAmountModel;
-    } on DioError catch (_) {
+    } catch (_) {
       AppLogger().log(message: 'Fee for ${messageName} transaction type is not set. Fetching default fee');
-      return _queryNetworkPropertiesService.getMinTxFee();
-    } catch (e) {
-      AppLogger().log(
-        message: 'QueryExecutionFeeService: Cannot parse getExecutionFeeForMessage() for URI $networkUri ${e}',
-        logLevel: LogLevel.error,
-      );
-      rethrow;
     }
+    return _queryNetworkPropertiesService.getMinTxFee();
   }
 }

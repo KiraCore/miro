@@ -1,5 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/config/locator.dart';
+import 'package:miro/infra/exceptions/dio_connect_exception.dart';
+import 'package:miro/infra/exceptions/dio_parse_exception.dart';
 import 'package:miro/infra/services/api/dashboard_service.dart';
 import 'package:miro/shared/models/dashboard/blocks_model.dart';
 import 'package:miro/shared/models/dashboard/current_block_validator_model.dart';
@@ -15,17 +17,11 @@ import 'package:miro/test/utils/test_utils.dart';
 Future<void> main() async {
   await initMockLocator();
 
-  final Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://healthy.kira.network/');
-  await TestUtils.setupNetworkModel(networkUri: networkUri);
-
   final DashboardService dashboardService = globalLocator<DashboardService>();
 
   DashboardModel expectedDashboardModel = const DashboardModel(
     consensusHealth: 1,
-    currentBlockValidatorModel: CurrentBlockValidatorModel(
-      address: 'kira12p8c7ynv7uxzdd88dc9trd9e4qzsewjvqq8y2x',
-      moniker: 'GENESIS VALIDATOR',
-    ),
+    currentBlockValidatorModel: CurrentBlockValidatorModel(address: 'kira12p8c7ynv7uxzdd88dc9trd9e4qzsewjvqq8y2x', moniker: 'GENESIS VALIDATOR'),
     validatorsStatusModel: ValidatorsStatusModel(
       activeValidators: 1,
       inactiveValidators: 0,
@@ -42,24 +38,44 @@ Future<void> main() async {
       latestTime: 5.009137321,
       averageTime: 5.009582592,
     ),
-    proposalsModel: ProposalsModel(
-      total: 0,
-      active: 0,
-      enacting: 0,
-      finished: 0,
-      successful: 0,
-      proposers: '1',
-      voters: '1',
-    ),
+    proposalsModel: ProposalsModel(total: 0, active: 0, enacting: 0, finished: 0, successful: 0, proposers: '1', voters: '1'),
   );
 
-  group('Tests of getDashboardModel() method', () {
-    test('Should return DashboardModel', () async {
+  group('Tests of DashboardService.getDashboardModel() method', () {
+    test('Should return [DashboardModel] if [server HEALTHY] and [response data VALID]', () async {
+      // Arrange
+      Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://healthy.kira.network/');
+      await TestUtils.setupNetworkModel(networkUri: networkUri);
+
       // Act
       DashboardModel actualDashboardModel = await dashboardService.getDashboardModel();
 
       // Assert
       expect(actualDashboardModel, expectedDashboardModel);
+    });
+
+    test('Should throw [DioParseException] if [server HEALTHY] and [response data INVALID]', () async {
+      // Arrange
+      Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://invalid.kira.network/');
+      await TestUtils.setupNetworkModel(networkUri: networkUri);
+
+      // Assert
+      expect(
+        dashboardService.getDashboardModel,
+        throwsA(isA<DioParseException>()),
+      );
+    });
+
+    test('Should throw [DioConnectException] if [server OFFLINE]', () async {
+      // Arrange
+      Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://offline.kira.network/');
+      await TestUtils.setupNetworkModel(networkUri: networkUri);
+
+      // Assert
+      expect(
+        dashboardService.getDashboardModel,
+        throwsA(isA<DioConnectException>()),
+      );
     });
   });
 }

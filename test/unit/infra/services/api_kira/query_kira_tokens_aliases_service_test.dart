@@ -1,41 +1,36 @@
-import 'package:decimal/decimal.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:miro/config/app_config.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/exceptions/dio_connect_exception.dart';
 import 'package:miro/infra/exceptions/dio_parse_exception.dart';
-import 'package:miro/infra/services/api_kira/query_execution_fee_service.dart';
-import 'package:miro/shared/models/tokens/token_amount_model.dart';
+import 'package:miro/infra/services/api_kira/query_kira_tokens_aliases_service.dart';
+import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/utils/network_utils.dart';
 import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
 // To run this test type in console:
-// fvm flutter test test/unit/infra/services/api_kira/query_execution_fee_service_test.dart --platform chrome --null-assertions
+// fvm flutter test test/unit/infra/services/api_kira/query_kira_tokens_aliases_service_test.dart --platform chrome --null-assertions
+// ignore_for_file: avoid_print
 Future<void> main() async {
   await initMockLocator();
 
-  final QueryExecutionFeeService queryExecutionFeeService = globalLocator<QueryExecutionFeeService>();
-  final AppConfig appConfig = globalLocator<AppConfig>();
+  final QueryKiraTokensAliasesService queryKiraTokensAliasesService = globalLocator<QueryKiraTokensAliasesService>();
 
-  const String messageType = 'send';
-
-  group('Tests of QueryExecutionFeeService.getExecutionFeeForMessage() method', () {
-    test('Should return [TokenDenominationModel] if [server HEALTHY] and [response data VALID]', () async {
+  group('Tests of QueryKiraTokensAliasesService.getTokenAliases() method', () {
+    test('Should return [List of TokenAliasModel] if [server HEALTHY] and [response data VALID]', () async {
       // Arrange
       Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://healthy.kira.network/');
       await TestUtils.setupNetworkModel(networkUri: networkUri);
 
       // Act
-      TokenAmountModel actualTokenAmountModel = await queryExecutionFeeService.getExecutionFeeForMessage(messageType);
+      List<TokenAliasModel> actualTokenAliasModelList = await queryKiraTokensAliasesService.getTokenAliasModels();
 
       // Assert
-      TokenAmountModel expectedTokenAmountModel = TokenAmountModel(
-        lowestDenominationAmount: Decimal.parse('100'),
-        tokenAliasModel: appConfig.defaultFeeTokenAliasModel,
-      );
+      List<TokenAliasModel> expectedTokenAliasModelList = <TokenAliasModel>[
+        TokenAliasModel.local('ukex'),
+      ];
 
-      expect(actualTokenAmountModel, expectedTokenAmountModel);
+      expect(actualTokenAliasModelList, expectedTokenAliasModelList);
     });
 
     test('Should throw [DioParseException] if [server HEALTHY] and [response data INVALID]', () async {
@@ -45,7 +40,7 @@ Future<void> main() async {
 
       // Assert
       expect(
-        () => queryExecutionFeeService.getExecutionFeeForMessage(messageType),
+        queryKiraTokensAliasesService.getTokenAliasModels,
         throwsA(isA<DioParseException>()),
       );
     });
@@ -57,7 +52,7 @@ Future<void> main() async {
 
       // Assert
       expect(
-        () => queryExecutionFeeService.getExecutionFeeForMessage(messageType),
+        queryKiraTokensAliasesService.getTokenAliasModels,
         throwsA(isA<DioConnectException>()),
       );
     });

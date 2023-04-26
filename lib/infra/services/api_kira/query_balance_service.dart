@@ -5,6 +5,7 @@ import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api_kira/query_balance/request/query_balance_req.dart';
 import 'package:miro/infra/dto/api_kira/query_balance/response/balance.dart';
 import 'package:miro/infra/dto/api_kira/query_balance/response/query_balance_resp.dart';
+import 'package:miro/infra/exceptions/dio_parse_exception.dart';
 import 'package:miro/infra/repositories/api_kira_repository.dart';
 import 'package:miro/infra/services/api_kira/query_kira_tokens_aliases_service.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
@@ -17,20 +18,17 @@ abstract class _IQueryBalanceService {
 }
 
 class QueryBalanceService implements _IQueryBalanceService {
-  final ApiKiraRepository _apiKiraRepository = globalLocator<ApiKiraRepository>();
+  final IApiKiraRepository _apiKiraRepository = globalLocator<IApiKiraRepository>();
 
   @override
   Future<List<BalanceModel>> getBalanceModelList(QueryBalanceReq queryBalanceReq) async {
     Uri networkUri = globalLocator<NetworkModuleBloc>().state.networkUri;
+    QueryKiraTokensAliasesService queryKiraTokensAliasesService = globalLocator<QueryKiraTokensAliasesService>();
+
+    List<TokenAliasModel> tokenAliasModels = await queryKiraTokensAliasesService.getTokenAliasModels();
+    Response<dynamic> response = await _apiKiraRepository.fetchQueryBalance<dynamic>(networkUri, queryBalanceReq);
+
     try {
-      QueryKiraTokensAliasesService queryKiraTokensAliasesService = globalLocator<QueryKiraTokensAliasesService>();
-
-      List<TokenAliasModel> tokenAliasModels = await queryKiraTokensAliasesService.getTokenAliasModels();
-
-      final Response<dynamic> response = await _apiKiraRepository.fetchQueryBalance<dynamic>(
-        networkUri,
-        queryBalanceReq,
-      );
       QueryBalanceResp queryBalanceResp = QueryBalanceResp.fromJson(response.data as Map<String, dynamic>);
 
       List<BalanceModel> balanceModelList = List<BalanceModel>.empty(growable: true);
@@ -46,15 +44,9 @@ class QueryBalanceService implements _IQueryBalanceService {
         balanceModelList.add(BalanceModel(tokenAmountModel: tokenAmountModel));
       }
       return balanceModelList;
-    } on DioError catch (e) {
-      AppLogger().log(message: 'QueryBalanceService: Cannot fetch getBalanceModelList() for URI $networkUri: ${e.message}');
-      rethrow;
     } catch (e) {
-      AppLogger().log(
-        message: 'QueryBalanceService: Cannot parse getBalanceModelList() for URI $networkUri ${e}',
-        logLevel: LogLevel.error,
-      );
-      rethrow;
+      AppLogger().log(message: 'QueryBalanceService: Cannot parse getBalanceModelList() for URI $networkUri ${e}', logLevel: LogLevel.error);
+      throw DioParseException(response: response, error: e);
     }
   }
 }

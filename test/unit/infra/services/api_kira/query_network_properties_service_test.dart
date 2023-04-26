@@ -1,6 +1,8 @@
 import 'package:decimal/decimal.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/config/locator.dart';
+import 'package:miro/infra/exceptions/dio_connect_exception.dart';
+import 'package:miro/infra/exceptions/dio_parse_exception.dart';
 import 'package:miro/infra/services/api_kira/query_network_properties_service.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
@@ -14,9 +16,6 @@ import 'package:miro/test/utils/test_utils.dart';
 Future<void> main() async {
   await initMockLocator();
 
-  final Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://healthy.kira.network');
-  await TestUtils.setupNetworkModel(networkUri: networkUri);
-
   final QueryNetworkPropertiesService queryNetworkPropertiesService = globalLocator<QueryNetworkPropertiesService>();
 
   const TokenAliasModel defaultFeeTokenAliasModel = TokenAliasModel(
@@ -25,8 +24,12 @@ Future<void> main() async {
     defaultTokenDenominationModel: TokenDenominationModel(name: 'KEX', decimals: 6),
   );
 
-  group('Tests of getTxFee() method', () {
-    test('Should return TokenAmountModel with 100 ukex', () async {
+  group('Tests of QueryNetworkPropertiesService.getTxFee() method', () {
+    test('Should return [TokenAmountModel] if [server HEALTHY] and [response data VALID]', () async {
+      // Arrange
+      Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://healthy.kira.network');
+      await TestUtils.setupNetworkModel(networkUri: networkUri);
+
       // Act
       TokenAmountModel actualTokenAmountModel = await queryNetworkPropertiesService.getMinTxFee();
 
@@ -37,6 +40,30 @@ Future<void> main() async {
       );
 
       expect(actualTokenAmountModel, expectedTokenAmountModel);
+    });
+
+    test('Should throw [DioParseException] if [server HEALTHY] and [response data INVALID]', () async {
+      // Arrange
+      Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://invalid.kira.network/');
+      await TestUtils.setupNetworkModel(networkUri: networkUri);
+
+      // Assert
+      expect(
+        queryNetworkPropertiesService.getMinTxFee,
+        throwsA(isA<DioParseException>()),
+      );
+    });
+
+    test('Should throw [DioConnectException] if [server OFFLINE]', () async {
+      // Arrange
+      Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://offline.kira.network/');
+      await TestUtils.setupNetworkModel(networkUri: networkUri);
+
+      // Assert
+      expect(
+        queryNetworkPropertiesService.getMinTxFee,
+        throwsA(isA<DioConnectException>()),
+      );
     });
   });
 }

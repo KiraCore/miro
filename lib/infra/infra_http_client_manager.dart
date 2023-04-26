@@ -3,8 +3,9 @@ import 'package:dio/dio.dart';
 import 'package:miro/config/app_config.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/shared/controllers/browser/browser_url_controller.dart';
+import 'package:miro/shared/utils/network_utils.dart';
 
-class ApiManager {
+class InfraHttpClientManager {
   final AppConfig _appConfig = globalLocator<AppConfig>();
   final BrowserUrlController _browserUrlController = const BrowserUrlController();
 
@@ -17,8 +18,8 @@ class ApiManager {
     ProgressCallback? onReceiveProgress,
   }) async {
     try {
-      Dio httpClient = _buildHttpClient(networkUri);
-      return await httpClient.get<T>(
+      Dio httpClientDio = _buildHttpClient(networkUri);
+      return await httpClientDio.get<T>(
         path,
         queryParameters: _removeEmptyQueryParameters(queryParameters),
         options: options,
@@ -40,8 +41,8 @@ class ApiManager {
     ProgressCallback? onReceiveProgress,
   }) async {
     try {
-      Dio httpClient = _buildHttpClient(networkUri);
-      return await httpClient.post<T>(
+      Dio httpClientDio = _buildHttpClient(networkUri);
+      return await httpClientDio.post<T>(
         path,
         data: body,
         queryParameters: _removeEmptyQueryParameters(queryParameters),
@@ -56,8 +57,8 @@ class ApiManager {
 
   Dio _buildHttpClient(Uri uri) {
     String uriAsString = uri.toString();
-    bool useProxy = _shouldUseProxy(uri);
-    if (useProxy) {
+    bool proxyActiveBool = _shouldUseProxy(uri);
+    if (proxyActiveBool) {
       uriAsString = '${_appConfig.proxyServerUri}/${uri.host}:${uri.port}';
       return DioForBrowser(
         BaseOptions(
@@ -72,8 +73,13 @@ class ApiManager {
 
   bool _shouldUseProxy(Uri serverUri) {
     Uri appUri = _browserUrlController.uri;
-    bool hasRequiredScheme = appUri.isScheme('https') && serverUri.isScheme('http');
-    return hasRequiredScheme && _appConfig.proxyServerUri != null;
+    
+    bool requiredSchemeExistsBool = appUri.isScheme('https') && serverUri.isScheme('http');
+    bool proxyUrlExistsBool = _appConfig.proxyServerUri != null;
+    bool localhostServerBool = NetworkUtils.isLocalhost(serverUri);
+    
+    bool useProxyBool = requiredSchemeExistsBool && proxyUrlExistsBool && localhostServerBool == false;
+    return useProxyBool;
   }
 
   Map<String, dynamic>? _removeEmptyQueryParameters(Map<String, dynamic>? queryParameters) {

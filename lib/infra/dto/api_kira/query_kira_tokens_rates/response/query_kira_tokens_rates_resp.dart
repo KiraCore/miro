@@ -15,5 +15,5 @@ class QueryKiraTokensRatesResp extends Equatable {
   }
 
   @override
-  List<Object?> get props => <Object>[data.hashCode];
+  List<Object?> get props => <Object>[data];
 }

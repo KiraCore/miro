@@ -20,10 +20,19 @@ class NetworkUtils {
       uri = Uri.parse('https://$parsedUrl');
     }
 
-    if (_isLocalhost(uri)) {
+    if (isLocalhost(uri)) {
       uri = uri.replace(scheme: 'http');
     }
     return uri;
+  }
+
+  static bool isLocalhost(Uri uri) {
+    List<String> localhostAddress = <String>['localhost', '127.0.0.1', '0.0.0.0'];
+
+    if (localhostAddress.contains(uri.host)) {
+      return true;
+    }
+    return false;
   }
 
   static Uri _assignDefaultPort(Uri uri) {
@@ -31,7 +40,7 @@ class NetworkUtils {
 
     // If uri is domain name, then return uri without changes, because domains don't have ports
     // If uri is localhost address, then return uri without changes, because user specifies port
-    if (!_isIpAddress(uri) || _isLocalhost(uri)) {
+    if (!_isIpAddress(uri) || isLocalhost(uri)) {
       return uri;
     }
 
@@ -50,14 +59,5 @@ class NetworkUtils {
     } on FormatException {
       return false;
     }
-  }
-
-  static bool _isLocalhost(Uri uri) {
-    List<String> localhostAddress = <String>['localhost', '127.0.0.1', '0.0.0.0'];
-
-    if (localhostAddress.contains(uri.host)) {
-      return true;
-    }
-    return false;
   }
 }

@@ -4,7 +4,6 @@ import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api_kira/broadcast/request/broadcast_req.dart';
 import 'package:miro/infra/dto/api_kira/broadcast/request/transaction/tx.dart';
 import 'package:miro/infra/dto/api_kira/broadcast/response/broadcast_resp.dart';
-import 'package:miro/infra/exceptions/dio_connect_exception.dart';
 import 'package:miro/infra/exceptions/dio_parse_exception.dart';
 import 'package:miro/infra/exceptions/tx_broadcast_exception.dart';
 import 'package:miro/infra/repositories/api_kira_repository.dart';
@@ -17,20 +16,14 @@ abstract class _IBroadcastService {
 }
 
 class BroadcastService implements _IBroadcastService {
-  final ApiKiraRepository _apiKiraRepository = globalLocator<ApiKiraRepository>();
+  final IApiKiraRepository _apiKiraRepository = globalLocator<IApiKiraRepository>();
 
   @override
   Future<BroadcastRespModel> broadcastTx(SignedTxModel signedTransactionModel) async {
     Uri networkUri = globalLocator<NetworkModuleBloc>().state.networkUri;
     BroadcastReq broadcastReq = BroadcastReq(tx: Tx.fromSignedTxModel(signedTransactionModel));
 
-    late Response<dynamic> response;
-    try {
-      response = await _apiKiraRepository.broadcast<dynamic>(networkUri, broadcastReq);
-    } on DioError catch (dioError) {
-      AppLogger().log(message: 'BroadcastService: Cannot fetch broadcastTx for URI $networkUri: ${dioError.message}');
-      throw DioConnectException(dioError: dioError);
-    }
+    Response<dynamic> response = await _apiKiraRepository.broadcast<dynamic>(networkUri, broadcastReq);
 
     late BroadcastRespModel broadcastRespModel;
     try {

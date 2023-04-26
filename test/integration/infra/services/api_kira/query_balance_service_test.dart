@@ -1,7 +1,8 @@
-import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api_kira/query_balance/request/query_balance_req.dart';
+import 'package:miro/infra/exceptions/dio_connect_exception.dart';
+import 'package:miro/infra/exceptions/dio_parse_exception.dart';
 import 'package:miro/infra/services/api_kira/query_balance_service.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
 import 'package:miro/shared/utils/network_utils.dart';
@@ -11,28 +12,31 @@ import 'package:miro/test/utils/test_utils.dart';
 // fvm flutter test test/integration/infra/services/api_kira/query_balance_service_test.dart --platform chrome --null-assertions
 // ignore_for_file: avoid_print
 Future<void> main() async {
-  await initLocator();
+  await TestUtils.initIntegrationTest();
 
   final Uri networkUri = NetworkUtils.parseUrlToInterxUri('http://173.212.254.147:11000');
   await TestUtils.setupNetworkModel(networkUri: networkUri);
 
-  final QueryBalanceService queryBalanceService = globalLocator<QueryBalanceService>();
+  final QueryBalanceService actualQueryBalanceService = globalLocator<QueryBalanceService>();
 
-  group('Tests of getBalanceModelList() method', () {
-    test('Should return specific account balances list', () async {
-      QueryBalanceReq queryBalanceReq = const QueryBalanceReq(address: 'kira1axqn2nr8wcwy83gnx97ugypunfka30wt4xyul8');
+  group('Tests of QueryBalanceService.getBalanceModelList() method', () {
+    test('Should return [List of BalanceModel] for specific account', () async {
+      String actualAccountAddress = 'kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx';
+      QueryBalanceReq actualQueryBalanceReq = QueryBalanceReq(address: actualAccountAddress);
 
       TestUtils.printInfo('Data request');
       try {
-        List<BalanceModel>? actualBalanceModelList = await queryBalanceService.getBalanceModelList(queryBalanceReq);
+        List<BalanceModel> actualBalanceModelList = await actualQueryBalanceService.getBalanceModelList(actualQueryBalanceReq);
 
         TestUtils.printInfo('Data return');
         print(actualBalanceModelList);
         print('');
-      } on DioError catch (e) {
-        TestUtils.printError('query_balance_service_test.dart: Cannot fetch List<BalanceModel> for URI $networkUri: ${e.message}');
+      } on DioConnectException catch (e) {
+        TestUtils.printError('query_balance_service_test.dart: Cannot fetch [List<BalanceModel>] for URI $networkUri: ${e.dioError.message}');
+      } on DioParseException catch (e) {
+        TestUtils.printError('query_balance_service_test.dart: Cannot parse [List<BalanceModel>] for URI $networkUri: ${e}');
       } catch (e) {
-        TestUtils.printError('query_balance_service_test.dart: Cannot parse List<BalanceModel> for URI $networkUri: ${e}');
+        TestUtils.printError('query_balance_service_test.dart: Unknown error for URI $networkUri: ${e}');
       }
     });
   });

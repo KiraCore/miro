@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:miro/infra/dto/api/query_validators/request/query_validators_req.dart';
+import 'package:miro/infra/exceptions/dio_connect_exception.dart';
 import 'package:miro/infra/repositories/api_repository.dart';
 import 'package:miro/test/mocks/api/mock_api_dashboard.dart';
 import 'package:miro/test/mocks/api/mock_api_status.dart';
@@ -11,15 +12,39 @@ enum DynamicNetworkStatus {
   offline,
 }
 
-class MockApiRepository implements ApiRepository {
+class MockApiRepository implements IApiRepository {
   static List<String> workingEndpoints = <String>[
     'unhealthy.kira.network',
     'custom-unhealthy.kira.network',
     'healthy.kira.network',
     'custom-healthy.kira.network',
+    'invalid.kira.network',
   ];
 
   DynamicNetworkStatus dynamicNetworkStatus = DynamicNetworkStatus.healthy;
+
+  @override
+  Future<Response<T>> fetchDashboard<T>(Uri networkUri) async {
+    bool responseExistsBool = workingEndpoints.contains(networkUri.host);
+    if (responseExistsBool) {
+      late T response;
+      switch (networkUri.host) {
+        case 'invalid.kira.network':
+          response = <String, dynamic>{'invalid': 'response'} as T;
+          break;
+        default:
+          response = MockApiDashboard.defaultResponse as T;
+          break;
+      }
+      return Response<T>(
+        statusCode: 200,
+        data: response,
+        requestOptions: RequestOptions(path: ''),
+      );
+    } else {
+      throw DioConnectException(dioError: DioError(requestOptions: RequestOptions(path: networkUri.host)));
+    }
+  }
 
   @override
   Future<Response<T>> fetchQueryInterxStatus<T>(Uri networkUri) async {
@@ -28,6 +53,10 @@ class MockApiRepository implements ApiRepository {
     await Future<void>.delayed(const Duration(milliseconds: 50));
 
     switch (networkUri.host) {
+      case 'invalid.kira.network':
+        statusCode = 200;
+        mockedResponse = <String, dynamic>{'invalid': 'response'};
+        break;
       case 'unhealthy.kira.network':
       case 'custom-unhealthy.kira.network':
         statusCode = 200;
@@ -56,7 +85,7 @@ class MockApiRepository implements ApiRepository {
     }
 
     if (statusCode == 404) {
-      throw DioError(requestOptions: RequestOptions(path: networkUri.host));
+      throw DioConnectException(dioError: DioError(requestOptions: RequestOptions(path: networkUri.host)));
     }
 
     return Response<T>(
@@ -68,42 +97,32 @@ class MockApiRepository implements ApiRepository {
 
   @override
   Future<Response<T>> fetchQueryValidators<T>(Uri networkUri, QueryValidatorsReq queryValidatorsReq) async {
-    bool hasResponse = workingEndpoints.contains(networkUri.host);
-    if (hasResponse) {
-      if (queryValidatorsReq.limit != null && queryValidatorsReq.offset != null) {
-        return _fetchQueryValidatorsPaginated<T>(queryValidatorsReq);
-      } else if (queryValidatorsReq.statusOnly == true) {
-        if (networkUri.host == 'unhealthy.kira.network') {
-          throw DioError(requestOptions: RequestOptions(path: networkUri.host));
-        }
-        return Response<T>(
-          statusCode: 200,
-          data: MockApiValopers.statusOnly as T,
-          requestOptions: RequestOptions(path: ''),
-        );
-      } else {
-        return Response<T>(
-          statusCode: 200,
-          data: MockApiValopers.all as T,
-          requestOptions: RequestOptions(path: ''),
-        );
-      }
-    } else {
-      throw DioError(requestOptions: RequestOptions(path: networkUri.host));
-    }
-  }
-
-  @override
-  Future<Response<T>> fetchDashboard<T>(Uri networkUri) async {
-    bool hasResponse = workingEndpoints.contains(networkUri.host);
-    if (hasResponse) {
+    bool responseExistsBool = workingEndpoints.contains(networkUri.host);
+    if (networkUri.host == 'invalid.kira.network') {
       return Response<T>(
         statusCode: 200,
-        data: MockApiDashboard.defaultResponse as T,
+        data: <String, dynamic>{'invalid': 'response'} as T,
+        requestOptions: RequestOptions(path: ''),
+      );
+    } else if (responseExistsBool && queryValidatorsReq.limit != null && queryValidatorsReq.offset != null) {
+      return _fetchQueryValidatorsPaginated<T>(queryValidatorsReq);
+    } else if (responseExistsBool && queryValidatorsReq.statusOnly == true) {
+      if (networkUri.host == 'unhealthy.kira.network') {
+        throw DioConnectException(dioError: DioError(requestOptions: RequestOptions(path: networkUri.host)));
+      }
+      return Response<T>(
+        statusCode: 200,
+        data: MockApiValopers.statusOnly as T,
+        requestOptions: RequestOptions(path: ''),
+      );
+    } else if (responseExistsBool) {
+      return Response<T>(
+        statusCode: 200,
+        data: MockApiValopers.all as T,
         requestOptions: RequestOptions(path: ''),
       );
     } else {
-      throw DioError(requestOptions: RequestOptions(path: networkUri.host));
+      throw DioConnectException(dioError: DioError(requestOptions: RequestOptions(path: networkUri.host)));
     }
   }
 

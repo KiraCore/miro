@@ -1,7 +1,8 @@
-import 'package:miro/infra/dto/api_kira/broadcast/request/messages/a_tx_msg.dart';
+import 'package:miro/infra/dto/shared/messages/a_tx_msg.dart';
 
-/// MsgHandleIdentityRecordsVerifyRequest defines a proposal
-/// message to approve or reject an identity record request
+/// Proposal message to approve or reject an identity record request
+/// Represents MsgHandleIdentityRecordsVerifyRequest interface from Kira SDK:
+/// https://github.com/KiraCore/sekai/blob/master/proto/kira/gov/identity_registrar.proto
 class MsgHandleIdentityRecordsVerifyRequest extends ATxMsg {
   /// The address of verifier
   final String verifier;

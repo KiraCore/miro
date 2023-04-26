@@ -1,6 +1,8 @@
-import 'package:miro/infra/dto/api_kira/broadcast/request/messages/a_tx_msg.dart';
+import 'package:miro/infra/dto/shared/messages/a_tx_msg.dart';
 
-/// MsgEditIdentityRecord defines a proposal message to edit an identity record
+/// Proposal message to edit an identity record
+/// Represents MsgCancelIdentityRecordsVerifyRequest interface from Kira SDK:
+/// https://github.com/KiraCore/sekai/blob/master/proto/kira/gov/identity_registrar.proto
 class MsgCancelIdentityRecordsVerifyRequest extends ATxMsg {
   /// The address of requester
   final String executor;

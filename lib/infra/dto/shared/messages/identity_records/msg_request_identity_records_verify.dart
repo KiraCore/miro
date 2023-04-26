@@ -1,8 +1,9 @@
 import 'package:miro/infra/dto/api_kira/broadcast/request/coin.dart';
-import 'package:miro/infra/dto/api_kira/broadcast/request/messages/a_tx_msg.dart';
+import 'package:miro/infra/dto/shared/messages/a_tx_msg.dart';
 
-/// MsgRequestIdentityRecordsVerify defines a proposal message
-/// to request an identity record verification from a specific verifier
+/// Proposal message to request an identity record verification from a specific verifier
+/// Represents MsgRequestIdentityRecordsVerify interface from Kira SDK:
+/// https://github.com/KiraCore/sekai/blob/master/proto/kira/gov/identity_registrar.proto
 class MsgRequestIdentityRecordsVerify extends ATxMsg {
   /// The address of requester
   final String address;
