@@ -1,11 +1,12 @@
 import 'dart:convert';
 
 import 'package:decimal/decimal.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api_kira/broadcast/request/broadcast_req.dart';
 import 'package:miro/infra/dto/api_kira/broadcast/request/transaction/tx.dart';
+import 'package:miro/infra/exceptions/dio_connect_exception.dart';
+import 'package:miro/infra/exceptions/dio_parse_exception.dart';
 import 'package:miro/infra/services/api_kira/broadcast_service.dart';
 import 'package:miro/infra/services/api_kira/query_account_service.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
@@ -32,9 +33,9 @@ import 'package:miro/test/utils/test_utils.dart';
 // fvm flutter test test/integration/infra/services/api_kira/broadcast_service_test.dart --platform chrome --null-assertions
 // ignore_for_file: avoid_print
 Future<void> main() async {
-  await initLocator();
+  await TestUtils.initIntegrationTest();
 
-  final Uri networkUri = NetworkUtils.parseUrlToInterxUri('http://85.190.254.164:11000/');
+  final Uri networkUri = NetworkUtils.parseUrlToInterxUri('http://173.212.254.147:11000');
   await TestUtils.setupNetworkModel(networkUri: networkUri);
 
   // Set up the constants to run the tests.
@@ -71,11 +72,14 @@ Future<void> main() async {
       );
 
       return actualSignedTxModel;
-    } on DioError catch (e) {
-      TestUtils.printError('broadcast_service_test.dart: Cannot fetch TxRemoteInfoModel for URI $networkUri: ${e.message}');
+    } on DioConnectException catch (e) {
+      TestUtils.printError('broadcast_service_test.dart: Cannot fetch [TxRemoteInfoModel] for URI $networkUri: ${e.dioError.message}');
+      rethrow;
+    } on DioParseException catch (e) {
+      TestUtils.printError('broadcast_service_test.dart: Cannot parse [TxRemoteInfoModel] for URI $networkUri: ${e}');
       rethrow;
     } catch (e) {
-      TestUtils.printError('broadcast_service_test.dart: Cannot parse TxRemoteInfoModel for URI $networkUri: ${e}');
+      TestUtils.printError('broadcast_service_test.dart: Unknown error for URI $networkUri: ${e}');
       rethrow;
     }
   }
@@ -88,15 +92,17 @@ Future<void> main() async {
       TestUtils.printInfo('Data return');
       print(broadcastRespModel);
       print('');
-    } on DioError catch (e) {
-      TestUtils.printError('broadcast_service_test.dart: Cannot fetch BroadcastResp for URI $networkUri: ${e.message}\n${e.response}');
+    } on DioConnectException catch (e) {
+      TestUtils.printError('broadcast_service_test.dart: Cannot fetch [BroadcastResp] for URI $networkUri: ${e.dioError.message}\n${e.dioError.response}');
+    } on DioParseException catch (e) {
+      TestUtils.printError('broadcast_service_test.dart: Cannot parse [BroadcastResp] for URI $networkUri: ${e}');
     } catch (e) {
-      TestUtils.printError('broadcast_service_test.dart: Cannot parse BroadcastResp for URI $networkUri: ${e}');
+      TestUtils.printError('broadcast_service_test.dart: Unknown error for URI $networkUri: ${e}');
     }
   }
 
   group('Tests of preparation transaction for broadcast', () {
-    test('Should return a signed transaction with MsgSend message', () async {
+    test('Should return signed transaction with [MsgSend] message', () async {
       final TxLocalInfoModel actualTxLocalInfoModel = TxLocalInfoModel(
         memo: 'Test of MsgSend message',
         feeTokenAmountModel: feeTokenAmountModel,
@@ -110,12 +116,12 @@ Future<void> main() async {
       SignedTxModel actualSignedTxModel = await signTx(actualTxLocalInfoModel, senderWallet);
 
       BroadcastReq actualBroadcastReq = BroadcastReq(tx: Tx.fromSignedTxModel(actualSignedTxModel));
-      TestUtils.printInfo('Signed MsgSend transaction: ${json.encode(actualBroadcastReq.toJson())}');
+      TestUtils.printInfo('Signed [MsgSend] transaction: ${json.encode(actualBroadcastReq.toJson())}');
 
       await broadcastTx(actualSignedTxModel);
     });
 
-    test('Should return a signed transaction with MsgRegisterIdentityRecords message', () async {
+    test('Should return signed transaction with [MsgRegisterIdentityRecords] message', () async {
       final TxLocalInfoModel actualTxLocalInfoModel = TxLocalInfoModel(
         memo: 'Test of MsgRegisterIdentityRecords message',
         feeTokenAmountModel: feeTokenAmountModel,
@@ -131,12 +137,12 @@ Future<void> main() async {
       SignedTxModel actualSignedTxModel = await signTx(actualTxLocalInfoModel, senderWallet);
 
       BroadcastReq actualBroadcastReq = BroadcastReq(tx: Tx.fromSignedTxModel(actualSignedTxModel));
-      TestUtils.printInfo('Signed MsgRegisterIdentityRecords transaction: ${json.encode(actualBroadcastReq.toJson())}');
+      TestUtils.printInfo('Signed [MsgRegisterIdentityRecords] transaction: ${json.encode(actualBroadcastReq.toJson())}');
 
-      // await _broadcastTx(actualSignedTxModel);
+      // await broadcastTx(actualSignedTxModel);
     });
 
-    test('Should return a signed transaction with MsgRequestIdentityRecordsVerify message', () async {
+    test('Should return signed transaction with [MsgRequestIdentityRecordsVerify] message', () async {
       final TxLocalInfoModel actualTxLocalInfoModel = TxLocalInfoModel(
         memo: 'Test of MsgRequestIdentityRecordsVerify message',
         feeTokenAmountModel: feeTokenAmountModel,
@@ -154,12 +160,12 @@ Future<void> main() async {
       SignedTxModel actualSignedTxModel = await signTx(actualTxLocalInfoModel, senderWallet);
 
       BroadcastReq actualBroadcastReq = BroadcastReq(tx: Tx.fromSignedTxModel(actualSignedTxModel));
-      TestUtils.printInfo('Signed MsgRequestIdentityRecordsVerify transaction: ${json.encode(actualBroadcastReq.toJson())}');
+      TestUtils.printInfo('Signed [MsgRequestIdentityRecordsVerify] transaction: ${json.encode(actualBroadcastReq.toJson())}');
 
-      // await _broadcastTx(actualSignedTxModel);
+      // await broadcastTx(actualSignedTxModel);
     });
 
-    test('Should return a signed transaction with MsgCancelIdentityRecordsVerifyRequest message', () async {
+    test('Should return signed transaction with [MsgCancelIdentityRecordsVerifyRequest] message', () async {
       final TxLocalInfoModel actualTxLocalInfoModel = TxLocalInfoModel(
         memo: 'Test of MsgCancelIdentityRecordsVerifyRequest message',
         feeTokenAmountModel: feeTokenAmountModel,
@@ -172,12 +178,12 @@ Future<void> main() async {
       SignedTxModel actualSignedTxModel = await signTx(actualTxLocalInfoModel, senderWallet);
 
       BroadcastReq actualBroadcastReq = BroadcastReq(tx: Tx.fromSignedTxModel(actualSignedTxModel));
-      TestUtils.printInfo('Signed MsgCancelIdentityRecordsVerifyRequest transaction: ${json.encode(actualBroadcastReq.toJson())}');
+      TestUtils.printInfo('Signed [MsgCancelIdentityRecordsVerifyRequest] transaction: ${json.encode(actualBroadcastReq.toJson())}');
 
-      // await _broadcastTx(actualSignedTxModel);
+      // await broadcastTx(actualSignedTxModel);
     });
 
-    test('Should return a signed transaction with MsgDeleteIdentityRecords message', () async {
+    test('Should return signed transaction with [MsgDeleteIdentityRecords] message', () async {
       final TxLocalInfoModel actualTxLocalInfoModel = TxLocalInfoModel(
         memo: 'Test of MsgDeleteIdentityRecords message',
         feeTokenAmountModel: feeTokenAmountModel,
@@ -190,17 +196,17 @@ Future<void> main() async {
       SignedTxModel actualSignedTxModel = await signTx(actualTxLocalInfoModel, senderWallet);
 
       BroadcastReq actualBroadcastReq = BroadcastReq(tx: Tx.fromSignedTxModel(actualSignedTxModel));
-      TestUtils.printInfo('Signed MsgDeleteIdentityRecords transaction: ${json.encode(actualBroadcastReq.toJson())}');
+      TestUtils.printInfo('Signed [MsgDeleteIdentityRecords] transaction: ${json.encode(actualBroadcastReq.toJson())}');
 
-      // await _broadcastTx(actualSignedTxModel);
+      // await broadcastTx(actualSignedTxModel);
     });
 
-    test('Should return a signed transaction with MsgHandleIdentityRecordsVerifyRequest message', () async {
+    test('Should return signed transaction with [MsgHandleIdentityRecordsVerifyRequest] message', () async {
       final TxLocalInfoModel actualTxLocalInfoModel = TxLocalInfoModel(
         memo: 'Test of MsgHandleIdentityRecordsVerifyRequest message',
         feeTokenAmountModel: feeTokenAmountModel,
         txMsgModel: MsgHandleIdentityRecordsVerifyRequestModel(
-          approved: true,
+          approvedBool: true,
           verifyRequestId: BigInt.from(7),
           walletAddress: recipientWallet.address,
         ),
@@ -209,9 +215,9 @@ Future<void> main() async {
       SignedTxModel actualSignedTxModel = await signTx(actualTxLocalInfoModel, recipientWallet);
 
       BroadcastReq actualBroadcastReq = BroadcastReq(tx: Tx.fromSignedTxModel(actualSignedTxModel));
-      TestUtils.printInfo('Signed MsgHandleIdentityRecordsVerifyRequest transaction: ${json.encode(actualBroadcastReq.toJson())}');
+      TestUtils.printInfo('Signed [MsgHandleIdentityRecordsVerifyRequest] transaction: ${json.encode(actualBroadcastReq.toJson())}');
 
-      // await _broadcastTx(actualSignedTxModel);
+      // await broadcastTx(actualSignedTxModel);
     });
   });
 }

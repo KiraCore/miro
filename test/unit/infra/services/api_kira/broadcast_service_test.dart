@@ -87,7 +87,7 @@ Future<void> main() async {
   }
 
   group('Tests of transaction preparation for broadcast', () {
-    test('Should return a signed transaction with [MsgSend] message', () async {
+    test('Should return signed transaction with [MsgSend] message', () async {
       // Arrange
       final TxLocalInfoModel actualTxLocalInfoModel = TxLocalInfoModel(
         memo: 'Test of MsgSend message',
@@ -173,7 +173,7 @@ Future<void> main() async {
       );
     });
 
-    test('Should return a signed transaction with [MsgRegisterIdentityRecords] message', () async {
+    test('Should return signed transaction with [MsgRegisterIdentityRecords] message', () async {
       final TxLocalInfoModel actualTxLocalInfoModel = TxLocalInfoModel(
         memo: 'Test of MsgRegisterIdentityRecords message',
         feeTokenAmountModel: feeTokenAmountModel,
@@ -259,7 +259,7 @@ Future<void> main() async {
       );
     });
 
-    test('Should return a signed transaction with [MsgRequestIdentityRecordsVerify] message', () async {
+    test('Should return signed transaction with [MsgRequestIdentityRecordsVerify] message', () async {
       final TxLocalInfoModel actualTxLocalInfoModel = TxLocalInfoModel(
         memo: 'Test of MsgRequestIdentityRecordsVerify message',
         feeTokenAmountModel: feeTokenAmountModel,
@@ -347,7 +347,7 @@ Future<void> main() async {
       );
     });
 
-    test('Should return a signed transaction with [MsgCancelIdentityRecordsVerifyRequest] message', () async {
+    test('Should return signed transaction with [MsgCancelIdentityRecordsVerifyRequest] message', () async {
       final TxLocalInfoModel actualTxLocalInfoModel = TxLocalInfoModel(
         memo: 'Test of MsgCancelIdentityRecordsVerifyRequest message',
         feeTokenAmountModel: feeTokenAmountModel,
@@ -424,7 +424,7 @@ Future<void> main() async {
       );
     });
 
-    test('Should return a signed transaction with [MsgDeleteIdentityRecords] message', () async {
+    test('Should return signed transaction with [MsgDeleteIdentityRecords] message', () async {
       final TxLocalInfoModel actualTxLocalInfoModel = TxLocalInfoModel(
         memo: 'Test of MsgDeleteIdentityRecords message',
         feeTokenAmountModel: feeTokenAmountModel,
@@ -505,12 +505,12 @@ Future<void> main() async {
       );
     });
 
-    test('Should return a signed transaction with [MsgHandleIdentityRecordsVerifyRequest] message', () async {
+    test('Should return signed transaction with [MsgHandleIdentityRecordsVerifyRequest] message', () async {
       final TxLocalInfoModel actualTxLocalInfoModel = TxLocalInfoModel(
         memo: 'Test of MsgHandleIdentityRecordsVerifyRequest message',
         feeTokenAmountModel: feeTokenAmountModel,
         txMsgModel: MsgHandleIdentityRecordsVerifyRequestModel(
-          approved: true,
+          approvedBool: true,
           verifyRequestId: BigInt.from(2),
           walletAddress: recipientWallet.address,
         ),
@@ -616,7 +616,7 @@ Future<void> main() async {
       );
     });
 
-    test('Should throw [DioConnectException] if cannot reach server (e.g. No network connection or interx is offline)', () async {
+    test('Should throw [DioConnectException] if [server OFFLINE]', () async {
       // Arrange
       NetworkModuleBloc networkModuleBloc = globalLocator<NetworkModuleBloc>();
 
@@ -640,7 +640,7 @@ Future<void> main() async {
       );
     });
 
-    test('Should throw [DioParseException] if broadcast response is other than expected', () async {
+    test('Should throw [DioParseException] if [server HEALTHY] and [response data INVALID]', () async {
       // Arrange
       NetworkModuleBloc networkModuleBloc = globalLocator<NetworkModuleBloc>();
 
@@ -658,7 +658,7 @@ Future<void> main() async {
 
       // Assert
       // To perform this test created mocked API response [/lib/test/mocks/api_kira/mock_api_kira_txs.dart][dioParseExceptionResponse]
-      // Assumed that a server with the uri "https://unhealthy.kira.network" will return a response that is not supported by the application.
+      // Assumed that server with the uri "https://unhealthy.kira.network" will return response that is not supported by the application.
       // Because of that, the application will throw [DioParseException] exception.
       // Repository mocks for this test are handled by class located in [/lib/test/mock_api_kira_repository.dart]
 
@@ -669,7 +669,7 @@ Future<void> main() async {
       );
     });
 
-    test('Should throw [TxBroadcastException] if broadcast response contains server errors', () async {
+    test('Should throw [TxBroadcastException] if [server HEALTHY], [response data VALID] and [broadcast FAILED]', () async {
       // Arrange
       NetworkModuleBloc networkModuleBloc = globalLocator<NetworkModuleBloc>();
 
@@ -687,7 +687,7 @@ Future<void> main() async {
 
       // Assert
       // To perform this test created mocked API response [/lib/test/mocks/api_kira/mock_api_kira_txs.dart][txBroadcastExceptionResponse]
-      // Assumed that a server with the uri "https://custom-unhealthy.kira.network" will return a response with error message created by interx or sekai.
+      // Assumed that server with the uri "https://custom-unhealthy.kira.network" will return response with error message created by interx or sekai.
       // Because of that, the application will throw [TxBroadcastException] exception.
       // Repository mocks for this test are handled by class located in [/lib/test/mock_api_kira_repository.dart]
 

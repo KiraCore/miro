@@ -1,5 +1,6 @@
 import 'package:miro/blocs/specific_blocs/network_module/events/network_module_connect_event.dart';
 import 'package:miro/blocs/specific_blocs/network_module/network_module_bloc.dart';
+import 'package:miro/config/app_config.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/shared/models/network/data/connection_status_type.dart';
 import 'package:miro/shared/models/network/data/interx_warning_model.dart';
@@ -9,6 +10,7 @@ import 'package:miro/shared/models/network/status/network_offline_model.dart';
 import 'package:miro/shared/models/network/status/network_unknown_model.dart';
 import 'package:miro/shared/models/network/status/online/network_healthy_model.dart';
 import 'package:miro/shared/models/network/status/online/network_unhealthy_model.dart';
+import 'package:miro/test/mocks/mock_network_list_config_json.dart';
 
 class TestUtils {
   static final NetworkUnknownModel offlineNetworkUnknownModel = NetworkUnknownModel(
@@ -81,6 +83,11 @@ class TestUtils {
       InterxWarningType.blockTimeOutdated,
     ]),
   );
+
+  static Future<void> initIntegrationTest() async {
+    await initLocator();
+    globalLocator<AppConfig>().init(MockNetworkListConfigJson.defaultNetworkListConfig);
+  }
 
   static void printInfo(String message) {
     // ignore: avoid_print
