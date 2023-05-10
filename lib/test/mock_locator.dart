@@ -1,7 +1,7 @@
-import 'package:miro/blocs/specific_blocs/auth/auth_cubit.dart';
-import 'package:miro/blocs/specific_blocs/network_list/network_list_cubit.dart';
-import 'package:miro/blocs/specific_blocs/network_module/network_module_bloc.dart';
-import 'package:miro/blocs/specific_blocs/views/widgets/network_list/network_custom_section/network_custom_section_cubit.dart';
+import 'package:miro/blocs/generic/auth/auth_cubit.dart';
+import 'package:miro/blocs/generic/network_module/network_module_bloc.dart';
+import 'package:miro/blocs/widgets/network_list/network_custom_section/network_custom_section_cubit.dart';
+import 'package:miro/blocs/widgets/network_list/network_list/network_list_cubit.dart';
 import 'package:miro/config/app_config.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/cache/cache_manager.dart';

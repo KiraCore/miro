@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:miro/blocs/specific_blocs/drawer/drawer_cubit.dart';
+import 'package:miro/blocs/layout/drawer/drawer_cubit.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/views/layout/drawer/drawer_app_bar.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold.dart';

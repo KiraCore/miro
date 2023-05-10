@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:miro/blocs/abstract_blocs/abstract_list/models/a_list_item.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/models/a_list_item.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_value.dart';

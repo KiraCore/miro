@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:miro/blocs/specific_blocs/transactions/token_form/token_form_cubit.dart';
+import 'package:miro/blocs/widgets/transactions/token_form/token_form_cubit.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/tokens/token_denomination_model.dart';
 import 'package:miro/views/widgets/transactions/token_form/token_amount_text_field/token_amount_text_field_actions.dart';

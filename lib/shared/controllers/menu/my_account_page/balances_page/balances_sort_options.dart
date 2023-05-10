@@ -1,4 +1,4 @@
-import 'package:miro/blocs/specific_blocs/list/sort/models/sort_option.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/sort/models/sort_option.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
 
 class BalancesSortOptions {

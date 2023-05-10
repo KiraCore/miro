@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:miro/blocs/specific_blocs/views/widgets/network_list/network_custom_section/network_custom_section_cubit.dart';
-import 'package:miro/blocs/specific_blocs/views/widgets/network_list/network_custom_section/network_custom_section_state.dart';
+import 'package:miro/blocs/widgets/network_list/network_custom_section/network_custom_section_cubit.dart';
+import 'package:miro/blocs/widgets/network_list/network_custom_section/network_custom_section_state.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
 import 'package:miro/views/widgets/kira/kira_text_field/kira_text_field_controller.dart';

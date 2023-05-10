@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
-import 'package:miro/blocs/abstract_blocs/abstract_list/models/a_list_item.dart';
-import 'package:miro/blocs/specific_blocs/list/infinity_list/events/infinity_list_reached_bottom_event.dart';
-import 'package:miro/blocs/specific_blocs/list/infinity_list/infinity_list_bloc.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/models/a_list_item.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/infinity_list/events/infinity_list_reached_bottom_event.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/infinity_list/infinity_list_bloc.dart';
 
 class InfinityListController<T extends AListItem> {
   final double nextPageActivatorOffset;

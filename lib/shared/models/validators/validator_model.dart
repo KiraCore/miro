@@ -1,4 +1,4 @@
-import 'package:miro/blocs/abstract_blocs/abstract_list/models/a_list_item.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/models/a_list_item.dart';
 import 'package:miro/infra/dto/api/query_validators/response/validator.dart';
 import 'package:miro/shared/models/validators/validator_status.dart';
 import 'package:miro/shared/utils/enum_utils.dart';

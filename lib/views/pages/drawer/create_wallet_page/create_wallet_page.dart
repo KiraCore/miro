@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:miro/blocs/specific_blocs/views/pages/drawer/create_wallet_page/a_create_wallet_page_state.dart';
-import 'package:miro/blocs/specific_blocs/views/pages/drawer/create_wallet_page/create_wallet_page_cubit.dart';
-import 'package:miro/blocs/specific_blocs/views/pages/drawer/create_wallet_page/states/create_wallet_page_loaded_state.dart';
-import 'package:miro/blocs/specific_blocs/views/pages/drawer/create_wallet_page/states/create_wallet_page_loading_state.dart';
+import 'package:miro/blocs/pages/drawer/create_wallet_page/a_create_wallet_page_state.dart';
+import 'package:miro/blocs/pages/drawer/create_wallet_page/create_wallet_page_cubit.dart';
+import 'package:miro/blocs/pages/drawer/create_wallet_page/states/create_wallet_page_loaded_state.dart';
+import 'package:miro/blocs/pages/drawer/create_wallet_page/states/create_wallet_page_loading_state.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/utils/app_logger.dart';

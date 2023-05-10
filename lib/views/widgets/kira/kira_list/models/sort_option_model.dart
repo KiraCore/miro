@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:miro/blocs/abstract_blocs/abstract_list/models/a_list_item.dart';
-import 'package:miro/blocs/specific_blocs/list/sort/models/sort_option.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/models/a_list_item.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/sort/models/sort_option.dart';
 
 class SortOptionModel<T extends AListItem> extends Equatable {
   final String title;

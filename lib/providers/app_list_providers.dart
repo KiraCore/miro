@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:miro/blocs/specific_blocs/drawer/drawer_cubit.dart';
-import 'package:miro/blocs/specific_blocs/network_list/network_list_cubit.dart';
-import 'package:miro/blocs/specific_blocs/network_module/network_module_bloc.dart';
+import 'package:miro/blocs/generic/network_module/network_module_bloc.dart';
+import 'package:miro/blocs/layout/drawer/drawer_cubit.dart';
+import 'package:miro/blocs/widgets/network_list/network_list/network_list_cubit.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/providers/app_config_provider.dart';
 import 'package:provider/provider.dart';

@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:miro/blocs/specific_blocs/list/favourites/events/favourites_add_record_event.dart';
-import 'package:miro/blocs/specific_blocs/list/favourites/events/favourites_remove_record_event.dart';
-import 'package:miro/blocs/specific_blocs/list/favourites/favourites_bloc.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/favourites/events/favourites_add_record_event.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/favourites/events/favourites_remove_record_event.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/favourites/favourites_bloc.dart';
 import 'package:miro/shared/models/validators/validator_model.dart';
 import 'package:miro/views/pages/menu/validators_page/validator_list_item/desktop/validator_list_item_desktop.dart';
 import 'package:miro/views/pages/menu/validators_page/validator_list_item/mobile/validator_list_item_mobile.dart';

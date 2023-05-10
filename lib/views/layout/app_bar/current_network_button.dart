@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:miro/blocs/specific_blocs/network_module/network_module_bloc.dart';
-import 'package:miro/blocs/specific_blocs/network_module/network_module_state.dart';
+import 'package:miro/blocs/generic/network_module/network_module_bloc.dart';
+import 'package:miro/blocs/generic/network_module/network_module_state.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:miro/blocs/specific_blocs/nav_menu/nav_menu_cubit.dart';
-import 'package:miro/blocs/specific_blocs/nav_menu/nav_menu_state.dart';
+import 'package:miro/blocs/layout/nav_menu/nav_menu_cubit.dart';
+import 'package:miro/blocs/layout/nav_menu/nav_menu_state.dart';
 import 'package:miro/config/app_sizes.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';

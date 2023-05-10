@@ -1,4 +1,4 @@
-import 'package:miro/blocs/abstract_blocs/abstract_list/models/a_list_item.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/models/a_list_item.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 
 class BalanceModel extends AListItem {
