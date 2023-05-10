@@ -14,11 +14,6 @@ import 'package:miro/shared/models/dashboard/current_block_validator_model.dart'
 import 'package:miro/shared/models/dashboard/dashboard_model.dart';
 import 'package:miro/shared/models/dashboard/proposals_model.dart';
 import 'package:miro/shared/models/dashboard/validators_status_model.dart';
-import 'package:miro/shared/models/network/data/connection_status_type.dart';
-import 'package:miro/shared/models/network/data/network_info_model.dart';
-import 'package:miro/shared/models/network/status/network_offline_model.dart';
-import 'package:miro/shared/models/network/status/network_unknown_model.dart';
-import 'package:miro/shared/models/network/status/online/network_healthy_model.dart';
 import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
@@ -26,29 +21,6 @@ import 'package:miro/test/utils/test_utils.dart';
 // fvm flutter test test/unit/blocs/dashboard_cubit_test.dart --platform chrome --null-assertions
 Future<void> main() async {
   await initMockLocator();
-
-  NetworkUnknownModel offlineNetworkUnknownModel = NetworkUnknownModel(
-    connectionStatusType: ConnectionStatusType.disconnected,
-    uri: Uri.parse('https://offline.kira.network'),
-  );
-
-  NetworkHealthyModel networkHealthyModel = NetworkHealthyModel(
-    connectionStatusType: ConnectionStatusType.connected,
-    uri: Uri.parse('https://healthy.kira.network'),
-    name: 'healthy-mainnet',
-    networkInfoModel: NetworkInfoModel(
-      chainId: 'localnet-1',
-      interxVersion: 'v0.4.11',
-      latestBlockHeight: 108843,
-      latestBlockTime: DateTime.now(),
-    ),
-  );
-
-  NetworkOfflineModel networkOfflineModel = NetworkOfflineModel(
-    connectionStatusType: ConnectionStatusType.connected,
-    uri: Uri.parse('https://offline.kira.network'),
-    name: 'offline.kira.network',
-  );
 
   DashboardModel expectedDashboardModel = const DashboardModel(
     consensusHealth: 1,
@@ -83,10 +55,10 @@ Future<void> main() async {
     ),
   );
 
-  group('Tests of Dashboard loading process', () {
+  group('Tests of [DashboardCubit] process', () {
     test('Should return ADashboardState consistent with network response', () async {
       // Arrange
-      NetworkModuleBloc actualNetworkModuleBloc = globalLocator<NetworkModuleBloc>()..add(NetworkModuleAutoConnectEvent(offlineNetworkUnknownModel));
+      NetworkModuleBloc actualNetworkModuleBloc = globalLocator<NetworkModuleBloc>()..add(NetworkModuleAutoConnectEvent(TestUtils.offlineNetworkUnknownModel));
       DashboardCubit actualDashboardCubit = DashboardCubit();
 
       // Assert
@@ -101,7 +73,7 @@ Future<void> main() async {
       await Future<void>.delayed(const Duration(milliseconds: 500));
 
       // Assert
-      NetworkModuleState expectedNetworkModuleState = NetworkModuleState.connected(networkOfflineModel);
+      NetworkModuleState expectedNetworkModuleState = NetworkModuleState.connected(TestUtils.networkOfflineModel);
 
       TestUtils.printInfo('Should return NetworkModuleState.connected() with network offline model');
       expect(actualNetworkModuleBloc.state, expectedNetworkModuleState);
@@ -115,7 +87,7 @@ Future<void> main() async {
       // ************************************************************************************************
 
       // Act
-      actualNetworkModuleBloc.add(NetworkModuleConnectEvent(networkHealthyModel));
+      actualNetworkModuleBloc.add(NetworkModuleConnectEvent(TestUtils.networkHealthyModel));
       await Future<void>.delayed(const Duration(milliseconds: 100));
 
       // Assert

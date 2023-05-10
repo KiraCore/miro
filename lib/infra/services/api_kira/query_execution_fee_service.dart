@@ -15,7 +15,7 @@ abstract class _IQueryExecutionFeeService {
 }
 
 class QueryExecutionFeeService implements _IQueryExecutionFeeService {
-  final AppConfig _appConfig = AppConfig();
+  final AppConfig _appConfig = globalLocator<AppConfig>();
   final IApiKiraRepository _apiKiraRepository = globalLocator<IApiKiraRepository>();
   final QueryNetworkPropertiesService _queryNetworkPropertiesService = globalLocator<QueryNetworkPropertiesService>();
 

@@ -4,7 +4,7 @@ import 'package:miro/shared/utils/string_utils.dart';
 void main() {
   group('Tests of [StringUtils.basicCharactersRegExp]', () {
     test(
-        'Should return true for string containing only basic characters ["abcdefghijklmnoprstuwyzxABCDEFGHIJKLMNOPRSTUWYZX0123456789 !"#\$%\'()*+,-./<>:;=?@[\\]^_`{|}~"]',
+        'Should return amount of characters (90) matching "basicCharactersRegExp" ["abcdefghijklmnoprstuwyzxABCDEFGHIJKLMNOPRSTUWYZX0123456789 !"#\$%\'()*+,-./<>:;=?@[\\]^_`{|}~"]',
         () {
       // Arrange
       String testString = 'abcdefghijklmnoprstuwyzxABCDEFGHIJKLMNOPRSTUWYZX0123456789 !"#\$%\'()*+,-./<>:;=?@[\\]^_`{|}~';
@@ -16,7 +16,7 @@ void main() {
       expect(actualMatchLength, 90);
     });
 
-    test('Should return false for string containing complex characters ["©Ω௵⇊⇊"]', () {
+    test('Should return amount of characters (0) matching "basicCharactersRegExp" ["©Ω௵⇊⇊"]', () {
       // Arrange
       String testString = '©Ω௵⇊⇊';
 
@@ -29,7 +29,7 @@ void main() {
   });
 
   group('Tests of [StringUtils.whitespacesRegExp]', () {
-    test('Should return true for string containing whitespaces [" "]', () {
+    test('Should return "true" if text contains whitespaces [" "]', () {
       // Act
       bool actualMatchExistsBool = StringUtils.whitespacesRegExp.hasMatch(' ');
 
@@ -37,7 +37,7 @@ void main() {
       expect(actualMatchExistsBool, true);
     });
 
-    test('Should return true for string containing whitespaces [" t e st "]', () {
+    test('Should return "true" if text contains whitespaces [" t e st "]', () {
       // Act
       bool actualMatchExistsBool = StringUtils.whitespacesRegExp.hasMatch(' t e st ');
 
@@ -45,7 +45,7 @@ void main() {
       expect(actualMatchExistsBool, true);
     });
 
-    test('Should return false for string not containing whitespaces ["test"]', () {
+    test('Should return "false" if text does not contain whitespaces ["test"]', () {
       // Act
       bool actualMatchExistsBool = StringUtils.whitespacesRegExp.hasMatch('test');
 
@@ -132,7 +132,7 @@ void main() {
   });
 
   group('Tests of StringUtils.compareStrings() method', () {
-    test('Should return "true" if text contains formatted pattern', () {
+    test('Should ignore diacritics and return "true" if text contains pattern', () {
       // Act
       bool actualContainsPatternBool = StringUtils.compareStrings('Zażółć gęślą jaźń', 'ges');
 
@@ -140,7 +140,7 @@ void main() {
       expect(actualContainsPatternBool, true);
     });
 
-    test('Should remove blank spaces and return "true"', () {
+    test('Should ignore whitespaces and return "true" if text contains pattern', () {
       // Act
       bool actualContainsPatternBool = StringUtils.compareStrings('Genesis of Decentralized Finance', 'sisof');
 
@@ -148,7 +148,7 @@ void main() {
       expect(actualContainsPatternBool, true);
     });
 
-    test('Should return "true" if text contains formatted pattern', () {
+    test('Should ignore whitespaces and return "true" if text contains pattern', () {
       // Act
       bool actualContainsPatternBool = StringUtils.compareStrings('Zażółć gęślą jaźń', 'GęŚląJAzŃ');
 
@@ -156,7 +156,7 @@ void main() {
       expect(actualContainsPatternBool, true);
     });
 
-    test('Should return "false" if text doesn`t contain formatted pattern', () {
+    test('Should ignore whitespaces and return "false" if text does not contain pattern', () {
       // Act
       bool actualContainsPatternBool = StringUtils.compareStrings('Zażółć gęślą jaźń', 'Hello world!');
 

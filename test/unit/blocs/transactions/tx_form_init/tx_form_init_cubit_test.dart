@@ -10,17 +10,8 @@ import 'package:miro/blocs/specific_blocs/transactions/tx_form_init/states/tx_fo
 import 'package:miro/blocs/specific_blocs/transactions/tx_form_init/states/tx_form_init_loaded_state.dart';
 import 'package:miro/blocs/specific_blocs/transactions/tx_form_init/tx_form_init_cubit.dart';
 import 'package:miro/config/locator.dart';
-import 'package:miro/shared/models/network/data/connection_status_type.dart';
-import 'package:miro/shared/models/network/data/network_info_model.dart';
-import 'package:miro/shared/models/network/status/network_offline_model.dart';
-import 'package:miro/shared/models/network/status/network_unknown_model.dart';
-import 'package:miro/shared/models/network/status/online/network_healthy_model.dart';
-import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
-import 'package:miro/shared/models/tokens/token_denomination_model.dart';
 import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
-import 'package:miro/shared/models/wallet/mnemonic.dart';
-import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
@@ -32,67 +23,24 @@ Future<void> main() async {
   NetworkModuleBloc actualNetworkModuleBloc = globalLocator<NetworkModuleBloc>();
   AuthCubit authCubit = globalLocator<AuthCubit>();
 
-  // @formatter:off
-  final Mnemonic senderMnemonic = Mnemonic(value: 'require point property company tongue busy bench burden caution gadget knee glance thought bulk assist month cereal report quarter tool section often require shield');
-  final Wallet senderWallet = Wallet.derive(mnemonic: senderMnemonic);
-  // @formatter:on
-
-  await authCubit.signIn(senderWallet);
-
-  NetworkUnknownModel healthyNetworkUnknownModel = NetworkUnknownModel(
-    connectionStatusType: ConnectionStatusType.disconnected,
-    uri: Uri.parse('https://healthy.kira.network'),
-    name: 'healthy-mainnet',
-  );
-
-  NetworkUnknownModel offlineNetworkUnknownModel = NetworkUnknownModel(
-    connectionStatusType: ConnectionStatusType.disconnected,
-    uri: Uri.parse('https://offline.kira.network'),
-    name: 'offline-mainnet',
-  );
-
-  NetworkHealthyModel networkHealthyModel = NetworkHealthyModel(
-    connectionStatusType: ConnectionStatusType.disconnected,
-    uri: Uri.parse('https://healthy.kira.network'),
-    name: 'healthy-mainnet',
-    networkInfoModel: NetworkInfoModel(
-      chainId: 'localnet-1',
-      interxVersion: 'v0.4.22',
-      latestBlockHeight: 108843,
-      latestBlockTime: DateTime.now(),
-      activeValidators: 319,
-      totalValidators: 475,
-    ),
-  );
-
-  NetworkOfflineModel networkOfflineModel = NetworkOfflineModel(
-    connectionStatusType: ConnectionStatusType.disconnected,
-    uri: Uri.parse('https://offline.kira.network'),
-    name: 'offline-mainnet',
-  );
-
-  TokenAliasModel defaultFeeTokenAliasModel = const TokenAliasModel(
-    name: 'Kira',
-    lowestTokenDenominationModel: TokenDenominationModel(name: 'ukex', decimals: 0),
-    defaultTokenDenominationModel: TokenDenominationModel(name: 'KEX', decimals: 6),
-  );
+  await authCubit.signIn(TestUtils.wallet);
 
   TokenAmountModel feeTokenAmountModel = TokenAmountModel(
     lowestDenominationAmount: Decimal.parse('100'),
-    tokenAliasModel: defaultFeeTokenAliasModel,
+    tokenAliasModel: TestUtils.kexTokenAliasModel,
   );
 
-  group('Tests of TxFormInitCubit process', () {
+  group('Tests of [TxFormInitCubit] process', () {
     test('Should emit certain states when network is online while downloading fee', () async {
       // Arrange
       TxFormInitCubit actualTxFormInitCubit = TxFormInitCubit(txMsgType: TxMsgType.msgSend);
 
       // Act
-      actualNetworkModuleBloc.add(NetworkModuleAutoConnectEvent(healthyNetworkUnknownModel));
+      actualNetworkModuleBloc.add(NetworkModuleAutoConnectEvent(TestUtils.healthyNetworkUnknownModel));
       await Future<void>.delayed(const Duration(milliseconds: 100));
 
       // Assert
-      NetworkModuleState expectedNetworkModuleState = NetworkModuleState.connected(networkHealthyModel);
+      NetworkModuleState expectedNetworkModuleState = NetworkModuleState.connected(TestUtils.networkHealthyModel);
 
       TestUtils.printInfo('Should return NetworkModuleState.connected with NetworkHealthyModel');
       expect(actualNetworkModuleBloc.state, expectedNetworkModuleState);
@@ -124,11 +72,11 @@ Future<void> main() async {
       TxFormInitCubit actualTxFormInitCubit = TxFormInitCubit(txMsgType: TxMsgType.msgSend);
 
       // Act
-      actualNetworkModuleBloc.add(NetworkModuleAutoConnectEvent(offlineNetworkUnknownModel));
+      actualNetworkModuleBloc.add(NetworkModuleAutoConnectEvent(TestUtils.offlineNetworkUnknownModel));
       await Future<void>.delayed(const Duration(milliseconds: 500));
 
       // Assert
-      NetworkModuleState expectedNetworkModuleState = NetworkModuleState.connected(networkOfflineModel);
+      NetworkModuleState expectedNetworkModuleState = NetworkModuleState.connected(TestUtils.networkOfflineModel);
 
       TestUtils.printInfo('Should return NetworkModuleState.connected with NetworkOfflineModel');
       expect(actualNetworkModuleBloc.state, expectedNetworkModuleState);

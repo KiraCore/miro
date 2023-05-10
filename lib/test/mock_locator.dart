@@ -22,11 +22,12 @@ import 'package:miro/providers/app_config_provider.dart';
 import 'package:miro/shared/controllers/reload_notifier/reload_notifier_controller.dart';
 import 'package:miro/test/mock_api_kira_repository.dart';
 import 'package:miro/test/mock_api_repository.dart';
+import 'package:miro/test/mock_app_config.dart';
 import 'package:miro/test/mocks/mock_network_list_config_json.dart';
 
 Future<void> initMockLocator() async {
   globalLocator
-    ..registerLazySingleton<AppConfig>(AppConfig.new)
+    ..registerLazySingleton<AppConfig>(MockAppConfig.buildDefaultConfig)
     ..registerLazySingleton<AppConfigProvider>(AppConfigProviderImpl.new)
     ..registerLazySingleton<NetworkCustomSectionCubit>(NetworkCustomSectionCubit.new)
     ..registerLazySingleton<AuthCubit>(AuthCubit.new)

@@ -2,10 +2,8 @@ import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/blocs/specific_blocs/transactions/token_form/token_form_cubit.dart';
-import 'package:miro/infra/dto/api_kira/query_kira_tokens_aliases/response/token_alias.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
 import 'package:miro/shared/models/balances/total_balance_model.dart';
-import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/tokens/token_denomination_model.dart';
 import 'package:miro/test/utils/test_utils.dart';
@@ -15,43 +13,27 @@ import 'package:miro/test/utils/test_utils.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  TokenAlias kexTokenAlias = const TokenAlias(
-    decimals: 6,
-    denoms: <String>['ukex', 'mkex'],
-    name: 'Kira',
-    symbol: 'KEX',
-    icon: '',
-    amount: '3000000000',
-  );
-
-  TokenAliasModel actualKexTokenAliasModel = TokenAliasModel.fromDto(kexTokenAlias);
-  TokenAliasModel actualEthTokenAliasModel = const TokenAliasModel(
-    name: 'Etherum',
-    lowestTokenDenominationModel: TokenDenominationModel(name: 'wei', decimals: 0),
-    defaultTokenDenominationModel: TokenDenominationModel(name: 'ETH', decimals: 18),
-  );
-
   TokenAmountModel feeTokenAmountModel = TokenAmountModel(
     lowestDenominationAmount: Decimal.fromInt(100),
-    tokenAliasModel: actualKexTokenAliasModel,
+    tokenAliasModel: TestUtils.kexTokenAliasModel,
   );
 
   BalanceModel kexBalanceModel = BalanceModel(
     tokenAmountModel: TokenAmountModel(
       lowestDenominationAmount: Decimal.fromInt(1000),
-      tokenAliasModel: actualKexTokenAliasModel,
+      tokenAliasModel: TestUtils.kexTokenAliasModel,
     ),
   );
 
   BalanceModel ethBalanceModel = BalanceModel(
     tokenAmountModel: TokenAmountModel(
       lowestDenominationAmount: Decimal.fromInt(5000),
-      tokenAliasModel: actualEthTokenAliasModel,
+      tokenAliasModel: TestUtils.ethTokenAliasModel,
     ),
   );
 
-  group('Tests od TokenFormCubit', () {
-    test('Should update TokenFormCubit parameters assigned to specific actions', () {
+  group('Tests of [TokenFormCubit] process', () {
+    test('Should update [TokenFormCubit] parameters assigned to specific actions', () {
       // Arrange
       TokenFormCubit actualTokenFormCubit = TokenFormCubit(
         feeTokenAmountModel: feeTokenAmountModel,
@@ -62,7 +44,7 @@ Future<void> main() async {
       TokenAmountModel? actualTokenAmountModel = actualTokenFormCubit.tokenAmountModelNotifier.value;
 
       // Assert
-      TokenAmountModel? expectedTokenAmountModel = TokenAmountModel.zero(tokenAliasModel: actualKexTokenAliasModel);
+      TokenAmountModel? expectedTokenAmountModel = TokenAmountModel.zero(tokenAliasModel: TestUtils.kexTokenAliasModel);
 
       TestUtils.printInfo('Should return TokenAmountModel with defaultTokenDenomination equal to 0 and KEX TokenAliasModel');
       expect(actualTokenAmountModel, expectedTokenAmountModel);
@@ -87,7 +69,7 @@ Future<void> main() async {
       TokenDenominationModel? actualTokenDenominationModel = actualTokenFormCubit.tokenDenominationModelNotifier.value;
 
       // Assert
-      TokenDenominationModel expectedTokenDenominationModel = actualKexTokenAliasModel.defaultTokenDenominationModel;
+      TokenDenominationModel expectedTokenDenominationModel = TestUtils.kexTokenAliasModel.defaultTokenDenominationModel;
 
       TestUtils.printInfo('Should return defaultTokenDenominationModel from KEX TokenAliasModel');
       expect(actualTokenDenominationModel, expectedTokenDenominationModel);
@@ -123,7 +105,7 @@ Future<void> main() async {
       // Assert
       expectedTokenAmountModel = TokenAmountModel(
         lowestDenominationAmount: Decimal.fromInt(50000000),
-        tokenAliasModel: actualKexTokenAliasModel,
+        tokenAliasModel: TestUtils.kexTokenAliasModel,
       );
 
       TestUtils.printInfo('Should return TokenAmountModel with lowestDenominationAmount equal to 50000000 and KEX TokenAliasModel');
@@ -132,11 +114,11 @@ Future<void> main() async {
       // ************************************************************************************************
 
       // Act
-      actualTokenFormCubit.setTokenDenominationModel(actualKexTokenAliasModel.lowestTokenDenominationModel);
+      actualTokenFormCubit.setTokenDenominationModel(TestUtils.kexTokenAliasModel.lowestTokenDenominationModel);
       actualTokenDenominationModel = actualTokenFormCubit.tokenDenominationModelNotifier.value;
 
       // Assert
-      expectedTokenDenominationModel = actualKexTokenAliasModel.lowestTokenDenominationModel;
+      expectedTokenDenominationModel = TestUtils.kexTokenAliasModel.lowestTokenDenominationModel;
 
       TestUtils.printInfo('Should return lowestTokenDenominationModel from KEX TokenAliasModel');
       expect(actualTokenDenominationModel, expectedTokenDenominationModel);
@@ -165,7 +147,7 @@ Future<void> main() async {
       // Assert
       expectedTokenAmountModel = TokenAmountModel(
         lowestDenominationAmount: Decimal.fromInt(900),
-        tokenAliasModel: actualKexTokenAliasModel,
+        tokenAliasModel: TestUtils.kexTokenAliasModel,
       );
 
       TestUtils.printInfo('Should return TokenAmountModel with available amount and with KEX TokenAliasModel');
@@ -189,7 +171,7 @@ Future<void> main() async {
       actualTokenAmountModel = actualTokenFormCubit.tokenAmountModelNotifier.value;
 
       // Assert
-      expectedTokenAmountModel = TokenAmountModel.zero(tokenAliasModel: actualEthTokenAliasModel);
+      expectedTokenAmountModel = TokenAmountModel.zero(tokenAliasModel: TestUtils.ethTokenAliasModel);
 
       TestUtils.printInfo('Should clear TokenAmountValue after changing BalanceModel');
       expect(actualTokenAmountModel, expectedTokenAmountModel);
@@ -211,7 +193,7 @@ Future<void> main() async {
       actualTokenDenominationModel = actualTokenFormCubit.tokenDenominationModelNotifier.value;
 
       // Assert
-      expectedTokenDenominationModel = actualEthTokenAliasModel.defaultTokenDenominationModel;
+      expectedTokenDenominationModel = TestUtils.ethTokenAliasModel.defaultTokenDenominationModel;
 
       TestUtils.printInfo('Should return defaultTokenDenominationModel from Etherum TokenAliasModel');
       expect(actualTokenDenominationModel, expectedTokenDenominationModel);
@@ -224,7 +206,7 @@ Future<void> main() async {
       // Assert
       expectedTokenAmountModel = TokenAmountModel(
         lowestDenominationAmount: Decimal.parse('200000000000000000000'),
-        tokenAliasModel: actualEthTokenAliasModel,
+        tokenAliasModel: TestUtils.ethTokenAliasModel,
       );
 
       TestUtils.printInfo('Should return TokenAmountModel with defaultTokenDenomination equal to 200 and Etherum TokenAliasModel');
@@ -237,7 +219,7 @@ Future<void> main() async {
       actualTokenAmountModel = actualTokenFormCubit.tokenAmountModelNotifier.value;
 
       // Assert
-      expectedTokenAmountModel = TokenAmountModel.zero(tokenAliasModel: actualEthTokenAliasModel);
+      expectedTokenAmountModel = TokenAmountModel.zero(tokenAliasModel: TestUtils.ethTokenAliasModel);
 
       TestUtils.printInfo('Should clear TokenAmountValue after calling clearTokenAmount()');
       expect(actualTokenAmountModel, expectedTokenAmountModel);

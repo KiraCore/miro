@@ -32,62 +32,47 @@ void main() {
 
   const String expectedDefaultRoutePath = '/app/dashboard';
 
-  group('Tests of getNextRouteAfterLoading()', () {
-    test('Should return default route if initial path doesn`t exists', () {
+  group('Tests of RouterUtils.getNextRouteAfterLoading()', () {
+    test('Should return [default route] if [initial path NOT exists]', () {
       // Act
       String actualRoutePath = RouterUtils.getNextRouteAfterLoading(null).fullPath;
 
       // Assert
-      expect(
-        actualRoutePath,
-        expectedDefaultRoutePath,
-      );
+      expect(actualRoutePath, expectedDefaultRoutePath);
     });
 
-    test('Should return default route if initial path is loading page', () {
+    test('Should return [default route] if [initial path is LoadingPage]', () {
       // Act
       String actualRoutePath = RouterUtils.getNextRouteAfterLoading(loadingPageRouteInfo).fullPath;
 
       // Assert
-      expect(
-        actualRoutePath,
-        expectedDefaultRoutePath,
-      );
+      expect(actualRoutePath, expectedDefaultRoutePath);
     });
 
-    test('Should return default route if initial path is network list page', () {
+    test('Should return [default route] if [initial path is NetworkListPage]', () {
       // Act
       String actualRoutePath = RouterUtils.getNextRouteAfterLoading(networkListPageRouteInfo).fullPath;
 
       // Assert
-      expect(
-        actualRoutePath,
-        expectedDefaultRoutePath,
-      );
+      expect(actualRoutePath, expectedDefaultRoutePath);
     });
 
-    test('Should return default route if initial path is equal default route', () {
+    test('Should return [default route] if [initial path is equal default route]', () {
       // Act
       String actualRoutePath = RouterUtils.getNextRouteAfterLoading(dashboardPageRouteInfo).fullPath;
 
       // Assert
-      expect(
-        actualRoutePath,
-        expectedDefaultRoutePath,
-      );
+      expect(actualRoutePath, expectedDefaultRoutePath);
     });
 
-    test('Should return route from initial path if initial route is other than connecting or loading page', () {
+    test('Should return [route from initial path] if [initial route is different than LoadingPage or NetworkListPage]', () {
       // Act
       String actualRoutePath = RouterUtils.getNextRouteAfterLoading(accountsPageRouteInfo).fullPath;
 
       // Assert
       String expectedRoutePath = '/app/validators';
 
-      expect(
-        actualRoutePath,
-        expectedRoutePath,
-      );
+      expect(actualRoutePath, expectedRoutePath);
     });
   });
 }
