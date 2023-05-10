@@ -7,27 +7,51 @@ import 'package:miro/shared/utils/app_logger.dart';
 import 'package:miro/shared/utils/network_utils.dart';
 
 class AppConfig {
-  final RpcBrowserUrlController rpcBrowserUrlController = RpcBrowserUrlController();
-  final int bulkSinglePageSize = 500;
-  final TokenAliasModel defaultFeeTokenAliasModel = const TokenAliasModel(
-    name: 'Kira',
-    lowestTokenDenominationModel: TokenDenominationModel(name: 'ukex', decimals: 0),
-    defaultTokenDenominationModel: TokenDenominationModel(name: 'KEX', decimals: 6),
-  );
+  final int bulkSinglePageSize;
+  final Duration outdatedBlockDuration;
+  final Duration loadingPageTimerDuration;
+  final List<String> supportedInterxVersions;
+  final RpcBrowserUrlController rpcBrowserUrlController;
+  final TokenAliasModel defaultFeeTokenAliasModel;
 
-  final Duration outdatedBlockDuration = const Duration(minutes: 5);
-  final Duration loadingPageTimerDuration = const Duration(seconds: 4);
-  final List<String> supportedInterxVersions = <String>['v0.4.22', 'v0.4.23', 'v0.4.26', 'v0.4.30', 'v0.4.31'];
-
-  final int _defaultRefreshIntervalSeconds = 60;
-  final NetworkUnknownModel _defaultNetworkUnknownModel = NetworkUnknownModel(
-    connectionStatusType: ConnectionStatusType.disconnected,
-    uri: Uri.parse('https://testnet-rpc.kira.network'),
-  );
+  final int _defaultRefreshIntervalSeconds;
+  final NetworkUnknownModel _defaultNetworkUnknownModel;
 
   late Uri? proxyServerUri;
   late Duration _refreshInterval;
   late List<NetworkUnknownModel> _networkList = List<NetworkUnknownModel>.empty(growable: true);
+
+  AppConfig({
+    required this.bulkSinglePageSize,
+    required this.outdatedBlockDuration,
+    required this.loadingPageTimerDuration,
+    required this.supportedInterxVersions,
+    required this.rpcBrowserUrlController,
+    required this.defaultFeeTokenAliasModel,
+    required int defaultRefreshIntervalSeconds,
+    required NetworkUnknownModel defaultNetworkUnknownModel,
+  }) : _defaultRefreshIntervalSeconds = defaultRefreshIntervalSeconds,
+       _defaultNetworkUnknownModel = defaultNetworkUnknownModel;
+
+  factory AppConfig.buildDefaultConfig() {
+    return AppConfig(
+      bulkSinglePageSize: 500,
+      outdatedBlockDuration: const Duration(minutes: 5),
+      loadingPageTimerDuration: const Duration(seconds: 4),
+      supportedInterxVersions: <String>['v0.4.32'],
+      rpcBrowserUrlController: RpcBrowserUrlController(),
+      defaultFeeTokenAliasModel: const TokenAliasModel(
+        name: 'Kira',
+        lowestTokenDenominationModel: TokenDenominationModel(name: 'ukex', decimals: 0),
+        defaultTokenDenominationModel: TokenDenominationModel(name: 'KEX', decimals: 6),
+      ),
+      defaultRefreshIntervalSeconds: 60,
+      defaultNetworkUnknownModel: NetworkUnknownModel(
+        connectionStatusType: ConnectionStatusType.disconnected,
+        uri: Uri.parse('https://testnet-rpc.kira.network'),
+      ),
+    );
+  }
 
   Duration get refreshInterval => _refreshInterval;
 
@@ -37,16 +61,6 @@ class AppConfig {
     _initProxyServerUri(configJson['proxy_server_url'] as String?);
     _initIntervalSeconds(configJson['refresh_interval_seconds']);
     _initNetworkList(configJson['network_list']);
-  }
-
-  bool isInterxVersionOutdated(String version) {
-    bool isVersionSupported = supportedInterxVersions.contains(version);
-    if (isVersionSupported) {
-      return false;
-    } else {
-      AppLogger().log(message: 'Interx version [$version] is not supported', logLevel: LogLevel.warning);
-      return true;
-    }
   }
 
   NetworkUnknownModel findNetworkModelInConfig(NetworkUnknownModel networkUnknownModel) {
@@ -66,15 +80,15 @@ class AppConfig {
     return urlNetworkUnknownModel;
   }
 
-  Future<NetworkUnknownModel?> _getNetworkUnknownModelFromUrl() async {
-    String? networkAddress = rpcBrowserUrlController.getRpcAddress();
-    if (networkAddress == null) {
-      return null;
+
+  bool isInterxVersionOutdated(String version) {
+    bool isVersionSupported = supportedInterxVersions.contains(version);
+    if (isVersionSupported) {
+      return false;
+    } else {
+      AppLogger().log(message: 'Interx version [$version] is not supported', logLevel: LogLevel.warning);
+      return true;
     }
-    Uri uri = NetworkUtils.parseUrlToInterxUri(networkAddress);
-    NetworkUnknownModel urlNetworkUnknownModel = NetworkUnknownModel(uri: uri, connectionStatusType: ConnectionStatusType.disconnected);
-    urlNetworkUnknownModel = findNetworkModelInConfig(urlNetworkUnknownModel);
-    return urlNetworkUnknownModel;
   }
 
   void _initProxyServerUri(String? proxyServerUrlText) {
@@ -109,5 +123,16 @@ class AppConfig {
     if (_networkList.isEmpty) {
       _networkList.add(_defaultNetworkUnknownModel);
     }
+  }
+
+  Future<NetworkUnknownModel?> _getNetworkUnknownModelFromUrl() async {
+    String? networkAddress = rpcBrowserUrlController.getRpcAddress();
+    if (networkAddress == null) {
+      return null;
+    }
+    Uri uri = NetworkUtils.parseUrlToInterxUri(networkAddress);
+    NetworkUnknownModel urlNetworkUnknownModel = NetworkUnknownModel(uri: uri, connectionStatusType: ConnectionStatusType.disconnected);
+    urlNetworkUnknownModel = findNetworkModelInConfig(urlNetworkUnknownModel);
+    return urlNetworkUnknownModel;
   }
 }

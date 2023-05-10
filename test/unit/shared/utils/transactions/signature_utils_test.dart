@@ -2,16 +2,13 @@ import 'dart:typed_data';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/shared/models/transactions/signature_model.dart';
-import 'package:miro/shared/models/wallet/mnemonic.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/shared/utils/transactions/signature_utils.dart';
+import 'package:miro/test/utils/test_utils.dart';
 
 void main() {
-  // @formatter:off
-  Mnemonic mnemonic = Mnemonic.fromArray(array: <String>['require', 'point', 'property', 'company', 'tongue', 'busy', 'bench', 'burden', 'caution', 'gadget', 'knee', 'glance', 'thought', 'bulk', 'assist', 'month', 'cereal', 'report', 'quarter', 'tool', 'section', 'often', 'require', 'shield']);
-  Wallet wallet = Wallet.derive(mnemonic: mnemonic);
-  // @formatter:on
+  Wallet actualWallet = TestUtils.wallet;
 
   final Map<String, dynamic> txStdSignDocJson = <String, dynamic>{
     'account_number': '669',
@@ -73,7 +70,7 @@ void main() {
     test('Should return signature for specified json', () {
       // Act
       SignatureModel actualSignatureModel = SignatureUtils.generateSignature(
-        wallet: wallet,
+        wallet: actualWallet,
         signatureDataJson: txStdSignDocJson,
       );
 
@@ -110,6 +107,7 @@ void main() {
     test('Should encrypt Interx Response Sign via SHA256 algorithm', () {
       // Act
       Uint8List actualSignatureDataHashBytes = SignatureUtils.generateSignatureDataHashBytes(queryAccountResponseSign);
+      
       // Assert
       Uint8List expectedSignatureDataHashBytes = queryAccountResponseSignHashBytes;
 
@@ -124,7 +122,7 @@ void main() {
         signature: 'GJbeZ35afeBr7XVmclweWEqUE9+QZ/urq52n8wzvEZxGHwvpcSJfyY4SV4DSo4q7IMJjxkol6DTHq/Zlyj4jZA==',
       );
 
-      Uint8List addressBytes = wallet.address.addressBytes;
+      Uint8List addressBytes = actualWallet.address.addressBytes;
 
       // Act
       bool actualSignatureValid = SignatureUtils.verifySignature(
@@ -143,7 +141,7 @@ void main() {
         signature: 'CybmU4aM0mgcULqYsQOjYXiR8uWMD7axfyz0vT9nNqQNrN7wXAOiWMcnCFsCbFONKIpMrHcxSVLEZxLh3p34Tg==',
       );
 
-      Uint8List addressBytes = wallet.address.addressBytes;
+      Uint8List addressBytes = actualWallet.address.addressBytes;
 
       // Act
       bool actualSignatureValid = SignatureUtils.verifySignature(

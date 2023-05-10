@@ -2,7 +2,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/shared/models/tokens/token_denomination_model.dart';
 import 'package:miro/views/widgets/transactions/token_form/token_amount_text_field/token_amount_text_input_formatter.dart';
 
-// ignore_for_file: cascade_invocations
 void main() {
   group('Test of TokenAmountTextInputFormatter', () {
     // Assert

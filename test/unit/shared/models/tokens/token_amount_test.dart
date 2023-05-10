@@ -1,33 +1,16 @@
 import 'package:decimal/decimal.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:miro/infra/dto/api_kira/query_kira_tokens_aliases/response/token_alias.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/tokens/token_denomination_model.dart';
+import 'package:miro/test/utils/test_utils.dart';
 
 void main() {
-  TokenAlias kexTokenAlias = const TokenAlias(
-    decimals: 6,
-    denoms: <String>['ukex', 'mkex'],
-    name: 'Kira',
-    symbol: 'KEX',
-    icon: '',
-    amount: '3000000000',
-  );
-
-  TokenAliasModel actualKexTokenAliasModel = TokenAliasModel.fromDto(kexTokenAlias);
-  TokenAliasModel actualEthTokenAliasModel = const TokenAliasModel(
-    name: 'Etherum',
-    lowestTokenDenominationModel: TokenDenominationModel(name: 'wei', decimals: 0),
-    defaultTokenDenominationModel: TokenDenominationModel(name: 'ETH', decimals: 18),
-  );
-  TokenAliasModel actualSamoleanTokenAliasModel = TokenAliasModel.local('samolean');
-
   group('Tests of TokenAmountModel', () {
     // Arrange
     TokenAmountModel actualTokenAmountModel = TokenAmountModel(
       lowestDenominationAmount: Decimal.fromInt(500),
-      tokenAliasModel: actualEthTokenAliasModel,
+      tokenAliasModel: TestUtils.ethTokenAliasModel,
     );
 
     test('Should return amount in lowest denomination', () {
@@ -77,7 +60,7 @@ void main() {
     // Arrange
     TokenAmountModel actualTokenAmountModel = TokenAmountModel(
       lowestDenominationAmount: Decimal.fromInt(500),
-      tokenAliasModel: actualSamoleanTokenAliasModel,
+      tokenAliasModel: TokenAliasModel.local('samolean'),
     );
 
     test('Should return amount in lowest denomination', () {
@@ -127,7 +110,7 @@ void main() {
     // Arrange
     TokenAmountModel actualTokenAmountModel = TokenAmountModel(
       lowestDenominationAmount: Decimal.fromInt(500),
-      tokenAliasModel: actualKexTokenAliasModel,
+      tokenAliasModel: TestUtils.kexTokenAliasModel,
     );
 
     test('Should return amount in lowest denomination', () {
@@ -285,7 +268,7 @@ void main() {
     // Arrange
     TokenAmountModel actualTokenAmountModel = TokenAmountModel(
       lowestDenominationAmount: Decimal.fromInt(500),
-      tokenAliasModel: actualEthTokenAliasModel,
+      tokenAliasModel: TestUtils.ethTokenAliasModel,
     );
 
     test('Should update actualTokenAmount to 1000', () {
@@ -344,7 +327,7 @@ void main() {
       // Arrange
       TokenAmountModel actualTokenAmountModel = TokenAmountModel(
         lowestDenominationAmount: Decimal.fromInt(500),
-        tokenAliasModel: actualEthTokenAliasModel,
+        tokenAliasModel: TestUtils.ethTokenAliasModel,
       );
 
       // Assert
@@ -358,7 +341,7 @@ void main() {
       // Act
       TokenAmountModel actualTokenAmountModel = TokenAmountModel(
         lowestDenominationAmount: Decimal.fromInt(-5000),
-        tokenAliasModel: actualEthTokenAliasModel,
+        tokenAliasModel: TestUtils.ethTokenAliasModel,
       );
       String actualLowestDenominationAmount = actualTokenAmountModel.getAmountInLowestDenomination().toString();
 

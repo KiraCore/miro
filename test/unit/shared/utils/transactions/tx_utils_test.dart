@@ -8,10 +8,9 @@ import 'package:miro/shared/models/transactions/signed_transaction_model.dart';
 import 'package:miro/shared/models/transactions/tx_local_info_model.dart';
 import 'package:miro/shared/models/transactions/tx_remote_info_model.dart';
 import 'package:miro/shared/models/transactions/unsigned_tx_model.dart';
-import 'package:miro/shared/models/wallet/mnemonic.dart';
-import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/shared/utils/transactions/tx_utils.dart';
+import 'package:miro/test/utils/test_utils.dart';
 
 Future<void> main() async {
   group('Tests of TxUtils.trimMemoToLength() method', () {
@@ -83,11 +82,6 @@ Future<void> main() async {
   group('Tests of TxUtils.sign() method', () {
     test('Should return SignedTxModel with generated signature', () {
       // Arrange
-      // @formatter:off
-      Mnemonic mnemonic = Mnemonic.fromArray(array: <String>['require', 'point', 'property', 'company', 'tongue', 'busy', 'bench', 'burden', 'caution', 'gadget', 'knee', 'glance', 'thought', 'bulk', 'assist', 'month', 'cereal', 'report', 'quarter', 'tool', 'section', 'often', 'require', 'shield']);
-      Wallet wallet = Wallet.derive(mnemonic: mnemonic);
-      // @formatter:on
-
       TxRemoteInfoModel txRemoteInfoModel = const TxRemoteInfoModel(
         accountNumber: '669',
         chainId: 'testnet',
@@ -101,7 +95,7 @@ Future<void> main() async {
           tokenAliasModel: TokenAliasModel.local('ukex'),
         ),
         txMsgModel: MsgSendModel(
-          fromWalletAddress: wallet.address,
+          fromWalletAddress: TestUtils.wallet.address,
           toWalletAddress: WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
           tokenAmountModel: TokenAmountModel(
             lowestDenominationAmount: Decimal.fromInt(100),
@@ -118,7 +112,7 @@ Future<void> main() async {
       // Act
       SignedTxModel actualSignedTxModel = TxUtils.sign(
         unsignedTxModel: actualUnsignedTxModel,
-        wallet: wallet,
+        wallet: TestUtils.wallet,
       );
 
       // Assert

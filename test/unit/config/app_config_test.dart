@@ -4,14 +4,16 @@ import 'package:miro/config/locator.dart';
 import 'package:miro/shared/controllers/browser/rpc_browser_url_controller.dart';
 import 'package:miro/shared/models/network/data/connection_status_type.dart';
 import 'package:miro/shared/models/network/status/network_unknown_model.dart';
+import 'package:miro/test/mock_app_config.dart';
 import 'package:miro/test/mock_locator.dart';
+import 'package:miro/test/utils/test_utils.dart';
 
 // To run this test type in console:
 // fvm flutter test test/unit/config/app_config_test.dart --platform chrome --null-assertions
 Future<void> main() async {
   await initMockLocator();
 
-  group('Tests of init() method for "refresh_interval_seconds" property', () {
+  group('Tests of AppConfig.init() method for "refresh_interval_seconds" property', () {
     test('Should return interval value declared in config json ', () {
       // Arrange
       Map<String, dynamic> configJson = <String, dynamic>{
@@ -19,7 +21,7 @@ Future<void> main() async {
       };
 
       // Act
-      AppConfig actualAppConfig = AppConfig()..init(configJson);
+      AppConfig actualAppConfig = MockAppConfig.buildDefaultConfig()..init(configJson);
 
       // Assert
       Duration expectedRefreshInterval = const Duration(seconds: 70);
@@ -34,7 +36,7 @@ Future<void> main() async {
       };
 
       // Act
-      AppConfig actualAppConfig = AppConfig()..init(configJson);
+      AppConfig actualAppConfig = MockAppConfig.buildDefaultConfig()..init(configJson);
 
       // Assert
       Duration expectedRefreshInterval = const Duration(seconds: 60);
@@ -49,7 +51,7 @@ Future<void> main() async {
       };
 
       // Act
-      AppConfig actualAppConfig = AppConfig()..init(configJson);
+      AppConfig actualAppConfig = MockAppConfig.buildDefaultConfig()..init(configJson);
 
       // Assert
       Duration expectedRefreshInterval = const Duration(seconds: 60);
@@ -64,19 +66,19 @@ Future<void> main() async {
       };
 
       // Act
-      AppConfig actualAppConfig = AppConfig()..init(configJson);
+      AppConfig actualAppConfig = MockAppConfig.buildDefaultConfig()..init(configJson);
 
       // Assert
       Duration expectedRefreshInterval = const Duration(seconds: 60);
       expect(actualAppConfig.refreshInterval, expectedRefreshInterval);
     });
 
-    test('Should return default interval value (60 seconds) if "refresh_interval_seconds" not exists ', () {
+    test('Should return default interval value (60 seconds) if "refresh_interval_seconds" does not exist ', () {
       // Arrange
       Map<String, dynamic> configJson = <String, dynamic>{};
 
       // Act
-      AppConfig actualAppConfig = AppConfig()..init(configJson);
+      AppConfig actualAppConfig = MockAppConfig.buildDefaultConfig()..init(configJson);
 
       // Assert
       Duration expectedRefreshInterval = const Duration(seconds: 60);
@@ -85,25 +87,10 @@ Future<void> main() async {
     });
   });
 
-  group('Tests of init() method for "refresh_interval_seconds" property', () {
+  group('Tests of AppConfig.init() method for "refresh_interval_seconds" property', () {
     NetworkUnknownModel defaultNetworkUnknownModel = NetworkUnknownModel(
       connectionStatusType: ConnectionStatusType.disconnected,
       uri: Uri.parse('https://testnet-rpc.kira.network'),
-    );
-    NetworkUnknownModel healthyNetworkUnknownModel = NetworkUnknownModel(
-      connectionStatusType: ConnectionStatusType.disconnected,
-      uri: Uri.parse('https://healthy.kira.network'),
-      name: 'healthy-mainnet',
-    );
-    NetworkUnknownModel unhealthyNetworkUnknownModel = NetworkUnknownModel(
-      connectionStatusType: ConnectionStatusType.disconnected,
-      uri: Uri.parse('https://unhealthy.kira.network'),
-      name: 'unhealthy-mainnet',
-    );
-    NetworkUnknownModel offlineNetworkUnknownModel = NetworkUnknownModel(
-      connectionStatusType: ConnectionStatusType.disconnected,
-      uri: Uri.parse('https://offline.kira.network'),
-      name: 'offline-mainnet',
     );
 
     test('Should return network list from config ', () {
@@ -126,13 +113,13 @@ Future<void> main() async {
       };
 
       // Act
-      AppConfig actualAppConfig = AppConfig()..init(configJson);
+      AppConfig actualAppConfig = MockAppConfig.buildDefaultConfig()..init(configJson);
 
       // Assert
       List<NetworkUnknownModel> expectedNetworkUnknownModelList = <NetworkUnknownModel>[
-        unhealthyNetworkUnknownModel,
-        healthyNetworkUnknownModel,
-        offlineNetworkUnknownModel,
+        TestUtils.unhealthyNetworkUnknownModel,
+        TestUtils.healthyNetworkUnknownModel,
+        TestUtils.offlineNetworkUnknownModel,
       ];
 
       expect(actualAppConfig.networkList, expectedNetworkUnknownModelList);
@@ -161,12 +148,12 @@ Future<void> main() async {
       };
 
       // Act
-      AppConfig actualAppConfig = AppConfig()..init(configJson);
+      AppConfig actualAppConfig = MockAppConfig.buildDefaultConfig()..init(configJson);
 
       // Assert
       List<NetworkUnknownModel> expectedNetworkUnknownModelList = <NetworkUnknownModel>[
         NetworkUnknownModel(uri: Uri.parse('https://healthy.kira.network'), connectionStatusType: ConnectionStatusType.disconnected),
-        offlineNetworkUnknownModel,
+        TestUtils.offlineNetworkUnknownModel,
       ];
 
       expect(actualAppConfig.networkList, expectedNetworkUnknownModelList);
@@ -187,7 +174,7 @@ Future<void> main() async {
       };
 
       // Act
-      AppConfig actualAppConfig = AppConfig()..init(configJson);
+      AppConfig actualAppConfig = MockAppConfig.buildDefaultConfig()..init(configJson);
 
       // Assert
       List<NetworkUnknownModel> expectedNetworkUnknownModelList = <NetworkUnknownModel>[
@@ -202,7 +189,7 @@ Future<void> main() async {
       Map<String, dynamic> configJson = <String, dynamic>{'network_list': <Map<String, dynamic>>[]};
 
       // Act
-      AppConfig actualAppConfig = AppConfig()..init(configJson);
+      AppConfig actualAppConfig = MockAppConfig.buildDefaultConfig()..init(configJson);
 
       // Assert
       List<NetworkUnknownModel> expectedNetworkUnknownModelList = <NetworkUnknownModel>[
@@ -224,7 +211,7 @@ Future<void> main() async {
       };
 
       // Act
-      AppConfig actualAppConfig = AppConfig()..init(configJson);
+      AppConfig actualAppConfig = MockAppConfig.buildDefaultConfig()..init(configJson);
 
       // Assert
       List<NetworkUnknownModel> expectedNetworkUnknownModelList = <NetworkUnknownModel>[
@@ -241,7 +228,7 @@ Future<void> main() async {
       };
 
       // Act
-      AppConfig actualAppConfig = AppConfig()..init(configJson);
+      AppConfig actualAppConfig = MockAppConfig.buildDefaultConfig()..init(configJson);
 
       // Assert
       List<NetworkUnknownModel> expectedNetworkUnknownModelList = <NetworkUnknownModel>[
@@ -251,12 +238,12 @@ Future<void> main() async {
       expect(actualAppConfig.networkList, expectedNetworkUnknownModelList);
     });
 
-    test('Should return defaultNetworkUnknownModel if "network_list" not exists ', () {
+    test('Should return defaultNetworkUnknownModel if "network_list" does not exist ', () {
       // Arrange
       Map<String, dynamic> configJson = <String, dynamic>{};
 
       // Act
-      AppConfig actualAppConfig = AppConfig()..init(configJson);
+      AppConfig actualAppConfig = MockAppConfig.buildDefaultConfig()..init(configJson);
 
       // Assert
       List<NetworkUnknownModel> expectedNetworkUnknownModelList = <NetworkUnknownModel>[
@@ -267,8 +254,8 @@ Future<void> main() async {
     });
   });
 
-  group('Tests of findNetworkModelInConfig()', () {
-    test('Should return NetworkUnknownModel from method argument if network doesn`t exists in config', () {
+  group('Tests of AppConfig.findNetworkModelInConfig()', () {
+    test('Should return [NetworkUnknownModel] from method argument if network does not exist in config', () {
       // Arrange
       AppConfig appConfig = globalLocator<AppConfig>();
       NetworkUnknownModel networkUnknownModel = NetworkUnknownModel(
@@ -285,7 +272,7 @@ Future<void> main() async {
       expect(actualNetworkUnknownModel, expectedNetworkUnknownModel);
     });
 
-    test('Should return NetworkUnknownModel from config if network exists in config', () {
+    test('Should return [NetworkUnknownModel] from config if network exists in config', () {
       // Arrange
       AppConfig appConfig = globalLocator<AppConfig>();
       NetworkUnknownModel networkUnknownModel = NetworkUnknownModel(
@@ -297,18 +284,14 @@ Future<void> main() async {
       NetworkUnknownModel actualNetworkUnknownModel = appConfig.findNetworkModelInConfig(networkUnknownModel);
 
       // Assert
-      NetworkUnknownModel expectedNetworkUnknownModel = NetworkUnknownModel(
-        connectionStatusType: ConnectionStatusType.disconnected,
-        uri: Uri.parse('https://unhealthy.kira.network'),
-        name: 'unhealthy-mainnet',
-      );
+      NetworkUnknownModel expectedNetworkUnknownModel = TestUtils.unhealthyNetworkUnknownModel;
 
       expect(actualNetworkUnknownModel, expectedNetworkUnknownModel);
     });
   });
 
-  group('Tests of getDefaultNetworkUnknownModel()', () {
-    test('Should return NetworkUnknownModel as a first element of config network list', () async {
+  group('Tests of AppConfig.getDefaultNetworkUnknownModel()', () {
+    test('Should return [NetworkUnknownModel] as a first element of config network list', () async {
       // Arrange
       AppConfig appConfig = globalLocator<AppConfig>();
 
@@ -318,33 +301,21 @@ Future<void> main() async {
       // Assert
       NetworkUnknownModel expectedNetworkUnknownModel = appConfig.networkList.first;
 
-      expect(
-        actualNetworkUnknownModel,
-        expectedNetworkUnknownModel,
-      );
+      expect(actualNetworkUnknownModel, expectedNetworkUnknownModel);
     });
 
-    test('Should return NetworkUnknownModel created from "rpc" query param existing in browser URL', () async {
+    test('Should return [NetworkUnknownModel] created from "rpc" query param existing in browser URL', () async {
       // Arrange
       AppConfig appConfig = globalLocator<AppConfig>();
-      RpcBrowserUrlController rpcBrowserUrlController = RpcBrowserUrlController();
-      NetworkUnknownModel networkUnknownModel = NetworkUnknownModel(
-        connectionStatusType: ConnectionStatusType.disconnected,
-        uri: Uri.parse('https://unhealthy.kira.network'),
-        name: 'unhealthy-mainnet',
-      );
-      rpcBrowserUrlController.setRpcAddress(networkUnknownModel);
+      RpcBrowserUrlController().setRpcAddress(TestUtils.unhealthyNetworkUnknownModel);
 
       // Act
       NetworkUnknownModel actualNetworkUnknownModel = await appConfig.getDefaultNetworkUnknownModel();
 
       // Assert
-      NetworkUnknownModel expectedNetworkUnknownModel = networkUnknownModel;
+      NetworkUnknownModel expectedNetworkUnknownModel = TestUtils.unhealthyNetworkUnknownModel;
 
-      expect(
-        actualNetworkUnknownModel,
-        expectedNetworkUnknownModel,
-      );
+      expect(actualNetworkUnknownModel, expectedNetworkUnknownModel);
     });
   });
 }

@@ -15,7 +15,7 @@ void main() {
     const Balance(amount: '12344', denom: 'LTC'),
   };
 
-  group('Tests of Balances.sortByAmount() method', () {
+  group('Tests of BalancesComparator.sortByAmount()', () {
     test('Should return 0 (Amounts equal)', () {
       expect(
         BalancesComparator.sortByAmount(
@@ -64,7 +64,7 @@ void main() {
     });
   });
 
-  group('Tests of Balances.sortByName() method', () {
+  group('Tests of BalancesComparator.sortByName()', () {
     test('Should return 0 (Names equal)', () {
       expect(
         BalancesComparator.sortByAmount(
@@ -113,8 +113,8 @@ void main() {
     });
   });
 
-  group('Tests of Balances.filterSmallBalances() method', () {
-    test('Should return true if balance greater than one', () {
+  group('Tests of BalancesComparator.filterSmallBalances()', () {
+    test('Should return "true" if balance greater than one', () {
       expect(
         BalancesComparator.filterSmallBalances(
           const Balance(amount: '1.55', denom: 'XCH'),
@@ -123,7 +123,7 @@ void main() {
       );
     });
 
-    test('Should return false if balance less than one', () {
+    test('Should return "false" if balance less than one', () {
       expect(
         BalancesComparator.filterSmallBalances(
           const Balance(amount: '0.001', denom: 'XCH'),
@@ -148,8 +148,8 @@ void main() {
     });
   });
 
-  group('Tests of Balances.filterSearch() method', () {
-    test('Should return true if balance contains provided String', () {
+  group('Tests of BalancesComparator.filterSearch() method', () {
+    test('Should return "true" if balance contains provided String', () {
       expect(
         BalancesComparator.filterSearch(
           const Balance(amount: '1.55', denom: 'XCH'),
@@ -159,7 +159,7 @@ void main() {
       );
     });
 
-    test('Should return true if balance contains provided String', () {
+    test('Should return "true" if balance contains provided String', () {
       expect(
         BalancesComparator.filterSearch(
           const Balance(amount: '1.55', denom: 'XCH'),
@@ -169,7 +169,7 @@ void main() {
       );
     });
 
-    test('Should return false if balance not contains provided String', () {
+    test('Should return "false" if balance does not contain provided String', () {
       expect(
         BalancesComparator.filterSearch(
           const Balance(amount: '1.55', denom: 'XCH'),
@@ -179,7 +179,7 @@ void main() {
       );
     });
 
-    test('Should return false if balance not contains provided String', () {
+    test('Should return "false" if balance does not contain provided String', () {
       expect(
         BalancesComparator.filterSearch(
           const Balance(amount: '1.55', denom: 'XCH'),

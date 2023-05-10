@@ -26,7 +26,7 @@ final GetIt globalLocator = GetIt.I;
 
 Future<void> initLocator() async {
   globalLocator
-    ..registerLazySingleton<AppConfig>(AppConfig.new)
+    ..registerLazySingleton<AppConfig>(AppConfig.buildDefaultConfig)
     ..registerLazySingleton<AppConfigProvider>(AppConfigProviderImpl.new)
     ..registerLazySingleton<AuthCubit>(AuthCubit.new)
     ..registerLazySingleton<NetworkCustomSectionCubit>(NetworkCustomSectionCubit.new)
