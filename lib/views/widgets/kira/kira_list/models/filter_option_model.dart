@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:miro/blocs/abstract_blocs/abstract_list/models/a_list_item.dart';
-import 'package:miro/blocs/specific_blocs/list/filters/models/filter_option.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/models/a_list_item.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/filters/models/filter_option.dart';
 
 class FilterOptionModel<T extends AListItem> extends Equatable {
   final String title;

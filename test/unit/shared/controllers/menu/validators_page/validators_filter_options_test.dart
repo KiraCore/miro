@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:miro/blocs/specific_blocs/list/filters/models/filter_option.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/filters/models/filter_option.dart';
 import 'package:miro/shared/controllers/menu/validators_page/validators_filter_options.dart';
 import 'package:miro/shared/models/validators/validator_model.dart';
 import 'package:miro/shared/models/validators/validator_status.dart';

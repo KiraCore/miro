@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:miro/blocs/specific_blocs/dashboard/a_dashboard_state.dart';
-import 'package:miro/blocs/specific_blocs/dashboard/dashboard_cubit.dart';
-import 'package:miro/blocs/specific_blocs/dashboard/states/dashboard_error_state.dart';
-import 'package:miro/blocs/specific_blocs/dashboard/states/dashboard_loading_state.dart';
+import 'package:miro/blocs/pages/menu/dashboard/a_dashboard_state.dart';
+import 'package:miro/blocs/pages/menu/dashboard/dashboard_cubit.dart';
+import 'package:miro/blocs/pages/menu/dashboard/states/dashboard_error_state.dart';
+import 'package:miro/blocs/pages/menu/dashboard/states/dashboard_loading_state.dart';
 import 'package:miro/config/app_sizes.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/views/pages/menu/dashboard_page/dashboard_blocks_section.dart';

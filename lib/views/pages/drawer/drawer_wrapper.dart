@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:miro/blocs/specific_blocs/drawer/a_drawer_state.dart';
-import 'package:miro/blocs/specific_blocs/drawer/drawer_cubit.dart';
-import 'package:miro/blocs/specific_blocs/drawer/states/drawer_visible_state.dart';
+import 'package:miro/blocs/layout/drawer/a_drawer_state.dart';
+import 'package:miro/blocs/layout/drawer/drawer_cubit.dart';
+import 'package:miro/blocs/layout/drawer/states/drawer_visible_state.dart';
 import 'package:miro/views/layout/drawer/kira_drawer.dart';
 import 'package:miro/views/widgets/generic/center_load_spinner.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';

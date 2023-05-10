@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:miro/blocs/specific_blocs/auth/auth_cubit.dart';
+import 'package:miro/blocs/generic/auth/auth_cubit.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/views/layout/app_bar/account_button/signed_in_account_button.dart';

@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:miro/blocs/specific_blocs/loading_page/loading_page_cubit.dart';
-import 'package:miro/blocs/specific_blocs/loading_page/loading_page_state.dart';
-import 'package:miro/blocs/specific_blocs/loading_page/states/loading_page_connected_state.dart';
-import 'package:miro/blocs/specific_blocs/loading_page/states/loading_page_disconnected_state.dart';
+import 'package:miro/blocs/pages/loading/loading_page/loading_page_cubit.dart';
+import 'package:miro/blocs/pages/loading/loading_page/loading_page_state.dart';
+import 'package:miro/blocs/pages/loading/loading_page/states/loading_page_connected_state.dart';
+import 'package:miro/blocs/pages/loading/loading_page/states/loading_page_disconnected_state.dart';
 import 'package:miro/config/app_sizes.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/assets.dart';

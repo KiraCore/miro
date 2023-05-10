@@ -1,6 +1,6 @@
 import 'package:decimal/decimal.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:miro/blocs/specific_blocs/list/filters/models/filter_option.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/filters/models/filter_option.dart';
 import 'package:miro/shared/controllers/menu/my_account_page/balances_page/balances_filter_options.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';

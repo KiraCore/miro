@@ -1,4 +1,4 @@
-import 'package:miro/blocs/abstract_blocs/abstract_list/controllers/i_list_controller.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/controllers/i_list_controller.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/cache/favourite_cache.dart';
 import 'package:miro/infra/dto/api/query_validators/request/query_validators_req.dart';
@@ -18,8 +18,7 @@ class ValidatorsListController implements IListController<ValidatorModel> {
   Future<List<ValidatorModel>> getFavouritesData() async {
     Set<String> favouriteAddresses = favouriteCache.getAll();
     if (favouriteAddresses.isNotEmpty) {
-      List<ValidatorModel> remoteFavourites =
-          await queryValidatorsService.getValidatorsByAddresses(favouriteAddresses.toList());
+      List<ValidatorModel> remoteFavourites = await queryValidatorsService.getValidatorsByAddresses(favouriteAddresses.toList());
       return remoteFavourites;
     }
     return List<ValidatorModel>.empty(growable: true);

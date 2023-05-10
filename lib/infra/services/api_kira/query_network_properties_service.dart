@@ -1,6 +1,6 @@
 import 'package:decimal/decimal.dart';
 import 'package:dio/dio.dart';
-import 'package:miro/blocs/specific_blocs/network_module/network_module_bloc.dart';
+import 'package:miro/blocs/generic/network_module/network_module_bloc.dart';
 import 'package:miro/config/app_config.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api_kira/query_network_properties/response/query_network_properties_resp.dart';

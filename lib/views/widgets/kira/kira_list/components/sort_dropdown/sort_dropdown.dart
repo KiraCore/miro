@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:miro/blocs/abstract_blocs/abstract_list/models/a_list_item.dart';
-import 'package:miro/blocs/specific_blocs/list/sort/events/sort_change_event.dart';
-import 'package:miro/blocs/specific_blocs/list/sort/models/sort_option.dart';
-import 'package:miro/blocs/specific_blocs/list/sort/sort_bloc.dart';
-import 'package:miro/blocs/specific_blocs/list/sort/sort_state.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/models/a_list_item.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/sort/events/sort_change_event.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/sort/models/sort_option.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/sort/sort_bloc.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/sort/sort_state.dart';
 import 'package:miro/config/app_icons.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';

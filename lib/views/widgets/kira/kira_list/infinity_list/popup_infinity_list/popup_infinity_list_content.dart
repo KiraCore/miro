@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:miro/blocs/abstract_blocs/abstract_list/models/a_list_item.dart';
-import 'package:miro/blocs/specific_blocs/list/infinity_list/infinity_list_bloc.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/models/a_list_item.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/infinity_list/infinity_list_bloc.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/views/widgets/kira/kira_list/infinity_list/infinity_list_controller.dart';
 import 'package:miro/views/widgets/kira/kira_list/infinity_list/infinity_list_load_indicator.dart';

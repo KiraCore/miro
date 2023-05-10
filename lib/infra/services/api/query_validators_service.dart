@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:miro/blocs/specific_blocs/network_module/network_module_bloc.dart';
+import 'package:miro/blocs/generic/network_module/network_module_bloc.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api/query_validators/request/query_validators_req.dart';
 import 'package:miro/infra/dto/api/query_validators/response/query_validators_resp.dart';

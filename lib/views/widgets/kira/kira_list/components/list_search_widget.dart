@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:miro/blocs/abstract_blocs/abstract_list/models/a_list_item.dart';
-import 'package:miro/blocs/specific_blocs/list/filters/events/filters_search_event.dart';
-import 'package:miro/blocs/specific_blocs/list/filters/filters_bloc.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/models/a_list_item.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/filters/events/filters_search_event.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/filters/filters_bloc.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/views/widgets/generic/search_bar.dart';
 

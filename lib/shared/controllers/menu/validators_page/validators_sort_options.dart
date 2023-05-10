@@ -1,4 +1,4 @@
-import 'package:miro/blocs/specific_blocs/list/sort/models/sort_option.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/sort/models/sort_option.dart';
 import 'package:miro/shared/models/validators/validator_model.dart';
 
 class ValidatorsSortOptions {
@@ -19,8 +19,7 @@ class ValidatorsSortOptions {
   static SortOption<ValidatorModel> get sortByStatus {
     return SortOption<ValidatorModel>.asc(
       id: 'status',
-      comparator: (ValidatorModel a, ValidatorModel b) =>
-          a.validatorStatus.toString().compareTo(b.validatorStatus.toString()),
+      comparator: (ValidatorModel a, ValidatorModel b) => a.validatorStatus.toString().compareTo(b.validatorStatus.toString()),
     );
   }
 }

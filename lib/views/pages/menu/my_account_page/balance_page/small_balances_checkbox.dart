@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:miro/blocs/specific_blocs/list/filters/a_filters_state.dart';
-import 'package:miro/blocs/specific_blocs/list/filters/events/filters_add_option_event.dart';
-import 'package:miro/blocs/specific_blocs/list/filters/events/filters_remove_option_event.dart';
-import 'package:miro/blocs/specific_blocs/list/filters/filters_bloc.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/filters/a_filters_state.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/filters/events/filters_add_option_event.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/filters/events/filters_remove_option_event.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/filters/filters_bloc.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/controllers/menu/my_account_page/balances_page/balances_filter_options.dart';

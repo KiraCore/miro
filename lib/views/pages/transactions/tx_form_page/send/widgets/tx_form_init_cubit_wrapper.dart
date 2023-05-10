@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:miro/blocs/specific_blocs/transactions/tx_form_init/a_tx_form_init_state.dart';
-import 'package:miro/blocs/specific_blocs/transactions/tx_form_init/states/tx_form_init_downloading_state.dart';
-import 'package:miro/blocs/specific_blocs/transactions/tx_form_init/states/tx_form_init_error_state.dart';
-import 'package:miro/blocs/specific_blocs/transactions/tx_form_init/states/tx_form_init_loaded_state.dart';
-import 'package:miro/blocs/specific_blocs/transactions/tx_form_init/tx_form_init_cubit.dart';
+import 'package:miro/blocs/pages/transactions/tx_form_init/a_tx_form_init_state.dart';
+import 'package:miro/blocs/pages/transactions/tx_form_init/states/tx_form_init_downloading_state.dart';
+import 'package:miro/blocs/pages/transactions/tx_form_init/states/tx_form_init_error_state.dart';
+import 'package:miro/blocs/pages/transactions/tx_form_init/states/tx_form_init_loaded_state.dart';
+import 'package:miro/blocs/pages/transactions/tx_form_init/tx_form_init_cubit.dart';
 import 'package:miro/config/app_icons.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';

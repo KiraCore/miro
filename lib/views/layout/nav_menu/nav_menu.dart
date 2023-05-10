@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:miro/blocs/specific_blocs/nav_menu/nav_menu_cubit.dart';
+import 'package:miro/blocs/layout/nav_menu/nav_menu_cubit.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/shared/router/kira_router.dart';
 import 'package:miro/shared/utils/app_logger.dart';

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:miro/blocs/specific_blocs/views/widgets/network_list/network_custom_section/network_custom_section_cubit.dart';
+import 'package:miro/blocs/widgets/network_list/network_custom_section/network_custom_section_cubit.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
