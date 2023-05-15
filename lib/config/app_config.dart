@@ -38,7 +38,7 @@ class AppConfig {
       bulkSinglePageSize: 500,
       outdatedBlockDuration: const Duration(minutes: 5),
       loadingPageTimerDuration: const Duration(seconds: 4),
-      supportedInterxVersions: <String>['v0.4.32'],
+      supportedInterxVersions: <String>['v0.4.33'],
       rpcBrowserUrlController: RpcBrowserUrlController(),
       defaultFeeTokenAliasModel: const TokenAliasModel(
         name: 'Kira',

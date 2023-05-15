@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:miro/blocs/generic/auth/auth_cubit.dart';
 import 'package:miro/blocs/generic/network_module/network_module_bloc.dart';
+import 'package:miro/blocs/layout/drawer/drawer_cubit.dart';
 import 'package:miro/blocs/layout/nav_menu/nav_menu_cubit.dart';
 import 'package:miro/blocs/widgets/network_list/network_custom_section/network_custom_section_cubit.dart';
 import 'package:miro/blocs/widgets/network_list/network_list/network_list_cubit.dart';
@@ -19,7 +20,6 @@ import 'package:miro/infra/services/api_kira/query_kira_tokens_aliases_service.d
 import 'package:miro/infra/services/api_kira/query_kira_tokens_rates_service.dart';
 import 'package:miro/infra/services/api_kira/query_network_properties_service.dart';
 import 'package:miro/infra/services/network_module_service.dart';
-import 'package:miro/providers/app_config_provider.dart';
 import 'package:miro/shared/controllers/reload_notifier/reload_notifier_controller.dart';
 
 final GetIt globalLocator = GetIt.I;
@@ -27,25 +27,41 @@ final GetIt globalLocator = GetIt.I;
 Future<void> initLocator() async {
   globalLocator
     ..registerLazySingleton<AppConfig>(AppConfig.buildDefaultConfig)
-    ..registerLazySingleton<AppConfigProvider>(AppConfigProviderImpl.new)
+    ..registerLazySingleton<CacheManager>(CacheManager.new);
+
+  _initRepositories();
+  _initServices();
+  _initControllers();
+}
+
+void _initRepositories() {
+  globalLocator
+    ..registerLazySingleton<IApiKiraRepository>(RemoteApiKiraRepository.new)
+    ..registerLazySingleton<IApiRepository>(RemoteApiRepository.new);
+}
+
+void _initServices() {
+  globalLocator
+    ..registerLazySingleton<BroadcastService>(BroadcastService.new)
+    ..registerLazySingleton<DashboardService>(DashboardService.new)
+    ..registerLazySingleton<NetworkModuleService>(NetworkModuleService.new)
+    ..registerLazySingleton<QueryAccountService>(QueryAccountService.new)
+    ..registerLazySingleton<QueryBalanceService>(QueryBalanceService.new)
+    ..registerLazySingleton<QueryExecutionFeeService>(QueryExecutionFeeService.new)
+    ..registerLazySingleton<QueryInterxStatusService>(QueryInterxStatusService.new)
+    ..registerLazySingleton<QueryKiraTokensAliasesService>(QueryKiraTokensAliasesService.new)
+    ..registerLazySingleton<QueryKiraTokensRatesService>(QueryKiraTokensRatesService.new)
+    ..registerLazySingleton<QueryNetworkPropertiesService>(QueryNetworkPropertiesService.new)
+    ..registerLazySingleton<QueryValidatorsService>(QueryValidatorsService.new);
+}
+
+void _initControllers() {
+  globalLocator
     ..registerLazySingleton<AuthCubit>(AuthCubit.new)
-    ..registerLazySingleton<NetworkCustomSectionCubit>(NetworkCustomSectionCubit.new)
+    ..registerLazySingleton<DrawerCubit>(DrawerCubit.new)
     ..registerLazySingleton<NavMenuCubit>(NavMenuCubit.new)
-    ..registerLazySingleton<CacheManager>(CacheManager.new)
+    ..registerLazySingleton<NetworkCustomSectionCubit>(NetworkCustomSectionCubit.new)
     ..registerLazySingleton<NetworkListCubit>(NetworkListCubit.new)
     ..registerLazySingleton<NetworkModuleBloc>(NetworkModuleBloc.new)
-    ..registerLazySingleton<QueryExecutionFeeService>(QueryExecutionFeeService.new)
-    ..registerLazySingleton<IApiRepository>(RemoteApiRepository.new)
-    ..registerLazySingleton<IApiKiraRepository>(RemoteApiKiraRepository.new)
-    ..registerFactory<DashboardService>(DashboardService.new)
-    ..registerFactory<QueryAccountService>(QueryAccountService.new)
-    ..registerFactory<NetworkModuleService>(NetworkModuleService.new)
-    ..registerFactory<QueryValidatorsService>(QueryValidatorsService.new)
-    ..registerLazySingleton<BroadcastService>(BroadcastService.new)
-    ..registerLazySingleton<QueryNetworkPropertiesService>(QueryNetworkPropertiesService.new)
-    ..registerFactory<QueryKiraTokensRatesService>(QueryKiraTokensRatesService.new)
-    ..registerFactory<QueryKiraTokensAliasesService>(QueryKiraTokensAliasesService.new)
-    ..registerFactory<QueryInterxStatusService>(QueryInterxStatusService.new)
-    ..registerFactory<QueryBalanceService>(QueryBalanceService.new)
     ..registerLazySingleton<ReloadNotifierController>(ReloadNotifierController.new);
 }

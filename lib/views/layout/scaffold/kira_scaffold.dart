@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/layout/drawer/drawer_cubit.dart';
+import 'package:miro/config/locator.dart';
 import 'package:miro/views/layout/nav_menu/model/nav_item_model.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold_desktop.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold_mobile.dart';
@@ -36,6 +36,7 @@ class KiraScaffold extends StatefulWidget {
 }
 
 class _KiraScaffold extends State<KiraScaffold> {
+  final DrawerCubit drawerCubit = globalLocator<DrawerCubit>();
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey();
 
   @override
@@ -71,19 +72,19 @@ class _KiraScaffold extends State<KiraScaffold> {
   }
 
   void navigateEndDrawerRoute(Widget page) {
-    BlocProvider.of<DrawerCubit>(context).navigate(scaffoldKey, page);
+    drawerCubit.navigate(scaffoldKey, page);
   }
 
   void replaceEndDrawerRoute(Widget page) {
-    BlocProvider.of<DrawerCubit>(context).replace(scaffoldKey, page);
+    drawerCubit.replace(scaffoldKey, page);
   }
 
   void popEndDrawer() {
-    BlocProvider.of<DrawerCubit>(context).pop(scaffoldKey);
+    drawerCubit.pop(scaffoldKey);
   }
 
   void closeEndDrawer() {
-    BlocProvider.of<DrawerCubit>(context).closeDrawer(scaffoldKey);
+    drawerCubit.closeDrawer(scaffoldKey);
   }
 
   void _handleActionLayoutFocus(BuildContext context) {

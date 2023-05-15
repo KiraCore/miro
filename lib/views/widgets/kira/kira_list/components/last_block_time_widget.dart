@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/generic/network_module/network_module_bloc.dart';
 import 'package:miro/blocs/generic/network_module/network_module_state.dart';
+import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/network/data/block_time_model.dart';
@@ -15,6 +16,7 @@ class LastBlockTimeWidget extends StatelessWidget {
     TextTheme textTheme = Theme.of(context).textTheme;
 
     return BlocBuilder<NetworkModuleBloc, NetworkModuleState>(
+      bloc: globalLocator<NetworkModuleBloc>(),
       builder: (BuildContext context, NetworkModuleState networkModuleState) {
         BlockTimeModel? blockTimeModel;
         if (networkModuleState.networkStatusModel is ANetworkOnlineModel) {

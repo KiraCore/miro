@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/generic/network_module/network_module_bloc.dart';
 import 'package:miro/blocs/generic/network_module/network_module_state.dart';
+import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/shared/models/network/data/connection_status_type.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
@@ -29,6 +30,7 @@ class _NetworkListTile extends State<NetworkListTile> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<NetworkModuleBloc, NetworkModuleState>(
+      bloc: globalLocator<NetworkModuleBloc>(),
       builder: (BuildContext buildContext, NetworkModuleState networkModuleState) {
         ANetworkStatusModel networkStatusModel = widget.networkStatusModel;
         if (networkStatusModel.uri.host == networkModuleState.networkStatusModel.uri.host) {

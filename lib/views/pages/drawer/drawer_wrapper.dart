@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/layout/drawer/a_drawer_state.dart';
 import 'package:miro/blocs/layout/drawer/drawer_cubit.dart';
 import 'package:miro/blocs/layout/drawer/states/drawer_visible_state.dart';
+import 'package:miro/config/locator.dart';
 import 'package:miro/views/layout/drawer/kira_drawer.dart';
 import 'package:miro/views/widgets/generic/center_load_spinner.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
@@ -15,6 +16,7 @@ class DrawerWrapper extends StatelessWidget {
     return KiraDrawer(
       width: ResponsiveWidget.isSmallScreen(context) ? MediaQuery.of(context).size.width : 400,
       child: BlocBuilder<DrawerCubit, ADrawerState>(
+        bloc: globalLocator<DrawerCubit>(),
         builder: (BuildContext context, ADrawerState drawerState) {
           return AnimatedSwitcher(
             layoutBuilder: _buildDrawerPage,

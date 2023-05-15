@@ -12,7 +12,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.2.9
+version: 1.2.10
 
 environment:
   sdk: ">=2.18.5 <3.0.0"
@@ -30,11 +30,6 @@ dependencies:
 
   flutter_localizations:
     sdk: flutter
-
-
-  #  A wrapper around InheritedWidget to make them easier to use and more reusable.
-  #  https://pub.dev/packages/provider
-  provider: ^6.0.4
 
   #  AutoRoute is a declarative routing solution, where everything needed for navigation is automatically generated for you.
   #  https://pub.dev/packages/auto_route
