@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/layout/drawer/drawer_cubit.dart';
+import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/views/layout/drawer/drawer_app_bar.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
@@ -21,6 +21,8 @@ class KiraDrawer extends StatefulWidget {
 }
 
 class _KiraDrawer extends State<KiraDrawer> {
+  final DrawerCubit drawerCubit = globalLocator<DrawerCubit>();
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -71,7 +73,7 @@ class _KiraDrawer extends State<KiraDrawer> {
   }
 
   Future<bool> _onWillPop() async {
-    bool canPop = BlocProvider.of<DrawerCubit>(context).canPop;
+    bool canPop = drawerCubit.canPop;
     if (canPop) {
       _handleDrawerPop();
     } else {

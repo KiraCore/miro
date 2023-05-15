@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/layout/drawer/a_drawer_state.dart';
 import 'package:miro/blocs/layout/drawer/drawer_cubit.dart';
 import 'package:miro/blocs/layout/drawer/states/drawer_visible_state.dart';
+import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';
 
 class DrawerPopButton extends StatelessWidget {
@@ -22,6 +23,7 @@ class DrawerPopButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<DrawerCubit, ADrawerState>(
+      bloc: globalLocator<DrawerCubit>(),
       builder: (BuildContext context, ADrawerState drawerState) {
         bool canPop = drawerState is DrawerVisibleState && drawerState.canPop;
         if (canPop) {

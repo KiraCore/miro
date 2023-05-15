@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/widgets/network_list/network_list/a_network_list_state.dart';
 import 'package:miro/blocs/widgets/network_list/network_list/network_list_cubit.dart';
 import 'package:miro/blocs/widgets/network_list/network_list/states/network_list_loaded_state.dart';
+import 'package:miro/config/locator.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
 import 'package:miro/views/widgets/generic/center_load_spinner.dart';
 import 'package:miro/views/widgets/network_list/network_list_tile.dart';
@@ -22,6 +23,7 @@ class NetworkList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<NetworkListCubit, ANetworkListState>(
+      bloc: globalLocator<NetworkListCubit>(),
       builder: (_, ANetworkListState networkListState) {
         if (networkListState is NetworkListLoadedState) {
           List<ANetworkStatusModel> visibleNetworkStatusModelList = _getVisibleNetworkStatusModelList(networkListState);

@@ -9,8 +9,6 @@ import 'package:miro/config/theme/theme_config.dart';
 import 'package:miro/generated/assets.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/infra/cache/cache_manager.dart';
-import 'package:miro/providers/app_config_provider.dart';
-import 'package:miro/providers/app_list_providers.dart';
 import 'package:miro/shared/router/guards/auth_guard.dart';
 import 'package:miro/shared/router/guards/connection_guard.dart';
 import 'package:miro/shared/router/guards/navigation_guard.dart';
@@ -19,7 +17,6 @@ import 'package:miro/shared/router/guards/pages/tx_broadcast_page_guard.dart';
 import 'package:miro/shared/router/guards/pages/tx_confirm_page_guard.dart';
 import 'package:miro/shared/router/router.gr.dart';
 import 'package:miro/shared/utils/assets_manager.dart';
-import 'package:provider/provider.dart';
 
 Future<void> main() async {
   await initLocator();
@@ -31,12 +28,7 @@ Future<void> main() async {
   globalLocator<NetworkModuleBloc>().add(NetworkModuleInitEvent());
   globalLocator<NetworkListCubit>().initNetworkStatusModelList();
 
-  runApp(
-    MultiProvider(
-      providers: appListProviders,
-      child: const CoreApp(),
-    ),
-  );
+  runApp(const CoreApp());
 }
 
 class CoreApp extends StatefulWidget {
@@ -70,37 +62,30 @@ class _CoreApp extends State<CoreApp> {
       builder: (BuildContext context, BoxConstraints constraints) {
         bool isSmallScreen = constraints.maxWidth < 600;
 
-        return Consumer<AppConfigProvider>(
-          builder: (_, AppConfigProvider value, Widget? child) {
-            return MaterialApp.router(
-              onGenerateTitle: (BuildContext context) => S.of(context).kiraNetwork,
-              routeInformationParser: appRouter.defaultRouteParser(),
-              routerDelegate: appRouter.delegate(),
-              debugShowCheckedModeBanner: false,
-              locale: Locale(
-                globalLocator<AppConfigProvider>().locale,
-                globalLocator<AppConfigProvider>().locale.toUpperCase(),
+        return MaterialApp.router(
+          onGenerateTitle: (BuildContext context) => S.of(context).kiraNetwork,
+          routeInformationParser: appRouter.defaultRouteParser(),
+          routerDelegate: appRouter.delegate(),
+          debugShowCheckedModeBanner: false,
+          locale: const Locale('en', 'EN'),
+          theme: ThemeConfig.buildTheme(isSmallScreen: isSmallScreen),
+          builder: (_, Widget? routerWidget) {
+            return Scaffold(
+              body: NotificationListener<OverscrollIndicatorNotification>(
+                onNotification: (OverscrollIndicatorNotification overscroll) {
+                  overscroll.disallowIndicator();
+                  return true;
+                },
+                child: routerWidget as Widget,
               ),
-              theme: ThemeConfig.buildTheme(isSmallScreen: isSmallScreen),
-              builder: (_, Widget? routerWidget) {
-                return Scaffold(
-                  body: NotificationListener<OverscrollIndicatorNotification>(
-                    onNotification: (OverscrollIndicatorNotification overscroll) {
-                      overscroll.disallowIndicator();
-                      return true;
-                    },
-                    child: routerWidget as Widget,
-                  ),
-                );
-              },
-              localizationsDelegates: GlobalMaterialLocalizations.delegates +
-                  <LocalizationsDelegate<dynamic>>[
-                    S.delegate,
-                    GlobalWidgetsLocalizations.delegate,
-                  ],
-              supportedLocales: S.delegate.supportedLocales,
             );
           },
+          localizationsDelegates: GlobalMaterialLocalizations.delegates +
+              <LocalizationsDelegate<dynamic>>[
+                S.delegate,
+                GlobalWidgetsLocalizations.delegate,
+              ],
+          supportedLocales: S.delegate.supportedLocales,
         );
       },
     );
