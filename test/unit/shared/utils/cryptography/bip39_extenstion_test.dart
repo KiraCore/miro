@@ -1,37 +1,38 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:miro/shared/utils/cryptography/bip39_extension.dart';
+import 'package:miro/shared/utils/cryptography/bip39/bip39_extension.dart';
+import 'package:miro/shared/utils/cryptography/bip39/mnemonic_validation_result.dart';
 
 void main() {
   group('Tests of validateMnemonicWithMessage() method', () {
-    test('Should return [MnemonicValidateResult.success] if mnemonic is correct', () {
+    test('Should return [MnemonicValidationResult.success] if mnemonic is correct', () {
       String actualMnemonic = 'brave pair belt judge visual tunnel dinner siren dentist craft effort decrease';
       expect(
         Bip39Extension.validateMnemonicWithMessage(actualMnemonic),
-        MnemonicValidateResult.success,
+        MnemonicValidationResult.success,
       );
     });
 
-    test('Should return [MnemonicValidateResult.invalidChecksum] if mnemonic checksum isn`t correct', () {
+    test('Should return [MnemonicValidationResult.invalidChecksum] if mnemonic checksum isn`t correct', () {
       String actualMnemonic = 'brave pair belt judge visual tunnel dinner siren dentist craft effort dog';
       expect(
         Bip39Extension.validateMnemonicWithMessage(actualMnemonic),
-        MnemonicValidateResult.invalidChecksum,
+        MnemonicValidationResult.invalidChecksum,
       );
     });
 
-    test('Should return [MnemonicValidateResult.invalidMnemonic] if mnemonic contains custom words', () {
+    test('Should return [MnemonicValidationResult.invalidMnemonic] if mnemonic contains custom words', () {
       String actualMnemonic = 'brave pair belt judge visual tunnel dinner siren dentist craft jabłko banan';
       expect(
         Bip39Extension.validateMnemonicWithMessage(actualMnemonic),
-        MnemonicValidateResult.invalidMnemonic,
+        MnemonicValidationResult.invalidMnemonic,
       );
     });
 
-    test('Should return [MnemonicValidateResult.mnemonicTooShort] if mnemonic is too short', () {
+    test('Should return [MnemonicValidationResult.mnemonicTooShort] if mnemonic is too short', () {
       String actualMnemonic = 'brave pair belt';
       expect(
         Bip39Extension.validateMnemonicWithMessage(actualMnemonic),
-        MnemonicValidateResult.mnemonicTooShort,
+        MnemonicValidationResult.mnemonicTooShort,
       );
     });
   });

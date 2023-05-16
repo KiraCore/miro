@@ -8,7 +8,7 @@ import 'package:miro/infra/dto/api_kira/query_execution_fee/response/query_execu
 import 'package:miro/infra/repositories/api_kira_repository.dart';
 import 'package:miro/infra/services/api_kira/query_network_properties_service.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
-import 'package:miro/shared/utils/app_logger.dart';
+import 'package:miro/shared/utils/logger/app_logger.dart';
 
 abstract class _IQueryExecutionFeeService {
   Future<TokenAmountModel> getExecutionFeeForMessage(String messageName);

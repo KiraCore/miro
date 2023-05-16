@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:miro/shared/exceptions/invalid_mnemonic_exception.dart';
 import 'package:miro/shared/models/wallet/mnemonic.dart';
 
 void main() {

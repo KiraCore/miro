@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/network/data/interx_warning_type.dart';
 import 'package:miro/views/widgets/kira/kira_toast/toast_container.dart';
+import 'package:miro/views/widgets/kira/kira_toast/toast_type.dart';
 
 class NetworkWarningContainer extends StatelessWidget {
   final InterxWarningType interxWarningType;

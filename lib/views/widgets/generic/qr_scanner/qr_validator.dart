@@ -3,13 +3,7 @@ import 'dart:js' as js;
 import 'dart:typed_data';
 
 import 'package:miro/shared/utils/enum_utils.dart';
-
-enum InversionAttempts {
-  dontInvert,
-  onlyInvert,
-  attemptBoth,
-  invertFirst,
-}
+import 'package:miro/views/widgets/generic/qr_scanner/inversion_attempts.dart';
 
 class QrValidator {
   static String? onImageIntercept(VideoElement videoElement) {
@@ -24,8 +18,7 @@ class QrValidator {
 
   static ImageData _getSingleFrameFromVideo(VideoElement videoElement) {
     final CanvasElement canvasElement = CanvasElement(width: 1024, height: 1024);
-    CanvasRenderingContext2D canvas = (canvasElement.getContext('2d') as CanvasRenderingContext2D)
-      ..drawImage(videoElement, 0, 0);
+    CanvasRenderingContext2D canvas = (canvasElement.getContext('2d') as CanvasRenderingContext2D)..drawImage(videoElement, 0, 0);
     ImageData imageData = canvas.getImageData(0, 0, canvasElement.width!, canvasElement.height!);
     return imageData;
   }

@@ -1,15 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class PasteIntent extends Intent {}
-
-// TODO(dominik): Check if working on other platforms
-final LogicalKeySet pasteKeySetWindows = LogicalKeySet(
-  LogicalKeyboardKey.control,
-  LogicalKeyboardKey.keyV,
-);
-
 class MnemonicGridController {
+  // TODO(dominik): Check if working on other platforms
+  static LogicalKeySet pasteKeySetWindows = LogicalKeySet(
+    LogicalKeyboardKey.control,
+    LogicalKeyboardKey.keyV,
+  );
+
   late Future<void> Function() paste;
   late void Function() clear;
   late List<String> Function() getValues;

@@ -27,10 +27,10 @@ class NetworkListPage extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _ConnectionsPage();
+  State<StatefulWidget> createState() => _NetworkListPage();
 }
 
-class _ConnectionsPage extends State<NetworkListPage> {
+class _NetworkListPage extends State<NetworkListPage> {
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;

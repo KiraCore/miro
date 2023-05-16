@@ -2,7 +2,8 @@ import 'dart:typed_data';
 
 import 'package:equatable/equatable.dart';
 import 'package:miro/shared/utils/crypto_address_parser.dart';
-import 'package:miro/shared/utils/cryptography/bech32.dart';
+import 'package:miro/shared/utils/cryptography/bech32/bech32.dart';
+import 'package:miro/shared/utils/cryptography/bech32/bech32_pair.dart';
 import 'package:miro/shared/utils/cryptography/keccak256.dart';
 import 'package:miro/shared/utils/cryptography/secp256k1.dart';
 

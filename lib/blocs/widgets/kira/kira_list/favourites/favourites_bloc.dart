@@ -6,7 +6,7 @@ import 'package:miro/blocs/widgets/kira/kira_list/favourites/a_favourites_state.
 import 'package:miro/blocs/widgets/kira/kira_list/favourites/events/favourites_add_record_event.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/favourites/events/favourites_remove_record_event.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/favourites/states/favourites_loaded_state.dart';
-import 'package:miro/shared/utils/app_logger.dart';
+import 'package:miro/shared/utils/logger/app_logger.dart';
 
 class FavouritesBloc<T extends AListItem> extends Bloc<AFavouritesEvent, AFavouritesState> {
   final IListController<T> listController;

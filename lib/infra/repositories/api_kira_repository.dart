@@ -5,7 +5,7 @@ import 'package:miro/infra/dto/api_kira/query_balance/request/query_balance_req.
 import 'package:miro/infra/dto/api_kira/query_execution_fee/request/query_execution_fee_request.dart';
 import 'package:miro/infra/exceptions/dio_connect_exception.dart';
 import 'package:miro/infra/infra_http_client_manager.dart';
-import 'package:miro/shared/utils/app_logger.dart';
+import 'package:miro/shared/utils/logger/app_logger.dart';
 
 abstract class IApiKiraRepository {
   Future<Response<T>> broadcast<T>(Uri networkUri, BroadcastReq request);

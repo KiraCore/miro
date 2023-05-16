@@ -290,6 +290,46 @@ class S {
     );
   }
 
+  /// `Connect a Wallet`
+  String get connectWallet {
+    return Intl.message(
+      'Connect a Wallet',
+      name: 'connectWallet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign in`
+  String get connectWalletButtonSignIn {
+    return Intl.message(
+      'Sign in',
+      name: 'connectWalletButtonSignIn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Choose one of the following options:`
+  String get connectWalletOptions {
+    return Intl.message(
+      'Choose one of the following options:',
+      name: 'connectWalletOptions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Connecting into account...`
+  String get connectWalletConnecting {
+    return Intl.message(
+      'Connecting into account...',
+      name: 'connectWalletConnecting',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Create a wallet`
   String get createWalletTitle {
     return Intl.message(
@@ -345,6 +385,16 @@ class S {
     return Intl.message(
       'I understand that if I lose Mnemonic or Keyfile I will never have access to account again.',
       name: 'createWalletAcknowledgement',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Don't have a wallet?`
+  String get createWalletDontHave {
+    return Intl.message(
+      'Don\'t have a wallet?',
+      name: 'createWalletDontHave',
       desc: '',
       args: [],
     );
@@ -525,6 +575,16 @@ class S {
     return Intl.message(
       'Create password for keyfile',
       name: 'keyfileCreatePassword',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Drop file`
+  String get keyfileDropFile {
+    return Intl.message(
+      'Drop file',
+      name: 'keyfileDropFile',
       desc: '',
       args: [],
     );
@@ -1086,66 +1146,6 @@ class S {
     return Intl.message(
       'Voters',
       name: 'proposalsVoters',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Sign in`
-  String get signInButton {
-    return Intl.message(
-      'Sign in',
-      name: 'signInButton',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Drop file`
-  String get signInDropFile {
-    return Intl.message(
-      'Drop file',
-      name: 'signInDropFile',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Connect a Wallet`
-  String get signInConnectWallet {
-    return Intl.message(
-      'Connect a Wallet',
-      name: 'signInConnectWallet',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Choose one of the following options:`
-  String get signInOptions {
-    return Intl.message(
-      'Choose one of the following options:',
-      name: 'signInOptions',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Connecting into account...`
-  String get signInConnecting {
-    return Intl.message(
-      'Connecting into account...',
-      name: 'signInConnecting',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Don't have a wallet?`
-  String get signInDontHaveWallet {
-    return Intl.message(
-      'Don\'t have a wallet?',
-      name: 'signInDontHaveWallet',
       desc: '',
       args: [],
     );

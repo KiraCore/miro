@@ -22,10 +22,10 @@ class TxFormInitCubitWrapper extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _TxSendFormCubitWrapper();
+  State<StatefulWidget> createState() => _TxFormInitCubitWrapper();
 }
 
-class _TxSendFormCubitWrapper extends State<TxFormInitCubitWrapper> {
+class _TxFormInitCubitWrapper extends State<TxFormInitCubitWrapper> {
   late final TxFormInitCubit txFormInitCubit = TxFormInitCubit(txMsgType: widget.txMsgType);
 
   @override

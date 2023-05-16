@@ -4,7 +4,8 @@ import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api_kira/query_kira_tokens_rates/response/query_kira_tokens_rates_resp.dart';
 import 'package:miro/infra/exceptions/dio_parse_exception.dart';
 import 'package:miro/infra/repositories/api_kira_repository.dart';
-import 'package:miro/shared/utils/app_logger.dart';
+import 'package:miro/shared/utils/logger/app_logger.dart';
+import 'package:miro/shared/utils/logger/log_level.dart';
 
 abstract class _IQueryKiraTokensRatesService {
   Future<QueryKiraTokensRatesResp> getTokenRates();

@@ -15,7 +15,7 @@ import 'package:miro/shared/models/transactions/unsigned_tx_model.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/shared/router/kira_router.dart';
 import 'package:miro/shared/router/router.gr.dart';
-import 'package:miro/shared/utils/app_logger.dart';
+import 'package:miro/shared/utils/logger/app_logger.dart';
 import 'package:miro/shared/utils/transactions/tx_utils.dart';
 import 'package:miro/views/pages/transactions/tx_form_page/msg_forms/a_msg_form_controller.dart';
 import 'package:miro/views/pages/transactions/tx_form_page/send/widgets/tx_send_form_completing_indicator.dart';

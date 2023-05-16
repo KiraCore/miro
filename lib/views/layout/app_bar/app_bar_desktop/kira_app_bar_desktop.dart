@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/app_sizes.dart';
 import 'package:miro/config/theme/design_colors.dart';
-import 'package:miro/views/layout/app_bar/account_button/current_account_button.dart';
+import 'package:miro/views/layout/app_bar/account_button/account_button.dart';
 import 'package:miro/views/layout/app_bar/current_network_button.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_value.dart';
 
@@ -29,7 +29,7 @@ class KiraAppBarDesktop extends StatelessWidget {
           const Spacer(),
           const CurrentNetworkButton(size: Size(192, 48)),
           const SizedBox(width: 16),
-          CurrentAccountButton(size: const Size(180, 48)),
+          AccountButton(size: const Size(180, 48)),
         ],
       ),
     );

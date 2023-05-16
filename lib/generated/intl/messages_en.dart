@@ -76,6 +76,14 @@ class MessageLookup extends MessageLookupByLibrary {
         "browse": MessageLookupByLibrary.simpleMessage("browse"),
         "buttonReportIssues":
             MessageLookupByLibrary.simpleMessage("Report issues"),
+        "connectWallet":
+            MessageLookupByLibrary.simpleMessage("Connect a Wallet"),
+        "connectWalletButtonSignIn":
+            MessageLookupByLibrary.simpleMessage("Sign in"),
+        "connectWalletConnecting":
+            MessageLookupByLibrary.simpleMessage("Connecting into account..."),
+        "connectWalletOptions": MessageLookupByLibrary.simpleMessage(
+            "Choose one of the following options:"),
         "consensus": MessageLookupByLibrary.simpleMessage("Consensus"),
         "consensusCurrentBlockValidator":
             MessageLookupByLibrary.simpleMessage("Current Block Validator"),
@@ -94,6 +102,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Create new wallet"),
         "createWalletButtonGenerateAddress":
             MessageLookupByLibrary.simpleMessage("Generate\nnew address"),
+        "createWalletDontHave":
+            MessageLookupByLibrary.simpleMessage("Don\'t have a wallet?"),
         "createWalletTitle":
             MessageLookupByLibrary.simpleMessage("Create a wallet"),
         "dashboard": MessageLookupByLibrary.simpleMessage("Dashboard"),
@@ -113,6 +123,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Download"),
         "keyfileCreatePassword":
             MessageLookupByLibrary.simpleMessage("Create password for keyfile"),
+        "keyfileDropFile": MessageLookupByLibrary.simpleMessage("Drop file"),
         "keyfileDropHere":
             MessageLookupByLibrary.simpleMessage("Please drop Keyfile here"),
         "keyfileEnterPassword":
@@ -240,16 +251,6 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Successful"),
         "proposalsVoters": MessageLookupByLibrary.simpleMessage("Voters"),
         "sec": MessageLookupByLibrary.simpleMessage("sec."),
-        "signInButton": MessageLookupByLibrary.simpleMessage("Sign in"),
-        "signInConnectWallet":
-            MessageLookupByLibrary.simpleMessage("Connect a Wallet"),
-        "signInConnecting":
-            MessageLookupByLibrary.simpleMessage("Connecting into account..."),
-        "signInDontHaveWallet":
-            MessageLookupByLibrary.simpleMessage("Don\'t have a wallet?"),
-        "signInDropFile": MessageLookupByLibrary.simpleMessage("Drop file"),
-        "signInOptions": MessageLookupByLibrary.simpleMessage(
-            "Choose one of the following options:"),
         "sortBy": MessageLookupByLibrary.simpleMessage("Sort by"),
         "toastCannotLoadDashboard": MessageLookupByLibrary.simpleMessage(
             "Cannot load dashboard. Please check your connection."),

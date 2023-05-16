@@ -35,12 +35,18 @@
   "consensusCurrentBlockValidator": "Current Block Validator",
   "consensusState": "Consensus state",
 
+  "connectWallet": "Connect a Wallet",
+  "connectWalletButtonSignIn": "Sign in",
+  "connectWalletOptions": "Choose one of the following options:",
+  "connectWalletConnecting": "Connecting into account...",
+
   "createWalletTitle": "Create a wallet",
   "createWalletButton": "Create new wallet",
   "createWalletButtonGenerateAddress": "Generate\nnew address",
   "createWalletAddress": "Your public address:",
   "createWalletAddressGenerating": "Generating...",
   "createWalletAcknowledgement": "I understand that if I lose Mnemonic or Keyfile I will never have access to account again.",
+  "createWalletDontHave": "Don't have a wallet?",
 
   "keyfile": "Keyfile",
   "keyfileButtonDownload": "Download",
@@ -57,10 +63,10 @@
   "keyfileToDropzone": "Drop Keyfile to the dropzone",
   "keyfileDropHere": "Please drop Keyfile here",
   "keyfileEnterPassword": "Enter password",
-
   "keyfileInvalid": "Invalid Keyfile",
   "keyfileWrongPassword": "Wrong password",
   "keyfileCreatePassword": "Create password for keyfile",
+  "keyfileDropFile": "Drop file",
 
   "mnemonic": "Mnemonic",
   "mnemonicErrorUnexpected": "Something unexpected happened",
@@ -151,13 +157,6 @@
   "proposalsProposers": "Proposers",
   "proposalsVoters": "Voters",
 
-  "signInButton": "Sign in",
-  "signInDropFile": "Drop file",
-  "signInConnectWallet": "Connect a Wallet",
-  "signInOptions": "Choose one of the following options:",
-  "signInConnecting": "Connecting into account...",
-  "signInDontHaveWallet": "Don't have a wallet?",
-
   "tx": "Transactions",
   "txButtonSendAll": "Send all",
   "txButtonClear": "Clear",
@@ -245,7 +244,6 @@
   "validatorsWaiting": "Waiting",
   "validatorsList": "List of Validators",
   "validatorsDropdownAll": "All",
-
   "validatorsTableTop": "Top",
   "validatorsTableMoniker": "Moniker",
   "validatorsTableStatus": "Status",

@@ -1,12 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:bip39/bip39.dart' as bip39;
-
-class InvalidMnemonicException implements Exception {
-  final dynamic message;
-
-  InvalidMnemonicException([this.message]);
-}
+import 'package:miro/shared/exceptions/invalid_mnemonic_exception.dart';
 
 /// Contains information about mnemonic
 ///

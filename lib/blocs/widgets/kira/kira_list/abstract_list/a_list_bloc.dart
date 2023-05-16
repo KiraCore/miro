@@ -31,8 +31,8 @@ import 'package:miro/shared/controllers/page_reload/page_reload_controller.dart'
 import 'package:miro/shared/controllers/reload_notifier/reload_notifier_model.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
 import 'package:miro/shared/models/network/status/network_offline_model.dart';
-import 'package:miro/shared/utils/app_logger.dart';
 import 'package:miro/shared/utils/list_utils.dart';
+import 'package:miro/shared/utils/logger/app_logger.dart';
 
 abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListState> {
   final AppConfig appConfig = globalLocator<AppConfig>();

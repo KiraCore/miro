@@ -7,7 +7,8 @@ import 'package:miro/infra/dto/interx_headers.dart';
 import 'package:miro/infra/exceptions/dio_parse_exception.dart';
 import 'package:miro/infra/repositories/api_kira_repository.dart';
 import 'package:miro/shared/models/transactions/tx_remote_info_model.dart';
-import 'package:miro/shared/utils/app_logger.dart';
+import 'package:miro/shared/utils/logger/app_logger.dart';
+import 'package:miro/shared/utils/logger/log_level.dart';
 
 abstract class _IQueryAccountService {
   Future<TxRemoteInfoModel> getTxRemoteInfo(String accountAddress);

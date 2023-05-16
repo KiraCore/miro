@@ -5,7 +5,7 @@ import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/router/kira_router.dart';
 import 'package:miro/shared/router/router.gr.dart';
-import 'package:miro/views/widgets/generic/mouse_state_listener.dart';
+import 'package:miro/views/layout/app_bar/account_button/account_menu_list_tile.dart';
 
 class AccountMenuList extends StatelessWidget {
   final AuthCubit authCubit = globalLocator<AuthCubit>();
@@ -22,15 +22,15 @@ class AccountMenuList extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
-        _MenuListTile(
+        AccountMenuListTile(
           onTap: () => _onNavigateToMyAccountPressed(context),
           title: S.of(context).myAccount,
         ),
-        _MenuListTile(
+        AccountMenuListTile(
           onTap: null,
           title: S.of(context).myAccountSettings,
         ),
-        _MenuListTile(
+        AccountMenuListTile(
           onTap: () => _pressSignOutButton(context),
           title: S.of(context).myAccountSignOut,
           color: DesignColors.redStatus1,
@@ -52,60 +52,5 @@ class AccountMenuList extends StatelessWidget {
     }
     authCubit.signOut();
     KiraRouter.of(context).navigate(const DashboardRoute());
-  }
-}
-
-class _MenuListTile extends StatelessWidget {
-  final String title;
-  final Color? color;
-  final VoidCallback? onTap;
-
-  const _MenuListTile({
-    required this.title,
-    this.color,
-    this.onTap,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    TextTheme textTheme = Theme.of(context).textTheme;
-
-    return MouseStateListener(
-      onTap: onTap,
-      childBuilder: (Set<MaterialState> states) {
-        Color color = _selectColor(states);
-
-        return Container(
-          width: double.infinity,
-          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-          decoration: BoxDecoration(color: _selectBackgroundColor(states)),
-          child: Text(
-            title,
-            style: textTheme.bodyText2!.copyWith(
-              color: onTap != null ? color : color.withOpacity(0.5),
-            ),
-          ),
-        );
-      },
-    );
-  }
-
-  Color _selectColor(Set<MaterialState> states) {
-    if (states.contains(MaterialState.hovered)) {
-      return DesignColors.white1;
-    } else if (color != null) {
-      return color!;
-    } else {
-      return DesignColors.white2;
-    }
-  }
-
-  Color _selectBackgroundColor(Set<MaterialState> states) {
-    if (states.contains(MaterialState.hovered)) {
-      return DesignColors.greyHover2;
-    } else {
-      return Colors.transparent;
-    }
   }
 }
