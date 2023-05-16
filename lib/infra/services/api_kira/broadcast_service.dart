@@ -9,7 +9,7 @@ import 'package:miro/infra/exceptions/tx_broadcast_exception.dart';
 import 'package:miro/infra/repositories/api_kira_repository.dart';
 import 'package:miro/shared/models/transactions/broadcast_resp_model.dart';
 import 'package:miro/shared/models/transactions/signed_transaction_model.dart';
-import 'package:miro/shared/utils/app_logger.dart';
+import 'package:miro/shared/utils/logger/app_logger.dart';
 
 abstract class _IBroadcastService {
   Future<BroadcastRespModel> broadcastTx(SignedTxModel signedTransactionModel);

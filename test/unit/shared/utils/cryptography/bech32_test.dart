@@ -1,7 +1,8 @@
 import 'dart:typed_data';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:miro/shared/utils/cryptography/bech32.dart';
+import 'package:miro/shared/utils/cryptography/bech32/bech32.dart';
+import 'package:miro/shared/utils/cryptography/bech32/bech32_pair.dart';
 
 void main() {
   group('Tests of Bech32.encode() method', () {

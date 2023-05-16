@@ -8,7 +8,8 @@ import 'package:miro/infra/dto/api/query_validators/response/validator.dart';
 import 'package:miro/infra/exceptions/dio_parse_exception.dart';
 import 'package:miro/infra/repositories/api_repository.dart';
 import 'package:miro/shared/models/validators/validator_model.dart';
-import 'package:miro/shared/utils/app_logger.dart';
+import 'package:miro/shared/utils/logger/app_logger.dart';
+import 'package:miro/shared/utils/logger/log_level.dart';
 
 abstract class _IQueryValidatorsService {
   Future<List<ValidatorModel>> getValidatorsList(QueryValidatorsReq queryValidatorsReq);

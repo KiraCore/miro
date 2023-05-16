@@ -4,9 +4,9 @@ import 'package:miro/blocs/layout/drawer/drawer_cubit.dart';
 import 'package:miro/blocs/layout/drawer/states/drawer_hidden_state.dart';
 import 'package:miro/blocs/layout/drawer/states/drawer_visible_state.dart';
 import 'package:miro/test/utils/test_utils.dart';
-import 'package:miro/views/pages/drawer/create_wallet_page/create_wallet_page.dart';
-import 'package:miro/views/pages/drawer/login_page/login_keyfile_page/login_keyfile_page.dart';
-import 'package:miro/views/pages/drawer/login_page/login_mnemonic_page/login_mnemonic_page.dart';
+import 'package:miro/views/pages/drawer/create_wallet_drawer_page/create_wallet_drawer_page.dart';
+import 'package:miro/views/pages/drawer/sign_in_drawer_page/sign_in_keyfile_drawer_page/sign_in_keyfile_drawer_page.dart';
+import 'package:miro/views/pages/drawer/sign_in_drawer_page/sign_in_mnemonic_drawer_page/sign_in_mnemonic_drawer_page.dart';
 
 // To run this test type in console:
 // fvm flutter test test/unit/blocs/layout/drawer_cubit_test.dart --platform chrome --null-assertions
@@ -16,9 +16,9 @@ Future<void> main() async {
   GlobalKey<ScaffoldState> actualScaffoldKey = GlobalKey<ScaffoldState>();
   DrawerCubit actualDrawerCubit = DrawerCubit();
 
-  const Widget firstRoute = CreateWalletPage();
-  const Widget secondRoute = LoginKeyfilePage();
-  const Widget thirdRoute = LoginMnemonicPage();
+  const Widget firstRoute = CreateWalletDrawerPage();
+  const Widget secondRoute = SignInKeyfileDrawerPage();
+  const Widget thirdRoute = SignInMnemonicDrawerPage();
 
   group('Tests of DrawerCubit process', () {
     test('Should return ADrawerState consistent with current route', () {

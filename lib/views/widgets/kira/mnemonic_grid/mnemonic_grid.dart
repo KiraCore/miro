@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:miro/views/widgets/kira/mnemonic_grid/mnemonic_grid_item.dart';
 import 'package:miro/views/widgets/kira/mnemonic_grid/model/mnemonic_grid_controller.dart';
+import 'package:miro/views/widgets/kira/mnemonic_grid/model/paste_intent.dart';
 
 class MnemonicGrid extends StatefulWidget {
   final MnemonicGridController controller;
@@ -46,7 +47,7 @@ class _MnemonicGrid extends State<MnemonicGrid> {
   Widget build(BuildContext context) {
     return FocusableActionDetector(
       shortcuts: <ShortcutActivator, Intent>{
-        pasteKeySetWindows: PasteIntent(),
+        MnemonicGridController.pasteKeySetWindows: PasteIntent(),
       },
       actions: <Type, Action<Intent>>{
         PasteIntent: CallbackAction<PasteIntent>(
@@ -116,8 +117,7 @@ class _MnemonicGrid extends State<MnemonicGrid> {
 
   Widget _buildCell(int index) {
     String mnemonicWord = widget.mnemonicWordList.length > index ? widget.mnemonicWordList[index] : '';
-    TextEditingController textEditingController =
-        mnemonicControllers.length > index ? mnemonicControllers[index] : TextEditingController();
+    TextEditingController textEditingController = mnemonicControllers.length > index ? mnemonicControllers[index] : TextEditingController();
 
     return MnemonicGridItem(
       index: index,

@@ -5,7 +5,8 @@ import 'package:miro/infra/dto/api_kira/query_kira_tokens_aliases/response/query
 import 'package:miro/infra/exceptions/dio_parse_exception.dart';
 import 'package:miro/infra/repositories/api_kira_repository.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
-import 'package:miro/shared/utils/app_logger.dart';
+import 'package:miro/shared/utils/logger/app_logger.dart';
+import 'package:miro/shared/utils/logger/log_level.dart';
 
 abstract class _IQueryKiraTokensAliasesService {
   Future<List<TokenAliasModel>> getTokenAliasModels();

@@ -3,12 +3,7 @@ import 'package:bip39/src/wordlists/english.dart' as bip39;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:miro/config/theme/design_colors.dart';
-
-enum MnemonicState {
-  valid,
-  invalid,
-  empty,
-}
+import 'package:miro/views/widgets/kira/mnemonic_grid/mnemonic_state.dart';
 
 class MnemonicGridItem extends StatefulWidget {
   final TextEditingController textController;

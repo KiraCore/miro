@@ -8,7 +8,8 @@ import 'package:miro/blocs/pages/transactions/tx_broadcast/states/tx_broadcast_l
 import 'package:miro/blocs/pages/transactions/tx_broadcast/tx_broadcast_cubit.dart';
 import 'package:miro/shared/models/transactions/signed_transaction_model.dart';
 import 'package:miro/shared/router/kira_router.dart';
-import 'package:miro/shared/utils/app_logger.dart';
+import 'package:miro/shared/utils/logger/app_logger.dart';
+import 'package:miro/shared/utils/logger/log_level.dart';
 import 'package:miro/views/pages/transactions/tx_broadcast_page/widgets/tx_broadcast_complete_body.dart';
 import 'package:miro/views/pages/transactions/tx_broadcast_page/widgets/tx_broadcast_error_body.dart';
 import 'package:miro/views/pages/transactions/tx_broadcast_page/widgets/tx_broadcast_loading_body.dart';

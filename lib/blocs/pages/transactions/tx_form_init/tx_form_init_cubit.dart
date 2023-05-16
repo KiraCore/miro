@@ -8,7 +8,8 @@ import 'package:miro/infra/services/api_kira/query_execution_fee_service.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/transactions/messages/interx_msg_types.dart';
 import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
-import 'package:miro/shared/utils/app_logger.dart';
+import 'package:miro/shared/utils/logger/app_logger.dart';
+import 'package:miro/shared/utils/logger/log_level.dart';
 
 class TxFormInitCubit extends Cubit<ATxFormInitState> {
   final QueryExecutionFeeService _queryExecutionFeeService = globalLocator<QueryExecutionFeeService>();

@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:miro/infra/dto/api/query_validators/request/query_validators_req.dart';
 import 'package:miro/infra/exceptions/dio_connect_exception.dart';
 import 'package:miro/infra/infra_http_client_manager.dart';
-import 'package:miro/shared/utils/app_logger.dart';
+import 'package:miro/shared/utils/logger/app_logger.dart';
 
 abstract class IApiRepository {
   Future<Response<T>> fetchDashboard<T>(Uri networkUri);

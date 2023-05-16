@@ -9,7 +9,7 @@ import 'package:miro/views/widgets/generic/responsive/responsive_value.dart';
 import 'package:miro/views/widgets/generic/responsive/screen_size.dart';
 import 'package:miro/views/widgets/generic/responsive/sized_box_expanded.dart';
 import 'package:miro/views/widgets/kira/kira_toast/kira_toast.dart';
-import 'package:miro/views/widgets/kira/kira_toast/toast_container.dart';
+import 'package:miro/views/widgets/kira/kira_toast/toast_type.dart';
 import 'package:miro/views/widgets/transactions/tx_input_wrapper.dart';
 
 class ErrorExplorerJsonPreview extends StatelessWidget {
