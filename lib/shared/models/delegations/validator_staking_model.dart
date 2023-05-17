@@ -3,7 +3,6 @@ import 'package:miro/infra/dto/api_kira/query_delegations/response/delegation.da
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/validators/staking_pool_status.dart';
 import 'package:miro/shared/models/validators/validator_simplified_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
 
 class ValidatorStakingModel extends AListItem {
   final String commission;
@@ -23,12 +22,7 @@ class ValidatorStakingModel extends AListItem {
       commission: delegation.poolInfo.commission,
       stakingPoolStatus: StakingPoolStatus.fromString(delegation.poolInfo.status),
       tokens: delegation.poolInfo.tokens.map(TokenAliasModel.local).toList(),
-      validatorSimplifiedModel: ValidatorSimplifiedModel(
-        walletAddress: WalletAddress.fromBech32(delegation.validatorInfo.address),
-        valkeyWalletAddress: WalletAddress.fromBech32(delegation.validatorInfo.valkey),
-        moniker: delegation.validatorInfo.moniker,
-        logo: delegation.validatorInfo.logo,
-      ),
+      validatorSimplifiedModel: ValidatorSimplifiedModel.fromDto(delegation.validatorInfo),
     );
   }
 

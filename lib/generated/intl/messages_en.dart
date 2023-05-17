@@ -334,6 +334,50 @@ class MessageLookup extends MessageLookupByLibrary {
         "paginatedListPageSize":
             MessageLookupByLibrary.simpleMessage("Page size"),
         "paste": MessageLookupByLibrary.simpleMessage("Paste"),
+        "proposalTypeAssignPermissions":
+            MessageLookupByLibrary.simpleMessage("Assign Permission"),
+        "proposalTypeAssignRoleToAccount":
+            MessageLookupByLibrary.simpleMessage("Assign Role To Account"),
+        "proposalTypeBlacklistAccountPermission":
+            MessageLookupByLibrary.simpleMessage(
+                "Blacklist Account Permission"),
+        "proposalTypeBlacklistRolePermission":
+            MessageLookupByLibrary.simpleMessage("Blacklist Role Permission"),
+        "proposalTypeCreateRole":
+            MessageLookupByLibrary.simpleMessage("Create Role Proposal"),
+        "proposalTypeRemoveBlacklistedAccountPermission":
+            MessageLookupByLibrary.simpleMessage(
+                "Remove Blacklisted Account Permission"),
+        "proposalTypeRemoveBlacklistedRolePermission":
+            MessageLookupByLibrary.simpleMessage(
+                "Remove Blacklisted Role Permission"),
+        "proposalTypeRemoveWhitelistedAccountPermission":
+            MessageLookupByLibrary.simpleMessage(
+                "Remove Whitelisted Account Permission"),
+        "proposalTypeRemoveWhitelistedRolePermission":
+            MessageLookupByLibrary.simpleMessage(
+                "Remove Whitelisted Role Permission"),
+        "proposalTypeResetWholeCouncilorRank":
+            MessageLookupByLibrary.simpleMessage("Reset Whole Councilor Rank"),
+        "proposalTypeSetNetworkProperty":
+            MessageLookupByLibrary.simpleMessage("Set Network Property"),
+        "proposalTypeSetPoorNetworkMessages":
+            MessageLookupByLibrary.simpleMessage("Set Poor Network Messages"),
+        "proposalTypeSetProposalDurations":
+            MessageLookupByLibrary.simpleMessage("Set Proposal Durations"),
+        "proposalTypeSoftwareUpgrade":
+            MessageLookupByLibrary.simpleMessage("Software Upgrade"),
+        "proposalTypeUnassignRoleFromAccount":
+            MessageLookupByLibrary.simpleMessage("Unassign Role From Account"),
+        "proposalTypeUpsertDataRegistry":
+            MessageLookupByLibrary.simpleMessage("Upsert Data Registry"),
+        "proposalTypeUpsertTokenAlias":
+            MessageLookupByLibrary.simpleMessage("Upsert Token Alias"),
+        "proposalTypeWhitelistAccountPermission":
+            MessageLookupByLibrary.simpleMessage(
+                "Whitelist Account Permission"),
+        "proposalTypeWhitelistRolePermission":
+            MessageLookupByLibrary.simpleMessage("Whitelist Role Permission"),
         "proposals": MessageLookupByLibrary.simpleMessage("Proposals"),
         "proposalsActive": MessageLookupByLibrary.simpleMessage("Active"),
         "proposalsEnacting": MessageLookupByLibrary.simpleMessage("Enacting"),

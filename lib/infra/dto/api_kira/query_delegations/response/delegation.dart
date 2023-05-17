@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:miro/infra/dto/api_kira/query_delegations/response/pool_info.dart';
-import 'package:miro/infra/dto/api_kira/query_delegations/response/validator_info.dart';
+import 'package:miro/infra/dto/shared/validator_info.dart';
 
 class Delegation extends Equatable {
   final ValidatorInfo validatorInfo;
