@@ -1757,6 +1757,196 @@ class S {
     );
   }
 
+  /// `Upsert Token Alias`
+  String get proposalTypeUpsertTokenAlias {
+    return Intl.message(
+      'Upsert Token Alias',
+      name: 'proposalTypeUpsertTokenAlias',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Software Upgrade`
+  String get proposalTypeSoftwareUpgrade {
+    return Intl.message(
+      'Software Upgrade',
+      name: 'proposalTypeSoftwareUpgrade',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Assign Permission`
+  String get proposalTypeAssignPermissions {
+    return Intl.message(
+      'Assign Permission',
+      name: 'proposalTypeAssignPermissions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Upsert Data Registry`
+  String get proposalTypeUpsertDataRegistry {
+    return Intl.message(
+      'Upsert Data Registry',
+      name: 'proposalTypeUpsertDataRegistry',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Set Network Property`
+  String get proposalTypeSetNetworkProperty {
+    return Intl.message(
+      'Set Network Property',
+      name: 'proposalTypeSetNetworkProperty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create Role Proposal`
+  String get proposalTypeCreateRole {
+    return Intl.message(
+      'Create Role Proposal',
+      name: 'proposalTypeCreateRole',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Blacklist Role Permission`
+  String get proposalTypeBlacklistRolePermission {
+    return Intl.message(
+      'Blacklist Role Permission',
+      name: 'proposalTypeBlacklistRolePermission',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Assign Role To Account`
+  String get proposalTypeAssignRoleToAccount {
+    return Intl.message(
+      'Assign Role To Account',
+      name: 'proposalTypeAssignRoleToAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Blacklist Account Permission`
+  String get proposalTypeBlacklistAccountPermission {
+    return Intl.message(
+      'Blacklist Account Permission',
+      name: 'proposalTypeBlacklistAccountPermission',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remove Blacklisted Account Permission`
+  String get proposalTypeRemoveBlacklistedAccountPermission {
+    return Intl.message(
+      'Remove Blacklisted Account Permission',
+      name: 'proposalTypeRemoveBlacklistedAccountPermission',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remove Whitelisted Account Permission`
+  String get proposalTypeRemoveWhitelistedAccountPermission {
+    return Intl.message(
+      'Remove Whitelisted Account Permission',
+      name: 'proposalTypeRemoveWhitelistedAccountPermission',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unassign Role From Account`
+  String get proposalTypeUnassignRoleFromAccount {
+    return Intl.message(
+      'Unassign Role From Account',
+      name: 'proposalTypeUnassignRoleFromAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Whitelist Account Permission`
+  String get proposalTypeWhitelistAccountPermission {
+    return Intl.message(
+      'Whitelist Account Permission',
+      name: 'proposalTypeWhitelistAccountPermission',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remove Blacklisted Role Permission`
+  String get proposalTypeRemoveBlacklistedRolePermission {
+    return Intl.message(
+      'Remove Blacklisted Role Permission',
+      name: 'proposalTypeRemoveBlacklistedRolePermission',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remove Whitelisted Role Permission`
+  String get proposalTypeRemoveWhitelistedRolePermission {
+    return Intl.message(
+      'Remove Whitelisted Role Permission',
+      name: 'proposalTypeRemoveWhitelistedRolePermission',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Whitelist Role Permission`
+  String get proposalTypeWhitelistRolePermission {
+    return Intl.message(
+      'Whitelist Role Permission',
+      name: 'proposalTypeWhitelistRolePermission',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Set Proposal Durations`
+  String get proposalTypeSetProposalDurations {
+    return Intl.message(
+      'Set Proposal Durations',
+      name: 'proposalTypeSetProposalDurations',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Set Poor Network Messages`
+  String get proposalTypeSetPoorNetworkMessages {
+    return Intl.message(
+      'Set Poor Network Messages',
+      name: 'proposalTypeSetPoorNetworkMessages',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reset Whole Councilor Rank`
+  String get proposalTypeResetWholeCouncilorRank {
+    return Intl.message(
+      'Reset Whole Councilor Rank',
+      name: 'proposalTypeResetWholeCouncilorRank',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Staking`
   String get staking {
     return Intl.message(

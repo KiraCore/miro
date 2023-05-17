@@ -31,7 +31,7 @@ class AppConfig {
 
   factory AppConfig.buildDefaultConfig() {
     return AppConfig(
-      bulkSinglePageSize: 500,
+      bulkSinglePageSize: 100,
       defaultApiCacheMaxAge: const Duration(seconds: 60),
       outdatedBlockDuration: const Duration(minutes: 5),
       loadingPageTimerDuration: const Duration(seconds: 4),
