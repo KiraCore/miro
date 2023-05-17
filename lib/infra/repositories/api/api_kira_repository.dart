@@ -7,6 +7,7 @@ import 'package:miro/infra/dto/api_kira/query_execution_fee/request/query_execut
 import 'package:miro/infra/dto/api_kira/query_identity_record_verify_requests/request/query_identity_record_verify_requests_by_approver_req.dart';
 import 'package:miro/infra/dto/api_kira/query_identity_record_verify_requests/request/query_identity_record_verify_requests_by_requester_req.dart';
 import 'package:miro/infra/dto/api_kira/query_kira_tokens_aliases/request/query_kira_tokens_aliases_req.dart';
+import 'package:miro/infra/dto/api_kira/query_proposals/request/query_proposals_req.dart';
 import 'package:miro/infra/dto/api_kira/query_staking_pool/request/query_staking_pool_req.dart';
 import 'package:miro/infra/dto/api_kira/query_undelegations/request/query_undelegations_req.dart';
 import 'package:miro/infra/exceptions/dio_connect_exception.dart';
@@ -25,6 +26,8 @@ abstract class IApiKiraRepository {
   Future<Response<T>> fetchQueryDelegations<T>(ApiRequestModel<QueryDelegationsReq> apiRequestModel);
 
   Future<Response<T>> fetchQueryExecutionFee<T>(ApiRequestModel<QueryExecutionFeeRequest> apiRequestModel);
+
+  Future<Response<T>> fetchQueryProposals<T>(ApiRequestModel<QueryProposalsReq> apiRequestModel);
 
   Future<Response<T>> fetchQueryIdentityRecordsByAddress<T>(ApiRequestModel<String> apiRequestModel);
 
@@ -123,6 +126,22 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
       return response;
     } on DioException catch (dioException) {
       AppLogger().log(message: 'Cannot fetch fetchQueryDelegations() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
+      throw DioConnectException(dioException: dioException);
+    }
+  }
+
+  @override
+  Future<Response<T>> fetchQueryProposals<T>(ApiRequestModel<QueryProposalsReq> apiRequestModel) async {
+    try {
+      final Response<T> response = await _httpClientManager.get<T>(
+        networkUri: apiRequestModel.networkUri,
+        path: '/api/kira/gov/proposals',
+        queryParameters: apiRequestModel.requestData.toJson(),
+        apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: apiRequestModel.forceRequestBool),
+      );
+      return response;
+    } on DioException catch (dioException) {
+      AppLogger().log(message: 'Cannot fetch fetchQueryProposals() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
       throw DioConnectException(dioException: dioException);
     }
   }

@@ -6,6 +6,7 @@ import 'package:miro/infra/dto/api_kira/query_delegations/request/query_delegati
 import 'package:miro/infra/dto/api_kira/query_execution_fee/request/query_execution_fee_request.dart';
 import 'package:miro/infra/dto/api_kira/query_identity_record_verify_requests/request/query_identity_record_verify_requests_by_approver_req.dart';
 import 'package:miro/infra/dto/api_kira/query_identity_record_verify_requests/request/query_identity_record_verify_requests_by_requester_req.dart';
+import 'package:miro/infra/dto/api_kira/query_proposals/request/query_proposals_req.dart';
 import 'package:miro/infra/dto/api_kira/query_staking_pool/request/query_staking_pool_req.dart';
 import 'package:miro/infra/dto/api_kira/query_undelegations/request/query_undelegations_req.dart';
 import 'package:miro/infra/exceptions/dio_connect_exception.dart';
@@ -20,6 +21,7 @@ import 'package:miro/test/mocks/api_kira/mock_api_kira_identity_record_by_id.dar
 import 'package:miro/test/mocks/api_kira/mock_api_kira_identity_records.dart';
 import 'package:miro/test/mocks/api_kira/mock_api_kira_identity_verify_requests_by_approver.dart';
 import 'package:miro/test/mocks/api_kira/mock_api_kira_identity_verify_requests_by_requester.dart';
+import 'package:miro/test/mocks/api_kira/mock_api_kira_proposals.dart';
 import 'package:miro/test/mocks/api_kira/mock_api_kira_staking_pool.dart';
 import 'package:miro/test/mocks/api_kira/mock_api_kira_tokens_aliases.dart';
 import 'package:miro/test/mocks/api_kira/mock_api_kira_tokens_rates.dart';
@@ -164,6 +166,29 @@ class MockApiKiraRepository implements IApiKiraRepository {
         statusCode: 200,
         data: response,
         headers: MockHeaders.defaultHeaders,
+        requestOptions: RequestOptions(path: ''),
+      );
+    } else {
+      throw DioConnectException(dioException: DioException(requestOptions: RequestOptions(path: networkUri.host)));
+    }
+  }
+
+  @override
+  Future<Response<T>> fetchQueryProposals<T>(ApiRequestModel<QueryProposalsReq> apiRequestModel) async {
+    Uri networkUri = apiRequestModel.networkUri;
+    bool responseExistsBool = workingEndpoints.contains(networkUri.host);
+    if (responseExistsBool) {
+      late T response;
+      switch (networkUri.host) {
+        case 'invalid.kira.network':
+          response = <String, dynamic>{'invalid': 'response'} as T;
+          break;
+        default:
+          response = MockApiKiraProposals.defaultResponse as T;
+      }
+      return Response<T>(
+        statusCode: 200,
+        data: response,
         requestOptions: RequestOptions(path: ''),
       );
     } else {

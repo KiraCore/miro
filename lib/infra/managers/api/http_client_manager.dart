@@ -91,7 +91,7 @@ class HttpClientManager {
     if (queryParameters == null) {
       return null;
     }
-    queryParameters.removeWhere((String key, dynamic value) => value == null);
+    queryParameters.removeWhere((String key, dynamic value) => value == null || value == 'null');
     return queryParameters;
   }
 }
