@@ -98,6 +98,7 @@
   "networkButtonConnected": "Connected",
   "networkButtonCheckConnection": "Check connection",
   "networkButtonConnecting": "Connecting...",
+  "networkButtonArrowTip": "Go to the next page",
   "networkErrorUndefinedName": "undefined",
   "networkErrorCannotConnect": "Cannot connect to server",
   "networkErrorAddressEmpty": "Field can't be empty",
@@ -114,6 +115,7 @@
   },
   "networkSelectServers": "Select available servers",
   "networkConnectionCancelled": "Connection cancelled",
+  "networkConnectionEstablished": "Connection established",
   "networkProblemReason": "Reason: Found problems with server you are trying to connect",
   "networkServerToConnect": "Server you are trying to connect:",
   "networkBlockTime": "Block time",
@@ -227,14 +229,14 @@
   },
 
   "validators": "Validators",
-  "validatorsButtonFilter" : "{selected} selected",
+  "validatorsButtonFilter": "{selected} selected",
   "@validatorsButtonFilter": {
-      "placeholders": {
-        "selected": {
-          "type": "int"
-        }
+    "placeholders": {
+      "selected": {
+        "type": "int"
       }
-    },
+    }
+  },
   "validatorsHintSearch": "Search validators",
   "validatorsTotal": "Total",
   "validatorsActive": "Active",

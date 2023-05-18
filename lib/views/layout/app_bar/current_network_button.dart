@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/generic/network_module/network_module_bloc.dart';
 import 'package:miro/blocs/generic/network_module/network_module_state.dart';
+import 'package:miro/blocs/widgets/network_list/network_custom_section/network_custom_section_cubit.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
@@ -11,9 +12,10 @@ import 'package:miro/views/widgets/generic/mouse_state_listener.dart';
 import 'package:miro/views/widgets/generic/network_status_icon.dart';
 
 class CurrentNetworkButton extends StatelessWidget {
+  final NetworkCustomSectionCubit _networkCustomSectionCubit = globalLocator<NetworkCustomSectionCubit>();
   final Size size;
 
-  const CurrentNetworkButton({
+  CurrentNetworkButton({
     required this.size,
     Key? key,
   }) : super(key: key);
@@ -80,6 +82,7 @@ class CurrentNetworkButton extends StatelessWidget {
 
   void _openDrawerNetworkPage(BuildContext context) {
     KiraScaffold.of(context).navigateEndDrawerRoute(const NetworkDrawerPage());
+    _networkCustomSectionCubit.resetSwitchValueWhenConnected();
   }
 
   Color _selectForegroundColor(Set<MaterialState> states) {

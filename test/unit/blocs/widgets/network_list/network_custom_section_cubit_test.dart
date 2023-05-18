@@ -17,23 +17,27 @@ Future<void> main() async {
       NetworkCustomSectionState actualNetworkCustomSectionState = networkCustomSectionCubit.state;
 
       // Assert
-      NetworkCustomSectionState expectedNetworkCustomSectionState = NetworkCustomSectionState();
+      NetworkCustomSectionState expectedNetworkCustomSectionState = NetworkCustomSectionState(
+        expandedBool: false,
+      );
 
-      TestUtils.printInfo('Should return empty NetworkCustomSectionState as initial NetworkCustomSectionCubit state');
+      TestUtils.printInfo('Should return state with [empty network] and [false] value of [expandedBool] as initial NetworkCustomSectionCubit state');
       expect(actualNetworkCustomSectionState, expectedNetworkCustomSectionState);
 
       // ****************************************************************************************
 
       // Act
+      networkCustomSectionCubit.resetSwitchValueWhenConnected();
       await networkCustomSectionCubit.checkConnection(TestUtils.customNetworkHealthyModel.uri);
       actualNetworkCustomSectionState = networkCustomSectionCubit.state;
 
       // Assert
       expectedNetworkCustomSectionState = NetworkCustomSectionState(
         checkedNetworkStatusModel: TestUtils.customNetworkHealthyModel.copyWith(connectionStatusType: ConnectionStatusType.disconnected),
+        expandedBool: true,
       );
 
-      TestUtils.printInfo('Should return custom network as checkedNetworkStatusModel');
+      TestUtils.printInfo('Should return state with [custom network] as [checkedNetworkStatusModel] and [true] value of [expandedBool], assumed drawer open');
       expect(actualNetworkCustomSectionState, expectedNetworkCustomSectionState);
 
       // ****************************************************************************************
@@ -43,13 +47,15 @@ Future<void> main() async {
         TestUtils.customNetworkHealthyModel.copyWith(connectionStatusType: ConnectionStatusType.connected),
       );
       actualNetworkCustomSectionState = networkCustomSectionCubit.state;
+      networkCustomSectionCubit.resetSwitchValueWhenConnected();
 
       // Assert
       expectedNetworkCustomSectionState = NetworkCustomSectionState(
         connectedNetworkStatusModel: TestUtils.customNetworkHealthyModel.copyWith(connectionStatusType: ConnectionStatusType.connected),
+        expandedBool: true,
       );
 
-      TestUtils.printInfo('Should set current checkedNetworkStatusModel as connectedNetworkStatusModel');
+      TestUtils.printInfo('Should set current [checkedNetworkStatusModel] as [connectedNetworkStatusModel] and keep the [true] value of [expandedBool], assumed drawer closed');
 
       expect(actualNetworkCustomSectionState, expectedNetworkCustomSectionState);
 
@@ -63,9 +69,11 @@ Future<void> main() async {
       expectedNetworkCustomSectionState = NetworkCustomSectionState(
         connectedNetworkStatusModel: TestUtils.customNetworkHealthyModel.copyWith(connectionStatusType: ConnectionStatusType.connected),
         checkedNetworkStatusModel: TestUtils.customNetworkUnhealthyModel.copyWith(connectionStatusType: ConnectionStatusType.disconnected),
+        expandedBool: true,
       );
 
-      TestUtils.printInfo('Should add new checkedNetworkStatusModel if custom network is connected and checked network is different from connected');
+      TestUtils.printInfo(
+          'Should add [new checkedNetworkStatusModel] and keep the [true] value of [expandedBool] if custom network is connected and checked network is different from connected');
       expect(actualNetworkCustomSectionState, expectedNetworkCustomSectionState);
 
       // ****************************************************************************************
@@ -76,12 +84,26 @@ Future<void> main() async {
       );
       actualNetworkCustomSectionState = networkCustomSectionCubit.state;
 
-      TestUtils.printInfo('Should not change state if new connected network is equal current connected network (network refreshed)');
+      TestUtils.printInfo('Should [not change state] if new connected network is equal current connected network (network refreshed)');
       expect(actualNetworkCustomSectionState, expectedNetworkCustomSectionState);
 
       // ****************************************************************************************
 
       // Act
+      networkCustomSectionCubit.updateSwitchValue(expandedBool: false);
+      actualNetworkCustomSectionState = networkCustomSectionCubit.state;
+
+      expectedNetworkCustomSectionState = NetworkCustomSectionState(
+        connectedNetworkStatusModel: TestUtils.customNetworkHealthyModel.copyWith(connectionStatusType: ConnectionStatusType.connected),
+        checkedNetworkStatusModel: TestUtils.customNetworkUnhealthyModel.copyWith(connectionStatusType: ConnectionStatusType.disconnected),
+        expandedBool: false,
+      );
+
+      TestUtils.printInfo('Should [not change network state] and should set [false] value of [expandedBool] after using the switch');
+      expect(actualNetworkCustomSectionState, expectedNetworkCustomSectionState);
+
+      // ****************************************************************************************
+
       await networkCustomSectionCubit.updateAfterNetworkConnect(
         TestUtils.customNetworkUnhealthyModel.copyWith(connectionStatusType: ConnectionStatusType.connected),
       );
@@ -89,10 +111,13 @@ Future<void> main() async {
 
       // Assert
       expectedNetworkCustomSectionState = NetworkCustomSectionState(
+        lastConnectedNetworkStatusModel: TestUtils.customNetworkHealthyModel.copyWith(connectionStatusType: ConnectionStatusType.connected),
         connectedNetworkStatusModel: TestUtils.customNetworkUnhealthyModel.copyWith(connectionStatusType: ConnectionStatusType.connected),
+        expandedBool: false,
       );
 
-      TestUtils.printInfo('Should remove previous connected network and set new network as connected if new connected network is different from previous');
+      TestUtils.printInfo(
+          'Should set previous [connected network] as [lastConnectedNetworkStatusModel], set [new network] as [connectedNetworkStatusModel] and keep the [false] value of [expandedBool]');
       expect(actualNetworkCustomSectionState, expectedNetworkCustomSectionState);
     });
   });

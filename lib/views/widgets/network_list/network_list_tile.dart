@@ -11,10 +11,12 @@ import 'package:miro/views/widgets/network_list/network_list_tile_content.dart';
 import 'package:miro/views/widgets/network_list/network_list_tile_title.dart';
 
 class NetworkListTile extends StatefulWidget {
+  final bool arrowEnabledBool;
   final ANetworkStatusModel networkStatusModel;
   final ValueChanged<ANetworkStatusModel>? onConnected;
 
   const NetworkListTile({
+    required this.arrowEnabledBool,
     required this.networkStatusModel,
     this.onConnected,
     Key? key,
@@ -58,7 +60,9 @@ class _NetworkListTile extends State<NetworkListTile> {
                   title: NetworkListTileTitle(networkStatusModel: networkStatusModel),
                   iconColor: DesignColors.white1,
                   onExpansionChanged: _swapBorderColor,
-                  children: <Widget>[NetworkListTileContent(networkStatusModel: networkStatusModel)],
+                  children: <Widget>[
+                    NetworkListTileContent(networkStatusModel: networkStatusModel),
+                  ],
                 ),
               ),
               const SizedBox(height: 8),
@@ -69,6 +73,7 @@ class _NetworkListTile extends State<NetworkListTile> {
                     child: NetworkButton(
                       networkStatusModel: networkStatusModel,
                       onConnected: widget.onConnected,
+                      arrowEnabledBool: widget.arrowEnabledBool,
                     ),
                   ),
                   const SizedBox(width: 35),

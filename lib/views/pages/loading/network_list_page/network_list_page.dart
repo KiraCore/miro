@@ -10,6 +10,7 @@ import 'package:miro/shared/models/network/status/a_network_status_model.dart';
 import 'package:miro/shared/models/network/status/network_empty_model.dart';
 import 'package:miro/shared/router/kira_router.dart';
 import 'package:miro/shared/utils/router_utils.dart';
+import 'package:miro/views/pages/loading/network_list_page/network_headline.dart';
 import 'package:miro/views/widgets/network_list/network_custom_section/network_custom_section.dart';
 import 'package:miro/views/widgets/network_list/network_list.dart';
 import 'package:miro/views/widgets/network_list/network_list_tile.dart';
@@ -52,10 +53,8 @@ class _NetworkListPage extends State<NetworkListPage> {
                 ),
               ),
               const SizedBox(height: 16),
-              Text(
-                S.of(context).networkConnectionCancelled,
-                textAlign: TextAlign.center,
-                style: textTheme.headline1!.copyWith(
+              NetworkHeadline(
+                textStyle: textTheme.headline1!.copyWith(
                   color: DesignColors.white1,
                 ),
               ),
@@ -97,6 +96,7 @@ class _NetworkListPage extends State<NetworkListPage> {
                       NetworkListTile(
                         networkStatusModel: widget.canceledNetworkStatusModel!,
                         onConnected: _handleNetworkConnected,
+                        arrowEnabledBool: true,
                       ),
                       const SizedBox(height: 20),
                       Text(
@@ -112,8 +112,12 @@ class _NetworkListPage extends State<NetworkListPage> {
                         S.of(context).networkNoAvailable,
                         style: textTheme.bodyText2!.copyWith(color: DesignColors.white2),
                       ),
+                      arrowEnabledBool: true,
                     ),
-                    NetworkCustomSection(onConnected: _handleNetworkConnected),
+                    NetworkCustomSection(
+                      onConnected: _handleNetworkConnected,
+                      arrowEnabledBool: true,
+                    ),
                     const SizedBox(height: 100),
                   ],
                 ),
@@ -147,7 +151,6 @@ class _NetworkListPage extends State<NetworkListPage> {
   }
 
   Future<void> _handleNetworkConnected(ANetworkStatusModel networkStatusModel) async {
-    await Future<void>.delayed(const Duration(milliseconds: 100));
     PageRouteInfo<dynamic> nextRoute = RouterUtils.getNextRouteAfterLoading(widget.nextPageRouteInfo);
     await KiraRouter.of(context).navigate(nextRoute);
   }

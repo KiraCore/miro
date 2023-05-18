@@ -9,11 +9,13 @@ import 'package:miro/views/widgets/generic/center_load_spinner.dart';
 import 'package:miro/views/widgets/network_list/network_list_tile.dart';
 
 class NetworkList extends StatelessWidget {
+  final bool arrowEnabledBool;
   final ValueChanged<ANetworkStatusModel>? onConnected;
   final ANetworkStatusModel? hiddenNetworkStatusModel;
   final Widget? emptyListWidget;
 
   const NetworkList({
+    required this.arrowEnabledBool,
     this.onConnected,
     this.hiddenNetworkStatusModel,
     this.emptyListWidget,
@@ -40,6 +42,7 @@ class NetworkList extends StatelessWidget {
               return NetworkListTile(
                 networkStatusModel: currentNetwork,
                 onConnected: onConnected,
+                arrowEnabledBool: arrowEnabledBool,
               );
             },
           );
