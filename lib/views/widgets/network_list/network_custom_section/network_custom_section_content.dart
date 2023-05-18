@@ -10,11 +10,13 @@ import 'package:miro/views/widgets/kira/kira_text_field/kira_text_field_controll
 import 'package:miro/views/widgets/network_list/network_list_tile.dart';
 
 class NetworkCustomSectionContent extends StatefulWidget {
+  final bool arrowEnabledBool;
   final KiraTextFieldController kiraTextFieldController;
   final NetworkCustomSectionCubit networkCustomSectionCubit;
   final ValueChanged<ANetworkStatusModel>? onConnected;
 
   const NetworkCustomSectionContent({
+    required this.arrowEnabledBool,
     required this.kiraTextFieldController,
     required this.networkCustomSectionCubit,
     this.onConnected,
@@ -31,21 +33,29 @@ class _NetworkCustomSectionContent extends State<NetworkCustomSectionContent> {
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
-    bool connectedNetworkExist = widget.networkCustomSectionCubit.state.connectedNetworkStatusModel != null;
-    bool checkedNetworkExist = widget.networkCustomSectionCubit.state.checkedNetworkStatusModel != null;
+    bool connectedNetworkExistsBool = widget.networkCustomSectionCubit.state.connectedNetworkStatusModel != null;
+    bool lastConnectedNetworkExistsBool = widget.networkCustomSectionCubit.state.lastConnectedNetworkStatusModel != null;
+    bool checkedNetworkExistsBool = widget.networkCustomSectionCubit.state.checkedNetworkStatusModel != null;
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        if (connectedNetworkExist) ...<Widget>[
+        if (connectedNetworkExistsBool) ...<Widget>[
           NetworkListTile(
             networkStatusModel: widget.networkCustomSectionCubit.state.connectedNetworkStatusModel!,
             onConnected: widget.onConnected,
+            arrowEnabledBool: widget.arrowEnabledBool,
+          ),
+        ] else if (lastConnectedNetworkExistsBool) ...<Widget>[
+          NetworkListTile(
+            networkStatusModel: widget.networkCustomSectionCubit.state.lastConnectedNetworkStatusModel!,
+            onConnected: widget.onConnected,
+            arrowEnabledBool: widget.arrowEnabledBool,
           ),
         ],
-        if (checkedNetworkExist) ...<Widget>[
-          if (connectedNetworkExist) const SizedBox(height: 16),
+        if (checkedNetworkExistsBool) ...<Widget>[
+          if (connectedNetworkExistsBool) const SizedBox(height: 16),
           Text(
             S.of(context).networkCheckedConnection,
             style: textTheme.subtitle2!.copyWith(color: DesignColors.white2),
@@ -53,6 +63,7 @@ class _NetworkCustomSectionContent extends State<NetworkCustomSectionContent> {
           NetworkListTile(
             networkStatusModel: widget.networkCustomSectionCubit.state.checkedNetworkStatusModel!,
             onConnected: widget.onConnected,
+            arrowEnabledBool: widget.arrowEnabledBool,
           ),
         ],
         const SizedBox(height: 16),

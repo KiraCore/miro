@@ -20,7 +20,7 @@ class KiraAppBarMobileExpansion extends StatelessWidget {
         child: Column(
           children: <Widget>[
             const SizedBox(height: 40),
-            const CurrentNetworkButton(size: Size(double.infinity, 48)),
+            CurrentNetworkButton(size: const Size(double.infinity, 48)),
             const SizedBox(height: 30),
             NavMenu(navItemModelList: navItemModelList),
             const SizedBox(height: 30),

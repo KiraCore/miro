@@ -13,10 +13,12 @@ import 'package:miro/views/widgets/network_list/network_button/network_connect_b
 import 'package:miro/views/widgets/network_list/network_button/network_selected_button.dart';
 
 class NetworkButton extends StatelessWidget {
+  final bool arrowEnabledBool;
   final ANetworkStatusModel networkStatusModel;
   final ValueChanged<ANetworkStatusModel>? onConnected;
 
   const NetworkButton({
+    required this.arrowEnabledBool,
     required this.networkStatusModel,
     this.onConnected,
     Key? key,
@@ -42,14 +44,27 @@ class NetworkButton extends StatelessWidget {
         ),
       );
     } else if (networkConnected) {
-      return NetworkSelectedButton(
-        networkStatusModel: networkStatusModel,
-        title: S.of(context).networkButtonConnected,
+      return Row(
+        children: <Widget>[
+          NetworkSelectedButton(
+            networkStatusModel: networkStatusModel,
+            title: S.of(context).networkButtonConnected,
+            onPressed: _handleConnectToNetworkPressed,
+            clickableBool: arrowEnabledBool,
+          ),
+          if (arrowEnabledBool)
+            IconButton(
+              icon: const Icon(Icons.arrow_forward_outlined),
+              tooltip: S.of(context).networkButtonArrowTip,
+              onPressed: _handleConnectToNetworkPressed,
+            ),
+        ],
       );
     } else if (networkConnecting) {
       return NetworkSelectedButton(
         networkStatusModel: networkStatusModel,
         title: S.of(context).networkButtonConnecting,
+        clickableBool: false,
       );
     } else if (networkOnline) {
       return NetworkConnectButton(
@@ -74,8 +89,11 @@ class NetworkButton extends StatelessWidget {
 
   void _handleConnectToNetworkPressed() {
     ANetworkStatusModel networkStatusModelToConnect = networkStatusModel;
+    bool networkConnectedBool = networkStatusModelToConnect.connectionStatusType == ConnectionStatusType.connected;
     if (networkStatusModelToConnect is ANetworkOnlineModel) {
-      globalLocator<NetworkModuleBloc>().add(NetworkModuleConnectEvent(networkStatusModelToConnect));
+      if (networkConnectedBool == false) {
+        globalLocator<NetworkModuleBloc>().add(NetworkModuleConnectEvent(networkStatusModelToConnect));
+      }
       onConnected?.call(networkStatusModelToConnect);
     }
   }

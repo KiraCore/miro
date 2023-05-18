@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/widgets/network_list/network_custom_section/network_custom_section_state.dart';
 import 'package:miro/config/app_config.dart';
@@ -20,9 +19,9 @@ class NetworkCustomSectionCubit extends Cubit<NetworkCustomSectionState> {
 
   Future<void> checkConnection(Uri uri) async {
     NetworkUnknownModel networkUnknownModel = NetworkUnknownModel(uri: uri, connectionStatusType: ConnectionStatusType.disconnected);
-    bool isCustomNetwork = _checkIsCustomNetwork(networkUnknownModel);
+    bool networkCustomBool = _isNetworkCustom(networkUnknownModel);
 
-    if (isCustomNetwork == false || state.containsUri(uri)) {
+    if (networkCustomBool == false || state.containsUri(uri)) {
       return;
     }
 
@@ -33,8 +32,8 @@ class NetworkCustomSectionCubit extends Cubit<NetworkCustomSectionState> {
     emit(state.copyWith(checkedNetworkStatusModel: networkUnknownModel));
     ANetworkStatusModel networkStatusModel = await _networkModuleService.getNetworkStatusModel(networkUnknownModel);
 
-    bool isStateIdEqual = stateId == _activeStateId;
-    if (isStateIdEqual) {
+    bool stateIdEqualBool = stateId == _activeStateId;
+    if (stateIdEqualBool) {
       emit(state.copyWith(checkedNetworkStatusModel: networkStatusModel));
     }
   }
@@ -42,22 +41,40 @@ class NetworkCustomSectionCubit extends Cubit<NetworkCustomSectionState> {
   Future<void> updateAfterNetworkConnect(ANetworkStatusModel? connectedNetworkStatusModel) async {
     if (connectedNetworkStatusModel == null) {
       _activeStateId = StringUtils.generateUuid();
-      emit(NetworkCustomSectionState());
+      emit(NetworkCustomSectionState(expandedBool: state.expandedBool));
       return;
     }
 
-    bool isCustomNetwork = _checkIsCustomNetwork(connectedNetworkStatusModel);
-    bool isNetworkRefreshed = state.connectedNetworkStatusModel?.uri.host == connectedNetworkStatusModel.uri.host;
+    bool customNetworkBool = _isNetworkCustom(connectedNetworkStatusModel);
+    bool differentNetworkBool = connectedNetworkStatusModel.uri.host != state.connectedNetworkStatusModel?.uri.host;
+    bool checkedNetworkBool = connectedNetworkStatusModel.uri.host == state.checkedNetworkStatusModel?.uri.host;
+    bool customNetworkConnectedBool = state.connectedNetworkStatusModel != null;
 
-    if (isNetworkRefreshed) {
-      emit(state.copyWith(connectedNetworkStatusModel: connectedNetworkStatusModel));
-    } else if (isCustomNetwork) {
+    if (customNetworkBool) {
       _activeStateId = StringUtils.generateUuid();
-      emit(NetworkCustomSectionState(connectedNetworkStatusModel: connectedNetworkStatusModel));
+    }
+    emit(
+      NetworkCustomSectionState(
+        connectedNetworkStatusModel: customNetworkBool ? connectedNetworkStatusModel : null,
+        expandedBool: state.expandedBool,
+        checkedNetworkStatusModel: checkedNetworkBool ? null : state.checkedNetworkStatusModel,
+        lastConnectedNetworkStatusModel:
+            differentNetworkBool && customNetworkConnectedBool ? state.connectedNetworkStatusModel : state.lastConnectedNetworkStatusModel,
+      ),
+    );
+  }
+
+  void updateSwitchValue({required bool? expandedBool}) {
+    emit(state.copyWith(expandedBool: expandedBool));
+  }
+
+  void resetSwitchValueWhenConnected() {
+    if (state.connectedNetworkStatusModel != null) {
+      emit(state.copyWith(expandedBool: null));
     }
   }
 
-  bool _checkIsCustomNetwork(ANetworkStatusModel networkStatusModel) {
+  bool _isNetworkCustom(ANetworkStatusModel networkStatusModel) {
     List<NetworkUnknownModel> matchingNetworkUnknownModels =
         _appConfig.networkList.where((NetworkUnknownModel e) => e.uri.host == networkStatusModel.uri.host).toList();
     return matchingNetworkUnknownModels.isEmpty;

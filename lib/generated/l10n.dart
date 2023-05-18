@@ -850,6 +850,16 @@ class S {
     );
   }
 
+  /// `Go to the next page`
+  String get networkButtonArrowTip {
+    return Intl.message(
+      'Go to the next page',
+      name: 'networkButtonArrowTip',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `undefined`
   String get networkErrorUndefinedName {
     return Intl.message(
@@ -935,6 +945,16 @@ class S {
     return Intl.message(
       'Connection cancelled',
       name: 'networkConnectionCancelled',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Connection established`
+  String get networkConnectionEstablished {
+    return Intl.message(
+      'Connection established',
+      name: 'networkConnectionEstablished',
       desc: '',
       args: [],
     );

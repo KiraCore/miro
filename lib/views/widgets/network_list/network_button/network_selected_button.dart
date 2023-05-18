@@ -3,12 +3,16 @@ import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
 
 class NetworkSelectedButton extends StatelessWidget {
-  final ANetworkStatusModel networkStatusModel;
+  final bool clickableBool;
   final String title;
+  final ANetworkStatusModel networkStatusModel;
+  final VoidCallback? onPressed;
 
   const NetworkSelectedButton({
-    required this.networkStatusModel,
+    required this.clickableBool,
     required this.title,
+    required this.networkStatusModel,
+    this.onPressed,
     Key? key,
   }) : super(key: key);
 
@@ -17,7 +21,7 @@ class NetworkSelectedButton extends StatelessWidget {
     return Row(
       children: <Widget>[
         ElevatedButton(
-          onPressed: null,
+          onPressed: clickableBool ? onPressed : null,
           style: ButtonStyle(backgroundColor: MaterialStateProperty.all(networkStatusModel.statusColor)),
           child: Text(
             title.toUpperCase(),

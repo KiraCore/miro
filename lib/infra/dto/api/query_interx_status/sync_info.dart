@@ -43,6 +43,5 @@ class SyncInfo extends Equatable {
         latestAppHash,
         latestBlockHash,
         latestBlockHeight,
-        latestBlockTime,
       ];
 }

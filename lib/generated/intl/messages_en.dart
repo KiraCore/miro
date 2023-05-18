@@ -195,6 +195,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "networkBlockHeight":
             MessageLookupByLibrary.simpleMessage("Block Height"),
         "networkBlockTime": MessageLookupByLibrary.simpleMessage("Block time"),
+        "networkButtonArrowTip":
+            MessageLookupByLibrary.simpleMessage("Go to the next page"),
         "networkButtonCancelConnection":
             MessageLookupByLibrary.simpleMessage("Cancel connection"),
         "networkButtonCheckConnection":
@@ -210,6 +212,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "networkConnectingTo": m1,
         "networkConnectionCancelled":
             MessageLookupByLibrary.simpleMessage("Connection cancelled"),
+        "networkConnectionEstablished":
+            MessageLookupByLibrary.simpleMessage("Connection established"),
         "networkErrorAddressEmpty":
             MessageLookupByLibrary.simpleMessage("Field can\'t be empty"),
         "networkErrorAddressInvalid":

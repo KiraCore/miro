@@ -27,7 +27,7 @@ class KiraAppBarDesktop extends StatelessWidget {
       child: Row(
         children: <Widget>[
           const Spacer(),
-          const CurrentNetworkButton(size: Size(192, 48)),
+          CurrentNetworkButton(size: const Size(192, 48)),
           const SizedBox(width: 16),
           AccountButton(size: const Size(180, 48)),
         ],
