@@ -10,7 +10,6 @@ import 'package:miro/views/pages/menu/dashboard_page/dashboard_blocks_section.da
 import 'package:miro/views/pages/menu/dashboard_page/dashboard_header_section.dart';
 import 'package:miro/views/pages/menu/dashboard_page/dashboard_proposals_section.dart';
 import 'package:miro/views/pages/menu/dashboard_page/dashboard_validators_section.dart';
-import 'package:miro/views/widgets/generic/filled_scroll_view.dart';
 import 'package:miro/views/widgets/generic/responsive/column_row_spacer.dart';
 import 'package:miro/views/widgets/generic/responsive/column_row_swapper.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
@@ -26,6 +25,7 @@ class DashboardPage extends StatefulWidget {
 
 class _DashboardPage extends State<DashboardPage> {
   final DashboardCubit _dashboardCubit = DashboardCubit();
+  final ScrollController scrollController = ScrollController();
 
   @override
   void dispose() {
@@ -41,49 +41,54 @@ class _DashboardPage extends State<DashboardPage> {
       bloc: _dashboardCubit,
       builder: (BuildContext context, ADashboardState dashboardState) {
         bool loading = dashboardState is DashboardLoadingState;
-        return FilledScrollView(
-          child: Padding(
-            padding: ResponsiveWidget.isLargeScreen(context) ? AppSizes.defaultDesktopPageMargin : AppSizes.defaultMobilePageMargin,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                if (dashboardState is DashboardErrorState) ...<Widget>[
-                  ToastContainer(
-                    width: double.infinity,
-                    title: Text(
-                      S.of(context).toastCannotLoadDashboard,
-                      style: textTheme.bodyText2!,
-                    ),
-                    toastType: ToastType.error,
-                  ),
-                  const SizedBox(height: 32),
-                ],
-                DashboardHeaderSection(
-                  loading: loading,
-                  dashboardModel: dashboardState.dashboardModel,
-                ),
-                DashboardValidatorsSection(
-                  loading: loading,
-                  validatorsStatusModel: dashboardState.dashboardModel?.validatorsStatusModel,
-                ),
-                ColumnRowSwapper(
-                  expandOnRow: true,
+        return CustomScrollView(
+          controller: scrollController,
+          slivers: <Widget>[
+            SliverPadding(
+              padding: ResponsiveWidget.isLargeScreen(context) ? AppSizes.defaultDesktopPageMargin : AppSizes.defaultMobilePageMargin,
+              sliver: SliverToBoxAdapter(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    DashboardBlocksSection(
+                    if (dashboardState is DashboardErrorState) ...<Widget>[
+                      ToastContainer(
+                        width: double.infinity,
+                        title: Text(
+                          S.of(context).toastCannotLoadDashboard,
+                          style: textTheme.bodyText2!,
+                        ),
+                        toastType: ToastType.error,
+                      ),
+                      const SizedBox(height: 32),
+                    ],
+                    DashboardHeaderSection(
                       loading: loading,
-                      blocksModel: dashboardState.dashboardModel?.blocksModel,
+                      dashboardModel: dashboardState.dashboardModel,
                     ),
-                    const ColumnRowSpacer(size: 32),
-                    DashboardProposalsSection(
+                    DashboardValidatorsSection(
                       loading: loading,
-                      proposalsModel: dashboardState.dashboardModel?.proposalsModel,
+                      validatorsStatusModel: dashboardState.dashboardModel?.validatorsStatusModel,
                     ),
+                    ColumnRowSwapper(
+                      expandOnRow: true,
+                      children: <Widget>[
+                        DashboardBlocksSection(
+                          loading: loading,
+                          blocksModel: dashboardState.dashboardModel?.blocksModel,
+                        ),
+                        const ColumnRowSpacer(size: 32),
+                        DashboardProposalsSection(
+                          loading: loading,
+                          proposalsModel: dashboardState.dashboardModel?.proposalsModel,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 50),
                   ],
                 ),
-                const SizedBox(height: 50),
-              ],
+              ),
             ),
-          ),
+          ],
         );
       },
     );
