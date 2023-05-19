@@ -15,7 +15,7 @@ class ListErrorWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(bottom: 40),
-      constraints: const BoxConstraints(minHeight: 500),
+      constraints: const BoxConstraints(minHeight: 50),
       decoration: BoxDecoration(
         color: DesignColors.black,
         borderRadius: BorderRadius.circular(8),
