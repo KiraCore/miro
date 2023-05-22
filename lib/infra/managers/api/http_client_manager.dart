@@ -5,7 +5,7 @@ import 'package:miro/config/locator.dart';
 import 'package:miro/shared/controllers/browser/browser_url_controller.dart';
 import 'package:miro/shared/utils/network_utils.dart';
 
-class InfraHttpClientManager {
+class HttpClientManager {
   final AppConfig _appConfig = globalLocator<AppConfig>();
   final BrowserUrlController _browserUrlController = const BrowserUrlController();
 

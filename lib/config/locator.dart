@@ -6,9 +6,10 @@ import 'package:miro/blocs/layout/nav_menu/nav_menu_cubit.dart';
 import 'package:miro/blocs/widgets/network_list/network_custom_section/network_custom_section_cubit.dart';
 import 'package:miro/blocs/widgets/network_list/network_list/network_list_cubit.dart';
 import 'package:miro/config/app_config.dart';
-import 'package:miro/infra/cache/cache_manager.dart';
-import 'package:miro/infra/repositories/api_kira_repository.dart';
-import 'package:miro/infra/repositories/api_repository.dart';
+import 'package:miro/infra/managers/cache/i_cache_manager.dart';
+import 'package:miro/infra/managers/cache/impl/auto_cache_manager.dart';
+import 'package:miro/infra/repositories/api/api_kira_repository.dart';
+import 'package:miro/infra/repositories/api/api_repository.dart';
 import 'package:miro/infra/services/api/dashboard_service.dart';
 import 'package:miro/infra/services/api/query_interx_status_service.dart';
 import 'package:miro/infra/services/api/query_validators_service.dart';
@@ -27,7 +28,7 @@ final GetIt globalLocator = GetIt.I;
 Future<void> initLocator() async {
   globalLocator
     ..registerLazySingleton<AppConfig>(AppConfig.buildDefaultConfig)
-    ..registerLazySingleton<CacheManager>(CacheManager.new);
+    ..registerLazySingleton<ICacheManager>(AutoCacheManager.new);
 
   _initRepositories();
   _initServices();

@@ -6,9 +6,10 @@ import 'package:miro/blocs/widgets/network_list/network_custom_section/network_c
 import 'package:miro/blocs/widgets/network_list/network_list/network_list_cubit.dart';
 import 'package:miro/config/app_config.dart';
 import 'package:miro/config/locator.dart';
-import 'package:miro/infra/cache/cache_manager.dart';
-import 'package:miro/infra/repositories/api_kira_repository.dart';
-import 'package:miro/infra/repositories/api_repository.dart';
+import 'package:miro/infra/managers/cache/i_cache_manager.dart';
+import 'package:miro/infra/managers/cache/impl/memory_cache_manager.dart';
+import 'package:miro/infra/repositories/api/api_kira_repository.dart';
+import 'package:miro/infra/repositories/api/api_repository.dart';
 import 'package:miro/infra/services/api/dashboard_service.dart';
 import 'package:miro/infra/services/api/query_interx_status_service.dart';
 import 'package:miro/infra/services/api/query_validators_service.dart';
@@ -29,7 +30,7 @@ import 'package:miro/test/mocks/mock_network_list_config_json.dart';
 Future<void> initMockLocator() async {
   globalLocator
     ..registerLazySingleton<AppConfig>(MockAppConfig.buildDefaultConfig)
-    ..registerLazySingleton<CacheManager>(CacheManager.new);
+    ..registerLazySingleton<ICacheManager>(MemoryCacheManager.new);
 
   _initRepositories();
   _initServices();

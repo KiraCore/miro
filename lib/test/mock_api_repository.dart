@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:miro/infra/dto/api/query_validators/request/query_validators_req.dart';
 import 'package:miro/infra/exceptions/dio_connect_exception.dart';
-import 'package:miro/infra/repositories/api_repository.dart';
+import 'package:miro/infra/repositories/api/api_repository.dart';
 import 'package:miro/test/mocks/api/mock_api_dashboard.dart';
 import 'package:miro/test/mocks/api/mock_api_status.dart';
 import 'package:miro/test/mocks/api/mock_api_valopers.dart';

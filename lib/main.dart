@@ -8,7 +8,7 @@ import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/theme_config.dart';
 import 'package:miro/generated/assets.dart';
 import 'package:miro/generated/l10n.dart';
-import 'package:miro/infra/cache/cache_manager.dart';
+import 'package:miro/infra/managers/cache/i_cache_manager.dart';
 import 'package:miro/shared/router/guards/auth_guard.dart';
 import 'package:miro/shared/router/guards/connection_guard.dart';
 import 'package:miro/shared/router/guards/navigation_guard.dart';
@@ -20,7 +20,7 @@ import 'package:miro/shared/utils/assets_manager.dart';
 
 Future<void> main() async {
   await initLocator();
-  await globalLocator<CacheManager>().init();
+  await globalLocator<ICacheManager>().init();
 
   Map<String, dynamic> configJson = await AssetsManager().getAsMap('assets/network_list_config.json');
   globalLocator<AppConfig>().init(configJson);

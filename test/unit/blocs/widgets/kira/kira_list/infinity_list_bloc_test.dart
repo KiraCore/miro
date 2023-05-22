@@ -13,8 +13,6 @@ import 'package:miro/blocs/widgets/kira/kira_list/infinity_list/infinity_list_bl
 import 'package:miro/blocs/widgets/kira/kira_list/sort/events/sort_change_event.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/sort/events/sort_clear_event.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/sort/sort_bloc.dart';
-import 'package:miro/config/locator.dart';
-import 'package:miro/infra/cache/cache_manager.dart';
 import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
@@ -27,7 +25,6 @@ import 'mock_data/mock_list_item_sort_options.dart';
 // fvm flutter test test/unit/blocs/widgets/kira/kira_list/infinity_list_bloc_test.dart --platform chrome --null-assertions
 Future<void> main() async {
   await initMockLocator();
-  await globalLocator<CacheManager>().init();
 
   MockListItem expectedMockListItem1 = MockListItem(id: 1, name: 'apple', status: 'active');
   MockListItem expectedMockListItem2 = MockListItem(id: 2, name: 'banana', status: 'active');

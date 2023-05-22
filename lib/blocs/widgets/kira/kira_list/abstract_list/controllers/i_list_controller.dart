@@ -1,8 +1,8 @@
 import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/models/a_list_item.dart';
-import 'package:miro/infra/cache/favourite_cache.dart';
+import 'package:miro/infra/services/cache/favourites_cache_service.dart';
 
 abstract class IListController<T extends AListItem> {
-  FavouriteCache getFavouriteCache();
+  FavouritesCacheService getFavouritesCacheService();
 
   Future<List<T>> getFavouritesData();
 

@@ -3,8 +3,6 @@ import 'package:miro/blocs/widgets/kira/kira_list/favourites/events/favourites_a
 import 'package:miro/blocs/widgets/kira/kira_list/favourites/events/favourites_remove_record_event.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/favourites/favourites_bloc.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/favourites/states/favourites_loaded_state.dart';
-import 'package:miro/config/locator.dart';
-import 'package:miro/infra/cache/cache_manager.dart';
 import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
@@ -16,7 +14,6 @@ import 'mock_data/mock_list_item.dart';
 // ignore_for_file: cascade_invocations
 Future<void> main() async {
   await initMockLocator();
-  await globalLocator<CacheManager>().init();
 
   MockListItem expectedMockListItem1 = MockListItem(id: 1, name: 'apple', status: 'active');
   MockListItem expectedMockListItem2 = MockListItem(id: 2, name: 'banana', status: 'active');

@@ -6,7 +6,7 @@ import 'package:miro/infra/dto/api_kira/query_balance/request/query_balance_req.
 import 'package:miro/infra/dto/api_kira/query_balance/response/balance.dart';
 import 'package:miro/infra/dto/api_kira/query_balance/response/query_balance_resp.dart';
 import 'package:miro/infra/exceptions/dio_parse_exception.dart';
-import 'package:miro/infra/repositories/api_kira_repository.dart';
+import 'package:miro/infra/repositories/api/api_kira_repository.dart';
 import 'package:miro/infra/services/api_kira/query_kira_tokens_aliases_service.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';

@@ -5,7 +5,7 @@ import 'package:miro/infra/dto/api_kira/query_account/request/query_account_req.
 import 'package:miro/infra/dto/api_kira/query_account/response/query_account_resp.dart';
 import 'package:miro/infra/dto/interx_headers.dart';
 import 'package:miro/infra/exceptions/dio_parse_exception.dart';
-import 'package:miro/infra/repositories/api_kira_repository.dart';
+import 'package:miro/infra/repositories/api/api_kira_repository.dart';
 import 'package:miro/shared/models/transactions/tx_remote_info_model.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';
 import 'package:miro/shared/utils/logger/log_level.dart';

@@ -6,8 +6,6 @@ import 'package:miro/blocs/widgets/kira/kira_list/filters/filters_bloc.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/filters/models/filter_option.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/filters/models/search_option.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/filters/states/filters_empty_state.dart';
-import 'package:miro/config/locator.dart';
-import 'package:miro/infra/cache/cache_manager.dart';
 import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
@@ -19,7 +17,6 @@ import 'mock_data/mock_list_item_filter_options.dart';
 // ignore_for_file: cascade_invocations
 Future<void> main() async {
   await initMockLocator();
-  await globalLocator<CacheManager>().init();
 
   group('Tests of FiltersBloc initial state', () {
     test('Should return FiltersEmptyState', () async {

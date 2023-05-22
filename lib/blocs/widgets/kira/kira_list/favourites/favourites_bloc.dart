@@ -38,7 +38,7 @@ class FavouritesBloc<T extends AListItem> extends Bloc<AFavouritesEvent, AFavour
   ) {
     favouritesAddRecordEvent.listItem.favourite = true;
     favouritesList.add(favouritesAddRecordEvent.listItem);
-    listController.getFavouriteCache().add(favouritesAddRecordEvent.listItem.cacheId);
+    listController.getFavouritesCacheService().add(favouritesAddRecordEvent.listItem.cacheId);
     emit(FavouritesLoadedState<T>(favourites: List<T>.from(favouritesList)));
   }
 
@@ -48,7 +48,7 @@ class FavouritesBloc<T extends AListItem> extends Bloc<AFavouritesEvent, AFavour
   ) {
     favouritesRemoveRecordEvent.listItem.favourite = false;
     favouritesList.remove(favouritesRemoveRecordEvent.listItem);
-    listController.getFavouriteCache().delete(favouritesRemoveRecordEvent.listItem.cacheId);
+    listController.getFavouritesCacheService().delete(favouritesRemoveRecordEvent.listItem.cacheId);
     emit(FavouritesLoadedState<T>(favourites: List<T>.from(favouritesList)));
   }
 }

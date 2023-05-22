@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api/query_interx_status/query_interx_status_resp.dart';
 import 'package:miro/infra/exceptions/dio_parse_exception.dart';
-import 'package:miro/infra/repositories/api_repository.dart';
+import 'package:miro/infra/repositories/api/api_repository.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';
 import 'package:miro/shared/utils/logger/log_level.dart';
 

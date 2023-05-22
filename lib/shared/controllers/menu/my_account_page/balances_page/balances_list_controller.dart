@@ -1,12 +1,12 @@
 import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/controllers/i_list_controller.dart';
 import 'package:miro/config/locator.dart';
-import 'package:miro/infra/cache/favourite_cache.dart';
 import 'package:miro/infra/dto/api_kira/query_balance/request/query_balance_req.dart';
 import 'package:miro/infra/services/api_kira/query_balance_service.dart';
+import 'package:miro/infra/services/cache/favourites_cache_service.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
 
 class BalancesListController implements IListController<BalanceModel> {
-  final FavouriteCache favouriteCache = FavouriteCache(key: 'balances');
+  final FavouritesCacheService favouriteCacheService = FavouritesCacheService(domainName: 'balances');
   final QueryBalanceService queryBalanceService = globalLocator<QueryBalanceService>();
   final String address;
 
@@ -15,13 +15,13 @@ class BalancesListController implements IListController<BalanceModel> {
   });
 
   @override
-  FavouriteCache getFavouriteCache() {
-    return favouriteCache;
+  FavouritesCacheService getFavouritesCacheService() {
+    return favouriteCacheService;
   }
 
   @override
   Future<List<BalanceModel>> getFavouritesData() async {
-    Set<String> favouriteBalances = favouriteCache.getAll();
+    Set<String> favouriteBalances = favouriteCacheService.getAll();
     if (favouriteBalances.isNotEmpty) {
       // TODO(dominik): implement request Balances by name
       List<BalanceModel> allBalancesList = await queryBalanceService.getBalanceModelList(
