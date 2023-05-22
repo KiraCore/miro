@@ -1,11 +1,11 @@
 import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/controllers/i_list_controller.dart';
-import 'package:miro/infra/cache/favourite_cache.dart';
+import 'package:miro/infra/services/cache/favourites_cache_service.dart';
 import 'package:miro/shared/utils/list_utils.dart';
 
 import 'mock_list_item.dart';
 
 class MockListController extends IListController<MockListItem> {
-  final FavouriteCache favouriteCache = FavouriteCache(key: 'test_favourites');
+  final FavouritesCacheService favouritesCacheService = FavouritesCacheService(domainName: 'test_favourites');
 
   final List<MockListItem> _items = <MockListItem>[
     MockListItem(id: 1, name: 'apple', status: 'active'),
@@ -14,13 +14,13 @@ class MockListController extends IListController<MockListItem> {
   ];
 
   @override
-  FavouriteCache getFavouriteCache() {
-    return favouriteCache;
+  FavouritesCacheService getFavouritesCacheService() {
+    return favouritesCacheService;
   }
 
   @override
   Future<List<MockListItem>> getFavouritesData() async {
-    Set<String> favouritesId = favouriteCache.getAll();
+    Set<String> favouritesId = favouritesCacheService.getAll();
     return _items.where((MockListItem mockListItem) => favouritesId.contains(mockListItem.cacheId)).toList();
   }
 

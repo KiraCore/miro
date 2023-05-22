@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:miro/infra/dto/api/query_validators/request/query_validators_req.dart';
 import 'package:miro/infra/exceptions/dio_connect_exception.dart';
-import 'package:miro/infra/infra_http_client_manager.dart';
+import 'package:miro/infra/managers/api/http_client_manager.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';
 
 abstract class IApiRepository {
@@ -13,12 +13,12 @@ abstract class IApiRepository {
 }
 
 class RemoteApiRepository implements IApiRepository {
-  final InfraHttpClientManager _infraHttpClientManager = InfraHttpClientManager();
+  final HttpClientManager _httpClientManager = HttpClientManager();
 
   @override
   Future<Response<T>> fetchDashboard<T>(Uri networkUri) async {
     try {
-      final Response<T> response = await _infraHttpClientManager.get<T>(
+      final Response<T> response = await _httpClientManager.get<T>(
         networkUri: networkUri,
         path: '/api/dashboard',
       );
@@ -32,7 +32,7 @@ class RemoteApiRepository implements IApiRepository {
   @override
   Future<Response<T>> fetchQueryInterxStatus<T>(Uri networkUri) async {
     try {
-      final Response<T> response = await _infraHttpClientManager.get<T>(
+      final Response<T> response = await _httpClientManager.get<T>(
         networkUri: networkUri,
         path: '/api/status',
       );
@@ -46,7 +46,7 @@ class RemoteApiRepository implements IApiRepository {
   @override
   Future<Response<T>> fetchQueryValidators<T>(Uri networkUri, QueryValidatorsReq queryValidatorsReq) async {
     try {
-      final Response<T> response = await _infraHttpClientManager.get<T>(
+      final Response<T> response = await _httpClientManager.get<T>(
         networkUri: networkUri,
         path: '/api/valopers',
         queryParameters: queryValidatorsReq.toJson(),

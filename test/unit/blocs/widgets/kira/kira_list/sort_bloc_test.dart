@@ -3,8 +3,6 @@ import 'package:miro/blocs/widgets/kira/kira_list/sort/events/sort_change_event.
 import 'package:miro/blocs/widgets/kira/kira_list/sort/events/sort_clear_event.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/sort/sort_bloc.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/sort/sort_state.dart';
-import 'package:miro/config/locator.dart';
-import 'package:miro/infra/cache/cache_manager.dart';
 import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
@@ -16,7 +14,6 @@ import 'mock_data/mock_list_item_sort_options.dart';
 // ignore_for_file: cascade_invocations
 Future<void> main() async {
   await initMockLocator();
-  await globalLocator<CacheManager>().init();
 
   group('Tests of SortBloc initial state', () {
     test('Should return SortState with default sort option', () async {

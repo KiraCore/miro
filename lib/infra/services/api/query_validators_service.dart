@@ -6,7 +6,7 @@ import 'package:miro/infra/dto/api/query_validators/response/query_validators_re
 import 'package:miro/infra/dto/api/query_validators/response/status.dart';
 import 'package:miro/infra/dto/api/query_validators/response/validator.dart';
 import 'package:miro/infra/exceptions/dio_parse_exception.dart';
-import 'package:miro/infra/repositories/api_repository.dart';
+import 'package:miro/infra/repositories/api/api_repository.dart';
 import 'package:miro/shared/models/validators/validator_model.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';
 import 'package:miro/shared/utils/logger/log_level.dart';
@@ -40,14 +40,14 @@ class QueryValidatorsService implements _IQueryValidatorsService {
   Future<QueryValidatorsResp> getQueryValidatorsResp(QueryValidatorsReq queryValidatorsReq) async {
     Uri networkUri = globalLocator<NetworkModuleBloc>().state.networkUri;
     Response<dynamic> response = await _apiRepository.fetchQueryValidators<dynamic>(networkUri, queryValidatorsReq);
-    
+
     return QueryValidatorsResp.fromJson(response.data as Map<String, dynamic>);
   }
 
   @override
   Future<Status> getStatus(Uri networkUri) async {
     Response<dynamic> response = await _apiRepository.fetchQueryValidators<dynamic>(networkUri, const QueryValidatorsReq(statusOnly: true));
-    
+
     try {
       Status status =  Status.fromJson(response.data as Map<String, dynamic>);
       return status;

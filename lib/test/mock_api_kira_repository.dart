@@ -4,7 +4,7 @@ import 'package:miro/infra/dto/api_kira/query_account/request/query_account_req.
 import 'package:miro/infra/dto/api_kira/query_balance/request/query_balance_req.dart';
 import 'package:miro/infra/dto/api_kira/query_execution_fee/request/query_execution_fee_request.dart';
 import 'package:miro/infra/exceptions/dio_connect_exception.dart';
-import 'package:miro/infra/repositories/api_kira_repository.dart';
+import 'package:miro/infra/repositories/api/api_kira_repository.dart';
 import 'package:miro/test/mocks/api_kira/mock_api_kira_accounts.dart';
 import 'package:miro/test/mocks/api_kira/mock_api_kira_balances.dart';
 import 'package:miro/test/mocks/api_kira/mock_api_kira_gov_execution_fee.dart';

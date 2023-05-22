@@ -6,7 +6,7 @@ import 'package:miro/infra/dto/api_kira/broadcast/request/transaction/tx.dart';
 import 'package:miro/infra/dto/api_kira/broadcast/response/broadcast_resp.dart';
 import 'package:miro/infra/exceptions/dio_parse_exception.dart';
 import 'package:miro/infra/exceptions/tx_broadcast_exception.dart';
-import 'package:miro/infra/repositories/api_kira_repository.dart';
+import 'package:miro/infra/repositories/api/api_kira_repository.dart';
 import 'package:miro/shared/models/transactions/broadcast_resp_model.dart';
 import 'package:miro/shared/models/transactions/signed_transaction_model.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';
