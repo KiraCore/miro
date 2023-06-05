@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,7 +5,6 @@ import 'package:miro/blocs/widgets/transactions/token_form/token_form_cubit.dart
 import 'package:miro/blocs/widgets/transactions/token_form/token_form_state.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
-import 'package:miro/shared/models/balances/total_balance_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/tokens/token_denomination_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
@@ -19,17 +16,19 @@ import 'package:miro/views/widgets/transactions/token_form/token_dropdown/token_
 import 'package:miro/views/widgets/transactions/token_form/token_form_info.dart';
 
 class TokenForm extends StatefulWidget {
+  final ValueChanged<TokenFormState> onChanged;
   final TokenAmountModel feeTokenAmountModel;
-  final ValueChanged<TokenAmountModel?> onChanged;
-  final ValueChanged<TokenDenominationModel?> onTokenDenominationChanged;
-  final BalanceModel? initialBalanceModel;
+  final BalanceModel? defaultBalanceModel;
+  final TokenAmountModel? defaultTokenAmountModel;
+  final TokenDenominationModel? defaultTokenDenominationModel;
   final WalletAddress? walletAddress;
 
   const TokenForm({
-    required this.feeTokenAmountModel,
     required this.onChanged,
-    required this.onTokenDenominationChanged,
-    this.initialBalanceModel,
+    required this.feeTokenAmountModel,
+    this.defaultBalanceModel,
+    this.defaultTokenAmountModel,
+    this.defaultTokenDenominationModel,
     this.walletAddress,
     Key? key,
   }) : super(key: key);
@@ -41,92 +40,73 @@ class TokenForm extends StatefulWidget {
 class _TokenForm extends State<TokenForm> {
   late final TokenFormCubit tokenFormCubit = TokenFormCubit(
     feeTokenAmountModel: widget.feeTokenAmountModel,
-    initialBalanceModel: widget.initialBalanceModel,
+    defaultBalanceModel: widget.defaultBalanceModel,
+    defaultTokenAmountModel: widget.defaultTokenAmountModel,
+    defaultTokenDenominationModel: widget.defaultTokenDenominationModel,
   );
-
-  late final StreamSubscription<TokenFormState> tokenFormStateSubscription;
-
-  @override
-  void initState() {
-    super.initState();
-    tokenFormCubit.tokenDenominationModelNotifier.addListener(_handleTokenDenominationModelChanged);
-    tokenFormStateSubscription = tokenFormCubit.stream.listen((TokenFormState tokenFormState) {
-      widget.onChanged(tokenFormState.tokenAmountModel);
-    });
-  }
-
-  @override
-  void dispose() {
-    tokenFormCubit.tokenDenominationModelNotifier.dispose();
-    tokenFormStateSubscription.cancel();
-    tokenFormCubit.close();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
-    bool disabled = widget.walletAddress == null;
+    bool disabledBool = widget.walletAddress == null;
 
     return BlocProvider<TokenFormCubit>(
       create: (_) => tokenFormCubit,
-      child: FormField<TokenAmountModel>(
-        key: tokenFormCubit.formFieldKey,
-        validator: (_) => _validate(),
-        builder: (FormFieldState<TokenAmountModel> formFieldState) {
-          return Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              ColumnRowSwapper(
-                rowMainAxisAlignment: MainAxisAlignment.start,
-                rowCrossAxisAlignment: CrossAxisAlignment.start,
-                columnMainAxisAlignment: MainAxisAlignment.start,
-                columnCrossAxisAlignment: CrossAxisAlignment.start,
-                expandOnRow: true,
-                reverseOnColumn: true,
+      child: BlocConsumer<TokenFormCubit, TokenFormState>(
+        listener: (_, TokenFormState tokenFormState) => widget.onChanged(tokenFormState),
+        builder: (BuildContext context, TokenFormState tokenFormState) {
+          return FormField<TokenAmountModel>(
+            key: tokenFormCubit.formFieldKey,
+            validator: (_) => _validate(tokenFormState),
+            builder: (FormFieldState<TokenAmountModel> formFieldState) {
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  TokenAmountTextField(
-                    hasErrors: formFieldState.hasError,
-                    disabled: disabled,
-                    textEditingController: tokenFormCubit.amountTextEditingController,
-                    tokenDenominationModelNotifier: tokenFormCubit.tokenDenominationModelNotifier,
+                  ColumnRowSwapper(
+                    rowMainAxisAlignment: MainAxisAlignment.start,
+                    rowCrossAxisAlignment: CrossAxisAlignment.start,
+                    columnMainAxisAlignment: MainAxisAlignment.start,
+                    columnCrossAxisAlignment: CrossAxisAlignment.start,
+                    expandOnRow: true,
+                    reverseOnColumn: true,
+                    children: <Widget>[
+                      TokenAmountTextField(
+                        errorExistsBool: formFieldState.hasError,
+                        disabledBool: disabledBool,
+                        textEditingController: tokenFormCubit.amountTextEditingController,
+                        tokenDenominationModel: tokenFormState.tokenDenominationModel,
+                      ),
+                      const ColumnRowSpacer(size: 16),
+                      TokenDropdown(
+                        disabledBool: disabledBool,
+                        defaultBalanceModel: tokenFormState.balanceModel,
+                        walletAddress: widget.walletAddress,
+                      ),
+                    ],
                   ),
-                  const ColumnRowSpacer(size: 16),
-                  TokenDropdown(
-                    disabled: disabled,
-                    initialBalanceModel: tokenFormCubit.totalBalanceModelNotifier.value?.balanceModel,
-                    walletAddress: widget.walletAddress,
+                  TokenFormInfo(
+                    formFieldState: formFieldState,
+                    balanceModel: tokenFormState.balanceModel,
+                    feeTokenAmountModel: tokenFormState.feeTokenAmountModel,
+                    tokenDenominationModel: tokenFormState.tokenDenominationModel,
+                  ),
+                  TokenDenominationList(
+                    tokenAliasModel: tokenFormState.balanceModel?.tokenAmountModel.tokenAliasModel,
+                    defaultTokenDenominationModel: tokenFormState.tokenDenominationModel,
+                    onChanged: tokenFormCubit.updateTokenDenomination,
                   ),
                 ],
-              ),
-              TokenFormInfo(
-                formFieldState: formFieldState,
-                totalBalanceModel: tokenFormCubit.totalBalanceModelNotifier.value,
-                tokenDenominationModelNotifier: tokenFormCubit.tokenDenominationModelNotifier,
-              ),
-              ValueListenableBuilder<TotalBalanceModel?>(
-                valueListenable: tokenFormCubit.totalBalanceModelNotifier,
-                builder: (_, TotalBalanceModel? totalBalanceModel, __) {
-                  return TokenDenominationList(
-                    tokenAliasModel: totalBalanceModel?.tokenAliasModel,
-                    onChanged: tokenFormCubit.setTokenDenominationModel,
-                  );
-                },
-              ),
-            ],
+              );
+            },
           );
         },
       ),
     );
   }
 
-  void _handleTokenDenominationModelChanged() {
-    widget.onTokenDenominationChanged(tokenFormCubit.tokenDenominationModelNotifier.value);
-  }
-
-  String? _validate() {
-    TokenAmountModel? selectedTokenAmountModel = tokenFormCubit.tokenAmountModelNotifier.value;
-    TokenAmountModel? availableTokenAmountModel = tokenFormCubit.totalBalanceModelNotifier.value?.availableTokenAmountModel;
+  String? _validate(TokenFormState tokenFormState) {
+    TokenAmountModel? selectedTokenAmountModel = tokenFormState.tokenAmountModel;
+    TokenAmountModel? availableTokenAmountModel = tokenFormState.availableTokenAmountModel;
 
     Decimal selectedTokenAmount = selectedTokenAmountModel?.getAmountInLowestDenomination() ?? Decimal.zero;
     Decimal availableTokenAmount = availableTokenAmountModel?.getAmountInLowestDenomination() ?? Decimal.zero;

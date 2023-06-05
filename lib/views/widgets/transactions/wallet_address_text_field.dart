@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
-import 'package:miro/views/widgets/generic/responsive/responsive_value.dart';
 import 'package:miro/views/widgets/kira/kira_identity_avatar.dart';
 import 'package:miro/views/widgets/transactions/tx_input_wrapper.dart';
 import 'package:miro/views/widgets/transactions/tx_text_field.dart';
@@ -10,14 +9,14 @@ import 'package:miro/views/widgets/transactions/tx_text_field.dart';
 class WalletAddressTextField extends StatefulWidget {
   final String label;
   final ValueChanged<WalletAddress?> onChanged;
-  final bool disabled;
-  final WalletAddress? initialWalletAddress;
+  final bool disabledBool;
+  final WalletAddress? defaultWalletAddress;
 
   const WalletAddressTextField({
     required this.label,
     required this.onChanged,
-    this.disabled = false,
-    this.initialWalletAddress,
+    this.disabledBool = false,
+    this.defaultWalletAddress,
     Key? key,
   }) : super(key: key);
 
@@ -33,17 +32,12 @@ class _WalletAddressTextField extends State<WalletAddressTextField> {
   @override
   void initState() {
     super.initState();
-    if (widget.initialWalletAddress != null) {
-      walletAddressNotifier.value = widget.initialWalletAddress;
-      textEditingController.text = widget.initialWalletAddress!.bech32Address;
-      widget.onChanged.call(widget.initialWalletAddress!);
-    }
+    _assignDefaultValues();
   }
 
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
-    bool disabled = widget.initialWalletAddress != null;
 
     return FormField<WalletAddress>(
       key: formFieldKey,
@@ -71,12 +65,8 @@ class _WalletAddressTextField extends State<WalletAddressTextField> {
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: TxTextField(
-                        disabled: disabled,
-                        maxLines: const ResponsiveValue<int>(
-                          largeScreen: 1,
-                          mediumScreen: 1,
-                          smallScreen: 2,
-                        ).get(context),
+                        disabled: widget.disabledBool,
+                        maxLines: 1,
                         hasErrors: field.hasError,
                         label: widget.label,
                         textEditingController: textEditingController,
@@ -91,15 +81,20 @@ class _WalletAddressTextField extends State<WalletAddressTextField> {
               const SizedBox(height: 7),
               Text(
                 field.errorText!,
-                style: textTheme.caption!.copyWith(
-                  color: DesignColors.redStatus1,
-                ),
+                style: textTheme.caption!.copyWith(color: DesignColors.redStatus1),
               ),
             ],
           ],
         );
       },
     );
+  }
+
+  void _assignDefaultValues() {
+    if (widget.defaultWalletAddress != null) {
+      walletAddressNotifier.value = widget.defaultWalletAddress;
+      textEditingController.text = widget.defaultWalletAddress!.bech32Address;
+    }
   }
 
   void _handleTextFieldChanged(String value) {

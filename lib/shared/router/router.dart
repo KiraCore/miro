@@ -3,8 +3,6 @@ import 'package:miro/shared/router/guards/auth_guard.dart';
 import 'package:miro/shared/router/guards/connection_guard.dart';
 import 'package:miro/shared/router/guards/navigation_guard.dart';
 import 'package:miro/shared/router/guards/pages/loading_page_guard.dart';
-import 'package:miro/shared/router/guards/pages/tx_broadcast_page_guard.dart';
-import 'package:miro/shared/router/guards/pages/tx_confirm_page_guard.dart';
 import 'package:miro/views/pages/loading/loading_page/loading_page.dart';
 import 'package:miro/views/pages/loading/loading_wrapper.dart';
 import 'package:miro/views/pages/loading/network_list_page/network_list_page.dart';
@@ -14,9 +12,7 @@ import 'package:miro/views/pages/menu/my_account_page/my_account_page.dart';
 import 'package:miro/views/pages/menu/validators_page/validators_page.dart';
 import 'package:miro/views/pages/pages_wrapper.dart';
 import 'package:miro/views/pages/transactions/transactions_wrapper.dart';
-import 'package:miro/views/pages/transactions/tx_broadcast_page/tx_broadcast_page.dart';
-import 'package:miro/views/pages/transactions/tx_confirm_page/tx_confirm_page.dart';
-import 'package:miro/views/pages/transactions/tx_form_page/send/tx_tokens_send_form_page.dart';
+import 'package:miro/views/pages/transactions/tx_send/tx_send_tokens/tx_send_tokens_page.dart';
 
 @CustomAutoRouter(replaceInRouteName: 'Page,Route', routes: <AutoRoute>[
   CustomRoute<void>(
@@ -87,24 +83,10 @@ import 'package:miro/views/pages/transactions/tx_form_page/send/tx_tokens_send_f
         transitionsBuilder: TransitionsBuilders.fadeIn,
         children: <AutoRoute>[
           CustomRoute<void>(
-            page: TxTokensSendFormPage,
-            name: 'TxTokensSendFormRoute',
+            page: TxSendTokensPage,
+            name: 'TxSendTokensRoute',
             path: 'tokens/send',
             guards: <Type>[AuthGuard],
-            transitionsBuilder: TransitionsBuilders.fadeIn,
-          ),
-          CustomRoute<void>(
-            page: TxConfirmPage,
-            name: 'TxConfirmRoute',
-            path: 'transaction/confirm',
-            guards: <Type>[AuthGuard, TxConfirmPageGuard],
-            transitionsBuilder: TransitionsBuilders.fadeIn,
-          ),
-          CustomRoute<void>(
-            page: TxBroadcastPage,
-            name: 'TxBroadcastRoute',
-            path: 'transaction/broadcast',
-            guards: <Type>[AuthGuard, TxBroadcastPageGuard],
             transitionsBuilder: TransitionsBuilders.fadeIn,
           ),
         ],
