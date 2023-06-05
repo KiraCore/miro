@@ -80,7 +80,7 @@ class _BalanceListItemBuilder extends State<BalanceListItemBuilder> {
     KiraRouter.of(context).navigate(PagesWrapperRoute(
       children: <PageRouteInfo>[
         TransactionsWrapperRoute(children: <PageRouteInfo>[
-          TxTokensSendFormRoute(initialBalanceModel: widget.balanceModel),
+          TxSendTokensRoute(defaultBalanceModel: widget.balanceModel),
         ])
       ],
     ));

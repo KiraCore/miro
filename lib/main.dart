@@ -13,8 +13,6 @@ import 'package:miro/shared/router/guards/auth_guard.dart';
 import 'package:miro/shared/router/guards/connection_guard.dart';
 import 'package:miro/shared/router/guards/navigation_guard.dart';
 import 'package:miro/shared/router/guards/pages/loading_page_guard.dart';
-import 'package:miro/shared/router/guards/pages/tx_broadcast_page_guard.dart';
-import 'package:miro/shared/router/guards/pages/tx_confirm_page_guard.dart';
 import 'package:miro/shared/router/router.gr.dart';
 import 'package:miro/shared/utils/assets_manager.dart';
 
@@ -42,9 +40,7 @@ class _CoreApp extends State<CoreApp> {
   final ConnectionGuard connectionGuard = ConnectionGuard();
   late final AppRouter appRouter = AppRouter(
     authGuard: AuthGuard(),
-    txConfirmPageGuard: TxConfirmPageGuard(),
     navigationGuard: NavigationGuard(),
-    txBroadcastPageGuard: TxBroadcastPageGuard(),
     connectionGuard: connectionGuard,
     loadingPageGuard: LoadingPageGuard(connectionGuard: connectionGuard),
   );

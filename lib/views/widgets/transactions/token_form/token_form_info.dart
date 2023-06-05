@@ -1,25 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
-import 'package:miro/shared/models/balances/total_balance_model.dart';
+import 'package:miro/shared/models/balances/balance_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/tokens/token_denomination_model.dart';
 
 class TokenFormInfo extends StatelessWidget {
+  final TokenAmountModel feeTokenAmountModel;
   final FormFieldState<TokenAmountModel> formFieldState;
-  final ValueNotifier<TokenDenominationModel?> tokenDenominationModelNotifier;
-  final TotalBalanceModel? totalBalanceModel;
+  final BalanceModel? balanceModel;
+  final TokenDenominationModel? tokenDenominationModel;
 
   const TokenFormInfo({
+    required this.feeTokenAmountModel,
     required this.formFieldState,
-    required this.tokenDenominationModelNotifier,
-    required this.totalBalanceModel,
+    this.balanceModel,
+    this.tokenDenominationModel,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
+
+    if (tokenDenominationModel == null || balanceModel == null) {
+      return const SizedBox();
+    }
+    TokenAmountModel availableTokenAmountModel = balanceModel!.tokenAmountModel - feeTokenAmountModel;
+    String availableAmountText = availableTokenAmountModel.getAmountInDenomination(tokenDenominationModel!).toString();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -33,29 +41,18 @@ class TokenFormInfo extends StatelessWidget {
             ),
           ),
         ],
-        ValueListenableBuilder<TokenDenominationModel?>(
-          valueListenable: tokenDenominationModelNotifier,
-          builder: (_, TokenDenominationModel? tokenDenominationModel, __) {
-            if (tokenDenominationModel == null || totalBalanceModel == null) {
-              return const SizedBox();
-            }
-            TokenAmountModel availableTokenAmountModel = totalBalanceModel!.availableTokenAmountModel;
-            String availableAmountText = availableTokenAmountModel.getAmountInDenomination(tokenDenominationModel).toString();
-
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                const SizedBox(height: 7),
-                Text(
-                  S.of(context).txAvailableBalances(availableAmountText, tokenDenominationModel.name),
-                  style: textTheme.caption!.copyWith(
-                    color: formFieldState.hasError ? DesignColors.redStatus1 : DesignColors.white2,
-                  ),
-                ),
-                const SizedBox(height: 15),
-              ],
-            );
-          },
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            const SizedBox(height: 7),
+            Text(
+              S.of(context).txAvailableBalances(availableAmountText, tokenDenominationModel!.name),
+              style: textTheme.caption!.copyWith(
+                color: formFieldState.hasError ? DesignColors.redStatus1 : DesignColors.white2,
+              ),
+            ),
+            const SizedBox(height: 15),
+          ],
         ),
       ],
     );

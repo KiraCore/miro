@@ -11,16 +11,16 @@ import 'package:miro/views/widgets/transactions/tx_input_wrapper.dart';
 import 'package:miro/views/widgets/transactions/tx_text_field.dart';
 
 class TokenAmountTextField extends StatefulWidget {
-  final bool disabled;
+  final bool disabledBool;
+  final bool errorExistsBool;
   final TextEditingController textEditingController;
-  final bool hasErrors;
-  final ValueNotifier<TokenDenominationModel?> tokenDenominationModelNotifier;
+  final TokenDenominationModel? tokenDenominationModel;
 
   const TokenAmountTextField({
-    required this.disabled,
+    required this.disabledBool,
     required this.textEditingController,
-    required this.tokenDenominationModelNotifier,
-    this.hasErrors = false,
+    required this.tokenDenominationModel,
+    this.errorExistsBool = false,
     Key? key,
   }) : super(key: key);
 
@@ -47,60 +47,51 @@ class _TokenAmountTextField extends State<TokenAmountTextField> {
 
   @override
   Widget build(BuildContext context) {
-    return ValueListenableBuilder<TokenDenominationModel?>(
-      valueListenable: widget.tokenDenominationModelNotifier,
-      builder: (_, TokenDenominationModel? tokenDenominationModel, __) {
-        bool disabled = widget.disabled || tokenDenominationModel == null;
+    bool disabledBool = widget.disabledBool || widget.tokenDenominationModel == null;
 
-        return Column(
-          children: <Widget>[
-            TxInputWrapper(
-              disabled: disabled,
-              height: 80,
-              hasErrors: widget.hasErrors,
-              child: SizedBox(
-                height: double.infinity,
-                child: Center(
-                  child: TxInputStaticLabel(
-                    label: S.of(context).balancesAmount,
-                    contentPadding: const EdgeInsets.only(top: 9, bottom: 5),
-                    child: TxTextField(
-                      focusNode: focusNode,
-                      hasErrors: widget.hasErrors,
-                      disabled: disabled,
-                      textEditingController: widget.textEditingController,
-                      inputFormatters: <TextInputFormatter>[
-                        TokenAmountTextInputFormatter(
-                          tokenDenominationModel: tokenDenominationModel,
-                        ),
-                      ],
-                      onChanged: (_) => _handleTextFieldChanged(),
-                    ),
-                  ),
+    return Column(
+      children: <Widget>[
+        TxInputWrapper(
+          disabled: disabledBool,
+          height: 80,
+          hasErrors: widget.errorExistsBool,
+          child: SizedBox(
+            height: double.infinity,
+            child: Center(
+              child: TxInputStaticLabel(
+                label: S.of(context).balancesAmount,
+                contentPadding: const EdgeInsets.only(top: 9, bottom: 5),
+                child: TxTextField(
+                  maxLines: 1,
+                  focusNode: focusNode,
+                  hasErrors: widget.errorExistsBool,
+                  disabled: disabledBool,
+                  textEditingController: widget.textEditingController,
+                  inputFormatters: <TextInputFormatter>[
+                    TokenAmountTextInputFormatter(tokenDenominationModel: widget.tokenDenominationModel),
+                  ],
+                  onChanged: (_) => _handleTextFieldChanged(),
                 ),
               ),
             ),
-            TokenAmountTextFieldActions(
-              disabled: disabled,
-            ),
-          ],
-        );
-      },
+          ),
+        ),
+        TokenAmountTextFieldActions(disabled: disabledBool),
+      ],
     );
   }
 
   void _handleTextFieldChanged() {
     String text = widget.textEditingController.text;
-    BlocProvider.of<TokenFormCubit>(context).setTokenAmountValue(text);
+    BlocProvider.of<TokenFormCubit>(context).notifyTokenAmountTextChanged(text);
   }
 
   void _handleFocusChanged() {
-    bool hasFocus = focusNode.hasFocus;
-    bool focusCanceled = !hasFocus;
+    bool focusedBool = focusNode.hasFocus;
     String text = widget.textEditingController.text;
-    if (focusCanceled && text.isEmpty) {
+    if (focusedBool == false && text.isEmpty) {
       widget.textEditingController.text = '0';
-    } else if (hasFocus && text == '0') {
+    } else if (focusedBool && text == '0') {
       widget.textEditingController.text = '';
     }
   }

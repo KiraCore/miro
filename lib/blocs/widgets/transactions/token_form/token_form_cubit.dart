@@ -3,87 +3,73 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/widgets/transactions/token_form/token_form_state.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
-import 'package:miro/shared/models/balances/total_balance_model.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/tokens/token_denomination_model.dart';
 
 class TokenFormCubit extends Cubit<TokenFormState> {
-  static const String _emptyTokenAmount = '0';
-
   final GlobalKey<FormFieldState<TokenAmountModel>> formFieldKey = GlobalKey<FormFieldState<TokenAmountModel>>();
-  final TextEditingController amountTextEditingController = TextEditingController(text: _emptyTokenAmount);
-
-  final ValueNotifier<TokenAmountModel?> tokenAmountModelNotifier = ValueNotifier<TokenAmountModel?>(null);
-  final ValueNotifier<TotalBalanceModel?> totalBalanceModelNotifier = ValueNotifier<TotalBalanceModel?>(null);
-  final ValueNotifier<TokenDenominationModel?> tokenDenominationModelNotifier = ValueNotifier<TokenDenominationModel?>(null);
-
-  final TokenAmountModel feeTokenAmountModel;
+  final TextEditingController amountTextEditingController = TextEditingController(text: '0');
 
   TokenFormCubit({
-    required this.feeTokenAmountModel,
-    BalanceModel? initialBalanceModel,
-  }) : super(const TokenFormState()) {
-    if (initialBalanceModel != null) {
-      setBalanceModel(initialBalanceModel);
-    }
-  }
-
-  void setBalanceModel(BalanceModel balanceModel) {
-    totalBalanceModelNotifier.value = TotalBalanceModel(
-      balanceModel: balanceModel,
-      feeTokenAmountModel: feeTokenAmountModel,
-    );
-
-    TokenAliasModel tokenAliasModel = balanceModel.tokenAmountModel.tokenAliasModel;
-    tokenDenominationModelNotifier.value = tokenAliasModel.defaultTokenDenominationModel;
-    _notifyValueChanged(TokenAmountModel.zero(tokenAliasModel: tokenAliasModel));
-    setTokenAmountValue(_emptyTokenAmount, shouldUpdateTextField: true);
-  }
-
-  void setTokenDenominationModel(TokenDenominationModel tokenDenominationModel) {
-    tokenDenominationModelNotifier.value = tokenDenominationModel;
-    TokenAmountModel tokenAmountModel = tokenAmountModelNotifier.value!;
-
-    Decimal amountInNewDenomination = tokenAmountModel.getAmountInDenomination(tokenDenominationModel);
-    setTokenAmountValue(amountInNewDenomination.toString(), shouldUpdateTextField: true);
-  }
-
-  void setAllAvailableAmount() {
-    TokenDenominationModel tokenDenominationModel = tokenDenominationModelNotifier.value!;
-    TotalBalanceModel totalBalanceModel = totalBalanceModelNotifier.value!;
-
-    TokenAmountModel availableTokenAmountModel = totalBalanceModel.availableTokenAmountModel;
-    String availableAmountText = availableTokenAmountModel.getAmountInDenomination(tokenDenominationModel).toString();
-    setTokenAmountValue(availableAmountText, shouldUpdateTextField: true);
+    required TokenAmountModel feeTokenAmountModel,
+    BalanceModel? defaultBalanceModel,
+    TokenAmountModel? defaultTokenAmountModel,
+    TokenDenominationModel? defaultTokenDenominationModel,
+  }) : super(TokenFormState.assignDefaults(
+          feeTokenAmountModel: feeTokenAmountModel,
+          defaultBalanceModel: defaultBalanceModel,
+          defaultTokenAmountModel: defaultTokenAmountModel,
+          defaultTokenDenominationModel: defaultTokenDenominationModel,
+        )) {
+    _updateTextFieldValue();
   }
 
   void clearTokenAmount() {
-    setTokenAmountValue(_emptyTokenAmount, shouldUpdateTextField: true);
+    emit(state.copyWith(tokenAmountModel: TokenAmountModel.zero(tokenAliasModel: state.tokenAmountModel!.tokenAliasModel)));
+    _updateTextFieldValue();
   }
 
-  void setTokenAmountValue(String amountText, {bool shouldUpdateTextField = false}) {
-    TokenAmountModel? tokenAmountModel = tokenAmountModelNotifier.value;
-    try {
-      Decimal parsedAmount = Decimal.parse(amountText);
-      tokenAmountModel?.setAmount(parsedAmount, tokenDenominationModel: tokenDenominationModelNotifier.value);
-    } catch (_) {
-      tokenAmountModel?.setAmount(Decimal.zero);
-    }
-    if (shouldUpdateTextField) {
-      amountTextEditingController.text = amountText;
-    }
-    _notifyValueChanged(tokenAmountModel);
+  void notifyTokenAmountTextChanged(String text) {
+    TokenAmountModel tokenAmountModel = state.tokenAmountModel!.copy();
+    Decimal parsedAmount = Decimal.tryParse(text) ?? Decimal.zero;
+    tokenAmountModel.setAmount(parsedAmount, tokenDenominationModel: state.tokenDenominationModel);
+
+    emit(state.copyWith(tokenAmountModel: tokenAmountModel));
+    _validateTokenForm();
   }
 
-  void _notifyValueChanged(TokenAmountModel? tokenAmountModel) {
-    tokenAmountModelNotifier.value = tokenAmountModel;
-    if (isFormValid && tokenAmountModel?.getAmountInLowestDenomination() != Decimal.zero) {
-      emit(TokenFormState(tokenAmountModel: tokenAmountModel));
-    } else {
-      emit(const TokenFormState(tokenAmountModel: null));
+  void setAllAvailableAmount() {
+    emit(state.copyWith(tokenAmountModel: state.availableTokenAmountModel));
+    _updateTextFieldValue();
+  }
+
+  void updateBalance(BalanceModel balanceModel) {
+    TokenAliasModel tokenAliasModel = balanceModel.tokenAmountModel.tokenAliasModel;
+
+    emit(state.copyWith(
+      balanceModel: balanceModel,
+      tokenDenominationModel: tokenAliasModel.defaultTokenDenominationModel,
+      tokenAmountModel: TokenAmountModel.zero(tokenAliasModel: tokenAliasModel),
+    ));
+    _updateTextFieldValue();
+  }
+
+  void updateTokenDenomination(TokenDenominationModel tokenDenominationModel) {
+    emit(state.copyWith(tokenDenominationModel: tokenDenominationModel));
+    _updateTextFieldValue();
+  }
+
+  void _updateTextFieldValue() {
+    bool amountFieldEnabledBool = state.tokenAmountModel != null &&  state.tokenDenominationModel != null;
+    if( amountFieldEnabledBool ) {
+      Decimal availableAmountText = state.tokenAmountModel!.getAmountInDenomination(state.tokenDenominationModel!);
+      amountTextEditingController.text = availableAmountText.toString();
+      _validateTokenForm();
     }
   }
 
-  bool get isFormValid => formFieldKey.currentState?.validate() ?? false;
+  void _validateTokenForm() {
+    Future<void>.delayed(Duration.zero, () => formFieldKey.currentState?.validate());
+  }
 }

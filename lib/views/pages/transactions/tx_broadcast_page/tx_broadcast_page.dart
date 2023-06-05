@@ -1,4 +1,3 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/pages/transactions/tx_broadcast/a_tx_broadcast_state.dart';
@@ -6,45 +5,37 @@ import 'package:miro/blocs/pages/transactions/tx_broadcast/states/tx_broadcast_c
 import 'package:miro/blocs/pages/transactions/tx_broadcast/states/tx_broadcast_error_state.dart';
 import 'package:miro/blocs/pages/transactions/tx_broadcast/states/tx_broadcast_loading_state.dart';
 import 'package:miro/blocs/pages/transactions/tx_broadcast/tx_broadcast_cubit.dart';
+import 'package:miro/shared/models/transactions/form_models/a_msg_form_model.dart';
 import 'package:miro/shared/models/transactions/signed_transaction_model.dart';
-import 'package:miro/shared/router/kira_router.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';
 import 'package:miro/shared/utils/logger/log_level.dart';
 import 'package:miro/views/pages/transactions/tx_broadcast_page/widgets/tx_broadcast_complete_body.dart';
 import 'package:miro/views/pages/transactions/tx_broadcast_page/widgets/tx_broadcast_error_body.dart';
 import 'package:miro/views/pages/transactions/tx_broadcast_page/widgets/tx_broadcast_loading_body.dart';
 
-class TxBroadcastPage extends StatefulWidget {
-  final String? txFormPageName;
-  final SignedTxModel? signedTxModel;
+class TxBroadcastPage<T extends AMsgFormModel> extends StatefulWidget {
+  final SignedTxModel signedTxModel;
 
   const TxBroadcastPage({
-    @QueryParam('txFormPageName') this.txFormPageName,
-    @QueryParam('tx') this.signedTxModel,
+    required this.signedTxModel,
     Key? key,
   }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _TxBroadcastPage();
+  State<StatefulWidget> createState() => _TxBroadcastPage<T>();
 }
 
-class _TxBroadcastPage extends State<TxBroadcastPage> {
+class _TxBroadcastPage<T extends AMsgFormModel> extends State<TxBroadcastPage<T>> {
   final TxBroadcastCubit txBroadcastCubit = TxBroadcastCubit();
 
   @override
   void initState() {
     super.initState();
-    if (widget.signedTxModel != null) {
-      txBroadcastCubit.broadcast(widget.signedTxModel!);
-    }
+    txBroadcastCubit.broadcast(widget.signedTxModel);
   }
 
   @override
   Widget build(BuildContext context) {
-    if (widget.signedTxModel == null) {
-      KiraRouter.of(context).navigateBack();
-    }
-
     return BlocProvider<TxBroadcastCubit>(
       create: (_) => txBroadcastCubit,
       child: BlocBuilder<TxBroadcastCubit, ATxBroadcastState>(
@@ -60,10 +51,9 @@ class _TxBroadcastPage extends State<TxBroadcastPage> {
 
   Widget _buildTxStatusWidget(ATxBroadcastState txBroadcastState) {
     if (txBroadcastState is TxBroadcastErrorState) {
-      return TxBroadcastErrorBody(
-        txFormPageName: widget.txFormPageName,
+      return TxBroadcastErrorBody<T>(
         errorExplorerModel: txBroadcastState.errorExplorerModel,
-        signedTxModel: widget.signedTxModel!,
+        signedTxModel: widget.signedTxModel,
       );
     } else if (txBroadcastState is TxBroadcastLoadingState) {
       return TxBroadcastLoadingBody(txBroadcastLoadingState: txBroadcastState);

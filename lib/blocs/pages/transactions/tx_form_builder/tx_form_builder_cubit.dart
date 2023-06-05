@@ -8,22 +8,22 @@ import 'package:miro/blocs/pages/transactions/tx_form_builder/states/tx_form_bui
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/services/api_kira/query_account_service.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
+import 'package:miro/shared/models/transactions/form_models/a_msg_form_model.dart';
 import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
 import 'package:miro/shared/models/transactions/tx_local_info_model.dart';
 import 'package:miro/shared/models/transactions/tx_remote_info_model.dart';
 import 'package:miro/shared/models/transactions/unsigned_tx_model.dart';
-import 'package:miro/views/pages/transactions/tx_form_page/msg_forms/a_msg_form_controller.dart';
 
 class TxFormBuilderCubit extends Cubit<ATxFormBuilderState> {
   final AuthCubit _authCubit = globalLocator<AuthCubit>();
   final QueryAccountService _queryAccountService = globalLocator<QueryAccountService>();
 
   final TokenAmountModel feeTokenAmountModel;
-  final AMsgFormController msgFormController;
+  final AMsgFormModel msgFormModel;
 
   TxFormBuilderCubit({
     required this.feeTokenAmountModel,
-    required this.msgFormController,
+    required this.msgFormModel,
   }) : super(TxFormBuilderEmptyState());
 
   /// Method [buildUnsignedTx] throws [Exception] if one of the methods [_buildTxLocalInfo], [_downloadTxRemoteInfo] throws an exception
@@ -51,8 +51,8 @@ class TxFormBuilderCubit extends Cubit<ATxFormBuilderState> {
   /// Method [msgFormController.buildTxMsgModel] may throw an [Exception] if cannot create [ATxMsgModel]
   /// The most common reason is when all required fields in form were not filled
   TxLocalInfoModel _buildTxLocalInfo() {
-    ATxMsgModel txMsgModel = msgFormController.buildTxMsgModel();
-    String memo = msgFormController.memo;
+    ATxMsgModel txMsgModel = msgFormModel.buildTxMsgModel();
+    String memo = msgFormModel.memo;
     TxLocalInfoModel txLocalInfoModel = TxLocalInfoModel(
       feeTokenAmountModel: feeTokenAmountModel,
       memo: memo,

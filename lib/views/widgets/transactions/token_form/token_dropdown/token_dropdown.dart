@@ -11,13 +11,13 @@ import 'package:miro/views/widgets/transactions/token_form/token_dropdown/token_
 import 'package:miro/views/widgets/transactions/tx_input_wrapper.dart';
 
 class TokenDropdown extends StatefulWidget {
-  final bool disabled;
-  final BalanceModel? initialBalanceModel;
+  final bool disabledBool;
+  final BalanceModel? defaultBalanceModel;
   final WalletAddress? walletAddress;
 
   const TokenDropdown({
-    this.disabled = false,
-    this.initialBalanceModel,
+    this.disabledBool = false,
+    this.defaultBalanceModel,
     this.walletAddress,
     Key? key,
   }) : super(key: key);
@@ -27,7 +27,7 @@ class TokenDropdown extends StatefulWidget {
 }
 
 class _TokenDropdown extends State<TokenDropdown> {
-  late final ValueNotifier<BalanceModel?> selectedBalanceModelNotifier = ValueNotifier<BalanceModel?>(widget.initialBalanceModel);
+  late final ValueNotifier<BalanceModel?> selectedBalanceModelNotifier = ValueNotifier<BalanceModel?>(widget.defaultBalanceModel);
   final PopWrapperController popWrapperController = PopWrapperController();
 
   @override
@@ -35,7 +35,7 @@ class _TokenDropdown extends State<TokenDropdown> {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints boxConstraints) {
         return PopWrapper(
-          disabled: widget.disabled,
+          disabled: widget.disabledBool,
           popWrapperController: popWrapperController,
           buttonBuilder: () => _buildSelectedTokenButton(boxConstraints),
           popupBuilder: () => _buildPopupTokensList(boxConstraints),
@@ -50,13 +50,11 @@ class _TokenDropdown extends State<TokenDropdown> {
       builder: (_, BalanceModel? balanceModel, __) {
         return TxInputWrapper(
           height: 80,
-          disabled: widget.disabled,
+          disabled: widget.disabledBool,
           padding: EdgeInsets.zero,
           child: Container(
             padding: const EdgeInsets.all(16),
-            child: TokenDropdownButton(
-              tokenAliasModel: balanceModel?.tokenAmountModel.tokenAliasModel,
-            ),
+            child: TokenDropdownButton(tokenAliasModel: balanceModel?.tokenAmountModel.tokenAliasModel),
           ),
         );
       },
@@ -92,7 +90,7 @@ class _TokenDropdown extends State<TokenDropdown> {
     popWrapperController.hideTooltip();
     if (selectedBalanceModelNotifier.value != balanceModel) {
       selectedBalanceModelNotifier.value = balanceModel;
-      BlocProvider.of<TokenFormCubit>(context).setBalanceModel(balanceModel);
+      BlocProvider.of<TokenFormCubit>(context).updateBalance(balanceModel);
     }
   }
 }

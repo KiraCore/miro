@@ -2,10 +2,9 @@ import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/blocs/widgets/transactions/token_form/token_form_cubit.dart';
+import 'package:miro/blocs/widgets/transactions/token_form/token_form_state.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
-import 'package:miro/shared/models/balances/total_balance_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
-import 'package:miro/shared/models/tokens/token_denomination_model.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
 // To run this test type in console:
@@ -32,208 +31,209 @@ Future<void> main() async {
     ),
   );
 
-  group('Tests of [TokenFormCubit] process', () {
-    test('Should update [TokenFormCubit] parameters assigned to specific actions', () {
+  group('Tests of [TokenFormCubit] initialization', () {
+    test('Should [return empty TokenFormState] if [optional parameters NOT specified]', () {
+      // Arrange
+      TokenFormCubit actualTokenFormCubit = TokenFormCubit(feeTokenAmountModel: feeTokenAmountModel);
+
+      // Assert
+      TokenFormState expectedTokenFormState = TokenFormState(feeTokenAmountModel: feeTokenAmountModel);
+
+      expect(actualTokenFormCubit.state, expectedTokenFormState);
+      expect(actualTokenFormCubit.amountTextEditingController.text, '0');
+    });
+
+    test('Should return [TokenFormState] with calculated values if [only default BalanceModel specified]', () {
       // Arrange
       TokenFormCubit actualTokenFormCubit = TokenFormCubit(
         feeTokenAmountModel: feeTokenAmountModel,
-        initialBalanceModel: kexBalanceModel,
+        defaultBalanceModel: kexBalanceModel,
       );
 
-      // Act
-      TokenAmountModel? actualTokenAmountModel = actualTokenFormCubit.tokenAmountModelNotifier.value;
-
       // Assert
-      TokenAmountModel? expectedTokenAmountModel = TokenAmountModel.zero(tokenAliasModel: TestUtils.kexTokenAliasModel);
-
-      TestUtils.printInfo('Should return TokenAmountModel with defaultTokenDenomination equal to 0 and KEX TokenAliasModel');
-      expect(actualTokenAmountModel, expectedTokenAmountModel);
-
-      // ************************************************************************************************
-
-      // Act
-      TotalBalanceModel? actualTotalBalanceModel = actualTokenFormCubit.totalBalanceModelNotifier.value;
-
-      // Assert
-      TotalBalanceModel expectedTotalBalanceModel = TotalBalanceModel(
-        balanceModel: kexBalanceModel,
+      TokenFormState expectedTokenFormState = TokenFormState(
         feeTokenAmountModel: feeTokenAmountModel,
+        balanceModel: kexBalanceModel,
+        tokenDenominationModel: kexBalanceModel.tokenAmountModel.tokenAliasModel.defaultTokenDenominationModel,
+        tokenAmountModel: TokenAmountModel.zero(tokenAliasModel: kexBalanceModel.tokenAmountModel.tokenAliasModel),
       );
 
-      TestUtils.printInfo('Should return TotalBalanceModel with KEX balanceModel and feeTokenAmountModel');
-      expect(actualTotalBalanceModel, expectedTotalBalanceModel);
+      expect(actualTokenFormCubit.state, expectedTokenFormState);
+      expect(actualTokenFormCubit.amountTextEditingController.text, '0');
+    });
 
-      // ************************************************************************************************
-
-      // Act
-      TokenDenominationModel? actualTokenDenominationModel = actualTokenFormCubit.tokenDenominationModelNotifier.value;
-
-      // Assert
-      TokenDenominationModel expectedTokenDenominationModel = TestUtils.kexTokenAliasModel.defaultTokenDenominationModel;
-
-      TestUtils.printInfo('Should return defaultTokenDenominationModel from KEX TokenAliasModel');
-      expect(actualTokenDenominationModel, expectedTokenDenominationModel);
-
-      // ************************************************************************************************
-
-      // Act
-      String actualTextAmount = actualTokenFormCubit.amountTextEditingController.text;
-
-      // Assert
-      String expectedTextAmount = '0';
-
-      TestUtils.printInfo('Should return text amount equal to 0');
-      expect(actualTextAmount, expectedTextAmount);
-
-      // ************************************************************************************************
-
-      // Act
-      actualTokenFormCubit.setTokenAmountValue('50', shouldUpdateTextField: true);
-      actualTextAmount = actualTokenFormCubit.amountTextEditingController.text;
-
-      // Assert
-      expectedTextAmount = '50';
-
-      TestUtils.printInfo('Should return text amount equal to 50');
-      expect(actualTextAmount, expectedTextAmount);
-
-      // ************************************************************************************************
-
-      // Act
-      actualTokenAmountModel = actualTokenFormCubit.tokenAmountModelNotifier.value;
-
-      // Assert
-      expectedTokenAmountModel = TokenAmountModel(
-        lowestDenominationAmount: Decimal.fromInt(50000000),
-        tokenAliasModel: TestUtils.kexTokenAliasModel,
+    test('Should return [TokenFormState] with [specified default values]', () {
+      // Arrange
+      TokenFormCubit actualTokenFormCubit = TokenFormCubit(
+        feeTokenAmountModel: feeTokenAmountModel,
+        defaultBalanceModel: kexBalanceModel,
+        defaultTokenDenominationModel: TestUtils.kexTokenAliasModel.tokenDenominations[1],
+        defaultTokenAmountModel: TokenAmountModel(
+          lowestDenominationAmount: Decimal.fromInt(100),
+          tokenAliasModel: TestUtils.kexTokenAliasModel,
+        ),
       );
 
-      TestUtils.printInfo('Should return TokenAmountModel with lowestDenominationAmount equal to 50000000 and KEX TokenAliasModel');
-      expect(actualTokenAmountModel, expectedTokenAmountModel);
+      // Assert
+      TokenFormState expectedTokenFormState = TokenFormState(
+        feeTokenAmountModel: feeTokenAmountModel,
+        balanceModel: kexBalanceModel,
+        tokenAmountModel: TokenAmountModel(
+          lowestDenominationAmount: Decimal.fromInt(100),
+          tokenAliasModel: TestUtils.kexTokenAliasModel,
+        ),
+        tokenDenominationModel: TestUtils.kexTokenAliasModel.tokenDenominations[1],
+      );
+
+      expect(actualTokenFormCubit.state, expectedTokenFormState);
+      expect(actualTokenFormCubit.amountTextEditingController.text, '100');
+    });
+  });
+
+  group('Tests of [TokenFormCubit] process', () {
+    test('Should update [TokenFormCubit] parameters assigned to specific actions', () {
+      // Arrange
+      TokenFormCubit actualTokenFormCubit = TokenFormCubit(feeTokenAmountModel: feeTokenAmountModel);
+
+      // Assert
+      TokenFormState expectedTokenFormState = TokenFormState(feeTokenAmountModel: feeTokenAmountModel);
+
+      TestUtils.printInfo('Should [return empty TokenFormState] as initial state');
+      expect(actualTokenFormCubit.state, expectedTokenFormState);
+      expect(actualTokenFormCubit.amountTextEditingController.text, '0');
 
       // ************************************************************************************************
 
       // Act
-      actualTokenFormCubit.setTokenDenominationModel(TestUtils.kexTokenAliasModel.lowestTokenDenominationModel);
-      actualTokenDenominationModel = actualTokenFormCubit.tokenDenominationModelNotifier.value;
+      actualTokenFormCubit.updateBalance(kexBalanceModel);
 
       // Assert
-      expectedTokenDenominationModel = TestUtils.kexTokenAliasModel.lowestTokenDenominationModel;
+      expectedTokenFormState = TokenFormState(
+        feeTokenAmountModel: feeTokenAmountModel,
+        balanceModel: kexBalanceModel,
+        tokenAmountModel: TokenAmountModel.zero(tokenAliasModel: TestUtils.kexTokenAliasModel),
+        tokenDenominationModel: TestUtils.kexTokenAliasModel.defaultTokenDenominationModel,
+      );
 
-      TestUtils.printInfo('Should return lowestTokenDenominationModel from KEX TokenAliasModel');
-      expect(actualTokenDenominationModel, expectedTokenDenominationModel);
-
-      // Assert
-      TestUtils.printInfo('Should return unchanged TokenAmountModel after changing TokenDenominationModel');
-      expect(actualTokenAmountModel, expectedTokenAmountModel);
+      TestUtils.printInfo('Should [return TokenFormState] with updated BalanceModel');
+      expect(actualTokenFormCubit.state, expectedTokenFormState);
+      expect(actualTokenFormCubit.amountTextEditingController.text, '0');
 
       // ************************************************************************************************
 
       // Act
-      actualTextAmount = actualTokenFormCubit.amountTextEditingController.text;
+      actualTokenFormCubit.amountTextEditingController.text = '100';
+      actualTokenFormCubit.notifyTokenAmountTextChanged('100');
 
       // Assert
-      expectedTextAmount = '50000000';
+      expectedTokenFormState = TokenFormState(
+        feeTokenAmountModel: feeTokenAmountModel,
+        balanceModel: kexBalanceModel,
+        tokenAmountModel: TokenAmountModel(
+          lowestDenominationAmount: Decimal.fromInt(100000000),
+          tokenAliasModel: TestUtils.kexTokenAliasModel,
+        ),
+        tokenDenominationModel: TestUtils.kexTokenAliasModel.defaultTokenDenominationModel,
 
-      TestUtils.printInfo('Should return text amount equal to 50000000');
-      expect(actualTextAmount, expectedTextAmount);
+      );
+
+      TestUtils.printInfo('Should [return TokenFormState] with updated token amount');
+      expect(actualTokenFormCubit.state, expectedTokenFormState);
+      expect(actualTokenFormCubit.amountTextEditingController.text, '100');
+
+      // ************************************************************************************************
+
+      // Act
+      actualTokenFormCubit.updateTokenDenomination(TestUtils.kexTokenAliasModel.lowestTokenDenominationModel);
+
+      // Assert
+      expectedTokenFormState = TokenFormState(
+        feeTokenAmountModel: feeTokenAmountModel,
+        balanceModel: kexBalanceModel,
+        tokenAmountModel: TokenAmountModel(
+          lowestDenominationAmount: Decimal.fromInt(100000000),
+          tokenAliasModel: TestUtils.kexTokenAliasModel,
+        ),
+        tokenDenominationModel: TestUtils.kexTokenAliasModel.lowestTokenDenominationModel,
+      );
+
+      TestUtils.printInfo('Should [return TokenFormState] with updated TokenDenominationModel');
+      expect(actualTokenFormCubit.state, expectedTokenFormState);
+      expect(actualTokenFormCubit.amountTextEditingController.text, '100000000');
 
       // ************************************************************************************************
 
       // Act
       actualTokenFormCubit.setAllAvailableAmount();
-      actualTokenAmountModel = actualTokenFormCubit.tokenAmountModelNotifier.value;
 
       // Assert
-      expectedTokenAmountModel = TokenAmountModel(
-        lowestDenominationAmount: Decimal.fromInt(900),
-        tokenAliasModel: TestUtils.kexTokenAliasModel,
+      expectedTokenFormState = TokenFormState(
+        feeTokenAmountModel: feeTokenAmountModel,
+        balanceModel: kexBalanceModel,
+        tokenAmountModel: TokenAmountModel(
+          lowestDenominationAmount: Decimal.fromInt(900),
+          tokenAliasModel: TestUtils.kexTokenAliasModel,
+        ),
+        tokenDenominationModel: TestUtils.kexTokenAliasModel.lowestTokenDenominationModel,
       );
 
-      TestUtils.printInfo('Should return TokenAmountModel with available amount and with KEX TokenAliasModel');
-      expect(actualTokenAmountModel, expectedTokenAmountModel);
-
-      // ************************************************************************************************
-
-      // Act
-      actualTextAmount = actualTokenFormCubit.amountTextEditingController.text;
-
-      // Assert
-      expectedTextAmount = '900';
-
-      TestUtils.printInfo('Should return text amount equal to 900');
-      expect(actualTextAmount, expectedTextAmount);
-
-      // ************************************************************************************************
-
-      // Act
-      actualTokenFormCubit.setBalanceModel(ethBalanceModel);
-      actualTokenAmountModel = actualTokenFormCubit.tokenAmountModelNotifier.value;
-
-      // Assert
-      expectedTokenAmountModel = TokenAmountModel.zero(tokenAliasModel: TestUtils.ethTokenAliasModel);
-
-      TestUtils.printInfo('Should clear TokenAmountValue after changing BalanceModel');
-      expect(actualTokenAmountModel, expectedTokenAmountModel);
-
-      // ************************************************************************************************
-
-      // Act
-      actualTextAmount = actualTokenFormCubit.amountTextEditingController.text;
-
-      // Assert
-      expectedTextAmount = '0';
-
-      TestUtils.printInfo('Should clear TextField after changing BalanceModel');
-      expect(actualTextAmount, expectedTextAmount);
-
-      // ************************************************************************************************
-
-      // Act
-      actualTokenDenominationModel = actualTokenFormCubit.tokenDenominationModelNotifier.value;
-
-      // Assert
-      expectedTokenDenominationModel = TestUtils.ethTokenAliasModel.defaultTokenDenominationModel;
-
-      TestUtils.printInfo('Should return defaultTokenDenominationModel from Etherum TokenAliasModel');
-      expect(actualTokenDenominationModel, expectedTokenDenominationModel);
-
-      // ************************************************************************************************
-
-      // Act
-      actualTokenFormCubit.setTokenAmountValue('200', shouldUpdateTextField: true);
-
-      // Assert
-      expectedTokenAmountModel = TokenAmountModel(
-        lowestDenominationAmount: Decimal.parse('200000000000000000000'),
-        tokenAliasModel: TestUtils.ethTokenAliasModel,
-      );
-
-      TestUtils.printInfo('Should return TokenAmountModel with defaultTokenDenomination equal to 200 and Etherum TokenAliasModel');
-      expect(actualTokenAmountModel, expectedTokenAmountModel);
+      TestUtils.printInfo('Should [return TokenFormState] with all available amount');
+      expect(actualTokenFormCubit.state, expectedTokenFormState);
+      expect(actualTokenFormCubit.amountTextEditingController.text, '900');
 
       // ************************************************************************************************
 
       // Act
       actualTokenFormCubit.clearTokenAmount();
-      actualTokenAmountModel = actualTokenFormCubit.tokenAmountModelNotifier.value;
 
       // Assert
-      expectedTokenAmountModel = TokenAmountModel.zero(tokenAliasModel: TestUtils.ethTokenAliasModel);
+      expectedTokenFormState = TokenFormState(
+        feeTokenAmountModel: feeTokenAmountModel,
+        balanceModel: kexBalanceModel,
+        tokenDenominationModel: TestUtils.kexTokenAliasModel.lowestTokenDenominationModel,
+        tokenAmountModel: TokenAmountModel.zero(tokenAliasModel: TestUtils.kexTokenAliasModel),
+      );
 
-      TestUtils.printInfo('Should clear TokenAmountValue after calling clearTokenAmount()');
-      expect(actualTokenAmountModel, expectedTokenAmountModel);
+      TestUtils.printInfo('Should [return TokenFormState] with cleared token amount');
+      expect(actualTokenFormCubit.state, expectedTokenFormState);
 
       // ************************************************************************************************
 
       // Act
-      actualTextAmount = actualTokenFormCubit.amountTextEditingController.text;
+      actualTokenFormCubit.amountTextEditingController.text = '100';
+      actualTokenFormCubit.notifyTokenAmountTextChanged('100');
 
       // Assert
-      expectedTextAmount = '0';
+      expectedTokenFormState = TokenFormState(
+        feeTokenAmountModel: feeTokenAmountModel,
+        balanceModel: kexBalanceModel,
+        tokenAmountModel: TokenAmountModel(
+          lowestDenominationAmount: Decimal.fromInt(100),
+          tokenAliasModel: TestUtils.kexTokenAliasModel,
+        ),
+        tokenDenominationModel: TestUtils.kexTokenAliasModel.lowestTokenDenominationModel,
+      );
 
-      TestUtils.printInfo('Should clear TextField after calling clearTokenAmount()');
-      expect(actualTextAmount, expectedTextAmount);
+      TestUtils.printInfo('Should [return TokenFormState] with updated token amount');
+      expect(actualTokenFormCubit.state, expectedTokenFormState);
+      expect(actualTokenFormCubit.amountTextEditingController.text, '100');
+
+      // ************************************************************************************************
+
+      // Act
+      actualTokenFormCubit.updateBalance(ethBalanceModel);
+
+      // Assert
+      expectedTokenFormState = TokenFormState(
+        feeTokenAmountModel: feeTokenAmountModel,
+        balanceModel: ethBalanceModel,
+        tokenAmountModel: TokenAmountModel.zero(tokenAliasModel: TestUtils.ethTokenAliasModel),
+        tokenDenominationModel: TestUtils.ethTokenAliasModel.defaultTokenDenominationModel,
+      );
+
+      TestUtils.printInfo('Should [return TokenFormState] with updated BalanceModel');
+      expect(actualTokenFormCubit.state, expectedTokenFormState);
+      expect(actualTokenFormCubit.amountTextEditingController.text, '0');
     });
   });
 }

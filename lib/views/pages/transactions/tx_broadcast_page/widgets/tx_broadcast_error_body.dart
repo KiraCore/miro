@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/pages/transactions/tx_broadcast/tx_broadcast_cubit.dart';
+import 'package:miro/blocs/pages/transactions/tx_process_cubit/tx_process_cubit.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/network/error_explorer_model.dart';
+import 'package:miro/shared/models/transactions/form_models/a_msg_form_model.dart';
 import 'package:miro/shared/models/transactions/signed_transaction_model.dart';
 import 'package:miro/shared/router/kira_router.dart';
 import 'package:miro/views/pages/transactions/tx_broadcast_page/widgets/tx_broadcast_status_icon.dart';
@@ -11,15 +13,13 @@ import 'package:miro/views/widgets/buttons/kira_outlined_button.dart';
 import 'package:miro/views/widgets/generic/error_explorer_dialog/error_explorer_dialog.dart';
 import 'package:miro/views/widgets/generic/text_link.dart';
 
-class TxBroadcastErrorBody extends StatelessWidget {
-  final String? txFormPageName;
-  final SignedTxModel signedTxModel;
+class TxBroadcastErrorBody<T extends AMsgFormModel> extends StatelessWidget {
   final ErrorExplorerModel errorExplorerModel;
+  final SignedTxModel signedTxModel;
 
   const TxBroadcastErrorBody({
-    required this.txFormPageName,
-    required this.signedTxModel,
     required this.errorExplorerModel,
+    required this.signedTxModel,
     Key? key,
   }) : super(key: key);
 
@@ -36,9 +36,7 @@ class TxBroadcastErrorBody extends StatelessWidget {
         Text(
           S.of(context).txErrorFailed,
           textAlign: TextAlign.center,
-          style: textTheme.headline3!.copyWith(
-            color: DesignColors.white1,
-          ),
+          style: textTheme.headline3!.copyWith(color: DesignColors.white1),
         ),
         const SizedBox(height: 12),
         Row(
@@ -47,15 +45,11 @@ class TxBroadcastErrorBody extends StatelessWidget {
           children: <Widget>[
             Text(
               '<${errorExplorerModel.code}>',
-              style: textTheme.caption!.copyWith(
-                color: DesignColors.white1,
-              ),
+              style: textTheme.caption!.copyWith(color: DesignColors.white1),
             ),
             const SizedBox(width: 8),
             TextLink(
-              textStyle: textTheme.caption!.copyWith(
-                color: DesignColors.white1,
-              ),
+              textStyle: textTheme.caption!.copyWith(color: DesignColors.white1),
               onTap: () => _showErrorExplorerDialog(context),
               text: S.of(context).txErrorSeeMore,
             ),
@@ -95,9 +89,7 @@ class TxBroadcastErrorBody extends StatelessWidget {
   void _showErrorExplorerDialog(BuildContext context) {
     showDialog<void>(
       context: context,
-      builder: (_) => ErrorExplorerDialog(
-        errorExplorerModel: errorExplorerModel,
-      ),
+      builder: (_) => ErrorExplorerDialog(errorExplorerModel: errorExplorerModel),
     );
   }
 
@@ -110,9 +102,6 @@ class TxBroadcastErrorBody extends StatelessWidget {
   }
 
   void _pressEditTransactionButton(BuildContext context) {
-    if (txFormPageName == null) {
-      return;
-    }
-    KiraRouter.of(context).popUntilRouteWithName(txFormPageName!);
+    BlocProvider.of<TxProcessCubit<T>>(context).editTransactionForm();
   }
 }

@@ -19,6 +19,13 @@ class TokenAmountModel {
 
   TokenAmountModel.zero({required this.tokenAliasModel}) : _lowestDenominationAmount = Decimal.zero;
 
+  TokenAmountModel copy() {
+    return TokenAmountModel(
+      lowestDenominationAmount: _lowestDenominationAmount,
+      tokenAliasModel: tokenAliasModel,
+    );
+  }
+
   int compareTo(TokenAmountModel tokenAmountModel) {
     return tokenAmountModel._lowestDenominationAmount.compareTo(_lowestDenominationAmount);
   }
@@ -56,9 +63,26 @@ class TokenAmountModel {
     }
   }
 
-  @override
-  String toString() {
-    return '${_lowestDenominationAmount} ${tokenAliasModel.lowestTokenDenominationModel.name}';
+  TokenAmountModel operator +(TokenAmountModel tokenAmountModel) {
+    if (tokenAmountModel.tokenAliasModel != tokenAliasModel) {
+      return this;
+    }
+    Decimal newAmount = _lowestDenominationAmount + tokenAmountModel._lowestDenominationAmount;
+    return TokenAmountModel(
+      lowestDenominationAmount: newAmount,
+      tokenAliasModel: tokenAliasModel,
+    );
+  }
+
+  TokenAmountModel operator -(TokenAmountModel tokenAmountModel) {
+    if (tokenAmountModel.tokenAliasModel != tokenAliasModel) {
+      return this;
+    }
+    Decimal newAmount = _lowestDenominationAmount - tokenAmountModel._lowestDenominationAmount;
+    return TokenAmountModel(
+      lowestDenominationAmount: newAmount < Decimal.zero ? Decimal.zero : newAmount,
+      tokenAliasModel: tokenAliasModel,
+    );
   }
 
   @override
@@ -71,4 +95,9 @@ class TokenAmountModel {
 
   @override
   int get hashCode => _lowestDenominationAmount.hashCode ^ tokenAliasModel.hashCode;
+
+  @override
+  String toString() {
+    return '${_lowestDenominationAmount} ${tokenAliasModel.lowestTokenDenominationModel.name}';
+  }
 }
