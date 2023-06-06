@@ -18,6 +18,13 @@ class MsgCancelIdentityRecordsVerifyRequest extends ATxMsg {
           signatureMessageType: 'kiraHub/MsgCancelIdentityRecordsVerifyRequest',
         );
 
+  factory MsgCancelIdentityRecordsVerifyRequest.fromJson(Map<String, dynamic> json) {
+    return MsgCancelIdentityRecordsVerifyRequest(
+      executor: json['executor'] as String,
+      verifyRequestId: BigInt.from(json['verify_request_id'] as num),
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() {
     return <String, dynamic>{

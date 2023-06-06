@@ -18,6 +18,13 @@ class Coin extends Equatable {
     );
   }
 
+  factory Coin.fromJson(Map<String, dynamic> json) {
+    return Coin(
+      amount: json['amount'] as String,
+      denom: json['denom'] as String,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
       'amount': amount,

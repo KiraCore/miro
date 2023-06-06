@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:miro/infra/dto/api_kira/broadcast/request/coin.dart';
 import 'package:miro/infra/dto/api_kira/broadcast/request/transaction/components/auth_info.dart';
 import 'package:miro/infra/dto/api_kira/broadcast/request/transaction/components/mode_info/mode_info.dart';
 import 'package:miro/infra/dto/api_kira/broadcast/request/transaction/components/mode_info/sign_mode.dart';
@@ -8,6 +7,7 @@ import 'package:miro/infra/dto/api_kira/broadcast/request/transaction/components
 import 'package:miro/infra/dto/api_kira/broadcast/request/transaction/components/tx_body.dart';
 import 'package:miro/infra/dto/api_kira/broadcast/request/transaction/components/tx_fee.dart';
 import 'package:miro/infra/dto/api_kira/broadcast/request/transaction/components/tx_pub_key.dart';
+import 'package:miro/infra/dto/shared/coin.dart';
 import 'package:miro/infra/dto/shared/messages/a_tx_msg.dart';
 import 'package:miro/shared/models/transactions/signed_transaction_model.dart';
 import 'package:miro/shared/models/transactions/tx_local_info_model.dart';
