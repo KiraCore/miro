@@ -22,6 +22,14 @@ class MsgHandleIdentityRecordsVerifyRequest extends ATxMsg {
           signatureMessageType: 'kiraHub/MsgHandleIdentityRecordsVerifyRequest',
         );
 
+  factory MsgHandleIdentityRecordsVerifyRequest.fromJson(Map<String, dynamic> json) {
+    return MsgHandleIdentityRecordsVerifyRequest(
+      verifier: json['verifier'] as String,
+      verifyRequestId: BigInt.from(json['verify_request_id'] as num),
+      yes: json['yes'] as bool,
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() {
     return <String, dynamic>{

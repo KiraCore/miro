@@ -19,6 +19,13 @@ class MsgRegisterIdentityRecords extends ATxMsg {
           signatureMessageType: 'kiraHub/MsgRegisterIdentityRecords',
         );
 
+  factory MsgRegisterIdentityRecords.fromJson(Map<String, dynamic> json) {
+    return MsgRegisterIdentityRecords(
+      address: json['address'] as String,
+      infos: (json['infos'] as List<dynamic>).map((dynamic e) => IdentityInfoEntry.fromJson(e as Map<String, dynamic>)).toList(),
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() {
     return <String, dynamic>{

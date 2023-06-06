@@ -1,5 +1,5 @@
 import 'package:decimal/decimal.dart';
-import 'package:miro/infra/dto/api_kira/broadcast/request/coin.dart';
+import 'package:miro/infra/dto/shared/coin.dart';
 import 'package:miro/infra/dto/shared/messages/identity_records/msg_request_identity_records_verify.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';

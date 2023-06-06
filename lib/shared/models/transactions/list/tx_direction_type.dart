@@ -1,0 +1,4 @@
+enum TxDirectionType {
+  outbound,
+  inbound,
+}

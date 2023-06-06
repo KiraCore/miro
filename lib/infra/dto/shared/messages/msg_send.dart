@@ -1,4 +1,4 @@
-import 'package:miro/infra/dto/api_kira/broadcast/request/coin.dart';
+import 'package:miro/infra/dto/shared/coin.dart';
 import 'package:miro/infra/dto/shared/messages/a_tx_msg.dart';
 
 /// Message to send coins from one account to another
@@ -23,6 +23,14 @@ class MsgSend extends ATxMsg {
           messageType: '/cosmos.bank.v1beta1.MsgSend',
           signatureMessageType: 'cosmos-sdk/MsgSend',
         );
+
+  factory MsgSend.fromJson(Map<String, dynamic> json) {
+    return MsgSend(
+      fromAddress: json['from_address'] as String,
+      toAddress: json['to_address'] as String,
+      amount: (json['amount'] as List<dynamic>).map((dynamic e) => Coin.fromJson(e as Map<String, dynamic>)).toList(),
+    );
+  }
 
   @override
   Map<String, dynamic> toJson() {

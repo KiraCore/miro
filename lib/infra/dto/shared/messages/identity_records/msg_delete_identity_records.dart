@@ -18,6 +18,13 @@ class MsgDeleteIdentityRecords extends ATxMsg {
           signatureMessageType: 'kiraHub/MsgDeleteIdentityRecords',
         );
 
+  factory MsgDeleteIdentityRecords.fromJson(Map<String, dynamic> json) {
+    return MsgDeleteIdentityRecords(
+      address: json['address'] as String,
+      keys: (json['keys'] as List<dynamic>).map((dynamic e) => e as String).toList(),
+    );
+  }
+
   @override
   Map<String, dynamic> toJson() {
     return <String, dynamic>{

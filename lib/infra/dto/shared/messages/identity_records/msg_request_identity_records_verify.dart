@@ -1,4 +1,4 @@
-import 'package:miro/infra/dto/api_kira/broadcast/request/coin.dart';
+import 'package:miro/infra/dto/shared/coin.dart';
 import 'package:miro/infra/dto/shared/messages/a_tx_msg.dart';
 
 /// Proposal message to request an identity record verification from a specific verifier
@@ -26,6 +26,15 @@ class MsgRequestIdentityRecordsVerify extends ATxMsg {
           messageType: '/kira.gov.MsgRequestIdentityRecordsVerify',
           signatureMessageType: 'kiraHub/MsgRequestIdentityRecordsVerify',
         );
+
+  factory MsgRequestIdentityRecordsVerify.fromJson(Map<String, dynamic> json) {
+    return MsgRequestIdentityRecordsVerify(
+      address: json['address'] as String,
+      recordIds: (json['record_ids'] as List<dynamic>).map((dynamic e) => BigInt.from(e as num)).toList(),
+      tip: Coin.fromJson(json['tip'] as Map<String, dynamic>),
+      verifier: json['verifier'] as String,
+    );
+  }
 
   @override
   Map<String, dynamic> toJson() {

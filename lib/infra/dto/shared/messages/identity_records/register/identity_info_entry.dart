@@ -15,6 +15,13 @@ class IdentityInfoEntry extends Equatable {
     required this.info,
   });
 
+  factory IdentityInfoEntry.fromJson(Map<String, dynamic> json) {
+    return IdentityInfoEntry(
+      key: json['key'] as String,
+      info: json['info'] as String,
+    );
+  }
+
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
       'key': key,

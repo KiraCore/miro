@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:miro/infra/dto/api_kira/broadcast/request/coin.dart';
+import 'package:miro/infra/dto/shared/coin.dart';
 
 /// Fee includes the amount of coins paid in fees and the maximum gas to be used by the transaction.
 /// The ratio yields an effective "gasprice", which must be above some miminum to be accepted into the mempool.

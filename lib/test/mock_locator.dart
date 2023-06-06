@@ -12,6 +12,7 @@ import 'package:miro/infra/repositories/api/api_kira_repository.dart';
 import 'package:miro/infra/repositories/api/api_repository.dart';
 import 'package:miro/infra/services/api/dashboard_service.dart';
 import 'package:miro/infra/services/api/query_interx_status_service.dart';
+import 'package:miro/infra/services/api/query_transactions_service.dart';
 import 'package:miro/infra/services/api/query_validators_service.dart';
 import 'package:miro/infra/services/api_kira/broadcast_service.dart';
 import 'package:miro/infra/services/api_kira/query_account_service.dart';
@@ -57,6 +58,7 @@ void _initServices() {
     ..registerLazySingleton<QueryKiraTokensAliasesService>(QueryKiraTokensAliasesService.new)
     ..registerLazySingleton<QueryKiraTokensRatesService>(QueryKiraTokensRatesService.new)
     ..registerLazySingleton<QueryNetworkPropertiesService>(QueryNetworkPropertiesService.new)
+    ..registerLazySingleton<QueryTransactionsService>(QueryTransactionsService.new)
     ..registerLazySingleton<QueryValidatorsService>(QueryValidatorsService.new);
 }
 
