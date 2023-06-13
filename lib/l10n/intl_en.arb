@@ -438,6 +438,15 @@
   "validatorsTableUptime": "Uptime",
   "validatorsTableStreak": "Streak",
 
+  "visualizer": "Visualizer",
+  "visualizerAvatar": "Avatar",
+  "visualizerCountry": "Country",
+  "visualizerDataCenter": "Data Center",
+  "visualizerIpAddress": "IP Address",
+  "visualizerPeers": "Peers",
+  "visualizerTitle": "Network Visualizer",
+  "visualizerSearchNodes": "Search nodes",
+
   "buttonReportIssues": "Report issues",
   "error": "Error",
   "errorUndefined": "Undefined error",

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:miro/infra/dto/api/query_p2p/request/query_p2p_req.dart';
 import 'package:miro/infra/dto/api/query_transactions/request/query_transactions_req.dart';
 import 'package:miro/infra/dto/api/query_validators/request/query_validators_req.dart';
 import 'package:miro/infra/exceptions/dio_connect_exception.dart';
@@ -15,6 +16,8 @@ abstract class IApiRepository {
   Future<Response<T>> fetchQueryTransactions<T>(ApiRequestModel<QueryTransactionsReq> apiRequestModel);
 
   Future<Response<T>> fetchQueryValidators<T>(ApiRequestModel<QueryValidatorsReq> apiRequestModel);
+
+  Future<Response<T>> fetchQueryP2P<T>(ApiRequestModel<QueryP2PReq> apiRequestModel);
 }
 
 class RemoteApiRepository implements IApiRepository {
@@ -78,6 +81,22 @@ class RemoteApiRepository implements IApiRepository {
       return response;
     } on DioException catch (dioException) {
       AppLogger().log(message: 'Cannot fetch fetchQueryValidators() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
+      throw DioConnectException(dioException: dioException);
+    }
+  }
+
+  @override
+  Future<Response<T>> fetchQueryP2P<T>(ApiRequestModel<QueryP2PReq> apiRequestModel) async {
+    try {
+      final Response<T> response = await _httpClientManager.get<T>(
+        networkUri: apiRequestModel.networkUri,
+        path: '/api/pub_p2p_list',
+        queryParameters: apiRequestModel.requestData.toJson(),
+        apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: apiRequestModel.forceRequestBool),
+      );
+      return response;
+    } on DioException catch (dioException) {
+      AppLogger().log(message: 'RemoteApiRepository: Cannot fetch fetchQueryP2P() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
       throw DioConnectException(dioException: dioException);
     }
   }

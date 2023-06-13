@@ -590,6 +590,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "validatorsTableTop": MessageLookupByLibrary.simpleMessage("Top"),
         "validatorsTableUptime": MessageLookupByLibrary.simpleMessage("Uptime"),
         "validatorsTotal": MessageLookupByLibrary.simpleMessage("Total"),
-        "validatorsWaiting": MessageLookupByLibrary.simpleMessage("Waiting")
+        "validatorsWaiting": MessageLookupByLibrary.simpleMessage("Waiting"),
+        "visualizer": MessageLookupByLibrary.simpleMessage("Visualizer"),
+        "visualizerAvatar": MessageLookupByLibrary.simpleMessage("Avatar"),
+        "visualizerCountry": MessageLookupByLibrary.simpleMessage("Country"),
+        "visualizerDataCenter":
+            MessageLookupByLibrary.simpleMessage("Data Center"),
+        "visualizerIpAddress":
+            MessageLookupByLibrary.simpleMessage("IP Address"),
+        "visualizerPeers": MessageLookupByLibrary.simpleMessage("Peers"),
+        "visualizerSearchNodes":
+            MessageLookupByLibrary.simpleMessage("Search nodes"),
+        "visualizerTitle":
+            MessageLookupByLibrary.simpleMessage("Network Visualizer")
       };
 }

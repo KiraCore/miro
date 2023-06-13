@@ -14,6 +14,7 @@ class PopWrapperDesktop extends StatefulWidget {
   final PopWrapperBuilder buttonBuilder;
   final PopWrapperBuilder popupBuilder;
   final PopWrapperController popWrapperController;
+  final bool scrollableBool;
 
   const PopWrapperDesktop({
     required this.disabled,
@@ -22,6 +23,7 @@ class PopWrapperDesktop extends StatefulWidget {
     required this.buttonBuilder,
     required this.popupBuilder,
     required this.popWrapperController,
+    this.scrollableBool = false,
     Key? key,
   }) : super(key: key);
 
@@ -53,6 +55,7 @@ class _PopWrapperDesktop extends State<PopWrapperDesktop> {
       tailLength: 0,
       backgroundColor: Colors.transparent,
       content: Container(
+        constraints: const BoxConstraints(maxHeight: 225),
         key: _popupKey,
         margin: const EdgeInsets.only(top: 8),
         decoration: BoxDecoration(
@@ -74,7 +77,7 @@ class _PopWrapperDesktop extends State<PopWrapperDesktop> {
             color: widget.backgroundColor,
             borderRadius: BorderRadius.circular(8),
           ),
-          child: widget.popupBuilder(),
+          child: widget.scrollableBool ? SingleChildScrollView(child: widget.popupBuilder()) : widget.popupBuilder(),
         ),
       ),
       child: MouseStateListener(

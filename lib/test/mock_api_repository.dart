@@ -1,10 +1,12 @@
 import 'package:dio/dio.dart';
+import 'package:miro/infra/dto/api/query_p2p/request/query_p2p_req.dart';
 import 'package:miro/infra/dto/api/query_transactions/request/query_transactions_req.dart';
 import 'package:miro/infra/dto/api/query_validators/request/query_validators_req.dart';
 import 'package:miro/infra/exceptions/dio_connect_exception.dart';
 import 'package:miro/infra/models/api_request_model.dart';
 import 'package:miro/infra/repositories/api/api_repository.dart';
 import 'package:miro/test/mocks/api/mock_api_dashboard.dart';
+import 'package:miro/test/mocks/api/mock_api_p2p.dart';
 import 'package:miro/test/mocks/api/mock_api_status.dart';
 import 'package:miro/test/mocks/api/mock_api_transactions.dart';
 import 'package:miro/test/mocks/api/mock_api_valopers.dart';
@@ -186,5 +188,32 @@ class MockApiRepository implements IApiRepository {
       headers: MockHeaders.defaultHeaders,
       requestOptions: RequestOptions(path: ''),
     );
+  }
+
+  @override
+  Future<Response<T>> fetchQueryP2P<T>(ApiRequestModel<QueryP2PReq> apiRequestModel) async {
+    bool responseExistsBool = workingEndpoints.contains(apiRequestModel.networkUri.host);
+    if (responseExistsBool) {
+      late T response;
+      switch (apiRequestModel.networkUri.host) {
+        case 'invalid.kira.network':
+          response = <String, dynamic>{'invalid': 'response'} as T;
+          break;
+        case 'offline.kira.network':
+          response = <String, dynamic>{'invalid': 'response'} as T;
+          break;
+        default:
+          response = MockApiP2P.defaultResponse as T;
+          break;
+      }
+      return Response<T>(
+        statusCode: 200,
+        data: response,
+        headers: MockHeaders.defaultHeaders,
+        requestOptions: RequestOptions(path: ''),
+      );
+    } else {
+      throw DioConnectException(dioException: DioException(requestOptions: RequestOptions(path: apiRequestModel.networkUri.host)));
+    }
   }
 }

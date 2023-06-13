@@ -4,6 +4,7 @@ import 'package:miro/blocs/generic/identity_registrar/identity_registrar_cubit.d
 import 'package:miro/blocs/generic/network_module/network_module_bloc.dart';
 import 'package:miro/blocs/layout/drawer/drawer_cubit.dart';
 import 'package:miro/blocs/layout/nav_menu/nav_menu_cubit.dart';
+import 'package:miro/blocs/pages/menu/visualizer/visualizer_cubit.dart';
 import 'package:miro/blocs/widgets/network_list/network_custom_section/network_custom_section_cubit.dart';
 import 'package:miro/blocs/widgets/network_list/network_list/network_list_cubit.dart';
 import 'package:miro/config/app_config.dart';
@@ -12,11 +13,13 @@ import 'package:miro/infra/managers/cache/i_cache_manager.dart';
 import 'package:miro/infra/managers/cache/impl/auto_cache_manager.dart';
 import 'package:miro/infra/repositories/api/api_kira_repository.dart';
 import 'package:miro/infra/repositories/api/api_repository.dart';
+import 'package:miro/infra/repositories/assets/assets_repository.dart';
 import 'package:miro/infra/repositories/cache/api_cache_repository.dart';
 import 'package:miro/infra/services/api/dashboard_service.dart';
 import 'package:miro/infra/services/api/query_interx_status_service.dart';
 import 'package:miro/infra/services/api/query_transactions_service.dart';
 import 'package:miro/infra/services/api/query_validators_service.dart';
+import 'package:miro/infra/services/api/query_visualizer_service.dart';
 import 'package:miro/infra/services/api_kira/broadcast_service.dart';
 import 'package:miro/infra/services/api_kira/identity_records_service.dart';
 import 'package:miro/infra/services/api_kira/query_account_service.dart';
@@ -28,6 +31,7 @@ import 'package:miro/infra/services/api_kira/query_kira_tokens_rates_service.dar
 import 'package:miro/infra/services/api_kira/query_network_properties_service.dart';
 import 'package:miro/infra/services/api_kira/query_staking_pool_service.dart';
 import 'package:miro/infra/services/api_kira/query_undelegations_service.dart';
+import 'package:miro/infra/services/assets/country_lat_long_service.dart';
 import 'package:miro/infra/services/network_module_service.dart';
 import 'package:miro/shared/controllers/global_nav/global_nav_controller.dart';
 
@@ -47,13 +51,15 @@ void _initRepositories() {
   globalLocator
     ..registerLazySingleton<ApiCacheRepository>(ApiCacheRepository.new)
     ..registerLazySingleton<IApiKiraRepository>(RemoteApiKiraRepository.new)
-    ..registerLazySingleton<IApiRepository>(RemoteApiRepository.new);
+    ..registerLazySingleton<IApiRepository>(RemoteApiRepository.new)
+    ..registerLazySingleton<IAssetsRepository>(AssetsRepository.new);
 }
 
 void _initServices() {
   globalLocator
     ..registerLazySingleton<ApiCacheManager>(ApiCacheManager.new)
     ..registerLazySingleton<BroadcastService>(BroadcastService.new)
+    ..registerLazySingleton<CountryLatLongService>(CountryLatLongService.new)
     ..registerLazySingleton<DashboardService>(DashboardService.new)
     ..registerLazySingleton<IdentityRecordsService>(IdentityRecordsService.new)
     ..registerLazySingleton<NetworkModuleService>(NetworkModuleService.new)
@@ -68,7 +74,8 @@ void _initServices() {
     ..registerLazySingleton<QueryStakingPoolService>(QueryStakingPoolService.new)
     ..registerLazySingleton<QueryTransactionsService>(QueryTransactionsService.new)
     ..registerLazySingleton<QueryUndelegationsService>(QueryUndelegationsService.new)
-    ..registerLazySingleton<QueryValidatorsService>(QueryValidatorsService.new);
+    ..registerLazySingleton<QueryValidatorsService>(QueryValidatorsService.new)
+    ..registerLazySingleton<QueryVisualizerService>(QueryVisualizerService.new);
 }
 
 void _initControllers() {
@@ -80,5 +87,6 @@ void _initControllers() {
     ..registerLazySingleton<NavMenuCubit>(NavMenuCubit.new)
     ..registerLazySingleton<NetworkCustomSectionCubit>(NetworkCustomSectionCubit.new)
     ..registerLazySingleton<NetworkListCubit>(NetworkListCubit.new)
-    ..registerLazySingleton<NetworkModuleBloc>(NetworkModuleBloc.new);
+    ..registerLazySingleton<NetworkModuleBloc>(NetworkModuleBloc.new)
+    ..registerLazySingleton<VisualizerCubit>(VisualizerCubit.new);
 }

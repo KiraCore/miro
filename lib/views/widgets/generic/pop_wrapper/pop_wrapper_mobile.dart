@@ -10,6 +10,7 @@ class PopWrapperMobile extends StatefulWidget {
   final PopWrapperBuilder buttonBuilder;
   final PopWrapperBuilder popupBuilder;
   final PopWrapperController popWrapperController;
+  final bool scrollableBool;
 
   const PopWrapperMobile({
     required this.disabled,
@@ -17,6 +18,7 @@ class PopWrapperMobile extends StatefulWidget {
     required this.buttonBuilder,
     required this.popupBuilder,
     required this.popWrapperController,
+    this.scrollableBool = false,
     Key? key,
   }) : super(key: key);
 
@@ -72,7 +74,10 @@ class _PopWrapperMobile extends State<PopWrapperMobile> {
           ),
           backgroundColor: themeData.scaffoldBackgroundColor,
           child: Container(
-            constraints: const BoxConstraints(maxWidth: 200),
+            constraints: const BoxConstraints(
+              maxWidth: 200,
+              maxHeight: 243,
+            ),
             decoration: BoxDecoration(
               color: widget.backgroundColor,
               borderRadius: BorderRadius.circular(8),
@@ -87,7 +92,7 @@ class _PopWrapperMobile extends State<PopWrapperMobile> {
               ],
             ),
             width: double.infinity,
-            child: widget.popupBuilder(),
+            child: widget.scrollableBool ? SingleChildScrollView(child: widget.popupBuilder()) : widget.popupBuilder(),
           ),
         );
       },

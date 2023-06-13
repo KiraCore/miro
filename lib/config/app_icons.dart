@@ -50,6 +50,7 @@ class AppIcons {
   static const IconData eye_visible = IconData(0xe819, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData filter = IconData(0xe81a, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData github = IconData(0xe81b, fontFamily: _kFontFam, fontPackage: _kFontPkg);
+  static const IconData globe_inv = IconData(0xf019, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData health = IconData(0xe81c, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData governance = IconData(0xe81d, fontFamily: _kFontFam, fontPackage: _kFontPkg);
   static const IconData heart = IconData(0xe81e, fontFamily: _kFontFam, fontPackage: _kFontPkg);

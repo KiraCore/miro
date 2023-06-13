@@ -12,11 +12,13 @@ import 'package:miro/infra/managers/cache/i_cache_manager.dart';
 import 'package:miro/infra/managers/cache/impl/memory_cache_manager.dart';
 import 'package:miro/infra/repositories/api/api_kira_repository.dart';
 import 'package:miro/infra/repositories/api/api_repository.dart';
+import 'package:miro/infra/repositories/assets/assets_repository.dart';
 import 'package:miro/infra/repositories/cache/api_cache_repository.dart';
 import 'package:miro/infra/services/api/dashboard_service.dart';
 import 'package:miro/infra/services/api/query_interx_status_service.dart';
 import 'package:miro/infra/services/api/query_transactions_service.dart';
 import 'package:miro/infra/services/api/query_validators_service.dart';
+import 'package:miro/infra/services/api/query_visualizer_service.dart';
 import 'package:miro/infra/services/api_kira/broadcast_service.dart';
 import 'package:miro/infra/services/api_kira/identity_records_service.dart';
 import 'package:miro/infra/services/api_kira/query_account_service.dart';
@@ -28,12 +30,14 @@ import 'package:miro/infra/services/api_kira/query_kira_tokens_rates_service.dar
 import 'package:miro/infra/services/api_kira/query_network_properties_service.dart';
 import 'package:miro/infra/services/api_kira/query_staking_pool_service.dart';
 import 'package:miro/infra/services/api_kira/query_undelegations_service.dart';
+import 'package:miro/infra/services/assets/country_lat_long_service.dart';
 import 'package:miro/infra/services/network_module_service.dart';
 import 'package:miro/shared/controllers/global_nav/global_nav_controller.dart';
 import 'package:miro/test/mock_api_kira_repository.dart';
 import 'package:miro/test/mock_api_repository.dart';
 import 'package:miro/test/mock_app_config.dart';
 import 'package:miro/test/mocks/mock_network_list_config_json.dart';
+import 'package:miro/test/utils/mock_assets_repository.dart';
 
 Future<void> initMockLocator() async {
   globalLocator
@@ -52,13 +56,15 @@ void _initRepositories() {
   globalLocator
     ..registerLazySingleton<ApiCacheRepository>(ApiCacheRepository.new)
     ..registerLazySingleton<IApiKiraRepository>(MockApiKiraRepository.new)
-    ..registerLazySingleton<IApiRepository>(MockApiRepository.new);
+    ..registerLazySingleton<IApiRepository>(MockApiRepository.new)
+    ..registerLazySingleton<IAssetsRepository>(MockAssetsRepository.new);
 }
 
 void _initServices() {
   globalLocator
     ..registerLazySingleton<ApiCacheManager>(ApiCacheManager.new)
     ..registerLazySingleton<BroadcastService>(BroadcastService.new)
+    ..registerLazySingleton<CountryLatLongService>(CountryLatLongService.new)
     ..registerLazySingleton<DashboardService>(DashboardService.new)
     ..registerLazySingleton<IdentityRecordsService>(IdentityRecordsService.new)
     ..registerLazySingleton<NetworkModuleService>(NetworkModuleService.new)
@@ -73,7 +79,8 @@ void _initServices() {
     ..registerLazySingleton<QueryStakingPoolService>(QueryStakingPoolService.new)
     ..registerLazySingleton<QueryTransactionsService>(QueryTransactionsService.new)
     ..registerLazySingleton<QueryUndelegationsService>(QueryUndelegationsService.new)
-    ..registerLazySingleton<QueryValidatorsService>(QueryValidatorsService.new);
+    ..registerLazySingleton<QueryValidatorsService>(QueryValidatorsService.new)
+    ..registerLazySingleton<QueryVisualizerService>(QueryVisualizerService.new);
 }
 
 void _initControllers() {

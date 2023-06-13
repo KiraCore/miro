@@ -3127,6 +3127,86 @@ class S {
     );
   }
 
+  /// `Visualizer`
+  String get visualizer {
+    return Intl.message(
+      'Visualizer',
+      name: 'visualizer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Avatar`
+  String get visualizerAvatar {
+    return Intl.message(
+      'Avatar',
+      name: 'visualizerAvatar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Country`
+  String get visualizerCountry {
+    return Intl.message(
+      'Country',
+      name: 'visualizerCountry',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Data Center`
+  String get visualizerDataCenter {
+    return Intl.message(
+      'Data Center',
+      name: 'visualizerDataCenter',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `IP Address`
+  String get visualizerIpAddress {
+    return Intl.message(
+      'IP Address',
+      name: 'visualizerIpAddress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Peers`
+  String get visualizerPeers {
+    return Intl.message(
+      'Peers',
+      name: 'visualizerPeers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Network Visualizer`
+  String get visualizerTitle {
+    return Intl.message(
+      'Network Visualizer',
+      name: 'visualizerTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search nodes`
+  String get visualizerSearchNodes {
+    return Intl.message(
+      'Search nodes',
+      name: 'visualizerSearchNodes',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Report issues`
   String get buttonReportIssues {
     return Intl.message(

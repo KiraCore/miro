@@ -59,6 +59,11 @@ class MenuWrapper extends StatelessWidget {
           name: S.of(context).accounts,
           icon: AppIcons.account,
         ),
+        NavItemModel(
+          pageRouteInfo: const VisualizerRoute(),
+          name: S.of(context).visualizer,
+          icon: AppIcons.globe_inv,
+        ),
       ],
       drawerScrimColor: DesignColors.greyTransparent,
       endDrawer: const DrawerWrapper(),

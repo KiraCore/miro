@@ -13,12 +13,14 @@ class PopWrapper extends StatefulWidget {
   final PopWrapperBuilder popupBuilder;
   final PopWrapperController popWrapperController;
   final bool disabled;
+  final bool scrollableBool;
 
   const PopWrapper({
     required this.buttonBuilder,
     required this.popupBuilder,
     required this.popWrapperController,
     this.disabled = false,
+    this.scrollableBool = false,
     Key? key,
   }) : super(key: key);
 
@@ -44,6 +46,7 @@ class _PopWrapperState extends State<PopWrapper> {
       popWrapperController: widget.popWrapperController,
       disabled: widget.disabled,
       backgroundColor: DesignColors.black,
+      scrollableBool: widget.scrollableBool,
     );
     Widget mobileWidget = PopWrapperMobile(
       buttonBuilder: widget.buttonBuilder,
@@ -51,6 +54,7 @@ class _PopWrapperState extends State<PopWrapper> {
       popWrapperController: widget.popWrapperController,
       disabled: widget.disabled,
       backgroundColor: DesignColors.black,
+      scrollableBool: widget.scrollableBool,
     );
 
     return ResponsiveWidget(

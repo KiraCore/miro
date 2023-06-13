@@ -20,12 +20,14 @@ class FilterDropdown<T extends AListItem> extends StatefulWidget {
   final List<FilterOptionModel<T>> filterOptionModels;
   final double height;
   final double width;
+  final bool scrollableBool;
 
   const FilterDropdown({
     required this.title,
     required this.filterOptionModels,
     this.height = 30,
     this.width = 100,
+    this.scrollableBool = false,
     Key? key,
   }) : super(key: key);
 
@@ -63,6 +65,7 @@ class _FilterDropdown<T extends AListItem> extends State<FilterDropdown<T>> {
             const SizedBox(width: 8),
             PopWrapper(
               popWrapperController: filterOptionsController,
+              scrollableBool: widget.scrollableBool,
               buttonBuilder: () => FilterDropdownButton(selectedOptionsLength: selectedFilterOptions.length),
               popupBuilder: () {
                 return ListPopMenu<FilterOptionModel<T>>(
