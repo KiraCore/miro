@@ -90,8 +90,5 @@ class WalletAddress extends Equatable {
   }
 
   @override
-  List<Object?> get props => <Object>[hex];
-
-  @override
-  String toString() => hex;
+  List<Object?> get props => <Object>[bech32Address];
 }

@@ -42,15 +42,6 @@ void main() {
     });
   });
 
-  group('Tests of toString() method', () {
-    test('Should return hex address', () {
-      expect(
-        actualWalletAddress.toString(),
-        '0x437832172d98e523a7fc748b9ed33ac72921964c',
-      );
-    });
-  });
-
   group('Tests of hex getter', () {
     test('Should return correct calculated hex address with 0x prefix', () {
       expect(

@@ -14,12 +14,12 @@ import 'package:miro/infra/services/api_kira/broadcast_service.dart';
 import 'package:miro/infra/services/api_kira/query_account_service.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
-import 'package:miro/shared/models/transactions/messages/identity_records/msg_cancel_identity_records_verify_request_model.dart';
-import 'package:miro/shared/models/transactions/messages/identity_records/msg_delete_identity_records_model.dart';
-import 'package:miro/shared/models/transactions/messages/identity_records/msg_handle_identity_records_verify_request_model.dart';
-import 'package:miro/shared/models/transactions/messages/identity_records/msg_request_identity_records_verify_model.dart';
-import 'package:miro/shared/models/transactions/messages/identity_records/register/identity_info_entry_model.dart';
-import 'package:miro/shared/models/transactions/messages/identity_records/register/msg_register_identity_records_model.dart';
+import 'package:miro/shared/models/transactions/messages/identity_registrar/ir_msg_cancel_verification_request_model.dart';
+import 'package:miro/shared/models/transactions/messages/identity_registrar/ir_msg_delete_records_model.dart';
+import 'package:miro/shared/models/transactions/messages/identity_registrar/ir_msg_handle_verification_request_model.dart';
+import 'package:miro/shared/models/transactions/messages/identity_registrar/ir_msg_request_verification_model.dart';
+import 'package:miro/shared/models/transactions/messages/identity_registrar/register/ir_entry_model.dart';
+import 'package:miro/shared/models/transactions/messages/identity_registrar/register/ir_msg_register_records_model.dart';
 import 'package:miro/shared/models/transactions/messages/msg_send_model.dart';
 import 'package:miro/shared/models/transactions/signature_model.dart';
 import 'package:miro/shared/models/transactions/signed_transaction_model.dart';
@@ -173,13 +173,13 @@ Future<void> main() async {
       );
     });
 
-    test('Should return signed transaction with [MsgRegisterIdentityRecords] message', () async {
+    test('Should return signed transaction with [IRMsgRegisterRecordsModel] message', () async {
       final TxLocalInfoModel actualTxLocalInfoModel = TxLocalInfoModel(
         memo: 'Test of MsgRegisterIdentityRecords message',
         feeTokenAmountModel: feeTokenAmountModel,
-        txMsgModel: MsgRegisterIdentityRecordsModel.single(
+        txMsgModel: IRMsgRegisterRecordsModel.single(
           walletAddress: senderWallet.address,
-          identityInfoEntryModel: const IdentityInfoEntryModel(
+          irEntryModel: const IREntryModel(
             key: 'avatar',
             info: 'https://paganresearch.io/images/kiracore.jpg',
           ),
@@ -203,7 +203,7 @@ Future<void> main() async {
         ),
       );
 
-      TestUtils.printInfo('Should return [SignedTxModel] with [MsgRegisterIdentityRecords] message');
+      TestUtils.printInfo('Should return [SignedTxModel] with [IRMsgRegisterRecordsModel] message');
       expect(
         actualSignedTxModel,
         expectedSignedTxModel,
@@ -259,11 +259,11 @@ Future<void> main() async {
       );
     });
 
-    test('Should return signed transaction with [MsgRequestIdentityRecordsVerify] message', () async {
+    test('Should return signed transaction with [IRMsgRequestVerificationModel] message', () async {
       final TxLocalInfoModel actualTxLocalInfoModel = TxLocalInfoModel(
         memo: 'Test of MsgRequestIdentityRecordsVerify message',
         feeTokenAmountModel: feeTokenAmountModel,
-        txMsgModel: MsgRequestIdentityRecordsVerifyModel.single(
+        txMsgModel: IRMsgRequestVerificationModel.single(
           recordId: BigInt.from(964),
           tipTokenAmountModel: TokenAmountModel(
             lowestDenominationAmount: Decimal.fromInt(200),
@@ -291,7 +291,7 @@ Future<void> main() async {
         ),
       );
 
-      TestUtils.printInfo('Should return [SignedTxModel] with [MsgRequestIdentityRecordsVerify] message');
+      TestUtils.printInfo('Should return [SignedTxModel] with [IRMsgRequestVerificationModel] message');
       expect(
         actualSignedTxModel,
         expectedSignedTxModel,
@@ -340,18 +340,18 @@ Future<void> main() async {
         'mode': 'block'
       };
 
-      TestUtils.printInfo('Should return [Tx] as json with [MsgRequestIdentityRecordsVerify] message');
+      TestUtils.printInfo('Should return [Tx] as json with [IRMsgRequestVerificationModel] message');
       expect(
         actualBroadcastReq.toJson(),
         expectedBroadcastReqJson,
       );
     });
 
-    test('Should return signed transaction with [MsgCancelIdentityRecordsVerifyRequest] message', () async {
+    test('Should return signed transaction with [IRMsgCancelVerificationRequestModel] message', () async {
       final TxLocalInfoModel actualTxLocalInfoModel = TxLocalInfoModel(
         memo: 'Test of MsgCancelIdentityRecordsVerifyRequest message',
         feeTokenAmountModel: feeTokenAmountModel,
-        txMsgModel: MsgCancelIdentityRecordsVerifyRequestModel(
+        txMsgModel: IRMsgCancelVerificationRequestModel(
           verifyRequestId: BigInt.from(3),
           walletAddress: senderWallet.address,
         ),
@@ -374,7 +374,7 @@ Future<void> main() async {
         ),
       );
 
-      TestUtils.printInfo('Should return [SignedTxModel] with [MsgCancelIdentityRecordsVerifyRequest] message');
+      TestUtils.printInfo('Should return [SignedTxModel] with [IRMsgCancelVerificationRequestModel] message');
       expect(
         actualSignedTxModel,
         expectedSignedTxModel,
@@ -417,18 +417,18 @@ Future<void> main() async {
         'mode': 'block'
       };
 
-      TestUtils.printInfo('Should return [Tx] as json with [MsgRequestIdentityRecordsVerify] message');
+      TestUtils.printInfo('Should return [Tx] as json with [IRMsgCancelVerificationRequestModel] message');
       expect(
         actualBroadcastReq.toJson(),
         expectedBroadcastReqJson,
       );
     });
 
-    test('Should return signed transaction with [MsgDeleteIdentityRecords] message', () async {
+    test('Should return signed transaction with [IRMsgDeleteRecordsModel] message', () async {
       final TxLocalInfoModel actualTxLocalInfoModel = TxLocalInfoModel(
         memo: 'Test of MsgDeleteIdentityRecords message',
         feeTokenAmountModel: feeTokenAmountModel,
-        txMsgModel: MsgDeleteIdentityRecordsModel.single(
+        txMsgModel: IRMsgDeleteRecordsModel.single(
           key: 'avatar',
           walletAddress: senderWallet.address,
         ),
@@ -451,7 +451,7 @@ Future<void> main() async {
         ),
       );
 
-      TestUtils.printInfo('Should return [SignedTxModel] with [MsgDeleteIdentityRecordsModel] message');
+      TestUtils.printInfo('Should return [SignedTxModel] with [IRMsgDeleteRecordsModel] message');
       expect(
         actualSignedTxModel,
         expectedSignedTxModel,
@@ -498,18 +498,18 @@ Future<void> main() async {
         'mode': 'block'
       };
 
-      TestUtils.printInfo('Should return [Tx] as json with [MsgDeleteIdentityRecordsModel] message');
+      TestUtils.printInfo('Should return [Tx] as json with [IRMsgDeleteRecordsModel] message');
       expect(
         actualBroadcastReq.toJson(),
         expectedBroadcastReqJson,
       );
     });
 
-    test('Should return signed transaction with [MsgHandleIdentityRecordsVerifyRequest] message', () async {
+    test('Should return signed transaction with [IRMsgHandleVerificationRequestModel] message', () async {
       final TxLocalInfoModel actualTxLocalInfoModel = TxLocalInfoModel(
         memo: 'Test of MsgHandleIdentityRecordsVerifyRequest message',
         feeTokenAmountModel: feeTokenAmountModel,
-        txMsgModel: MsgHandleIdentityRecordsVerifyRequestModel(
+        txMsgModel: IRMsgHandleVerificationRequestModel(
           approvedBool: true,
           verifyRequestId: BigInt.from(2),
           walletAddress: recipientWallet.address,
@@ -533,7 +533,7 @@ Future<void> main() async {
         ),
       );
 
-      TestUtils.printInfo('Should return SignedTxModel with MsgHandleIdentityRecordsVerifyRequest message');
+      TestUtils.printInfo('Should return SignedTxModel with IRMsgHandleVerificationRequestModel message');
       expect(
         actualSignedTxModel,
         expectedSignedTxModel,
@@ -581,7 +581,7 @@ Future<void> main() async {
         'mode': 'block'
       };
 
-      TestUtils.printInfo('Should return Tx json with MsgHandleIdentityRecordsVerifyRequest message');
+      TestUtils.printInfo('Should return Tx json with IRMsgHandleVerificationRequestModel message');
       expect(
         actualBroadcastReq.toJson(),
         expectedBroadcastReqJson,
@@ -600,9 +600,9 @@ Future<void> main() async {
         txLocalInfoModel: TxLocalInfoModel(
           memo: 'Test of MsgRegisterIdentityRecords message',
           feeTokenAmountModel: feeTokenAmountModel,
-          txMsgModel: MsgRegisterIdentityRecordsModel.single(
+          txMsgModel: IRMsgRegisterRecordsModel.single(
             walletAddress: senderWallet.address,
-            identityInfoEntryModel: const IdentityInfoEntryModel(
+            irEntryModel: const IREntryModel(
               key: 'avatar',
               info: 'https://paganresearch.io/images/kiracore.jpg',
             ),
