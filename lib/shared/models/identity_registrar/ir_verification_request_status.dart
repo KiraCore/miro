@@ -1,0 +1,4 @@
+enum IRVerificationRequestStatus {
+  confirmed,
+  pending,
+}

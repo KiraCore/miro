@@ -12,12 +12,12 @@ import 'package:miro/infra/services/api_kira/query_account_service.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/transactions/broadcast_resp_model.dart';
-import 'package:miro/shared/models/transactions/messages/identity_records/msg_cancel_identity_records_verify_request_model.dart';
-import 'package:miro/shared/models/transactions/messages/identity_records/msg_delete_identity_records_model.dart';
-import 'package:miro/shared/models/transactions/messages/identity_records/msg_handle_identity_records_verify_request_model.dart';
-import 'package:miro/shared/models/transactions/messages/identity_records/msg_request_identity_records_verify_model.dart';
-import 'package:miro/shared/models/transactions/messages/identity_records/register/identity_info_entry_model.dart';
-import 'package:miro/shared/models/transactions/messages/identity_records/register/msg_register_identity_records_model.dart';
+import 'package:miro/shared/models/transactions/messages/identity_registrar/ir_msg_cancel_verification_request_model.dart';
+import 'package:miro/shared/models/transactions/messages/identity_registrar/ir_msg_delete_records_model.dart';
+import 'package:miro/shared/models/transactions/messages/identity_registrar/ir_msg_handle_verification_request_model.dart';
+import 'package:miro/shared/models/transactions/messages/identity_registrar/ir_msg_request_verification_model.dart';
+import 'package:miro/shared/models/transactions/messages/identity_registrar/register/ir_entry_model.dart';
+import 'package:miro/shared/models/transactions/messages/identity_registrar/register/ir_msg_register_records_model.dart';
 import 'package:miro/shared/models/transactions/messages/msg_send_model.dart';
 import 'package:miro/shared/models/transactions/signed_transaction_model.dart';
 import 'package:miro/shared/models/transactions/tx_local_info_model.dart';
@@ -121,13 +121,13 @@ Future<void> main() async {
       await broadcastTx(actualSignedTxModel);
     });
 
-    test('Should return signed transaction with [MsgRegisterIdentityRecords] message', () async {
+    test('Should return signed transaction with [IRMsgRegisterRecordsModel] message', () async {
       final TxLocalInfoModel actualTxLocalInfoModel = TxLocalInfoModel(
         memo: 'Test of MsgRegisterIdentityRecords message',
         feeTokenAmountModel: feeTokenAmountModel,
-        txMsgModel: MsgRegisterIdentityRecordsModel.single(
+        txMsgModel: IRMsgRegisterRecordsModel.single(
           walletAddress: senderWallet.address,
-          identityInfoEntryModel: const IdentityInfoEntryModel(
+          irEntryModel: const IREntryModel(
             key: 'avatar',
             info: 'https://paganresearch.io/images/kiracore.jpg',
           ),
@@ -137,16 +137,16 @@ Future<void> main() async {
       SignedTxModel actualSignedTxModel = await signTx(actualTxLocalInfoModel, senderWallet);
 
       BroadcastReq actualBroadcastReq = BroadcastReq(tx: Tx.fromSignedTxModel(actualSignedTxModel));
-      TestUtils.printInfo('Signed [MsgRegisterIdentityRecords] transaction: ${json.encode(actualBroadcastReq.toJson())}');
+      TestUtils.printInfo('Signed [IRMsgRegisterRecordsModel] transaction: ${json.encode(actualBroadcastReq.toJson())}');
 
       // await broadcastTx(actualSignedTxModel);
     });
 
-    test('Should return signed transaction with [MsgRequestIdentityRecordsVerify] message', () async {
+    test('Should return signed transaction with [IRMsgRequestVerificationModel] message', () async {
       final TxLocalInfoModel actualTxLocalInfoModel = TxLocalInfoModel(
         memo: 'Test of MsgRequestIdentityRecordsVerify message',
         feeTokenAmountModel: feeTokenAmountModel,
-        txMsgModel: MsgRequestIdentityRecordsVerifyModel.single(
+        txMsgModel: IRMsgRequestVerificationModel.single(
           recordId: BigInt.from(964),
           tipTokenAmountModel: TokenAmountModel(
             lowestDenominationAmount: Decimal.fromInt(200),
@@ -160,16 +160,16 @@ Future<void> main() async {
       SignedTxModel actualSignedTxModel = await signTx(actualTxLocalInfoModel, senderWallet);
 
       BroadcastReq actualBroadcastReq = BroadcastReq(tx: Tx.fromSignedTxModel(actualSignedTxModel));
-      TestUtils.printInfo('Signed [MsgRequestIdentityRecordsVerify] transaction: ${json.encode(actualBroadcastReq.toJson())}');
+      TestUtils.printInfo('Signed [IRMsgRequestVerificationModel] transaction: ${json.encode(actualBroadcastReq.toJson())}');
 
       // await broadcastTx(actualSignedTxModel);
     });
 
-    test('Should return signed transaction with [MsgCancelIdentityRecordsVerifyRequest] message', () async {
+    test('Should return signed transaction with [IRMsgCancelVerificationRequestModel] message', () async {
       final TxLocalInfoModel actualTxLocalInfoModel = TxLocalInfoModel(
         memo: 'Test of MsgCancelIdentityRecordsVerifyRequest message',
         feeTokenAmountModel: feeTokenAmountModel,
-        txMsgModel: MsgCancelIdentityRecordsVerifyRequestModel(
+        txMsgModel: IRMsgCancelVerificationRequestModel(
           verifyRequestId: BigInt.from(3),
           walletAddress: senderWallet.address,
         ),
@@ -178,16 +178,16 @@ Future<void> main() async {
       SignedTxModel actualSignedTxModel = await signTx(actualTxLocalInfoModel, senderWallet);
 
       BroadcastReq actualBroadcastReq = BroadcastReq(tx: Tx.fromSignedTxModel(actualSignedTxModel));
-      TestUtils.printInfo('Signed [MsgCancelIdentityRecordsVerifyRequest] transaction: ${json.encode(actualBroadcastReq.toJson())}');
+      TestUtils.printInfo('Signed [IRMsgCancelVerificationRequestModel] transaction: ${json.encode(actualBroadcastReq.toJson())}');
 
       // await broadcastTx(actualSignedTxModel);
     });
 
-    test('Should return signed transaction with [MsgDeleteIdentityRecords] message', () async {
+    test('Should return signed transaction with [IRMsgDeleteRecordsModel] message', () async {
       final TxLocalInfoModel actualTxLocalInfoModel = TxLocalInfoModel(
         memo: 'Test of MsgDeleteIdentityRecords message',
         feeTokenAmountModel: feeTokenAmountModel,
-        txMsgModel: MsgDeleteIdentityRecordsModel.single(
+        txMsgModel: IRMsgDeleteRecordsModel.single(
           key: 'avatar',
           walletAddress: senderWallet.address,
         ),
@@ -196,16 +196,16 @@ Future<void> main() async {
       SignedTxModel actualSignedTxModel = await signTx(actualTxLocalInfoModel, senderWallet);
 
       BroadcastReq actualBroadcastReq = BroadcastReq(tx: Tx.fromSignedTxModel(actualSignedTxModel));
-      TestUtils.printInfo('Signed [MsgDeleteIdentityRecords] transaction: ${json.encode(actualBroadcastReq.toJson())}');
+      TestUtils.printInfo('Signed [IRMsgDeleteRecordsModel] transaction: ${json.encode(actualBroadcastReq.toJson())}');
 
       // await broadcastTx(actualSignedTxModel);
     });
 
-    test('Should return signed transaction with [MsgHandleIdentityRecordsVerifyRequest] message', () async {
+    test('Should return signed transaction with [IRMsgHandleVerificationRequestModel] message', () async {
       final TxLocalInfoModel actualTxLocalInfoModel = TxLocalInfoModel(
         memo: 'Test of MsgHandleIdentityRecordsVerifyRequest message',
         feeTokenAmountModel: feeTokenAmountModel,
-        txMsgModel: MsgHandleIdentityRecordsVerifyRequestModel(
+        txMsgModel: IRMsgHandleVerificationRequestModel(
           approvedBool: true,
           verifyRequestId: BigInt.from(7),
           walletAddress: recipientWallet.address,
@@ -215,7 +215,7 @@ Future<void> main() async {
       SignedTxModel actualSignedTxModel = await signTx(actualTxLocalInfoModel, recipientWallet);
 
       BroadcastReq actualBroadcastReq = BroadcastReq(tx: Tx.fromSignedTxModel(actualSignedTxModel));
-      TestUtils.printInfo('Signed [MsgHandleIdentityRecordsVerifyRequest] transaction: ${json.encode(actualBroadcastReq.toJson())}');
+      TestUtils.printInfo('Signed [IRMsgHandleVerificationRequestModel] transaction: ${json.encode(actualBroadcastReq.toJson())}');
 
       // await broadcastTx(actualSignedTxModel);
     });

@@ -15,6 +15,7 @@ import 'package:miro/infra/services/api/query_interx_status_service.dart';
 import 'package:miro/infra/services/api/query_transactions_service.dart';
 import 'package:miro/infra/services/api/query_validators_service.dart';
 import 'package:miro/infra/services/api_kira/broadcast_service.dart';
+import 'package:miro/infra/services/api_kira/identity_records_service.dart';
 import 'package:miro/infra/services/api_kira/query_account_service.dart';
 import 'package:miro/infra/services/api_kira/query_balance_service.dart';
 import 'package:miro/infra/services/api_kira/query_execution_fee_service.dart';
@@ -50,6 +51,7 @@ void _initServices() {
   globalLocator
     ..registerLazySingleton<BroadcastService>(BroadcastService.new)
     ..registerLazySingleton<DashboardService>(DashboardService.new)
+    ..registerLazySingleton<IdentityRecordsService>(IdentityRecordsService.new)
     ..registerLazySingleton<NetworkModuleService>(NetworkModuleService.new)
     ..registerLazySingleton<QueryAccountService>(QueryAccountService.new)
     ..registerLazySingleton<QueryBalanceService>(QueryBalanceService.new)

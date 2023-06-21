@@ -7,20 +7,20 @@ import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
 import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 
-class MsgRequestIdentityRecordsVerifyModel extends ATxMsgModel {
+class IRMsgRequestVerificationModel extends ATxMsgModel {
   final List<BigInt> recordIds;
   final TokenAmountModel tipTokenAmountModel;
   final WalletAddress verifierWalletAddress;
   final WalletAddress walletAddress;
 
-  const MsgRequestIdentityRecordsVerifyModel({
+  const IRMsgRequestVerificationModel({
     required this.recordIds,
     required this.tipTokenAmountModel,
     required this.verifierWalletAddress,
     required this.walletAddress,
   }) : super(txMsgType: TxMsgType.msgRequestIdentityRecordsVerify);
 
-  MsgRequestIdentityRecordsVerifyModel.single({
+  IRMsgRequestVerificationModel.single({
     required BigInt recordId,
     required this.tipTokenAmountModel,
     required this.verifierWalletAddress,
@@ -28,8 +28,8 @@ class MsgRequestIdentityRecordsVerifyModel extends ATxMsgModel {
   })  : recordIds = <BigInt>[recordId],
         super(txMsgType: TxMsgType.msgRequestIdentityRecordsVerify);
 
-  factory MsgRequestIdentityRecordsVerifyModel.fromDto(MsgRequestIdentityRecordsVerify msgRequestIdentityRecordsVerify) {
-    return MsgRequestIdentityRecordsVerifyModel(
+  factory IRMsgRequestVerificationModel.fromDto(MsgRequestIdentityRecordsVerify msgRequestIdentityRecordsVerify) {
+    return IRMsgRequestVerificationModel(
       recordIds: msgRequestIdentityRecordsVerify.recordIds,
       tipTokenAmountModel: TokenAmountModel(
           lowestDenominationAmount: Decimal.parse(msgRequestIdentityRecordsVerify.tip.amount),

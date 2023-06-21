@@ -3,17 +3,17 @@ import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
 import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 
-class MsgCancelIdentityRecordsVerifyRequestModel extends ATxMsgModel {
+class IRMsgCancelVerificationRequestModel extends ATxMsgModel {
   final BigInt verifyRequestId;
   final WalletAddress walletAddress;
 
-  const MsgCancelIdentityRecordsVerifyRequestModel({
+  const IRMsgCancelVerificationRequestModel({
     required this.verifyRequestId,
     required this.walletAddress,
   }) : super(txMsgType: TxMsgType.msgCancelIdentityRecordsVerifyRequest);
 
-  factory MsgCancelIdentityRecordsVerifyRequestModel.fromDto(MsgCancelIdentityRecordsVerifyRequest msgCancelIdentityRecordsVerifyRequest) {
-    return MsgCancelIdentityRecordsVerifyRequestModel(
+  factory IRMsgCancelVerificationRequestModel.fromDto(MsgCancelIdentityRecordsVerifyRequest msgCancelIdentityRecordsVerifyRequest) {
+    return IRMsgCancelVerificationRequestModel(
       verifyRequestId: msgCancelIdentityRecordsVerifyRequest.verifyRequestId,
       walletAddress: WalletAddress.fromBech32(msgCancelIdentityRecordsVerifyRequest.executor),
     );

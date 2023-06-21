@@ -3,19 +3,19 @@ import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
 import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 
-class MsgHandleIdentityRecordsVerifyRequestModel extends ATxMsgModel {
+class IRMsgHandleVerificationRequestModel extends ATxMsgModel {
   final bool approvedBool;
   final BigInt verifyRequestId;
   final WalletAddress walletAddress;
 
-  const MsgHandleIdentityRecordsVerifyRequestModel({
+  const IRMsgHandleVerificationRequestModel({
     required this.approvedBool,
     required this.verifyRequestId,
     required this.walletAddress,
   }) : super(txMsgType: TxMsgType.msgHandleIdentityRecordsVerifyRequest);
 
-  factory MsgHandleIdentityRecordsVerifyRequestModel.fromDto(MsgHandleIdentityRecordsVerifyRequest msgHandleIdentityRecordsVerifyRequest) {
-    return MsgHandleIdentityRecordsVerifyRequestModel(
+  factory IRMsgHandleVerificationRequestModel.fromDto(MsgHandleIdentityRecordsVerifyRequest msgHandleIdentityRecordsVerifyRequest) {
+    return IRMsgHandleVerificationRequestModel(
       approvedBool: msgHandleIdentityRecordsVerifyRequest.yes,
       verifyRequestId: msgHandleIdentityRecordsVerifyRequest.verifyRequestId,
       walletAddress: WalletAddress.fromBech32(msgHandleIdentityRecordsVerifyRequest.verifier),

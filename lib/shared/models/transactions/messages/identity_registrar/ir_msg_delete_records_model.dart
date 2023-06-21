@@ -3,23 +3,23 @@ import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
 import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 
-class MsgDeleteIdentityRecordsModel extends ATxMsgModel {
+class IRMsgDeleteRecordsModel extends ATxMsgModel {
   final List<String> keys;
   final WalletAddress walletAddress;
 
-  const MsgDeleteIdentityRecordsModel({
+  const IRMsgDeleteRecordsModel({
     required this.keys,
     required this.walletAddress,
   }) : super(txMsgType: TxMsgType.msgDeleteIdentityRecords);
 
-  MsgDeleteIdentityRecordsModel.single({
+  IRMsgDeleteRecordsModel.single({
     required String key,
     required this.walletAddress,
   })  : keys = <String>[key],
         super(txMsgType: TxMsgType.msgDeleteIdentityRecords);
 
-  factory MsgDeleteIdentityRecordsModel.fromDto(MsgDeleteIdentityRecords msgDeleteIdentityRecords) {
-    return MsgDeleteIdentityRecordsModel(
+  factory IRMsgDeleteRecordsModel.fromDto(MsgDeleteIdentityRecords msgDeleteIdentityRecords) {
+    return IRMsgDeleteRecordsModel(
       keys: msgDeleteIdentityRecords.keys,
       walletAddress: WalletAddress.fromBech32(msgDeleteIdentityRecords.address),
     );
