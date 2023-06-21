@@ -151,6 +151,8 @@ class _NetworkListPage extends State<NetworkListPage> {
   }
 
   Future<void> _handleNetworkConnected(ANetworkStatusModel networkStatusModel) async {
+    /// delay is required to ensure query parameters are loaded to URI before navigation
+    await Future<void>.delayed(const Duration(milliseconds: 100));
     PageRouteInfo<dynamic> nextRoute = RouterUtils.getNextRouteAfterLoading(widget.nextPageRouteInfo);
     await KiraRouter.of(context).navigate(nextRoute);
   }
