@@ -246,6 +246,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "The application is incompatible with this server. Some views may not work correctly."),
         "networkWarningWhenLastBlock": m3,
         "or": MessageLookupByLibrary.simpleMessage("or "),
+        "paginatedListPageSize":
+            MessageLookupByLibrary.simpleMessage("Page size"),
         "proposals": MessageLookupByLibrary.simpleMessage("Proposals"),
         "proposalsActive": MessageLookupByLibrary.simpleMessage("Active"),
         "proposalsEnacting": MessageLookupByLibrary.simpleMessage("Enacting"),

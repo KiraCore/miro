@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/favourites/favourites_bloc.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/filters/filters_bloc.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/sort/sort_bloc.dart';
 import 'package:miro/config/app_sizes.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
@@ -24,6 +27,18 @@ class ValidatorsPage extends StatefulWidget {
 
 class _ValidatorsPage extends State<ValidatorsPage> {
   final ScrollController scrollController = ScrollController();
+  final ValidatorsListController validatorsListController = ValidatorsListController();
+  final FiltersBloc<ValidatorModel> filtersBloc = FiltersBloc<ValidatorModel>(
+    searchComparator: ValidatorsFilterOptions.search,
+  );
+
+  final SortBloc<ValidatorModel> sortBloc = SortBloc<ValidatorModel>(
+    defaultSortOption: ValidatorsSortOptions.sortByTop,
+  );
+
+  late final FavouritesBloc<ValidatorModel> favouritesBloc = FavouritesBloc<ValidatorModel>(
+    listController: validatorsListController,
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -46,19 +61,20 @@ class _ValidatorsPage extends State<ValidatorsPage> {
         SliverPadding(
           padding: AppSizes.getPagePadding(context),
           sliver: SliverInfinityList<ValidatorModel>(
-            defaultSortOption: ValidatorsSortOptions.sortByTop,
             itemBuilder: (ValidatorModel validatorModel) => ValidatorListItemBuilder(
               key: Key(validatorModel.toString()),
               validatorModel: validatorModel,
               scrollController: scrollController,
             ),
             listController: ValidatorsListController(),
-            searchComparator: ValidatorsFilterOptions.search,
             scrollController: scrollController,
             singlePageSize: listHeight ~/ ValidatorListItemDesktop.height + 5,
-            hasBackground: ResponsiveWidget.isLargeScreen(context),
+            hasBackgroundBool: ResponsiveWidget.isLargeScreen(context),
             listHeaderWidget: ResponsiveWidget.isLargeScreen(context) ? listHeaderWidget : null,
             title: const ValidatorListTitle(),
+            sortBloc: sortBloc,
+            filtersBloc: filtersBloc,
+            favouritesBloc: favouritesBloc,
           ),
         ),
       ],

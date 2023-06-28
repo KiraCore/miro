@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/favourites/favourites_bloc.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/filters/filters_bloc.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/sort/sort_bloc.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/controllers/menu/my_account_page/balances_page/balances_filter_options.dart';
 import 'package:miro/shared/controllers/menu/my_account_page/balances_page/balances_list_controller.dart';
@@ -26,6 +29,18 @@ class TokenDropdownList extends StatefulWidget {
 }
 
 class _TokenDropdownList extends State<TokenDropdownList> {
+  final SortBloc<BalanceModel> sortBloc = SortBloc<BalanceModel>(
+    defaultSortOption: BalancesSortOptions.sortByDenom,
+  );
+  final FiltersBloc<BalanceModel> filtersBloc = FiltersBloc<BalanceModel>(
+    searchComparator: BalancesFilterOptions.search,
+  );
+
+  late final BalancesListController balancesListController = BalancesListController(address: widget.walletAddress?.bech32Address ?? '');
+  late final FavouritesBloc<BalanceModel> favouritesBloc = FavouritesBloc<BalanceModel>(
+    listController: balancesListController,
+  );
+
   TokenAliasModel? selectedTokenAliasModel;
 
   @override
@@ -37,7 +52,6 @@ class _TokenDropdownList extends State<TokenDropdownList> {
   @override
   Widget build(BuildContext context) {
     return PopupInfinityList<BalanceModel>(
-      defaultSortOption: BalancesSortOptions.sortByDenom,
       itemBuilder: (BalanceModel balanceModel) {
         TokenAliasModel tokenAliasModel = balanceModel.tokenAmountModel.tokenAliasModel;
         return TokenDropdownListItem(
@@ -47,10 +61,12 @@ class _TokenDropdownList extends State<TokenDropdownList> {
           favourite: balanceModel.isFavourite,
         );
       },
-      listController: BalancesListController(address: widget.walletAddress?.bech32Address ?? ''),
-      searchComparator: BalancesFilterOptions.search,
+      listController: balancesListController,
       singlePageSize: 20,
       searchBarTitle: S.of(context).txSearchTokens,
+      sortBloc: sortBloc,
+      filtersBloc: filtersBloc,
+      favouritesBloc: favouritesBloc,
     );
   }
 

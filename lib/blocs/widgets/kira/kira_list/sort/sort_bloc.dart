@@ -16,6 +16,8 @@ class SortBloc<T extends AListItem> extends Bloc<ASortEvent, SortState<T>> {
     on<SortClearEvent>(_mapSortClearEventToState);
   }
 
+  bool get isDefaultSortEnabled => state.activeSortOption == defaultSortOption;
+
   void _mapSortChangeEventToState(SortChangeEvent<T> sortChangeEvent, Emitter<SortState<T>> emit) {
     emit(SortState<T>(sortChangeEvent.sortOption));
   }

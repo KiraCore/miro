@@ -151,6 +151,8 @@
     }
   },
 
+  "paginatedListPageSize": "Page size",
+
   "proposals": "Proposals",
   "proposalsActive": "Active",
   "proposalsEnacting": "Enacting",
@@ -263,6 +265,7 @@
   "toastSuccessfullyCopied": "Successfully copied",
   "toastPublicAddressCopied": "Public address copied to clipboard",
   "toastCannotLoadDashboard": "Cannot load dashboard. Please check your connection.",
+
   "dashboard": "Dashboard",
   "governance": "Governance",
   "accounts": "Accounts",
