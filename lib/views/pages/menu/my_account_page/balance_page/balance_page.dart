@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/favourites/favourites_bloc.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/filters/filters_bloc.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/sort/sort_bloc.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/shared/controllers/menu/my_account_page/balances_page/balances_filter_options.dart';
 import 'package:miro/shared/controllers/menu/my_account_page/balances_page/balances_list_controller.dart';
@@ -11,7 +14,7 @@ import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_list_
 import 'package:miro/views/widgets/generic/responsive/responsive_value.dart';
 import 'package:miro/views/widgets/kira/kira_list/infinity_list/sliver_infinity_list/sliver_infinity_list.dart';
 
-class BalancePage extends StatelessWidget {
+class BalancePage extends StatefulWidget {
   final String address;
   final ScrollController parentScrollController;
 
@@ -22,22 +25,40 @@ class BalancePage extends StatelessWidget {
   }) : super(key: key);
 
   @override
+  _BalancePage createState() => _BalancePage();
+}
+
+class _BalancePage extends State<BalancePage> {
+  final SortBloc<BalanceModel> sortBloc = SortBloc<BalanceModel>(
+    defaultSortOption: BalancesSortOptions.sortByDenom,
+  );
+  final FiltersBloc<BalanceModel> filtersBloc = FiltersBloc<BalanceModel>(
+    searchComparator: BalancesFilterOptions.search,
+  );
+
+  late final BalancesListController balancesListController = BalancesListController(address: widget.address);
+  late final FavouritesBloc<BalanceModel> favouritesBloc = FavouritesBloc<BalanceModel>(
+    listController: balancesListController,
+  );
+
+  @override
   Widget build(BuildContext context) {
     double listHeight = MediaQuery.of(context).size.height - 470;
     double itemSize = const ResponsiveValue<double>(largeScreen: 70, smallScreen: 180).get(context);
 
     return SliverInfinityList<BalanceModel>(
-      defaultSortOption: BalancesSortOptions.sortByDenom,
       itemBuilder: (BalanceModel balanceModel) => BalanceListItemBuilder(
         key: Key('${balanceModel.hashCode}'),
         balanceModel: balanceModel,
-        scrollController: parentScrollController,
+        scrollController: widget.parentScrollController,
       ),
-      listController: BalancesListController(address: address),
-      searchComparator: BalancesFilterOptions.search,
-      scrollController: parentScrollController,
+      listController: balancesListController,
+      scrollController: widget.parentScrollController,
       singlePageSize: listHeight ~/ itemSize + 5,
       title: const BalanceListTitle(),
+      sortBloc: sortBloc,
+      filtersBloc: filtersBloc,
+      favouritesBloc: favouritesBloc,
       reloadNotifierModel: globalLocator<ReloadNotifierController>().myAccountBalanceListNotifier,
     );
   }

@@ -9,7 +9,6 @@ import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/states/list_load
 import 'package:miro/blocs/widgets/kira/kira_list/favourites/favourites_bloc.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/filters/filters_bloc.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/infinity_list/infinity_list_bloc.dart';
-import 'package:miro/blocs/widgets/kira/kira_list/sort/models/sort_option.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/sort/sort_bloc.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/controllers/reload_notifier/reload_notifier_model.dart';
@@ -19,27 +18,29 @@ import 'package:miro/views/widgets/kira/kira_list/list_loading_widget.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 
 class SliverInfinityList<T extends AListItem> extends StatefulWidget {
-  final SortOption<T> defaultSortOption;
   final Widget Function(T item) itemBuilder;
   final IListController<T> listController;
-  final SearchComparator<T> searchComparator;
   final ScrollController scrollController;
   final int singlePageSize;
-  final bool hasBackground;
+  final bool hasBackgroundBool;
   final Widget? listHeaderWidget;
   final Widget? title;
+  final FavouritesBloc<T>? favouritesBloc;
+  final FiltersBloc<T>? filtersBloc;
+  final SortBloc<T>? sortBloc;
   final ReloadNotifierModel? reloadNotifierModel;
 
   SliverInfinityList({
-    required this.defaultSortOption,
     required this.itemBuilder,
     required this.listController,
-    required this.searchComparator,
     ScrollController? scrollController,
     this.singlePageSize = 20,
-    this.hasBackground = true,
+    this.hasBackgroundBool = true,
     this.listHeaderWidget,
     this.title,
+    this.favouritesBloc,
+    this.filtersBloc,
+    this.sortBloc,
     this.reloadNotifierModel,
     Key? key,
   })  : scrollController = scrollController ?? ScrollController(),
@@ -50,26 +51,22 @@ class SliverInfinityList<T extends AListItem> extends StatefulWidget {
 }
 
 class _SliverInfinityList<T extends AListItem> extends State<SliverInfinityList<T>> {
-  late FavouritesBloc<T> favouritesBloc = FavouritesBloc<T>(listController: widget.listController);
-  late FiltersBloc<T> filtersBloc = FiltersBloc<T>(searchComparator: widget.searchComparator);
-  late SortBloc<T> sortBloc = SortBloc<T>(defaultSortOption: widget.defaultSortOption);
   late InfinityListBloc<T> infinityListBloc = InfinityListBloc<T>(
     listController: widget.listController,
     singlePageSize: widget.singlePageSize,
-    favouritesBloc: favouritesBloc,
-    filterBloc: filtersBloc,
-    sortBloc: sortBloc,
-    reloadNotifierModel: widget.reloadNotifierModel,
+    favouritesBloc: widget.favouritesBloc,
+    filterBloc: widget.filtersBloc,
+    sortBloc: widget.sortBloc,
   );
 
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: <BlocProvider<dynamic>>[
-        BlocProvider<FiltersBloc<T>>(lazy: false, create: (BuildContext context) => filtersBloc),
-        BlocProvider<SortBloc<T>>(lazy: false, create: (BuildContext context) => sortBloc),
-        BlocProvider<FavouritesBloc<T>>(lazy: false, create: (BuildContext context) => favouritesBloc),
-        BlocProvider<InfinityListBloc<T>>(lazy: false, create: (BuildContext context) => infinityListBloc),
+        if (widget.filtersBloc != null) BlocProvider<FiltersBloc<T>>(lazy: false, create: (BuildContext context) => widget.filtersBloc!),
+        if (widget.sortBloc != null) BlocProvider<SortBloc<T>>(lazy: false, create: (BuildContext context) => widget.sortBloc!),
+        if (widget.favouritesBloc != null) BlocProvider<FavouritesBloc<T>>(lazy: false, create: (BuildContext context) => widget.favouritesBloc!),
+        BlocProvider<InfinityListBloc<T>>(create: (BuildContext context) => infinityListBloc),
       ],
       child: ValueListenableBuilder<bool>(
         valueListenable: infinityListBloc.showLoadingOverlay,
@@ -98,7 +95,7 @@ class _SliverInfinityList<T extends AListItem> extends State<SliverInfinityList<
                     else if (state is ListLoadedState<T>)
                       SliverInfinityListContent<T>(
                         isLastPage: state.lastPage,
-                        hasBackground: widget.hasBackground,
+                        hasBackground: widget.hasBackgroundBool,
                         items: state.listItems,
                         itemBuilder: widget.itemBuilder,
                         scrollController: widget.scrollController,

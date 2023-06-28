@@ -90,7 +90,7 @@ Future<void> main() async {
       );
 
       // Act
-      await Future<void>.delayed(const Duration(milliseconds: 100));
+      await Future<void>.delayed(const Duration(milliseconds: 1000));
 
       // Assert
       expectedListState = ListLoadedState<MockListItem>(

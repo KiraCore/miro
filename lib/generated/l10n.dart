@@ -1101,6 +1101,16 @@ class S {
     );
   }
 
+  /// `Page size`
+  String get paginatedListPageSize {
+    return Intl.message(
+      'Page size',
+      name: 'paginatedListPageSize',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Proposals`
   String get proposals {
     return Intl.message(

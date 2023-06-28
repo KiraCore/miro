@@ -21,7 +21,6 @@ import 'package:miro/blocs/widgets/kira/kira_list/filters/a_filters_state.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/filters/filters_bloc.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/filters/models/filter_option.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/filters/states/filters_active_state.dart';
-import 'package:miro/blocs/widgets/kira/kira_list/filters/states/filters_empty_state.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/sort/models/sort_option.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/sort/sort_bloc.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/sort/sort_state.dart';
@@ -36,24 +35,21 @@ import 'package:miro/shared/utils/logger/app_logger.dart';
 
 abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListState> {
   final AppConfig appConfig = globalLocator<AppConfig>();
-
-  final FavouritesBloc<T> favouritesBloc;
-  final FiltersBloc<T> filtersBloc;
   final NetworkModuleBloc networkModuleBloc = globalLocator<NetworkModuleBloc>();
-  final SortBloc<T> sortBloc;
-
-  late StreamSubscription<AFavouritesState> _favouritesStateSubscription;
-  late StreamSubscription<AFiltersState<T>> _filtersStateSubscription;
-  late StreamSubscription<NetworkModuleState> _networkModuleStateSubscription;
-  late StreamSubscription<SortState<T>> _sortStateSubscription;
-
-  final IListController<T> listController;
-
   final PageReloadController pageReloadController = PageReloadController();
 
   final int singlePageSize;
+  final IListController<T> listController;
 
+  final FavouritesBloc<T>? favouritesBloc;
+  final FiltersBloc<T>? filtersBloc;
+  final SortBloc<T>? sortBloc;
   final ReloadNotifierModel? reloadNotifierModel;
+
+  late StreamSubscription<NetworkModuleState> _networkModuleStateSubscription;
+  late StreamSubscription<AFavouritesState>? _favouritesStateSubscription;
+  late StreamSubscription<AFiltersState<T>>? _filtersStateSubscription;
+  late StreamSubscription<SortState<T>>? _sortStateSubscription;
 
   /// Stores information about current page.
   /// In case of infinity list, this is the last loaded page.
@@ -70,11 +66,11 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
   ValueNotifier<bool> showLoadingOverlay = ValueNotifier<bool>(false);
 
   AListBloc({
-    required this.favouritesBloc,
-    required this.filtersBloc,
-    required this.sortBloc,
-    required this.listController,
     required this.singlePageSize,
+    required this.listController,
+    this.favouritesBloc,
+    this.filtersBloc,
+    this.sortBloc,
     this.reloadNotifierModel,
   }) : super(ListLoadingState()) {
     // Assign events to methods
@@ -85,11 +81,11 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
     // Init listeners
     reloadNotifierModel?.addListener(_handleReloadNotifierUpdate);
 
-    _favouritesStateSubscription = favouritesBloc.stream.listen((_) => add(const ListUpdatedEvent(jumpToTop: true)));
-    _filtersStateSubscription = filtersBloc.stream.listen((_) => add(ListOptionsChangedEvent()));
+    _favouritesStateSubscription = favouritesBloc?.stream.listen((_) => add(const ListUpdatedEvent(jumpToTop: true)));
+    _filtersStateSubscription = filtersBloc?.stream.listen((_) => add(ListOptionsChangedEvent()));
     _networkModuleStateSubscription = networkModuleBloc.stream.listen(_reloadAfterNetworkModuleStateChanged);
     _networkModuleStateSubscription = networkModuleBloc.stream.listen(_reloadAfterNetworkModuleStateChanged);
-    _sortStateSubscription = sortBloc.stream.listen((_) => add(ListOptionsChangedEvent()));
+    _sortStateSubscription = sortBloc?.stream.listen((_) => add(ListOptionsChangedEvent()));
 
     // Call ListReloadEvent to fetch first page
     add(ListReloadEvent());
@@ -99,16 +95,20 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
   Future<void> close() async {
     reloadNotifierModel?.removeListener(_handleReloadNotifierUpdate);
 
-    await _favouritesStateSubscription.cancel();
-    await _filtersStateSubscription.cancel();
     await _networkModuleStateSubscription.cancel();
-    await _sortStateSubscription.cancel();
+    await _favouritesStateSubscription?.cancel();
+    await _filtersStateSubscription?.cancel();
+    await _sortStateSubscription?.cancel();
     return super.close();
   }
 
   List<T> sortList(List<T> listItems) {
-    SortOption<T> activeSortOption = sortBloc.state.activeSortOption;
-    List<T> favouritesList = favouritesBloc.favouritesList;
+    bool sortingDisabledBool = sortBloc == null;
+    if (sortingDisabledBool) {
+      return listItems;
+    }
+    SortOption<T> activeSortOption = sortBloc!.state.activeSortOption;
+    List<T> favouritesList = favouritesBloc?.favouritesList ?? <T>[];
     Set<T> uniqueListItems = <T>{
       ...activeSortOption.sort(filterList(favouritesList.toSet().toList())),
       ...activeSortOption.sort(listItems),
@@ -117,10 +117,11 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
   }
 
   List<T> filterList(List<T> listItems) {
-    if (filtersBloc.state is FiltersEmptyState) {
+    bool filtersDisabledBool = filtersBloc?.state is! FiltersActiveState<T>;
+    if (filtersDisabledBool) {
       return listItems;
     }
-    FilterComparator<T> filterComparator = (filtersBloc.state as FiltersActiveState<T>).filterComparator;
+    FilterComparator<T> filterComparator = (filtersBloc!.state as FiltersActiveState<T>).filterComparator;
     return listItems.where(filterComparator).toList();
   }
 
@@ -140,7 +141,14 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
     downloadedPagesCache.clear();
     currentPageData = PageData<T>.initial();
 
-    await favouritesBloc.initFavourites();
+    await favouritesBloc?.initFavourites();
+
+    bool filtersEnabledBool = filtersBloc?.state is FiltersActiveState<T>;
+    bool sortEnabledBool = sortBloc != null;
+
+    if (filtersEnabledBool || sortEnabledBool || sortBloc?.isDefaultSortEnabled == false) {
+      await _downloadAllListData(emit);
+    }
 
     bool canReloadComplete = pageReloadController.canReloadComplete(localReloadId);
     bool isBlocActive = !isClosed;
@@ -175,11 +183,8 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
     pageDownloadingStatus = false;
   }
 
-  Future<void> _mapListOptionsChangedEventToState(
-    ListOptionsChangedEvent listOptionsChangedEvent,
-    Emitter<AListState> emit,
-  ) async {
-    await _downloadAllListData();
+  Future<void> _mapListOptionsChangedEventToState(ListOptionsChangedEvent listOptionsChangedEvent, Emitter<AListState> emit) async {
+    await _downloadAllListData(emit);
     add(const ListUpdatedEvent(jumpToTop: true));
   }
 
@@ -213,24 +218,39 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
     }
   }
 
-  Future<void> _downloadAllListData() async {
-    PageData<T> lastPageData = downloadedPagesCache[downloadedPagesCache.keys.last]!;
-    if (lastPageData.isLastPage) {
+  Future<void> _downloadAllListData(Emitter<AListState> emit) async {
+    bool lastPageBool = false;
+    if (downloadedPagesCache.isNotEmpty) {
+      PageData<T> lastPageData = downloadedPagesCache[downloadedPagesCache.keys.last]!;
+      lastPageBool = lastPageData.isLastPage;
+    }
+    if (lastPageBool) {
       return;
     }
     showLoadingOverlay.value = true;
+
     await Future<void>.delayed(const Duration(milliseconds: 500));
     List<T> allListItems = List<T>.empty(growable: true);
     int downloadedPagesCount = 0;
     int bulkSinglePageSize = appConfig.bulkSinglePageSize;
-    await Future.doWhile(() async {
-      int offset = downloadedPagesCount * bulkSinglePageSize;
-      List<T> currentPageItems = await listController.getPageData(downloadedPagesCount, offset, bulkSinglePageSize);
-      allListItems.addAll(currentPageItems);
-      downloadedPagesCount += 1;
-      return currentPageItems.length == bulkSinglePageSize;
-    });
-    _setupPagesCacheFromList(allListItems);
+
+    try {
+      await Future.doWhile(() async {
+        int offset = downloadedPagesCount * bulkSinglePageSize;
+        List<T> currentPageItems = await listController.getPageData(downloadedPagesCount, offset, bulkSinglePageSize);
+        allListItems.addAll(currentPageItems);
+        downloadedPagesCount += 1;
+        return currentPageItems.length == bulkSinglePageSize;
+      });
+      _setupPagesCacheFromList(allListItems);
+    } catch (_) {
+      AppLogger().log(message: 'Cannot fetch all list data for ${listController.runtimeType}');
+      pageReloadController.hasErrors = true;
+      showLoadingOverlay.value = false;
+      emit(ListErrorState());
+      return;
+    }
+
     showLoadingOverlay.value = false;
   }
 

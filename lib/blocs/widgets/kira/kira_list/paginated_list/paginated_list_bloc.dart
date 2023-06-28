@@ -6,46 +6,51 @@ import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/events/list_next
 import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/events/list_updated_event.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/models/a_list_item.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/models/page_data.dart';
-import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/states/list_loaded_state.dart';
-import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/states/list_loading_state.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/favourites/favourites_bloc.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/filters/filters_bloc.dart';
-import 'package:miro/blocs/widgets/kira/kira_list/infinity_list/events/infinity_list_reached_bottom_event.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/paginated_list/events/paginated_list_next_page_event.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/paginated_list/events/paginated_list_previous_page_event.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/paginated_list/states/paginated_list_loaded_state.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/sort/sort_bloc.dart';
-import 'package:miro/shared/controllers/reload_notifier/reload_notifier_model.dart';
 import 'package:miro/shared/utils/list_utils.dart';
 
-class InfinityListBloc<T extends AListItem> extends AListBloc<T> {
+class PaginatedListBloc<T extends AListItem> extends AListBloc<T> {
   int lastPageIndex = 0;
 
-  InfinityListBloc({
+  PaginatedListBloc({
     required int singlePageSize,
     required IListController<T> listController,
     FavouritesBloc<T>? favouritesBloc,
     FiltersBloc<T>? filterBloc,
     SortBloc<T>? sortBloc,
-    ReloadNotifierModel? reloadNotifierModel,
   }) : super(
           singlePageSize: singlePageSize,
           listController: listController,
           favouritesBloc: favouritesBloc,
           filtersBloc: filterBloc,
           sortBloc: sortBloc,
-          reloadNotifierModel: reloadNotifierModel,
         ) {
-    on<InfinityListReachedBottomEvent>(_mapInfinityListReachedBottomEventToState);
+    on<PaginatedListNextPageEvent>(_mapNextPageEventToState);
+    on<PaginatedListPreviousPageEvent>(_mapPreviousPageEventToState);
     on<ListUpdatedEvent>(_mapListUpdatedEventToState);
   }
 
-  void _mapInfinityListReachedBottomEventToState(
-    InfinityListReachedBottomEvent infinityListReachedBottomEvent,
-    Emitter<AListState> emit,
-  ) {
-    if (currentPageData.isLastPage || pageDownloadingStatus) {
+  void _mapNextPageEventToState(PaginatedListNextPageEvent paginatedListNextPageEvent, Emitter<AListState> emit) {
+    if (showLoadingOverlay.value) {
       return;
     }
+    showLoadingOverlay.value = true;
     lastPageIndex += 1;
     add(ListNextPageEvent());
+  }
+
+  void _mapPreviousPageEventToState(PaginatedListPreviousPageEvent paginatedListPreviousPageEvent, Emitter<AListState> emit) {
+    if (showLoadingOverlay.value) {
+      return;
+    }
+    showLoadingOverlay.value = true;
+    lastPageIndex -= 1;
+    add(const ListUpdatedEvent(jumpToTop: false));
   }
 
   void _mapListUpdatedEventToState(ListUpdatedEvent listUpdatedEvent, Emitter<AListState> emit) {
@@ -58,17 +63,13 @@ class InfinityListBloc<T extends AListItem> extends AListBloc<T> {
 
     _updateCurrentPageData(sortedListItems);
 
-    List<T> visibleListItems = ListUtils.getSafeSublist<T>(
-      list: sortedListItems,
-      start: 0,
-      end: (lastPageIndex + 1) * singlePageSize,
-    );
-
-    emit(ListLoadingState());
-    emit(ListLoadedState<T>(
-      listItems: visibleListItems,
-      lastPage: currentPageData.isLastPage,
+    emit(PaginatedListLoadedState<T>(
+      pageIndex: lastPageIndex,
+      listItems: currentPageData.listItems,
+      lastPageBool: currentPageData.isLastPage,
     ));
+
+    showLoadingOverlay.value = false;
   }
 
   List<T> _getAllPagesAsList() {
