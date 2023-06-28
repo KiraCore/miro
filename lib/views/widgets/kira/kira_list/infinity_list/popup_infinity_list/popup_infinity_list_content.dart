@@ -9,12 +9,14 @@ import 'package:miro/views/widgets/kira/kira_list/infinity_list/infinity_list_lo
 class PopupInfinityListContent<T extends AListItem> extends StatefulWidget {
   final bool isLastPage;
   final Widget Function(T item) itemBuilder;
+  final ScrollController scrollController;
   final List<T> items;
   final double nextPageActivatorOffset;
 
   const PopupInfinityListContent({
     required this.isLastPage,
     required this.itemBuilder,
+    required this.scrollController,
     required this.items,
     this.nextPageActivatorOffset = 50,
     Key? key,
@@ -28,7 +30,7 @@ class _PopupInfinityListContent<T extends AListItem> extends State<PopupInfinity
   late InfinityListController<T> infinityListController = InfinityListController<T>(
     infinityListBloc: BlocProvider.of<InfinityListBloc<T>>(context),
     nextPageActivatorOffset: widget.nextPageActivatorOffset,
-    scrollController: ScrollController(),
+    scrollController: widget.scrollController,
     items: widget.items,
   );
 
@@ -53,6 +55,7 @@ class _PopupInfinityListContent<T extends AListItem> extends State<PopupInfinity
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      controller: widget.scrollController,
       itemCount: _listLength,
       itemBuilder: (BuildContext context, int index) {
         if (widget.isLastPage == false && index == _listLength - 1) {

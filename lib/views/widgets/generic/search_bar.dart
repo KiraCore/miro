@@ -33,7 +33,7 @@ class SearchBar extends StatefulWidget {
 }
 
 class _SearchBar extends State<SearchBar> {
-  final ValueNotifier<bool> clearButtonVisibleNotifier = ValueNotifier<bool>(false);
+  late final ValueNotifier<bool> clearButtonVisibleNotifier = ValueNotifier<bool>(widget.textEditingController.text.isNotEmpty);
 
   @override
   Widget build(BuildContext context) {
@@ -46,8 +46,8 @@ class _SearchBar extends State<SearchBar> {
           return TextFormField(
             enabled: widget.enabled,
             controller: widget.textEditingController,
-            onFieldSubmitted: (_) => _onSubmitSearchBar(),
-            onChanged: _onChangedSearchBar,
+            onFieldSubmitted: (_) => _submitSearchBar(),
+            onChanged: _handleSearchBarChanged,
             style: widget.textStyle,
             decoration: InputDecoration(
               hoverColor: DesignColors.greyHover1,
@@ -61,7 +61,7 @@ class _SearchBar extends State<SearchBar> {
                   color: DesignColors.grey1,
                   size: 18,
                 ),
-                onPressed: _onSubmitSearchBar,
+                onPressed: _submitSearchBar,
               ),
               suffixIcon: clearButtonVisible
                   ? Padding(
@@ -90,16 +90,14 @@ class _SearchBar extends State<SearchBar> {
     if (widget.enabled == false) {
       searchBarWidget = Opacity(
         opacity: 0.4,
-        child: IgnorePointer(
-          child: searchBarWidget,
-        ),
+        child: IgnorePointer(child: searchBarWidget),
       );
     }
 
     return searchBarWidget;
   }
 
-  void _onChangedSearchBar(String value) {
+  void _handleSearchBarChanged(String value) {
     clearButtonVisibleNotifier.value = value.isNotEmpty;
 
     if (value.isEmpty) {
@@ -107,7 +105,7 @@ class _SearchBar extends State<SearchBar> {
     }
   }
 
-  void _onSubmitSearchBar() {
+  void _submitSearchBar() {
     widget.onSubmit?.call(widget.textEditingController.text);
   }
 
