@@ -7,12 +7,14 @@ import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/views/widgets/generic/search_bar.dart';
 
 class ListSearchWidget<T extends AListItem> extends StatefulWidget {
+  final TextEditingController textEditingController;
   final bool enabled;
   final double height;
   final double width;
   final String? hint;
 
   const ListSearchWidget({
+    required this.textEditingController,
     this.enabled = true,
     this.height = 50,
     this.width = 285,
@@ -25,12 +27,11 @@ class ListSearchWidget<T extends AListItem> extends StatefulWidget {
 }
 
 class _ListSearchWidget<T extends AListItem> extends State<ListSearchWidget<T>> {
-  final TextEditingController textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return SearchBar(
-      textEditingController: textEditingController,
+      textEditingController: widget.textEditingController,
       textStyle: const TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.w400,
@@ -41,8 +42,8 @@ class _ListSearchWidget<T extends AListItem> extends State<ListSearchWidget<T>> 
       width: widget.width,
       label: widget.hint,
       backgroundColor: DesignColors.black,
-      onClear: _onClearSearchBar,
-      onSubmit: _onSubmitSearchBar,
+      onClear: _clearSearchBar,
+      onSubmit: _submitSearchBar,
       border: OutlineInputBorder(
         borderSide: const BorderSide(color: DesignColors.greyOutline),
         borderRadius: BorderRadius.circular(8),
@@ -50,11 +51,11 @@ class _ListSearchWidget<T extends AListItem> extends State<ListSearchWidget<T>> 
     );
   }
 
-  void _onClearSearchBar() {
+  void _clearSearchBar() {
     BlocProvider.of<FiltersBloc<T>>(context).add(FiltersSearchEvent<T>(''));
   }
 
-  void _onSubmitSearchBar(String value) {
+  void _submitSearchBar(String value) {
     BlocProvider.of<FiltersBloc<T>>(context).add(FiltersSearchEvent<T>(value));
   }
 }

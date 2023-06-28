@@ -7,7 +7,10 @@ import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 import 'package:miro/views/widgets/kira/kira_list/components/list_search_widget.dart';
 
 class BalanceListTitleMobile extends StatelessWidget {
+  final TextEditingController searchBarTextEditingController;
+
   const BalanceListTitleMobile({
+    required this.searchBarTextEditingController,
     Key? key,
   }) : super(key: key);
 
@@ -18,6 +21,7 @@ class BalanceListTitleMobile extends StatelessWidget {
       children: <Widget>[
         const SizedBox(height: 15),
         ListSearchWidget<BalanceModel>(
+          textEditingController: searchBarTextEditingController,
           width: double.infinity,
           hint: S.of(context).balancesSearch,
         ),

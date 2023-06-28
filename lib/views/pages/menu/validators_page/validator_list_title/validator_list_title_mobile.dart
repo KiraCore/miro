@@ -6,7 +6,12 @@ import 'package:miro/views/pages/menu/validators_page/validators_filter_dropdown
 import 'package:miro/views/widgets/kira/kira_list/components/list_search_widget.dart';
 
 class ValidatorListTitleMobile extends StatelessWidget {
-  const ValidatorListTitleMobile({Key? key}) : super(key: key);
+  final TextEditingController searchBarTextEditingController;
+
+  const ValidatorListTitleMobile({
+    required this.searchBarTextEditingController,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +27,10 @@ class ValidatorListTitleMobile extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 12),
-        ListSearchWidget<ValidatorModel>(hint: S.of(context).validatorsHintSearch),
+        ListSearchWidget<ValidatorModel>(
+          textEditingController: searchBarTextEditingController,
+          hint: S.of(context).validatorsHintSearch,
+        ),
         const SizedBox(height: 12),
         const ValidatorsFilterDropdown(),
       ],

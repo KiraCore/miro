@@ -6,7 +6,12 @@ import 'package:miro/views/pages/menu/validators_page/validators_filter_dropdown
 import 'package:miro/views/widgets/kira/kira_list/components/list_search_widget.dart';
 
 class ValidatorListTitleDesktop extends StatelessWidget {
-  const ValidatorListTitleDesktop({Key? key}) : super(key: key);
+  final TextEditingController searchBarTextEditingController;
+
+  const ValidatorListTitleDesktop({
+    required this.searchBarTextEditingController,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +49,10 @@ class ValidatorListTitleDesktop extends StatelessWidget {
                     ),
                     const SizedBox(width: 24),
                     Expanded(
-                      child: ListSearchWidget<ValidatorModel>(hint: S.of(context).validatorsHintSearch),
+                      child: ListSearchWidget<ValidatorModel>(
+                        textEditingController: searchBarTextEditingController,
+                        hint: S.of(context).validatorsHintSearch,
+                      ),
                     )
                   ],
                 ),

@@ -26,6 +26,7 @@ class ValidatorsPage extends StatefulWidget {
 }
 
 class _ValidatorsPage extends State<ValidatorsPage> {
+  final TextEditingController searchBarTextEditingController = TextEditingController();
   final ScrollController scrollController = ScrollController();
   final ValidatorsListController validatorsListController = ValidatorsListController();
   final FiltersBloc<ValidatorModel> filtersBloc = FiltersBloc<ValidatorModel>(
@@ -71,7 +72,7 @@ class _ValidatorsPage extends State<ValidatorsPage> {
             singlePageSize: listHeight ~/ ValidatorListItemDesktop.height + 5,
             hasBackgroundBool: ResponsiveWidget.isLargeScreen(context),
             listHeaderWidget: ResponsiveWidget.isLargeScreen(context) ? listHeaderWidget : null,
-            title: const ValidatorListTitle(),
+            title: ValidatorListTitle(searchBarTextEditingController: searchBarTextEditingController),
             sortBloc: sortBloc,
             filtersBloc: filtersBloc,
             favouritesBloc: favouritesBloc,

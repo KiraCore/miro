@@ -24,9 +24,11 @@ class ValidatorsFilterOptions {
   );
 
   static FilterComparator<ValidatorModel> search(String searchText) {
+    String pattern = searchText.toLowerCase();
+
     return (ValidatorModel item) {
-      bool monikerMatch = item.moniker.toLowerCase().contains(searchText.toLowerCase());
-      bool topMatch = item.top.toString().contains(searchText);
+      bool monikerMatch = item.moniker.toLowerCase().contains(pattern);
+      bool topMatch = item.top.toString().contains(pattern);
       return monikerMatch || topMatch;
     };
   }

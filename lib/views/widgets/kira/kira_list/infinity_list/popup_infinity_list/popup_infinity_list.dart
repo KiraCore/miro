@@ -40,6 +40,8 @@ class PopupInfinityList<T extends AListItem> extends StatefulWidget {
 }
 
 class _PopupInfinityList<T extends AListItem> extends State<PopupInfinityList<T>> {
+  final TextEditingController searchBarTextExitingController = TextEditingController();
+  final ScrollController scrollController = ScrollController();
   late InfinityListBloc<T> infinityListBloc = InfinityListBloc<T>(
     listController: widget.listController,
     singlePageSize: widget.singlePageSize,
@@ -68,6 +70,7 @@ class _PopupInfinityList<T extends AListItem> extends State<PopupInfinityList<T>
                 return Column(
                   children: <Widget>[
                     ListSearchWidget<T>(
+                      textEditingController: searchBarTextExitingController,
                       width: double.infinity,
                       hint: widget.searchBarTitle,
                       enabled: state is ListLoadedState<T>,
@@ -78,6 +81,7 @@ class _PopupInfinityList<T extends AListItem> extends State<PopupInfinityList<T>
                     else if (state is ListLoadedState<T>)
                       Expanded(
                         child: PopupInfinityListContent<T>(
+                          scrollController: scrollController,
                           isLastPage: state.lastPage,
                           itemBuilder: widget.itemBuilder,
                           items: state.listItems.toList(),

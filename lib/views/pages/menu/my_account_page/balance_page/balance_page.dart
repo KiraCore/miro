@@ -29,6 +29,7 @@ class BalancePage extends StatefulWidget {
 }
 
 class _BalancePage extends State<BalancePage> {
+  final TextEditingController searchBarTextEditingController = TextEditingController();
   final SortBloc<BalanceModel> sortBloc = SortBloc<BalanceModel>(
     defaultSortOption: BalancesSortOptions.sortByDenom,
   );
@@ -52,10 +53,10 @@ class _BalancePage extends State<BalancePage> {
         balanceModel: balanceModel,
         scrollController: widget.parentScrollController,
       ),
-      listController: balancesListController,
+      listController: BalancesListController(address: widget.address),
       scrollController: widget.parentScrollController,
       singlePageSize: listHeight ~/ itemSize + 5,
-      title: const BalanceListTitle(),
+      title: BalanceListTitle(searchBarTextEditingController: searchBarTextEditingController),
       sortBloc: sortBloc,
       filtersBloc: filtersBloc,
       favouritesBloc: favouritesBloc,

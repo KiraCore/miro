@@ -4,15 +4,18 @@ import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_list_
 import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 
 class BalanceListTitle extends StatelessWidget {
+  final TextEditingController searchBarTextEditingController;
+
   const BalanceListTitle({
+    required this.searchBarTextEditingController,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return const ResponsiveWidget(
-      largeScreen: BalanceListTitleDesktop(),
-      mediumScreen: BalanceListTitleMobile(),
+    return ResponsiveWidget(
+      largeScreen: BalanceListTitleDesktop(searchBarTextEditingController: searchBarTextEditingController),
+      mediumScreen: BalanceListTitleMobile(searchBarTextEditingController: searchBarTextEditingController),
     );
   }
 }

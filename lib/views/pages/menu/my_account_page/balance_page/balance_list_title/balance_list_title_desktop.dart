@@ -6,7 +6,10 @@ import 'package:miro/views/pages/menu/my_account_page/balance_page/small_balance
 import 'package:miro/views/widgets/kira/kira_list/components/list_search_widget.dart';
 
 class BalanceListTitleDesktop extends StatelessWidget {
+  final TextEditingController searchBarTextEditingController;
+
   const BalanceListTitleDesktop({
+    required this.searchBarTextEditingController,
     Key? key,
   }) : super(key: key);
 
@@ -36,7 +39,10 @@ class BalanceListTitleDesktop extends StatelessWidget {
                   const SmallBalanceCheckbox(),
                   const SizedBox(width: 32),
                   Expanded(
-                    child: ListSearchWidget<BalanceModel>(hint: S.of(context).balancesSearch),
+                    child: ListSearchWidget<BalanceModel>(
+                      textEditingController: searchBarTextEditingController,
+                      hint: S.of(context).balancesSearch,
+                    ),
                   )
                 ],
               ),

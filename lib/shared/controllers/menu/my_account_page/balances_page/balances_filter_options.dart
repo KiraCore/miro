@@ -13,16 +13,18 @@ class BalancesFilterOptions {
   );
 
   static FilterComparator<BalanceModel> search(String searchText) {
+    String pattern = searchText.toLowerCase();
+
     return (BalanceModel item) {
-      bool amountDefaultMatch = item.tokenAmountModel.getAmountInDefaultDenomination().toString().contains(searchText);
-      bool amountLowestMatch = item.tokenAmountModel.getAmountInLowestDenomination().toString().contains(searchText);
+      bool amountDefaultMatch = item.tokenAmountModel.getAmountInDefaultDenomination().toString().contains(pattern);
+      bool amountLowestMatch = item.tokenAmountModel.getAmountInLowestDenomination().toString().contains(pattern);
       bool amountMatch = amountDefaultMatch || amountLowestMatch;
 
-      bool denomDefaultMatch = item.tokenAmountModel.tokenAliasModel.defaultTokenDenominationModel.name.toLowerCase().contains(searchText);
-      bool denomLowestMatch = item.tokenAmountModel.tokenAliasModel.lowestTokenDenominationModel.name.toLowerCase().contains(searchText);
+      bool denomDefaultMatch = item.tokenAmountModel.tokenAliasModel.defaultTokenDenominationModel.name.toLowerCase().contains(pattern);
+      bool denomLowestMatch = item.tokenAmountModel.tokenAliasModel.lowestTokenDenominationModel.name.toLowerCase().contains(pattern);
       bool denomMatch = denomDefaultMatch || denomLowestMatch;
 
-      bool nameMatch = item.tokenAmountModel.tokenAliasModel.name.toLowerCase().contains(searchText);
+      bool nameMatch = item.tokenAmountModel.tokenAliasModel.name.toLowerCase().contains(pattern);
       return amountMatch || denomMatch || nameMatch;
     };
   }
