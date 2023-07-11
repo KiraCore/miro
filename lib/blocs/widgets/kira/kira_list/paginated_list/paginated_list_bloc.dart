@@ -41,7 +41,7 @@ class PaginatedListBloc<T extends AListItem> extends AListBloc<T> {
     }
     showLoadingOverlay.value = true;
     lastPageIndex += 1;
-    add(ListNextPageEvent());
+    add(const ListNextPageEvent());
   }
 
   void _mapPreviousPageEventToState(PaginatedListPreviousPageEvent paginatedListPreviousPageEvent, Emitter<AListState> emit) {

@@ -45,7 +45,7 @@ class InfinityListBloc<T extends AListItem> extends AListBloc<T> {
       return;
     }
     lastPageIndex += 1;
-    add(ListNextPageEvent());
+    add(const ListNextPageEvent());
   }
 
   void _mapListUpdatedEventToState(ListUpdatedEvent listUpdatedEvent, Emitter<AListState> emit) {

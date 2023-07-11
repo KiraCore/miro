@@ -153,7 +153,7 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
     bool canReloadComplete = pageReloadController.canReloadComplete(localReloadId);
     bool isBlocActive = !isClosed;
     if (canReloadComplete && isBlocActive) {
-      add(ListNextPageEvent());
+      add(const ListNextPageEvent(afterReloadBool: true));
     }
   }
 
@@ -170,7 +170,7 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
       bool canReloadComplete = pageReloadController.canReloadComplete(localReloadId);
       bool isBlocActive = !isClosed;
       if (canReloadComplete && isBlocActive) {
-        add(const ListUpdatedEvent(jumpToTop: false));
+        add(ListUpdatedEvent(jumpToTop: listNextPageEvent.afterReloadBool));
       }
     } catch (e) {
       AppLogger().log(message: 'Cannot fetch list data for page $nextPageIndex');
