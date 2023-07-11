@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
-import 'package:miro/shared/models/transactions/list/tx_direction_type.dart';
-import 'package:miro/shared/models/transactions/list/tx_status_type.dart';
+import 'package:miro/shared/models/proposals/proposal_status.dart';
 import 'package:miro/views/widgets/generic/pop_wrapper/pop_wrapper.dart';
 import 'package:miro/views/widgets/generic/pop_wrapper/pop_wrapper_controller.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_value.dart';
@@ -10,14 +9,14 @@ import 'package:miro/views/widgets/kira/kira_list/components/filter_dropdown/fil
 import 'package:miro/views/widgets/kira/kira_list/components/filter_dropdown/filter_dropdown_wrapper.dart';
 import 'package:miro/views/widgets/kira/kira_list/components/list_pop_menu/list_pop_menu.dart';
 
-class TransactionsFilterDropdown extends StatefulWidget {
+class ProposalsFilterDropdown extends StatefulWidget {
   final List<dynamic> activeFilters;
   final ValueChanged<List<dynamic>> onFiltersChanged;
   final MainAxisAlignment mainAxisAlignment;
   final double width;
   final Widget? mobileAdditionalWidget;
 
-  const TransactionsFilterDropdown({
+  const ProposalsFilterDropdown({
     required this.activeFilters,
     required this.onFiltersChanged,
     this.mainAxisAlignment = MainAxisAlignment.start,
@@ -27,10 +26,10 @@ class TransactionsFilterDropdown extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _TransactionsFilterDropdown();
+  State<StatefulWidget> createState() => _ProposalsFilterDropdown();
 }
 
-class _TransactionsFilterDropdown extends State<TransactionsFilterDropdown> {
+class _ProposalsFilterDropdown extends State<ProposalsFilterDropdown> {
   final PopWrapperController popWrapperController = PopWrapperController();
   late Set<dynamic> activeFilters = widget.activeFilters.toSet();
   bool filtersChangedBool = false;
@@ -42,7 +41,7 @@ class _TransactionsFilterDropdown extends State<TransactionsFilterDropdown> {
   }
 
   @override
-  void didUpdateWidget(covariant TransactionsFilterDropdown oldWidget) {
+  void didUpdateWidget(covariant ProposalsFilterDropdown oldWidget) {
     super.didUpdateWidget(oldWidget);
     activeFilters = widget.activeFilters.toSet();
     filtersChangedBool = false;
@@ -83,18 +82,16 @@ class _TransactionsFilterDropdown extends State<TransactionsFilterDropdown> {
                   itemToString: _getFilterTitle,
                   listItems: <dynamic>[
                     Text(
-                      S.of(context).txListDirection,
-                      style: textTheme.bodySmall!.copyWith(color: DesignColors.greenStatus1),
-                    ),
-                    TxDirectionType.inbound,
-                    TxDirectionType.outbound,
-                    Text(
                       S.of(context).txListStatus,
                       style: textTheme.bodySmall!.copyWith(color: DesignColors.greenStatus1),
                     ),
-                    TxStatusType.confirmed,
-                    TxStatusType.pending,
-                    TxStatusType.failed,
+                    ProposalStatus.enactment,
+                    ProposalStatus.passed,
+                    ProposalStatus.passedWithExecFail,
+                    ProposalStatus.pending,
+                    ProposalStatus.quorumNotReached,
+                    ProposalStatus.rejected,
+                    ProposalStatus.rejectedWithVeto,
                   ],
                   onItemSelected: _addFilterOption,
                   onItemRemoved: _removeFilterOption,
@@ -129,16 +126,20 @@ class _TransactionsFilterDropdown extends State<TransactionsFilterDropdown> {
 
   String _getFilterTitle(dynamic e) {
     switch (e) {
-      case TxDirectionType.inbound:
-        return S.of(context).txListDirectionInbound;
-      case TxDirectionType.outbound:
-        return S.of(context).txListDirectionOutbound;
-      case TxStatusType.confirmed:
-        return S.of(context).txListStatusConfirmed;
-      case TxStatusType.pending:
-        return S.of(context).txListStatusPending;
-      case TxStatusType.failed:
-        return S.of(context).txListStatusFailed;
+      case ProposalStatus.enactment:
+        return 'Enactment';
+      case ProposalStatus.passed:
+        return 'Passed';
+      case ProposalStatus.passedWithExecFail:
+        return 'Passed with exec fail';
+      case ProposalStatus.pending:
+        return 'Pending';
+      case ProposalStatus.quorumNotReached:
+        return 'Quorum not reached';
+      case ProposalStatus.rejected:
+        return 'Rejected';
+      case ProposalStatus.rejectedWithVeto:
+        return 'Rejected With Veto';
       default:
         return '';
     }

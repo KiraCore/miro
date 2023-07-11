@@ -189,6 +189,7 @@ class MockApiKiraRepository implements IApiKiraRepository {
       return Response<T>(
         statusCode: 200,
         data: response,
+        headers: MockHeaders.defaultHeaders,
         requestOptions: RequestOptions(path: ''),
       );
     } else {

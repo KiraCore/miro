@@ -7,9 +7,11 @@ import 'package:miro/views/widgets/kira/kira_list/models/filter_option_model.dar
 
 class ValidatorsFilterDropdown extends StatelessWidget {
   final double width;
+  final MainAxisAlignment mainAxisAlignment;
 
   const ValidatorsFilterDropdown({
     this.width = 100,
+    this.mainAxisAlignment = MainAxisAlignment.start,
     Key? key,
   }) : super(key: key);
 

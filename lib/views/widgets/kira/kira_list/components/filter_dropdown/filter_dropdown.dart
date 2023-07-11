@@ -20,12 +20,14 @@ class FilterDropdown<T extends AListItem> extends StatefulWidget {
   final List<FilterOptionModel<T>> filterOptionModels;
   final double height;
   final double width;
+  final MainAxisAlignment mainAxisAlignment;
 
   const FilterDropdown({
     required this.title,
     required this.filterOptionModels,
     this.height = 30,
     this.width = 100,
+    this.mainAxisAlignment = MainAxisAlignment.start,
     Key? key,
   }) : super(key: key);
 
@@ -48,6 +50,7 @@ class _FilterDropdown<T extends AListItem> extends State<FilterDropdown<T>> {
           itemToString: (FilterOptionModel<T> item) => item.title,
           selectedItems: selectedFilterOptions,
           onItemRemoved: _removeFilterOption,
+          mainAxisAlignment: widget.mainAxisAlignment,
           children: <Widget>[
             Text(
               widget.title,
