@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
+import 'package:miro/shared/utils/network_utils.dart';
 
 class NetworkCustomSectionState extends Equatable {
   final bool expandedBool;
@@ -44,8 +45,13 @@ class NetworkCustomSectionState extends Equatable {
     );
   }
 
-  bool containsUri(Uri uri) {
-    return checkedNetworkStatusModel?.uri.host == uri.host || connectedNetworkStatusModel?.uri.host == uri.host;
+  bool containsUriWithEqualUrn(Uri uri) {
+    bool urnInCheckedNetworkBool = NetworkUtils.compareUrisByUrn(checkedNetworkStatusModel?.uri, uri);
+    bool urnInConnectedNetworkBool = NetworkUtils.compareUrisByUrn(connectedNetworkStatusModel?.uri, uri);
+    bool urnInLastNetworkBool = NetworkUtils.compareUrisByUrn(lastConnectedNetworkStatusModel?.uri, uri);
+
+    bool lastNetworkRelevantBool = connectedNetworkStatusModel == null;
+    return urnInCheckedNetworkBool || urnInConnectedNetworkBool || (urnInLastNetworkBool && lastNetworkRelevantBool);
   }
 
   Uri? get uri {

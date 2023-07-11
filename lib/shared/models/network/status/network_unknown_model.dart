@@ -32,10 +32,10 @@ class NetworkUnknownModel extends ANetworkStatusModel {
   }
 
   @override
-  NetworkUnknownModel copyWith({ConnectionStatusType? connectionStatusType}) {
+  NetworkUnknownModel copyWith({Uri? uri, ConnectionStatusType? connectionStatusType}) {
     return NetworkUnknownModel(
       connectionStatusType: connectionStatusType ?? this.connectionStatusType,
-      uri: uri,
+      uri: uri ?? this.uri,
       name: name,
     );
   }
@@ -53,5 +53,5 @@ class NetworkUnknownModel extends ANetworkStatusModel {
   }
 
   @override
-  List<Object?> get props => <Object>[runtimeType, connectionStatusType, uri, name];
+  List<Object?> get props => <Object>[runtimeType, connectionStatusType, uri.hashCode, name];
 }

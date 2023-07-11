@@ -33,5 +33,5 @@ class NetworkUnhealthyModel extends ANetworkOnlineModel {
   }
 
   @override
-  List<Object?> get props => <Object?>[runtimeType, interxWarningModel, networkInfoModel, connectionStatusType, uri, name];
+  List<Object?> get props => <Object?>[runtimeType, interxWarningModel, networkInfoModel, connectionStatusType, uri.hashCode, name];
 }

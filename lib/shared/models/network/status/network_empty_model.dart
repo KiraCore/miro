@@ -19,5 +19,5 @@ class NetworkEmptyModel extends ANetworkStatusModel {
   }
 
   @override
-  List<Object?> get props => <Object>[runtimeType, connectionStatusType, uri, name];
+  List<Object?> get props => <Object>[runtimeType, connectionStatusType, uri.hashCode, name];
 }

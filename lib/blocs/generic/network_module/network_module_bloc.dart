@@ -18,6 +18,7 @@ import 'package:miro/shared/models/network/status/a_network_status_model.dart';
 import 'package:miro/shared/models/network/status/network_empty_model.dart';
 import 'package:miro/shared/models/network/status/network_unknown_model.dart';
 import 'package:miro/shared/models/network/status/online/a_network_online_model.dart';
+import 'package:miro/shared/utils/network_utils.dart';
 
 class NetworkModuleBloc extends Bloc<ANetworkModuleEvent, NetworkModuleState> {
   final Completer<void> initializationCompleter = Completer<void>();
@@ -29,7 +30,7 @@ class NetworkModuleBloc extends Bloc<ANetworkModuleEvent, NetworkModuleState> {
   final RpcBrowserUrlController _rpcBrowserUrlController = RpcBrowserUrlController();
 
   late Timer _timer;
-  bool _isRefreshing = false;
+  bool _refreshingBool = false;
 
   NetworkModuleBloc() : super(NetworkModuleState.disconnected()) {
     on<NetworkModuleInitEvent>(_mapInitEventToState);
@@ -60,10 +61,10 @@ class NetworkModuleBloc extends Bloc<ANetworkModuleEvent, NetworkModuleState> {
   }
 
   Future<void> _mapRefreshEventToState(NetworkModuleRefreshEvent networkModuleRefreshEvent, Emitter<NetworkModuleState> emit) async {
-    if (_isRefreshing) {
+    if (_refreshingBool) {
       return;
     }
-    _isRefreshing = true;
+    _refreshingBool = true;
 
     if (state.networkStatusModel is NetworkEmptyModel) {
       _updateNetworkStatusModelList();
@@ -74,13 +75,15 @@ class NetworkModuleBloc extends Bloc<ANetworkModuleEvent, NetworkModuleState> {
       _networkListCubit.setNetworkStatusModel(networkStatusModel: networkStatusModel);
       _updateNetworkStatusModelList(ignoreNetworkUnknownModel: networkUnknownModel);
 
-      bool isNetworkUnchanged = networkStatusModel.uri == state.networkStatusModel.uri;
-      if (isNetworkUnchanged) {
-        await _networkCustomSectionCubit.updateAfterNetworkConnect(networkStatusModel);
+      bool networkUnchangedBool = networkStatusModel.uri == state.networkStatusModel.uri;
+      if (networkUnchangedBool) {
+        await _networkCustomSectionCubit.updateNetworks(networkStatusModel);
         emit(NetworkModuleState.connected(networkStatusModel));
       }
     }
-    _isRefreshing = false;
+    await _networkCustomSectionCubit.refreshNetworks();
+
+    _refreshingBool = false;
   }
 
   Future<void> _mapAutoConnectEventToState(NetworkModuleAutoConnectEvent networkModuleAutoConnectEvent, Emitter<NetworkModuleState> emit) async {
@@ -93,11 +96,11 @@ class NetworkModuleBloc extends Bloc<ANetworkModuleEvent, NetworkModuleState> {
     ANetworkStatusModel networkStatusModel = await _networkModuleService.getNetworkStatusModel(networkUnknownModel);
     _networkListCubit.setNetworkStatusModel(networkStatusModel: networkStatusModel);
 
-    bool isNetworkUnchanged = networkStatusModel.uri.host == state.networkStatusModel.uri.host;
+    bool networkUnchangedBool = NetworkUtils.compareUrisByUrn(networkStatusModel.uri, state.networkStatusModel.uri);
 
-    if (isNetworkUnchanged) {
+    if (networkUnchangedBool) {
       _rpcBrowserUrlController.setRpcAddress(networkStatusModel);
-      await _networkCustomSectionCubit.updateAfterNetworkConnect(networkStatusModel);
+      await _networkCustomSectionCubit.updateNetworks(networkStatusModel);
       emit(NetworkModuleState.connected(networkStatusModel));
     }
   }
@@ -105,7 +108,7 @@ class NetworkModuleBloc extends Bloc<ANetworkModuleEvent, NetworkModuleState> {
   Future<void> _mapConnectEventToState(NetworkModuleConnectEvent networkModuleConnectEvent, Emitter<NetworkModuleState> emit) async {
     ANetworkOnlineModel networkOnlineModel = networkModuleConnectEvent.networkOnlineModel;
     _rpcBrowserUrlController.setRpcAddress(networkOnlineModel);
-    await _networkCustomSectionCubit.updateAfterNetworkConnect(networkOnlineModel);
+    await _networkCustomSectionCubit.updateNetworks(networkOnlineModel);
     emit(NetworkModuleState.connected(networkOnlineModel));
   }
 
@@ -114,15 +117,15 @@ class NetworkModuleBloc extends Bloc<ANetworkModuleEvent, NetworkModuleState> {
     Emitter<NetworkModuleState> emit,
   ) async {
     _rpcBrowserUrlController.removeRpcAddress();
-    await _networkCustomSectionCubit.updateAfterNetworkConnect(null);
+    await _networkCustomSectionCubit.updateNetworks(null);
     emit(NetworkModuleState.disconnected());
   }
 
   void _updateNetworkStatusModelList({NetworkUnknownModel? ignoreNetworkUnknownModel}) {
     List<ANetworkStatusModel> networkStatusModelList = _networkListCubit.networkStatusModelList;
     for (ANetworkStatusModel networkStatusModel in networkStatusModelList) {
-      bool isNetworkNotIgnored = networkStatusModel.uri != ignoreNetworkUnknownModel?.uri;
-      if (isNetworkNotIgnored) {
+      bool networkNotIgnoredBool = networkStatusModel.uri != ignoreNetworkUnknownModel?.uri;
+      if (networkNotIgnoredBool) {
         _updateNetworkStatusModel(networkUnknownModel: NetworkUnknownModel.fromNetworkStatusModel(networkStatusModel));
       }
     }

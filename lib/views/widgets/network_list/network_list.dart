@@ -5,6 +5,7 @@ import 'package:miro/blocs/widgets/network_list/network_list/network_list_cubit.
 import 'package:miro/blocs/widgets/network_list/network_list/states/network_list_loaded_state.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
+import 'package:miro/shared/utils/network_utils.dart';
 import 'package:miro/views/widgets/generic/center_load_spinner.dart';
 import 'package:miro/views/widgets/network_list/network_list_tile.dart';
 
@@ -59,7 +60,8 @@ class NetworkList extends StatelessWidget {
       return availableNetworkStatusModelList;
     } else {
       List<ANetworkStatusModel> visibleNetworkStatusModelList = availableNetworkStatusModelList.where((ANetworkStatusModel networkStatusModel) {
-        return networkStatusModel.uri.host != hiddenNetworkStatusModel!.uri.host;
+        bool networkStatusModelVisibleBool = NetworkUtils.compareUrisByUrn(networkStatusModel.uri, hiddenNetworkStatusModel!.uri) == false;
+        return networkStatusModelVisibleBool;
       }).toList();
       return visibleNetworkStatusModelList;
     }

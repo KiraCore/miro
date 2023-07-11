@@ -59,7 +59,7 @@ class HttpClientManager {
     String uriAsString = uri.toString();
     bool proxyActiveBool = _shouldUseProxy(uri);
     if (proxyActiveBool) {
-      uriAsString = '${_appConfig.proxyServerUri}/${uri.host}:${uri.port}';
+      uriAsString = '${_appConfig.proxyServerUri}/${uri.toString()}';
       return DioForBrowser(
         BaseOptions(
           baseUrl: uriAsString,

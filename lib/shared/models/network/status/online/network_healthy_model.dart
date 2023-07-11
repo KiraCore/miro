@@ -28,5 +28,5 @@ class NetworkHealthyModel extends ANetworkOnlineModel {
   }
 
   @override
-  List<Object?> get props => <Object?>[runtimeType, networkInfoModel, connectionStatusType, uri, name];
+  List<Object?> get props => <Object?>[runtimeType, networkInfoModel, connectionStatusType, uri.hashCode, name];
 }

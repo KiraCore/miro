@@ -8,15 +8,17 @@ class NetworkUtils {
   }
 
   static Uri parseNoSchemeToHTTPS(String urlToParse) {
-    String parsedUrl = urlToParse;
+    String parsedUrl = urlToParse.trim();
     if (parsedUrl.endsWith('/')) {
       parsedUrl = parsedUrl.substring(0, parsedUrl.length - 1);
     }
 
     late Uri uri;
+
     if (parsedUrl.startsWith('http://') || parsedUrl.startsWith('https://')) {
       uri = Uri.parse(parsedUrl);
     } else {
+      parsedUrl = removeScheme(parsedUrl);
       uri = Uri.parse('https://$parsedUrl');
     }
 
@@ -33,6 +35,20 @@ class NetworkUtils {
       return true;
     }
     return false;
+  }
+
+  static bool compareUrisByUrn(Uri? uri1, Uri? uri2) {
+    String urn1 = removeScheme(uri1.toString());
+    String urn2 = removeScheme(uri2.toString());
+    return urn1 == urn2;
+  }
+
+  static String removeScheme(String uri) {
+    if (uri.contains('//')) {
+      return uri.split('//')[1];
+    } else {
+      return uri;
+    }
   }
 
   static Uri _assignDefaultPort(Uri uri) {

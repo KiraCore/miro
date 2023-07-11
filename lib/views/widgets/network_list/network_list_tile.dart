@@ -6,6 +6,7 @@ import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/shared/models/network/data/connection_status_type.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
+import 'package:miro/shared/utils/network_utils.dart';
 import 'package:miro/views/widgets/network_list/network_button/network_button.dart';
 import 'package:miro/views/widgets/network_list/network_list_tile_content.dart';
 import 'package:miro/views/widgets/network_list/network_list_tile_title.dart';
@@ -35,7 +36,8 @@ class _NetworkListTile extends State<NetworkListTile> {
       bloc: globalLocator<NetworkModuleBloc>(),
       builder: (BuildContext buildContext, NetworkModuleState networkModuleState) {
         ANetworkStatusModel networkStatusModel = widget.networkStatusModel;
-        if (networkStatusModel.uri.host == networkModuleState.networkStatusModel.uri.host) {
+        bool networksEqualBool = NetworkUtils.compareUrisByUrn(networkStatusModel.uri, networkModuleState.networkStatusModel.uri);
+        if (networksEqualBool) {
           networkStatusModel = networkModuleState.networkStatusModel;
         }
         return Container(
