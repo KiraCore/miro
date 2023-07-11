@@ -13,12 +13,14 @@ import 'package:miro/views/widgets/kira/kira_list/components/list_pop_menu/list_
 class TransactionsFilterDropdown extends StatefulWidget {
   final List<dynamic> activeFilters;
   final ValueChanged<List<dynamic>> onFiltersChanged;
+  final MainAxisAlignment mainAxisAlignment;
   final double width;
   final Widget? mobileAdditionalWidget;
 
   const TransactionsFilterDropdown({
     required this.activeFilters,
     required this.onFiltersChanged,
+    this.mainAxisAlignment = MainAxisAlignment.start,
     this.width = 100,
     this.mobileAdditionalWidget,
     Key? key,
@@ -53,6 +55,7 @@ class _TransactionsFilterDropdown extends State<TransactionsFilterDropdown> {
       itemToString: _getFilterTitle,
       selectedItems: activeFilters.toList(),
       onItemRemoved: _pressChipButton,
+      mainAxisAlignment: widget.mainAxisAlignment,
       children: <Widget>[
         Row(
           mainAxisAlignment: MainAxisAlignment.start,

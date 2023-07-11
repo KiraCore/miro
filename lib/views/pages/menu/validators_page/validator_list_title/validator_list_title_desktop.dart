@@ -43,7 +43,9 @@ class ValidatorListTitleDesktop extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
-                          ValidatorsFilterDropdown(),
+                          ValidatorsFilterDropdown(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                          ),
                         ],
                       ),
                     ),

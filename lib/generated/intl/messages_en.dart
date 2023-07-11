@@ -334,6 +334,24 @@ class MessageLookup extends MessageLookupByLibrary {
         "paginatedListPageSize":
             MessageLookupByLibrary.simpleMessage("Page size"),
         "paste": MessageLookupByLibrary.simpleMessage("Paste"),
+        "proposalStatusTypeEnactment":
+            MessageLookupByLibrary.simpleMessage("Enactment"),
+        "proposalStatusTypePassed":
+            MessageLookupByLibrary.simpleMessage("Passed"),
+        "proposalStatusTypePassedWithExecFail":
+            MessageLookupByLibrary.simpleMessage("Passed With ExecFail"),
+        "proposalStatusTypePending":
+            MessageLookupByLibrary.simpleMessage("Pending"),
+        "proposalStatusTypeQuorumNotReached":
+            MessageLookupByLibrary.simpleMessage("Quorum Not Reached"),
+        "proposalStatusTypeRejected":
+            MessageLookupByLibrary.simpleMessage("Rejected"),
+        "proposalStatusTypeRejectedWithVeto":
+            MessageLookupByLibrary.simpleMessage("Rejected With Veto"),
+        "proposalStatusTypeUnknown":
+            MessageLookupByLibrary.simpleMessage("Unknown"),
+        "proposalStatusTypeUnknownProposalException":
+            MessageLookupByLibrary.simpleMessage("Unknown Proposal Status:"),
         "proposalTypeAssignPermissions":
             MessageLookupByLibrary.simpleMessage("Assign Permission"),
         "proposalTypeAssignRoleToAccount":
@@ -380,12 +398,39 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Whitelist Role Permission"),
         "proposals": MessageLookupByLibrary.simpleMessage("Proposals"),
         "proposalsActive": MessageLookupByLibrary.simpleMessage("Active"),
+        "proposalsAttendance":
+            MessageLookupByLibrary.simpleMessage("Attendance"),
+        "proposalsDescription":
+            MessageLookupByLibrary.simpleMessage("Description"),
+        "proposalsDrawerMoreDetails":
+            MessageLookupByLibrary.simpleMessage("More details"),
+        "proposalsEnactedTime":
+            MessageLookupByLibrary.simpleMessage("Voting Enacted Time"),
         "proposalsEnacting": MessageLookupByLibrary.simpleMessage("Enacting"),
         "proposalsFinished": MessageLookupByLibrary.simpleMessage("Finished"),
+        "proposalsHintSearch":
+            MessageLookupByLibrary.simpleMessage("Search proposals"),
+        "proposalsId": MessageLookupByLibrary.simpleMessage("Id"),
+        "proposalsList":
+            MessageLookupByLibrary.simpleMessage("List of Proposals"),
+        "proposalsMetadata": MessageLookupByLibrary.simpleMessage("Metadata"),
+        "proposalsProposer": MessageLookupByLibrary.simpleMessage("Proposer"),
         "proposalsProposers": MessageLookupByLibrary.simpleMessage("Proposers"),
+        "proposalsQuorum": MessageLookupByLibrary.simpleMessage("Quorum"),
+        "proposalsStatus": MessageLookupByLibrary.simpleMessage("Status"),
         "proposalsSuccessful":
             MessageLookupByLibrary.simpleMessage("Successful"),
+        "proposalsTitle": MessageLookupByLibrary.simpleMessage("Title"),
+        "proposalsToolTip":
+            MessageLookupByLibrary.simpleMessage("View Proposal"),
+        "proposalsTransactionHash":
+            MessageLookupByLibrary.simpleMessage("Transaction Hash"),
+        "proposalsTypes": MessageLookupByLibrary.simpleMessage("Types"),
         "proposalsVoters": MessageLookupByLibrary.simpleMessage("Voters"),
+        "proposalsVotingEndTime":
+            MessageLookupByLibrary.simpleMessage("Voting End Time"),
+        "proposalsVotingStartTime":
+            MessageLookupByLibrary.simpleMessage("Voting Start Time"),
         "sec": MessageLookupByLibrary.simpleMessage("sec."),
         "seeAll": MessageLookupByLibrary.simpleMessage("See all"),
         "seeMore": MessageLookupByLibrary.simpleMessage("See more"),

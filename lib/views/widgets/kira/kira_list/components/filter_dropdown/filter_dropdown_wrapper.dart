@@ -7,12 +7,14 @@ class FilterDropdownWrapper<T> extends StatelessWidget {
   final List<T> selectedItems;
   final String Function(T item) itemToString;
   final ValueChanged<T> onItemRemoved;
+  final MainAxisAlignment mainAxisAlignment;
 
   const FilterDropdownWrapper({
     required this.children,
     required this.selectedItems,
     required this.itemToString,
     required this.onItemRemoved,
+    this.mainAxisAlignment = MainAxisAlignment.start,
     Key? key,
   }) : super(key: key);
 
@@ -21,7 +23,7 @@ class FilterDropdownWrapper<T> extends StatelessWidget {
     TextTheme textTheme = Theme.of(context).textTheme;
 
     Widget dropdownWidget = Row(
-      mainAxisAlignment: ResponsiveWidget.isLargeScreen(context) ? MainAxisAlignment.end : MainAxisAlignment.start,
+      mainAxisAlignment: mainAxisAlignment,
       children: children,
     );
 

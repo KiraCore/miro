@@ -54,6 +54,7 @@ class _TransactionsListTitle extends State<TransactionsListTitle> {
             const SizedBox(width: 30),
             Expanded(
               child: TransactionsFilterDropdown(
+                mainAxisAlignment: MainAxisAlignment.end,
                 activeFilters: activeFilters,
                 onFiltersChanged: _updateFilters,
               ),
