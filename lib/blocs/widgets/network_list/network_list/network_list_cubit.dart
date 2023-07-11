@@ -5,6 +5,7 @@ import 'package:miro/blocs/widgets/network_list/network_list/states/network_list
 import 'package:miro/config/app_config.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
+import 'package:miro/shared/utils/network_utils.dart';
 
 class NetworkListCubit extends Cubit<ANetworkListState> {
   final AppConfig appConfig = globalLocator<AppConfig>();
@@ -19,7 +20,7 @@ class NetworkListCubit extends Cubit<ANetworkListState> {
   }
 
   void setNetworkStatusModel({required ANetworkStatusModel networkStatusModel}) {
-    int networkStatusModelIndex = networkStatusModelList.indexWhere((ANetworkStatusModel e) => e.uri.host == networkStatusModel.uri.host);
+    int networkStatusModelIndex = networkStatusModelList.indexWhere((ANetworkStatusModel e) => NetworkUtils.compareUrisByUrn(e.uri, networkStatusModel.uri));
     if (networkStatusModelIndex != -1) {
       networkStatusModelList[networkStatusModelIndex] = networkStatusModel;
       emit(NetworkListLoadedState(networkStatusModelList: networkStatusModelList));

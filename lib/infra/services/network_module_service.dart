@@ -32,7 +32,10 @@ class NetworkModuleService implements _INetworkModuleService {
     } catch (e) {
       AppLogger().log(message: 'NetworkModuleService: Cannot fetch getNetworkStatusModel() for URI ${networkUnknownModel.uri} $e');
       if (networkUnknownModel.isHttps()) {
-        return getNetworkStatusModel(networkUnknownModel.copyWithHttp(), previousNetworkUnknownModel: networkUnknownModel);
+        return getNetworkStatusModel(
+          networkUnknownModel.copyWithHttp(),
+          previousNetworkUnknownModel: previousNetworkUnknownModel ?? networkUnknownModel,
+        );
       } else {
         return NetworkOfflineModel.fromNetworkStatusModel(
           networkStatusModel: previousNetworkUnknownModel ?? networkUnknownModel,

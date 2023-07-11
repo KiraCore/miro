@@ -560,4 +560,100 @@ void main() {
       expect(actualIsLocalhostBool, false);
     });
   });
+
+  group('Tests of NetworkUtils.compareUrisByUrn()', () {
+    test('Should return [true] if URIs [equal]', () {
+      // Arrange
+      Uri actualUri1 = Uri.parse('http://173.212.254.147:11000');
+      Uri actualUri2 = Uri.parse('http://173.212.254.147:11000');
+
+      // Act
+      bool actualUrnsEqualBool = NetworkUtils.compareUrisByUrn(actualUri1, actualUri2);
+
+      // Assert
+      expect(actualUrnsEqualBool, true);
+    });
+
+    test('Should return [true] if HOST and PARAMS [equal], SCHEME [not equal]', () {
+      // Arrange
+      Uri actualUri1 = Uri.parse('http://173.212.254.147:11000/path');
+      Uri actualUri2 = Uri.parse('https://173.212.254.147:11000/path');
+
+      // Act
+      bool actualUrnsEqualBool = NetworkUtils.compareUrisByUrn(actualUri1, actualUri2);
+
+      // Assert
+      expect(actualUrnsEqualBool, true);
+    });
+
+    test('Should return [false] if SCHEME and HOST [equal], PARAMS [not equal]', () {
+      // Arrange
+      Uri actualUri1 = Uri.parse('http://173.212.254.147:11000/path');
+      Uri actualUri2 = Uri.parse('http://173.212.254.147:11000/test');
+
+      // Act
+      bool actualUrnsEqualBool = NetworkUtils.compareUrisByUrn(actualUri1, actualUri2);
+
+      // Assert
+      expect(actualUrnsEqualBool, false);
+    });
+
+    test('Should return [false] if SCHEME, HOST and PARAMS [not equal]', () {
+      // Arrange
+      Uri actualUri1 = Uri.parse('http://173.212.254.147:11000/path');
+      Uri actualUri2 = Uri.parse('https://65.108.86.252:11000/test');
+
+      // Act
+      bool actualUrnsEqualBool = NetworkUtils.compareUrisByUrn(actualUri1, actualUri2);
+
+      // Assert
+      expect(actualUrnsEqualBool, false);
+    });
+
+    test('Should return [true] if SCHEME, HOST and PARAMS [equal], PORTS [not equal]', () {
+      // Arrange
+      Uri actualUri1 = Uri.parse('http://173.212.254.147:11000/path');
+      Uri actualUri2 = Uri.parse('http://173.212.254.147:40/path');
+
+      // Act
+      bool actualUrnsEqualBool = NetworkUtils.compareUrisByUrn(actualUri1, actualUri2);
+
+      // Assert
+      expect(actualUrnsEqualBool, false);
+    });
+  });
+
+  group('Tests of NetworkUtils.removeScheme()', () {
+    test('Should remove [http] SCHEME', () {
+      // Act
+      String actualUriWithRemovedScheme = NetworkUtils.removeScheme('http://173.212.254.147:11000/path');
+
+      // Assert
+      expect(actualUriWithRemovedScheme, '173.212.254.147:11000/path');
+    });
+
+    test('Should remove [https] SCHEME', () {
+      // Act
+      String actualUriWithRemovedScheme = NetworkUtils.removeScheme('https://173.212.254.147:11000/path');
+
+      // Assert
+      expect(actualUriWithRemovedScheme, '173.212.254.147:11000/path');
+    });
+
+    test('Should remove [ftp] SCHEME', () {
+      // Act
+      String actualUriWithRemovedScheme = NetworkUtils.removeScheme('ftp://173.212.254.147:11000/path');
+
+      // Assert
+      expect(actualUriWithRemovedScheme, '173.212.254.147:11000/path');
+    });
+
+    test('Should return same string on [empty] SCHEME', () {
+      // Act
+      String actualUriWithRemovedScheme = NetworkUtils.removeScheme('173.212.254.147:11000/path');
+
+      // Assert
+      expect(actualUriWithRemovedScheme, '173.212.254.147:11000/path');
+    });
+  });
 }

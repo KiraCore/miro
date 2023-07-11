@@ -7,6 +7,7 @@ import 'package:miro/infra/services/network_module_service.dart';
 import 'package:miro/shared/models/network/data/connection_status_type.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
 import 'package:miro/shared/models/network/status/network_unknown_model.dart';
+import 'package:miro/shared/utils/network_utils.dart';
 import 'package:miro/shared/utils/string_utils.dart';
 
 class NetworkCustomSectionCubit extends Cubit<NetworkCustomSectionState> {
@@ -21,45 +22,53 @@ class NetworkCustomSectionCubit extends Cubit<NetworkCustomSectionState> {
     NetworkUnknownModel networkUnknownModel = NetworkUnknownModel(uri: uri, connectionStatusType: ConnectionStatusType.disconnected);
     bool networkCustomBool = _isNetworkCustom(networkUnknownModel);
 
-    if (networkCustomBool == false || state.containsUri(uri)) {
+    if (networkCustomBool == false || state.containsUriWithEqualUrn(uri)) {
       return;
     }
-
-    String stateId = StringUtils.generateUuid();
-    _activeStateId = stateId;
 
     networkUnknownModel = _appConfig.findNetworkModelInConfig(networkUnknownModel);
     emit(state.copyWith(checkedNetworkStatusModel: networkUnknownModel));
-    ANetworkStatusModel networkStatusModel = await _networkModuleService.getNetworkStatusModel(networkUnknownModel);
+
+    await refreshNetworks();
+  }
+
+  Future<void> refreshNetworks() async {
+    String stateId = StringUtils.generateUuid();
+    _activeStateId = stateId;
+
+    ANetworkStatusModel? newCheckedNetworkStatusModel = await _refreshCustomNetwork(state.checkedNetworkStatusModel);
+    ANetworkStatusModel? newLastConnectedNetworkStatusModel = await _refreshCustomNetwork(state.lastConnectedNetworkStatusModel);
 
     bool stateIdEqualBool = stateId == _activeStateId;
     if (stateIdEqualBool) {
-      emit(state.copyWith(checkedNetworkStatusModel: networkStatusModel));
+      emit(
+        state.copyWith(
+          checkedNetworkStatusModel: newCheckedNetworkStatusModel,
+          lastConnectedNetworkStatusModel: newLastConnectedNetworkStatusModel,
+          expandedBool: state.expandedBool,
+        ),
+      );
     }
   }
 
-  Future<void> updateAfterNetworkConnect(ANetworkStatusModel? connectedNetworkStatusModel) async {
-    if (connectedNetworkStatusModel == null) {
-      _activeStateId = StringUtils.generateUuid();
-      emit(NetworkCustomSectionState(expandedBool: state.expandedBool));
-      return;
-    }
-
+  Future<void> updateNetworks(ANetworkStatusModel? connectedNetworkStatusModel) async {
     bool customNetworkBool = _isNetworkCustom(connectedNetworkStatusModel);
-    bool differentNetworkBool = connectedNetworkStatusModel.uri.host != state.connectedNetworkStatusModel?.uri.host;
-    bool checkedNetworkBool = connectedNetworkStatusModel.uri.host == state.checkedNetworkStatusModel?.uri.host;
+    bool differentNetworkBool = NetworkUtils.compareUrisByUrn(connectedNetworkStatusModel?.uri, state.connectedNetworkStatusModel?.uri) == false;
+    bool checkedNetworkBool = NetworkUtils.compareUrisByUrn(connectedNetworkStatusModel?.uri, state.checkedNetworkStatusModel?.uri);
     bool customNetworkConnectedBool = state.connectedNetworkStatusModel != null;
 
     if (customNetworkBool) {
       _activeStateId = StringUtils.generateUuid();
     }
+
     emit(
       NetworkCustomSectionState(
         connectedNetworkStatusModel: customNetworkBool ? connectedNetworkStatusModel : null,
         expandedBool: state.expandedBool,
         checkedNetworkStatusModel: checkedNetworkBool ? null : state.checkedNetworkStatusModel,
-        lastConnectedNetworkStatusModel:
-            differentNetworkBool && customNetworkConnectedBool ? state.connectedNetworkStatusModel : state.lastConnectedNetworkStatusModel,
+        lastConnectedNetworkStatusModel: differentNetworkBool && customNetworkConnectedBool
+            ? state.connectedNetworkStatusModel?.copyWith(connectionStatusType: ConnectionStatusType.disconnected)
+            : state.lastConnectedNetworkStatusModel?.copyWith(connectionStatusType: ConnectionStatusType.disconnected),
       ),
     );
   }
@@ -74,9 +83,27 @@ class NetworkCustomSectionCubit extends Cubit<NetworkCustomSectionState> {
     }
   }
 
-  bool _isNetworkCustom(ANetworkStatusModel networkStatusModel) {
+  bool _isNetworkCustom(ANetworkStatusModel? networkStatusModel) {
+    if (networkStatusModel == null) {
+      return false;
+    }
     List<NetworkUnknownModel> matchingNetworkUnknownModels =
-        _appConfig.networkList.where((NetworkUnknownModel e) => e.uri.host == networkStatusModel.uri.host).toList();
+        _appConfig.networkList.where((NetworkUnknownModel e) => NetworkUtils.compareUrisByUrn(e.uri, networkStatusModel.uri)).toList();
     return matchingNetworkUnknownModels.isEmpty;
+  }
+
+  Future<ANetworkStatusModel?> _refreshCustomNetwork(ANetworkStatusModel? networkStatusModel) async {
+    if (networkStatusModel == null) {
+      return null;
+    }
+
+    NetworkUnknownModel networkUnknownModel =
+        (networkStatusModel is NetworkUnknownModel) ? networkStatusModel : NetworkUnknownModel.fromNetworkStatusModel(networkStatusModel);
+
+    ANetworkStatusModel refreshedNetworkStatusModel = await _networkModuleService.getNetworkStatusModel(
+        networkUnknownModel.copyWith(uri: networkUnknownModel.uri.replace(scheme: 'https')),
+        previousNetworkUnknownModel: networkUnknownModel);
+
+    return refreshedNetworkStatusModel;
   }
 }

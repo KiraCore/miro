@@ -26,14 +26,14 @@ class NetworkOfflineModel extends ANetworkStatusModel {
   }
 
   @override
-  NetworkOfflineModel copyWith({required ConnectionStatusType connectionStatusType}) {
+  NetworkOfflineModel copyWith({required ConnectionStatusType connectionStatusType, Uri? uri}) {
     return NetworkOfflineModel(
       connectionStatusType: connectionStatusType,
-      uri: uri,
+      uri: uri ?? this.uri,
       name: name,
     );
   }
 
   @override
-  List<Object?> get props => <Object>[runtimeType, connectionStatusType, uri, name];
+  List<Object?> get props => <Object>[runtimeType, connectionStatusType, uri.hashCode, name];
 }

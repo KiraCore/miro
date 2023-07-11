@@ -31,8 +31,8 @@ class AppConfig {
     required this.defaultFeeTokenAliasModel,
     required int defaultRefreshIntervalSeconds,
     required NetworkUnknownModel defaultNetworkUnknownModel,
-  }) : _defaultRefreshIntervalSeconds = defaultRefreshIntervalSeconds,
-       _defaultNetworkUnknownModel = defaultNetworkUnknownModel;
+  })  : _defaultRefreshIntervalSeconds = defaultRefreshIntervalSeconds,
+        _defaultNetworkUnknownModel = defaultNetworkUnknownModel;
 
   factory AppConfig.buildDefaultConfig() {
     return AppConfig(
@@ -65,7 +65,8 @@ class AppConfig {
   }
 
   NetworkUnknownModel findNetworkModelInConfig(NetworkUnknownModel networkUnknownModel) {
-    List<NetworkUnknownModel> matchingNetworkUnknownModels = networkList.where((NetworkUnknownModel e) => e.uri.host == networkUnknownModel.uri.host).toList();
+    List<NetworkUnknownModel> matchingNetworkUnknownModels =
+        networkList.where((NetworkUnknownModel e) => NetworkUtils.compareUrisByUrn(e.uri, networkUnknownModel.uri)).toList();
 
     if (matchingNetworkUnknownModels.isEmpty) {
       return networkUnknownModel;
@@ -80,7 +81,6 @@ class AppConfig {
     }
     return urlNetworkUnknownModel;
   }
-
 
   bool isInterxVersionOutdated(String version) {
     bool isVersionSupported = supportedInterxVersions.contains(version);
