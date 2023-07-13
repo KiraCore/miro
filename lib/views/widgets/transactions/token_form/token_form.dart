@@ -10,10 +10,10 @@ import 'package:miro/shared/models/tokens/token_denomination_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/views/widgets/generic/responsive/column_row_spacer.dart';
 import 'package:miro/views/widgets/generic/responsive/column_row_swapper.dart';
-import 'package:miro/views/widgets/transactions/token_denomination_list.dart';
 import 'package:miro/views/widgets/transactions/token_form/token_amount_text_field/token_amount_text_field.dart';
+import 'package:miro/views/widgets/transactions/token_form/token_available_amount.dart';
+import 'package:miro/views/widgets/transactions/token_form/token_denomination_list.dart';
 import 'package:miro/views/widgets/transactions/token_form/token_dropdown/token_dropdown.dart';
-import 'package:miro/views/widgets/transactions/token_form/token_form_info.dart';
 
 class TokenForm extends StatefulWidget {
   final ValueChanged<TokenFormState> onChanged;
@@ -84,7 +84,7 @@ class _TokenForm extends State<TokenForm> {
                       ),
                     ],
                   ),
-                  TokenFormInfo(
+                  TokenAvailableAmount(
                     formFieldState: formFieldState,
                     balanceModel: tokenFormState.balanceModel,
                     feeTokenAmountModel: tokenFormState.feeTokenAmountModel,

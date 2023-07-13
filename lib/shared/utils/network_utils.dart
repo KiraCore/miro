@@ -51,6 +51,15 @@ class NetworkUtils {
     }
   }
 
+  static bool shouldUseProxy({required Uri serverUri, required Uri? proxyServerUri, required Uri appUri}) {
+    bool requiredSchemeExistsBool = appUri.isScheme('https') && serverUri.isScheme('http');
+    bool proxyUrlExistsBool = proxyServerUri != null;
+    bool localhostServerBool = isLocalhost(serverUri);
+
+    bool useProxyBool = requiredSchemeExistsBool && proxyUrlExistsBool && (localhostServerBool == false);
+    return useProxyBool;
+  }
+
   static Uri _assignDefaultPort(Uri uri) {
     List<int> ignoredPorts = <int>[0, 80, 443];
 

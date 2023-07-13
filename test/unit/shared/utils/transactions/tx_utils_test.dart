@@ -2,6 +2,7 @@ import 'package:decimal/decimal.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
+import 'package:miro/shared/models/tokens/token_denomination_model.dart';
 import 'package:miro/shared/models/transactions/messages/msg_send_model.dart';
 import 'package:miro/shared/models/transactions/signature_model.dart';
 import 'package:miro/shared/models/transactions/signed_transaction_model.dart';
@@ -12,7 +13,87 @@ import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/shared/utils/transactions/tx_utils.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
+// To run this test type in console:
+// fvm flutter test test/unit/shared/utils/transactions/tx_utils_test.dart --platform chrome --null-assertions
 Future<void> main() async {
+  group('Tests of TxUtils.buildAmountString() method', () {
+    // Arrange
+    TokenDenominationModel ukex = const TokenDenominationModel(name: 'ukex', decimals: 0);
+    TokenDenominationModel kex = const TokenDenominationModel(name: 'KEX', decimals: 6);
+
+    test('Should return [the same amount] if [amount 0]', () {
+      // Act
+      String actualAmountString = TxUtils.buildAmountString('0', kex);
+
+      // Assert
+      String expectedAmountString = '0';
+      expect(actualAmountString, expectedAmountString);
+    });
+
+    test('Should return [the same amount] if [amount contains decimal point]', () {
+      // Act
+      String actualAmountString = TxUtils.buildAmountString('5.0', kex);
+
+      // Assert
+      String expectedAmountString = '5.0';
+      expect(actualAmountString, expectedAmountString);
+    });
+
+    test('Should return [the same amount] if [TokenDenominationModel indivisible]', () {
+      // Act
+      String actualAmountString = TxUtils.buildAmountString('5', ukex);
+
+      // Assert
+      String expectedAmountString = '5';
+      expect(actualAmountString, expectedAmountString);
+    });
+
+    test('Should add [.0 suffix] if [no decimal point]', () {
+      // Act
+      String actualAmountString = TxUtils.buildAmountString('5', kex);
+
+      // Assert
+      String expectedAmountString = '5.0';
+      expect(actualAmountString, expectedAmountString);
+    });
+
+    test('Should add [0 suffix] if amount [ends with decimal point]', () {
+      // Act
+      String actualAmountString = TxUtils.buildAmountString('5.', kex);
+
+      // Assert
+      String expectedAmountString = '5.0';
+      expect(actualAmountString, expectedAmountString);
+    });
+
+    test('Should add [0 prefix] if amount [starts with decimal point]', () {
+      // Act
+      String actualAmountString = TxUtils.buildAmountString('.5', kex);
+
+      // Assert
+      String expectedAmountString = '0.5';
+      expect(actualAmountString, expectedAmountString);
+    });
+
+    test('Should add [0 prefix] if amount [equals "."]', () {
+      // Act
+      String actualAmountString = TxUtils.buildAmountString('.', kex);
+
+      // Assert
+      String expectedAmountString = '0.';
+      expect(actualAmountString, expectedAmountString);
+    });
+
+    test('Should not change if [amount equals "0."]', () {
+      // Act
+      String actualAmountString = TxUtils.buildAmountString('0.', kex);
+
+      // Assert
+      String expectedAmountString = '0.';
+      expect(actualAmountString, expectedAmountString);
+    });
+  });
+
   group('Tests of TxUtils.trimMemoToLength() method', () {
     test('Should return memo without overflowed characters (">>>>>>>>>>>>>>>>" -> ">")', () {
       // Act

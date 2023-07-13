@@ -8,9 +8,10 @@ import 'package:miro/shared/models/tokens/token_denomination_model.dart';
 import 'package:miro/shared/models/transactions/form_models/msg_send_form_model.dart';
 import 'package:miro/shared/models/transactions/messages/msg_send_model.dart';
 import 'package:miro/shared/models/transactions/tx_local_info_model.dart';
+import 'package:miro/shared/utils/transactions/tx_utils.dart';
 import 'package:miro/views/widgets/generic/token_avatar.dart';
 import 'package:miro/views/widgets/kira/kira_identity_avatar.dart';
-import 'package:miro/views/widgets/transactions/token_denomination_list.dart';
+import 'package:miro/views/widgets/transactions/token_form/token_denomination_list.dart';
 import 'package:miro/views/widgets/transactions/tx_input_preview.dart';
 
 class MsgSendFormPreview extends StatefulWidget {
@@ -64,7 +65,7 @@ class _MsgSendFormPreview extends State<MsgSendFormPreview> {
           label: S.of(context).txTotalAmount,
           value: _totalAmountText,
           icon: TokenAvatar(
-            iconUrl: widget.txLocalInfoModel.feeTokenAmountModel.tokenAliasModel.icon,
+            iconUrl: _iconUrl,
             size: 45,
           ),
         ),
@@ -109,7 +110,14 @@ class _MsgSendFormPreview extends State<MsgSendFormPreview> {
     TokenAmountModel netTokenAmountModel = msgSendModel.tokenAmountModel;
     Decimal netAmount = netTokenAmountModel.getAmountInDenomination(selectedTokenDenominationModel);
     String denominationText = selectedTokenDenominationModel.name;
-    return '$netAmount $denominationText';
+
+    String displayedAmount = TxUtils.buildAmountString(netAmount.toString(), selectedTokenDenominationModel);
+    return '$displayedAmount $denominationText';
+  }
+
+  String? get _iconUrl {
+    TokenAmountModel netTokenAmountModel = msgSendModel.tokenAmountModel;
+    return netTokenAmountModel.tokenAliasModel.icon;
   }
 
   String get _feeAmountText {

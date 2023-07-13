@@ -1,6 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/shared/utils/network_utils.dart';
 
+// To run this test type in console:
+// fvm flutter test test/unit/shared/utils/network_utils_test.dart --platform chrome --null-assertions
 void main() {
   group('Tests of Uri.parse()', () {
     // domain name
@@ -654,6 +656,80 @@ void main() {
 
       // Assert
       expect(actualUriWithRemovedScheme, '173.212.254.147:11000/path');
+    });
+  });
+
+  group('Tests of NetworkUtils.shouldUseProxy()', () {
+    test('Should return [true] if [proxyServerUri] EXISTS, [serverUri] NOT LOCAL HOST, [serverUri scheme] HTTP, [appUri scheme] HTTPS', () {
+      // Act
+      bool actualProxyActiveBool = NetworkUtils.shouldUseProxy(
+        serverUri: Uri.parse('http://65.108.86.252:11000'),
+        proxyServerUri: Uri.parse('https://cors-anywhere.kira.network'),
+        appUri: Uri.parse('https://ipfs.kira.network/ipfs/bafybeievdr3yrwscdxxpcyl3f45rte3hhgd7cepqgcez4gmcey5mouxgka/'),
+      );
+
+      // Assert
+      expect(actualProxyActiveBool, true);
+    });
+
+    test('Should return [false] if [serverUri] IS LOCAL HOST', () {
+      // Act
+      bool actualProxyActiveBool = NetworkUtils.shouldUseProxy(
+        serverUri: Uri.parse('https://127.0.0.1:11000'),
+        proxyServerUri: Uri.parse('https://cors-anywhere.kira.network'),
+        appUri: Uri.parse('https://ipfs.kira.network/ipfs/bafybeievdr3yrwscdxxpcyl3f45rte3hhgd7cepqgcez4gmcey5mouxgka/'),
+      );
+
+      // Assert
+      expect(actualProxyActiveBool, false);
+    });
+
+    test('Should return [false] if [serverUri scheme] HTTPS', () {
+      // Act
+      bool actualProxyActiveBool = NetworkUtils.shouldUseProxy(
+        serverUri: Uri.parse('https://65.108.86.252:11000'),
+        proxyServerUri: Uri.parse('https://cors-anywhere.kira.network'),
+        appUri: Uri.parse('https://ipfs.kira.network/ipfs/bafybeievdr3yrwscdxxpcyl3f45rte3hhgd7cepqgcez4gmcey5mouxgka/'),
+      );
+
+      // Assert
+      expect(actualProxyActiveBool, false);
+    });
+
+    test('Should return [false] if [apiUri scheme] HTTP', () {
+      // Act
+      bool actualProxyActiveBool = NetworkUtils.shouldUseProxy(
+        serverUri: Uri.parse('http://65.108.86.252:11000'),
+        proxyServerUri: Uri.parse('https://cors-anywhere.kira.network'),
+        appUri: Uri.parse('http://ipfs.kira.network/ipfs/bafybeievdr3yrwscdxxpcyl3f45rte3hhgd7cepqgcez4gmcey5mouxgka/'),
+      );
+
+      // Assert
+      expect(actualProxyActiveBool, false);
+    });
+
+    test('Should return [false] if [proxyServerUri] NULL', () {
+      // Act
+      bool actualProxyActiveBool = NetworkUtils.shouldUseProxy(
+        serverUri: Uri.parse('https://65.108.86.252:11000'),
+        proxyServerUri: null,
+        appUri: Uri.parse('https://ipfs.kira.network/ipfs/bafybeievdr3yrwscdxxpcyl3f45rte3hhgd7cepqgcez4gmcey5mouxgka/'),
+      );
+
+      // Assert
+      expect(actualProxyActiveBool, false);
+    });
+
+    test('Should return [false] if [proxyServerUri] NULL, [serverUri] IS LOCAL HOST, [serverUri scheme] HTTPS, [appUri scheme] HTTP', () {
+      // Act
+      bool actualProxyActiveBool = NetworkUtils.shouldUseProxy(
+        serverUri: Uri.parse('https://127.0.0.1:11000'),
+        proxyServerUri: null,
+        appUri: Uri.parse('https://ipfs.kira.network/ipfs/bafybeievdr3yrwscdxxpcyl3f45rte3hhgd7cepqgcez4gmcey5mouxgka/'),
+      );
+
+      // Assert
+      expect(actualProxyActiveBool, false);
     });
   });
 }
