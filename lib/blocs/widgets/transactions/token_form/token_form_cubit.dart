@@ -6,6 +6,7 @@ import 'package:miro/shared/models/balances/balance_model.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/tokens/token_denomination_model.dart';
+import 'package:miro/shared/utils/transactions/tx_utils.dart';
 
 class TokenFormCubit extends Cubit<TokenFormState> {
   final GlobalKey<FormFieldState<TokenAmountModel>> formFieldKey = GlobalKey<FormFieldState<TokenAmountModel>>();
@@ -61,15 +62,16 @@ class TokenFormCubit extends Cubit<TokenFormState> {
   }
 
   void _updateTextFieldValue() {
-    bool amountFieldEnabledBool = state.tokenAmountModel != null &&  state.tokenDenominationModel != null;
-    if( amountFieldEnabledBool ) {
-      Decimal availableAmountText = state.tokenAmountModel!.getAmountInDenomination(state.tokenDenominationModel!);
-      amountTextEditingController.text = availableAmountText.toString();
+    bool amountFieldEnabledBool = state.tokenAmountModel != null && state.tokenDenominationModel != null;
+    if (amountFieldEnabledBool) {
+      Decimal availableAmount = state.tokenAmountModel!.getAmountInDenomination(state.tokenDenominationModel!);
+      String displayedAmount = TxUtils.buildAmountString(availableAmount.toString(), state.tokenDenominationModel);
+      amountTextEditingController.text = displayedAmount;
       _validateTokenForm();
     }
   }
 
   void _validateTokenForm() {
-    Future<void>.delayed(Duration.zero, () => formFieldKey.currentState?.validate());
+    Future<void>.delayed(const Duration(milliseconds: 50), () => formFieldKey.currentState?.validate());
   }
 }

@@ -7,7 +7,6 @@ import 'package:miro/shared/utils/network_utils.dart';
 
 class HttpClientManager {
   final AppConfig _appConfig = globalLocator<AppConfig>();
-  final BrowserUrlController _browserUrlController = const BrowserUrlController();
 
   Future<Response<T>> get<T>({
     required Uri networkUri,
@@ -57,7 +56,11 @@ class HttpClientManager {
 
   Dio _buildHttpClient(Uri uri) {
     String uriAsString = uri.toString();
-    bool proxyActiveBool = _shouldUseProxy(uri);
+    bool proxyActiveBool = NetworkUtils.shouldUseProxy(
+      serverUri: uri,
+      proxyServerUri: _appConfig.proxyServerUri,
+      appUri: const BrowserUrlController().uri,
+    );
     if (proxyActiveBool) {
       uriAsString = '${_appConfig.proxyServerUri}/${uri.toString()}';
       return DioForBrowser(
@@ -69,17 +72,6 @@ class HttpClientManager {
     } else {
       return DioForBrowser(BaseOptions(baseUrl: uriAsString));
     }
-  }
-
-  bool _shouldUseProxy(Uri serverUri) {
-    Uri appUri = _browserUrlController.uri;
-    
-    bool requiredSchemeExistsBool = appUri.isScheme('https') && serverUri.isScheme('http');
-    bool proxyUrlExistsBool = _appConfig.proxyServerUri != null;
-    bool localhostServerBool = NetworkUtils.isLocalhost(serverUri);
-    
-    bool useProxyBool = requiredSchemeExistsBool && proxyUrlExistsBool && localhostServerBool == false;
-    return useProxyBool;
   }
 
   Map<String, dynamic>? _removeEmptyQueryParameters(Map<String, dynamic>? queryParameters) {

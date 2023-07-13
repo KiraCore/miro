@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/widgets/transactions/token_form/token_form_cubit.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/tokens/token_denomination_model.dart';
+import 'package:miro/shared/utils/transactions/tx_utils.dart';
 import 'package:miro/views/widgets/transactions/token_form/token_amount_text_field/token_amount_text_field_actions.dart';
 import 'package:miro/views/widgets/transactions/token_form/token_amount_text_field/token_amount_text_input_formatter.dart';
 import 'package:miro/views/widgets/transactions/tx_input_static_label.dart';
@@ -89,8 +90,11 @@ class _TokenAmountTextField extends State<TokenAmountTextField> {
   void _handleFocusChanged() {
     bool focusedBool = focusNode.hasFocus;
     String text = widget.textEditingController.text;
+    String displayedAmount = TxUtils.buildAmountString(text, widget.tokenDenominationModel);
     if (focusedBool == false && text.isEmpty) {
       widget.textEditingController.text = '0';
+    } else if (focusedBool == false) {
+      widget.textEditingController.text = displayedAmount;
     } else if (focusedBool && text == '0') {
       widget.textEditingController.text = '';
     }

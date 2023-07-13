@@ -5,13 +5,13 @@ import 'package:miro/shared/models/balances/balance_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/tokens/token_denomination_model.dart';
 
-class TokenFormInfo extends StatelessWidget {
+class TokenAvailableAmount extends StatelessWidget {
   final TokenAmountModel feeTokenAmountModel;
   final FormFieldState<TokenAmountModel> formFieldState;
   final BalanceModel? balanceModel;
   final TokenDenominationModel? tokenDenominationModel;
 
-  const TokenFormInfo({
+  const TokenAvailableAmount({
     required this.feeTokenAmountModel,
     required this.formFieldState,
     this.balanceModel,
