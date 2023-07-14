@@ -3,7 +3,7 @@ import 'package:miro/config/theme/design_colors.dart';
 
 class PrefixedWidget extends StatelessWidget {
   final String prefix;
-  final Widget child;
+  final Widget? child;
   final Widget? icon;
 
   const PrefixedWidget({
@@ -30,12 +30,14 @@ class PrefixedWidget extends StatelessWidget {
             children: <Widget>[
               Text(
                 prefix,
-                style: textTheme.bodyText2!.copyWith(
+                style: (child != null ? textTheme.caption! : textTheme.bodyText2!).copyWith(
                   color: DesignColors.accent,
                 ),
               ),
-              const SizedBox(height: 4),
-              child,
+              if (child != null) ...<Widget>[
+                const SizedBox(height: 4),
+                child!,
+              ],
             ],
           ),
         ),

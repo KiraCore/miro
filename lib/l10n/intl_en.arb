@@ -221,6 +221,7 @@
       }
     }
   },
+
   "txPreviewUnavailable": "Preview for {txMsgType} unavailable",
   "@txPreviewUnavailable": {
     "placeholders": {
@@ -229,6 +230,30 @@
       }
     }
   },
+
+  "txMsgRegisterIdentityRecords": "Register Identity Records",
+  "txMsgCancelIdentityRecordsVerifyRequest": "Cancel Verification Request",
+  "txMsgDeleteIdentityRecords": "Delete Identity Records",
+  "txMsgHandleIdentityRecordsVerifyRequest": "Handle Verification Request",
+  "txMsgRequestIdentityRecordsVerify": "Request Verification",
+  "txMsgSendSendTokens": "Send",
+  "txMsgSendReceiveTokens": "Receive",
+  "txMsgUndefined": "Unknown transaction type",
+  "txMsgMulti": "Multi transaction",
+
+  "txListDetails": "Details",
+  "txListHash": "Transaction hash",
+  "txListStatus": "Status",
+  "txListDate": "Date",
+
+  "txListAmount": "Amount",
+  "txListAmountPlusMore": "+ {amount} more",
+  "txListAmountPlusFees": "+ fees",
+  "txListAmountFeesOnly": "Fees only",
+
+  "txListStatusConfirmed": "Confirmed",
+  "txListStatusPending": "Pending",
+  "txListStatusFailed": "Failed",
 
   "validators": "Validators",
   "validatorsButtonFilter": "{selected} selected",
@@ -262,8 +287,10 @@
   "errorNoResults": "No results",
   "errorCannotFetchData": "Cannot fetch data",
   "errorPreviewNotAvailable": "Preview not available",
+
   "toastSuccessfullyCopied": "Successfully copied",
   "toastPublicAddressCopied": "Public address copied to clipboard",
+  "toastHashCopied": "Hash copied to clipboard",
   "toastCannotLoadDashboard": "Cannot load dashboard. Please check your connection.",
 
   "dashboard": "Dashboard",
