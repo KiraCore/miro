@@ -1,8 +1,13 @@
 import 'package:decimal/decimal.dart';
+import 'package:flutter/material.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/infra/dto/shared/coin.dart';
 import 'package:miro/infra/dto/shared/messages/identity_records/msg_request_identity_records_verify.dart';
+import 'package:miro/shared/models/tokens/prefixed_token_amount_model.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
+import 'package:miro/shared/models/tokens/token_amount_status_type.dart';
+import 'package:miro/shared/models/transactions/list/tx_direction_type.dart';
 import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
 import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
@@ -32,9 +37,10 @@ class IRMsgRequestVerificationModel extends ATxMsgModel {
     return IRMsgRequestVerificationModel(
       recordIds: msgRequestIdentityRecordsVerify.recordIds,
       tipTokenAmountModel: TokenAmountModel(
-          lowestDenominationAmount: Decimal.parse(msgRequestIdentityRecordsVerify.tip.amount),
-          tokenAliasModel: TokenAliasModel.local(msgRequestIdentityRecordsVerify.tip.amount)),
-      verifierWalletAddress: WalletAddress.fromBech32(msgRequestIdentityRecordsVerify.address),
+        lowestDenominationAmount: Decimal.parse(msgRequestIdentityRecordsVerify.tip.amount),
+        tokenAliasModel: TokenAliasModel.local(msgRequestIdentityRecordsVerify.tip.denom),
+      ),
+      verifierWalletAddress: WalletAddress.fromBech32(msgRequestIdentityRecordsVerify.verifier),
       walletAddress: WalletAddress.fromBech32(msgRequestIdentityRecordsVerify.address),
     );
   }
@@ -48,6 +54,27 @@ class IRMsgRequestVerificationModel extends ATxMsgModel {
       verifier: verifierWalletAddress.bech32Address,
     );
   }
+
+  @override
+  Widget getIcon(TxDirectionType txDirectionType) {
+    return const Icon(Icons.supervisor_account_outlined);
+  }
+
+  @override
+  List<PrefixedTokenAmountModel> getPrefixedTokenAmounts(TxDirectionType txDirectionType) {
+    return <PrefixedTokenAmountModel>[
+      PrefixedTokenAmountModel(
+        tokenAmountModel: tipTokenAmountModel,
+        tokenAmountPrefixType: txDirectionType == TxDirectionType.outbound ? TokenAmountPrefixType.subtract : TokenAmountPrefixType.add,
+      ),
+    ];
+  }
+
+  @override
+  String getSubtitle(TxDirectionType txDirectionType) => verifierWalletAddress.bech32Address;
+
+  @override
+  String getTitle(BuildContext context, TxDirectionType txDirectionType) => S.of(context).txMsgRequestIdentityRecordsVerify;
 
   @override
   List<Object?> get props => <Object>[recordIds, tipTokenAmountModel, verifierWalletAddress, walletAddress];

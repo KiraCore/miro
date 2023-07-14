@@ -1,0 +1,4 @@
+enum TokenAmountPrefixType {
+  add,
+  subtract,
+}

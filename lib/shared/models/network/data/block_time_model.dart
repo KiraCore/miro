@@ -20,6 +20,6 @@ class BlockTimeModel {
 
   @override
   String toString() {
-    return DateFormat('HH:mm dd.MM.yyyy').format(blockTime.toLocal());
+    return DateFormat('dd.MM.yyyy HH:mm').format(blockTime.toLocal());
   }
 }

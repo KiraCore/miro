@@ -16,7 +16,6 @@ class KiraToolTip extends StatelessWidget {
   final Duration? waitDuration;
   final Duration? showDuration;
   final TooltipTriggerMode? triggerMode;
-
   final bool? enableFeedback;
 
   const KiraToolTip({
@@ -32,7 +31,7 @@ class KiraToolTip extends StatelessWidget {
     this.waitDuration,
     this.showDuration,
     this.child,
-    this.triggerMode,
+    this.triggerMode = TooltipTriggerMode.tap,
     this.enableFeedback,
     Key? key,
   }) : super(key: key);

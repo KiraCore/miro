@@ -1552,6 +1552,206 @@ class S {
     );
   }
 
+  /// `Register Identity Records`
+  String get txMsgRegisterIdentityRecords {
+    return Intl.message(
+      'Register Identity Records',
+      name: 'txMsgRegisterIdentityRecords',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel Verification Request`
+  String get txMsgCancelIdentityRecordsVerifyRequest {
+    return Intl.message(
+      'Cancel Verification Request',
+      name: 'txMsgCancelIdentityRecordsVerifyRequest',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete Identity Records`
+  String get txMsgDeleteIdentityRecords {
+    return Intl.message(
+      'Delete Identity Records',
+      name: 'txMsgDeleteIdentityRecords',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Handle Verification Request`
+  String get txMsgHandleIdentityRecordsVerifyRequest {
+    return Intl.message(
+      'Handle Verification Request',
+      name: 'txMsgHandleIdentityRecordsVerifyRequest',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Request Verification`
+  String get txMsgRequestIdentityRecordsVerify {
+    return Intl.message(
+      'Request Verification',
+      name: 'txMsgRequestIdentityRecordsVerify',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Send`
+  String get txMsgSendSendTokens {
+    return Intl.message(
+      'Send',
+      name: 'txMsgSendSendTokens',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Receive`
+  String get txMsgSendReceiveTokens {
+    return Intl.message(
+      'Receive',
+      name: 'txMsgSendReceiveTokens',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unknown transaction type`
+  String get txMsgUndefined {
+    return Intl.message(
+      'Unknown transaction type',
+      name: 'txMsgUndefined',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Multi transaction`
+  String get txMsgMulti {
+    return Intl.message(
+      'Multi transaction',
+      name: 'txMsgMulti',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Details`
+  String get txListDetails {
+    return Intl.message(
+      'Details',
+      name: 'txListDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Transaction hash`
+  String get txListHash {
+    return Intl.message(
+      'Transaction hash',
+      name: 'txListHash',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Status`
+  String get txListStatus {
+    return Intl.message(
+      'Status',
+      name: 'txListStatus',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Date`
+  String get txListDate {
+    return Intl.message(
+      'Date',
+      name: 'txListDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Amount`
+  String get txListAmount {
+    return Intl.message(
+      'Amount',
+      name: 'txListAmount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `+ {amount} more`
+  String txListAmountPlusMore(Object amount) {
+    return Intl.message(
+      '+ $amount more',
+      name: 'txListAmountPlusMore',
+      desc: '',
+      args: [amount],
+    );
+  }
+
+  /// `+ fees`
+  String get txListAmountPlusFees {
+    return Intl.message(
+      '+ fees',
+      name: 'txListAmountPlusFees',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Fees only`
+  String get txListAmountFeesOnly {
+    return Intl.message(
+      'Fees only',
+      name: 'txListAmountFeesOnly',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirmed`
+  String get txListStatusConfirmed {
+    return Intl.message(
+      'Confirmed',
+      name: 'txListStatusConfirmed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pending`
+  String get txListStatusPending {
+    return Intl.message(
+      'Pending',
+      name: 'txListStatusPending',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Failed`
+  String get txListStatusFailed {
+    return Intl.message(
+      'Failed',
+      name: 'txListStatusFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Validators`
   String get validators {
     return Intl.message(
@@ -1807,6 +2007,16 @@ class S {
     return Intl.message(
       'Public address copied to clipboard',
       name: 'toastPublicAddressCopied',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hash copied to clipboard`
+  String get toastHashCopied {
+    return Intl.message(
+      'Hash copied to clipboard',
+      name: 'toastHashCopied',
       desc: '',
       args: [],
     );

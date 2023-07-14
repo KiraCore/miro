@@ -89,7 +89,7 @@ class NetworkListTileContent extends StatelessWidget {
   String get _blockTime {
     if (networkStatusModel is ANetworkOnlineModel) {
       DateTime latestBlockTime = (networkStatusModel as ANetworkOnlineModel).networkInfoModel.latestBlockTime.toLocal();
-      return DateFormat('HH:mm dd.MM.yyyy').format(latestBlockTime);
+      return DateFormat('dd.MM.yyyy HH:mm').format(latestBlockTime);
     }
     return '---';
   }

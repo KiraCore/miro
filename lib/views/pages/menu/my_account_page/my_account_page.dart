@@ -105,7 +105,10 @@ class _MyAccountPage extends State<MyAccountPage> with SingleTickerProviderState
           parentScrollController: scrollController,
         );
       case MyAccountTabMode.transactions:
-        return const TransactionsPage();
+        return TransactionsPage(
+          address: wallet.address.bech32Address,
+          parentScrollController: scrollController,
+        );
       default:
         return const SizedBox();
     }

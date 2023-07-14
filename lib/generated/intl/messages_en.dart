@@ -35,12 +35,14 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m5(hash) => "Transaction hash: 0x${hash}";
 
-  static String m6(widgetFeeTokenAmountModel) =>
+  static String m6(amount) => "+ ${amount} more";
+
+  static String m7(widgetFeeTokenAmountModel) =>
       "Transaction fee ${widgetFeeTokenAmountModel}";
 
-  static String m7(txMsgType) => "Preview for ${txMsgType} unavailable";
+  static String m8(txMsgType) => "Preview for ${txMsgType} unavailable";
 
-  static String m8(selected) => "${selected} selected";
+  static String m9(selected) => "${selected} selected";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -260,6 +262,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "sortBy": MessageLookupByLibrary.simpleMessage("Sort by"),
         "toastCannotLoadDashboard": MessageLookupByLibrary.simpleMessage(
             "Cannot load dashboard. Please check your connection."),
+        "toastHashCopied":
+            MessageLookupByLibrary.simpleMessage("Hash copied to clipboard"),
         "toastPublicAddressCopied": MessageLookupByLibrary.simpleMessage(
             "Public address copied to clipboard"),
         "toastSuccessfullyCopied":
@@ -302,10 +306,39 @@ class MessageLookup extends MessageLookupByLibrary {
         "txHintSendTo": MessageLookupByLibrary.simpleMessage("Send to"),
         "txIsBeingBroadcast": MessageLookupByLibrary.simpleMessage(
             "Your transaction is being broadcast"),
-        "txNoticeFee": m6,
+        "txListAmount": MessageLookupByLibrary.simpleMessage("Amount"),
+        "txListAmountFeesOnly":
+            MessageLookupByLibrary.simpleMessage("Fees only"),
+        "txListAmountPlusFees": MessageLookupByLibrary.simpleMessage("+ fees"),
+        "txListAmountPlusMore": m6,
+        "txListDate": MessageLookupByLibrary.simpleMessage("Date"),
+        "txListDetails": MessageLookupByLibrary.simpleMessage("Details"),
+        "txListHash": MessageLookupByLibrary.simpleMessage("Transaction hash"),
+        "txListStatus": MessageLookupByLibrary.simpleMessage("Status"),
+        "txListStatusConfirmed":
+            MessageLookupByLibrary.simpleMessage("Confirmed"),
+        "txListStatusFailed": MessageLookupByLibrary.simpleMessage("Failed"),
+        "txListStatusPending": MessageLookupByLibrary.simpleMessage("Pending"),
+        "txMsgCancelIdentityRecordsVerifyRequest":
+            MessageLookupByLibrary.simpleMessage("Cancel Verification Request"),
+        "txMsgDeleteIdentityRecords":
+            MessageLookupByLibrary.simpleMessage("Delete Identity Records"),
+        "txMsgHandleIdentityRecordsVerifyRequest":
+            MessageLookupByLibrary.simpleMessage("Handle Verification Request"),
+        "txMsgMulti": MessageLookupByLibrary.simpleMessage("Multi transaction"),
+        "txMsgRegisterIdentityRecords":
+            MessageLookupByLibrary.simpleMessage("Register Identity Records"),
+        "txMsgRequestIdentityRecordsVerify":
+            MessageLookupByLibrary.simpleMessage("Request Verification"),
+        "txMsgSendReceiveTokens":
+            MessageLookupByLibrary.simpleMessage("Receive"),
+        "txMsgSendSendTokens": MessageLookupByLibrary.simpleMessage("Send"),
+        "txMsgUndefined":
+            MessageLookupByLibrary.simpleMessage("Unknown transaction type"),
+        "txNoticeFee": m7,
         "txPleaseSelectToken":
             MessageLookupByLibrary.simpleMessage("Please select a token"),
-        "txPreviewUnavailable": m7,
+        "txPreviewUnavailable": m8,
         "txRecipientWillGet":
             MessageLookupByLibrary.simpleMessage("Recipient will get"),
         "txSearchTokens": MessageLookupByLibrary.simpleMessage("Search tokens"),
@@ -321,7 +354,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Do not close this window"),
         "validators": MessageLookupByLibrary.simpleMessage("Validators"),
         "validatorsActive": MessageLookupByLibrary.simpleMessage("Active"),
-        "validatorsButtonFilter": m8,
+        "validatorsButtonFilter": m9,
         "validatorsDropdownAll": MessageLookupByLibrary.simpleMessage("All"),
         "validatorsHintSearch":
             MessageLookupByLibrary.simpleMessage("Search validators"),
