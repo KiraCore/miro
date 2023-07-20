@@ -3127,6 +3127,136 @@ class S {
     );
   }
 
+  /// `Blocks`
+  String get blocksPageTitle {
+    return Intl.message(
+      'Blocks',
+      name: 'blocksPageTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search blocks`
+  String get blocksHintSearch {
+    return Intl.message(
+      'Search blocks',
+      name: 'blocksHintSearch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Height`
+  String get blocksHeight {
+    return Intl.message(
+      'Height',
+      name: 'blocksHeight',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Proposer`
+  String get blocksProposer {
+    return Intl.message(
+      'Proposer',
+      name: 'blocksProposer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hash`
+  String get blocksHash {
+    return Intl.message(
+      'Hash',
+      name: 'blocksHash',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tx Count`
+  String get blocksTxCount {
+    return Intl.message(
+      'Tx Count',
+      name: 'blocksTxCount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Age`
+  String get blocksDateTime {
+    return Intl.message(
+      'Age',
+      name: 'blocksDateTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Chain Id`
+  String get blocksChainId {
+    return Intl.message(
+      'Chain Id',
+      name: 'blocksChainId',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Validator Hash`
+  String get blocksValidatorHash {
+    return Intl.message(
+      'Validator Hash',
+      name: 'blocksValidatorHash',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `App Hash`
+  String get blocksAppHash {
+    return Intl.message(
+      'App Hash',
+      name: 'blocksAppHash',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Consensus Hash`
+  String get blocksConsensusHash {
+    return Intl.message(
+      'Consensus Hash',
+      name: 'blocksConsensusHash',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Evidence Hash`
+  String get blocksEvidenceHash {
+    return Intl.message(
+      'Evidence Hash',
+      name: 'blocksEvidenceHash',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Block Size`
+  String get blocksBlockSize {
+    return Intl.message(
+      'Block Size',
+      name: 'blocksBlockSize',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Report issues`
   String get buttonReportIssues {
     return Intl.message(

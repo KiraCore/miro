@@ -75,17 +75,34 @@ class MessageLookup extends MessageLookupByLibrary {
         "balancesSend": MessageLookupByLibrary.simpleMessage("Send"),
         "balancesTimeSinceBlock": m0,
         "blocks": MessageLookupByLibrary.simpleMessage("Blocks"),
+        "blocksAppHash": MessageLookupByLibrary.simpleMessage("App Hash"),
         "blocksAverageTime":
             MessageLookupByLibrary.simpleMessage("Average time"),
+        "blocksBlockSize": MessageLookupByLibrary.simpleMessage("Block Size"),
+        "blocksChainId": MessageLookupByLibrary.simpleMessage("Chain Id"),
+        "blocksConsensusHash":
+            MessageLookupByLibrary.simpleMessage("Consensus Hash"),
         "blocksCurrentHeight":
             MessageLookupByLibrary.simpleMessage("Current height"),
         "blocksCurrentTransactions":
             MessageLookupByLibrary.simpleMessage("Current transactions"),
+        "blocksDateTime": MessageLookupByLibrary.simpleMessage("Age"),
+        "blocksEvidenceHash":
+            MessageLookupByLibrary.simpleMessage("Evidence Hash"),
+        "blocksHash": MessageLookupByLibrary.simpleMessage("Hash"),
+        "blocksHeight": MessageLookupByLibrary.simpleMessage("Height"),
+        "blocksHintSearch":
+            MessageLookupByLibrary.simpleMessage("Search blocks"),
         "blocksLatestTime": MessageLookupByLibrary.simpleMessage("Latest time"),
+        "blocksPageTitle": MessageLookupByLibrary.simpleMessage("Blocks"),
         "blocksPendingTransactions":
             MessageLookupByLibrary.simpleMessage("Pending transactions"),
+        "blocksProposer": MessageLookupByLibrary.simpleMessage("Proposer"),
         "blocksSinceGenesis":
             MessageLookupByLibrary.simpleMessage("Since genesis"),
+        "blocksTxCount": MessageLookupByLibrary.simpleMessage("Tx Count"),
+        "blocksValidatorHash":
+            MessageLookupByLibrary.simpleMessage("Validator Hash"),
         "browse": MessageLookupByLibrary.simpleMessage("browse"),
         "buttonReportIssues":
             MessageLookupByLibrary.simpleMessage("Report issues"),
