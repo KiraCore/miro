@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:miro/blocs/generic/auth/auth_cubit.dart';
+import 'package:miro/blocs/generic/identity_registrar/identity_registrar_cubit.dart';
 import 'package:miro/blocs/generic/network_module/network_module_bloc.dart';
 import 'package:miro/blocs/layout/drawer/drawer_cubit.dart';
 import 'package:miro/blocs/layout/nav_menu/nav_menu_cubit.dart';
@@ -64,6 +65,7 @@ void _initControllers() {
   globalLocator
     ..registerLazySingleton<AuthCubit>(AuthCubit.new)
     ..registerLazySingleton<DrawerCubit>(DrawerCubit.new)
+    ..registerLazySingleton<IdentityRegistrarCubit>(IdentityRegistrarCubit.new)
     ..registerLazySingleton<NavMenuCubit>(NavMenuCubit.new)
     ..registerLazySingleton<NetworkCustomSectionCubit>(NetworkCustomSectionCubit.new)
     ..registerLazySingleton<NetworkListCubit>(NetworkListCubit.new)

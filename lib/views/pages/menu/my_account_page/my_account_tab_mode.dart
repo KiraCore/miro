@@ -1,4 +1,5 @@
 enum MyAccountTabMode {
   balances,
-  transactions
+  transactions,
+  identityRegistrar,
 }

@@ -120,6 +120,25 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Undefined error"),
         "errorUnknown": MessageLookupByLibrary.simpleMessage("Unknown error"),
         "governance": MessageLookupByLibrary.simpleMessage("Governance"),
+        "ir": MessageLookupByLibrary.simpleMessage("Identity Registrar"),
+        "irAddCustomEntry":
+            MessageLookupByLibrary.simpleMessage("Add custom entry"),
+        "irAvatar": MessageLookupByLibrary.simpleMessage("Avatar"),
+        "irDescription": MessageLookupByLibrary.simpleMessage("Description"),
+        "irEntries": MessageLookupByLibrary.simpleMessage("Entries"),
+        "irRecordAdd": MessageLookupByLibrary.simpleMessage("Add"),
+        "irRecordDelete": MessageLookupByLibrary.simpleMessage("Delete"),
+        "irRecordEdit": MessageLookupByLibrary.simpleMessage("Edit"),
+        "irRecordStatus": MessageLookupByLibrary.simpleMessage("Status"),
+        "irRecordStatusNotVerified":
+            MessageLookupByLibrary.simpleMessage("Not verified"),
+        "irRecordStatusPending":
+            MessageLookupByLibrary.simpleMessage("Pending"),
+        "irRecordStatusVerified":
+            MessageLookupByLibrary.simpleMessage("Verified"),
+        "irRecordVerify": MessageLookupByLibrary.simpleMessage("Verify"),
+        "irSocialMedia": MessageLookupByLibrary.simpleMessage("Social media"),
+        "irUsername": MessageLookupByLibrary.simpleMessage("Username"),
         "keyfile": MessageLookupByLibrary.simpleMessage("Keyfile"),
         "keyfileButtonDownload":
             MessageLookupByLibrary.simpleMessage("Download"),
