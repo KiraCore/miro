@@ -6,6 +6,7 @@ import 'package:miro/config/locator.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_page.dart';
+import 'package:miro/views/pages/menu/my_account_page/identity_registrar/identity_registrar_page.dart';
 import 'package:miro/views/pages/menu/my_account_page/my_account_page_header.dart';
 import 'package:miro/views/pages/menu/my_account_page/my_account_tab_mode.dart';
 import 'package:miro/views/pages/menu/my_account_page/transactions_page/transactions_page.dart';
@@ -45,6 +46,7 @@ class _MyAccountPage extends State<MyAccountPage> with SingleTickerProviderState
     Map<MyAccountTabMode, String> tabNames = <MyAccountTabMode, String>{
       MyAccountTabMode.balances: S.of(context).balances,
       MyAccountTabMode.transactions: S.of(context).tx,
+      MyAccountTabMode.identityRegistrar: S.of(context).ir,
     };
 
     return BlocBuilder<AuthCubit, Wallet?>(
@@ -109,6 +111,8 @@ class _MyAccountPage extends State<MyAccountPage> with SingleTickerProviderState
           address: wallet.address.bech32Address,
           parentScrollController: scrollController,
         );
+      case MyAccountTabMode.identityRegistrar:
+        return IdentityRegistrarPage(walletAddress: wallet.address);
       default:
         return const SizedBox();
     }

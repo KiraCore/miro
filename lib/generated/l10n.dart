@@ -400,6 +400,156 @@ class S {
     );
   }
 
+  /// `Identity Registrar`
+  String get ir {
+    return Intl.message(
+      'Identity Registrar',
+      name: 'ir',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Entries`
+  String get irEntries {
+    return Intl.message(
+      'Entries',
+      name: 'irEntries',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Avatar`
+  String get irAvatar {
+    return Intl.message(
+      'Avatar',
+      name: 'irAvatar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Username`
+  String get irUsername {
+    return Intl.message(
+      'Username',
+      name: 'irUsername',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Description`
+  String get irDescription {
+    return Intl.message(
+      'Description',
+      name: 'irDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Social media`
+  String get irSocialMedia {
+    return Intl.message(
+      'Social media',
+      name: 'irSocialMedia',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add custom entry`
+  String get irAddCustomEntry {
+    return Intl.message(
+      'Add custom entry',
+      name: 'irAddCustomEntry',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add`
+  String get irRecordAdd {
+    return Intl.message(
+      'Add',
+      name: 'irRecordAdd',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete`
+  String get irRecordDelete {
+    return Intl.message(
+      'Delete',
+      name: 'irRecordDelete',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit`
+  String get irRecordEdit {
+    return Intl.message(
+      'Edit',
+      name: 'irRecordEdit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Verify`
+  String get irRecordVerify {
+    return Intl.message(
+      'Verify',
+      name: 'irRecordVerify',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Status`
+  String get irRecordStatus {
+    return Intl.message(
+      'Status',
+      name: 'irRecordStatus',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Verified`
+  String get irRecordStatusVerified {
+    return Intl.message(
+      'Verified',
+      name: 'irRecordStatusVerified',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Not verified`
+  String get irRecordStatusNotVerified {
+    return Intl.message(
+      'Not verified',
+      name: 'irRecordStatusNotVerified',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pending`
+  String get irRecordStatusPending {
+    return Intl.message(
+      'Pending',
+      name: 'irRecordStatusPending',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Keyfile`
   String get keyfile {
     return Intl.message(

@@ -1,13 +1,16 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/blocs/generic/auth/auth_cubit.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
+import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
 // To run this test type in console:
 // fvm flutter test test/unit/blocs/generic/auth_cubit_test.dart --platform chrome --null-assertions
-void main() {
+Future<void> main() async {
+  await initMockLocator();
+
   group('Tests of [AuthCubit] process', () {
-    test('Should return states assigned to specific actions ', () {
+    test('Should return states assigned to specific actions', () async {
       // Arrange
       final AuthCubit actualAuthCubit = AuthCubit();
 
@@ -20,7 +23,7 @@ void main() {
       // ************************************************************************************************
 
       // Act
-      actualAuthCubit.signIn(TestUtils.wallet);
+      await actualAuthCubit.signIn(TestUtils.wallet);
 
       // Assert
       expectedWallet = TestUtils.wallet;
@@ -31,7 +34,7 @@ void main() {
       // ************************************************************************************************
 
       // Act
-      actualAuthCubit.signOut();
+      await actualAuthCubit.signOut();
 
       // Assert
       expectedWallet = null;

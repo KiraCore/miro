@@ -48,6 +48,24 @@
   "createWalletAcknowledgement": "I understand that if I lose Mnemonic or Keyfile I will never have access to account again.",
   "createWalletDontHave": "Don't have a wallet?",
 
+  "ir": "Identity Registrar",
+  "irEntries": "Entries",
+  "irAvatar": "Avatar",
+  "irUsername": "Username",
+  "irDescription": "Description",
+  "irSocialMedia": "Social media",
+  "irAddCustomEntry": "Add custom entry",
+
+  "irRecordAdd": "Add",
+  "irRecordDelete": "Delete",
+  "irRecordEdit": "Edit",
+  "irRecordVerify": "Verify",
+
+  "irRecordStatus": "Status",
+  "irRecordStatusVerified": "Verified",
+  "irRecordStatusNotVerified": "Not verified",
+  "irRecordStatusPending": "Pending",
+
   "keyfile": "Keyfile",
   "keyfileButtonDownload": "Download",
   "keyfileErrorCannotBeEmpty": "Keyfile cannot be empty",

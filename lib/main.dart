@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:miro/blocs/generic/identity_registrar/identity_registrar_cubit.dart';
 import 'package:miro/blocs/generic/network_module/events/network_module_init_event.dart';
 import 'package:miro/blocs/generic/network_module/network_module_bloc.dart';
 import 'package:miro/blocs/widgets/network_list/network_list/network_list_cubit.dart';
@@ -25,6 +26,7 @@ Future<void> main() async {
 
   globalLocator<NetworkModuleBloc>().add(NetworkModuleInitEvent());
   globalLocator<NetworkListCubit>().initNetworkStatusModelList();
+  await globalLocator<IdentityRegistrarCubit>().refresh();
 
   runApp(const CoreApp());
 }

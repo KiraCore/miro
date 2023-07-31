@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:miro/infra/dto/api_kira/query_identity_records/response/record.dart';
+import 'package:miro/shared/models/identity_registrar/ir_record_status.dart';
 import 'package:miro/shared/models/identity_registrar/ir_verification_request_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 
@@ -30,6 +31,11 @@ class IRRecordModel extends Equatable {
       irVerificationRequests: irVerificationRequests,
     );
   }
+
+  IRRecordStatus get irRecordStatus => IRRecordStatus.build(
+        hasVerifiersBool: verifiersAddresses.isNotEmpty,
+        hasPendingVerifiersBool: irVerificationRequests.isNotEmpty,
+      );
 
   @override
   List<Object?> get props => <Object?>[key, value, verifiersAddresses, irVerificationRequests];
