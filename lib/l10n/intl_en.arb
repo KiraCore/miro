@@ -360,6 +360,7 @@
   "validatorsTableStatus": "Status",
   "validatorsTableUptime": "Uptime",
   "validatorsTableStreak": "Streak",
+  "validatorsAbout": "About Validator",
 
   "buttonReportIssues": "Report issues",
   "error": "Error",
@@ -387,5 +388,6 @@
   "creationDate": "Creation date",
   "seeMore": "See more",
   "seeAll": "See all",
-  "showDetails": "Show Details"
+  "showDetails": "Show Details",
+  "toYourAccount": " to your account"
 }

@@ -2522,6 +2522,16 @@ class S {
     );
   }
 
+  /// `About Validator`
+  String get validatorsAbout {
+    return Intl.message(
+      'About Validator',
+      name: 'validatorsAbout',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Report issues`
   String get buttonReportIssues {
     return Intl.message(
@@ -2767,6 +2777,16 @@ class S {
     return Intl.message(
       'Show Details',
       name: 'showDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ` to your account`
+  String get toYourAccount {
+    return Intl.message(
+      ' to your account',
+      name: 'toYourAccount',
       desc: '',
       args: [],
     );

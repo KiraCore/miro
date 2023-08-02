@@ -64,6 +64,8 @@ class _ValidatorsPage extends State<ValidatorsPage> {
       statusWidget: Text(S.of(context).validatorsTableStatus, style: textTheme.caption!.copyWith(color: DesignColors.white1)),
       uptimeWidget: Text(S.of(context).validatorsTableUptime, style: textTheme.caption!.copyWith(color: DesignColors.white1)),
       streakWidget: Text(S.of(context).validatorsTableStreak, style: textTheme.caption!.copyWith(color: DesignColors.white1)),
+      stakingPoolWidget: Text(S.of(context).stakingPool, style: textTheme.caption!.copyWith(color: DesignColors.white1)),
+      infoButtonWidget: const SizedBox(),
     );
 
     return CustomScrollView(
