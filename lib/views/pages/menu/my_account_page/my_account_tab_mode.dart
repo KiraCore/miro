@@ -3,4 +3,5 @@ enum MyAccountTabMode {
   transactions,
   identityRegistrar,
   verificationRequests,
+  staking,
 }

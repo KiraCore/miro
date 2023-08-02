@@ -1641,6 +1641,126 @@ class S {
     );
   }
 
+  /// `Staking Pool`
+  String get stakingPool {
+    return Intl.message(
+      'Staking Pool',
+      name: 'stakingPool',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Staking Pool available`
+  String get stakingPoolAvailable {
+    return Intl.message(
+      'Staking Pool available',
+      name: 'stakingPoolAvailable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Staking Pool Details`
+  String get stakingPoolDetails {
+    return Intl.message(
+      'Staking Pool Details',
+      name: 'stakingPoolDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Commission`
+  String get stakingPoolLabelCommission {
+    return Intl.message(
+      'Commission',
+      name: 'stakingPoolLabelCommission',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Slashed`
+  String get stakingPoolLabelSlashed {
+    return Intl.message(
+      'Slashed',
+      name: 'stakingPoolLabelSlashed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tokens`
+  String get stakingPoolLabelTokens {
+    return Intl.message(
+      'Tokens',
+      name: 'stakingPoolLabelTokens',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Voting Power`
+  String get stakingPoolLabelVotingPower {
+    return Intl.message(
+      'Voting Power',
+      name: 'stakingPoolLabelVotingPower',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Disabled`
+  String get stakingPoolStatusDisabled {
+    return Intl.message(
+      'Disabled',
+      name: 'stakingPoolStatusDisabled',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enabled`
+  String get stakingPoolStatusEnabled {
+    return Intl.message(
+      'Enabled',
+      name: 'stakingPoolStatusEnabled',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Withdraw Only`
+  String get stakingPoolStatusWithdraw {
+    return Intl.message(
+      'Withdraw Only',
+      name: 'stakingPoolStatusWithdraw',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `To enable staking sign `
+  String get stakingSignIn {
+    return Intl.message(
+      'To enable staking sign ',
+      name: 'stakingSignIn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Stake now`
+  String get stakingTxButtonStakeNow {
+    return Intl.message(
+      'Stake now',
+      name: 'stakingTxButtonStakeNow',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Transactions`
   String get tx {
     return Intl.message(
@@ -2227,6 +2347,16 @@ class S {
     return Intl.message(
       'Failed',
       name: 'txListStatusFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Validator`
+  String get validator {
+    return Intl.message(
+      'Validator',
+      name: 'validator',
       desc: '',
       args: [],
     );

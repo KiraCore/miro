@@ -227,6 +227,19 @@
   "proposalsProposers": "Proposers",
   "proposalsVoters": "Voters",
 
+  "stakingPool": "Staking Pool",
+  "stakingPoolAvailable": "Staking Pool available",
+  "stakingPoolDetails": "Staking Pool Details",
+  "stakingPoolLabelCommission": "Commission",
+  "stakingPoolLabelSlashed": "Slashed",
+  "stakingPoolLabelTokens": "Tokens",
+  "stakingPoolLabelVotingPower": "Voting Power",
+  "stakingPoolStatusDisabled": "Disabled",
+  "stakingPoolStatusEnabled": "Enabled",
+  "stakingPoolStatusWithdraw": "Withdraw Only",
+  "stakingSignIn": "To enable staking sign ",
+  "stakingTxButtonStakeNow": "Stake now",
+
   "tx": "Transactions",
   "txButtonSendAll": "Send all",
   "txButtonClear": "Clear",
@@ -323,6 +336,7 @@
   "txListStatusPending": "Pending",
   "txListStatusFailed": "Failed",
 
+  "validator": "Validator",
   "validators": "Validators",
   "validatorsButtonFilter": "{selected} selected",
   "@validatorsButtonFilter": {

@@ -9,6 +9,7 @@ import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_page.
 import 'package:miro/views/pages/menu/my_account_page/identity_registrar/identity_registrar_page.dart';
 import 'package:miro/views/pages/menu/my_account_page/my_account_page_header.dart';
 import 'package:miro/views/pages/menu/my_account_page/my_account_tab_mode.dart';
+import 'package:miro/views/pages/menu/my_account_page/staking_page/staking_page.dart';
 import 'package:miro/views/pages/menu/my_account_page/transactions_page/transactions_page.dart';
 import 'package:miro/views/pages/menu/my_account_page/verification_requests/verification_requests_page.dart';
 import 'package:miro/views/widgets/kira/kira_list/components/last_block_time_widget.dart';
@@ -47,6 +48,7 @@ class _MyAccountPage extends State<MyAccountPage> with SingleTickerProviderState
   Widget build(BuildContext context) {
     Map<MyAccountTabMode, String> tabNames = <MyAccountTabMode, String>{
       MyAccountTabMode.balances: S.of(context).balances,
+      MyAccountTabMode.staking: 'Staking',
       MyAccountTabMode.transactions: S.of(context).tx,
       MyAccountTabMode.identityRegistrar: S.of(context).ir,
       MyAccountTabMode.verificationRequests: S.of(context).irVerificationRequests,
@@ -116,6 +118,8 @@ class _MyAccountPage extends State<MyAccountPage> with SingleTickerProviderState
         );
       case MyAccountTabMode.identityRegistrar:
         return IdentityRegistrarPage(walletAddress: wallet.address);
+      case MyAccountTabMode.staking:
+        return const StakingPage();
       case MyAccountTabMode.verificationRequests:
         return VerificationRequestsPage(
           walletAddress: wallet.address,
