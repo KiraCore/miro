@@ -30,6 +30,14 @@ class _StakingPage extends State<StakingPage> {
   );
 
   @override
+  void dispose() {
+    searchBarTextEditingController.dispose();
+    scrollController.dispose();
+    favouritesBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
 
@@ -41,6 +49,7 @@ class _StakingPage extends State<StakingPage> {
       statusWidget: Text(S.of(context).validatorsTableStatus, style: textTheme.caption!.copyWith(color: DesignColors.white1)),
       tokensWidget: Text(S.of(context).stakingPoolLabelTokens, style: textTheme.caption!.copyWith(color: DesignColors.white1)),
       commissionWidget: Text(S.of(context).stakingPoolLabelCommission, style: textTheme.caption!.copyWith(color: DesignColors.white1)),
+      actionsWidget: Text(S.of(context).stakingPoolLabelActions, style: textTheme.caption!.copyWith(color: DesignColors.white1)),
     );
 
     return SliverInfinityList<StakingModel>(

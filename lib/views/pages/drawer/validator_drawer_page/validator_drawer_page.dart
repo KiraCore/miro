@@ -171,6 +171,7 @@ class _ValidatorAboutDrawerPage extends State<ValidatorDrawerPage> {
                   ValidatorDrawerStakingPoolSection(
                     loadingBool: loadingBool,
                     stakingPoolModel: stakingPoolDrawerState.stakingPoolModel,
+                    validatorModel: widget.validatorModel,
                   ),
                 ],
               ),

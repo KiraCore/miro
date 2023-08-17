@@ -10,7 +10,7 @@ class StakingModel extends AListItem{
   StakingModel({required this.validatorModel, required this.stakingPoolModel});
 
   @override
-  String get cacheId => validatorModel.address;
+  String get cacheId => validatorModel.walletAddress.bech32Address;
 
   @override
   bool get isFavourite => _favourite;

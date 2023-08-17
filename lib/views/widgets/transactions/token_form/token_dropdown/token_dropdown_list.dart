@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/favourites/favourites_bloc.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/filters/events/filters_add_option_event.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/filters/filters_bloc.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/filters/models/filter_mode.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/filters/models/filter_option.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/sort/sort_bloc.dart';
+import 'package:miro/config/locator.dart';
 import 'package:miro/generated/l10n.dart';
+import 'package:miro/infra/services/api_kira/query_staking_pool_service.dart';
 import 'package:miro/shared/controllers/menu/my_account_page/balances_page/balances_filter_options.dart';
 import 'package:miro/shared/controllers/menu/my_account_page/balances_page/balances_list_controller.dart';
 import 'package:miro/shared/controllers/menu/my_account_page/balances_page/balances_sort_options.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
+import 'package:miro/shared/models/staking_pool/staking_pool_model.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/views/widgets/kira/kira_list/infinity_list/popup_infinity_list/popup_infinity_list.dart';
@@ -15,12 +21,14 @@ import 'package:miro/views/widgets/transactions/token_form/token_dropdown/token_
 class TokenDropdownList extends StatefulWidget {
   final TokenAliasModel? initialTokenAliasModel;
   final ValueChanged<BalanceModel> onBalanceModelSelected;
-  final WalletAddress? walletAddress;
+  final WalletAddress? receiverWalletAddress;
+  final WalletAddress? senderWalletAddress;
 
   const TokenDropdownList({
     required this.initialTokenAliasModel,
     required this.onBalanceModelSelected,
-    this.walletAddress,
+    this.receiverWalletAddress,
+    this.senderWalletAddress,
     Key? key,
   }) : super(key: key);
 
@@ -35,8 +43,9 @@ class _TokenDropdownList extends State<TokenDropdownList> {
   final FiltersBloc<BalanceModel> filtersBloc = FiltersBloc<BalanceModel>(
     searchComparator: BalancesFilterOptions.search,
   );
+  final QueryStakingPoolService _queryStakingPoolService = globalLocator<QueryStakingPoolService>();
 
-  late final BalancesListController balancesListController = BalancesListController(address: widget.walletAddress?.bech32Address ?? '');
+  late final BalancesListController balancesListController = BalancesListController(address: widget.senderWalletAddress?.bech32Address ?? '');
   late final FavouritesBloc<BalanceModel> favouritesBloc = FavouritesBloc<BalanceModel>(
     listController: balancesListController,
   );
@@ -47,6 +56,17 @@ class _TokenDropdownList extends State<TokenDropdownList> {
   void initState() {
     super.initState();
     selectedTokenAliasModel = widget.initialTokenAliasModel;
+    if (widget.receiverWalletAddress != null) {
+      filterOutInvalidTokens();
+    }
+  }
+
+  @override
+  void dispose() {
+    sortBloc.close();
+    filtersBloc.close();
+    favouritesBloc.close();
+    super.dispose();
   }
 
   @override
@@ -75,6 +95,20 @@ class _TokenDropdownList extends State<TokenDropdownList> {
       sortBloc: sortBloc,
       filtersBloc: filtersBloc,
       favouritesBloc: favouritesBloc,
+    );
+  }
+
+  Future<void> filterOutInvalidTokens() async {
+    StakingPoolModel stakingPoolModel = await _queryStakingPoolService.getStakingPoolModel(widget.receiverWalletAddress!);
+    List<String> availableTokens = stakingPoolModel.tokens;
+    filtersBloc.add(
+      FiltersAddOptionEvent<BalanceModel>(
+        FilterOption<BalanceModel>(
+          id: 'staking',
+          filterComparator: (BalanceModel a) => availableTokens.contains(a.tokenAmountModel.tokenAliasModel.lowestTokenDenominationModel.name),
+          filterMode: FilterMode.and,
+        ),
+      ),
     );
   }
 

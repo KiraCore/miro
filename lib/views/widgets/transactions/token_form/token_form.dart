@@ -24,25 +24,27 @@ class TokenForm extends StatefulWidget {
   final String label;
   final ValueChanged<TokenFormState> onChanged;
   final TokenAmountModel feeTokenAmountModel;
+  final WalletAddress? senderWalletAddress;
   final bool selectableBool;
   final BalanceModel? defaultBalanceModel;
   final TokenAliasModel? defaultTokenAliasModel;
   final TokenAmountModel? defaultTokenAmountModel;
   final TokenDenominationModel? defaultTokenDenominationModel;
   final ValidateCallback? validateCallback;
-  final WalletAddress? walletAddress;
+  final WalletAddress? receiverWalletAddress;
 
   const TokenForm({
     required this.label,
     required this.onChanged,
     required this.feeTokenAmountModel,
-    required this.walletAddress,
+    required this.senderWalletAddress,
     this.selectableBool = true,
     this.defaultBalanceModel,
     this.defaultTokenAliasModel,
     this.defaultTokenAmountModel,
     this.defaultTokenDenominationModel,
     this.validateCallback,
+    this.receiverWalletAddress,
     Key? key,
   })  : assert(
           defaultBalanceModel != null || defaultTokenAliasModel != null,
@@ -64,7 +66,7 @@ class _TokenForm extends State<TokenForm> {
       tokenFormCubit = TokenFormCubit.fromBalance(
         balanceModel: widget.defaultBalanceModel!,
         feeTokenAmountModel: widget.feeTokenAmountModel,
-        walletAddress: widget.walletAddress,
+        walletAddress: widget.senderWalletAddress,
         tokenAmountModel: widget.defaultTokenAmountModel,
         tokenDenominationModel: widget.defaultTokenDenominationModel,
       );
@@ -72,7 +74,7 @@ class _TokenForm extends State<TokenForm> {
       tokenFormCubit = TokenFormCubit.fromTokenAlias(
         tokenAliasModel: widget.defaultTokenAliasModel!,
         feeTokenAmountModel: widget.feeTokenAmountModel,
-        walletAddress: widget.walletAddress,
+        walletAddress: widget.senderWalletAddress,
       );
     }
   }
@@ -128,7 +130,7 @@ class _TokenForm extends State<TokenForm> {
                         TokenAmountTextField(
                           label: widget.label,
                           errorExistsBool: formFieldState.hasError,
-                          disabledBool: widget.walletAddress == null,
+                          disabledBool: widget.senderWalletAddress == null,
                           textEditingController: tokenFormCubit.amountTextEditingController,
                           tokenDenominationModel: tokenFormState.tokenDenominationModel,
                         ),
@@ -136,7 +138,8 @@ class _TokenForm extends State<TokenForm> {
                         TokenDropdown(
                           disabledBool: widget.selectableBool == false,
                           defaultBalanceModel: tokenFormState.balanceModel,
-                          walletAddress: widget.walletAddress,
+                          receiverWalletAddress: widget.receiverWalletAddress,
+                          senderWalletAddress: widget.senderWalletAddress,
                         ),
                       ],
                     ],
@@ -148,7 +151,7 @@ class _TokenForm extends State<TokenForm> {
                       style: TextButton.styleFrom(padding: EdgeInsets.zero),
                       icon: const Icon(Icons.refresh, color: DesignColors.redStatus1, size: 16),
                       label: Text(
-                        'Cannot load balances, try again',
+                        S.of(context).txCannotLoadBalancesTryAgain,
                         style: textTheme.caption!.copyWith(color: DesignColors.redStatus1),
                       ),
                     ),

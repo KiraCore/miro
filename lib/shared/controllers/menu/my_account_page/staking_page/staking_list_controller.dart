@@ -34,7 +34,7 @@ class StakingListController implements IListController<StakingModel> {
   Future<List<StakingModel>> getStakingModelList(List<ValidatorModel> validatorModelList) async {
     List<StakingModel> stakingModelList = <StakingModel>[];
     for (ValidatorModel validatorModel in validatorModelList) {
-      StakingPoolModel stakingPoolModel = await _queryStakingPoolService.getStakingPoolModel(WalletAddress.fromBech32(validatorModel.address));
+      StakingPoolModel stakingPoolModel = await _queryStakingPoolService.getStakingPoolModel(WalletAddress.fromBech32(validatorModel.walletAddress.bech32Address));
       stakingModelList.add(StakingModel(validatorModel: validatorModel, stakingPoolModel: stakingPoolModel));
     }
     return stakingModelList;

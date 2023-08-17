@@ -73,7 +73,7 @@ class _MsgSendForm extends State<MsgSendForm> {
                 defaultTokenAmountModel: widget.msgSendFormModel.tokenAmountModel,
                 defaultTokenDenominationModel: widget.msgSendFormModel.tokenDenominationModel,
                 onChanged: _handleTokenAmountChanged,
-                walletAddress: walletAddress,
+                senderWalletAddress: walletAddress,
               );
             },
           ),

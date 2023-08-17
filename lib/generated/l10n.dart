@@ -1671,6 +1671,16 @@ class S {
     );
   }
 
+  /// `Actions`
+  String get stakingPoolLabelActions {
+    return Intl.message(
+      'Actions',
+      name: 'stakingPoolLabelActions',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Commission`
   String get stakingPoolLabelCommission {
     return Intl.message(
@@ -1741,11 +1751,21 @@ class S {
     );
   }
 
-  /// `To enable staking sign `
-  String get stakingSignIn {
+  /// `To enable staking `
+  String get stakingToEnable {
     return Intl.message(
-      'To enable staking sign ',
-      name: 'stakingSignIn',
+      'To enable staking ',
+      name: 'stakingToEnable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Amount to stake`
+  String get stakingTxAmountToStake {
+    return Intl.message(
+      'Amount to stake',
+      name: 'stakingTxAmountToStake',
       desc: '',
       args: [],
     );
@@ -1771,11 +1791,41 @@ class S {
     );
   }
 
+  /// `delegate`
+  String get stakingTxDelegate {
+    return Intl.message(
+      'delegate',
+      name: 'stakingTxDelegate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm delegation`
+  String get stakingTxDelegateConfirm {
+    return Intl.message(
+      'Confirm delegation',
+      name: 'stakingTxDelegateConfirm',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Delegate Tokens`
   String get stakingTxDelegateTokens {
     return Intl.message(
       'Delegate Tokens',
       name: 'stakingTxDelegateTokens',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tokens to delegate`
+  String get stakingTxTokensToDelegate {
+    return Intl.message(
+      'Tokens to delegate',
+      name: 'stakingTxTokensToDelegate',
       desc: '',
       args: [],
     );
@@ -1998,6 +2048,16 @@ class S {
       name: 'txNoticeFee',
       desc: '',
       args: [widgetFeeTokenAmountModel],
+    );
+  }
+
+  /// `Cannot load balances, try again`
+  String get txCannotLoadBalancesTryAgain {
+    return Intl.message(
+      'Cannot load balances, try again',
+      name: 'txCannotLoadBalancesTryAgain',
+      desc: '',
+      args: [],
     );
   }
 

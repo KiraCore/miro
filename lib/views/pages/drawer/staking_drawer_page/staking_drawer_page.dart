@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
@@ -5,8 +6,12 @@ import 'package:miro/shared/controllers/menu/my_account_page/staking_page/stakin
 import 'package:miro/shared/models/staking_pool/staking_pool_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/validators/validator_model.dart';
+import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/router/kira_router.dart';
+import 'package:miro/shared/router/router.gr.dart';
 import 'package:miro/views/layout/drawer/drawer_subtitle.dart';
 import 'package:miro/views/pages/menu/my_account_page/staking_page/staking_status_chip/staking_status_chip.dart';
+import 'package:miro/views/widgets/buttons/kira_outlined_button.dart';
 import 'package:miro/views/widgets/kira/kira_identity_avatar.dart';
 
 class StakingDrawerPage extends StatefulWidget {
@@ -68,7 +73,7 @@ class _StakingDrawerPage extends State<StakingDrawerPage> {
         Row(
           children: <Widget>[
             KiraIdentityAvatar(
-              address: validatorModel.address,
+              address: validatorModel.walletAddress.bech32Address,
               size: 40,
             ),
             const SizedBox(width: 12),
@@ -85,7 +90,7 @@ class _StakingDrawerPage extends State<StakingDrawerPage> {
                   ),
                   const SizedBox(height: 5),
                   Text(
-                    validatorModel.address,
+                    validatorModel.walletAddress.bech32Address,
                     overflow: TextOverflow.ellipsis,
                     style: textTheme.bodyText2!.copyWith(
                       color: DesignColors.grey1,
@@ -182,7 +187,38 @@ class _StakingDrawerPage extends State<StakingDrawerPage> {
           ],
         ),
         const SizedBox(height: 20),
+        SizedBox(
+          height: 40,
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                child: KiraOutlinedButton(
+                  onPressed: _handleDelegateButtonPressed,
+                  title: S.of(context).stakingTxDelegate,
+                  uppercaseBool: true,
+                ),
+              ),
+            ],
+          ),
+        ),
       ],
+    );
+  }
+
+  void _handleDelegateButtonPressed() {
+    KiraRouter.of(context).navigate(
+      PagesWrapperRoute(
+        children: <PageRouteInfo>[
+          TransactionsWrapperRoute(
+            children: <PageRouteInfo>[
+              TxDelegateRoute(
+                validatorWalletAddress: WalletAddress.fromBech32(widget.stakingModel.validatorModel.walletAddress.bech32Address),
+                valoperWalletAddress: WalletAddress.fromBech32(widget.stakingModel.validatorModel.valoperWalletAddress.bech32Address),
+              ),
+            ],
+          )
+        ],
+      ),
     );
   }
 }

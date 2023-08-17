@@ -78,7 +78,7 @@ class _IRMsgRequestVerificationForm extends State<IRMsgRequestVerificationForm> 
             defaultTokenDenominationModel: widget.irMsgRequestVerificationFormModel.tokenDenominationModel,
             feeTokenAmountModel: widget.feeTokenAmountModel,
             onChanged: _handleTipTokenAmountChanged,
-            walletAddress: widget.irMsgRequestVerificationFormModel.requesterWalletAddress,
+            senderWalletAddress: widget.irMsgRequestVerificationFormModel.requesterWalletAddress,
             validateCallback: _validateTipAmount,
           ),
           const SizedBox(height: 14),

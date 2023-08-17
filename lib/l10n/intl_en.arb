@@ -230,6 +230,7 @@
   "stakingPool": "Staking Pool",
   "stakingPoolAvailable": "Staking Pool available",
   "stakingPoolDetails": "Staking Pool Details",
+  "stakingPoolLabelActions": "Actions",
   "stakingPoolLabelCommission": "Commission",
   "stakingPoolLabelSlashed": "Slashed",
   "stakingPoolLabelTokens": "Tokens",
@@ -237,10 +238,14 @@
   "stakingPoolStatusDisabled": "Disabled",
   "stakingPoolStatusEnabled": "Enabled",
   "stakingPoolStatusWithdraw": "Withdraw Only",
-  "stakingSignIn": "To enable staking sign ",
+  "stakingToEnable": "To enable staking ",
+  "stakingTxAmountToStake": "Amount to stake",
   "stakingTxButtonStakeNow": "Stake now",
   "stakingTxClaimRewards": "Claim Rewards",
+  "stakingTxDelegate": "delegate",
+  "stakingTxDelegateConfirm": "Confirm delegation",
   "stakingTxDelegateTokens": "Delegate Tokens",
+  "stakingTxTokensToDelegate": "Tokens to delegate",
   "stakingTxUndelegateTokens": "Undelegate Tokens",
 
   "tx": "Transactions",
@@ -271,6 +276,7 @@
       }
     }
   },
+  "txCannotLoadBalancesTryAgain": "Cannot load balances, try again",
   "txTryAgain": "Try again",
   "txFetchingRemoteData": "Fetching remote data. Please wait...",
   "txSendTokens": "Send tokens",
