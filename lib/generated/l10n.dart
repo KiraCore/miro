@@ -1,6 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
 import 'intl/messages_all.dart';
 
 // **************************************************************************
@@ -545,6 +546,36 @@ class S {
     return Intl.message(
       'Pending',
       name: 'irRecordStatusPending',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Register Identity Record`
+  String get irTxTitleRegisterIdentityRecord {
+    return Intl.message(
+      'Register Identity Record',
+      name: 'irTxTitleRegisterIdentityRecord',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Key`
+  String get irTxHintKey {
+    return Intl.message(
+      'Key',
+      name: 'irTxHintKey',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Value`
+  String get irTxHintValue {
+    return Intl.message(
+      'Value',
+      name: 'irTxHintValue',
       desc: '',
       args: [],
     );
@@ -1421,6 +1452,16 @@ class S {
     );
   }
 
+  /// `Cannot create transaction. Deposit tokens to your account and try again.`
+  String get txErrorAccountNumberNotExist {
+    return Intl.message(
+      'Cannot create transaction. Deposit tokens to your account and try again.',
+      name: 'txErrorAccountNumberNotExist',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Cannot create transaction. Check your connection.`
   String get txErrorCannotCreate {
     return Intl.message(
@@ -2257,6 +2298,36 @@ class S {
     return Intl.message(
       'browse',
       name: 'browse',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `See more`
+  String get seeMore {
+    return Intl.message(
+      'See more',
+      name: 'seeMore',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `See all`
+  String get seeAll {
+    return Intl.message(
+      'See all',
+      name: 'seeAll',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `See less`
+  String get seeLess {
+    return Intl.message(
+      'See less',
+      name: 'seeLess',
       desc: '',
       args: [],
     );

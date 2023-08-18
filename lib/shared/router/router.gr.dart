@@ -11,8 +11,8 @@
 // ignore_for_file: type=lint
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i11;
-import 'package:flutter/material.dart' as _i12;
+import 'package:auto_route/auto_route.dart' as _i12;
+import 'package:flutter/material.dart' as _i13;
 
 import '../../views/pages/loading/loading_page/loading_page.dart' as _i6;
 import '../../views/pages/loading/loading_wrapper.dart' as _i2;
@@ -24,37 +24,40 @@ import '../../views/pages/menu/my_account_page/my_account_page.dart' as _i9;
 import '../../views/pages/menu/validators_page/validators_page.dart' as _i8;
 import '../../views/pages/pages_wrapper.dart' as _i1;
 import '../../views/pages/transactions/transactions_wrapper.dart' as _i4;
+import '../../views/pages/transactions/tx_send/ir_tx_register_record_page/ir_tx_register_record_page.dart'
+    as _i11;
 import '../../views/pages/transactions/tx_send/tx_send_tokens/tx_send_tokens_page.dart'
     as _i10;
-import '../models/balances/balance_model.dart' as _i19;
-import '../models/network/connection/connection_error_type.dart' as _i17;
-import '../models/network/status/a_network_status_model.dart' as _i18;
-import 'guards/auth_guard.dart' as _i14;
-import 'guards/connection_guard.dart' as _i13;
-import 'guards/navigation_guard.dart' as _i16;
-import 'guards/pages/loading_page_guard.dart' as _i15;
+import '../models/balances/balance_model.dart' as _i20;
+import '../models/identity_registrar/ir_record_model.dart' as _i21;
+import '../models/network/connection/connection_error_type.dart' as _i18;
+import '../models/network/status/a_network_status_model.dart' as _i19;
+import 'guards/auth_guard.dart' as _i15;
+import 'guards/connection_guard.dart' as _i14;
+import 'guards/navigation_guard.dart' as _i17;
+import 'guards/pages/loading_page_guard.dart' as _i16;
 
-class AppRouter extends _i11.RootStackRouter {
+class AppRouter extends _i12.RootStackRouter {
   AppRouter({
-    _i12.GlobalKey<_i12.NavigatorState>? navigatorKey,
+    _i13.GlobalKey<_i13.NavigatorState>? navigatorKey,
     required this.connectionGuard,
     required this.authGuard,
     required this.loadingPageGuard,
     required this.navigationGuard,
   }) : super(navigatorKey);
 
-  final _i13.ConnectionGuard connectionGuard;
+  final _i14.ConnectionGuard connectionGuard;
 
-  final _i14.AuthGuard authGuard;
+  final _i15.AuthGuard authGuard;
 
-  final _i15.LoadingPageGuard loadingPageGuard;
+  final _i16.LoadingPageGuard loadingPageGuard;
 
-  final _i16.NavigationGuard navigationGuard;
+  final _i17.NavigationGuard navigationGuard;
 
   @override
-  final Map<String, _i11.PageFactory> pagesMap = {
+  final Map<String, _i12.PageFactory> pagesMap = {
     PagesWrapperRoute.name: (routeData) {
-      return _i11.CustomPage<void>(
+      return _i12.CustomPage<void>(
         routeData: routeData,
         child: const _i1.PagesWrapper(),
         opaque: true,
@@ -62,29 +65,29 @@ class AppRouter extends _i11.RootStackRouter {
       );
     },
     LoadingWrapperRoute.name: (routeData) {
-      return _i11.CustomPage<void>(
+      return _i12.CustomPage<void>(
         routeData: routeData,
         child: const _i2.LoadingWrapper(),
-        transitionsBuilder: _i11.TransitionsBuilders.fadeIn,
+        transitionsBuilder: _i12.TransitionsBuilders.fadeIn,
         opaque: true,
         barrierDismissible: false,
       );
     },
     MenuWrapperRoute.name: (routeData) {
-      return _i11.CustomPage<void>(
+      return _i12.CustomPage<void>(
         routeData: routeData,
         child: const _i3.MenuWrapper(),
-        transitionsBuilder: _i11.TransitionsBuilders.fadeIn,
+        transitionsBuilder: _i12.TransitionsBuilders.fadeIn,
         durationInMilliseconds: 1000,
         opaque: true,
         barrierDismissible: false,
       );
     },
     TransactionsWrapperRoute.name: (routeData) {
-      return _i11.CustomPage<void>(
+      return _i12.CustomPage<void>(
         routeData: routeData,
         child: const _i4.TransactionsWrapper(),
-        transitionsBuilder: _i11.TransitionsBuilders.fadeIn,
+        transitionsBuilder: _i12.TransitionsBuilders.fadeIn,
         opaque: true,
         barrierDismissible: false,
       );
@@ -92,7 +95,7 @@ class AppRouter extends _i11.RootStackRouter {
     NetworkListRoute.name: (routeData) {
       final args = routeData.argsAs<NetworkListRouteArgs>(
           orElse: () => const NetworkListRouteArgs());
-      return _i11.CustomPage<void>(
+      return _i12.CustomPage<void>(
         routeData: routeData,
         child: _i5.NetworkListPage(
           connectionErrorType: args.connectionErrorType,
@@ -100,7 +103,7 @@ class AppRouter extends _i11.RootStackRouter {
           nextPageRouteInfo: args.nextPageRouteInfo,
           key: args.key,
         ),
-        transitionsBuilder: _i11.TransitionsBuilders.fadeIn,
+        transitionsBuilder: _i12.TransitionsBuilders.fadeIn,
         opaque: true,
         barrierDismissible: false,
       );
@@ -108,40 +111,40 @@ class AppRouter extends _i11.RootStackRouter {
     LoadingRoute.name: (routeData) {
       final args = routeData.argsAs<LoadingRouteArgs>(
           orElse: () => const LoadingRouteArgs());
-      return _i11.CustomPage<void>(
+      return _i12.CustomPage<void>(
         routeData: routeData,
         child: _i6.LoadingPage(
           nextPageRouteInfo: args.nextPageRouteInfo,
           key: args.key,
         ),
-        transitionsBuilder: _i11.TransitionsBuilders.fadeIn,
+        transitionsBuilder: _i12.TransitionsBuilders.fadeIn,
         opaque: true,
         barrierDismissible: false,
       );
     },
     DashboardRoute.name: (routeData) {
-      return _i11.CustomPage<void>(
+      return _i12.CustomPage<void>(
         routeData: routeData,
         child: const _i7.DashboardPage(),
-        transitionsBuilder: _i11.TransitionsBuilders.fadeIn,
+        transitionsBuilder: _i12.TransitionsBuilders.fadeIn,
         opaque: true,
         barrierDismissible: false,
       );
     },
     ValidatorsRoute.name: (routeData) {
-      return _i11.CustomPage<void>(
+      return _i12.CustomPage<void>(
         routeData: routeData,
         child: const _i8.ValidatorsPage(),
-        transitionsBuilder: _i11.TransitionsBuilders.fadeIn,
+        transitionsBuilder: _i12.TransitionsBuilders.fadeIn,
         opaque: true,
         barrierDismissible: false,
       );
     },
     MyAccountRoute.name: (routeData) {
-      return _i11.CustomPage<void>(
+      return _i12.CustomPage<void>(
         routeData: routeData,
         child: const _i9.MyAccountPage(),
-        transitionsBuilder: _i11.TransitionsBuilders.fadeIn,
+        transitionsBuilder: _i12.TransitionsBuilders.fadeIn,
         opaque: true,
         barrierDismissible: false,
       );
@@ -149,13 +152,28 @@ class AppRouter extends _i11.RootStackRouter {
     TxSendTokensRoute.name: (routeData) {
       final args = routeData.argsAs<TxSendTokensRouteArgs>(
           orElse: () => const TxSendTokensRouteArgs());
-      return _i11.CustomPage<void>(
+      return _i12.CustomPage<void>(
         routeData: routeData,
         child: _i10.TxSendTokensPage(
           defaultBalanceModel: args.defaultBalanceModel,
           key: args.key,
         ),
-        transitionsBuilder: _i11.TransitionsBuilders.fadeIn,
+        transitionsBuilder: _i12.TransitionsBuilders.fadeIn,
+        opaque: true,
+        barrierDismissible: false,
+      );
+    },
+    IRTxRegisterRecordRoute.name: (routeData) {
+      final args = routeData.argsAs<IRTxRegisterRecordRouteArgs>();
+      return _i12.CustomPage<void>(
+        routeData: routeData,
+        child: _i11.IRTxRegisterRecordPage(
+          irKeyEditableBool: args.irKeyEditableBool,
+          irRecordModel: args.irRecordModel,
+          irValueMaxLength: args.irValueMaxLength,
+          key: args.key,
+        ),
+        transitionsBuilder: _i12.TransitionsBuilders.fadeIn,
         opaque: true,
         barrierDismissible: false,
       );
@@ -163,37 +181,37 @@ class AppRouter extends _i11.RootStackRouter {
   };
 
   @override
-  List<_i11.RouteConfig> get routes => [
-        _i11.RouteConfig(
+  List<_i12.RouteConfig> get routes => [
+        _i12.RouteConfig(
           PagesWrapperRoute.name,
           path: '/',
           guards: [connectionGuard],
           children: [
-            _i11.RouteConfig(
+            _i12.RouteConfig(
               '#redirect',
               path: '',
               parent: PagesWrapperRoute.name,
               redirectTo: 'network',
               fullMatch: true,
             ),
-            _i11.RouteConfig(
+            _i12.RouteConfig(
               LoadingWrapperRoute.name,
               path: 'network',
               parent: PagesWrapperRoute.name,
               children: [
-                _i11.RouteConfig(
+                _i12.RouteConfig(
                   '#redirect',
                   path: '',
                   parent: LoadingWrapperRoute.name,
                   redirectTo: 'list',
                   fullMatch: true,
                 ),
-                _i11.RouteConfig(
+                _i12.RouteConfig(
                   NetworkListRoute.name,
                   path: 'list',
                   parent: LoadingWrapperRoute.name,
                 ),
-                _i11.RouteConfig(
+                _i12.RouteConfig(
                   LoadingRoute.name,
                   path: 'loading',
                   parent: LoadingWrapperRoute.name,
@@ -201,24 +219,24 @@ class AppRouter extends _i11.RootStackRouter {
                 ),
               ],
             ),
-            _i11.RouteConfig(
+            _i12.RouteConfig(
               MenuWrapperRoute.name,
               path: 'app',
               parent: PagesWrapperRoute.name,
               children: [
-                _i11.RouteConfig(
+                _i12.RouteConfig(
                   DashboardRoute.name,
                   path: 'dashboard',
                   parent: MenuWrapperRoute.name,
                   guards: [navigationGuard],
                 ),
-                _i11.RouteConfig(
+                _i12.RouteConfig(
                   ValidatorsRoute.name,
                   path: 'validators',
                   parent: MenuWrapperRoute.name,
                   guards: [navigationGuard],
                 ),
-                _i11.RouteConfig(
+                _i12.RouteConfig(
                   MyAccountRoute.name,
                   path: 'my-account',
                   parent: MenuWrapperRoute.name,
@@ -229,23 +247,29 @@ class AppRouter extends _i11.RootStackRouter {
                 ),
               ],
             ),
-            _i11.RouteConfig(
+            _i12.RouteConfig(
               TransactionsWrapperRoute.name,
               path: 'transactions',
               parent: PagesWrapperRoute.name,
               guards: [authGuard],
               children: [
-                _i11.RouteConfig(
+                _i12.RouteConfig(
                   TxSendTokensRoute.name,
                   path: 'tokens/send',
                   parent: TransactionsWrapperRoute.name,
                   guards: [authGuard],
-                )
+                ),
+                _i12.RouteConfig(
+                  IRTxRegisterRecordRoute.name,
+                  path: 'identity/register',
+                  parent: TransactionsWrapperRoute.name,
+                  guards: [authGuard],
+                ),
               ],
             ),
           ],
         ),
-        _i11.RouteConfig(
+        _i12.RouteConfig(
           '*#redirect',
           path: '*',
           redirectTo: '/',
@@ -256,8 +280,8 @@ class AppRouter extends _i11.RootStackRouter {
 
 /// generated route for
 /// [_i1.PagesWrapper]
-class PagesWrapperRoute extends _i11.PageRouteInfo<void> {
-  const PagesWrapperRoute({List<_i11.PageRouteInfo>? children})
+class PagesWrapperRoute extends _i12.PageRouteInfo<void> {
+  const PagesWrapperRoute({List<_i12.PageRouteInfo>? children})
       : super(
           PagesWrapperRoute.name,
           path: '/',
@@ -269,8 +293,8 @@ class PagesWrapperRoute extends _i11.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i2.LoadingWrapper]
-class LoadingWrapperRoute extends _i11.PageRouteInfo<void> {
-  const LoadingWrapperRoute({List<_i11.PageRouteInfo>? children})
+class LoadingWrapperRoute extends _i12.PageRouteInfo<void> {
+  const LoadingWrapperRoute({List<_i12.PageRouteInfo>? children})
       : super(
           LoadingWrapperRoute.name,
           path: 'network',
@@ -282,8 +306,8 @@ class LoadingWrapperRoute extends _i11.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i3.MenuWrapper]
-class MenuWrapperRoute extends _i11.PageRouteInfo<void> {
-  const MenuWrapperRoute({List<_i11.PageRouteInfo>? children})
+class MenuWrapperRoute extends _i12.PageRouteInfo<void> {
+  const MenuWrapperRoute({List<_i12.PageRouteInfo>? children})
       : super(
           MenuWrapperRoute.name,
           path: 'app',
@@ -295,8 +319,8 @@ class MenuWrapperRoute extends _i11.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i4.TransactionsWrapper]
-class TransactionsWrapperRoute extends _i11.PageRouteInfo<void> {
-  const TransactionsWrapperRoute({List<_i11.PageRouteInfo>? children})
+class TransactionsWrapperRoute extends _i12.PageRouteInfo<void> {
+  const TransactionsWrapperRoute({List<_i12.PageRouteInfo>? children})
       : super(
           TransactionsWrapperRoute.name,
           path: 'transactions',
@@ -308,13 +332,13 @@ class TransactionsWrapperRoute extends _i11.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i5.NetworkListPage]
-class NetworkListRoute extends _i11.PageRouteInfo<NetworkListRouteArgs> {
+class NetworkListRoute extends _i12.PageRouteInfo<NetworkListRouteArgs> {
   NetworkListRoute({
-    _i17.ConnectionErrorType connectionErrorType =
-        _i17.ConnectionErrorType.canceledByUser,
-    _i18.ANetworkStatusModel? canceledNetworkStatusModel,
-    _i11.PageRouteInfo<dynamic>? nextPageRouteInfo,
-    _i12.Key? key,
+    _i18.ConnectionErrorType connectionErrorType =
+        _i18.ConnectionErrorType.canceledByUser,
+    _i19.ANetworkStatusModel? canceledNetworkStatusModel,
+    _i12.PageRouteInfo<dynamic>? nextPageRouteInfo,
+    _i13.Key? key,
   }) : super(
           NetworkListRoute.name,
           path: 'list',
@@ -331,19 +355,19 @@ class NetworkListRoute extends _i11.PageRouteInfo<NetworkListRouteArgs> {
 
 class NetworkListRouteArgs {
   const NetworkListRouteArgs({
-    this.connectionErrorType = _i17.ConnectionErrorType.canceledByUser,
+    this.connectionErrorType = _i18.ConnectionErrorType.canceledByUser,
     this.canceledNetworkStatusModel,
     this.nextPageRouteInfo,
     this.key,
   });
 
-  final _i17.ConnectionErrorType connectionErrorType;
+  final _i18.ConnectionErrorType connectionErrorType;
 
-  final _i18.ANetworkStatusModel? canceledNetworkStatusModel;
+  final _i19.ANetworkStatusModel? canceledNetworkStatusModel;
 
-  final _i11.PageRouteInfo<dynamic>? nextPageRouteInfo;
+  final _i12.PageRouteInfo<dynamic>? nextPageRouteInfo;
 
-  final _i12.Key? key;
+  final _i13.Key? key;
 
   @override
   String toString() {
@@ -353,10 +377,10 @@ class NetworkListRouteArgs {
 
 /// generated route for
 /// [_i6.LoadingPage]
-class LoadingRoute extends _i11.PageRouteInfo<LoadingRouteArgs> {
+class LoadingRoute extends _i12.PageRouteInfo<LoadingRouteArgs> {
   LoadingRoute({
-    _i11.PageRouteInfo<dynamic>? nextPageRouteInfo,
-    _i12.Key? key,
+    _i12.PageRouteInfo<dynamic>? nextPageRouteInfo,
+    _i13.Key? key,
   }) : super(
           LoadingRoute.name,
           path: 'loading',
@@ -375,9 +399,9 @@ class LoadingRouteArgs {
     this.key,
   });
 
-  final _i11.PageRouteInfo<dynamic>? nextPageRouteInfo;
+  final _i12.PageRouteInfo<dynamic>? nextPageRouteInfo;
 
-  final _i12.Key? key;
+  final _i13.Key? key;
 
   @override
   String toString() {
@@ -387,7 +411,7 @@ class LoadingRouteArgs {
 
 /// generated route for
 /// [_i7.DashboardPage]
-class DashboardRoute extends _i11.PageRouteInfo<void> {
+class DashboardRoute extends _i12.PageRouteInfo<void> {
   const DashboardRoute()
       : super(
           DashboardRoute.name,
@@ -399,7 +423,7 @@ class DashboardRoute extends _i11.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i8.ValidatorsPage]
-class ValidatorsRoute extends _i11.PageRouteInfo<void> {
+class ValidatorsRoute extends _i12.PageRouteInfo<void> {
   const ValidatorsRoute()
       : super(
           ValidatorsRoute.name,
@@ -411,7 +435,7 @@ class ValidatorsRoute extends _i11.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i9.MyAccountPage]
-class MyAccountRoute extends _i11.PageRouteInfo<void> {
+class MyAccountRoute extends _i12.PageRouteInfo<void> {
   const MyAccountRoute()
       : super(
           MyAccountRoute.name,
@@ -423,10 +447,10 @@ class MyAccountRoute extends _i11.PageRouteInfo<void> {
 
 /// generated route for
 /// [_i10.TxSendTokensPage]
-class TxSendTokensRoute extends _i11.PageRouteInfo<TxSendTokensRouteArgs> {
+class TxSendTokensRoute extends _i12.PageRouteInfo<TxSendTokensRouteArgs> {
   TxSendTokensRoute({
-    _i19.BalanceModel? defaultBalanceModel,
-    _i12.Key? key,
+    _i20.BalanceModel? defaultBalanceModel,
+    _i13.Key? key,
   }) : super(
           TxSendTokensRoute.name,
           path: 'tokens/send',
@@ -445,12 +469,57 @@ class TxSendTokensRouteArgs {
     this.key,
   });
 
-  final _i19.BalanceModel? defaultBalanceModel;
+  final _i20.BalanceModel? defaultBalanceModel;
 
-  final _i12.Key? key;
+  final _i13.Key? key;
 
   @override
   String toString() {
     return 'TxSendTokensRouteArgs{defaultBalanceModel: $defaultBalanceModel, key: $key}';
+  }
+}
+
+/// generated route for
+/// [_i11.IRTxRegisterRecordPage]
+class IRTxRegisterRecordRoute
+    extends _i12.PageRouteInfo<IRTxRegisterRecordRouteArgs> {
+  IRTxRegisterRecordRoute({
+    required bool irKeyEditableBool,
+    required _i21.IRRecordModel? irRecordModel,
+    int? irValueMaxLength,
+    _i13.Key? key,
+  }) : super(
+          IRTxRegisterRecordRoute.name,
+          path: 'identity/register',
+          args: IRTxRegisterRecordRouteArgs(
+            irKeyEditableBool: irKeyEditableBool,
+            irRecordModel: irRecordModel,
+            irValueMaxLength: irValueMaxLength,
+            key: key,
+          ),
+        );
+
+  static const String name = 'IRTxRegisterRecordRoute';
+}
+
+class IRTxRegisterRecordRouteArgs {
+  const IRTxRegisterRecordRouteArgs({
+    required this.irKeyEditableBool,
+    required this.irRecordModel,
+    this.irValueMaxLength,
+    this.key,
+  });
+
+  final bool irKeyEditableBool;
+
+  final _i21.IRRecordModel? irRecordModel;
+
+  final int? irValueMaxLength;
+
+  final _i13.Key? key;
+
+  @override
+  String toString() {
+    return 'IRTxRegisterRecordRouteArgs{irKeyEditableBool: $irKeyEditableBool, irRecordModel: $irRecordModel, irValueMaxLength: $irValueMaxLength, key: $key}';
   }
 }

@@ -138,6 +138,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Verified"),
         "irRecordVerify": MessageLookupByLibrary.simpleMessage("Verify"),
         "irSocialMedia": MessageLookupByLibrary.simpleMessage("Social media"),
+        "irTxHintKey": MessageLookupByLibrary.simpleMessage("Key"),
+        "irTxHintValue": MessageLookupByLibrary.simpleMessage("Value"),
+        "irTxTitleRegisterIdentityRecord":
+            MessageLookupByLibrary.simpleMessage("Register Identity Record"),
         "irUsername": MessageLookupByLibrary.simpleMessage("Username"),
         "keyfile": MessageLookupByLibrary.simpleMessage("Keyfile"),
         "keyfileButtonDownload":
@@ -278,6 +282,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Successful"),
         "proposalsVoters": MessageLookupByLibrary.simpleMessage("Voters"),
         "sec": MessageLookupByLibrary.simpleMessage("sec."),
+        "seeAll": MessageLookupByLibrary.simpleMessage("See all"),
+        "seeLess": MessageLookupByLibrary.simpleMessage("See less"),
+        "seeMore": MessageLookupByLibrary.simpleMessage("See more"),
         "sortBy": MessageLookupByLibrary.simpleMessage("Sort by"),
         "toastCannotLoadDashboard": MessageLookupByLibrary.simpleMessage(
             "Cannot load dashboard. Please check your connection."),
@@ -303,6 +310,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Transaction completed"),
         "txConfirm":
             MessageLookupByLibrary.simpleMessage("Confirm transaction"),
+        "txErrorAccountNumberNotExist": MessageLookupByLibrary.simpleMessage(
+            "Cannot create transaction. Deposit tokens to your account and try again."),
         "txErrorCannotCreate": MessageLookupByLibrary.simpleMessage(
             "Cannot create transaction. Check your connection."),
         "txErrorCannotFetchDetails": MessageLookupByLibrary.simpleMessage(

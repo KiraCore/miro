@@ -71,6 +71,7 @@ class _MsgSendForm extends State<MsgSendForm> {
           ),
           const SizedBox(height: 19),
           MemoTextField(
+            label: S.of(context).txHintMemo,
             onChanged: _handleMemoChanged,
             memoTextEditingController: memoTextEditingController,
           ),

@@ -12,6 +12,7 @@ import 'package:miro/views/pages/menu/my_account_page/my_account_page.dart';
 import 'package:miro/views/pages/menu/validators_page/validators_page.dart';
 import 'package:miro/views/pages/pages_wrapper.dart';
 import 'package:miro/views/pages/transactions/transactions_wrapper.dart';
+import 'package:miro/views/pages/transactions/tx_send/ir_tx_register_record_page/ir_tx_register_record_page.dart';
 import 'package:miro/views/pages/transactions/tx_send/tx_send_tokens/tx_send_tokens_page.dart';
 
 @CustomAutoRouter(replaceInRouteName: 'Page,Route', routes: <AutoRoute>[
@@ -86,6 +87,13 @@ import 'package:miro/views/pages/transactions/tx_send/tx_send_tokens/tx_send_tok
             page: TxSendTokensPage,
             name: 'TxSendTokensRoute',
             path: 'tokens/send',
+            guards: <Type>[AuthGuard],
+            transitionsBuilder: TransitionsBuilders.fadeIn,
+          ),
+          CustomRoute<void>(
+            page: IRTxRegisterRecordPage,
+            name: 'IRTxRegisterRecordRoute',
+            path: 'identity/register',
             guards: <Type>[AuthGuard],
             transitionsBuilder: TransitionsBuilders.fadeIn,
           ),

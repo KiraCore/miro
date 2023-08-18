@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 
 class TxTextField extends StatefulWidget {
   final ValueChanged<String>? onChanged;
@@ -40,6 +41,7 @@ class _TxTextField extends State<TxTextField> {
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
+    TextStyle? textStyle = ResponsiveWidget.isLargeScreen(context) ? textTheme.bodyText1 : textTheme.bodyText2;
 
     return TextFormField(
       focusNode: widget.focusNode,
@@ -50,7 +52,7 @@ class _TxTextField extends State<TxTextField> {
       keyboardType: widget.keyboardType,
       inputFormatters: widget.inputFormatters,
       maxLength: widget.maxLength,
-      style: textTheme.bodyText1!.copyWith(
+      style: textStyle?.copyWith(
         color: widget.hasErrors ? DesignColors.redStatus1 : DesignColors.white1,
       ),
       validator: widget.validator,
@@ -58,12 +60,12 @@ class _TxTextField extends State<TxTextField> {
       decoration: InputDecoration(
         contentPadding: EdgeInsets.zero,
         label: widget.label != null ? Text(widget.label!) : null,
-        labelStyle: textTheme.bodyText1!.copyWith(
+        labelStyle: textStyle?.copyWith(
           color: DesignColors.accent,
           height: 0.5,
         ),
         hintText: widget.hintText,
-        hintStyle: textTheme.bodyText1!.copyWith(
+        hintStyle: textStyle?.copyWith(
           color: widget.hasErrors ? DesignColors.redStatus1 : DesignColors.white1,
         ),
         errorStyle: textTheme.caption!.copyWith(

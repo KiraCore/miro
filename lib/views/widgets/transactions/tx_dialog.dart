@@ -41,10 +41,9 @@ class TxDialog extends StatelessWidget {
               borderRadius: BorderRadius.circular(16),
             ),
             constraints: BoxConstraints(maxWidth: maxWidth),
-            padding: _selectDialogPadding(context),
-            child: ScrollConfiguration(
-              behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
-              child: SingleChildScrollView(
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: _selectDialogPadding(context),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,

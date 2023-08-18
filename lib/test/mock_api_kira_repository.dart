@@ -58,15 +58,22 @@ class MockApiKiraRepository implements IApiKiraRepository {
     bool responseExistsBool = workingEndpoints.contains(networkUri.host);
     if (responseExistsBool) {
       late T response;
+      late int statusCode;
       switch (networkUri.host) {
         case 'invalid.kira.network':
+          statusCode = 404;
           response = <String, dynamic>{'invalid': 'response'} as T;
           break;
+        case 'unhealthy.kira.network':
+          statusCode = 404;
+          response = MockApiKiraAccounts.defaultResponse as T;
+          break;
         default:
+          statusCode = 200;
           response = MockApiKiraAccounts.defaultResponse as T;
       }
       return Response<T>(
-        statusCode: 200,
+        statusCode: statusCode,
         data: response,
         headers: MockApiKiraAccounts.defaultHeaders,
         requestOptions: RequestOptions(path: ''),

@@ -3,10 +3,22 @@ import 'package:uuid/uuid.dart';
 
 class StringUtils {
   static RegExp basicCharactersRegExp = RegExp('[a-zA-Z0-9 !"#\$%\'()*+,-./<>:;=?@\\[\\\\\\]^_`{|}~]');
+  static RegExp irKeyRegExp = RegExp('[a-zA-Z0-9_]');
+  static RegExp irValueRegExp = RegExp(r'(\p{Alpha})|([0-9 \n\t\s!"#$%()*+,\-./<>:;=?@[\]^_{|\}~`])', unicode: true);
+  static RegExp irUsernameRegExp = RegExp('[a-zA-Z0-9_ ]');
   static RegExp whitespacesRegExp = RegExp(r'\s');
 
   static String generateUuid() {
     return const Uuid().v4();
+  }
+
+  static String parseUnicodeToString(String text) {
+    String parsedText = text.replaceAllMapped(RegExp(r'\\u[0-9a-fA-F]{4}'), (Match match) {
+      final String hex = match.group(0)!.replaceAll(r'\u', '');
+      final int code = int.parse(hex, radix: 16);
+      return String.fromCharCode(code);
+    });
+    return parsedText;
   }
 
   static String splitBigNumber(String number) {

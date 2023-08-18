@@ -12,6 +12,8 @@ import 'package:miro/shared/utils/logger/log_level.dart';
 
 abstract class _IQueryAccountService {
   Future<TxRemoteInfoModel> getTxRemoteInfo(String accountAddress);
+
+  Future<bool> isAccountRegistered(String accountAddress);
 }
 
 class QueryAccountService implements _IQueryAccountService {
@@ -36,5 +38,12 @@ class QueryAccountService implements _IQueryAccountService {
       AppLogger().log(message: 'QueryAccountService: Cannot parse getTxRemoteInfo() for URI $networkUri ${e}', logLevel: LogLevel.error);
       throw DioParseException(response: response, error: e);
     }
+  }
+
+  @override
+  Future<bool> isAccountRegistered(String accountAddress) async {
+    Uri networkUri = globalLocator<NetworkModuleBloc>().state.networkUri;
+    Response<dynamic> response = await _apiKiraRepository.fetchQueryAccount<dynamic>(networkUri, QueryAccountReq(address: accountAddress));
+    return response.statusCode == 200;
   }
 }

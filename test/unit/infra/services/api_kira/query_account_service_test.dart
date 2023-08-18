@@ -14,7 +14,7 @@ import 'package:miro/test/utils/test_utils.dart';
 Future<void> main() async {
   await initMockLocator();
 
-  final QueryAccountService queryAccountService = globalLocator<QueryAccountService>();
+  final QueryAccountService actualQueryAccountService = globalLocator<QueryAccountService>();
   const String actualAddress = 'kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx';
 
   group('Tests of QueryAccountService.getTxRemoteInfo() method', () {
@@ -23,7 +23,7 @@ Future<void> main() async {
       Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://healthy.kira.network/');
       await TestUtils.setupNetworkModel(networkUri: networkUri);
 
-      TxRemoteInfoModel? actualTxRemoteInfoModel = await queryAccountService.getTxRemoteInfo(actualAddress);
+      TxRemoteInfoModel? actualTxRemoteInfoModel = await actualQueryAccountService.getTxRemoteInfo(actualAddress);
 
       // Act
       TxRemoteInfoModel expectedTxRemoteInfoModel = const TxRemoteInfoModel(
@@ -41,7 +41,7 @@ Future<void> main() async {
 
       // Assert
       expect(
-        () => queryAccountService.getTxRemoteInfo(actualAddress),
+        () => actualQueryAccountService.getTxRemoteInfo(actualAddress),
         throwsA(isA<DioParseException>()),
       );
     });
@@ -53,7 +53,45 @@ Future<void> main() async {
 
       // Assert
       expect(
-        () => queryAccountService.getTxRemoteInfo(actualAddress),
+        () => actualQueryAccountService.getTxRemoteInfo(actualAddress),
+        throwsA(isA<DioConnectException>()),
+      );
+    });
+  });
+
+  group('Tests of QueryAccountService.isAccountRegistered() method', () {
+    test('Should return [true] if [server HEALTHY] and [response data VALID]', () async {
+      // Arrange
+      Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://healthy.kira.network/');
+      await TestUtils.setupNetworkModel(networkUri: networkUri);
+
+      // Act
+      bool actualFetchAvailableBool = await actualQueryAccountService.isAccountRegistered(actualAddress);
+
+      // Assert
+      expect(actualFetchAvailableBool, true);
+    });
+
+    test('Should return [false] if [server HEALTHY] and [response data INVALID]', () async {
+      // Arrange
+      Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://invalid.kira.network/');
+      await TestUtils.setupNetworkModel(networkUri: networkUri);
+
+      // Act
+      bool actualFetchAvailableBool = await actualQueryAccountService.isAccountRegistered(actualAddress);
+
+      // Assert
+      expect(actualFetchAvailableBool, false);
+    });
+
+    test('Should throw [DioConnectException] if [server OFFLINE]', () async {
+      // Arrange
+      Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://offline.kira.network/');
+      await TestUtils.setupNetworkModel(networkUri: networkUri);
+
+      // Assert
+      expect(
+        () => actualQueryAccountService.isAccountRegistered(actualAddress),
         throwsA(isA<DioConnectException>()),
       );
     });

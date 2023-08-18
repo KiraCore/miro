@@ -6,6 +6,7 @@ class TxInputWrapper extends StatelessWidget {
   final bool disabled;
   final bool hasErrors;
   final double? height;
+  final BoxConstraints? boxConstraints;
   final EdgeInsets padding;
 
   const TxInputWrapper({
@@ -13,6 +14,7 @@ class TxInputWrapper extends StatelessWidget {
     this.disabled = false,
     this.hasErrors = false,
     this.height,
+    this.boxConstraints,
     this.padding = const EdgeInsets.all(16),
     Key? key,
   }) : super(key: key);
@@ -23,6 +25,7 @@ class TxInputWrapper extends StatelessWidget {
       opacity: disabled ? 0.5 : 1,
       child: Container(
         height: height,
+        constraints: boxConstraints,
         padding: padding,
         decoration: BoxDecoration(
           color: DesignColors.background,
