@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/pages/transactions/tx_process_cubit/a_tx_process_state.dart';
 import 'package:miro/blocs/pages/transactions/tx_process_cubit/states/tx_process_broadcast_state.dart';
 import 'package:miro/blocs/pages/transactions/tx_process_cubit/states/tx_process_confirm_state.dart';
+import 'package:miro/blocs/pages/transactions/tx_process_cubit/states/tx_process_error_state.dart';
 import 'package:miro/blocs/pages/transactions/tx_process_cubit/states/tx_process_loaded_state.dart';
 import 'package:miro/blocs/pages/transactions/tx_process_cubit/states/tx_process_loading_state.dart';
 import 'package:miro/blocs/pages/transactions/tx_process_cubit/tx_process_cubit.dart';
@@ -55,8 +56,8 @@ class _TxProcessWrapper<T extends AMsgFormModel> extends State<TxProcessWrapper<
             dialogWidget = widget.txFormPreviewWidgetBuilder(txProcessState);
           } else if (txProcessState is TxProcessBroadcastState) {
             dialogWidget = TxBroadcastPage<T>(signedTxModel: txProcessState.signedTxModel);
-          } else {
-            dialogWidget = TxDialogError<T>();
+          } else if (txProcessState is TxProcessErrorState) {
+            dialogWidget = TxDialogError<T>(accountErrorBool: txProcessState.accountErrorBool);
           }
           return AnimatedSwitcher(
             duration: const Duration(milliseconds: 400),

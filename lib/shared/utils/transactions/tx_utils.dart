@@ -46,6 +46,7 @@ class TxUtils {
     return trimmedMemo;
   }
 
+  // TODO(dominik): Rename to replaceRestrictedChars
   static String replaceMemoRestrictedChars(String memo) {
     String replacedMemo = memo;
     memoReplacements.forEach((String pattern, String replacement) {

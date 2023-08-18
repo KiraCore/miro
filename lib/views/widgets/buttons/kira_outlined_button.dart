@@ -8,7 +8,10 @@ class KiraOutlinedButton extends StatelessWidget {
   final double? height;
   final double? width;
   final bool disabled;
+  final bool uppercaseBool;
   final Color? borderColor;
+  final Widget? leading;
+  final Widget? trailing;
 
   const KiraOutlinedButton({
     required this.title,
@@ -16,7 +19,10 @@ class KiraOutlinedButton extends StatelessWidget {
     this.width,
     this.height = 51,
     this.disabled = false,
+    this.uppercaseBool = true,
     this.borderColor,
+    this.leading,
+    this.trailing,
     Key? key,
   }) : super(key: key);
 
@@ -40,14 +46,20 @@ class KiraOutlinedButton extends StatelessWidget {
             ),
             width: width ?? double.infinity,
             height: height,
-            child: Center(
-              child: Text(
-                title.toUpperCase(),
-                textAlign: TextAlign.center,
-                style: textTheme.button!.copyWith(
-                  color: DesignColors.white1,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                if (leading != null) ...<Widget>[leading!, const SizedBox(width: 4)],
+                Text(
+                  uppercaseBool ? title.toUpperCase() : title,
+                  textAlign: TextAlign.center,
+                  style: textTheme.button!.copyWith(
+                    color: DesignColors.white1,
+                  ),
                 ),
-              ),
+                if (trailing != null) ...<Widget>[const SizedBox(width: 4), trailing!],
+              ],
             ),
           );
         },

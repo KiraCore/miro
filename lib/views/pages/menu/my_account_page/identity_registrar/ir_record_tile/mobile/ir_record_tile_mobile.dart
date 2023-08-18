@@ -4,16 +4,21 @@ import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/identity_registrar/ir_record_model.dart';
 import 'package:miro/views/pages/menu/my_account_page/identity_registrar/ir_record_status_chip/ir_record_status_chip.dart';
+import 'package:miro/views/widgets/buttons/kira_outlined_button.dart';
 
 class IRRecordTileMobile extends StatelessWidget {
   final bool loadingBool;
   final Widget valueWidget;
+  final VoidCallback onAddPressed;
+  final VoidCallback onEditPressed;
   final IdentityRegistrarCubit identityRegistrarCubit;
   final IRRecordModel? irRecordModel;
 
   const IRRecordTileMobile({
     required this.loadingBool,
     required this.valueWidget,
+    required this.onAddPressed,
+    required this.onEditPressed,
     required this.identityRegistrarCubit,
     required this.irRecordModel,
     Key? key,
@@ -21,6 +26,8 @@ class IRRecordTileMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool recordExistsBool = irRecordModel?.value?.isNotEmpty == true;
+
     TextTheme textTheme = Theme.of(context).textTheme;
 
     return Container(
@@ -50,6 +57,28 @@ class IRRecordTileMobile extends StatelessWidget {
                 loadingBool: loadingBool,
                 irRecordStatus: irRecordModel?.irRecordStatus,
               ),
+            ],
+          ),
+          const SizedBox(height: 16),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              if (loadingBool == false && recordExistsBool) ...<Widget>[
+                Expanded(
+                  child: KiraOutlinedButton(
+                    height: 40,
+                    title: S.of(context).irRecordEdit,
+                    onPressed: onEditPressed,
+                  ),
+                ),
+              ] else if (loadingBool == false)
+                Expanded(
+                  child: KiraOutlinedButton(
+                    height: 40,
+                    title: S.of(context).irRecordAdd,
+                    onPressed: onAddPressed,
+                  ),
+                ),
             ],
           ),
         ],

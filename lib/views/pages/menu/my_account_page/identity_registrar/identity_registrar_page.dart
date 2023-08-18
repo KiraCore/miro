@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/generic/identity_registrar/a_identity_registrar_state.dart';
@@ -9,6 +10,9 @@ import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/identity_registrar/ir_model.dart';
 import 'package:miro/shared/models/identity_registrar/ir_record_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/router/kira_router.dart';
+import 'package:miro/shared/router/router.gr.dart';
+import 'package:miro/views/pages/menu/my_account_page/identity_registrar/ir_custom_entry_button.dart';
 import 'package:miro/views/pages/menu/my_account_page/identity_registrar/ir_record_tile/desktop/ir_record_tile_desktop_layout.dart';
 import 'package:miro/views/pages/menu/my_account_page/identity_registrar/ir_record_tile/ir_record_tile.dart';
 import 'package:miro/views/pages/menu/my_account_page/identity_registrar/ir_record_value_widget/ir_record_text_value_widget.dart';
@@ -43,7 +47,7 @@ class _IdentityRegistrarPage extends State<IdentityRegistrarPage> {
           margin: const EdgeInsets.only(bottom: 40, top: 26),
           width: double.infinity,
           decoration: BoxDecoration(
-            color: ResponsiveWidget.isSmallScreen(context) ? null : DesignColors.black ,
+            color: ResponsiveWidget.isSmallScreen(context) ? null : DesignColors.black,
             borderRadius: BorderRadius.circular(8),
           ),
           child: Column(
@@ -56,6 +60,7 @@ class _IdentityRegistrarPage extends State<IdentityRegistrarPage> {
                   buttonWidget: const SizedBox(),
                 ),
               IRRecordTile(
+                irKeyEditableBool: false,
                 identityRegistrarCubit: identityRegistrarCubit,
                 loadingBool: loadingBool,
                 valueWidget: IRRecordTextValueWidget(
@@ -66,8 +71,10 @@ class _IdentityRegistrarPage extends State<IdentityRegistrarPage> {
                 irRecordModel: irModel?.avatarIRRecordModel,
               ),
               IRRecordTile(
+                irKeyEditableBool: false,
                 identityRegistrarCubit: identityRegistrarCubit,
                 loadingBool: loadingBool,
+                valueMaxLength: 32,
                 valueWidget: IRRecordTextValueWidget(
                   loadingBool: loadingBool,
                   label: S.of(context).irUsername,
@@ -76,6 +83,7 @@ class _IdentityRegistrarPage extends State<IdentityRegistrarPage> {
                 irRecordModel: irModel?.usernameIRRecordModel,
               ),
               IRRecordTile(
+                irKeyEditableBool: false,
                 identityRegistrarCubit: identityRegistrarCubit,
                 loadingBool: loadingBool,
                 valueWidget: IRRecordTextValueWidget(
@@ -86,6 +94,7 @@ class _IdentityRegistrarPage extends State<IdentityRegistrarPage> {
                 irRecordModel: irModel?.descriptionIRRecordModel,
               ),
               IRRecordTile(
+                irKeyEditableBool: false,
                 identityRegistrarCubit: identityRegistrarCubit,
                 loadingBool: loadingBool,
                 valueWidget: IRRecordUrlsValueWidget(
@@ -97,6 +106,7 @@ class _IdentityRegistrarPage extends State<IdentityRegistrarPage> {
               ),
               ...?irModel?.otherIRRecordModelList.map((IRRecordModel irRecordModel) {
                 return IRRecordTile(
+                  irKeyEditableBool: false,
                   identityRegistrarCubit: identityRegistrarCubit,
                   loadingBool: loadingBool,
                   valueWidget: IRRecordTextValueWidget(
@@ -107,11 +117,22 @@ class _IdentityRegistrarPage extends State<IdentityRegistrarPage> {
                   irRecordModel: irRecordModel,
                 );
               }).toList(),
-              const SizedBox(height: 20),
+              IRCustomEntryButton(onTap: () => _pressCustomEntryButton(identityRegistrarCubit)),
             ],
           ),
         );
       },
     );
+  }
+
+  Future<void> _pressCustomEntryButton(IdentityRegistrarCubit identityRegistrarCubit) async {
+    await KiraRouter.of(context).push<void>(PagesWrapperRoute(
+      children: <PageRouteInfo>[
+        TransactionsWrapperRoute(children: <PageRouteInfo>[
+          IRTxRegisterRecordRoute(irRecordModel: null, irKeyEditableBool: true),
+        ]),
+      ],
+    ));
+    await identityRegistrarCubit.refresh();
   }
 }

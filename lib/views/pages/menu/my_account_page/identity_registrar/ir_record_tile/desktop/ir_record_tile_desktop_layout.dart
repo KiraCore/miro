@@ -31,7 +31,7 @@ class IRRecordTileDesktopLayout extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Expanded(
-            flex: 10,
+            flex: 5,
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 20),
               constraints: BoxConstraints(minHeight: height),
@@ -44,6 +44,14 @@ class IRRecordTileDesktopLayout extends StatelessWidget {
               padding: const EdgeInsets.symmetric(vertical: 20),
               constraints: BoxConstraints(minHeight: height),
               child: Align(alignment: Alignment.centerLeft, child: statusWidget),
+            ),
+          ),
+          Expanded(
+            flex: 2,
+            child: Container(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              constraints: BoxConstraints(minHeight: height),
+              child: Align(alignment: Alignment.centerRight, child: buttonWidget),
             ),
           ),
         ],

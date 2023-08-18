@@ -16,25 +16,31 @@ class KiraRouter {
 
   KiraRouter? get parent => _stackRouter.parent() != null ? KiraRouter(_stackRouter.parent()!) : null;
 
-  Future<void> navigate(PageRouteInfo route) async {
+  Future<dynamic> navigate(PageRouteInfo route) async {
     PageRouteInfo pageRouteInfo = _addQueryParameters(route);
-    await _stackRouter.navigate(pageRouteInfo);
+    return _stackRouter.navigate(pageRouteInfo);
   }
 
-  Future<void> pop() async {
-    await _stackRouter.pop();
+  @optionalTypeArgs
+  Future<Object?> push<T extends Object?>(PageRouteInfo route) async {
+    PageRouteInfo pageRouteInfo = _addQueryParameters(route);
+    return _stackRouter.push<T>(pageRouteInfo);
+  }
+
+  Future<bool> pop() async {
+    return _stackRouter.pop();
   }
 
   Future<void> popUntilRouteWithName(String name) async {
-    _stackRouter.popUntilRouteWithName(name);
+    return _stackRouter.popUntilRouteWithName(name);
   }
 
   Future<void> navigateBack() async {
-    _stackRouter.navigateBack();
+    return _stackRouter.navigateBack();
   }
 
   Future<void> replaceAll(List<PageRouteInfo> pageRouteInfoList) async {
-    await _stackRouter.replaceAll(pageRouteInfoList);
+    return _stackRouter.replaceAll(pageRouteInfoList);
   }
 
   PageRouteInfo _addQueryParameters(PageRouteInfo pageRouteInfo) {

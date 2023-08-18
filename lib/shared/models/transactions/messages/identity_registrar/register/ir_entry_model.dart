@@ -1,5 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:miro/infra/dto/shared/messages/identity_records/register/identity_info_entry.dart';
+import 'package:miro/shared/utils/string_utils.dart';
+import 'package:miro/shared/utils/transactions/tx_utils.dart';
 
 class IREntryModel extends Equatable {
   final String key;
@@ -13,12 +15,12 @@ class IREntryModel extends Equatable {
   factory IREntryModel.fromDto(IdentityInfoEntry identityInfoEntry) {
     return IREntryModel(
       key: identityInfoEntry.key,
-      info: identityInfoEntry.info,
+      info: StringUtils.parseUnicodeToString(identityInfoEntry.info),
     );
   }
 
   IdentityInfoEntry toDto() {
-    return IdentityInfoEntry(key: key, info: info);
+    return IdentityInfoEntry(key: key, info: TxUtils.replaceMemoRestrictedChars(info));
   }
 
   @override

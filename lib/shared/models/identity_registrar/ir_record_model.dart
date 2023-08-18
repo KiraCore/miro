@@ -3,6 +3,7 @@ import 'package:miro/infra/dto/api_kira/query_identity_records/response/record.d
 import 'package:miro/shared/models/identity_registrar/ir_record_status.dart';
 import 'package:miro/shared/models/identity_registrar/ir_verification_request_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/utils/string_utils.dart';
 
 class IRRecordModel extends Equatable {
   final String key;
@@ -26,7 +27,7 @@ class IRRecordModel extends Equatable {
   factory IRRecordModel.fromDto(Record record, List<IRVerificationRequestModel> irVerificationRequests) {
     return IRRecordModel(
       key: record.key,
-      value: record.value,
+      value: StringUtils.parseUnicodeToString(record.value),
       verifiersAddresses: record.verifiers.map(WalletAddress.fromBech32).toList(),
       irVerificationRequests: irVerificationRequests,
     );

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/views/widgets/generic/expandable_text.dart';
+import 'package:miro/views/widgets/generic/responsive/responsive_value.dart';
+import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 
 class TxInputPreview extends StatelessWidget {
   final String label;
@@ -18,6 +21,7 @@ class TxInputPreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
+    TextStyle? textStyle = ResponsiveWidget.isLargeScreen(context) ? textTheme.bodyText1 : textTheme.bodyText2;
 
     return Row(
       children: <Widget>[
@@ -36,13 +40,21 @@ class TxInputPreview extends StatelessWidget {
                   color: DesignColors.accent,
                 ),
               ),
-              const SizedBox(height: 8),
-              Text(
-                value,
-                style: TextStyle(
-                  fontSize: large ? 22 : 16,
-                  fontWeight: large ? FontWeight.w500 : FontWeight.w400,
-                  color: DesignColors.white1,
+              SizedBox(height: const ResponsiveValue<double>(largeScreen: 5, mediumScreen: 2, smallScreen: 2).get(context)),
+              ExpandableText(
+                initialTextLength: const ResponsiveValue<int>(
+                  largeScreen: 500,
+                  mediumScreen: 300,
+                  smallScreen: 150,
+                ).get(context),
+                textLengthSeeMore: 500,
+                text: Text(
+                  value,
+                  style: textStyle?.copyWith(
+                    fontSize: large ? 22 : null,
+                    fontWeight: large ? FontWeight.w500 : null,
+                    color: DesignColors.white1,
+                  ),
                 ),
               ),
             ],

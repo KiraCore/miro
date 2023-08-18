@@ -3,8 +3,12 @@
   "proxy_server_url": "https://cors-anywhere.kira.network",
   "network_list": [
     {
-      "name": "KIRA node",
-      "address": "https://testnet-rpc.kira.network"
+      "name": "Public Node 1",
+      "address": "http://148.251.69.56:11000"
+    },
+    {
+      "name": "Public Node 2",
+      "address": "http://128.140.42.2:11000"
     }
   ]
 }

@@ -1,5 +1,6 @@
 import 'package:decimal/decimal.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:miro/blocs/generic/auth/auth_cubit.dart';
 import 'package:miro/blocs/pages/transactions/tx_process_cubit/a_tx_process_state.dart';
 import 'package:miro/blocs/pages/transactions/tx_process_cubit/states/tx_process_broadcast_state.dart';
 import 'package:miro/blocs/pages/transactions/tx_process_cubit/states/tx_process_confirm_state.dart';
@@ -7,6 +8,7 @@ import 'package:miro/blocs/pages/transactions/tx_process_cubit/states/tx_process
 import 'package:miro/blocs/pages/transactions/tx_process_cubit/states/tx_process_loaded_state.dart';
 import 'package:miro/blocs/pages/transactions/tx_process_cubit/states/tx_process_loading_state.dart';
 import 'package:miro/blocs/pages/transactions/tx_process_cubit/tx_process_cubit.dart';
+import 'package:miro/config/locator.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/transactions/form_models/msg_send_form_model.dart';
@@ -25,6 +27,7 @@ import 'package:miro/test/utils/test_utils.dart';
 void main() {
   initMockLocator();
 
+  AuthCubit actualAuthCubit = globalLocator<AuthCubit>();
   SignedTxModel signedTxModel = SignedTxModel(
     publicKeyCompressed: 'AlLas8CJ6lm5yZJ8h0U5Qu9nzVvgvskgHuURPB3jvUx8',
     txLocalInfoModel: TxLocalInfoModel(
@@ -55,7 +58,7 @@ void main() {
   group('Tests of [TxProcessCubit] process', () {
     test('Should emit certain states when network is online', () async {
       // Arrange
-      await TestUtils.setupNetworkModel(networkUri: Uri.parse('https://healthy.kira.network/'));
+      await TestUtils.setupNetworkModel(networkUri: Uri.parse('https://unhealthy.kira.network/'));
       MsgSendFormModel actualMsgSendFormModel = MsgSendFormModel();
       TxProcessCubit<MsgSendFormModel> actualTxProcessCubit = TxProcessCubit<MsgSendFormModel>(
         txMsgType: TxMsgType.msgSend,
@@ -74,7 +77,31 @@ void main() {
       await actualTxProcessCubit.init();
 
       // Assert
-      TxProcessLoadedState expectedTxProcessLoadedState = TxProcessLoadedState(
+      ATxProcessState expectedTxProcessLoadedState = const TxProcessErrorState();
+
+      TestUtils.printInfo('Should [return TxProcessErrorState] when wallet is not set up and [init] method is called');
+      expect(actualTxProcessCubit.state, expectedTxProcessLoadedState);
+
+      // ************************************************************************************************
+
+      // Act
+      await actualAuthCubit.signIn(TestUtils.wallet);
+      await actualTxProcessCubit.init();
+
+      // Assert
+      expectedTxProcessLoadedState = const TxProcessErrorState(accountErrorBool: true);
+
+      TestUtils.printInfo('Should [return TxProcessErrorState] with [accountErrorBool] when wallet does not have assigned account number');
+      expect(actualTxProcessCubit.state, expectedTxProcessLoadedState);
+
+      // ************************************************************************************************
+
+      // Act
+      await TestUtils.setupNetworkModel(networkUri: Uri.parse('https://healthy.kira.network/'));
+      await actualTxProcessCubit.init();
+
+      // Assert
+      expectedTxProcessLoadedState = TxProcessLoadedState(
         feeTokenAmountModel: TokenAmountModel(
           lowestDenominationAmount: Decimal.fromInt(100),
           tokenAliasModel: TokenAliasModel.local('ukex'),
@@ -92,7 +119,7 @@ void main() {
 
       // Assert
       expectedTxProcessState = TxProcessConfirmState(
-        txProcessLoadedState: expectedTxProcessLoadedState,
+        txProcessLoadedState: expectedTxProcessLoadedState as TxProcessLoadedState,
         signedTxModel: signedTxModel,
       );
 

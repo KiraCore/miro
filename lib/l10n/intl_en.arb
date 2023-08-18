@@ -66,6 +66,10 @@
   "irRecordStatusNotVerified": "Not verified",
   "irRecordStatusPending": "Pending",
 
+  "irTxTitleRegisterIdentityRecord": "Register Identity Record",
+  "irTxHintKey": "Key",
+  "irTxHintValue": "Value",
+
   "keyfile": "Keyfile",
   "keyfileButtonDownload": "Download",
   "keyfileErrorCannotBeEmpty": "Keyfile cannot be empty",
@@ -188,6 +192,7 @@
   "txButtonBackToAccount": "Back to account",
   "txButtonEditTransaction": "Edit transaction",
   "txErrorNotEnoughTokens": "Not enough tokens",
+  "txErrorAccountNumberNotExist": "Cannot create transaction. Deposit tokens to your account and try again.",
   "txErrorCannotCreate": "Cannot create transaction. Check your connection.",
   "txErrorCannotFetchDetails": "Cannot fetch transaction details. Check your internet connection.",
   "txErrorEnterValidAddress": "Please enter a valid address",
@@ -318,5 +323,8 @@
   "sec": "sec.",
   "copy": "Copy",
   "or": "or ",
-  "browse": "browse"
+  "browse": "browse",
+  "seeMore": "See more",
+  "seeAll": "See all",
+  "seeLess": "See less"
 }

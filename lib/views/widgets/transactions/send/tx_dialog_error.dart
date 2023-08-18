@@ -7,7 +7,12 @@ import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/transactions/form_models/a_msg_form_model.dart';
 
 class TxDialogError<T extends AMsgFormModel> extends StatelessWidget {
-  const TxDialogError({Key? key}) : super(key: key);
+  final bool accountErrorBool;
+
+  const TxDialogError({
+    required this.accountErrorBool,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -20,13 +25,22 @@ class TxDialogError<T extends AMsgFormModel> extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Text(
-            S.of(context).txErrorCannotFetchDetails,
-            textAlign: TextAlign.center,
-            style: textTheme.bodyText2!.copyWith(
-              color: DesignColors.redStatus1,
+          if (accountErrorBool)
+            Text(
+              S.of(context).txErrorAccountNumberNotExist,
+              textAlign: TextAlign.center,
+              style: textTheme.bodyText2!.copyWith(
+                color: DesignColors.redStatus1,
+              ),
+            )
+          else
+            Text(
+              S.of(context).txErrorCannotFetchDetails,
+              textAlign: TextAlign.center,
+              style: textTheme.bodyText2!.copyWith(
+                color: DesignColors.redStatus1,
+              ),
             ),
-          ),
           const SizedBox(height: 20),
           TextButton.icon(
             onPressed: BlocProvider.of<TxProcessCubit<T>>(context).init,
