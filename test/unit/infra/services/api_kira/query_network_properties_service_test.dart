@@ -16,7 +16,7 @@ import 'package:miro/test/utils/test_utils.dart';
 Future<void> main() async {
   await initMockLocator();
 
-  final QueryNetworkPropertiesService queryNetworkPropertiesService = globalLocator<QueryNetworkPropertiesService>();
+  final QueryNetworkPropertiesService actualQueryNetworkPropertiesService = globalLocator<QueryNetworkPropertiesService>();
 
   const TokenAliasModel defaultFeeTokenAliasModel = TokenAliasModel(
     name: 'Kira',
@@ -31,7 +31,7 @@ Future<void> main() async {
       await TestUtils.setupNetworkModel(networkUri: networkUri);
 
       // Act
-      TokenAmountModel actualTokenAmountModel = await queryNetworkPropertiesService.getMinTxFee();
+      TokenAmountModel actualTokenAmountModel = await actualQueryNetworkPropertiesService.getMinTxFee();
 
       // Assert
       TokenAmountModel expectedTokenAmountModel = TokenAmountModel(
@@ -49,7 +49,7 @@ Future<void> main() async {
 
       // Assert
       expect(
-        queryNetworkPropertiesService.getMinTxFee,
+        actualQueryNetworkPropertiesService.getMinTxFee,
         throwsA(isA<DioParseException>()),
       );
     });
@@ -61,7 +61,7 @@ Future<void> main() async {
 
       // Assert
       expect(
-        queryNetworkPropertiesService.getMinTxFee,
+        actualQueryNetworkPropertiesService.getMinTxFee,
         throwsA(isA<DioConnectException>()),
       );
     });
