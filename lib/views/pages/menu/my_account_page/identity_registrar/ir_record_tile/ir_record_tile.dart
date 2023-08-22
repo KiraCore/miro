@@ -37,23 +37,25 @@ class _IdentityRecordTile extends State<IRRecordTile> {
       largeScreen: IRRecordTileDesktop(
         loadingBool: widget.loadingBool,
         valueWidget: widget.valueWidget,
-        onAddPressed: _pressAddButton,
-        onEditPressed: _pressEditButton,
+        onAddPressed: _openRegisterRecordRoute,
+        onDeletePressed: _pressDeleteButton,
+        onEditPressed: _openRegisterRecordRoute,
         identityRegistrarCubit: widget.identityRegistrarCubit,
         irRecordModel: widget.irRecordModel,
       ),
       smallScreen: IRRecordTileMobile(
         loadingBool: widget.loadingBool,
         valueWidget: widget.valueWidget,
-        onAddPressed: _pressAddButton,
-        onEditPressed: _pressEditButton,
+        onAddPressed: _openRegisterRecordRoute,
+        onDeletePressed: _pressDeleteButton,
+        onEditPressed: _openRegisterRecordRoute,
         identityRegistrarCubit: widget.identityRegistrarCubit,
         irRecordModel: widget.irRecordModel,
       ),
     ).get(context);
   }
 
-  Future<void> _pressEditButton() async {
+  Future<void> _openRegisterRecordRoute() async {
     await KiraRouter.of(context).push<void>(PagesWrapperRoute(
       children: <PageRouteInfo>[
         TransactionsWrapperRoute(children: <PageRouteInfo>[
@@ -68,15 +70,14 @@ class _IdentityRecordTile extends State<IRRecordTile> {
     await widget.identityRegistrarCubit.refresh();
   }
 
-  Future<void> _pressAddButton() async {
+  Future<void> _pressDeleteButton() async {
+    if (widget.irRecordModel == null) {
+      return;
+    }
     await KiraRouter.of(context).push<void>(PagesWrapperRoute(
       children: <PageRouteInfo>[
         TransactionsWrapperRoute(children: <PageRouteInfo>[
-          IRTxRegisterRecordRoute(
-            irRecordModel: widget.irRecordModel,
-            irKeyEditableBool: widget.irKeyEditableBool,
-            irValueMaxLength: widget.valueMaxLength,
-          ),
+          IRTxDeleteRecordRoute(irRecordModel: widget.irRecordModel!),
         ]),
       ],
     ));

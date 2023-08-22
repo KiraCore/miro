@@ -1,7 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
 import 'intl/messages_all.dart';
 
 // **************************************************************************
@@ -546,6 +545,16 @@ class S {
     return Intl.message(
       'Pending',
       name: 'irRecordStatusPending',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm Delete Identity Record`
+  String get irTxConfirmDeleteRecord {
+    return Intl.message(
+      'Confirm Delete Identity Record',
+      name: 'irTxConfirmDeleteRecord',
       desc: '',
       args: [],
     );
@@ -2318,16 +2327,6 @@ class S {
     return Intl.message(
       'See all',
       name: 'seeAll',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `See less`
-  String get seeLess {
-    return Intl.message(
-      'See less',
-      name: 'seeLess',
       desc: '',
       args: [],
     );

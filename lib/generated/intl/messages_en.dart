@@ -138,6 +138,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Verified"),
         "irRecordVerify": MessageLookupByLibrary.simpleMessage("Verify"),
         "irSocialMedia": MessageLookupByLibrary.simpleMessage("Social media"),
+        "irTxConfirmDeleteRecord": MessageLookupByLibrary.simpleMessage(
+            "Confirm Delete Identity Record"),
         "irTxHintKey": MessageLookupByLibrary.simpleMessage("Key"),
         "irTxHintValue": MessageLookupByLibrary.simpleMessage("Value"),
         "irTxTitleRegisterIdentityRecord":
@@ -283,7 +285,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "proposalsVoters": MessageLookupByLibrary.simpleMessage("Voters"),
         "sec": MessageLookupByLibrary.simpleMessage("sec."),
         "seeAll": MessageLookupByLibrary.simpleMessage("See all"),
-        "seeLess": MessageLookupByLibrary.simpleMessage("See less"),
         "seeMore": MessageLookupByLibrary.simpleMessage("See more"),
         "sortBy": MessageLookupByLibrary.simpleMessage("Sort by"),
         "toastCannotLoadDashboard": MessageLookupByLibrary.simpleMessage(

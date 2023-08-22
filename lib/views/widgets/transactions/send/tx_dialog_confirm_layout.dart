@@ -9,9 +9,13 @@ import 'package:miro/views/widgets/transactions/tx_dialog.dart';
 
 class TxDialogConfirmLayout<T extends AMsgFormModel> extends StatelessWidget {
   final Widget formPreviewWidget;
+  final bool editButtonVisibleBool;
+  final String? title;
 
   const TxDialogConfirmLayout({
     required this.formPreviewWidget,
+    this.editButtonVisibleBool = true,
+    this.title,
     Key? key,
   }) : super(key: key);
 
@@ -20,13 +24,15 @@ class TxDialogConfirmLayout<T extends AMsgFormModel> extends StatelessWidget {
     TxProcessCubit<T> txProcessCubit = BlocProvider.of<TxProcessCubit<T>>(context);
 
     return TxDialog(
-      suffixWidget: KiraOutlinedButton(
-        width: 68,
-        height: 39,
-        title: S.of(context).txButtonEdit,
-        onPressed: txProcessCubit.editTransactionForm,
-      ),
-      title: S.of(context).txConfirm,
+      suffixWidget: editButtonVisibleBool
+          ? KiraOutlinedButton(
+              width: 68,
+              height: 39,
+              title: S.of(context).txButtonEdit,
+              onPressed: txProcessCubit.editTransactionForm,
+            )
+          : null,
+      title: title ?? S.of(context).txConfirm,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
