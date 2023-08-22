@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/generic/auth/auth_cubit.dart';
+import 'package:miro/blocs/generic/token_storage/token_storage_cubit.dart';
 import 'package:miro/blocs/pages/transactions/tx_form_builder/a_tx_form_builder_state.dart';
 import 'package:miro/blocs/pages/transactions/tx_form_builder/states/tx_form_builder_downloading_state.dart';
 import 'package:miro/blocs/pages/transactions/tx_form_builder/states/tx_form_builder_empty_state.dart';
@@ -17,6 +18,7 @@ import 'package:miro/shared/models/transactions/unsigned_tx_model.dart';
 class TxFormBuilderCubit extends Cubit<ATxFormBuilderState> {
   final AuthCubit _authCubit = globalLocator<AuthCubit>();
   final QueryAccountService _queryAccountService = globalLocator<QueryAccountService>();
+  final TokenStorageCubit _tokenStorageCubit = globalLocator<TokenStorageCubit>();
 
   final TokenAmountModel feeTokenAmountModel;
   final AMsgFormModel msgFormModel;
@@ -66,7 +68,8 @@ class TxFormBuilderCubit extends Cubit<ATxFormBuilderState> {
   Future<TxRemoteInfoModel> _downloadTxRemoteInfo() async {
     assert(_authCubit.isSignedIn, 'Wallet public address must be provided to use this method');
     try {
-      TxRemoteInfoModel txRemoteInfoModel = await _queryAccountService.getTxRemoteInfo(_authCubit.state!.address.bech32Address);
+      String bech32Address = _authCubit.state!.address.bech32Address;
+      TxRemoteInfoModel txRemoteInfoModel = await _queryAccountService.getTxRemoteInfo(bech32Address);
       return txRemoteInfoModel;
     } on DioException catch (e) {
       throw Exception('Cannot download TxRemoteInfoModel: ${e.message}');

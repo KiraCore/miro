@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/generic/auth/auth_cubit.dart';
+import 'package:miro/blocs/generic/token_storage/token_storage_cubit.dart';
 import 'package:miro/blocs/pages/transactions/tx_form_builder/tx_form_builder_cubit.dart';
 import 'package:miro/blocs/pages/transactions/tx_process_cubit/a_tx_process_state.dart';
 import 'package:miro/blocs/pages/transactions/tx_process_cubit/states/tx_process_broadcast_state.dart';
@@ -27,7 +28,6 @@ class TxProcessCubit<T extends AMsgFormModel> extends Cubit<ATxProcessState> {
   final QueryAccountService _queryAccountService = globalLocator<QueryAccountService>();
   final QueryExecutionFeeService _queryExecutionFeeService = globalLocator<QueryExecutionFeeService>();
   final QueryNetworkPropertiesService _queryNetworkPropertiesService = globalLocator<QueryNetworkPropertiesService>();
-
   final TxMsgType txMsgType;
   final T msgFormModel;
 
@@ -47,7 +47,8 @@ class TxProcessCubit<T extends AMsgFormModel> extends Cubit<ATxProcessState> {
     String msgTypeName = InterxMsgTypes.getName(txMsgType);
 
     try {
-      bool txRemoteInfoAvailableBool = await _queryAccountService.isAccountRegistered(authCubit.state!.address.bech32Address);
+      String bech32Address = authCubit.state!.address.bech32Address;
+      bool txRemoteInfoAvailableBool = await _queryAccountService.isAccountRegistered(bech32Address);
       if (txRemoteInfoAvailableBool == false) {
         emit(const TxProcessErrorState(accountErrorBool: true));
         return;

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miro/blocs/generic/auth/auth_cubit.dart';
+import 'package:miro/blocs/generic/token_storage/token_storage_cubit.dart';
 import 'package:miro/blocs/widgets/mnemonic_grid/grid/mnemonic_grid_cubit.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';
@@ -124,7 +125,9 @@ class _SignInMnemonicDrawerPage extends State<SignInMnemonicDrawerPage> {
     // Complete all UI operations before heavy Wallet deriving
     await Future<void>.delayed(const Duration(milliseconds: 500));
     try {
-      return Wallet.derive(mnemonic: mnemonic);
+      TokenStorageCubit tokenStorageCubit = globalLocator<TokenStorageCubit>();
+      String bech32Hrp = await tokenStorageCubit.getBech32Prefix();
+      return Wallet.derive(mnemonic: mnemonic, bech32Hrp: bech32Hrp);
     } catch (e) {
       AppLogger().log(message: 'Cannot generate wallet', logLevel: LogLevel.fatal);
       return null;

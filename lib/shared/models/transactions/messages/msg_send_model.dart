@@ -2,7 +2,9 @@ import 'dart:math';
 
 import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
+import 'package:miro/blocs/generic/token_storage/token_storage_cubit.dart';
 import 'package:miro/config/app_icons.dart';
+import 'package:miro/config/locator.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/infra/dto/shared/coin.dart';
 import 'package:miro/infra/dto/shared/messages/msg_send.dart';
@@ -26,13 +28,15 @@ class MsgSendModel extends ATxMsgModel {
     required this.tokenAmountModel,
   }) : super(txMsgType: TxMsgType.msgSend);
 
-  factory MsgSendModel.fromMsgDto(MsgSend msgSend) {
+  static Future<MsgSendModel> buildFromDto(MsgSend msgSend) async {
+    TokenStorageCubit tokenStorageCubit = globalLocator<TokenStorageCubit>();
+    TokenAliasModel tokenAliasModel = await tokenStorageCubit.getTokenAliasForDenom(msgSend.amount.first.denom);
     return MsgSendModel(
       fromWalletAddress: WalletAddress.fromBech32(msgSend.fromAddress),
       toWalletAddress: WalletAddress.fromBech32(msgSend.toAddress),
       tokenAmountModel: TokenAmountModel(
         lowestDenominationAmount: Decimal.parse(msgSend.amount.first.amount),
-        tokenAliasModel: TokenAliasModel.local(msgSend.amount.first.denom),
+        tokenAliasModel: tokenAliasModel,
       ),
     );
   }

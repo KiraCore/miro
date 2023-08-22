@@ -1,5 +1,7 @@
+import 'package:decimal/decimal.dart';
 import 'package:dio/dio.dart';
 import 'package:miro/blocs/generic/network_module/network_module_bloc.dart';
+import 'package:miro/blocs/generic/token_storage/token_storage_cubit.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api_kira/query_network_properties/response/query_network_properties_resp.dart';
 import 'package:miro/infra/exceptions/dio_parse_exception.dart';
@@ -16,6 +18,7 @@ abstract class _IQueryNetworkPropertiesService {
 
 class QueryNetworkPropertiesService implements _IQueryNetworkPropertiesService {
   final IApiKiraRepository _apiKiraRepository = globalLocator<IApiKiraRepository>();
+  final TokenStorageCubit _tokenStorageCubit = globalLocator<TokenStorageCubit>();
 
   @override
   Future<TokenAmountModel> getMinTxFee() async {
@@ -32,7 +35,16 @@ class QueryNetworkPropertiesService implements _IQueryNetworkPropertiesService {
 
     try {
       QueryNetworkPropertiesResp queryNetworkPropertiesResp = QueryNetworkPropertiesResp.fromJson(response.data as Map<String, dynamic>);
-      return NetworkPropertiesModel.fromDto(queryNetworkPropertiesResp.properties);
+      return NetworkPropertiesModel(
+        minTxFee: TokenAmountModel(
+          lowestDenominationAmount: Decimal.parse(queryNetworkPropertiesResp.properties.minTxFee),
+          tokenAliasModel: await _tokenStorageCubit.getDefaultTokenAlias(),
+        ),
+        minIdentityApprovalTip: TokenAmountModel(
+          lowestDenominationAmount: Decimal.parse(queryNetworkPropertiesResp.properties.minIdentityApprovalTip),
+          tokenAliasModel: await _tokenStorageCubit.getDefaultTokenAlias(),
+        ),
+      );
     } catch (e) {
       AppLogger().log(message: 'QueryNetworkPropertiesService: Cannot parse getNetworkProperties() for URI $networkUri ${e}', logLevel: LogLevel.error);
       throw DioParseException(response: response, error: e);

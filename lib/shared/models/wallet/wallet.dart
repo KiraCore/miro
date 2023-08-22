@@ -11,7 +11,6 @@ import 'package:pointycastle/export.dart';
 
 /// Represents a wallet which contains the hex private key, the hex public key and the hex address.
 /// In order to create one properly, the [Wallet.derive] method should always be used.
-/// The associated [walletDetails] will be used when computing the [bech32Address] associated with the wallet.
 class Wallet extends Equatable {
   /// Wallet base derivation path
   /// More about:
@@ -23,14 +22,10 @@ class Wallet extends Equatable {
 
   /// The wallet hex private key
   final Uint8List privateKey;
-  
-  /// Blockchain network details
-  final WalletDetails walletDetails;
 
   const Wallet({
     required this.address,
     required this.privateKey,
-    this.walletDetails = WalletDetails.defaultWalletDetails,
   });
 
   /// ** HEAVY OPERATION **
@@ -40,8 +35,8 @@ class Wallet extends Equatable {
   /// Throws [FormatException] if the [int.tryParse] cannot parse [lastDerivationPathSegment]
   factory Wallet.derive({
     required Mnemonic mnemonic,
+    required String bech32Hrp,
     String lastDerivationPathSegment = '0',
-    WalletDetails walletDetails = WalletDetails.defaultWalletDetails,
   }) {
     final int lastDerivationPathSegmentCheck = int.tryParse(lastDerivationPathSegment) ?? -1;
     if (lastDerivationPathSegmentCheck < 0) {
@@ -58,9 +53,8 @@ class Wallet extends Equatable {
     final Uint8List publicKeyBytes = Secp256k1.privateKeyBytesToPublic(derivedNode.privateKey!);
 
     return Wallet(
-      address: WalletAddress.fromPublicKey(publicKeyBytes, bech32Hrp: walletDetails.bech32Hrp),
+      address: WalletAddress.fromPublicKey(publicKeyBytes, bech32Hrp: bech32Hrp),
       privateKey: derivedNode.privateKey!,
-      walletDetails: walletDetails,
     );
   }
 
@@ -73,7 +67,16 @@ class Wallet extends Equatable {
       privateKey: privateKey,
     );
   }
-  
+
+  Wallet copyWith({
+    WalletAddress? walletAddress,
+  }) {
+    return Wallet(
+      address: walletAddress ?? address,
+      privateKey: privateKey,
+    );
+  }
+
   /// Returns the associated [publicKey] as an [ECPublicKey] instance.
   ECPublicKey get ecPublicKey {
     final ECCurve_secp256k1 secp256k1 = ECCurve_secp256k1();
@@ -81,13 +84,13 @@ class Wallet extends Equatable {
     final ECPoint? curvePoint = point * ecPrivateKey.d;
     return ECPublicKey(curvePoint, ECCurve_secp256k1());
   }
-  
+
   /// Returns the associated [privateKey] as an [ECPrivateKey] instance.
   ECPrivateKey get ecPrivateKey {
     final BigInt privateKeyInt = BigInt.parse(HEX.encode(privateKey), radix: 16);
     return ECPrivateKey(privateKeyInt, ECCurve_secp256k1());
   }
-  
+
   @override
-  List<Object?> get props => <Object?>[address, privateKey, walletDetails];
+  List<Object?> get props => <Object?>[address, privateKey];
 }

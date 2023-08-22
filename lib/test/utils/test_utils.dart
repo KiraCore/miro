@@ -20,7 +20,7 @@ import 'package:miro/test/mocks/mock_network_list_config_json.dart';
 class TestUtils {
   // @formatter:off
   static final Mnemonic mnemonic = Mnemonic(value: 'require point property company tongue busy bench burden caution gadget knee glance thought bulk assist month cereal report quarter tool section often require shield');
-  static final Wallet wallet = Wallet.derive(mnemonic: mnemonic);
+  static final Wallet wallet = Wallet.derive(mnemonic: mnemonic, bech32Hrp: 'kira');
   // @formatter:on
 
   static TokenAliasModel btcTokenAliasModel = const TokenAliasModel(

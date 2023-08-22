@@ -14,8 +14,6 @@ class AppConfig {
   final Duration loadingPageTimerDuration;
   final List<String> supportedInterxVersions;
   final RpcBrowserUrlController rpcBrowserUrlController;
-  final TokenAliasModel defaultFeeTokenAliasModel;
-
   final int _defaultRefreshIntervalSeconds;
   final NetworkUnknownModel _defaultNetworkUnknownModel;
 
@@ -30,7 +28,6 @@ class AppConfig {
     required this.loadingPageTimerDuration,
     required this.supportedInterxVersions,
     required this.rpcBrowserUrlController,
-    required this.defaultFeeTokenAliasModel,
     required int defaultRefreshIntervalSeconds,
     required NetworkUnknownModel defaultNetworkUnknownModel,
   })  : _defaultRefreshIntervalSeconds = defaultRefreshIntervalSeconds,
@@ -44,11 +41,6 @@ class AppConfig {
       loadingPageTimerDuration: const Duration(seconds: 4),
       supportedInterxVersions: <String>['v0.4.41'],
       rpcBrowserUrlController: RpcBrowserUrlController(),
-      defaultFeeTokenAliasModel: const TokenAliasModel(
-        name: 'Kira',
-        lowestTokenDenominationModel: TokenDenominationModel(name: 'ukex', decimals: 0),
-        defaultTokenDenominationModel: TokenDenominationModel(name: 'KEX', decimals: 6),
-      ),
       defaultRefreshIntervalSeconds: 60,
       defaultNetworkUnknownModel: NetworkUnknownModel(
         connectionStatusType: ConnectionStatusType.disconnected,

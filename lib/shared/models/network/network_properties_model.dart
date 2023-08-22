@@ -14,21 +14,6 @@ class NetworkPropertiesModel extends Equatable {
     required this.minIdentityApprovalTip,
   });
 
-  factory NetworkPropertiesModel.fromDto(Properties properties) {
-    final AppConfig appConfig = globalLocator<AppConfig>();
-
-    return NetworkPropertiesModel(
-      minTxFee: TokenAmountModel(
-        lowestDenominationAmount: Decimal.parse(properties.minTxFee),
-        tokenAliasModel: appConfig.defaultFeeTokenAliasModel,
-      ),
-      minIdentityApprovalTip: TokenAmountModel(
-        lowestDenominationAmount: Decimal.parse(properties.minIdentityApprovalTip),
-        tokenAliasModel: appConfig.defaultFeeTokenAliasModel,
-      ),
-    );
-  }
-
   @override
   List<Object?> get props => <Object>[minTxFee, minIdentityApprovalTip];
 }

@@ -2,6 +2,7 @@ import 'package:get_it/get_it.dart';
 import 'package:miro/blocs/generic/auth/auth_cubit.dart';
 import 'package:miro/blocs/generic/identity_registrar/identity_registrar_cubit.dart';
 import 'package:miro/blocs/generic/network_module/network_module_bloc.dart';
+import 'package:miro/blocs/generic/token_storage/token_storage_cubit.dart';
 import 'package:miro/blocs/layout/drawer/drawer_cubit.dart';
 import 'package:miro/blocs/layout/nav_menu/nav_menu_cubit.dart';
 import 'package:miro/blocs/widgets/network_list/network_custom_section/network_custom_section_cubit.dart';
@@ -78,5 +79,6 @@ void _initControllers() {
     ..registerLazySingleton<NavMenuCubit>(NavMenuCubit.new)
     ..registerLazySingleton<NetworkCustomSectionCubit>(NetworkCustomSectionCubit.new)
     ..registerLazySingleton<NetworkListCubit>(NetworkListCubit.new)
-    ..registerLazySingleton<NetworkModuleBloc>(NetworkModuleBloc.new);
+    ..registerLazySingleton<NetworkModuleBloc>(NetworkModuleBloc.new)
+    ..registerLazySingleton<TokenStorageCubit>(TokenStorageCubit.new);
 }

@@ -10,14 +10,24 @@ import 'package:miro/shared/utils/logger/app_logger.dart';
 import 'package:miro/shared/utils/logger/log_level.dart';
 
 abstract class _IQueryKiraTokensAliasesService {
-  Future<List<TokenAliasModel>> getTokenAliasModels();
+  Future<Map<String, TokenAliasModel>> getTokenAliasModelsMap();
 }
 
 class QueryKiraTokensAliasesService implements _IQueryKiraTokensAliasesService {
   final IApiKiraRepository _apiKiraRepository = globalLocator<IApiKiraRepository>();
 
   @override
-  Future<List<TokenAliasModel>> getTokenAliasModels() async {
+  Future<Map<String, TokenAliasModel>> getTokenAliasModelsMap() async {
+    Map<String, TokenAliasModel> tokenAliasMap = <String, TokenAliasModel>{};
+    List<TokenAliasModel> tokenAliasModels = await _getTokenAliasModels();
+
+    for (TokenAliasModel tokenAliasModel in tokenAliasModels) {
+      tokenAliasMap[tokenAliasModel.lowestTokenDenominationModel.name] = tokenAliasModel;
+    }
+    return tokenAliasMap;
+  }
+
+  Future<List<TokenAliasModel>> _getTokenAliasModels() async {
     Uri networkUri = globalLocator<NetworkModuleBloc>().state.networkUri;
     Response<dynamic> response = await _apiKiraRepository.fetchQueryKiraTokensAliases<dynamic>(ApiRequestModel<void>(
       networkUri: networkUri,

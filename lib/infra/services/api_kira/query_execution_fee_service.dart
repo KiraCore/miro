@@ -1,6 +1,7 @@
 import 'package:decimal/decimal.dart';
 import 'package:dio/dio.dart';
 import 'package:miro/blocs/generic/network_module/network_module_bloc.dart';
+import 'package:miro/blocs/generic/token_storage/token_storage_cubit.dart';
 import 'package:miro/config/app_config.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api_kira/query_execution_fee/request/query_execution_fee_request.dart';
@@ -16,9 +17,9 @@ abstract class _IQueryExecutionFeeService {
 }
 
 class QueryExecutionFeeService implements _IQueryExecutionFeeService {
-  final AppConfig _appConfig = globalLocator<AppConfig>();
   final IApiKiraRepository _apiKiraRepository = globalLocator<IApiKiraRepository>();
   final QueryNetworkPropertiesService _queryNetworkPropertiesService = globalLocator<QueryNetworkPropertiesService>();
+  final TokenStorageCubit _tokenStorageCubit = globalLocator<TokenStorageCubit>();
 
   @override
   Future<TokenAmountModel> getExecutionFeeForMessage(String messageName) async {
@@ -33,8 +34,7 @@ class QueryExecutionFeeService implements _IQueryExecutionFeeService {
       QueryExecutionFeeResponse queryExecutionFeeResponse = QueryExecutionFeeResponse.fromJson(response.data as Map<String, dynamic>);
       TokenAmountModel feeTokenAmountModel = TokenAmountModel(
         lowestDenominationAmount: Decimal.parse(queryExecutionFeeResponse.fee.executionFee),
-        // tokenAliasModel - interx doesn't return denomination used in QueryExecutionFee endpoint, so we assumed that it's always represented in "ukex"
-        tokenAliasModel: _appConfig.defaultFeeTokenAliasModel,
+        tokenAliasModel: await _tokenStorageCubit.getDefaultTokenAlias(),
       );
       return feeTokenAmountModel;
     } catch (_) {

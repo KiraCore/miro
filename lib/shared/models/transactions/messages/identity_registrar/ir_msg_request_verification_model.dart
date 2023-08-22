@@ -1,5 +1,7 @@
 import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
+import 'package:miro/blocs/generic/token_storage/token_storage_cubit.dart';
+import 'package:miro/config/locator.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/infra/dto/shared/coin.dart';
 import 'package:miro/infra/dto/shared/messages/identity_records/msg_request_identity_records_verify.dart';
@@ -33,12 +35,15 @@ class IRMsgRequestVerificationModel extends ATxMsgModel {
   })  : recordIds = <BigInt>[recordId],
         super(txMsgType: TxMsgType.msgRequestIdentityRecordsVerify);
 
-  factory IRMsgRequestVerificationModel.fromDto(MsgRequestIdentityRecordsVerify msgRequestIdentityRecordsVerify) {
+  static Future<IRMsgRequestVerificationModel> buildFromDto(MsgRequestIdentityRecordsVerify msgRequestIdentityRecordsVerify) async {
+    TokenStorageCubit tokenStorageCubit = globalLocator<TokenStorageCubit>();
+    TokenAliasModel tokenAliasModel = await tokenStorageCubit.getTokenAliasForDenom(msgRequestIdentityRecordsVerify.tip.denom);
+
     return IRMsgRequestVerificationModel(
       recordIds: msgRequestIdentityRecordsVerify.recordIds,
       tipTokenAmountModel: TokenAmountModel(
         lowestDenominationAmount: Decimal.parse(msgRequestIdentityRecordsVerify.tip.amount),
-        tokenAliasModel: TokenAliasModel.local(msgRequestIdentityRecordsVerify.tip.denom),
+        tokenAliasModel: tokenAliasModel,
       ),
       verifierWalletAddress: WalletAddress.fromBech32(msgRequestIdentityRecordsVerify.verifier),
       walletAddress: WalletAddress.fromBech32(msgRequestIdentityRecordsVerify.address),

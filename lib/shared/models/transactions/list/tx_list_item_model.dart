@@ -1,10 +1,13 @@
 import 'package:decimal/decimal.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:miro/blocs/generic/token_storage/token_storage_cubit.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/models/a_list_item.dart';
+import 'package:miro/config/locator.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/infra/dto/api/query_transactions/response/transaction.dart';
 import 'package:miro/infra/dto/shared/coin.dart';
+import 'package:miro/infra/dto/shared/messages/a_tx_msg.dart';
 import 'package:miro/shared/models/tokens/prefixed_token_amount_model.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
@@ -36,9 +39,25 @@ class TxListItemModel extends AListItem with EquatableMixin {
     required this.txMsgModels,
   });
 
-  factory TxListItemModel.fromDto(Transaction transaction) {
+  static Future<TxListItemModel> buildFromDto(Transaction transaction) async {
     TxDirectionType txDirectionType = EnumUtils.parseFromString(TxDirectionType.values, transaction.direction);
-    List<ATxMsgModel> txMsgModels = transaction.txs.map(ATxMsgModel.buildFromDto).toList();
+    List<ATxMsgModel> txMsgModels = List<ATxMsgModel>.empty(growable: true);
+    for (ATxMsg msgDto in transaction.txs) {
+      ATxMsgModel txMsgModel = await ATxMsgModel.buildFromDto(msgDto);
+      txMsgModels.add(txMsgModel);
+    }
+
+    TokenStorageCubit tokenStorageCubit = globalLocator<TokenStorageCubit>();
+
+    List<TokenAmountModel> feesTokenAmountModels = List<TokenAmountModel>.empty(growable: true);
+    for (Coin fee in transaction.fee) {
+      TokenAliasModel tokenAliasModel = await tokenStorageCubit.getTokenAliasForDenom(fee.denom);
+      TokenAmountModel tokenAmountModel = TokenAmountModel(
+        lowestDenominationAmount: Decimal.parse(fee.amount),
+        tokenAliasModel: tokenAliasModel,
+      );
+      feesTokenAmountModels.add(tokenAmountModel);
+    }
 
     return TxListItemModel(
       hash: transaction.hash,
@@ -47,9 +66,7 @@ class TxListItemModel extends AListItem with EquatableMixin {
       txStatusType: EnumUtils.parseFromString(TxStatusType.values, transaction.status),
       txMsgModels: txMsgModels,
       prefixedTokenAmounts: txMsgModels.expand((ATxMsgModel txMsgModel) => txMsgModel.getPrefixedTokenAmounts(txDirectionType)).toList(),
-      fees: transaction.fee
-          .map((Coin fee) => TokenAmountModel(lowestDenominationAmount: Decimal.parse(fee.amount), tokenAliasModel: TokenAliasModel.local(fee.denom)))
-          .toList(),
+      fees: feesTokenAmountModels,
     );
   }
 

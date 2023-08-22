@@ -33,7 +33,7 @@ abstract class ATxMsgModel extends Equatable {
     required this.txMsgType,
   });
 
-  static ATxMsgModel buildFromDto(ATxMsg msgDto) {
+  static Future<ATxMsgModel> buildFromDto(ATxMsg msgDto) async {
     switch (msgDto.runtimeType) {
       case MsgCancelIdentityRecordsVerifyRequest:
         return IRMsgCancelVerificationRequestModel.fromDto(msgDto as MsgCancelIdentityRecordsVerifyRequest);
@@ -50,9 +50,9 @@ abstract class ATxMsgModel extends Equatable {
       case MsgRegisterIdentityRecords:
         return IRMsgRegisterRecordsModel.fromDto(msgDto as MsgRegisterIdentityRecords);
       case MsgRequestIdentityRecordsVerify:
-        return IRMsgRequestVerificationModel.fromDto(msgDto as MsgRequestIdentityRecordsVerify);
+        return IRMsgRequestVerificationModel.buildFromDto(msgDto as MsgRequestIdentityRecordsVerify);
       case MsgSend:
-        return MsgSendModel.fromMsgDto(msgDto as MsgSend);
+        return MsgSendModel.buildFromDto(msgDto as MsgSend);
       case MsgUndelegate:
         return StakingMsgUndelegateModel.fromMsgDto(msgDto as MsgUndelegate);
       default:
