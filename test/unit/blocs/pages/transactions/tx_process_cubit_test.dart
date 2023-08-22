@@ -47,13 +47,92 @@ void main() {
     ),
     txRemoteInfoModel: const TxRemoteInfoModel(
       accountNumber: '669',
-      chainId: 'testnet',
-      sequence: '0',
+      chainId: 'testnet-9',
+      sequence: '106',
     ),
     signatureModel: const SignatureModel(
-      signature: 'hd+WiCdVaMcTDshpEsgkn6VOWdXAOV7QKUZEIxMRhLYzSD8bK7RQcn9jl/2I2TLa4QBoCuAStXwOircabaVQzg==',
+      signature: 'Ahamy8xzwacGyxSPElYrvOrMIEL1MbmeS6fsiR9u73QhD3gdbVcwNv0/qRA+jziF2XV8A9eMbvunUOsYxotG6g==',
     ),
   );
+
+  group('Tests of [TxProcessCubit] initialization', () {
+    test('Should return [TxProcessLoadedState] if [formEnabledBool] param is equal [true] (default value)', () async {
+      // Arrange
+      MsgSendFormModel actualMsgSendFormModel = MsgSendFormModel();
+      TxProcessCubit<MsgSendFormModel> actualTxProcessCubit = TxProcessCubit<MsgSendFormModel>(
+        txMsgType: TxMsgType.msgSend,
+        msgFormModel: actualMsgSendFormModel,
+      );
+
+      // Assert
+      ATxProcessState expectedTxProcessState = const TxProcessLoadingState();
+
+      TestUtils.printInfo('Should [return TxProcessLoadingState] as initial state');
+      expect(actualTxProcessCubit.state, expectedTxProcessState);
+
+      // ************************************************************************************************
+
+      // Act
+      await actualAuthCubit.signIn(TestUtils.wallet);
+      await TestUtils.setupNetworkModel(networkUri: Uri.parse('https://healthy.kira.network/'));
+      await actualTxProcessCubit.init();
+
+      // Assert
+      expectedTxProcessState = TxProcessLoadedState(
+        feeTokenAmountModel: TokenAmountModel(
+          lowestDenominationAmount: Decimal.fromInt(100),
+          tokenAliasModel: TokenAliasModel.local('ukex'),
+        ),
+      );
+
+      TestUtils.printInfo('Should [return TxProcessLoadedState] with feeTokenAmountModel');
+      expect(actualTxProcessCubit.state, expectedTxProcessState);
+    });
+
+    test('Should return [TxProcessConfirmState] if [formEnabledBool] param is equal [false]', () async {
+      // Arrange
+      MsgSendFormModel actualMsgSendFormModel = MsgSendFormModel(
+        recipientWalletAddress: WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
+        senderWalletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
+        tokenAmountModel: TokenAmountModel(
+          lowestDenominationAmount: Decimal.fromInt(100),
+          tokenAliasModel: TokenAliasModel.local('ukex'),
+        ),
+      )..memo = 'Test transaction';
+
+      TxProcessCubit<MsgSendFormModel> actualTxProcessCubit = TxProcessCubit<MsgSendFormModel>(
+        txMsgType: TxMsgType.msgSend,
+        msgFormModel: actualMsgSendFormModel,
+      );
+
+      // Assert
+      ATxProcessState expectedTxProcessState = const TxProcessLoadingState();
+
+      TestUtils.printInfo('Should [return TxProcessLoadingState] as initial state');
+      expect(actualTxProcessCubit.state, expectedTxProcessState);
+
+      // ************************************************************************************************
+
+      // Act
+      await actualAuthCubit.signIn(TestUtils.wallet);
+      await TestUtils.setupNetworkModel(networkUri: Uri.parse('https://healthy.kira.network/'));
+      await actualTxProcessCubit.init(formEnabledBool: false);
+
+      // Assert
+      expectedTxProcessState = TxProcessConfirmState(
+        txProcessLoadedState: TxProcessLoadedState(
+          feeTokenAmountModel: TokenAmountModel(
+            lowestDenominationAmount: Decimal.fromInt(100),
+            tokenAliasModel: TokenAliasModel.local('ukex'),
+          ),
+        ),
+        signedTxModel: signedTxModel,
+      );
+
+      TestUtils.printInfo('Should [return TxProcessLoadedState] with feeTokenAmountModel');
+      expect(actualTxProcessCubit.state, expectedTxProcessState);
+    });
+  });
 
   group('Tests of [TxProcessCubit] process', () {
     test('Should emit certain states when network is online', () async {

@@ -1,5 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/generic/auth/auth_cubit.dart';
+import 'package:miro/blocs/pages/transactions/tx_form_builder/tx_form_builder_cubit.dart';
 import 'package:miro/blocs/pages/transactions/tx_process_cubit/a_tx_process_state.dart';
 import 'package:miro/blocs/pages/transactions/tx_process_cubit/states/tx_process_broadcast_state.dart';
 import 'package:miro/blocs/pages/transactions/tx_process_cubit/states/tx_process_confirm_state.dart';
@@ -14,7 +15,10 @@ import 'package:miro/shared/models/transactions/form_models/a_msg_form_model.dar
 import 'package:miro/shared/models/transactions/messages/interx_msg_types.dart';
 import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
 import 'package:miro/shared/models/transactions/signed_transaction_model.dart';
+import 'package:miro/shared/models/transactions/unsigned_tx_model.dart';
+import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';
+import 'package:miro/shared/utils/transactions/tx_utils.dart';
 
 class TxProcessCubit<T extends AMsgFormModel> extends Cubit<ATxProcessState> {
   final AuthCubit authCubit = globalLocator<AuthCubit>();
@@ -29,7 +33,7 @@ class TxProcessCubit<T extends AMsgFormModel> extends Cubit<ATxProcessState> {
     required this.msgFormModel,
   }) : super(const TxProcessLoadingState());
 
-  Future<void> init() async {
+  Future<void> init({bool formEnabledBool = true}) async {
     emit(const TxProcessLoadingState());
 
     if (authCubit.isSignedIn == false) {
@@ -44,12 +48,20 @@ class TxProcessCubit<T extends AMsgFormModel> extends Cubit<ATxProcessState> {
       if (txRemoteInfoAvailableBool == false) {
         emit(const TxProcessErrorState(accountErrorBool: true));
         return;
-      } else {
-        TokenAmountModel feeTokenAmountModel = await _queryExecutionFeeService.getExecutionFeeForMessage(msgTypeName);
-        emit(TxProcessLoadedState(feeTokenAmountModel: feeTokenAmountModel));
       }
-    } catch (_) {
-      AppLogger().log(message: 'Failed to load transaction fee');
+      TokenAmountModel feeTokenAmountModel = await _queryExecutionFeeService.getExecutionFeeForMessage(msgTypeName);
+      TxProcessLoadedState txProcessLoadedState = TxProcessLoadedState(feeTokenAmountModel: feeTokenAmountModel);
+
+      if (formEnabledBool) {
+        emit(txProcessLoadedState);
+      } else {
+        emit(TxProcessConfirmState(
+          txProcessLoadedState: txProcessLoadedState,
+          signedTxModel: await _buildSignedTransaction(feeTokenAmountModel),
+        ));
+      }
+    } catch (e) {
+      AppLogger().log(message: 'Failed to load transaction fee: $e');
       emit(const TxProcessErrorState());
     }
   }
@@ -86,5 +98,26 @@ class TxProcessCubit<T extends AMsgFormModel> extends Cubit<ATxProcessState> {
     if (txProcessLoadedState != null) {
       emit(txProcessLoadedState);
     }
+  }
+
+  Future<SignedTxModel> _buildSignedTransaction(TokenAmountModel feeTokenAmountModel) async {
+    TxFormBuilderCubit txFormBuilderCubit = TxFormBuilderCubit(
+      feeTokenAmountModel: feeTokenAmountModel,
+      msgFormModel: msgFormModel,
+    );
+
+    UnsignedTxModel unsignedTxModel = await txFormBuilderCubit.buildUnsignedTx();
+    SignedTxModel signedTxModel = await _signTransaction(unsignedTxModel);
+    return signedTxModel;
+  }
+
+  Future<SignedTxModel> _signTransaction(UnsignedTxModel unsignedTxModel) async {
+    Wallet? wallet = authCubit.state;
+    if (wallet == null) {
+      throw Exception('Wallet cannot be null when signing transaction');
+    }
+    SignedTxModel signedTxModel = TxUtils.sign(unsignedTxModel: unsignedTxModel, wallet: wallet);
+    await Future<void>.delayed(const Duration(milliseconds: 100));
+    return signedTxModel;
   }
 }

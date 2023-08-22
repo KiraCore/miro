@@ -17,15 +17,19 @@ typedef TxFormPreviewWidgetBuilder = Widget Function(TxProcessConfirmState txPro
 
 class TxProcessWrapper<T extends AMsgFormModel> extends StatefulWidget {
   final TxProcessCubit<T> txProcessCubit;
-  final TxFormWidgetBuilder txFormWidgetBuilder;
   final TxFormPreviewWidgetBuilder txFormPreviewWidgetBuilder;
+  final TxFormWidgetBuilder? txFormWidgetBuilder;
+  final bool formEnabledBool;
 
   const TxProcessWrapper({
     required this.txProcessCubit,
     required this.txFormWidgetBuilder,
     required this.txFormPreviewWidgetBuilder,
+    this.formEnabledBool = true,
     Key? key,
-  }) : super(key: key);
+  })  : assert((formEnabledBool == false) || (formEnabledBool && txFormWidgetBuilder != null),
+            'txFormWidgetBuilder should be defined when formEnabledBool is equal true'),
+        super(key: key);
 
   @override
   State<StatefulWidget> createState() => _TxProcessWrapper<T>();
@@ -35,7 +39,7 @@ class _TxProcessWrapper<T extends AMsgFormModel> extends State<TxProcessWrapper<
   @override
   void initState() {
     super.initState();
-    widget.txProcessCubit.init();
+    widget.txProcessCubit.init(formEnabledBool: widget.formEnabledBool);
   }
 
   @override
@@ -43,15 +47,15 @@ class _TxProcessWrapper<T extends AMsgFormModel> extends State<TxProcessWrapper<
     return BlocProvider<TxProcessCubit<T>>(
       create: (_) => widget.txProcessCubit,
       child: BlocBuilder<TxProcessCubit<T>, ATxProcessState>(
-        bloc: widget.txProcessCubit..init(),
+        bloc: widget.txProcessCubit,
         builder: (BuildContext context, ATxProcessState txProcessState) {
           late Widget dialogWidget;
 
           // Build widget representing the associated ATxProcessState
           if (txProcessState is TxProcessLoadingState) {
             dialogWidget = const TxDialogLoading();
-          } else if (txProcessState is TxProcessLoadedState) {
-            dialogWidget = widget.txFormWidgetBuilder(txProcessState);
+          } else if (txProcessState is TxProcessLoadedState && widget.txFormWidgetBuilder != null) {
+            dialogWidget = widget.txFormWidgetBuilder!(txProcessState);
           } else if (txProcessState is TxProcessConfirmState) {
             dialogWidget = widget.txFormPreviewWidgetBuilder(txProcessState);
           } else if (txProcessState is TxProcessBroadcastState) {
