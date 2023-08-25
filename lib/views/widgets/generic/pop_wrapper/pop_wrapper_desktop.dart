@@ -78,7 +78,7 @@ class _PopWrapperDesktop extends State<PopWrapperDesktop> {
         ),
       ),
       child: MouseStateListener(
-        onTap: widget.popWrapperController.showTooltip,
+        onTap: widget.disabled ? null : widget.popWrapperController.showTooltip,
         childBuilder: (Set<MaterialState> states) {
           return Container(
             constraints: const BoxConstraints(maxWidth: 200),

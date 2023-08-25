@@ -12,6 +12,7 @@ class IRRecordTileMobile extends StatelessWidget {
   final VoidCallback onAddPressed;
   final VoidCallback onDeletePressed;
   final VoidCallback onEditPressed;
+  final VoidCallback onVerifyPressed;
   final IdentityRegistrarCubit identityRegistrarCubit;
   final IRRecordModel? irRecordModel;
 
@@ -21,6 +22,7 @@ class IRRecordTileMobile extends StatelessWidget {
     required this.onAddPressed,
     required this.onDeletePressed,
     required this.onEditPressed,
+    required this.onVerifyPressed,
     required this.identityRegistrarCubit,
     required this.irRecordModel,
     Key? key,
@@ -79,6 +81,14 @@ class IRRecordTileMobile extends StatelessWidget {
                     height: 40,
                     title: S.of(context).irRecordDelete,
                     onPressed: onDeletePressed,
+                  ),
+                ),
+                const SizedBox(width: 15),
+                Expanded(
+                  child: KiraOutlinedButton(
+                    height: 40,
+                    title: S.of(context).irRecordVerify,
+                    onPressed: onVerifyPressed,
                   ),
                 ),
               ] else if (loadingBool == false)

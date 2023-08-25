@@ -40,6 +40,7 @@ class _IdentityRecordTile extends State<IRRecordTile> {
         onAddPressed: _openRegisterRecordRoute,
         onDeletePressed: _pressDeleteButton,
         onEditPressed: _openRegisterRecordRoute,
+        onVerifyPressed: _pressVerifyButton,
         identityRegistrarCubit: widget.identityRegistrarCubit,
         irRecordModel: widget.irRecordModel,
       ),
@@ -49,6 +50,7 @@ class _IdentityRecordTile extends State<IRRecordTile> {
         onAddPressed: _openRegisterRecordRoute,
         onDeletePressed: _pressDeleteButton,
         onEditPressed: _openRegisterRecordRoute,
+        onVerifyPressed: _pressVerifyButton,
         identityRegistrarCubit: widget.identityRegistrarCubit,
         irRecordModel: widget.irRecordModel,
       ),
@@ -78,6 +80,17 @@ class _IdentityRecordTile extends State<IRRecordTile> {
       children: <PageRouteInfo>[
         TransactionsWrapperRoute(children: <PageRouteInfo>[
           IRTxDeleteRecordRoute(irRecordModel: widget.irRecordModel!),
+        ]),
+      ],
+    ));
+    await widget.identityRegistrarCubit.refresh();
+  }
+
+  Future<void> _pressVerifyButton() async {
+    await KiraRouter.of(context).push<void>(PagesWrapperRoute(
+      children: <PageRouteInfo>[
+        TransactionsWrapperRoute(children: <PageRouteInfo>[
+          IRTxRequestVerificationRoute(irRecordModel: widget.irRecordModel!),
         ]),
       ],
     ));

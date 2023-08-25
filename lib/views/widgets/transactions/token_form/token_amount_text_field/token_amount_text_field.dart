@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/widgets/transactions/token_form/token_form_cubit.dart';
-import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/tokens/token_denomination_model.dart';
 import 'package:miro/shared/utils/transactions/tx_utils.dart';
 import 'package:miro/views/widgets/transactions/token_form/token_amount_text_field/token_amount_text_field_actions.dart';
@@ -14,11 +13,13 @@ import 'package:miro/views/widgets/transactions/tx_text_field.dart';
 class TokenAmountTextField extends StatefulWidget {
   final bool disabledBool;
   final bool errorExistsBool;
+  final String label;
   final TextEditingController textEditingController;
   final TokenDenominationModel? tokenDenominationModel;
 
   const TokenAmountTextField({
     required this.disabledBool,
+    required this.label,
     required this.textEditingController,
     required this.tokenDenominationModel,
     this.errorExistsBool = false,
@@ -60,7 +61,7 @@ class _TokenAmountTextField extends State<TokenAmountTextField> {
             height: double.infinity,
             child: Center(
               child: TxInputStaticLabel(
-                label: S.of(context).balancesAmount,
+                label: widget.label,
                 contentPadding: const EdgeInsets.only(top: 9, bottom: 5),
                 child: TxTextField(
                   maxLines: 1,

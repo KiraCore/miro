@@ -560,13 +560,23 @@ class S {
     );
   }
 
-  /// `Register Identity Record`
-  String get irTxTitleRegisterIdentityRecord {
+  /// `Confirm verification request`
+  String get irTxConfirmVerificationRequest {
     return Intl.message(
-      'Register Identity Record',
-      name: 'irTxTitleRegisterIdentityRecord',
+      'Confirm verification request',
+      name: 'irTxConfirmVerificationRequest',
       desc: '',
       args: [],
+    );
+  }
+
+  /// `Tip must be greater or equal {amount}`
+  String irTxErrorTipMustBeGreater(String amount) {
+    return Intl.message(
+      'Tip must be greater or equal $amount',
+      name: 'irTxErrorTipMustBeGreater',
+      desc: '',
+      args: [amount],
     );
   }
 
@@ -580,11 +590,51 @@ class S {
     );
   }
 
+  /// `Tip`
+  String get irTxHintTip {
+    return Intl.message(
+      'Tip',
+      name: 'irTxHintTip',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Value`
   String get irTxHintValue {
     return Intl.message(
       'Value',
       name: 'irTxHintValue',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Verifier will get`
+  String get irTxHintVerifierWillGet {
+    return Intl.message(
+      'Verifier will get',
+      name: 'irTxHintVerifierWillGet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Request record verification`
+  String get irTxTitleRequestIdentityRecordVerification {
+    return Intl.message(
+      'Request record verification',
+      name: 'irTxTitleRequestIdentityRecordVerification',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Register Identity Record`
+  String get irTxTitleRegisterIdentityRecord {
+    return Intl.message(
+      'Register Identity Record',
+      name: 'irTxTitleRegisterIdentityRecord',
       desc: '',
       args: [],
     );
