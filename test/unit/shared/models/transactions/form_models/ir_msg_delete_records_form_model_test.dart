@@ -14,7 +14,13 @@ void main() {
       // Arrange
       IRMsgDeleteRecordsFormModel actualIrMsgDeleteRecordsFormModel = IRMsgDeleteRecordsFormModel(
         irRecordModels: <IRRecordModel>[
-          const IRRecordModel(key: 'key1', value: 'value', verifiersAddresses: <WalletAddress>[], irVerificationRequests: <IRVerificationRequestModel>[]),
+          const IRRecordModel(
+            id: '0',
+            key: 'key1',
+            value: 'value',
+            verifiersAddresses: <WalletAddress>[],
+            irVerificationRequests: <IRVerificationRequestModel>[],
+          ),
         ],
         walletAddress: actualSenderAddress,
       );
@@ -44,7 +50,8 @@ void main() {
       // Arrange
       IRMsgDeleteRecordsFormModel actualIRMsgDeleteRecordsFormModel = IRMsgDeleteRecordsFormModel(
         irRecordModels: <IRRecordModel>[
-          const IRRecordModel(key: 'key1', value: 'value', verifiersAddresses: <WalletAddress>[], irVerificationRequests: <IRVerificationRequestModel>[]),
+          const IRRecordModel(
+              id: '0', key: 'key1', value: 'value', verifiersAddresses: <WalletAddress>[], irVerificationRequests: <IRVerificationRequestModel>[]),
         ],
         walletAddress: null,
       );
@@ -62,7 +69,8 @@ void main() {
       // Arrange
       IRMsgDeleteRecordsFormModel actualIRMsgDeleteRecordsFormModel = IRMsgDeleteRecordsFormModel(
         irRecordModels: <IRRecordModel>[
-          const IRRecordModel(key: 'key1', value: 'value', verifiersAddresses: <WalletAddress>[], irVerificationRequests: <IRVerificationRequestModel>[]),
+          const IRRecordModel(
+              id: '0', key: 'key1', value: 'value', verifiersAddresses: <WalletAddress>[], irVerificationRequests: <IRVerificationRequestModel>[]),
         ],
         walletAddress: actualSenderAddress,
       );
@@ -97,7 +105,8 @@ void main() {
       // Arrange
       IRMsgDeleteRecordsFormModel actualIRMsgDeleteRecordsFormModel = IRMsgDeleteRecordsFormModel(
         irRecordModels: <IRRecordModel>[
-          const IRRecordModel(key: 'key1', value: 'value', verifiersAddresses: <WalletAddress>[], irVerificationRequests: <IRVerificationRequestModel>[]),
+          const IRRecordModel(
+              id: '0', key: 'key1', value: 'value', verifiersAddresses: <WalletAddress>[], irVerificationRequests: <IRVerificationRequestModel>[]),
         ],
         walletAddress: null,
       );

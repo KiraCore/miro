@@ -67,10 +67,21 @@
   "irRecordStatusPending": "Pending",
 
   "irTxConfirmDeleteRecord": "Confirm Delete Identity Record",
-  "irTxTitleRegisterIdentityRecord": "Register Identity Record",
-
+  "irTxConfirmVerificationRequest": "Confirm verification request",
+  "irTxErrorTipMustBeGreater": "Tip must be greater or equal {amount}",
+  "@irTxErrorTipMustBeGreater": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
   "irTxHintKey": "Key",
+  "irTxHintTip": "Tip",
   "irTxHintValue": "Value",
+  "irTxHintVerifierWillGet": "Verifier will get",
+  "irTxTitleRequestIdentityRecordVerification": "Request record verification",
+  "irTxTitleRegisterIdentityRecord": "Register Identity Record",
 
   "keyfile": "Keyfile",
   "keyfileButtonDownload": "Download",

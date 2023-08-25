@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/widgets/transactions/token_form/token_form_cubit.dart';
 import 'package:miro/blocs/widgets/transactions/token_form/token_form_state.dart';
+import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
+import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/tokens/token_denomination_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
@@ -14,49 +16,91 @@ import 'package:miro/views/widgets/transactions/token_form/token_amount_text_fie
 import 'package:miro/views/widgets/transactions/token_form/token_available_amount.dart';
 import 'package:miro/views/widgets/transactions/token_form/token_denomination_list.dart';
 import 'package:miro/views/widgets/transactions/token_form/token_dropdown/token_dropdown.dart';
+import 'package:shimmer/shimmer.dart';
+
+typedef ValidateCallback = String? Function(TokenAmountModel?);
 
 class TokenForm extends StatefulWidget {
+  final String label;
   final ValueChanged<TokenFormState> onChanged;
   final TokenAmountModel feeTokenAmountModel;
+  final bool selectableBool;
   final BalanceModel? defaultBalanceModel;
+  final TokenAliasModel? defaultTokenAliasModel;
   final TokenAmountModel? defaultTokenAmountModel;
   final TokenDenominationModel? defaultTokenDenominationModel;
+  final ValidateCallback? validateCallback;
   final WalletAddress? walletAddress;
 
   const TokenForm({
+    required this.label,
     required this.onChanged,
     required this.feeTokenAmountModel,
+    required this.walletAddress,
+    this.selectableBool = true,
     this.defaultBalanceModel,
+    this.defaultTokenAliasModel,
     this.defaultTokenAmountModel,
     this.defaultTokenDenominationModel,
-    this.walletAddress,
+    this.validateCallback,
     Key? key,
-  }) : super(key: key);
+  })  : assert(
+          defaultBalanceModel != null || defaultTokenAliasModel != null,
+          'defaultBalanceModel or defaultTokenAliasModel must be defined to use this widget',
+        ),
+        super(key: key);
 
   @override
   State<StatefulWidget> createState() => _TokenForm();
 }
 
 class _TokenForm extends State<TokenForm> {
-  late final TokenFormCubit tokenFormCubit = TokenFormCubit(
-    feeTokenAmountModel: widget.feeTokenAmountModel,
-    defaultBalanceModel: widget.defaultBalanceModel,
-    defaultTokenAmountModel: widget.defaultTokenAmountModel,
-    defaultTokenDenominationModel: widget.defaultTokenDenominationModel,
-  );
+  late final TokenFormCubit tokenFormCubit;
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.defaultBalanceModel != null) {
+      tokenFormCubit = TokenFormCubit.fromBalance(
+        balanceModel: widget.defaultBalanceModel!,
+        feeTokenAmountModel: widget.feeTokenAmountModel,
+        walletAddress: widget.walletAddress,
+        tokenAmountModel: widget.defaultTokenAmountModel,
+        tokenDenominationModel: widget.defaultTokenDenominationModel,
+      );
+    } else {
+      tokenFormCubit = TokenFormCubit.fromTokenAlias(
+        tokenAliasModel: widget.defaultTokenAliasModel!,
+        feeTokenAmountModel: widget.feeTokenAmountModel,
+        walletAddress: widget.walletAddress,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    bool disabledBool = widget.walletAddress == null;
+    TextTheme textTheme = Theme.of(context).textTheme;
+    Widget shimmerWidget = Shimmer.fromColors(
+      baseColor: DesignColors.grey3,
+      highlightColor: DesignColors.grey2,
+      child: Container(
+        height: 80,
+        decoration: BoxDecoration(
+          color: DesignColors.grey2,
+          borderRadius: BorderRadius.circular(8),
+        ),
+        constraints: const BoxConstraints(minWidth: 100),
+      ),
+    );
 
     return BlocProvider<TokenFormCubit>(
       create: (_) => tokenFormCubit,
       child: BlocConsumer<TokenFormCubit, TokenFormState>(
-        listener: (_, TokenFormState tokenFormState) => widget.onChanged(tokenFormState),
+        listener: (_, TokenFormState tokenFormState) => _notifyTokenAmountChanged(tokenFormState),
         builder: (BuildContext context, TokenFormState tokenFormState) {
           return FormField<TokenAmountModel>(
             key: tokenFormCubit.formFieldKey,
-            validator: (_) => _validate(tokenFormState),
+            validator: (_) => _buildErrorMessage(tokenFormState),
             builder: (FormFieldState<TokenAmountModel> formFieldState) {
               return Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -70,20 +114,39 @@ class _TokenForm extends State<TokenForm> {
                     expandOnRow: true,
                     reverseOnColumn: true,
                     children: <Widget>[
-                      TokenAmountTextField(
-                        errorExistsBool: formFieldState.hasError,
-                        disabledBool: disabledBool,
-                        textEditingController: tokenFormCubit.amountTextEditingController,
-                        tokenDenominationModel: tokenFormState.tokenDenominationModel,
-                      ),
-                      const ColumnRowSpacer(size: 16),
-                      TokenDropdown(
-                        disabledBool: disabledBool,
-                        defaultBalanceModel: tokenFormState.balanceModel,
-                        walletAddress: widget.walletAddress,
-                      ),
+                      if (tokenFormState.loadingBool) ...<Widget>[
+                        shimmerWidget,
+                        const ColumnRowSpacer(size: 16),
+                        shimmerWidget,
+                      ] else ...<Widget>[
+                        TokenAmountTextField(
+                          label: widget.label,
+                          errorExistsBool: formFieldState.hasError,
+                          disabledBool: widget.walletAddress == null,
+                          textEditingController: tokenFormCubit.amountTextEditingController,
+                          tokenDenominationModel: tokenFormState.tokenDenominationModel,
+                        ),
+                        const ColumnRowSpacer(size: 16),
+                        TokenDropdown(
+                          disabledBool: widget.selectableBool == false,
+                          defaultBalanceModel: tokenFormState.balanceModel,
+                          walletAddress: widget.walletAddress,
+                        ),
+                      ],
                     ],
                   ),
+                  if (tokenFormState.errorBool) ...<Widget>[
+                    const SizedBox(height: 8),
+                    TextButton.icon(
+                      onPressed: tokenFormCubit.init,
+                      style: TextButton.styleFrom(padding: EdgeInsets.zero),
+                      icon: const Icon(Icons.refresh, color: DesignColors.redStatus1, size: 16),
+                      label: Text(
+                        'Cannot load balances, try again',
+                        style: textTheme.caption!.copyWith(color: DesignColors.redStatus1),
+                      ),
+                    ),
+                  ],
                   TokenAvailableAmount(
                     formFieldState: formFieldState,
                     balanceModel: tokenFormState.balanceModel,
@@ -104,17 +167,39 @@ class _TokenForm extends State<TokenForm> {
     );
   }
 
-  String? _validate(TokenFormState tokenFormState) {
+  void _notifyTokenAmountChanged(TokenFormState tokenFormState) {
+    bool formValidBool = _isFormValid(tokenFormState);
+    if (formValidBool) {
+      widget.onChanged(tokenFormState);
+    } else if (tokenFormState.tokenAmountModel != null) {
+      TokenFormState errorTokenFormState = tokenFormState.copyWith(
+        tokenAmountModel: TokenAmountModel(lowestDenominationAmount: Decimal.zero, tokenAliasModel: tokenFormState.tokenAmountModel!.tokenAliasModel),
+        tokenDenominationModel: tokenFormState.tokenDenominationModel,
+      );
+      widget.onChanged(errorTokenFormState);
+    }
+  }
+
+  bool _isFormValid(TokenFormState tokenFormState) {
+    String? errorMessage = _buildErrorMessage(tokenFormState);
+    return errorMessage == null;
+  }
+
+  String? _buildErrorMessage(TokenFormState tokenFormState) {
     TokenAmountModel? selectedTokenAmountModel = tokenFormState.tokenAmountModel;
     TokenAmountModel? availableTokenAmountModel = tokenFormState.availableTokenAmountModel;
 
     Decimal selectedTokenAmount = selectedTokenAmountModel?.getAmountInLowestDenomination() ?? Decimal.zero;
     Decimal availableTokenAmount = availableTokenAmountModel?.getAmountInLowestDenomination() ?? Decimal.zero;
 
-    if (availableTokenAmount < selectedTokenAmount) {
+    if (selectedTokenAmount == Decimal.zero) {
+      return null;
+    } else if (availableTokenAmount < selectedTokenAmount) {
       return S.of(context).txErrorNotEnoughTokens;
     } else if (selectedTokenAmountModel == null || availableTokenAmountModel == null) {
       return S.of(context).txPleaseSelectToken;
+    } else if (widget.validateCallback != null) {
+      return widget.validateCallback!(selectedTokenAmountModel);
     } else {
       return null;
     }

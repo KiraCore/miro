@@ -14,6 +14,7 @@ class IRRecordTileDesktop extends StatelessWidget {
   final VoidCallback onAddPressed;
   final VoidCallback onDeletePressed;
   final VoidCallback onEditPressed;
+  final VoidCallback onVerifyPressed;
   final IdentityRegistrarCubit identityRegistrarCubit;
   final IRRecordModel? irRecordModel;
 
@@ -23,6 +24,7 @@ class IRRecordTileDesktop extends StatelessWidget {
     required this.onAddPressed,
     required this.onDeletePressed,
     required this.onEditPressed,
+    required this.onVerifyPressed,
     required this.identityRegistrarCubit,
     required this.irRecordModel,
     Key? key,
@@ -55,6 +57,11 @@ class IRRecordTileDesktop extends StatelessWidget {
               icon: const Icon(AppIcons.delete, color: DesignColors.grey1, size: 20),
               tooltip: S.of(context).irRecordDelete,
               onPressed: onDeletePressed,
+            ),
+            IconButton(
+              icon: const Icon(AppIcons.verification, color: DesignColors.grey1, size: 20),
+              tooltip: S.of(context).irRecordVerify,
+              onPressed: onVerifyPressed,
             ),
           ] else if (loadingBool == false)
             KiraOutlinedButton(

@@ -14,6 +14,7 @@ import 'package:miro/views/pages/pages_wrapper.dart';
 import 'package:miro/views/pages/transactions/transactions_wrapper.dart';
 import 'package:miro/views/pages/transactions/tx_send/ir_tx_delete_record_page/ir_tx_delete_record_page.dart';
 import 'package:miro/views/pages/transactions/tx_send/ir_tx_register_record_page/ir_tx_register_record_page.dart';
+import 'package:miro/views/pages/transactions/tx_send/ir_tx_request_verification_page/ir_tx_request_verification_page.dart';
 import 'package:miro/views/pages/transactions/tx_send/tx_send_tokens/tx_send_tokens_page.dart';
 
 @CustomAutoRouter(replaceInRouteName: 'Page,Route', routes: <AutoRoute>[
@@ -102,6 +103,13 @@ import 'package:miro/views/pages/transactions/tx_send/tx_send_tokens/tx_send_tok
             page: IRTxDeleteRecordPage,
             name: 'IRTxDeleteRecordRoute',
             path: 'identity/delete',
+            guards: <Type>[AuthGuard],
+            transitionsBuilder: TransitionsBuilders.fadeIn,
+          ),
+          CustomRoute<void>(
+            page: IRTxRequestVerificationPage,
+            name: 'IRTxRequestVerificationRoute',
+            path: 'identity/verify',
             guards: <Type>[AuthGuard],
             transitionsBuilder: TransitionsBuilders.fadeIn,
           ),

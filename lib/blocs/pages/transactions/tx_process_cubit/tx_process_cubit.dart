@@ -10,6 +10,8 @@ import 'package:miro/blocs/pages/transactions/tx_process_cubit/states/tx_process
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/services/api_kira/query_account_service.dart';
 import 'package:miro/infra/services/api_kira/query_execution_fee_service.dart';
+import 'package:miro/infra/services/api_kira/query_network_properties_service.dart';
+import 'package:miro/shared/models/network/network_properties_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/transactions/form_models/a_msg_form_model.dart';
 import 'package:miro/shared/models/transactions/messages/interx_msg_types.dart';
@@ -22,8 +24,9 @@ import 'package:miro/shared/utils/transactions/tx_utils.dart';
 
 class TxProcessCubit<T extends AMsgFormModel> extends Cubit<ATxProcessState> {
   final AuthCubit authCubit = globalLocator<AuthCubit>();
-  final QueryAccountService _queryAccountService = QueryAccountService();
-  final QueryExecutionFeeService _queryExecutionFeeService = QueryExecutionFeeService();
+  final QueryAccountService _queryAccountService = globalLocator<QueryAccountService>();
+  final QueryExecutionFeeService _queryExecutionFeeService = globalLocator<QueryExecutionFeeService>();
+  final QueryNetworkPropertiesService _queryNetworkPropertiesService = globalLocator<QueryNetworkPropertiesService>();
 
   final TxMsgType txMsgType;
   final T msgFormModel;
@@ -50,8 +53,11 @@ class TxProcessCubit<T extends AMsgFormModel> extends Cubit<ATxProcessState> {
         return;
       }
       TokenAmountModel feeTokenAmountModel = await _queryExecutionFeeService.getExecutionFeeForMessage(msgTypeName);
-      TxProcessLoadedState txProcessLoadedState = TxProcessLoadedState(feeTokenAmountModel: feeTokenAmountModel);
-
+      NetworkPropertiesModel networkPropertiesModel = await _queryNetworkPropertiesService.getNetworkProperties();
+      TxProcessLoadedState txProcessLoadedState = TxProcessLoadedState(
+        feeTokenAmountModel: feeTokenAmountModel,
+        networkPropertiesModel: networkPropertiesModel,
+      );
       if (formEnabledBool) {
         emit(txProcessLoadedState);
       } else {

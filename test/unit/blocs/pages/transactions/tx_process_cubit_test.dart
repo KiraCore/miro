@@ -9,6 +9,7 @@ import 'package:miro/blocs/pages/transactions/tx_process_cubit/states/tx_process
 import 'package:miro/blocs/pages/transactions/tx_process_cubit/states/tx_process_loading_state.dart';
 import 'package:miro/blocs/pages/transactions/tx_process_cubit/tx_process_cubit.dart';
 import 'package:miro/config/locator.dart';
+import 'package:miro/shared/models/network/network_properties_model.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/transactions/form_models/msg_send_form_model.dart';
@@ -83,6 +84,16 @@ void main() {
           lowestDenominationAmount: Decimal.fromInt(100),
           tokenAliasModel: TokenAliasModel.local('ukex'),
         ),
+        networkPropertiesModel: NetworkPropertiesModel(
+          minTxFee: TokenAmountModel(
+            lowestDenominationAmount: Decimal.fromInt(100),
+            tokenAliasModel: TokenAliasModel.local('ukex'),
+          ),
+          minIdentityApprovalTip: TokenAmountModel(
+            lowestDenominationAmount: Decimal.fromInt(200),
+            tokenAliasModel: TokenAliasModel.local('ukex'),
+          ),
+        ),
       );
 
       TestUtils.printInfo('Should [return TxProcessLoadedState] with feeTokenAmountModel');
@@ -124,6 +135,16 @@ void main() {
           feeTokenAmountModel: TokenAmountModel(
             lowestDenominationAmount: Decimal.fromInt(100),
             tokenAliasModel: TokenAliasModel.local('ukex'),
+          ),
+          networkPropertiesModel: NetworkPropertiesModel(
+            minTxFee: TokenAmountModel(
+              lowestDenominationAmount: Decimal.fromInt(100),
+              tokenAliasModel: TokenAliasModel.local('ukex'),
+            ),
+            minIdentityApprovalTip: TokenAmountModel(
+              lowestDenominationAmount: Decimal.fromInt(200),
+              tokenAliasModel: TokenAliasModel.local('ukex'),
+            ),
           ),
         ),
         signedTxModel: signedTxModel,
@@ -184,6 +205,16 @@ void main() {
         feeTokenAmountModel: TokenAmountModel(
           lowestDenominationAmount: Decimal.fromInt(100),
           tokenAliasModel: TokenAliasModel.local('ukex'),
+        ),
+        networkPropertiesModel: NetworkPropertiesModel(
+          minTxFee: TokenAmountModel(
+            lowestDenominationAmount: Decimal.fromInt(100),
+            tokenAliasModel: TokenAliasModel.local('ukex'),
+          ),
+          minIdentityApprovalTip: TokenAmountModel(
+            lowestDenominationAmount: Decimal.fromInt(200),
+            tokenAliasModel: TokenAliasModel.local('ukex'),
+          ),
         ),
       );
       expectedTxProcessState = expectedTxProcessLoadedState;

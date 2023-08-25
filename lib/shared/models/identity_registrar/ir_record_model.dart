@@ -6,12 +6,14 @@ import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/shared/utils/string_utils.dart';
 
 class IRRecordModel extends Equatable {
+  final String id;
   final String key;
   final String? value;
   final List<WalletAddress> verifiersAddresses;
   final List<IRVerificationRequestModel> irVerificationRequests;
 
   const IRRecordModel({
+    required this.id,
     required this.key,
     required this.value,
     required this.verifiersAddresses,
@@ -20,12 +22,14 @@ class IRRecordModel extends Equatable {
 
   const IRRecordModel.empty({
     required this.key,
-  })  : value = null,
+  })  : id = '0',
+        value = null,
         verifiersAddresses = const <WalletAddress>[],
         irVerificationRequests = const <IRVerificationRequestModel>[];
 
   factory IRRecordModel.fromDto(Record record, List<IRVerificationRequestModel> irVerificationRequests) {
     return IRRecordModel(
+      id: record.id,
       key: record.key,
       value: StringUtils.parseUnicodeToString(record.value),
       verifiersAddresses: record.verifiers.map(WalletAddress.fromBech32).toList(),

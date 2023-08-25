@@ -11,6 +11,7 @@ import 'package:miro/infra/services/api_kira/query_kira_tokens_aliases_service.d
 import 'package:miro/shared/models/balances/balance_model.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
+import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';
 import 'package:miro/shared/utils/logger/log_level.dart';
 
@@ -20,6 +21,20 @@ abstract class _IQueryBalanceService {
 
 class QueryBalanceService implements _IQueryBalanceService {
   final IApiKiraRepository _apiKiraRepository = globalLocator<IApiKiraRepository>();
+
+  Future<BalanceModel> getBalanceByToken(WalletAddress walletAddress, TokenAliasModel tokenAliasModel) async {
+    // TODO(dominik): Temporary solution, should be replaced with a proper query to INTERX
+    List<BalanceModel> allBalancesList = await getBalanceModelList(
+      QueryBalanceReq(
+        address: walletAddress.bech32Address,
+        offset: 0,
+        limit: 500,
+      ),
+    );
+    return allBalancesList.firstWhere((BalanceModel balanceModel) {
+      return balanceModel.tokenAmountModel.tokenAliasModel == tokenAliasModel;
+    }, orElse: () => BalanceModel(tokenAmountModel: TokenAmountModel.zero(tokenAliasModel: tokenAliasModel)));
+  }
 
   @override
   Future<List<BalanceModel>> getBalanceModelList(QueryBalanceReq queryBalanceReq) async {

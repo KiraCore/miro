@@ -2,28 +2,55 @@ import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/widgets/transactions/token_form/token_form_state.dart';
+import 'package:miro/infra/services/api_kira/query_balance_service.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/tokens/token_denomination_model.dart';
+import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/shared/utils/transactions/tx_utils.dart';
 
 class TokenFormCubit extends Cubit<TokenFormState> {
   final GlobalKey<FormFieldState<TokenAmountModel>> formFieldKey = GlobalKey<FormFieldState<TokenAmountModel>>();
+  final QueryBalanceService queryBalanceService = QueryBalanceService();
   final TextEditingController amountTextEditingController = TextEditingController(text: '0');
 
-  TokenFormCubit({
+  TokenFormCubit.fromBalance({
     required TokenAmountModel feeTokenAmountModel,
-    BalanceModel? defaultBalanceModel,
-    TokenAmountModel? defaultTokenAmountModel,
-    TokenDenominationModel? defaultTokenDenominationModel,
-  }) : super(TokenFormState.assignDefaults(
+    required BalanceModel balanceModel,
+    required WalletAddress? walletAddress,
+    TokenAmountModel? tokenAmountModel,
+    TokenDenominationModel? tokenDenominationModel,
+  }) : super(TokenFormState.fromBalance(
+          balanceModel: balanceModel,
           feeTokenAmountModel: feeTokenAmountModel,
-          defaultBalanceModel: defaultBalanceModel,
-          defaultTokenAmountModel: defaultTokenAmountModel,
-          defaultTokenDenominationModel: defaultTokenDenominationModel,
+          walletAddress: walletAddress,
+          tokenAmountModel: tokenAmountModel,
+          tokenDenominationModel: tokenDenominationModel,
         )) {
-    _updateTextFieldValue();
+    init();
+  }
+
+  TokenFormCubit.fromTokenAlias({
+    required TokenAmountModel feeTokenAmountModel,
+    required TokenAliasModel tokenAliasModel,
+    required WalletAddress? walletAddress,
+  }) : super(TokenFormState.fromTokenAlias(
+          feeTokenAmountModel: feeTokenAmountModel,
+          walletAddress: walletAddress,
+          tokenAliasModel: tokenAliasModel,
+          loadingBool: true,
+        )) {
+    init();
+  }
+
+  void init() {
+    bool balanceExistsBool = state.balanceModel != null;
+    if (balanceExistsBool) {
+      _updateTextFieldValue();
+    } else if (state.tokenAliasModel != null) {
+      _initWithUnknownBalance(state.tokenAliasModel!);
+    }
   }
 
   void clearTokenAmount() {
@@ -49,6 +76,8 @@ class TokenFormCubit extends Cubit<TokenFormState> {
     TokenAliasModel tokenAliasModel = balanceModel.tokenAmountModel.tokenAliasModel;
 
     emit(state.copyWith(
+      loadingBool: false,
+      errorBool: false,
       balanceModel: balanceModel,
       tokenDenominationModel: tokenAliasModel.defaultTokenDenominationModel,
       tokenAmountModel: TokenAmountModel.zero(tokenAliasModel: tokenAliasModel),
@@ -57,8 +86,20 @@ class TokenFormCubit extends Cubit<TokenFormState> {
   }
 
   void updateTokenDenomination(TokenDenominationModel tokenDenominationModel) {
-    emit(state.copyWith(tokenDenominationModel: tokenDenominationModel));
+    emit(state.copyWith(
+      loadingBool: false,
+      tokenDenominationModel: tokenDenominationModel,
+    ));
     _updateTextFieldValue();
+  }
+
+  Future<void> _initWithUnknownBalance(TokenAliasModel tokenAliasModel) async {
+    try {
+      BalanceModel balanceModel = await queryBalanceService.getBalanceByToken(state.walletAddress!, tokenAliasModel);
+      updateBalance(balanceModel);
+    } catch (_) {
+      emit(state.copyWith(errorBool: true));
+    }
   }
 
   void _updateTextFieldValue() {

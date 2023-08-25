@@ -22,6 +22,7 @@ Future<void> main() async {
   final IdentityRecordsService actualIdentityRecordsService = globalLocator<IdentityRecordsService>();
   final WalletAddress actualWalletAddress = WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx');
   final IRRecordModel actualIRRecordModel = IRRecordModel(
+    id: '3',
     key: 'username',
     value: 'somnitear',
     verifiersAddresses: <WalletAddress>[
@@ -33,6 +34,7 @@ Future<void> main() async {
   final IRModel expectedRequesterIRModel = IRModel(
     walletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
     usernameIRRecordModel: IRRecordModel(
+      id: '3',
       key: 'username',
       value: 'somnitear',
       verifiersAddresses: const <WalletAddress>[],
@@ -47,6 +49,7 @@ Future<void> main() async {
     descriptionIRRecordModel: const IRRecordModel.empty(key: 'description'),
     socialMediaIRRecordModel: const IRRecordModel.empty(key: 'social_media'),
     avatarIRRecordModel: const IRRecordModel(
+      id: '2',
       key: 'avatar',
       value: 'https://avatars.githubusercontent.com/u/114292385',
       verifiersAddresses: <WalletAddress>[],
@@ -54,6 +57,7 @@ Future<void> main() async {
     ),
     otherIRRecordModelList: <IRRecordModel>[
       IRRecordModel(
+        id: '4',
         key: 'github',
         value: 'https://github.com/kiracore',
         verifiersAddresses: <WalletAddress>[
@@ -67,6 +71,7 @@ Future<void> main() async {
   final IRModel expectedVerifierIRModel = IRModel(
     walletAddress: WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
     usernameIRRecordModel: IRRecordModel(
+      id: '3',
       key: 'username',
       value: 'somnitear',
       verifiersAddresses: const <WalletAddress>[],
@@ -81,6 +86,7 @@ Future<void> main() async {
     descriptionIRRecordModel: const IRRecordModel.empty(key: 'description'),
     socialMediaIRRecordModel: const IRRecordModel.empty(key: 'social_media'),
     avatarIRRecordModel: const IRRecordModel(
+      id: '2',
       key: 'avatar',
       value: 'https://avatars.githubusercontent.com/u/114292385',
       verifiersAddresses: <WalletAddress>[],
@@ -88,6 +94,7 @@ Future<void> main() async {
     ),
     otherIRRecordModelList: <IRRecordModel>[
       IRRecordModel(
+        id: '4',
         key: 'github',
         value: 'https://github.com/kiracore',
         verifiersAddresses: <WalletAddress>[

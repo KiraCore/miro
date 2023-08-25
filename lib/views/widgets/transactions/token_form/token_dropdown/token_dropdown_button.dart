@@ -7,11 +7,11 @@ import 'package:miro/views/widgets/generic/token_avatar.dart';
 import 'package:miro/views/widgets/transactions/tx_input_static_label.dart';
 
 class TokenDropdownButton extends StatelessWidget {
-  final bool disabled;
+  final bool disabledBool;
   final TokenAliasModel? tokenAliasModel;
 
   const TokenDropdownButton({
-    this.disabled = false,
+    this.disabledBool = false,
     this.tokenAliasModel,
     Key? key,
   }) : super(key: key);
@@ -45,11 +45,12 @@ class TokenDropdownButton extends StatelessWidget {
             ),
           ),
         ),
-        const Icon(
-          AppIcons.check,
-          color: DesignColors.white1,
-          size: 16,
-        ),
+        if (disabledBool == false)
+          const Icon(
+            AppIcons.check,
+            color: DesignColors.white1,
+            size: 16,
+          ),
       ],
     );
   }
