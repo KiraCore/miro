@@ -8,6 +8,8 @@ import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/identity_registrar/ir_model.dart';
+import 'package:miro/shared/models/identity_registrar/ir_record_field_config_model.dart';
+import 'package:miro/shared/models/identity_registrar/ir_record_field_type.dart';
 import 'package:miro/shared/models/identity_registrar/ir_record_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/shared/router/kira_router.dart';
@@ -15,8 +17,6 @@ import 'package:miro/shared/router/router.gr.dart';
 import 'package:miro/views/pages/menu/my_account_page/identity_registrar/ir_custom_entry_button.dart';
 import 'package:miro/views/pages/menu/my_account_page/identity_registrar/ir_record_tile/desktop/ir_record_tile_desktop_layout.dart';
 import 'package:miro/views/pages/menu/my_account_page/identity_registrar/ir_record_tile/ir_record_tile.dart';
-import 'package:miro/views/pages/menu/my_account_page/identity_registrar/ir_record_value_widget/ir_record_text_value_widget.dart';
-import 'package:miro/views/pages/menu/my_account_page/identity_registrar/ir_record_value_widget/ir_record_urls_value_widget.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 
 class IdentityRegistrarPage extends StatefulWidget {
@@ -41,80 +41,78 @@ class _IdentityRegistrarPage extends State<IdentityRegistrarPage> {
       bloc: identityRegistrarCubit,
       builder: (BuildContext context, AIdentityRegistrarState identityRegistrarState) {
         IRModel? irModel = identityRegistrarState.irModel;
+        bool infoButtonVisibleBool = irModel != null && irModel.isEmpty() == false;
         bool loadingBool = identityRegistrarState is IdentityRegistrarLoadingState;
 
         return Container(
           margin: const EdgeInsets.only(bottom: 40, top: 26),
           width: double.infinity,
           decoration: BoxDecoration(
-            color: ResponsiveWidget.isSmallScreen(context) ? null : DesignColors.black,
+            color: ResponsiveWidget.isLargeScreen(context) ? DesignColors.black : null,
             borderRadius: BorderRadius.circular(8),
           ),
           child: Column(
             children: <Widget>[
               if (ResponsiveWidget.isLargeScreen(context))
                 IRRecordTileDesktopLayout(
+                  infoButtonVisibleBool: infoButtonVisibleBool,
                   height: 53,
+                  infoButtonWidget: const SizedBox(),
                   recordWidget: Text(S.of(context).irEntries, style: textTheme.caption!.copyWith(color: DesignColors.white1)),
                   statusWidget: Text(S.of(context).irRecordStatus, style: textTheme.caption!.copyWith(color: DesignColors.white1)),
                   buttonWidget: const SizedBox(),
                 ),
               IRRecordTile(
-                irKeyEditableBool: false,
+                infoButtonVisibleBool: infoButtonVisibleBool,
                 identityRegistrarCubit: identityRegistrarCubit,
                 loadingBool: loadingBool,
-                valueWidget: IRRecordTextValueWidget(
-                  loadingBool: loadingBool,
-                  label: S.of(context).irAvatar,
-                  value: irModel?.avatarIRRecordModel.value,
-                ),
                 irRecordModel: irModel?.avatarIRRecordModel,
+                irRecordFieldConfigModel: IRRecordFieldConfigModel(
+                  label: S.of(context).irAvatar,
+                  irRecordFieldType: IRRecordFieldType.text,
+                ),
               ),
               IRRecordTile(
-                irKeyEditableBool: false,
+                infoButtonVisibleBool: infoButtonVisibleBool,
                 identityRegistrarCubit: identityRegistrarCubit,
                 loadingBool: loadingBool,
-                valueMaxLength: 32,
-                valueWidget: IRRecordTextValueWidget(
-                  loadingBool: loadingBool,
-                  label: S.of(context).irUsername,
-                  value: irModel?.usernameIRRecordModel.value,
-                ),
                 irRecordModel: irModel?.usernameIRRecordModel,
+                irRecordFieldConfigModel: IRRecordFieldConfigModel(
+                  label: S.of(context).irUsername,
+                  irRecordFieldType: IRRecordFieldType.text,
+                  valueMaxLength: 32,
+                ),
               ),
               IRRecordTile(
-                irKeyEditableBool: false,
+                infoButtonVisibleBool: infoButtonVisibleBool,
                 identityRegistrarCubit: identityRegistrarCubit,
                 loadingBool: loadingBool,
-                valueWidget: IRRecordTextValueWidget(
-                  loadingBool: loadingBool,
-                  label: S.of(context).irDescription,
-                  value: irModel?.descriptionIRRecordModel.value,
-                ),
                 irRecordModel: irModel?.descriptionIRRecordModel,
+                irRecordFieldConfigModel: IRRecordFieldConfigModel(
+                  label: S.of(context).irDescription,
+                  irRecordFieldType: IRRecordFieldType.text,
+                ),
               ),
               IRRecordTile(
-                irKeyEditableBool: false,
+                infoButtonVisibleBool: infoButtonVisibleBool,
                 identityRegistrarCubit: identityRegistrarCubit,
                 loadingBool: loadingBool,
-                valueWidget: IRRecordUrlsValueWidget(
-                  loadingBool: loadingBool,
+                irRecordModel: irModel?.socialMediaIRRecordModel,
+                irRecordFieldConfigModel: IRRecordFieldConfigModel(
                   label: S.of(context).irSocialMedia,
-                  urls: irModel?.socialMediaIRRecordModel.value?.split(',').toList() ?? <String>[],
+                  irRecordFieldType: IRRecordFieldType.urls,
                 ),
-                irRecordModel: identityRegistrarState.irModel?.socialMediaIRRecordModel,
               ),
               ...?irModel?.otherIRRecordModelList.map((IRRecordModel irRecordModel) {
                 return IRRecordTile(
-                  irKeyEditableBool: false,
+                  infoButtonVisibleBool: infoButtonVisibleBool,
                   identityRegistrarCubit: identityRegistrarCubit,
                   loadingBool: loadingBool,
-                  valueWidget: IRRecordTextValueWidget(
-                    loadingBool: loadingBool,
-                    label: irRecordModel.key,
-                    value: irRecordModel.value,
-                  ),
                   irRecordModel: irRecordModel,
+                  irRecordFieldConfigModel: IRRecordFieldConfigModel(
+                    label: irRecordModel.key,
+                    irRecordFieldType: IRRecordFieldType.text,
+                  ),
                 );
               }).toList(),
               IRCustomEntryButton(onTap: () => _pressCustomEntryButton(identityRegistrarCubit)),

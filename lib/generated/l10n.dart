@@ -410,6 +410,16 @@ class S {
     );
   }
 
+  /// `Identity record details`
+  String get irRecordDetails {
+    return Intl.message(
+      'Identity record details',
+      name: 'irRecordDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Entries`
   String get irEntries {
     return Intl.message(
@@ -510,6 +520,36 @@ class S {
     );
   }
 
+  /// `Confirmed verification requests`
+  String get irRecordConfirmedVerifications {
+    return Intl.message(
+      'Confirmed verification requests',
+      name: 'irRecordConfirmedVerifications',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pending verification requests`
+  String get irRecordPendingVerifications {
+    return Intl.message(
+      'Pending verification requests',
+      name: 'irRecordPendingVerifications',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add more`
+  String get irRecordVerifiersAddMore {
+    return Intl.message(
+      'Add more',
+      name: 'irRecordVerifiersAddMore',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Status`
   String get irRecordStatus {
     return Intl.message(
@@ -520,13 +560,13 @@ class S {
     );
   }
 
-  /// `Verified`
-  String get irRecordStatusVerified {
+  /// `Verifications: {verificationsCount}`
+  String irRecordStatusVerificationsCount(int verificationsCount) {
     return Intl.message(
-      'Verified',
-      name: 'irRecordStatusVerified',
+      'Verifications: $verificationsCount',
+      name: 'irRecordStatusVerificationsCount',
       desc: '',
-      args: [],
+      args: [verificationsCount],
     );
   }
 
@@ -2252,10 +2292,10 @@ class S {
     );
   }
 
-  /// `Public address copied to clipboard`
+  /// `Public address copied`
   String get toastPublicAddressCopied {
     return Intl.message(
-      'Public address copied to clipboard',
+      'Public address copied',
       name: 'toastPublicAddressCopied',
       desc: '',
       args: [],
@@ -2362,6 +2402,16 @@ class S {
     );
   }
 
+  /// `Creation date`
+  String get creationDate {
+    return Intl.message(
+      'Creation date',
+      name: 'creationDate',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `See more`
   String get seeMore {
     return Intl.message(
@@ -2377,6 +2427,16 @@ class S {
     return Intl.message(
       'See all',
       name: 'seeAll',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Show details`
+  String get showDetails {
+    return Intl.message(
+      'Show details',
+      name: 'showDetails',
       desc: '',
       args: [],
     );

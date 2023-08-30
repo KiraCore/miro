@@ -11,6 +11,7 @@ class IRRecordModel extends Equatable {
   final String? value;
   final List<WalletAddress> verifiersAddresses;
   final List<IRVerificationRequestModel> irVerificationRequests;
+  final DateTime? dateTime;
 
   const IRRecordModel({
     required this.id,
@@ -18,6 +19,7 @@ class IRRecordModel extends Equatable {
     required this.value,
     required this.verifiersAddresses,
     required this.irVerificationRequests,
+    this.dateTime,
   });
 
   const IRRecordModel.empty({
@@ -25,7 +27,8 @@ class IRRecordModel extends Equatable {
   })  : id = '0',
         value = null,
         verifiersAddresses = const <WalletAddress>[],
-        irVerificationRequests = const <IRVerificationRequestModel>[];
+        irVerificationRequests = const <IRVerificationRequestModel>[],
+        dateTime = null;
 
   factory IRRecordModel.fromDto(Record record, List<IRVerificationRequestModel> irVerificationRequests) {
     return IRRecordModel(
@@ -34,7 +37,12 @@ class IRRecordModel extends Equatable {
       value: StringUtils.parseUnicodeToString(record.value),
       verifiersAddresses: record.verifiers.map(WalletAddress.fromBech32).toList(),
       irVerificationRequests: irVerificationRequests,
+      dateTime: record.date,
     );
+  }
+
+  bool isEmpty() {
+    return value == null || value!.isEmpty;
   }
 
   IRRecordStatus get irRecordStatus => IRRecordStatus.build(

@@ -2,12 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
 
 class IRRecordTileDesktopLayout extends StatelessWidget {
+  final bool infoButtonVisibleBool;
+  final Widget infoButtonWidget;
   final Widget buttonWidget;
   final Widget recordWidget;
   final Widget statusWidget;
   final double height;
 
   const IRRecordTileDesktopLayout({
+    required this.infoButtonVisibleBool,
+    required this.infoButtonWidget,
     required this.buttonWidget,
     required this.recordWidget,
     required this.statusWidget,
@@ -28,31 +32,38 @@ class IRRecordTileDesktopLayout extends StatelessWidget {
         ),
       ),
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
+          if (infoButtonVisibleBool) ...<Widget>[
+            SizedBox(
+              width: 50,
+              height: 50,
+              child: Center(child: infoButtonWidget),
+            ),
+            const SizedBox(width: 25),
+          ],
           Expanded(
-            flex: 5,
+            flex: 6,
             child: Container(
               padding: const EdgeInsets.symmetric(vertical: 20),
               constraints: BoxConstraints(minHeight: height),
               child: Align(alignment: Alignment.centerLeft, child: recordWidget),
             ),
           ),
-          Expanded(
-            flex: 2,
-            child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 20),
-              constraints: BoxConstraints(minHeight: height),
-              child: Align(alignment: Alignment.centerLeft, child: statusWidget),
-            ),
+          const Spacer(flex: 1),
+          Container(
+            width: 200,
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            constraints: BoxConstraints(minHeight: height),
+            child: Align(alignment: Alignment.centerLeft, child: statusWidget),
           ),
-          Expanded(
-            flex: 2,
-            child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 20),
-              constraints: BoxConstraints(minHeight: height),
-              child: Align(alignment: Alignment.centerRight, child: buttonWidget),
-            ),
+          const Spacer(flex: 1),
+          Container(
+            width: 130,
+            padding: const EdgeInsets.symmetric(vertical: 20),
+            constraints: BoxConstraints(minHeight: height),
+            child: Align(alignment: Alignment.centerRight, child: buttonWidget),
           ),
         ],
       ),
