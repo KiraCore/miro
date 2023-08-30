@@ -49,6 +49,7 @@
   "createWalletDontHave": "Don't have a wallet?",
 
   "ir": "Identity Registrar",
+  "irRecordDetails": "Identity record details",
   "irEntries": "Entries",
   "irAvatar": "Avatar",
   "irUsername": "Username",
@@ -60,9 +61,19 @@
   "irRecordDelete": "Delete",
   "irRecordEdit": "Edit",
   "irRecordVerify": "Verify",
+  "irRecordConfirmedVerifications": "Confirmed verification requests",
+  "irRecordPendingVerifications": "Pending verification requests",
+  "irRecordVerifiersAddMore": "Add more",
 
   "irRecordStatus": "Status",
-  "irRecordStatusVerified": "Verified",
+  "irRecordStatusVerificationsCount": "Verifications: {verificationsCount}",
+  "@irRecordStatusVerificationsCount": {
+    "placeholders": {
+      "verificationsCount": {
+        "type": "int"
+      }
+    }
+  },
   "irRecordStatusNotVerified": "Not verified",
   "irRecordStatusPending": "Pending",
 
@@ -325,7 +336,7 @@
   "errorPreviewNotAvailable": "Preview not available",
 
   "toastSuccessfullyCopied": "Successfully copied",
-  "toastPublicAddressCopied": "Public address copied to clipboard",
+  "toastPublicAddressCopied": "Public address copied",
   "toastHashCopied": "Hash copied to clipboard",
   "toastCannotLoadDashboard": "Cannot load dashboard. Please check your connection.",
 
@@ -337,6 +348,8 @@
   "copy": "Copy",
   "or": "or ",
   "browse": "browse",
+  "creationDate": "Creation date",
   "seeMore": "See more",
-  "seeAll": "See all"
+  "seeAll": "See all",
+  "showDetails": "Show details"
 }

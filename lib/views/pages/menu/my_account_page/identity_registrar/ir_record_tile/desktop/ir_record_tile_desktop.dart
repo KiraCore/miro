@@ -9,16 +9,19 @@ import 'package:miro/views/pages/menu/my_account_page/identity_registrar/ir_reco
 import 'package:miro/views/widgets/buttons/kira_outlined_button.dart';
 
 class IRRecordTileDesktop extends StatelessWidget {
+  final bool infoButtonVisibleBool;
   final bool loadingBool;
   final Widget valueWidget;
   final VoidCallback onAddPressed;
   final VoidCallback onDeletePressed;
   final VoidCallback onEditPressed;
   final VoidCallback onVerifyPressed;
+  final VoidCallback onShowDrawerPressed;
   final IdentityRegistrarCubit identityRegistrarCubit;
   final IRRecordModel? irRecordModel;
 
   const IRRecordTileDesktop({
+    required this.infoButtonVisibleBool,
     required this.loadingBool,
     required this.valueWidget,
     required this.onAddPressed,
@@ -26,6 +29,7 @@ class IRRecordTileDesktop extends StatelessWidget {
     required this.onEditPressed,
     required this.onVerifyPressed,
     required this.identityRegistrarCubit,
+    required this.onShowDrawerPressed,
     required this.irRecordModel,
     Key? key,
   }) : super(key: key);
@@ -35,14 +39,27 @@ class IRRecordTileDesktop extends StatelessWidget {
     bool recordExistsBool = irRecordModel?.value?.isNotEmpty == true;
 
     return IRRecordTileDesktopLayout(
+      infoButtonVisibleBool: infoButtonVisibleBool,
+      infoButtonWidget: recordExistsBool
+          ? IconButton(
+              icon: const Icon(
+                Icons.info_outline,
+                color: DesignColors.white2,
+                size: 25,
+              ),
+              onPressed: onShowDrawerPressed,
+            )
+          : const SizedBox(),
       recordWidget: Padding(
         padding: const EdgeInsets.only(right: 30),
         child: valueWidget,
       ),
-      statusWidget: IRRecordStatusChip(
-        loadingBool: loadingBool,
-        irRecordStatus: irRecordModel?.irRecordStatus,
-      ),
+      statusWidget: (irRecordModel?.value != null && (irRecordModel!.value!.isNotEmpty))
+          ? IRRecordStatusChip(
+              loadingBool: loadingBool,
+              irRecordModel: irRecordModel,
+            )
+          : const SizedBox(),
       buttonWidget: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.end,

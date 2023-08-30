@@ -13,6 +13,7 @@ class IRRecordTileMobile extends StatelessWidget {
   final VoidCallback onDeletePressed;
   final VoidCallback onEditPressed;
   final VoidCallback onVerifyPressed;
+  final VoidCallback onShowDrawerPressed;
   final IdentityRegistrarCubit identityRegistrarCubit;
   final IRRecordModel? irRecordModel;
 
@@ -23,6 +24,7 @@ class IRRecordTileMobile extends StatelessWidget {
     required this.onDeletePressed,
     required this.onEditPressed,
     required this.onVerifyPressed,
+    required this.onShowDrawerPressed,
     required this.identityRegistrarCubit,
     required this.irRecordModel,
     Key? key,
@@ -50,19 +52,29 @@ class IRRecordTileMobile extends StatelessWidget {
           const SizedBox(height: 8),
           const Divider(color: DesignColors.grey2),
           const SizedBox(height: 8),
-          Row(
-            children: <Widget>[
-              Text(
-                S.of(context).irRecordStatus,
-                style: textTheme.bodyText2!.copyWith(color: DesignColors.white2),
-              ),
-              const SizedBox(width: 8),
-              IRRecordStatusChip(
-                loadingBool: loadingBool,
-                irRecordStatus: irRecordModel?.irRecordStatus,
-              ),
-            ],
-          ),
+          if (irRecordModel?.value != null && (irRecordModel!.value!.isNotEmpty)) ...<Widget>[
+            Row(
+              children: <Widget>[
+                Text(
+                  S.of(context).irRecordStatus,
+                  style: textTheme.bodyText2!.copyWith(color: DesignColors.white2),
+                ),
+                const SizedBox(width: 8),
+                IRRecordStatusChip(
+                  loadingBool: loadingBool,
+                  irRecordModel: irRecordModel,
+                ),
+              ],
+            ),
+            const SizedBox(height: 17),
+          ],
+          if (irRecordModel?.value?.isNotEmpty == true) ...<Widget>[
+            KiraOutlinedButton(
+              height: 40,
+              title: S.of(context).showDetails,
+              onPressed: onShowDrawerPressed,
+            ),
+          ],
           const SizedBox(height: 16),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,

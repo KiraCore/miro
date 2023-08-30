@@ -9,10 +9,12 @@ import 'package:miro/views/widgets/kira/kira_toast/toast_type.dart';
 class CopyButton extends StatelessWidget {
   final String value;
   final String? notificationText;
+  final double size;
 
   const CopyButton({
     required this.value,
     this.notificationText,
+    this.size = 15,
     Key? key,
   }) : super(key: key);
 
@@ -29,7 +31,7 @@ class CopyButton extends StatelessWidget {
         return Icon(
           AppIcons.copy,
           color: color,
-          size: 15,
+          size: size,
         );
       },
     );

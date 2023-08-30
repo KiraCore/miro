@@ -7,11 +7,11 @@ enum IRRecordStatus {
     required bool hasVerifiersBool,
     required bool hasPendingVerifiersBool,
   }) {
-    if (hasPendingVerifiersBool) {
-      return IRRecordStatus.pending;
-    } else if (hasVerifiersBool) {
+     if (hasVerifiersBool) {
       return IRRecordStatus.verified;
-    } else {
+    } else if (hasPendingVerifiersBool) {
+       return IRRecordStatus.pending;
+     } else {
       return IRRecordStatus.notVerified;
     }
   }

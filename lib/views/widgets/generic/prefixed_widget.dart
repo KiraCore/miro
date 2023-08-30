@@ -4,11 +4,13 @@ import 'package:miro/config/theme/design_colors.dart';
 class PrefixedWidget extends StatelessWidget {
   final String prefix;
   final Widget? child;
+  final int? prefixMaxLines;
   final Widget? icon;
 
   const PrefixedWidget({
     required this.prefix,
     required this.child,
+    this.prefixMaxLines,
     this.icon,
     Key? key,
   }) : super(key: key);
@@ -30,6 +32,8 @@ class PrefixedWidget extends StatelessWidget {
             children: <Widget>[
               Text(
                 prefix,
+                maxLines: prefixMaxLines,
+                overflow: prefixMaxLines != null ? TextOverflow.ellipsis : null,
                 style: (child != null ? textTheme.caption! : textTheme.bodyText2!).copyWith(
                   color: DesignColors.accent,
                 ),

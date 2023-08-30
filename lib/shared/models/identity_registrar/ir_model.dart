@@ -74,6 +74,16 @@ class IRModel extends Equatable {
     );
   }
 
+  bool isEmpty() {
+    return usernameIRRecordModel.isEmpty() &&
+        descriptionIRRecordModel.isEmpty() &&
+        socialMediaIRRecordModel.isEmpty() &&
+        avatarIRRecordModel.isEmpty() &&
+        otherIRRecordModelList.isEmpty;
+  }
+
+  String get name => usernameIRRecordModel.value ?? walletAddress.buildBech32AddressShort(delimiter: '_');
+
   @override
   List<Object?> get props => <Object?>[
         usernameIRRecordModel,

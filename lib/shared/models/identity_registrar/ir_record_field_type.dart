@@ -1,0 +1,4 @@
+enum IRRecordFieldType {
+  text,
+  urls,
+}

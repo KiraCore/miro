@@ -46,7 +46,7 @@ class IRRecordUrlsValueWidget extends StatelessWidget {
             onTap: () => _openUrl(socialUrl),
             childBuilder: (Set<MaterialState> states) {
               return Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10),
+                padding: const EdgeInsets.symmetric(vertical: 6),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -62,7 +62,7 @@ class IRRecordUrlsValueWidget extends StatelessWidget {
                             Text(
                               socialUrl.title,
                               overflow: TextOverflow.ellipsis,
-                              style: textTheme.bodyText1!.copyWith(color: DesignColors.white1),
+                              style: textTheme.bodyText2!.copyWith(color: DesignColors.white1),
                             ),
                           Text(
                             socialUrl.url,
