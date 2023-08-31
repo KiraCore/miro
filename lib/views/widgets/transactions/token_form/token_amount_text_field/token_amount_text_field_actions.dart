@@ -5,9 +5,11 @@ import 'package:miro/generated/l10n.dart';
 
 class TokenAmountTextFieldActions extends StatefulWidget {
   final bool disabled;
+  final VoidCallback? handleSendAllPressed;
 
   const TokenAmountTextFieldActions({
     required this.disabled,
+    this.handleSendAllPressed,
     Key? key,
   }) : super(key: key);
 
@@ -40,7 +42,11 @@ class _TokenAmountTextFieldActions extends State<TokenAmountTextFieldActions> {
   }
 
   void _handleSendAllPressed() {
-    BlocProvider.of<TokenFormCubit>(context).setAllAvailableAmount();
+    if (widget.handleSendAllPressed == null) {
+      BlocProvider.of<TokenFormCubit>(context).setAllAvailableAmount();
+    } else {
+      widget.handleSendAllPressed?.call();
+    }
   }
 
   void _handleClearPressed() {

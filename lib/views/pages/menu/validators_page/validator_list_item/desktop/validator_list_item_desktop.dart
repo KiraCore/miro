@@ -8,9 +8,8 @@ import 'package:miro/views/pages/menu/validators_page/validator_list_item/deskto
 import 'package:miro/views/pages/menu/validators_page/validator_status_chip/validator_staking_pool_status_chip.dart';
 import 'package:miro/views/pages/menu/validators_page/validator_status_chip/validator_status_chip.dart';
 import 'package:miro/views/widgets/buttons/star_button.dart';
-import 'package:miro/views/widgets/generic/mouse_state_listener.dart';
-import 'package:miro/views/widgets/kira/kira_identity_avatar.dart';
 import 'package:miro/views/widgets/generic/account/account_tile.dart';
+import 'package:miro/views/widgets/generic/mouse_state_listener.dart';
 
 class ValidatorListItemDesktop extends StatelessWidget {
   static const double height = 64;

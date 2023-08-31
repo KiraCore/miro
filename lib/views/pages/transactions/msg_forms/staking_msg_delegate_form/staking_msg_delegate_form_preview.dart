@@ -1,4 +1,3 @@
-import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
@@ -8,7 +7,6 @@ import 'package:miro/shared/models/tokens/token_denomination_model.dart';
 import 'package:miro/shared/models/transactions/form_models/staking_msg_delegate_form_model.dart';
 import 'package:miro/shared/models/transactions/messages/staking/staking_msg_delegate_model.dart';
 import 'package:miro/shared/models/transactions/tx_local_info_model.dart';
-import 'package:miro/shared/utils/transactions/tx_utils.dart';
 import 'package:miro/views/widgets/generic/token_avatar.dart';
 import 'package:miro/views/widgets/kira/kira_identity_avatar.dart';
 import 'package:miro/views/widgets/transactions/token_form/token_denomination_list.dart';
@@ -72,10 +70,45 @@ class _StakingMsgDelegateFormPreviewState extends State<StakingMsgDelegateFormPr
         const SizedBox(height: 15),
         const Divider(color: DesignColors.grey2),
         const SizedBox(height: 15),
-        TxInputPreview(
-          label: S.of(context).txRecipientWillGet,
-          value: _netAmountText,
-          large: true,
+        Text(
+          S.of(context).txRecipientWillGet,
+          style: textTheme.bodyText2!.copyWith(
+            color: DesignColors.white1,
+          ),
+        ),
+        Container(
+          margin: const EdgeInsets.symmetric(vertical: 10),
+          padding: const EdgeInsets.all(10),
+          decoration: BoxDecoration(
+            color: DesignColors.background,
+            border: Border.all(color: DesignColors.greyOutline),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: GridView.count(
+            primary: false,
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            crossAxisCount: 2,
+            childAspectRatio: 5 / 1,
+            children: <Widget>[
+              for (TokenAmountModel tokenAmountModel in msgDelegateModel.tokenAmountModels)
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: <Widget>[
+                      TokenAvatar(
+                        iconUrl: tokenAmountModel.tokenAliasModel.icon,
+                        size: 40,
+                      ),
+                      const SizedBox(width: 12),
+                      Text('${tokenAmountModel.getAmountInDefaultDenomination()} ${tokenAmountModel.tokenAliasModel.defaultTokenDenominationModel.name}',
+                          style: Theme.of(context).textTheme.bodyText1),
+                    ],
+                  ),
+                ),
+            ],
+          ),
         ),
         const SizedBox(height: 15),
         Text(
@@ -95,69 +128,8 @@ class _StakingMsgDelegateFormPreviewState extends State<StakingMsgDelegateFormPr
           label: S.of(context).txHintMemo,
           value: widget.txLocalInfoModel.memo,
         ),
-        // Text(
-        //   S.of(context).stakingTxTokensToDelegate,
-        //   style: textTheme.bodyText2!.copyWith(
-        //     color: DesignColors.white1,
-        //   ),
-        // ),
-        // Container(
-        //   margin: const EdgeInsets.symmetric(vertical: 10),
-        //   padding: const EdgeInsets.all(10),
-        //   decoration: BoxDecoration(
-        //     color: DesignColors.background,
-        //     border: Border.all(color: DesignColors.greyOutline),
-        //     borderRadius: BorderRadius.circular(8),
-        //   ),
-        //   child: GridView.count(
-        //     primary: false,
-        //     shrinkWrap: true,
-        //     physics: const NeverScrollableScrollPhysics(),
-        //     crossAxisCount: 2,
-        //     childAspectRatio: 5 / 1,
-        //     children: <Widget>[
-        //       for (TokenAmountModel tokenAmountModel in msgDelegateModel.tokenAmountModels)
-        //         Padding(
-        //           padding: const EdgeInsets.all(8.0),
-        //           child: Row(
-        //             crossAxisAlignment: CrossAxisAlignment.center,
-        //             children: <Widget>[
-        //               TokenAvatar(
-        //                 iconUrl: tokenAmountModel.tokenAliasModel.icon,
-        //                 size: 40,
-        //               ),
-        //               const SizedBox(width: 12),
-        //               Text('${tokenAmountModel.getAmountInDefaultDenomination()} ${tokenAmountModel.tokenAliasModel.defaultTokenDenominationModel.name}',
-        //                   style: Theme.of(context).textTheme.bodyText1),
-        //             ],
-        //           ),
-        //         ),
-        //     ],
-        //   ),
-        // ),
-        // const SizedBox(height: 5),
-        // TxInputPreview(
-        //   label: S.of(context).txHintMemo,
-        //   value: widget.txLocalInfoModel.memo,
-        // ),
-        // const SizedBox(height: 15),
-        // Text(
-        //   S.of(context).txNoticeFee(_feeAmountText),
-        //   style: textTheme.caption!.copyWith(
-        //     color: DesignColors.white1,
-        //   ),
-        // ),
       ],
     );
-  }
-
-  String get _netAmountText {
-    TokenAmountModel netTokenAmountModel = tokenAmountModel;
-    Decimal netAmount = netTokenAmountModel.getAmountInDenomination(selectedTokenDenominationModel);
-    String denominationText = selectedTokenDenominationModel.name;
-
-    String displayedAmount = TxUtils.buildAmountString(netAmount.toString(), selectedTokenDenominationModel);
-    return '$displayedAmount $denominationText';
   }
 
   String get _feeAmountText {

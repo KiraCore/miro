@@ -1,17 +1,16 @@
-import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/generic/auth/auth_cubit.dart';
 import 'package:miro/blocs/widgets/transactions/token_form/token_form_state.dart';
 import 'package:miro/config/locator.dart';
-import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/transactions/form_models/staking_msg_delegate_form_model.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/test/utils/test_utils.dart';
 import 'package:miro/views/widgets/transactions/memo_text_field/memo_text_field.dart';
-import 'package:miro/views/widgets/transactions/token_form/token_form.dart';
+import 'package:miro/views/widgets/transactions/token_form/multi_token_form.dart';
 import 'package:miro/views/widgets/transactions/wallet_address_text_field.dart';
 
 class StakingMsgDelegateForm extends StatefulWidget {
@@ -71,31 +70,13 @@ class _StakingMsgDelegateFormState extends State<StakingMsgDelegateForm> {
                 defaultWalletAddress: widget.stakingMsgDelegateFormModel.valoperWalletAddress,
               ),
               const SizedBox(height: 14),
-              Container(
-                padding: const EdgeInsets.all(14),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: DesignColors.grey3,
-                  ),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: <Widget>[
-                    TokenForm(
-                      feeTokenAmountModel: widget.feeTokenAmountModel,
-                      onChanged: _handleTokenAmountChanged,
-                      label: S.of(context).stakingTxAmountToStake,
-                      defaultTokenAliasModel: widget.stakingMsgDelegateFormModel.tokenAliasModel,
-                      defaultBalanceModel: widget.stakingMsgDelegateFormModel.balanceModel,
-                      defaultTokenAmountModel: widget.stakingMsgDelegateFormModel.tokenAmountModels?.first,
-                      defaultTokenDenominationModel: widget.stakingMsgDelegateFormModel.tokenDenominationModel,
-                      receiverWalletAddress: widget.stakingMsgDelegateFormModel.validatorWalletAddress,
-                      senderWalletAddress: wallet!.address,
-                    ),
-                  ],
-                ),
+              MultiTokenForm(
+                defaultTokenAmountModel: widget.stakingMsgDelegateFormModel.tokenAmountModels?.first,
+                feeTokenAmountModel: widget.feeTokenAmountModel,
+                onChanged: _handleTokenAmountChanged,
+                label: S.of(context).stakingTxAmountToStake,
+                defaultTokenAliasModel: TestUtils.kexTokenAliasModel,
+                walletAddress: wallet!.address,
               ),
               const SizedBox(height: 14),
               MemoTextField(
@@ -122,14 +103,10 @@ class _StakingMsgDelegateFormState extends State<StakingMsgDelegateForm> {
     widget.stakingMsgDelegateFormModel.validatorWalletAddress = walletAddress;
   }
 
-  void _handleTokenAmountChanged(TokenFormState tokenFormState) {
+  void _handleTokenAmountChanged(TokenFormState tokenFormState, List<TokenAmountModel> tokenAmountModels) {
     widget.stakingMsgDelegateFormModel.balanceModel = tokenFormState.balanceModel;
     widget.stakingMsgDelegateFormModel.tokenDenominationModel = tokenFormState.tokenDenominationModel;
-    if (tokenFormState.tokenAmountModel != null && tokenFormState.tokenAmountModel?.getAmountInLowestDenomination() != Decimal.zero) {
-      widget.stakingMsgDelegateFormModel.tokenAmountModels = <TokenAmountModel>[tokenFormState.tokenAmountModel!];
-    } else {
-      widget.stakingMsgDelegateFormModel.tokenAmountModels = null;
-    }
+    widget.stakingMsgDelegateFormModel.tokenAmountModels = tokenAmountModels;
   }
 
   void _handleMemoChanged(String memo) {

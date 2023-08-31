@@ -12,10 +12,11 @@ import 'package:miro/views/widgets/transactions/tx_text_field.dart';
 
 class TokenAmountTextField extends StatefulWidget {
   final bool disabledBool;
-  final bool errorExistsBool;
   final String label;
   final TextEditingController textEditingController;
   final TokenDenominationModel? tokenDenominationModel;
+  final bool errorExistsBool;
+  final VoidCallback? handleSendAllPressed;
 
   const TokenAmountTextField({
     required this.disabledBool,
@@ -23,6 +24,7 @@ class TokenAmountTextField extends StatefulWidget {
     required this.textEditingController,
     required this.tokenDenominationModel,
     this.errorExistsBool = false,
+    this.handleSendAllPressed,
     Key? key,
   }) : super(key: key);
 
@@ -78,7 +80,7 @@ class _TokenAmountTextField extends State<TokenAmountTextField> {
             ),
           ),
         ),
-        TokenAmountTextFieldActions(disabled: disabledBool),
+        TokenAmountTextFieldActions(disabled: disabledBool, handleSendAllPressed: widget.handleSendAllPressed),
       ],
     );
   }

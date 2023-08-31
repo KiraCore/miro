@@ -74,8 +74,8 @@ class _TokenDropdown extends State<TokenDropdown> {
       child: TokenDropdownList(
         initialTokenAliasModel: widget.defaultBalanceModel?.tokenAmountModel.tokenAliasModel,
         onBalanceModelSelected: _handleBalanceModelChanged,
-        receiverWalletAddress: widget.receiverWalletAddress,
         senderWalletAddress: widget.senderWalletAddress,
+        receiverWalletAddress: widget.receiverWalletAddress,
       ),
     );
   }

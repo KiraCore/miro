@@ -347,6 +347,46 @@ class MessageLookup extends MessageLookupByLibrary {
         "seeMore": MessageLookupByLibrary.simpleMessage("See more"),
         "showDetails": MessageLookupByLibrary.simpleMessage("Show Details"),
         "sortBy": MessageLookupByLibrary.simpleMessage("Sort by"),
+        "stakingPool": MessageLookupByLibrary.simpleMessage("Staking Pool"),
+        "stakingPoolAvailable":
+            MessageLookupByLibrary.simpleMessage("Staking Pool available"),
+        "stakingPoolDetails":
+            MessageLookupByLibrary.simpleMessage("Staking Pool Details"),
+        "stakingPoolLabelActions":
+            MessageLookupByLibrary.simpleMessage("Actions"),
+        "stakingPoolLabelCommission":
+            MessageLookupByLibrary.simpleMessage("Commission"),
+        "stakingPoolLabelSlashed":
+            MessageLookupByLibrary.simpleMessage("Slashed"),
+        "stakingPoolLabelTokens":
+            MessageLookupByLibrary.simpleMessage("Tokens"),
+        "stakingPoolLabelVotingPower":
+            MessageLookupByLibrary.simpleMessage("Voting Power"),
+        "stakingPoolStatusDisabled":
+            MessageLookupByLibrary.simpleMessage("Disabled"),
+        "stakingPoolStatusEnabled":
+            MessageLookupByLibrary.simpleMessage("Enabled"),
+        "stakingPoolStatusWithdraw":
+            MessageLookupByLibrary.simpleMessage("Withdraw Only"),
+        "stakingToEnable":
+            MessageLookupByLibrary.simpleMessage("To enable staking "),
+        "stakingTxAmountToStake":
+            MessageLookupByLibrary.simpleMessage("Amount to stake"),
+        "stakingTxButtonStakeNow":
+            MessageLookupByLibrary.simpleMessage("Stake now"),
+        "stakingTxClaimRewards":
+            MessageLookupByLibrary.simpleMessage("Claim Rewards"),
+        "stakingTxDelegate": MessageLookupByLibrary.simpleMessage("delegate"),
+        "stakingTxDelegateConfirm":
+            MessageLookupByLibrary.simpleMessage("Confirm delegation"),
+        "stakingTxDelegateTokens":
+            MessageLookupByLibrary.simpleMessage("Delegate Tokens"),
+        "stakingTxTokensToDelegate":
+            MessageLookupByLibrary.simpleMessage("Tokens to delegate"),
+        "stakingTxUndelegateTokens":
+            MessageLookupByLibrary.simpleMessage("Undelegate Tokens"),
+        "toYourAccount":
+            MessageLookupByLibrary.simpleMessage(" to your account"),
         "toastCannotLoadDashboard": MessageLookupByLibrary.simpleMessage(
             "Cannot load dashboard. Please check your connection."),
         "toastHashCopied":
@@ -367,6 +407,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Edit transaction"),
         "txButtonNext": MessageLookupByLibrary.simpleMessage("Next"),
         "txButtonSendAll": MessageLookupByLibrary.simpleMessage("Send all"),
+        "txCannotLoadBalancesTryAgain": MessageLookupByLibrary.simpleMessage(
+            "Cannot load balances, try again"),
         "txCompleted":
             MessageLookupByLibrary.simpleMessage("Transaction completed"),
         "txConfirm":
@@ -442,7 +484,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "txWarningDoNotCloseWindow":
             MessageLookupByLibrary.simpleMessage("Do not close this window"),
         "txYouWillGet": MessageLookupByLibrary.simpleMessage("You will get"),
+        "validator": MessageLookupByLibrary.simpleMessage("Validator"),
         "validators": MessageLookupByLibrary.simpleMessage("Validators"),
+        "validatorsAbout":
+            MessageLookupByLibrary.simpleMessage("About Validator"),
         "validatorsActive": MessageLookupByLibrary.simpleMessage("Active"),
         "validatorsButtonFilter": m11,
         "validatorsDropdownAll": MessageLookupByLibrary.simpleMessage("All"),
