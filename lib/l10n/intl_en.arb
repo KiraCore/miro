@@ -239,6 +239,9 @@
   "stakingPoolStatusWithdraw": "Withdraw Only",
   "stakingSignIn": "To enable staking sign ",
   "stakingTxButtonStakeNow": "Stake now",
+  "stakingTxClaimRewards": "Claim Rewards",
+  "stakingTxDelegateTokens": "Delegate Tokens",
+  "stakingTxUndelegateTokens": "Undelegate Tokens",
 
   "tx": "Transactions",
   "txButtonSendAll": "Send all",

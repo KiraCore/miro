@@ -1761,6 +1761,36 @@ class S {
     );
   }
 
+  /// `Claim Rewards`
+  String get stakingTxClaimRewards {
+    return Intl.message(
+      'Claim Rewards',
+      name: 'stakingTxClaimRewards',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delegate Tokens`
+  String get stakingTxDelegateTokens {
+    return Intl.message(
+      'Delegate Tokens',
+      name: 'stakingTxDelegateTokens',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Undelegate Tokens`
+  String get stakingTxUndelegateTokens {
+    return Intl.message(
+      'Undelegate Tokens',
+      name: 'stakingTxUndelegateTokens',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Transactions`
   String get tx {
     return Intl.message(

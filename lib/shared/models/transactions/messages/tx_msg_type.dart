@@ -5,6 +5,9 @@ enum TxMsgType {
   msgRegisterIdentityRecords,
   msgRequestIdentityRecordsVerify,
   msgSend,
+  msgDelegate,
+  msgUndelegate,
+  msgClaimRewards,
   multiple,
   undefined,
 }
