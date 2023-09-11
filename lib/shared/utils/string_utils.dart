@@ -3,10 +3,16 @@ import 'package:uuid/uuid.dart';
 
 class StringUtils {
   static RegExp basicCharactersRegExp = RegExp('[a-zA-Z0-9 !"#\$%\'()*+,-./<>:;=?@\\[\\\\\\]^_`{|}~]');
+  static RegExp nonAlphabeticalCharactersRegexp = RegExp('[^a-zA-Z]+');
   static RegExp irKeyRegExp = RegExp('[a-zA-Z0-9_]');
   static RegExp irValueRegExp = RegExp(r'(\p{Alpha})|([0-9 \n\t\s!"#$%()*+,\-./<>:;=?@[\]^_{|\}~`])', unicode: true);
   static RegExp irUsernameRegExp = RegExp('[a-zA-Z0-9_ ]');
   static RegExp whitespacesRegExp = RegExp(r'\s');
+
+  static String? findFirstDelimiter(String text) {
+    RegExpMatch? regExpMatch = nonAlphabeticalCharactersRegexp.firstMatch(text);
+    return regExpMatch?.group(0);
+  }
 
   static String generateUuid() {
     return const Uuid().v4();

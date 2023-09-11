@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/pages/drawer/create_wallet_drawer_page/a_create_wallet_drawer_page_state.dart';
 import 'package:miro/blocs/pages/drawer/create_wallet_drawer_page/create_wallet_drawer_page_cubit.dart';
 import 'package:miro/blocs/pages/drawer/create_wallet_drawer_page/states/create_wallet_drawer_page_loaded_state.dart';
-import 'package:miro/blocs/pages/drawer/create_wallet_drawer_page/states/create_wallet_drawer_page_loading_state.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';
@@ -22,7 +21,6 @@ import 'package:miro/views/widgets/kira/kira_expansion_tile/kira_expansion_tile.
 import 'package:miro/views/widgets/kira/kira_expansion_tile/kira_expansion_tile_controller.dart';
 import 'package:miro/views/widgets/kira/kira_toast/kira_toast.dart';
 import 'package:miro/views/widgets/kira/kira_toast/toast_type.dart';
-import 'package:miro/views/widgets/kira/mnemonic_grid/model/mnemonic_grid_controller.dart';
 
 class CreateWalletDrawerPage extends StatefulWidget {
   const CreateWalletDrawerPage({Key? key}) : super(key: key);
@@ -33,9 +31,7 @@ class CreateWalletDrawerPage extends StatefulWidget {
 
 class _CreateWalletDrawerPage extends State<CreateWalletDrawerPage> {
   final CreateWalletDrawerPageCubit createWalletDrawerPageCubit = CreateWalletDrawerPageCubit();
-
   final DownloadKeyfileSectionController downloadKeyfileSectionController = DownloadKeyfileSectionController();
-
   final KiraExpansionTileController keyfileTileController = KiraExpansionTileController();
   final KiraExpansionTileController mnemonicTileController = KiraExpansionTileController();
   final KiraExpansionTileController qrCodeTileController = KiraExpansionTileController();
@@ -54,9 +50,10 @@ class _CreateWalletDrawerPage extends State<CreateWalletDrawerPage> {
       bloc: createWalletDrawerPageCubit,
       builder: (BuildContext context, ACreateWalletDrawerPageState createWalletDrawerPageState) {
         bool disabledBool = true;
+        bool walletCreatedBool = createWalletDrawerPageState is CreateWalletDrawerPageLoadedState;
         String addressTextValue = S.of(context).createWalletAddressGenerating;
 
-        if (createWalletDrawerPageState is CreateWalletDrawerPageLoadedState) {
+        if (walletCreatedBool) {
           disabledBool = false;
           addressTextValue = createWalletDrawerPageState.wallet.address.bech32Address;
         }
@@ -118,7 +115,7 @@ class _CreateWalletDrawerPage extends State<CreateWalletDrawerPage> {
               tooltipMessage: S.of(context).mnemonicQrTip,
               disabled: disabledBool,
               children: <Widget>[
-                if (createWalletDrawerPageState is CreateWalletDrawerPageLoadedState) QrCodeTileContent(mnemonic: createWalletDrawerPageState.mnemonic),
+                if (walletCreatedBool) QrCodeTileContent(mnemonic: createWalletDrawerPageState.mnemonic),
               ],
             ),
             KiraExpansionTile(
@@ -128,11 +125,7 @@ class _CreateWalletDrawerPage extends State<CreateWalletDrawerPage> {
               tooltipMessage: S.of(context).mnemonicWordsTip,
               disabled: disabledBool,
               children: <Widget>[
-                if (createWalletDrawerPageState is CreateWalletDrawerPageLoadedState)
-                  SecretPhrasesTileContent(
-                    mnemonicGridController: MnemonicGridController(),
-                    mnemonic: createWalletDrawerPageState.mnemonic,
-                  ),
+                if (walletCreatedBool) SecretPhrasesTileContent(mnemonic: createWalletDrawerPageState.mnemonic),
               ],
             ),
             KiraExpansionTile(
@@ -142,7 +135,7 @@ class _CreateWalletDrawerPage extends State<CreateWalletDrawerPage> {
               tooltipMessage: S.of(context).keyfileTip,
               disabled: disabledBool,
               children: <Widget>[
-                if (createWalletDrawerPageState is CreateWalletDrawerPageLoadedState)
+                if (walletCreatedBool)
                   DownloadKeyfileSection(
                     downloadKeyfileSectionController: downloadKeyfileSectionController,
                     wallet: createWalletDrawerPageState.wallet,
@@ -154,7 +147,7 @@ class _CreateWalletDrawerPage extends State<CreateWalletDrawerPage> {
               valueListenable: createWalletDrawerPageCubit.termsCheckedNotifier,
               builder: (_, bool termsCheckedBool, __) {
                 return Opacity(
-                  opacity: createWalletDrawerPageState is CreateWalletDrawerPageLoadingState ? 0.3 : 1,
+                  opacity: walletCreatedBool ? 0.3 : 1,
                   child: WalletTermsSection(
                     checked: termsCheckedBool,
                     onChanged: (bool newTermsCheckedBool) => createWalletDrawerPageCubit.termsCheckedNotifier.value = newTermsCheckedBool,
@@ -195,7 +188,8 @@ class _CreateWalletDrawerPage extends State<CreateWalletDrawerPage> {
   }
 
   void _pressCopyPublicAddressButton() {
-    if (createWalletDrawerPageCubit.state is CreateWalletDrawerPageLoadedState) {
+    bool walletCreatedBool = createWalletDrawerPageCubit.state is CreateWalletDrawerPageLoadedState;
+    if (walletCreatedBool) {
       String walletAddress = (createWalletDrawerPageCubit.state as CreateWalletDrawerPageLoadedState).wallet.address.bech32Address;
       Clipboard.setData(ClipboardData(text: walletAddress));
       KiraToast.of(context).show(message: S.of(context).toastPublicAddressCopied, type: ToastType.success);

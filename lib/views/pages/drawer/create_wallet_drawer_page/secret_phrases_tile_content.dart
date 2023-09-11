@@ -4,16 +4,13 @@ import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/wallet/mnemonic.dart';
 import 'package:miro/views/widgets/kira/kira_toast/kira_toast.dart';
 import 'package:miro/views/widgets/kira/kira_toast/toast_type.dart';
-import 'package:miro/views/widgets/kira/mnemonic_grid/mnemonic_grid.dart';
-import 'package:miro/views/widgets/kira/mnemonic_grid/model/mnemonic_grid_controller.dart';
+import 'package:miro/views/widgets/mnemonic_grid/mnemonic_grid_generated/mnemonic_grid_generated.dart';
 
 class SecretPhrasesTileContent extends StatelessWidget {
   final Mnemonic mnemonic;
-  final MnemonicGridController mnemonicGridController;
 
   const SecretPhrasesTileContent({
     required this.mnemonic,
-    required this.mnemonicGridController,
     Key? key,
   }) : super(key: key);
 
@@ -22,15 +19,11 @@ class SecretPhrasesTileContent extends StatelessWidget {
     return Column(
       children: <Widget>[
         SizedBox(
-          height: 450,
+          height: 500,
           width: double.infinity,
           child: Padding(
-            padding: const EdgeInsets.all(10),
-            child: MnemonicGrid(
-              mnemonicWordList: mnemonic.array,
-              controller: mnemonicGridController,
-              editable: false,
-            ),
+            padding: const EdgeInsets.only(left: 26, right: 0, top: 10, bottom: 10),
+            child: MnemonicGridGenerated(mnemonic: mnemonic),
           ),
         ),
         TextButton.icon(

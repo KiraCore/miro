@@ -28,6 +28,43 @@ void main() {
     });
   });
 
+  group('Tests of [StringUtils.nonAlphabeticalCharactersRegexp]', () {
+    test('Should return null for string containing only alphabetical characters ["abcdefghijklmnoprstuwyzxABCDEFGHIJKLMNOPRSTUWYZX"]', () {
+      // Arrange
+      String testString = 'abcdefghijklmnoprstuwyzxABCDEFGHIJKLMNOPRSTUWYZX';
+
+      // Act
+      String? actualStringMatch = StringUtils.nonAlphabeticalCharactersRegexp.stringMatch(testString);
+
+      // Assert
+      expect(actualStringMatch, null);
+    });
+
+    test('Should match all characters for string containing only non-alphabetical characters [1234567890~ \n\t`~!@#\$%^&*()[]{};\':"]', () {
+      // Arrange
+      String testString = '1234567890~ \n\t`~!@#\$%^&*()[]{};\':"';
+
+      // Act
+      String? actualStringMatch = StringUtils.nonAlphabeticalCharactersRegexp.stringMatch(testString);
+
+      // Assert
+      String expectedStringMatch = testString;
+      expect(actualStringMatch, expectedStringMatch);
+    });
+
+    test('Should match first group of non-alphabetical characters for string with alphabetical and not-alphabetical characters [abc123cba321]', () {
+      // Arrange
+      String testString = 'abc123cba321';
+
+      // Act
+      String? actualStringMatch = StringUtils.nonAlphabeticalCharactersRegexp.stringMatch(testString);
+
+      // Assert
+      String expectedStringMatch = '123';
+      expect(actualStringMatch, expectedStringMatch);
+    });
+  });
+
   group('Tests of [StringUtils.irKeyRegExp]', () {
     test('Should return amount of characters (59) matching "jsonKeyRegExp" ["abcdefghijklmnoprstuwyzxABCDEFGHIJKLMNOPRSTUWYZX0123456789_"]', () {
       // Arrange
@@ -125,6 +162,68 @@ void main() {
 
       // Assert
       expect(actualMatchExistsBool, false);
+    });
+  });
+
+  group('Tests of StringUtils.findFirstDelimiter() method', () {
+    test('Should return first non alphabetical characters string (" ")', () {
+      // Arrange
+      String testString = 'test test test test';
+
+      // Act
+      String? actualDelimiter = StringUtils.findFirstDelimiter(testString);
+
+      // Assert
+      String expectedDelimiter = ' ';
+      expect(actualDelimiter, expectedDelimiter);
+    });
+
+    test('Should return first non alphabetical characters string ("-")', () {
+      // Arrange
+      String testString = 'test-test-test-test';
+
+      // Act
+      String? actualDelimiter = StringUtils.findFirstDelimiter(testString);
+
+      // Assert
+      String expectedDelimiter = '-';
+      expect(actualDelimiter, expectedDelimiter);
+    });
+
+    test(r'Should return first non alphabetical characters string ("\t")', () {
+      // Arrange
+      String testString = 'test\ttest\ttest\ttest';
+
+      // Act
+      String? actualDelimiter = StringUtils.findFirstDelimiter(testString);
+
+      // Assert
+      String expectedDelimiter = '\t';
+      expect(actualDelimiter, expectedDelimiter);
+    });
+
+    test(r'Should return first non alphabetical characters string ("\n")', () {
+      // Arrange
+      String testString = 'test\nest\ntest\ntest';
+
+      // Act
+      String? actualDelimiter = StringUtils.findFirstDelimiter(testString);
+
+      // Assert
+      String expectedDelimiter = '\n';
+      expect(actualDelimiter, expectedDelimiter);
+    });
+
+    test('Should return first non alphabetical characters string ("123")', () {
+      // Arrange
+      String testString = 'test123est123test123test';
+
+      // Act
+      String? actualDelimiter = StringUtils.findFirstDelimiter(testString);
+
+      // Assert
+      String expectedDelimiter = '123';
+      expect(actualDelimiter, expectedDelimiter);
     });
   });
 

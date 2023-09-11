@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:miro/blocs/generic/auth/auth_cubit.dart';
+import 'package:miro/blocs/widgets/mnemonic_grid/grid/mnemonic_grid_cubit.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/wallet/mnemonic.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
-import 'package:miro/shared/utils/cryptography/bip39/bip39_extension.dart';
 import 'package:miro/shared/utils/cryptography/bip39/mnemonic_validation_result.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';
 import 'package:miro/shared/utils/logger/log_level.dart';
@@ -13,8 +13,7 @@ import 'package:miro/views/layout/drawer/drawer_subtitle.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
 import 'package:miro/views/pages/drawer/sign_in_drawer_page/create_wallet_link_button.dart';
 import 'package:miro/views/widgets/buttons/kira_elevated_button.dart';
-import 'package:miro/views/widgets/kira/mnemonic_grid/mnemonic_grid.dart';
-import 'package:miro/views/widgets/kira/mnemonic_grid/model/mnemonic_grid_controller.dart';
+import 'package:miro/views/widgets/mnemonic_grid/mnemonic_grid/mnemonic_grid.dart';
 
 class SignInMnemonicDrawerPage extends StatefulWidget {
   const SignInMnemonicDrawerPage({Key? key}) : super(key: key);
@@ -25,12 +24,30 @@ class SignInMnemonicDrawerPage extends StatefulWidget {
 
 class _SignInMnemonicDrawerPage extends State<SignInMnemonicDrawerPage> {
   final AuthCubit authCubit = globalLocator<AuthCubit>();
-  final MnemonicGridController mnemonicGridController = MnemonicGridController();
-  String? errorMessage;
-  bool loadingStatus = false;
+  final MnemonicGridCubit mnemonicGridCubit = MnemonicGridCubit();
+  bool loadingStatusBool = false;
+
+  @override
+  void initState() {
+    super.initState();
+    mnemonicGridCubit.init(initialMnemonicGridSize: 24);
+  }
+
+  @override
+  void dispose() {
+    mnemonicGridCubit.close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+    Map<MnemonicValidationResult, String> mnemonicErrors = <MnemonicValidationResult, String>{
+      MnemonicValidationResult.invalidChecksum: S.of(context).mnemonicErrorInvalidChecksum,
+      MnemonicValidationResult.invalidMnemonic: S.of(context).mnemonicErrorInvalid,
+      MnemonicValidationResult.mnemonicTooShort: S.of(context).mnemonicErrorTooShort,
+    };
+
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -38,35 +55,45 @@ class _SignInMnemonicDrawerPage extends State<SignInMnemonicDrawerPage> {
         DrawerTitle(
           title: S.of(context).mnemonicSignIn,
           subtitle: S.of(context).mnemonicEnter,
-          tooltipMessage: S.of(context).mnemonicIsYourSecretData,
+          tooltipMessage: S.of(context).mnemonicLoginHint,
         ),
         const SizedBox(height: 24),
-        SizedBox(
-          width: double.infinity,
-          height: 450,
-          child: loadingStatus
-              ? Center(
-                  child: Text(S.of(context).connectWalletConnecting),
-                )
-              : MnemonicGrid(
-                  controller: mnemonicGridController,
-                  editable: true,
-                ),
-        ),
-        Padding(
-          padding: const EdgeInsets.only(top: 8, bottom: 15),
-          child: Center(
-            child: Text(
-              errorMessage ?? '',
-              style: const TextStyle(
-                color: DesignColors.redStatus1,
-              ),
+        if (loadingStatusBool)
+          SizedBox(
+            width: double.infinity,
+            height: 450,
+            child: Center(
+              child: Text(S.of(context).connectWalletConnecting),
             ),
-          ),
-        ),
-        KiraElevatedButton(
-          onPressed: _pressSignInButton,
-          title: S.of(context).connectWalletButtonSignIn,
+          )
+        else
+          MnemonicGrid(mnemonicGridCubit: mnemonicGridCubit),
+        const SizedBox(height: 24),
+        ValueListenableBuilder<MnemonicValidationResult>(
+          valueListenable: mnemonicGridCubit.mnemonicValidationResultNotifier,
+          builder: (_, MnemonicValidationResult mnemonicValidationResult, __) {
+            bool mnemonicValidBool = mnemonicValidationResult != MnemonicValidationResult.success;
+            bool mnemonicCompleteBool = mnemonicValidationResult != MnemonicValidationResult.mnemonicTooShort;
+
+            return Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: <Widget>[
+                KiraElevatedButton(
+                  onPressed: _pressSignInButton,
+                  disabled: mnemonicValidationResult != MnemonicValidationResult.success,
+                  title: S.of(context).connectWalletButtonSignIn,
+                ),
+                const SizedBox(height: 8),
+                if (mnemonicValidBool && mnemonicCompleteBool)
+                  Text(
+                    mnemonicErrors[mnemonicValidationResult]!,
+                    style: textTheme.caption!.copyWith(
+                      color: DesignColors.redStatus1,
+                    ),
+                  ),
+              ],
+            );
+          },
         ),
         const SizedBox(height: 32),
         const CreateWalletLinkButton(),
@@ -76,56 +103,37 @@ class _SignInMnemonicDrawerPage extends State<SignInMnemonicDrawerPage> {
   }
 
   Future<void> _pressSignInButton() async {
-    _setErrorMessage(null);
-    List<String> mnemonicArray = mnemonicGridController.getValues();
-    String? mnemonicErrorMessage = _validateMnemonic(mnemonicArray);
-    if (mnemonicErrorMessage != null) {
-      _setErrorMessage(mnemonicErrorMessage);
+    _setLoadingStatus(loadingStatusBool: true);
+    Wallet? wallet = await _generateWallet();
+    if (wallet == null) {
+      _setLoadingStatus(loadingStatusBool: false);
       return;
-    }
-    _setLoadingState(state: true);
-    // Complete all UI operations before heavy Wallet deriving
-    await Future<void>.delayed(const Duration(milliseconds: 500));
-
-    try {
-      Mnemonic mnemonic = Mnemonic.fromArray(array: mnemonicArray);
-      Wallet wallet = Wallet.derive(mnemonic: mnemonic);
+    } else {
       await authCubit.signIn(wallet);
       KiraScaffold.of(context).closeEndDrawer();
-    } catch (e) {
-      String errorMessage = S.of(context).mnemonicErrorUnexpected;
-      AppLogger().log(message: errorMessage, logLevel: LogLevel.terribleFailure);
-      _setErrorMessage(errorMessage);
-      _setLoadingState(state: false);
     }
   }
 
-  void _setErrorMessage(String? message) {
-    setState(() {
-      errorMessage = message;
-    });
-  }
-
-  String? _validateMnemonic(List<String> mnemonicArray) {
-    if (mnemonicArray.isEmpty) {
-      String errorMessage = S.of(context).mnemonicErrorEnterCorrect;
-      AppLogger().log(message: errorMessage, logLevel: LogLevel.warning);
-      return errorMessage;
-    }
-
-    MnemonicValidationResult mnemonicValidationResult = Bip39Extension.validateMnemonicWithMessage(mnemonicArray.join(' '));
-    if (mnemonicValidationResult == MnemonicValidationResult.success) {
+  // WARNING: This method is very heavy and can freeze the UI
+  // TODO(dominik): Move to web workers / separate thread when available
+  Future<Wallet?> _generateWallet() async {
+    Mnemonic? mnemonic = mnemonicGridCubit.buildMnemonicObject();
+    if (mnemonic == null) {
       return null;
-    } else {
-      String errorMessage = Bip39Extension.parseStatusToMessage(mnemonicValidationResult, context);
-      AppLogger().log(message: errorMessage, logLevel: LogLevel.warning);
-      return errorMessage;
+    }
+    // Complete all UI operations before heavy Wallet deriving
+    await Future<void>.delayed(const Duration(milliseconds: 500));
+    try {
+      return Wallet.derive(mnemonic: mnemonic);
+    } catch (e) {
+      AppLogger().log(message: 'Cannot generate wallet', logLevel: LogLevel.terribleFailure);
+      return null;
     }
   }
 
-  void _setLoadingState({required bool state}) {
-    setState(() {
-      loadingStatus = state;
-    });
+  void _setLoadingStatus({required bool loadingStatusBool}) {
+    if (mounted) {
+      setState(() => this.loadingStatusBool = loadingStatusBool);
+    }
   }
 }
