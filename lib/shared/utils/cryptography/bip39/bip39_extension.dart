@@ -1,60 +1,60 @@
 import 'package:bip39/bip39.dart' as bip39;
-import 'package:flutter/material.dart';
-import 'package:miro/generated/l10n.dart';
+
+// ignore: implementation_imports
+import 'package:bip39/src/wordlists/english.dart' as words;
 import 'package:miro/shared/utils/cryptography/bip39/mnemonic_validation_result.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';
 
 class Bip39Extension {
-  static MnemonicValidationResult validateMnemonicWithMessage(String mnemonic) {
-    List<String> mnemonicArray = mnemonic.split(' ');
-    if (mnemonicArray.length < 12) {
+  static String findMnemonicWord(String wordPattern) {
+    String hintText = words.WORDLIST.firstWhere((String mnemonicWord) {
+      return mnemonicWord.toLowerCase().startsWith(wordPattern);
+    }, orElse: () => '');
+    return hintText;
+  }
+
+  static bool isMnemonicWordValid(String word) {
+    String hintText = words.WORDLIST.firstWhere((String correctMnemonicWord) {
+      return correctMnemonicWord.toLowerCase() == word;
+    }, orElse: () => '');
+    return hintText.isNotEmpty;
+  }
+
+  static MnemonicValidationResult validateMnemonic({required List<String> mnemonicList, required int mnemonicSize}) {
+    List<String> filteredMnemonicList = mnemonicList.where((String mnemonicWord) => mnemonicWord.isNotEmpty).toList();
+    if (filteredMnemonicList.length < mnemonicSize) {
       return MnemonicValidationResult.mnemonicTooShort;
     }
     try {
-      bip39.mnemonicToEntropy(mnemonic);
+      bip39.mnemonicToEntropy(filteredMnemonicList.join(' '));
     } catch (e) {
-      return _exceptionToErrorStatus(e);
+      MnemonicValidationResult mnemonicValidationResult = _parseExceptionToErrorStatus(e);
+      return mnemonicValidationResult;
     }
     return MnemonicValidationResult.success;
   }
 
-  static MnemonicValidationResult _exceptionToErrorStatus(Object error) {
+  static MnemonicValidationResult _parseExceptionToErrorStatus(Object error) {
     if (error is StateError) {
-      return _errorMessageToErrorStatus(error.message);
+      return _parsePackageExceptionMessage(error.message);
     } else if (error is ArgumentError && error.message is String) {
-      return _errorMessageToErrorStatus(error.message as String);
+      return _parsePackageExceptionMessage(error.message as String);
     }
     AppLogger().log(message: 'Undefined error type: ${error.runtimeType}');
-    return MnemonicValidationResult.undefinedError;
+    return MnemonicValidationResult.invalidMnemonic;
   }
 
-  static MnemonicValidationResult _errorMessageToErrorStatus(String message) {
+  static MnemonicValidationResult _parsePackageExceptionMessage(String message) {
     switch (message) {
       case 'Invalid mnemonic':
         return MnemonicValidationResult.invalidMnemonic;
       case 'Invalid entropy':
-        return MnemonicValidationResult.invalidEntropy;
+        return MnemonicValidationResult.invalidMnemonic;
       case 'Invalid mnemonic checksum':
         return MnemonicValidationResult.invalidChecksum;
       default:
         AppLogger().log(message: 'Undefined error type: ${message}');
-        return MnemonicValidationResult.undefinedError;
-    }
-  }
-
-  static String parseStatusToMessage(MnemonicValidationResult status, BuildContext context) {
-    switch (status) {
-      case MnemonicValidationResult.invalidMnemonic:
-        return S.of(context).mnemonicErrorInvalid;
-      case MnemonicValidationResult.invalidEntropy:
-        return S.of(context).mnemonicErrorInvalidEntropy;
-      case MnemonicValidationResult.invalidChecksum:
-        return S.of(context).mnemonicErrorInvalidChecksum;
-      case MnemonicValidationResult.mnemonicTooShort:
-        return S.of(context).mnemonicErrorTooShort;
-      case MnemonicValidationResult.undefinedError:
-      default:
-        return S.of(context).errorUndefined;
+        return MnemonicValidationResult.invalidMnemonic;
     }
   }
 }

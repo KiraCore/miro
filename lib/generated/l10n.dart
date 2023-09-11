@@ -750,10 +750,10 @@ class S {
     );
   }
 
-  /// `Keyfile is your secret data`
+  /// `Keyfile is your secret data that allows you to access\nto your wallet. Always keep it safe and secure.`
   String get keyfileTipSecretData {
     return Intl.message(
-      'Keyfile is your secret data',
+      'Keyfile is your secret data that allows you to access\nto your wallet. Always keep it safe and secure.',
       name: 'keyfileTipSecretData',
       desc: '',
       args: [],
@@ -910,16 +910,6 @@ class S {
     );
   }
 
-  /// `Invalid entropy`
-  String get mnemonicErrorInvalidEntropy {
-    return Intl.message(
-      'Invalid entropy',
-      name: 'mnemonicErrorInvalidEntropy',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Invalid checksum`
   String get mnemonicErrorInvalidChecksum {
     return Intl.message(
@@ -970,11 +960,11 @@ class S {
     );
   }
 
-  /// `Mnemonic is your secret data`
-  String get mnemonicIsYourSecretData {
+  /// `Mnemonic is your secret data that allows you to access\nto your wallet. Always keep it safe and secure.\n\nAvailable shortcuts:\n- Tab or Enter: accept hint and move to the next field\n- Ctrl + V: paste mnemonic from clipboard`
+  String get mnemonicLoginHint {
     return Intl.message(
-      'Mnemonic is your secret data',
-      name: 'mnemonicIsYourSecretData',
+      'Mnemonic is your secret data that allows you to access\nto your wallet. Always keep it safe and secure.\n\nAvailable shortcuts:\n- Tab or Enter: accept hint and move to the next field\n- Ctrl + V: paste mnemonic from clipboard',
+      name: 'mnemonicLoginHint',
       desc: '',
       args: [],
     );
@@ -1015,6 +1005,16 @@ class S {
     return Intl.message(
       'Reveal Mnemonic Words',
       name: 'mnemonicWordsReveal',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select the amount of words`
+  String get mnemonicWordsSelectAmount {
+    return Intl.message(
+      'Select the amount of words',
+      name: 'mnemonicWordsSelectAmount',
       desc: '',
       args: [],
     );
@@ -2377,6 +2377,16 @@ class S {
     return Intl.message(
       'Copy',
       name: 'copy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Paste`
+  String get paste {
+    return Intl.message(
+      'Paste',
+      name: 'paste',
       desc: '',
       args: [],
     );

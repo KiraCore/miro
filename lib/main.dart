@@ -1,3 +1,5 @@
+import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:miro/blocs/generic/identity_registrar/identity_registrar_cubit.dart';
@@ -18,6 +20,9 @@ import 'package:miro/shared/router/router.gr.dart';
 import 'package:miro/shared/utils/assets_manager.dart';
 
 Future<void> main() async {
+  // disable default context menu
+  window.document.onContextMenu.listen((MouseEvent mouseEvent) => mouseEvent.preventDefault());
+
   await initLocator();
   await globalLocator<ICacheManager>().init();
 

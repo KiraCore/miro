@@ -189,8 +189,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Sign in with Keyfile"),
         "keyfileTip": MessageLookupByLibrary.simpleMessage(
             "Keyfile is a file which contains encrypted data."),
-        "keyfileTipSecretData":
-            MessageLookupByLibrary.simpleMessage("Keyfile is your secret data"),
+        "keyfileTipSecretData": MessageLookupByLibrary.simpleMessage(
+            "Keyfile is your secret data that allows you to access\nto your wallet. Always keep it safe and secure."),
         "keyfileTitleDownload":
             MessageLookupByLibrary.simpleMessage("Download Keyfile"),
         "keyfileToDropzone": MessageLookupByLibrary.simpleMessage(
@@ -211,14 +211,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Invalid mnemonic"),
         "mnemonicErrorInvalidChecksum":
             MessageLookupByLibrary.simpleMessage("Invalid checksum"),
-        "mnemonicErrorInvalidEntropy":
-            MessageLookupByLibrary.simpleMessage("Invalid entropy"),
         "mnemonicErrorTooShort":
             MessageLookupByLibrary.simpleMessage("Mnemonic too short"),
         "mnemonicErrorUnexpected": MessageLookupByLibrary.simpleMessage(
             "Something unexpected happened"),
-        "mnemonicIsYourSecretData": MessageLookupByLibrary.simpleMessage(
-            "Mnemonic is your secret data"),
+        "mnemonicLoginHint": MessageLookupByLibrary.simpleMessage(
+            "Mnemonic is your secret data that allows you to access\nto your wallet. Always keep it safe and secure.\n\nAvailable shortcuts:\n- Tab or Enter: accept hint and move to the next field\n- Ctrl + V: paste mnemonic from clipboard"),
         "mnemonicQrReveal":
             MessageLookupByLibrary.simpleMessage("Reveal Mnemonic QR Code"),
         "mnemonicQrTip": MessageLookupByLibrary.simpleMessage(
@@ -233,6 +231,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Copy mnemonic"),
         "mnemonicWordsReveal":
             MessageLookupByLibrary.simpleMessage("Reveal Mnemonic Words"),
+        "mnemonicWordsSelectAmount":
+            MessageLookupByLibrary.simpleMessage("Select the amount of words"),
         "mnemonicWordsTip": MessageLookupByLibrary.simpleMessage(
             "Mnemonic (“mnemonic code”, “seed phrase”, “seed words”)\nWay of representing a large randomly-generated number as a sequence of words,\nmaking it easier for humans to store."),
         "mnemonicWordsWarning": MessageLookupByLibrary.simpleMessage(
@@ -296,6 +296,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "or": MessageLookupByLibrary.simpleMessage("or "),
         "paginatedListPageSize":
             MessageLookupByLibrary.simpleMessage("Page size"),
+        "paste": MessageLookupByLibrary.simpleMessage("Paste"),
         "proposals": MessageLookupByLibrary.simpleMessage("Proposals"),
         "proposalsActive": MessageLookupByLibrary.simpleMessage("Active"),
         "proposalsEnacting": MessageLookupByLibrary.simpleMessage("Enacting"),
