@@ -14,7 +14,7 @@ import 'package:miro/shared/models/identity_registrar/ir_record_field_type.dart'
 import 'package:miro/shared/models/identity_registrar/ir_record_model.dart';
 import 'package:miro/shared/router/kira_router.dart';
 import 'package:miro/shared/router/router.gr.dart';
-import 'package:miro/views/layout/drawer/drawer_subtitle.dart';
+import 'package:miro/views/layout/drawer/drawer_title.dart';
 import 'package:miro/views/pages/drawer/ir_record_drawer_page/ir_record_verifications_list.dart';
 import 'package:miro/views/pages/drawer/ir_record_drawer_page/ir_record_verifications_list_shimmer.dart';
 import 'package:miro/views/pages/menu/my_account_page/identity_registrar/ir_record_status_chip/ir_record_status_chip.dart';

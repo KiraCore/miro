@@ -9,7 +9,7 @@ import 'package:miro/shared/models/identity_registrar/ir_inbound_verification_re
 import 'package:miro/shared/models/identity_registrar/ir_user_profile_model.dart';
 import 'package:miro/shared/router/kira_router.dart';
 import 'package:miro/shared/router/router.gr.dart';
-import 'package:miro/views/layout/drawer/drawer_subtitle.dart';
+import 'package:miro/views/layout/drawer/drawer_title.dart';
 import 'package:miro/views/widgets/buttons/kira_outlined_button.dart';
 import 'package:miro/views/widgets/generic/account_tile_copy_wrapper.dart';
 import 'package:miro/views/widgets/generic/expandable_text.dart';

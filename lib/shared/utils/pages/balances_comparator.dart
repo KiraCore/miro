@@ -27,8 +27,8 @@ class BalancesComparator {
   }
 
   static bool filterSearch(Balance item, String searchValue) {
-    bool searchDenomStatus = StringUtils.compareStrings(item.denom, searchValue);
-    bool searchAmountStatus = StringUtils.compareStrings(item.amount, searchValue);
+    bool searchDenomStatus = StringUtils.hasPatternsAfterUnified(item.denom, searchValue);
+    bool searchAmountStatus = StringUtils.hasPatternsAfterUnified(item.amount, searchValue);
     return searchAmountStatus || searchDenomStatus;
   }
 }

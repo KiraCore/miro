@@ -8,7 +8,7 @@ import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/delegations/validator_staking_model.dart';
 import 'package:miro/shared/models/validators/validator_simplified_model.dart';
-import 'package:miro/views/layout/drawer/drawer_subtitle.dart';
+import 'package:miro/views/layout/drawer/drawer_title.dart';
 import 'package:miro/views/pages/menu/my_account_page/staking_page/staking_status_chip/staking_status_chip.dart';
 import 'package:miro/views/widgets/generic/account_tile_copy_wrapper.dart';
 import 'package:miro/views/widgets/generic/staking_pool_details_grid.dart';

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:miro/blocs/widgets/network_list/network_custom_section/network_custom_section_cubit.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/generated/l10n.dart';
-import 'package:miro/views/layout/drawer/drawer_subtitle.dart';
+import 'package:miro/views/layout/drawer/drawer_title.dart';
 import 'package:miro/views/widgets/network_list/network_custom_section/network_custom_section.dart';
 import 'package:miro/views/widgets/network_list/network_list.dart';
 

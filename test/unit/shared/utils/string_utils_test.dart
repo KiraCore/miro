@@ -334,7 +334,7 @@ void main() {
   group('Tests of StringUtils.compareStrings() method', () {
     test('Should ignore diacritics and return "true" if text contains pattern', () {
       // Act
-      bool actualContainsPatternBool = StringUtils.compareStrings('Zażółć gęślą jaźń', 'ges');
+      bool actualContainsPatternBool = StringUtils.hasPatternsAfterUnified('Zażółć gęślą jaźń', 'ges');
 
       // Assert
       expect(actualContainsPatternBool, true);
@@ -342,7 +342,7 @@ void main() {
 
     test('Should ignore whitespaces and return "true" if text contains pattern', () {
       // Act
-      bool actualContainsPatternBool = StringUtils.compareStrings('Genesis of Decentralized Finance', 'sisof');
+      bool actualContainsPatternBool = StringUtils.hasPatternsAfterUnified('Genesis of Decentralized Finance', 'sisof');
 
       // Assert
       expect(actualContainsPatternBool, true);
@@ -350,7 +350,7 @@ void main() {
 
     test('Should ignore whitespaces and return "true" if text contains pattern', () {
       // Act
-      bool actualContainsPatternBool = StringUtils.compareStrings('Zażółć gęślą jaźń', 'GęŚląJAzŃ');
+      bool actualContainsPatternBool = StringUtils.hasPatternsAfterUnified('Zażółć gęślą jaźń', 'GęŚląJAzŃ');
 
       // Assert
       expect(actualContainsPatternBool, true);
@@ -358,7 +358,7 @@ void main() {
 
     test('Should ignore whitespaces and return "false" if text does not contain pattern', () {
       // Act
-      bool actualContainsPatternBool = StringUtils.compareStrings('Zażółć gęślą jaźń', 'Hello world!');
+      bool actualContainsPatternBool = StringUtils.hasPatternsAfterUnified('Zażółć gęślą jaźń', 'Hello world!');
 
       // Assert
       expect(actualContainsPatternBool, false);

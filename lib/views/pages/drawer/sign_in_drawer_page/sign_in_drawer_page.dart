@@ -4,7 +4,7 @@ import 'package:miro/blocs/pages/drawer/sign_in_drawer_page/sign_in_drawer_page_
 import 'package:miro/blocs/pages/drawer/sign_in_drawer_page/sign_in_drawer_page_state.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
-import 'package:miro/views/layout/drawer/drawer_subtitle.dart';
+import 'package:miro/views/layout/drawer/drawer_title.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
 import 'package:miro/views/pages/drawer/create_wallet_drawer_page/create_wallet_drawer_page.dart';
 import 'package:miro/views/pages/drawer/network_drawer_page/network_drawer_page.dart';

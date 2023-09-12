@@ -27,6 +27,9 @@ class StringUtils {
     return parsedText;
   }
 
+  /// Checks if given input is an integer.
+  /// Adds whitespaces to a big [number] given as a String, to make it easier to read.
+  /// Example: 25000000 -> 25 000 000.
   static String splitBigNumber(String number) {
     bool isInteger = Decimal.tryParse(number)?.isInteger == true;
     if (isInteger == false) {
@@ -44,18 +47,18 @@ class StringUtils {
     return newNumberList.reversed.join(' ');
   }
 
-  static bool compareStrings(String text, String pattern) {
+  static bool hasPatternsAfterUnified(String text, String pattern) {
     String formattedText = _unifyString(text);
     String formattedPattern = _unifyString(pattern);
 
-    return _containsPattern(formattedText, formattedPattern);
+    return _hasPattern(formattedText, formattedPattern);
   }
 
   static String _unifyString(String text) {
     return _removeDiacritics(text.toLowerCase()).replaceAll(' ', '');
   }
 
-  static bool _containsPattern(String text, String pattern) {
+  static bool _hasPattern(String text, String pattern) {
     return text.contains(RegExp(pattern, caseSensitive: false));
   }
 

@@ -13,7 +13,7 @@ import 'package:miro/shared/models/keyfile/decrypted_keyfile_model.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';
 import 'package:miro/shared/utils/string_utils.dart';
-import 'package:miro/views/layout/drawer/drawer_subtitle.dart';
+import 'package:miro/views/layout/drawer/drawer_title.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
 import 'package:miro/views/pages/drawer/sign_in_drawer_page/create_wallet_link_button.dart';
 import 'package:miro/views/pages/drawer/sign_in_drawer_page/sign_in_keyfile_drawer_page/keyfile_dropzone_preview.dart';

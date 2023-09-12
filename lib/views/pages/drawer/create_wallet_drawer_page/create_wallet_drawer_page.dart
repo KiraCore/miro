@@ -8,7 +8,7 @@ import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';
 import 'package:miro/shared/utils/logger/log_level.dart';
-import 'package:miro/views/layout/drawer/drawer_subtitle.dart';
+import 'package:miro/views/layout/drawer/drawer_title.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
 import 'package:miro/views/pages/drawer/create_wallet_drawer_page/download_keyfile_section/download_keyfile_section.dart';
 import 'package:miro/views/pages/drawer/create_wallet_drawer_page/download_keyfile_section/download_keyfile_section_controller.dart';

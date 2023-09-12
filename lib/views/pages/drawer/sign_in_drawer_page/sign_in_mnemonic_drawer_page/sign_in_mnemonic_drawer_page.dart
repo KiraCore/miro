@@ -9,7 +9,7 @@ import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/shared/utils/cryptography/bip39/mnemonic_validation_result.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';
 import 'package:miro/shared/utils/logger/log_level.dart';
-import 'package:miro/views/layout/drawer/drawer_subtitle.dart';
+import 'package:miro/views/layout/drawer/drawer_title.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
 import 'package:miro/views/pages/drawer/sign_in_drawer_page/create_wallet_link_button.dart';
 import 'package:miro/views/widgets/buttons/kira_elevated_button.dart';

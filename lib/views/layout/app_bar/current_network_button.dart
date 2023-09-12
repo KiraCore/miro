@@ -9,7 +9,7 @@ import 'package:miro/shared/models/network/status/a_network_status_model.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
 import 'package:miro/views/pages/drawer/network_drawer_page/network_drawer_page.dart';
 import 'package:miro/views/widgets/generic/mouse_state_listener.dart';
-import 'package:miro/views/widgets/generic/network_status_icon.dart';
+import 'package:miro/views/widgets/network_list/network_status_icon.dart';
 
 class CurrentNetworkButton extends StatelessWidget {
   final NetworkCustomSectionCubit _networkCustomSectionCubit = globalLocator<NetworkCustomSectionCubit>();

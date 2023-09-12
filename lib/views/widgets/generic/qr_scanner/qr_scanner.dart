@@ -8,8 +8,8 @@ import 'package:flutter/widgets.dart';
 import 'package:miro/views/widgets/generic/qr_scanner/qr_validator.dart';
 
 /// WEB ONLY USAGE
-typedef VoidCameraErrorCallback = void Function(CameraException error);
-typedef VoidQrReceivedCallback = void Function(String qrData);
+typedef VoidCameraErrorCallback = ValueChanged<CameraException>;
+typedef VoidQrReceivedCallback = ValueChanged<String>;
 typedef CameraErrorBuilder = Widget Function(CameraException error);
 
 class QrScanner extends StatefulWidget {

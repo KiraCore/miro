@@ -4,7 +4,7 @@ import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/validators/staking_pool_status.dart';
 import 'package:miro/shared/models/validators/validator_model.dart';
 import 'package:miro/shared/utils/string_utils.dart';
-import 'package:miro/views/layout/drawer/drawer_subtitle.dart';
+import 'package:miro/views/layout/drawer/drawer_title.dart';
 import 'package:miro/views/pages/drawer/validator_drawer_page/validator_drawer_ir_section.dart';
 import 'package:miro/views/pages/drawer/validator_drawer_page/validator_drawer_staking_pool_section.dart';
 import 'package:miro/views/pages/menu/validators_page/validator_status_chip/validator_staking_pool_status_chip.dart';

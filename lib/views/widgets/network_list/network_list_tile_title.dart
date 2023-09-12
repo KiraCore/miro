@@ -3,7 +3,7 @@ import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
 import 'package:miro/shared/models/network/status/online/network_unhealthy_model.dart';
-import 'package:miro/views/widgets/generic/network_status_icon.dart';
+import 'package:miro/views/widgets/network_list/network_status_icon.dart';
 
 class NetworkListTileTitle extends StatelessWidget {
   final ANetworkStatusModel networkStatusModel;
