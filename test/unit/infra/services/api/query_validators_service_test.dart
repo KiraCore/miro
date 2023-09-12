@@ -7,8 +7,10 @@ import 'package:miro/infra/dto/api/query_validators/response/validator.dart';
 import 'package:miro/infra/exceptions/dio_connect_exception.dart';
 import 'package:miro/infra/exceptions/dio_parse_exception.dart';
 import 'package:miro/infra/services/api/query_validators_service.dart';
+import 'package:miro/shared/models/validators/staking_pool_status.dart';
 import 'package:miro/shared/models/validators/validator_model.dart';
 import 'package:miro/shared/models/validators/validator_status.dart';
+import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/shared/utils/network_utils.dart';
 import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
@@ -83,10 +85,12 @@ Future<void> main() async {
         ValidatorModel(
           top: 44,
           uptime: 98,
-          address: 'kira1vxvugjt7u0lpzgkpv5hr7qwu2v4rx64d597s3l',
+          walletAddress: WalletAddress.fromBech32('kira1vxvugjt7u0lpzgkpv5hr7qwu2v4rx64d597s3l'),
+          valoperWalletAddress: WalletAddress.fromBech32('kiravaloper1vxvugjt7u0lpzgkpv5hr7qwu2v4rx64d8rznfn'),
           moniker: 'medium',
           streak: '1167583',
           validatorStatus: ValidatorStatus.active,
+          stakingPoolStatus: StakingPoolStatus.disabled,
         ),
       ];
       expect(actualValidatorModels, expectedValidatorModels);
@@ -147,6 +151,8 @@ Future<void> main() async {
           lastPresentBlock: '1307360',
           missedBlocksCounter: '4',
           producedBlocksCounter: '1303599',
+          stakingPoolId: '1',
+          stakingPoolStatus: StakingPoolStatus.enabled,
         ),
         Validator(
           top: '2',
@@ -155,16 +161,19 @@ Future<void> main() async {
           pubkey: 'PubKeyEd25519{EE01DDF7AB5F42B1A0DEA031D8B3A175F4F5E120A737E254144D28783F7E4EBC}',
           proposer: 'E72D3657C38BB1FB6C8C9D938CD2D19BF34D9FE2',
           moniker: 'necrus',
-          status: 'WAITING',
+          status: 'ACTIVE',
           rank: '1303553',
           streak: '1303553',
           mischance: '0',
           mischanceConfidence: '0',
           startHeight: '3556',
-          inactiveUntil: '1970 - 01 - 01T00:00:00Z',
+          inactiveUntil: '1970-01-01T00:00:00Z',
           lastPresentBlock: '1307360',
           missedBlocksCounter: '247',
           producedBlocksCounter: '1303553',
+          validatorNodeId: '46bc0b2dc7860cc419f4022ae734e3731e27abf2',
+          stakingPoolId: '2',
+          stakingPoolStatus: StakingPoolStatus.withdraw,
         )
       ]);
 

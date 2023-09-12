@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:miro/shared/models/validators/staking_pool_status.dart';
 
 class Validator extends Equatable {
   final String top;
@@ -17,6 +18,15 @@ class Validator extends Equatable {
   final String lastPresentBlock;
   final String missedBlocksCounter;
   final String producedBlocksCounter;
+  final String stakingPoolId;
+  final StakingPoolStatus stakingPoolStatus;
+  final String? description;
+  final String? website;
+  final String? logo;
+  final String? social;
+  final String? contact;
+  final String? validatorNodeId;
+  final String? sentryNodeId;
 
   const Validator({
     required this.top,
@@ -35,6 +45,15 @@ class Validator extends Equatable {
     required this.lastPresentBlock,
     required this.missedBlocksCounter,
     required this.producedBlocksCounter,
+    required this.stakingPoolId,
+    required this.stakingPoolStatus,
+    this.description,
+    this.website,
+    this.logo,
+    this.social,
+    this.contact,
+    this.validatorNodeId,
+    this.sentryNodeId,
   });
 
   factory Validator.fromJson(Map<String, dynamic> json) {
@@ -55,11 +74,20 @@ class Validator extends Equatable {
       lastPresentBlock: json['last_present_block'] as String,
       missedBlocksCounter: json['missed_blocks_counter'] as String,
       producedBlocksCounter: json['produced_blocks_counter'] as String,
+      stakingPoolId: json['staking_pool_id'] as String,
+      stakingPoolStatus: StakingPoolStatus.fromString(json['staking_pool_status'] as String?),
+      description: json['description'] as String?,
+      website: json['website'] as String?,
+      logo: json['logo'] as String?,
+      social: json['social'] as String?,
+      contact: json['contact'] as String?,
+      validatorNodeId: json['validator_node_id'] as String?,
+      sentryNodeId: json['sentry_node_id'] as String?,
     );
   }
 
   @override
-  List<Object?> get props => <Object>[
+  List<Object?> get props => <Object?>[
         top,
         address,
         valkey,
@@ -76,5 +104,14 @@ class Validator extends Equatable {
         lastPresentBlock,
         missedBlocksCounter,
         producedBlocksCounter,
+        stakingPoolId,
+        stakingPoolStatus,
+        description,
+        website,
+        logo,
+        social,
+        contact,
+        validatorNodeId,
+        sentryNodeId,
       ];
 }

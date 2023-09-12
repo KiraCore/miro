@@ -43,7 +43,7 @@ class ValidatorListItemMobile extends StatelessWidget {
                 ),
               ),
               KiraIdentityAvatar(
-                address: validatorModel.address,
+                address: validatorModel.walletAddress.bech32Address,
                 size: 32,
               ),
               const SizedBox(width: 8),

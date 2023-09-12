@@ -338,7 +338,9 @@ class MockApiValopers {
         'inactive_until': '1970-01-01T00:00:00Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '4',
-        'produced_blocks_counter': '1303599'
+        'produced_blocks_counter': '1303599',
+        'staking_pool_id': '1',
+        'staking_pool_status': 'ENABLED'
       },
       {
         'top': '2',
@@ -357,7 +359,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '247',
         'produced_blocks_counter': '1303553',
-        'validator_node_id': '46bc0b2dc7860cc419f4022ae734e3731e27abf2'
+        'validator_node_id': '46bc0b2dc7860cc419f4022ae734e3731e27abf2',
+        'staking_pool_id': '2',
+        'staking_pool_status': 'WITHDRAW'
       },
       {
         'top': '3',
@@ -376,7 +380,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '16',
         'produced_blocks_counter': '1303545',
-        'validator_node_id': '432e7bc79538430e10820708bad2c5a3f8b70163'
+        'validator_node_id': '432e7bc79538430e10820708bad2c5a3f8b70163',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '4',
@@ -394,7 +400,9 @@ class MockApiValopers {
         'inactive_until': '1970-01-01T00:00:00Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '552',
-        'produced_blocks_counter': '1303535'
+        'produced_blocks_counter': '1303535',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '5',
@@ -413,7 +421,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '492',
         'produced_blocks_counter': '1303491',
-        'validator_node_id': '102e76a87e07ab1d0c2930e676b54029c37feadb'
+        'validator_node_id': '102e76a87e07ab1d0c2930e676b54029c37feadb',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '6',
@@ -431,7 +441,9 @@ class MockApiValopers {
         'inactive_until': '1970-01-01T00:00:00Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '689',
-        'produced_blocks_counter': '1302666'
+        'produced_blocks_counter': '1302666',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '7',
@@ -450,7 +462,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '548',
         'produced_blocks_counter': '1302641',
-        'validator_node_id': '464d80e7582a28fc03a5e9b4c854ee9ec5618fbd'
+        'validator_node_id': '464d80e7582a28fc03a5e9b4c854ee9ec5618fbd',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '8',
@@ -469,7 +483,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '338',
         'produced_blocks_counter': '1301597',
-        'validator_node_id': '078739b08b96d06ca54f3838620e297991a2ccc2'
+        'validator_node_id': '078739b08b96d06ca54f3838620e297991a2ccc2',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '9',
@@ -487,7 +503,9 @@ class MockApiValopers {
         'inactive_until': '1970-01-01T00:00:00Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '82',
-        'produced_blocks_counter': '1301254'
+        'produced_blocks_counter': '1301254',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '10',
@@ -506,7 +524,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '28',
         'produced_blocks_counter': '1299431',
-        'validator_node_id': '8e267e84284a5844a1ff1f8ccd2af919f5a5082f'
+        'validator_node_id': '8e267e84284a5844a1ff1f8ccd2af919f5a5082f',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '11',
@@ -525,7 +545,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '287',
         'produced_blocks_counter': '1295984',
-        'validator_node_id': '095aec2838fdcbf932413e7d54d4ae42c7749629'
+        'validator_node_id': '095aec2838fdcbf932413e7d54d4ae42c7749629',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '12',
@@ -544,7 +566,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '329',
         'produced_blocks_counter': '1295951',
-        'validator_node_id': '2a9823a3b01f5ebee35b889dd43e68408b1bb33a'
+        'validator_node_id': '2a9823a3b01f5ebee35b889dd43e68408b1bb33a',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '13',
@@ -563,7 +587,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '279',
         'produced_blocks_counter': '1294403',
-        'validator_node_id': 'd32a01aa593f707d17b5fb01210c78cb426acb00'
+        'validator_node_id': 'd32a01aa593f707d17b5fb01210c78cb426acb00',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '14',
@@ -581,7 +607,9 @@ class MockApiValopers {
         'inactive_until': '1970-01-01T00:00:00Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '225',
-        'produced_blocks_counter': '1291985'
+        'produced_blocks_counter': '1291985',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '15',
@@ -600,7 +628,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '495',
         'produced_blocks_counter': '1289312',
-        'validator_node_id': '4f9eb10d64235e008525d8c5930c9e8cab14ce35'
+        'validator_node_id': '4f9eb10d64235e008525d8c5930c9e8cab14ce35',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '16',
@@ -619,7 +649,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '652',
         'produced_blocks_counter': '1289208',
-        'validator_node_id': '33a7481ee59b3dd780e4a51fd364c2b20313fdf3'
+        'validator_node_id': '33a7481ee59b3dd780e4a51fd364c2b20313fdf3',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '17',
@@ -638,7 +670,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '750',
         'produced_blocks_counter': '1285373',
-        'validator_node_id': '5e14c46445cfa0c929ad78c7a9ab5ff28a0a254a'
+        'validator_node_id': '5e14c46445cfa0c929ad78c7a9ab5ff28a0a254a',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '18',
@@ -657,7 +691,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '152',
         'produced_blocks_counter': '1277020',
-        'validator_node_id': '556356a6b5286bc5a92830aa674d06f3111298f1'
+        'validator_node_id': '556356a6b5286bc5a92830aa674d06f3111298f1',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '19',
@@ -675,7 +711,9 @@ class MockApiValopers {
         'inactive_until': '2021-10-29T15:44:16.418574555Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '951',
-        'produced_blocks_counter': '1288715'
+        'produced_blocks_counter': '1288715',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '20',
@@ -693,7 +731,9 @@ class MockApiValopers {
         'inactive_until': '2021-10-29T15:44:22.571828697Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '456',
-        'produced_blocks_counter': '1290276'
+        'produced_blocks_counter': '1290276',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '21',
@@ -711,7 +751,9 @@ class MockApiValopers {
         'inactive_until': '1970-01-01T00:00:00Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '297',
-        'produced_blocks_counter': '1276206'
+        'produced_blocks_counter': '1276206',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '22',
@@ -729,7 +771,9 @@ class MockApiValopers {
         'inactive_until': '2021-10-29T15:44:22.571828697Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '677',
-        'produced_blocks_counter': '1290062'
+        'produced_blocks_counter': '1290062',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '23',
@@ -748,7 +792,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '897',
         'produced_blocks_counter': '1290107',
-        'validator_node_id': '313182411901f863dbbbaff7ce6d9e24b92b5294'
+        'validator_node_id': '313182411901f863dbbbaff7ce6d9e24b92b5294',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '24',
@@ -767,7 +813,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '876',
         'produced_blocks_counter': '1273681',
-        'validator_node_id': 'b8a5b042f9abc2df9aa2a1a40e9254c33da33672'
+        'validator_node_id': 'b8a5b042f9abc2df9aa2a1a40e9254c33da33672',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '25',
@@ -785,7 +833,9 @@ class MockApiValopers {
         'inactive_until': '2021-10-30T10:01:21.322273234Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '804',
-        'produced_blocks_counter': '1267105'
+        'produced_blocks_counter': '1267105',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '26',
@@ -803,7 +853,9 @@ class MockApiValopers {
         'inactive_until': '2021-10-30T09:40:03.091480851Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '700',
-        'produced_blocks_counter': '1265060'
+        'produced_blocks_counter': '1265060',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '27',
@@ -822,7 +874,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '339',
         'produced_blocks_counter': '1260896',
-        'validator_node_id': '82c3ad75da0de95f46de9d5d85bde9d3ee41f0c5'
+        'validator_node_id': '82c3ad75da0de95f46de9d5d85bde9d3ee41f0c5',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '28',
@@ -841,7 +895,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '315',
         'produced_blocks_counter': '1302868',
-        'validator_node_id': '4f5904c747144ae419b265d2ab2329cd08c300ef'
+        'validator_node_id': '4f5904c747144ae419b265d2ab2329cd08c300ef',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '29',
@@ -859,7 +915,9 @@ class MockApiValopers {
         'inactive_until': '1970-01-01T00:00:00Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '367',
-        'produced_blocks_counter': '1257243'
+        'produced_blocks_counter': '1257243',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '30',
@@ -878,7 +936,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '7',
         'produced_blocks_counter': '1246532',
-        'validator_node_id': '27b4371ec36747e75e240de773d4e5b534bc11bc'
+        'validator_node_id': '27b4371ec36747e75e240de773d4e5b534bc11bc',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '31',
@@ -896,7 +956,9 @@ class MockApiValopers {
         'inactive_until': '2021-10-28T11:47:36.669647735Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '411',
-        'produced_blocks_counter': '1237261'
+        'produced_blocks_counter': '1237261',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '32',
@@ -914,7 +976,9 @@ class MockApiValopers {
         'inactive_until': '2021-11-04T16:42:26.947024359Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '167',
-        'produced_blocks_counter': '1299553'
+        'produced_blocks_counter': '1299553',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '33',
@@ -933,7 +997,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '551',
         'produced_blocks_counter': '1276530',
-        'validator_node_id': 'f65190fadd28357484206a2d8461898e3dd8e5f3'
+        'validator_node_id': 'f65190fadd28357484206a2d8461898e3dd8e5f3',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '34',
@@ -952,7 +1018,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '326',
         'produced_blocks_counter': '1187580',
-        'validator_node_id': 'c46bb09742fb94f2ea323243bc39e737ae0f0d8b'
+        'validator_node_id': 'c46bb09742fb94f2ea323243bc39e737ae0f0d8b',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '35',
@@ -971,7 +1039,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '452',
         'produced_blocks_counter': '1184540',
-        'validator_node_id': 'f326d5144b4e9ca9e3b515e3119c64a7357a8069'
+        'validator_node_id': 'f326d5144b4e9ca9e3b515e3119c64a7357a8069',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '36',
@@ -990,7 +1060,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '2027',
         'produced_blocks_counter': '1221209',
-        'validator_node_id': '9c7d7e6e95ae0f8139b64195badcadb2c732daa3'
+        'validator_node_id': '9c7d7e6e95ae0f8139b64195badcadb2c732daa3',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '37',
@@ -1009,7 +1081,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '519',
         'produced_blocks_counter': '1228717',
-        'validator_node_id': 'a848acb0b3c91a92ff52f3c133549a9c465e308f'
+        'validator_node_id': 'a848acb0b3c91a92ff52f3c133549a9c465e308f',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '38',
@@ -1028,7 +1102,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '433',
         'produced_blocks_counter': '1225390',
-        'validator_node_id': 'd544ba6d4001982bfa6feb96cebbfea674e114c9'
+        'validator_node_id': 'd544ba6d4001982bfa6feb96cebbfea674e114c9',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '39',
@@ -1046,7 +1122,9 @@ class MockApiValopers {
         'inactive_until': '2021-11-06T09:48:10.591964837Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '839',
-        'produced_blocks_counter': '1256992'
+        'produced_blocks_counter': '1256992',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '40',
@@ -1064,7 +1142,9 @@ class MockApiValopers {
         'inactive_until': '2021-11-06T10:06:07.797894776Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '531',
-        'produced_blocks_counter': '1170840'
+        'produced_blocks_counter': '1170840',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '41',
@@ -1082,7 +1162,9 @@ class MockApiValopers {
         'inactive_until': '2021-11-06T10:06:07.797894776Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '776',
-        'produced_blocks_counter': '1170672'
+        'produced_blocks_counter': '1170672',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '42',
@@ -1101,7 +1183,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '598',
         'produced_blocks_counter': '1232592',
-        'validator_node_id': 'd5e8baf4693d8b3a84778ee26d76c69b1a2b96ec'
+        'validator_node_id': 'd5e8baf4693d8b3a84778ee26d76c69b1a2b96ec',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '43',
@@ -1120,7 +1204,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '546',
         'produced_blocks_counter': '1290103',
-        'validator_node_id': '05a18e87b8d6020160e2abb4deb90e2c0a0b0f9f'
+        'validator_node_id': '05a18e87b8d6020160e2abb4deb90e2c0a0b0f9f',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '44',
@@ -1139,7 +1225,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '673',
         'produced_blocks_counter': '1167583',
-        'validator_node_id': 'da1b0472db73d3aa2ad3466afe9c6e9463dfaf29'
+        'validator_node_id': 'da1b0472db73d3aa2ad3466afe9c6e9463dfaf29',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '45',
@@ -1158,7 +1246,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '971',
         'produced_blocks_counter': '1167279',
-        'validator_node_id': 'c99812ed68d8ec28fe2e446746c043cb249cc9a8'
+        'validator_node_id': 'c99812ed68d8ec28fe2e446746c043cb249cc9a8',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '46',
@@ -1176,7 +1266,9 @@ class MockApiValopers {
         'inactive_until': '2021-11-06T09:54:30.338390966Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '1317',
-        'produced_blocks_counter': '1278901'
+        'produced_blocks_counter': '1278901',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '47',
@@ -1194,7 +1286,9 @@ class MockApiValopers {
         'inactive_until': '2021-11-06T10:08:11.359396409Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '769',
-        'produced_blocks_counter': '1227145'
+        'produced_blocks_counter': '1227145',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '48',
@@ -1213,7 +1307,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '483',
         'produced_blocks_counter': '1275174',
-        'validator_node_id': '9270e12ffb48411601af5caefeb9a37d04e24ee1'
+        'validator_node_id': '9270e12ffb48411601af5caefeb9a37d04e24ee1',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '49',
@@ -1232,7 +1328,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '1244',
         'produced_blocks_counter': '1234085',
-        'validator_node_id': '02028f4a13ea06b0ee5042c53dee3e26aef32d0e'
+        'validator_node_id': '02028f4a13ea06b0ee5042c53dee3e26aef32d0e',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '50',
@@ -1251,7 +1349,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '257',
         'produced_blocks_counter': '1166023',
-        'validator_node_id': '128870e5443e97621d02a350031bdc12b660ef36'
+        'validator_node_id': '128870e5443e97621d02a350031bdc12b660ef36',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '51',
@@ -1270,7 +1370,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '249',
         'produced_blocks_counter': '1299673',
-        'validator_node_id': '1c1f857c23965a49670658e571deb5f84ab327e9'
+        'validator_node_id': '1c1f857c23965a49670658e571deb5f84ab327e9',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '52',
@@ -1289,7 +1391,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '165',
         'produced_blocks_counter': '1291582',
-        'validator_node_id': '182abdc3fd6735b2ed3419422e8ee0065712801f'
+        'validator_node_id': '182abdc3fd6735b2ed3419422e8ee0065712801f',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '53',
@@ -1307,7 +1411,9 @@ class MockApiValopers {
         'inactive_until': '2021-11-04T17:17:57.915161067Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '368',
-        'produced_blocks_counter': '1204405'
+        'produced_blocks_counter': '1204405',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '54',
@@ -1326,7 +1432,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '338',
         'produced_blocks_counter': '1168624',
-        'validator_node_id': '256cef3b390e4a1bb741205bb0c4689241d8ce2b'
+        'validator_node_id': '256cef3b390e4a1bb741205bb0c4689241d8ce2b',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '55',
@@ -1345,7 +1453,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '504',
         'produced_blocks_counter': '1191352',
-        'validator_node_id': 'f7806232793634d87be63eea259e5686e57df5f1'
+        'validator_node_id': 'f7806232793634d87be63eea259e5686e57df5f1',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '56',
@@ -1364,7 +1474,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '1219',
         'produced_blocks_counter': '1286109',
-        'validator_node_id': '4c35de076eba533839a8080c260051e1cd13ea5b'
+        'validator_node_id': '4c35de076eba533839a8080c260051e1cd13ea5b',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '57',
@@ -1383,7 +1495,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '367',
         'produced_blocks_counter': '1163386',
-        'validator_node_id': '75a8ed1ed2bfbd21b09ec9104a31af20f689637f'
+        'validator_node_id': '75a8ed1ed2bfbd21b09ec9104a31af20f689637f',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '58',
@@ -1402,7 +1516,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '189',
         'produced_blocks_counter': '1163105',
-        'validator_node_id': 'c594ac77c8a08170164ebe303dc235d956cc9b0d'
+        'validator_node_id': 'c594ac77c8a08170164ebe303dc235d956cc9b0d',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '59',
@@ -1421,7 +1537,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '352',
         'produced_blocks_counter': '1232393',
-        'validator_node_id': '6c650954c3ec6737a131b4af9cbede26e420730e'
+        'validator_node_id': '6c650954c3ec6737a131b4af9cbede26e420730e',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '60',
@@ -1440,7 +1558,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '239',
         'produced_blocks_counter': '1156998',
-        'validator_node_id': 'd4b151784477313ba3a4a50706705d7494305f63'
+        'validator_node_id': 'd4b151784477313ba3a4a50706705d7494305f63',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '61',
@@ -1459,7 +1579,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '484',
         'produced_blocks_counter': '1156723',
-        'validator_node_id': '729f0d19f1777e12ba876c77b049c2866c71e593'
+        'validator_node_id': '729f0d19f1777e12ba876c77b049c2866c71e593',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '62',
@@ -1478,7 +1600,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '171',
         'produced_blocks_counter': '1153346',
-        'validator_node_id': '31e6b05fb3f7a1664816889aed692c77500f1665'
+        'validator_node_id': '31e6b05fb3f7a1664816889aed692c77500f1665',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '63',
@@ -1497,7 +1621,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '506',
         'produced_blocks_counter': '1302680',
-        'validator_node_id': '425414b6d18cdbc5b4bc752431a07f33bddfa49f'
+        'validator_node_id': '425414b6d18cdbc5b4bc752431a07f33bddfa49f',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '64',
@@ -1516,7 +1642,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '165',
         'produced_blocks_counter': '1146029',
-        'validator_node_id': '8315c6650e24243fb98206ad49bb5e312dba2366'
+        'validator_node_id': '8315c6650e24243fb98206ad49bb5e312dba2366',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '65',
@@ -1535,7 +1663,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '369',
         'produced_blocks_counter': '1144629',
-        'validator_node_id': '18efbd8ea1f4b4a4f31adc8eda2a9185b8a48b15'
+        'validator_node_id': '18efbd8ea1f4b4a4f31adc8eda2a9185b8a48b15',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '66',
@@ -1553,7 +1683,9 @@ class MockApiValopers {
         'inactive_until': '2021-11-09T17:19:24.032329312Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '656',
-        'produced_blocks_counter': '1141823'
+        'produced_blocks_counter': '1141823',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '67',
@@ -1571,7 +1703,9 @@ class MockApiValopers {
         'inactive_until': '1970-01-01T00:00:00Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '8',
-        'produced_blocks_counter': '1114788'
+        'produced_blocks_counter': '1114788',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '68',
@@ -1589,7 +1723,9 @@ class MockApiValopers {
         'inactive_until': '1970-01-01T00:00:00Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '25',
-        'produced_blocks_counter': '1114704'
+        'produced_blocks_counter': '1114704',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '69',
@@ -1608,7 +1744,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '304',
         'produced_blocks_counter': '1155270',
-        'validator_node_id': '2f9ff49d5e6ca613faa8cf9998d72d38928ef25a'
+        'validator_node_id': '2f9ff49d5e6ca613faa8cf9998d72d38928ef25a',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '70',
@@ -1626,7 +1764,9 @@ class MockApiValopers {
         'inactive_until': '1970-01-01T00:00:00Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '284',
-        'produced_blocks_counter': '1303458'
+        'produced_blocks_counter': '1303458',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '71',
@@ -1644,7 +1784,9 @@ class MockApiValopers {
         'inactive_until': '2021-11-06T14:12:30.423044488Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '2463',
-        'produced_blocks_counter': '1177697'
+        'produced_blocks_counter': '1177697',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '72',
@@ -1663,7 +1805,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '773',
         'produced_blocks_counter': '1261289',
-        'validator_node_id': '9a132954fa310a42c660e2473418bf3fd89223e2'
+        'validator_node_id': '9a132954fa310a42c660e2473418bf3fd89223e2',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '73',
@@ -1682,7 +1826,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '662',
         'produced_blocks_counter': '1150856',
-        'validator_node_id': 'acbe90a016387759f28a3a715c123429751ea8d7'
+        'validator_node_id': 'acbe90a016387759f28a3a715c123429751ea8d7',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '74',
@@ -1701,7 +1847,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '695',
         'produced_blocks_counter': '1278491',
-        'validator_node_id': '73d8feca76d637456dd97569d168ceb80a2fa4da'
+        'validator_node_id': '73d8feca76d637456dd97569d168ceb80a2fa4da',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '75',
@@ -1720,7 +1868,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '3507',
         'produced_blocks_counter': '1228090',
-        'validator_node_id': 'bc0c0cd182a2fc466ee46e40e0e514ddc14e9120'
+        'validator_node_id': 'bc0c0cd182a2fc466ee46e40e0e514ddc14e9120',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '76',
@@ -1739,7 +1889,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '2446',
         'produced_blocks_counter': '1280603',
-        'validator_node_id': '6c578ee6fd49420f39c9c12b702d761726bc6b4b'
+        'validator_node_id': '6c578ee6fd49420f39c9c12b702d761726bc6b4b',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '77',
@@ -1758,7 +1910,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '119',
         'produced_blocks_counter': '1133852',
-        'validator_node_id': 'c9722596d7b9e0d3aceffb5c7475bd2846b0034f'
+        'validator_node_id': 'c9722596d7b9e0d3aceffb5c7475bd2846b0034f',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '78',
@@ -1777,7 +1931,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '284',
         'produced_blocks_counter': '1133737',
-        'validator_node_id': '61f1c5b526acb820bc7962b6f6bd9295a7c3d436'
+        'validator_node_id': '61f1c5b526acb820bc7962b6f6bd9295a7c3d436',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '79',
@@ -1796,7 +1952,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '92',
         'produced_blocks_counter': '1133176',
-        'validator_node_id': '9841ee38b36026fb2acaa80a2a29d043c24cf1e6'
+        'validator_node_id': '9841ee38b36026fb2acaa80a2a29d043c24cf1e6',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '80',
@@ -1815,7 +1973,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '111',
         'produced_blocks_counter': '1133158',
-        'validator_node_id': 'e5b7271988c9fc380e2272f3093a736df147e36f'
+        'validator_node_id': 'e5b7271988c9fc380e2272f3093a736df147e36f',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '81',
@@ -1834,7 +1994,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '127',
         'produced_blocks_counter': '1131599',
-        'validator_node_id': 'ca0eda32507d247dc9e53e6991c291c74d5519fd'
+        'validator_node_id': 'ca0eda32507d247dc9e53e6991c291c74d5519fd',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '82',
@@ -1853,7 +2015,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '137',
         'produced_blocks_counter': '1131669',
-        'validator_node_id': '017c04532b6eb3f9f616a4b37d7e1dae1052c741'
+        'validator_node_id': '017c04532b6eb3f9f616a4b37d7e1dae1052c741',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '83',
@@ -1872,7 +2036,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '244',
         'produced_blocks_counter': '1131556',
-        'validator_node_id': 'c589248b8e4288ef1380588102168d4936382777'
+        'validator_node_id': 'c589248b8e4288ef1380588102168d4936382777',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '84',
@@ -1891,7 +2057,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '509',
         'produced_blocks_counter': '1127889',
-        'validator_node_id': 'f1d7e48904cb2bb02db8a7b8f3f2bfca8d327863'
+        'validator_node_id': 'f1d7e48904cb2bb02db8a7b8f3f2bfca8d327863',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '85',
@@ -1910,7 +2078,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '370',
         'produced_blocks_counter': '965671',
-        'validator_node_id': 'a2f3f63fc0a3c9f0bb40bd59a576e0e0d07b3bd1'
+        'validator_node_id': 'a2f3f63fc0a3c9f0bb40bd59a576e0e0d07b3bd1',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '86',
@@ -1929,7 +2099,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '409',
         'produced_blocks_counter': '1185731',
-        'validator_node_id': '7d9e4e6582bbe6175bd172457e9ce79cbe4a023c'
+        'validator_node_id': '7d9e4e6582bbe6175bd172457e9ce79cbe4a023c',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '87',
@@ -1948,7 +2120,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '390',
         'produced_blocks_counter': '1168053',
-        'validator_node_id': 'aa553e1f2ea1349273c7be10defbc11dce7488fe'
+        'validator_node_id': 'aa553e1f2ea1349273c7be10defbc11dce7488fe',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '88',
@@ -1967,7 +2141,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '152',
         'produced_blocks_counter': '1229403',
-        'validator_node_id': '2d2f36d87140e65e5ba349186188049ff4642bd9'
+        'validator_node_id': '2d2f36d87140e65e5ba349186188049ff4642bd9',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '89',
@@ -1986,7 +2162,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '1351',
         'produced_blocks_counter': '1300372',
-        'validator_node_id': '8423f2fed3b1ffa62f88e11862145680a2743cd1'
+        'validator_node_id': '8423f2fed3b1ffa62f88e11862145680a2743cd1',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '90',
@@ -2005,7 +2183,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '357',
         'produced_blocks_counter': '1303620',
-        'validator_node_id': 'b1e443fc060486576204602a6dc89fc625bdf4b9'
+        'validator_node_id': 'b1e443fc060486576204602a6dc89fc625bdf4b9',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '91',
@@ -2023,7 +2203,9 @@ class MockApiValopers {
         'inactive_until': '2021-11-07T23:13:53.930664216Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '339',
-        'produced_blocks_counter': '1114577'
+        'produced_blocks_counter': '1114577',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '92',
@@ -2042,7 +2224,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '3154',
         'produced_blocks_counter': '1157545',
-        'validator_node_id': 'a8cd15ff48a0199cf794126dc543b7976b1ea536'
+        'validator_node_id': 'a8cd15ff48a0199cf794126dc543b7976b1ea536',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '93',
@@ -2063,7 +2247,9 @@ class MockApiValopers {
         'produced_blocks_counter': '1097497',
         'description': 'High in the sky, setting the path to follow! Powered by https://delegatorsyndicates.club',
         'website': 'https://merak.run',
-        'validator_node_id': 'd6228dcdc22c6661a1cc321a5043b4d82281cc48'
+        'validator_node_id': 'd6228dcdc22c6661a1cc321a5043b4d82281cc48',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '94',
@@ -2082,7 +2268,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '451',
         'produced_blocks_counter': '884436',
-        'validator_node_id': '6e91556a6f385eb6011807697465379a5e60c45a'
+        'validator_node_id': '6e91556a6f385eb6011807697465379a5e60c45a',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '95',
@@ -2101,7 +2289,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '351',
         'produced_blocks_counter': '1293744',
-        'validator_node_id': 'b588a9769ab966068f85f91e1129563b393bbe52'
+        'validator_node_id': 'b588a9769ab966068f85f91e1129563b393bbe52',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '96',
@@ -2120,7 +2310,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '716',
         'produced_blocks_counter': '845503',
-        'validator_node_id': 'ec5dd78660198d1c86f74f3fc07e28e65de622c0'
+        'validator_node_id': 'ec5dd78660198d1c86f74f3fc07e28e65de622c0',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '97',
@@ -2138,7 +2330,9 @@ class MockApiValopers {
         'inactive_until': '1970-01-01T00:00:00Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '3541',
-        'produced_blocks_counter': '839577'
+        'produced_blocks_counter': '839577',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '98',
@@ -2157,7 +2351,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '829',
         'produced_blocks_counter': '1299440',
-        'validator_node_id': 'c4ca06da9489af175347e9438c032ccf66c218b8'
+        'validator_node_id': 'c4ca06da9489af175347e9438c032ccf66c218b8',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '99',
@@ -2176,7 +2372,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '471',
         'produced_blocks_counter': '1263760',
-        'validator_node_id': '209f85dcc836bf9c4b2256ce76903197a1b668ab'
+        'validator_node_id': '209f85dcc836bf9c4b2256ce76903197a1b668ab',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '100',
@@ -2195,7 +2393,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '549',
         'produced_blocks_counter': '1217305',
-        'validator_node_id': '4b99a3b57a7cfd21a7c2a4f8f663692f4aceae0b'
+        'validator_node_id': '4b99a3b57a7cfd21a7c2a4f8f663692f4aceae0b',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '101',
@@ -2213,7 +2413,9 @@ class MockApiValopers {
         'inactive_until': '2022-01-08T20:31:01.542305175Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '628',
-        'produced_blocks_counter': '1125521'
+        'produced_blocks_counter': '1125521',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '102',
@@ -2232,7 +2434,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '1263',
         'produced_blocks_counter': '1298027',
-        'validator_node_id': 'f2e6880351970baa2c38bc673f1f37432b1f809c'
+        'validator_node_id': 'f2e6880351970baa2c38bc673f1f37432b1f809c',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '103',
@@ -2253,7 +2457,9 @@ class MockApiValopers {
         'produced_blocks_counter': '1290505',
         'website': 'https://spectrumstaking.net/',
         'contact': 'info@spectrumstaking.net',
-        'validator_node_id': '699f552bf711900267575ce796f861441d3b152f'
+        'validator_node_id': '699f552bf711900267575ce796f861441d3b152f',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '104',
@@ -2271,7 +2477,9 @@ class MockApiValopers {
         'inactive_until': '2021-11-05T18:15:43.764857533Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '1022',
-        'produced_blocks_counter': '1249749'
+        'produced_blocks_counter': '1249749',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '105',
@@ -2290,7 +2498,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '1168',
         'produced_blocks_counter': '1278454',
-        'validator_node_id': '0517f07d8c7eda22e1981d8b5f40baa90d8bb3f4'
+        'validator_node_id': '0517f07d8c7eda22e1981d8b5f40baa90d8bb3f4',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '106',
@@ -2309,7 +2519,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '1603',
         'produced_blocks_counter': '1185396',
-        'validator_node_id': '1d5a1faea53138e4322a6d637c1d5f056e7313e9'
+        'validator_node_id': '1d5a1faea53138e4322a6d637c1d5f056e7313e9',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '107',
@@ -2328,7 +2540,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '581',
         'produced_blocks_counter': '1100380',
-        'validator_node_id': 'b1deccdf04d4b3a05210105728b0b49d18a2bb0e'
+        'validator_node_id': 'b1deccdf04d4b3a05210105728b0b49d18a2bb0e',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '108',
@@ -2347,7 +2561,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '1222',
         'produced_blocks_counter': '1100279',
-        'validator_node_id': 'c534ee46de1afe3f41ddb800e6bf5990a66e0e56'
+        'validator_node_id': 'c534ee46de1afe3f41ddb800e6bf5990a66e0e56',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '109',
@@ -2366,7 +2582,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '2',
         'produced_blocks_counter': '692867',
-        'validator_node_id': '3e36d207bc088731494d280566df4136a4a66837'
+        'validator_node_id': '3e36d207bc088731494d280566df4136a4a66837',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '110',
@@ -2385,7 +2603,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '612',
         'produced_blocks_counter': '1121413',
-        'validator_node_id': 'b711fc46b9aea073d0590207c40d0f3e70b655ff'
+        'validator_node_id': 'b711fc46b9aea073d0590207c40d0f3e70b655ff',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '111',
@@ -2404,7 +2624,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '317',
         'produced_blocks_counter': '1295562',
-        'validator_node_id': '149af024c738919caf6ce544573a295ebc1888f4'
+        'validator_node_id': '149af024c738919caf6ce544573a295ebc1888f4',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '112',
@@ -2423,7 +2645,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '322',
         'produced_blocks_counter': '1295137',
-        'validator_node_id': 'dba777df113054baeb29a2ce145e82e67f1ee158'
+        'validator_node_id': 'dba777df113054baeb29a2ce145e82e67f1ee158',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '113',
@@ -2442,7 +2666,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '240',
         'produced_blocks_counter': '1295558',
-        'validator_node_id': '70a9fd6623727b0bcd976a19ce682ebf95973166'
+        'validator_node_id': '70a9fd6623727b0bcd976a19ce682ebf95973166',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '114',
@@ -2461,7 +2687,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '214',
         'produced_blocks_counter': '784268',
-        'validator_node_id': '981d32c17979eaa852ebdef7178a199602700bae'
+        'validator_node_id': '981d32c17979eaa852ebdef7178a199602700bae',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '115',
@@ -2480,7 +2708,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '13291',
         'produced_blocks_counter': '1153190',
-        'validator_node_id': '6c58a045677f032386b6c28625f4a3878b4f38ea'
+        'validator_node_id': '6c58a045677f032386b6c28625f4a3878b4f38ea',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '116',
@@ -2499,7 +2729,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '433',
         'produced_blocks_counter': '942486',
-        'validator_node_id': 'c77f440a0f07563773e3be4191b36bec93145974'
+        'validator_node_id': 'c77f440a0f07563773e3be4191b36bec93145974',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '117',
@@ -2518,7 +2750,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '2859',
         'produced_blocks_counter': '1154387',
-        'validator_node_id': '4e0acd9e898c734c6b2eb1b37a08468c6e3a4740'
+        'validator_node_id': '4e0acd9e898c734c6b2eb1b37a08468c6e3a4740',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '118',
@@ -2537,7 +2771,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '611',
         'produced_blocks_counter': '869185',
-        'validator_node_id': '04284835cb02b1ad0e950a27aa127bc238e5df9d'
+        'validator_node_id': '04284835cb02b1ad0e950a27aa127bc238e5df9d',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '119',
@@ -2556,7 +2792,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '391',
         'produced_blocks_counter': '866278',
-        'validator_node_id': '504c526f759760248642bef161c00af5e1436ae3'
+        'validator_node_id': '504c526f759760248642bef161c00af5e1436ae3',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '120',
@@ -2575,7 +2813,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '914',
         'produced_blocks_counter': '1270404',
-        'validator_node_id': '66992ace14dae5e940f93965eb3298a2147a2a29'
+        'validator_node_id': '66992ace14dae5e940f93965eb3298a2147a2a29',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '121',
@@ -2594,7 +2834,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '242',
         'produced_blocks_counter': '629176',
-        'validator_node_id': '002e3c1e5a1b2b3694867572ac2db81413d344c4'
+        'validator_node_id': '002e3c1e5a1b2b3694867572ac2db81413d344c4',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '122',
@@ -2613,7 +2855,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '1095',
         'produced_blocks_counter': '1285716',
-        'validator_node_id': '3cc87d1838e28ee89028d2b574ba2606415a641f'
+        'validator_node_id': '3cc87d1838e28ee89028d2b574ba2606415a641f',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '123',
@@ -2632,7 +2876,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '362',
         'produced_blocks_counter': '591394',
-        'validator_node_id': 'a01a12b4966bdca603e620d831c0b1299e2249df'
+        'validator_node_id': 'a01a12b4966bdca603e620d831c0b1299e2249df',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '124',
@@ -2651,7 +2897,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '1276',
         'produced_blocks_counter': '1186757',
-        'validator_node_id': '7a3a2a64656ab7f56eda97a3bbd20f9e22fb7aa3'
+        'validator_node_id': '7a3a2a64656ab7f56eda97a3bbd20f9e22fb7aa3',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '125',
@@ -2670,7 +2918,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '162',
         'produced_blocks_counter': '1287558',
-        'validator_node_id': '1b49229f910ca3eab9679a39d9ec78e4a9f879b2'
+        'validator_node_id': '1b49229f910ca3eab9679a39d9ec78e4a9f879b2',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '126',
@@ -2689,7 +2939,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '3082',
         'produced_blocks_counter': '1156081',
-        'validator_node_id': 'fe926df989a803b040f797298dc530778c97d910'
+        'validator_node_id': 'fe926df989a803b040f797298dc530778c97d910',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '127',
@@ -2707,7 +2959,9 @@ class MockApiValopers {
         'inactive_until': '2021-12-25T16:29:00.345669836Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '876',
-        'produced_blocks_counter': '1223514'
+        'produced_blocks_counter': '1223514',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '128',
@@ -2725,7 +2979,9 @@ class MockApiValopers {
         'inactive_until': '2021-12-09T18:44:13.448976552Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '3090',
-        'produced_blocks_counter': '1000608'
+        'produced_blocks_counter': '1000608',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '129',
@@ -2744,7 +3000,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '132',
         'produced_blocks_counter': '929681',
-        'validator_node_id': '7703da84cab961ee9b3f9c44387f16b6b1b21890'
+        'validator_node_id': '7703da84cab961ee9b3f9c44387f16b6b1b21890',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '130',
@@ -2763,7 +3021,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '1490',
         'produced_blocks_counter': '929984',
-        'validator_node_id': '7c9ee90344e12ac1d0341660b28dcb7b4ba61bf7'
+        'validator_node_id': '7c9ee90344e12ac1d0341660b28dcb7b4ba61bf7',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '131',
@@ -2782,7 +3042,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '3468',
         'produced_blocks_counter': '1131919',
-        'validator_node_id': 'ad056212bba8dd6619cb2607e550fbaaf61cc187'
+        'validator_node_id': 'ad056212bba8dd6619cb2607e550fbaaf61cc187',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '132',
@@ -2801,7 +3063,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '1021',
         'produced_blocks_counter': '1146249',
-        'validator_node_id': 'df0a2a86ddf19c5e4366b928d61657f11cf82863'
+        'validator_node_id': 'df0a2a86ddf19c5e4366b928d61657f11cf82863',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '133',
@@ -2820,7 +3084,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '363',
         'produced_blocks_counter': '1300147',
-        'validator_node_id': 'f912e3b8811ba10948203e5f61814ad94fdf00c3'
+        'validator_node_id': 'f912e3b8811ba10948203e5f61814ad94fdf00c3',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '134',
@@ -2839,7 +3105,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '1360',
         'produced_blocks_counter': '1298750',
-        'validator_node_id': 'd8396db1a4566d6fd549ee23494f69333a0788ce'
+        'validator_node_id': 'd8396db1a4566d6fd549ee23494f69333a0788ce',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '135',
@@ -2861,7 +3129,9 @@ class MockApiValopers {
         'description': 'In PoS We Trust!',
         'logo': 'https://cloud.mail.ru/public/muDR/ZoEHWXrS6',
         'social': 'https://github.com/Yurbason',
-        'validator_node_id': '7435a553395fa458c978538dd58af27d4f006df8'
+        'validator_node_id': '7435a553395fa458c978538dd58af27d4f006df8',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '136',
@@ -2880,7 +3150,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '245',
         'produced_blocks_counter': '1162587',
-        'validator_node_id': 'dd9247df2dfcfe49bd0c8a60ef3c4a33b5f12fdc'
+        'validator_node_id': 'dd9247df2dfcfe49bd0c8a60ef3c4a33b5f12fdc',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '137',
@@ -2899,7 +3171,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '928',
         'produced_blocks_counter': '1273419',
-        'validator_node_id': '3e84babc8ef4cd8ce6803d13e8d6aa284c0d9ca6'
+        'validator_node_id': '3e84babc8ef4cd8ce6803d13e8d6aa284c0d9ca6',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '138',
@@ -2918,7 +3192,10 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '148',
         'produced_blocks_counter': '1039976',
-        'validator_node_id': 'dadad228ff8b0c074104542ffb89d3213d37f33b'
+        'validator_node_id': 'dadad228ff8b0c074104542ffb89d3213d37f33b',
+        'sentry_node_id': '684499f738b5a16af15c557732879843c619a61c',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '139',
@@ -2937,7 +3214,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '549',
         'produced_blocks_counter': '1156554',
-        'validator_node_id': '684499f738b5a16af15c557732879843c619a61c'
+        'validator_node_id': '684499f738b5a16af15c557732879843c619a61c',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '140',
@@ -2955,7 +3234,9 @@ class MockApiValopers {
         'inactive_until': '2022-01-04T05:40:11.885459089Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '5663',
-        'produced_blocks_counter': '1232044'
+        'produced_blocks_counter': '1232044',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '141',
@@ -2974,7 +3255,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '1079',
         'produced_blocks_counter': '1146684',
-        'validator_node_id': '036b900ae769e98151e0413c59e3af0d3efb8a1f'
+        'validator_node_id': '036b900ae769e98151e0413c59e3af0d3efb8a1f',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '142',
@@ -2993,7 +3276,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '764',
         'produced_blocks_counter': '1136428',
-        'validator_node_id': 'f8650b102faccc1c14bdcec9e507f7ab24e52fe6'
+        'validator_node_id': 'f8650b102faccc1c14bdcec9e507f7ab24e52fe6',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '143',
@@ -3012,7 +3297,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '486',
         'produced_blocks_counter': '1165662',
-        'validator_node_id': 'c14276e646083991fa0f4ee35022fa1c81bc0629'
+        'validator_node_id': 'c14276e646083991fa0f4ee35022fa1c81bc0629',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '144',
@@ -3031,7 +3318,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '1662',
         'produced_blocks_counter': '1239962',
-        'validator_node_id': '6774dc2aec544acf80ab2ae0d4b58569c06a8a2c'
+        'validator_node_id': '6774dc2aec544acf80ab2ae0d4b58569c06a8a2c',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '145',
@@ -3050,7 +3339,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '3235',
         'produced_blocks_counter': '1190425',
-        'validator_node_id': 'a8099f793ba8206cd38e2077645e873a802223a8'
+        'validator_node_id': 'a8099f793ba8206cd38e2077645e873a802223a8',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '146',
@@ -3068,7 +3359,9 @@ class MockApiValopers {
         'inactive_until': '2021-12-21T20:07:19.482439199Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '591',
-        'produced_blocks_counter': '1066735'
+        'produced_blocks_counter': '1066735',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '147',
@@ -3086,7 +3379,9 @@ class MockApiValopers {
         'inactive_until': '2021-12-25T12:36:49.731124569Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '161',
-        'produced_blocks_counter': '1118240'
+        'produced_blocks_counter': '1118240',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '148',
@@ -3105,7 +3400,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '830',
         'produced_blocks_counter': '857825',
-        'validator_node_id': '5385ce69c0b40be62c2aecff9ceb214427674ab6'
+        'validator_node_id': '5385ce69c0b40be62c2aecff9ceb214427674ab6',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '149',
@@ -3124,7 +3421,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '1319',
         'produced_blocks_counter': '1198238',
-        'validator_node_id': '17b5f821651e59123978e67217f80aa8c2a62f90'
+        'validator_node_id': '17b5f821651e59123978e67217f80aa8c2a62f90',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '150',
@@ -3143,7 +3442,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '181',
         'produced_blocks_counter': '709025',
-        'validator_node_id': '29fdf80ed5918a0d1dcdfd6075b50a720fb59fe6'
+        'validator_node_id': '29fdf80ed5918a0d1dcdfd6075b50a720fb59fe6',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '151',
@@ -3162,7 +3463,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '1807',
         'produced_blocks_counter': '1265012',
-        'validator_node_id': '25a1fbd85e58ecca6a4199afa6a49f019a545afe'
+        'validator_node_id': '25a1fbd85e58ecca6a4199afa6a49f019a545afe',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '152',
@@ -3181,7 +3484,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '703',
         'produced_blocks_counter': '467818',
-        'validator_node_id': '4b78a6a62791a72bcbf2484560b2e6cd698e1a94'
+        'validator_node_id': '4b78a6a62791a72bcbf2484560b2e6cd698e1a94',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '153',
@@ -3200,7 +3505,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '163',
         'produced_blocks_counter': '967613',
-        'validator_node_id': '5b8a671bd04f9a9743898073a6c96411a8ae6425'
+        'validator_node_id': '5b8a671bd04f9a9743898073a6c96411a8ae6425',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '154',
@@ -3219,7 +3526,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '982',
         'produced_blocks_counter': '960259',
-        'validator_node_id': 'a76a2455106519d02524593ce3692e5215cd2131'
+        'validator_node_id': 'a76a2455106519d02524593ce3692e5215cd2131',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '155',
@@ -3238,7 +3547,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '892',
         'produced_blocks_counter': '853298',
-        'validator_node_id': 'c7251274a2e293259dfa6dfad169bf0bcf4f68d8'
+        'validator_node_id': 'c7251274a2e293259dfa6dfad169bf0bcf4f68d8',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '156',
@@ -3257,7 +3568,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '132',
         'produced_blocks_counter': '401571',
-        'validator_node_id': '75733808f6aef20259f783ba48ae6cbb3c42e1f8'
+        'validator_node_id': '75733808f6aef20259f783ba48ae6cbb3c42e1f8',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '157',
@@ -3276,7 +3589,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '1240',
         'produced_blocks_counter': '972967',
-        'validator_node_id': '7e1de8c0edb15145f14338e784ffda37f3f16fcc'
+        'validator_node_id': '7e1de8c0edb15145f14338e784ffda37f3f16fcc',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '158',
@@ -3295,7 +3610,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '453',
         'produced_blocks_counter': '1059144',
-        'validator_node_id': 'd0be99648e0266a29b4dc17a0bd4ee0c532b62e2'
+        'validator_node_id': 'd0be99648e0266a29b4dc17a0bd4ee0c532b62e2',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '159',
@@ -3313,7 +3630,9 @@ class MockApiValopers {
         'inactive_until': '2022-01-08T21:01:52.738722491Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '560',
-        'produced_blocks_counter': '1148553'
+        'produced_blocks_counter': '1148553',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '160',
@@ -3332,7 +3651,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '502',
         'produced_blocks_counter': '774934',
-        'validator_node_id': '96f6eb15114fc063d7c787e23f712e50fe1e1ad5'
+        'validator_node_id': '96f6eb15114fc063d7c787e23f712e50fe1e1ad5',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '161',
@@ -3351,7 +3672,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '1731',
         'produced_blocks_counter': '1055392',
-        'validator_node_id': 'c4180db152388ebfae350e7d6ea0ba8a194ae21c'
+        'validator_node_id': 'c4180db152388ebfae350e7d6ea0ba8a194ae21c',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '162',
@@ -3370,7 +3693,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '176',
         'produced_blocks_counter': '585408',
-        'validator_node_id': 'd14f6cf4dd80f7276cd96d38ab86ae3f00dbc949'
+        'validator_node_id': 'd14f6cf4dd80f7276cd96d38ab86ae3f00dbc949',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '163',
@@ -3389,7 +3714,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '175',
         'produced_blocks_counter': '668248',
-        'validator_node_id': '2453e0f9830bae07e7099f197115f9f02caca0b0'
+        'validator_node_id': '2453e0f9830bae07e7099f197115f9f02caca0b0',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '164',
@@ -3408,7 +3735,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '664',
         'produced_blocks_counter': '736538',
-        'validator_node_id': '7ad044e7c7b5e5e51476770b6f897c797f65de3e'
+        'validator_node_id': '7ad044e7c7b5e5e51476770b6f897c797f65de3e',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '165',
@@ -3427,7 +3756,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '476',
         'produced_blocks_counter': '619421',
-        'validator_node_id': '7f0dda83c1a41f22af93fd925bab0f2d9b87be1d'
+        'validator_node_id': '7f0dda83c1a41f22af93fd925bab0f2d9b87be1d',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '166',
@@ -3446,7 +3777,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '639',
         'produced_blocks_counter': '669339',
-        'validator_node_id': 'bd5bda8970ec5fdd0382e8c6b004fdea54fc31b7'
+        'validator_node_id': 'bd5bda8970ec5fdd0382e8c6b004fdea54fc31b7',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '167',
@@ -3465,7 +3798,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '470',
         'produced_blocks_counter': '582488',
-        'validator_node_id': 'bbad033593eb25c441c5556e0f0e6921b66e42a2'
+        'validator_node_id': 'bbad033593eb25c441c5556e0f0e6921b66e42a2',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '168',
@@ -3484,7 +3819,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '1528',
         'produced_blocks_counter': '974018',
-        'validator_node_id': 'f72da51308976583d1c73bac7505b3c525b730ae'
+        'validator_node_id': 'f72da51308976583d1c73bac7505b3c525b730ae',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '169',
@@ -3503,7 +3840,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '2279',
         'produced_blocks_counter': '833047',
-        'validator_node_id': '16dada7554f0daf86385d8d07cc5ead80164a80e'
+        'validator_node_id': '16dada7554f0daf86385d8d07cc5ead80164a80e',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '170',
@@ -3522,7 +3861,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '136',
         'produced_blocks_counter': '401741',
-        'validator_node_id': 'd9479213e74d13acf17883edf0281d9561a0fc08'
+        'validator_node_id': 'd9479213e74d13acf17883edf0281d9561a0fc08',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '171',
@@ -3541,7 +3882,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '485',
         'produced_blocks_counter': '557454',
-        'validator_node_id': 'a01382a1ea2a6fd30480da8cf974aec45fd5c13e'
+        'validator_node_id': 'a01382a1ea2a6fd30480da8cf974aec45fd5c13e',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '172',
@@ -3560,7 +3903,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '1845',
         'produced_blocks_counter': '1156481',
-        'validator_node_id': 'f625649cca2a5d5baf90da8f9c8fef438ea5cbb8'
+        'validator_node_id': 'f625649cca2a5d5baf90da8f9c8fef438ea5cbb8',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '173',
@@ -3579,7 +3924,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '543',
         'produced_blocks_counter': '942598',
-        'validator_node_id': 'fb2a3e340b2a214bcaea12caa7108246d9063fbe'
+        'validator_node_id': 'fb2a3e340b2a214bcaea12caa7108246d9063fbe',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '174',
@@ -3598,7 +3945,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '534',
         'produced_blocks_counter': '1268431',
-        'validator_node_id': 'e090e6b062ce6f84ff34dec82a81b815506277c7'
+        'validator_node_id': 'e090e6b062ce6f84ff34dec82a81b815506277c7',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '175',
@@ -3617,7 +3966,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '497',
         'produced_blocks_counter': '1268545',
-        'validator_node_id': '056458ca3bc3c17cf50a03ac65ea3c21fc5bda16'
+        'validator_node_id': '056458ca3bc3c17cf50a03ac65ea3c21fc5bda16',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '176',
@@ -3636,7 +3987,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '867',
         'produced_blocks_counter': '1267990',
-        'validator_node_id': 'fd270a7a870e4be9c46501d094fb4688bd6c1cd6'
+        'validator_node_id': 'fd270a7a870e4be9c46501d094fb4688bd6c1cd6',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '177',
@@ -3654,7 +4007,9 @@ class MockApiValopers {
         'inactive_until': '2021-12-04T17:57:45.187945981Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '433',
-        'produced_blocks_counter': '848609'
+        'produced_blocks_counter': '848609',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '178',
@@ -3673,7 +4028,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '5673',
         'produced_blocks_counter': '1285579',
-        'validator_node_id': '3734210dd9dd51b1147ac028ad0374f08a327b1b'
+        'validator_node_id': '3734210dd9dd51b1147ac028ad0374f08a327b1b',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '179',
@@ -3692,7 +4049,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '37',
         'produced_blocks_counter': '384839',
-        'validator_node_id': '117df0408fe24437740ac171c6d90e7979449914'
+        'validator_node_id': '117df0408fe24437740ac171c6d90e7979449914',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '180',
@@ -3711,7 +4070,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '128',
         'produced_blocks_counter': '384621',
-        'validator_node_id': '11e5605f56f2ea3e347247486a6b3382b967c364'
+        'validator_node_id': '11e5605f56f2ea3e347247486a6b3382b967c364',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '181',
@@ -3729,7 +4090,9 @@ class MockApiValopers {
         'inactive_until': '1970-01-01T00:00:00Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '593',
-        'produced_blocks_counter': '384618'
+        'produced_blocks_counter': '384618',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '182',
@@ -3748,7 +4111,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '4241',
         'produced_blocks_counter': '1175006',
-        'validator_node_id': '3b7a8f08b4e1fa06f5c17f1bed54bcd523b0b624'
+        'validator_node_id': '3b7a8f08b4e1fa06f5c17f1bed54bcd523b0b624',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '183',
@@ -3767,7 +4132,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '240',
         'produced_blocks_counter': '854852',
-        'validator_node_id': '6c2920d1da559eefc659401f3fb2261d92d01e55'
+        'validator_node_id': '6c2920d1da559eefc659401f3fb2261d92d01e55',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '184',
@@ -3786,7 +4153,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '155',
         'produced_blocks_counter': '383142',
-        'validator_node_id': 'c63f9cb570fe16cad2b777281a18c9ed9714e9ea'
+        'validator_node_id': 'c63f9cb570fe16cad2b777281a18c9ed9714e9ea',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '185',
@@ -3805,7 +4174,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '882',
         'produced_blocks_counter': '1226546',
-        'validator_node_id': '71a5cb1c1dafae5a5dcabcf626ccc47bba168720'
+        'validator_node_id': '71a5cb1c1dafae5a5dcabcf626ccc47bba168720',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '186',
@@ -3824,7 +4195,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '507',
         'produced_blocks_counter': '382823',
-        'validator_node_id': '994c92dc2a75ead0c37228d0ad7f4cdcc6fdf541'
+        'validator_node_id': '994c92dc2a75ead0c37228d0ad7f4cdcc6fdf541',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '187',
@@ -3843,7 +4216,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '907',
         'produced_blocks_counter': '1107523',
-        'validator_node_id': '790148673bb9c06f56b37d30b45f3895f0d89d12'
+        'validator_node_id': '790148673bb9c06f56b37d30b45f3895f0d89d12',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '188',
@@ -3862,7 +4237,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '157',
         'produced_blocks_counter': '381580',
-        'validator_node_id': '8d8b78f5a5cb21cb7bbb712652a025cd0c7c7893'
+        'validator_node_id': '8d8b78f5a5cb21cb7bbb712652a025cd0c7c7893',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '189',
@@ -3881,7 +4258,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '629',
         'produced_blocks_counter': '652180',
-        'validator_node_id': '62c3c8d3908951e2af2895685265b676b4a0b553'
+        'validator_node_id': '62c3c8d3908951e2af2895685265b676b4a0b553',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '190',
@@ -3900,7 +4279,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '1468',
         'produced_blocks_counter': '1077767',
-        'validator_node_id': '7f172823ebe4a61f788e7bdf8548eb3d865f1ff5'
+        'validator_node_id': '7f172823ebe4a61f788e7bdf8548eb3d865f1ff5',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '191',
@@ -3919,7 +4300,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '1745',
         'produced_blocks_counter': '1225483',
-        'validator_node_id': '7f61fd1e9877504b97928af9573527d8395b5631'
+        'validator_node_id': '7f61fd1e9877504b97928af9573527d8395b5631',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '192',
@@ -3938,7 +4321,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '754',
         'produced_blocks_counter': '1198833',
-        'validator_node_id': 'df39fe72622f6c3c228662921ac81bacf7f074ca'
+        'validator_node_id': 'df39fe72622f6c3c228662921ac81bacf7f074ca',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '193',
@@ -3957,7 +4342,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '419',
         'produced_blocks_counter': '943625',
-        'validator_node_id': '9ffcbb2648cf0bc36bc59bf8d9a0de397826354d'
+        'validator_node_id': '9ffcbb2648cf0bc36bc59bf8d9a0de397826354d',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '194',
@@ -3976,7 +4363,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '364',
         'produced_blocks_counter': '943574',
-        'validator_node_id': '070e5804c5c0130c5d2a1750875d286dd9854ec7'
+        'validator_node_id': '070e5804c5c0130c5d2a1750875d286dd9854ec7',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '195',
@@ -3995,7 +4384,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '599',
         'produced_blocks_counter': '1267181',
-        'validator_node_id': '73d9826466a3d43fc5ef38a123026accb05d1fa0'
+        'validator_node_id': '73d9826466a3d43fc5ef38a123026accb05d1fa0',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '196',
@@ -4014,7 +4405,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '1001',
         'produced_blocks_counter': '1057112',
-        'validator_node_id': '88d30d4ed50aa4a364f5f450dd9ab50cadb603d6'
+        'validator_node_id': '88d30d4ed50aa4a364f5f450dd9ab50cadb603d6',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '197',
@@ -4033,7 +4426,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '1152',
         'produced_blocks_counter': '1162950',
-        'validator_node_id': '5c396e0e7f23ba1592a21ca88e4aa6e9e8956dad'
+        'validator_node_id': '5c396e0e7f23ba1592a21ca88e4aa6e9e8956dad',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '198',
@@ -4052,7 +4447,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '511',
         'produced_blocks_counter': '1101821',
-        'validator_node_id': '5cf51576d81d87e9f80379215e43b57792c32391'
+        'validator_node_id': '5cf51576d81d87e9f80379215e43b57792c32391',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '199',
@@ -4071,7 +4468,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '1424',
         'produced_blocks_counter': '1225726',
-        'validator_node_id': 'b0ec1274bd040d761098717532b45f61e4800079'
+        'validator_node_id': 'b0ec1274bd040d761098717532b45f61e4800079',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '200',
@@ -4090,7 +4489,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '1060',
         'produced_blocks_counter': '1256941',
-        'validator_node_id': '7ef5a10560ebd0806aad995d1a197db6ca9c31ae'
+        'validator_node_id': '7ef5a10560ebd0806aad995d1a197db6ca9c31ae',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '201',
@@ -4109,7 +4510,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '802',
         'produced_blocks_counter': '1095759',
-        'validator_node_id': '76e4a620900b0bf2088264fb17a678def5380845'
+        'validator_node_id': '76e4a620900b0bf2088264fb17a678def5380845',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '202',
@@ -4128,7 +4531,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '2298',
         'produced_blocks_counter': '1133728',
-        'validator_node_id': 'e949ffd9152cd0f9b40d8d2fa6266030d17347e8'
+        'validator_node_id': 'e949ffd9152cd0f9b40d8d2fa6266030d17347e8',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '203',
@@ -4147,7 +4552,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '284',
         'produced_blocks_counter': '959008',
-        'validator_node_id': '6a76aae2b0781a83991fcd4c563458f84d13e510'
+        'validator_node_id': '6a76aae2b0781a83991fcd4c563458f84d13e510',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '204',
@@ -4166,7 +4573,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '732',
         'produced_blocks_counter': '1209828',
-        'validator_node_id': 'eced46b28606cce2089379d083a7505e965edddd'
+        'validator_node_id': 'eced46b28606cce2089379d083a7505e965edddd',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '205',
@@ -4184,7 +4593,9 @@ class MockApiValopers {
         'inactive_until': '2021-12-01T10:56:19.792810898Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '447',
-        'produced_blocks_counter': '696311'
+        'produced_blocks_counter': '696311',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '206',
@@ -4203,7 +4614,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '7859',
         'produced_blocks_counter': '1164230',
-        'validator_node_id': '1d0117c5296cbc71c4480bed31d0d065b3899913'
+        'validator_node_id': '1d0117c5296cbc71c4480bed31d0d065b3899913',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '207',
@@ -4222,7 +4635,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '2409',
         'produced_blocks_counter': '1238572',
-        'validator_node_id': 'facd48bc581876fbc94bf5f19c1d38133d872b2f'
+        'validator_node_id': 'facd48bc581876fbc94bf5f19c1d38133d872b2f',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '208',
@@ -4241,7 +4656,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '1499',
         'produced_blocks_counter': '1232682',
-        'validator_node_id': 'e198ca8a629600fb63f543bcdc6a6418a4eeb537'
+        'validator_node_id': 'e198ca8a629600fb63f543bcdc6a6418a4eeb537',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '209',
@@ -4259,7 +4676,9 @@ class MockApiValopers {
         'inactive_until': '2021-12-30T14:08:52.194386552Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '1638',
-        'produced_blocks_counter': '1151270'
+        'produced_blocks_counter': '1151270',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '210',
@@ -4277,7 +4696,9 @@ class MockApiValopers {
         'inactive_until': '2022-01-08T21:01:52.738722491Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '2805',
-        'produced_blocks_counter': '1197788'
+        'produced_blocks_counter': '1197788',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '211',
@@ -4295,7 +4716,9 @@ class MockApiValopers {
         'inactive_until': '2021-12-26T02:59:01.188188037Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '528',
-        'produced_blocks_counter': '952267'
+        'produced_blocks_counter': '952267',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '212',
@@ -4314,7 +4737,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '299',
         'produced_blocks_counter': '1107596',
-        'validator_node_id': 'd95025e07bae3cccecb8a030a1dbbd5b68b49462'
+        'validator_node_id': 'd95025e07bae3cccecb8a030a1dbbd5b68b49462',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '213',
@@ -4333,7 +4758,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '801',
         'produced_blocks_counter': '1214568',
-        'validator_node_id': '07869217a83f1e9769a1b016ee566e545e17f81d'
+        'validator_node_id': '07869217a83f1e9769a1b016ee566e545e17f81d',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '214',
@@ -4352,7 +4779,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '913',
         'produced_blocks_counter': '864429',
-        'validator_node_id': 'aba8990a92972cce906b9ab6c152227286b5151f'
+        'validator_node_id': 'aba8990a92972cce906b9ab6c152227286b5151f',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '215',
@@ -4371,7 +4800,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '5254',
         'produced_blocks_counter': '1286999',
-        'validator_node_id': '675103158e688504da2a67010a87a6fa7eb71341'
+        'validator_node_id': '675103158e688504da2a67010a87a6fa7eb71341',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '216',
@@ -4390,7 +4821,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '503',
         'produced_blocks_counter': '1000650',
-        'validator_node_id': 'ac310873bc9a57a4d04ee52a254719f45b26a5c3'
+        'validator_node_id': 'ac310873bc9a57a4d04ee52a254719f45b26a5c3',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '217',
@@ -4409,7 +4842,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '2950',
         'produced_blocks_counter': '1151496',
-        'validator_node_id': '2ff16dc9f214c8c06db28a657655ac759aa2430c'
+        'validator_node_id': '2ff16dc9f214c8c06db28a657655ac759aa2430c',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '218',
@@ -4427,7 +4862,9 @@ class MockApiValopers {
         'inactive_until': '2021-12-04T20:29:01.284901198Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '258',
-        'produced_blocks_counter': '501242'
+        'produced_blocks_counter': '501242',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '219',
@@ -4446,7 +4883,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '1504',
         'produced_blocks_counter': '1009136',
-        'validator_node_id': 'de62576f1d6f122f817f2d53313bcea4a392f9f4'
+        'validator_node_id': 'de62576f1d6f122f817f2d53313bcea4a392f9f4',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '220',
@@ -4464,7 +4903,9 @@ class MockApiValopers {
         'inactive_until': '2022-01-08T21:01:52.738722491Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '460',
-        'produced_blocks_counter': '804571'
+        'produced_blocks_counter': '804571',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '221',
@@ -4482,7 +4923,9 @@ class MockApiValopers {
         'inactive_until': '2022-01-12T16:57:31.759164357Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '167',
-        'produced_blocks_counter': '383906'
+        'produced_blocks_counter': '383906',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '222',
@@ -4501,7 +4944,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '27877',
         'produced_blocks_counter': '1007687',
-        'validator_node_id': 'af5e38d56d7263fe9a3f39edea49c35f8ea184f0'
+        'validator_node_id': 'af5e38d56d7263fe9a3f39edea49c35f8ea184f0',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '223',
@@ -4519,7 +4964,9 @@ class MockApiValopers {
         'inactive_until': '1970-01-01T00:00:00Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '110',
-        'produced_blocks_counter': '327365'
+        'produced_blocks_counter': '327365',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '224',
@@ -4538,7 +4985,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '1171',
         'produced_blocks_counter': '1037732',
-        'validator_node_id': '19ded28d1e226be9493e6568ac4676400e94938d'
+        'validator_node_id': '19ded28d1e226be9493e6568ac4676400e94938d',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '225',
@@ -4556,7 +5005,9 @@ class MockApiValopers {
         'inactive_until': '1970-01-01T00:00:00Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '0',
-        'produced_blocks_counter': '325964'
+        'produced_blocks_counter': '325964',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '226',
@@ -4575,7 +5026,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '384',
         'produced_blocks_counter': '350827',
-        'validator_node_id': 'dba8492ada91f4850e22681e222dd810f8d15be1'
+        'validator_node_id': 'dba8492ada91f4850e22681e222dd810f8d15be1',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '227',
@@ -4594,7 +5047,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '80',
         'produced_blocks_counter': '324947',
-        'validator_node_id': '7ff6c31ae8d8b2ce35f2b5e2017b57d7688976ab'
+        'validator_node_id': '7ff6c31ae8d8b2ce35f2b5e2017b57d7688976ab',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '228',
@@ -4613,7 +5068,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '1082',
         'produced_blocks_counter': '984459',
-        'validator_node_id': '4c458bdd9a28e4aa3fb1e5f9fd0094854f38d741'
+        'validator_node_id': '4c458bdd9a28e4aa3fb1e5f9fd0094854f38d741',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '229',
@@ -4632,7 +5089,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '4',
         'produced_blocks_counter': '321267',
-        'validator_node_id': '292112574d28663a256b01a9dcedb3e5da2c6958'
+        'validator_node_id': '292112574d28663a256b01a9dcedb3e5da2c6958',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '230',
@@ -4651,7 +5110,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '1293',
         'produced_blocks_counter': '776539',
-        'validator_node_id': 'db2185a7c177c23a867db677d7da23cc8936f9e8'
+        'validator_node_id': 'db2185a7c177c23a867db677d7da23cc8936f9e8',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '231',
@@ -4670,7 +5131,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '86',
         'produced_blocks_counter': '318570',
-        'validator_node_id': '89f78d4552980f6a08da761c99b5658bd2009aeb'
+        'validator_node_id': '89f78d4552980f6a08da761c99b5658bd2009aeb',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '232',
@@ -4688,7 +5151,9 @@ class MockApiValopers {
         'inactive_until': '2022-01-25T10:44:30.215519083Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '838',
-        'produced_blocks_counter': '1298219'
+        'produced_blocks_counter': '1298219',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '233',
@@ -4707,7 +5172,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '126',
         'produced_blocks_counter': '865519',
-        'validator_node_id': '26f5d6377726cd6d644beb1597b78b79dd449c9b'
+        'validator_node_id': '26f5d6377726cd6d644beb1597b78b79dd449c9b',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '234',
@@ -4726,7 +5193,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '1863',
         'produced_blocks_counter': '937478',
-        'validator_node_id': 'f6d45c090931fe2f458cfdd4c5b7eebee346fdef'
+        'validator_node_id': 'f6d45c090931fe2f458cfdd4c5b7eebee346fdef',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '235',
@@ -4744,7 +5213,9 @@ class MockApiValopers {
         'inactive_until': '2022-01-16T04:18:21.985993697Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '5181',
-        'produced_blocks_counter': '1197118'
+        'produced_blocks_counter': '1197118',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '236',
@@ -4763,7 +5234,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '1255',
         'produced_blocks_counter': '325194',
-        'validator_node_id': '21f19ede1eed66d8cae078b47af186acfea229d3'
+        'validator_node_id': '21f19ede1eed66d8cae078b47af186acfea229d3',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '237',
@@ -4782,7 +5255,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '34',
         'produced_blocks_counter': '292278',
-        'validator_node_id': 'f3bdd5514cd86c0d32495b1796203af4bc57b797'
+        'validator_node_id': 'f3bdd5514cd86c0d32495b1796203af4bc57b797',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '238',
@@ -4801,7 +5276,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '125',
         'produced_blocks_counter': '282371',
-        'validator_node_id': '4602f0b9df7f31b916723b66f459b5ca84aedbc9'
+        'validator_node_id': '4602f0b9df7f31b916723b66f459b5ca84aedbc9',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '239',
@@ -4820,7 +5297,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '3687',
         'produced_blocks_counter': '1250989',
-        'validator_node_id': '34979f72d3204069d0d20e65965a058729de05e5'
+        'validator_node_id': '34979f72d3204069d0d20e65965a058729de05e5',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '240',
@@ -4839,7 +5318,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '1029',
         'produced_blocks_counter': '1060911',
-        'validator_node_id': '147df0869567f6897b96ca8fbcf889a4932b8de9'
+        'validator_node_id': '147df0869567f6897b96ca8fbcf889a4932b8de9',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '241',
@@ -4858,7 +5339,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '819',
         'produced_blocks_counter': '1241873',
-        'validator_node_id': '82e34c36a3b905cde35346be8c157fe1d96e4657'
+        'validator_node_id': '82e34c36a3b905cde35346be8c157fe1d96e4657',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '242',
@@ -4877,7 +5360,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '388',
         'produced_blocks_counter': '325526',
-        'validator_node_id': 'ff6a9eb134093fccbf26d1c3ccd3b97d3ef95d88'
+        'validator_node_id': 'ff6a9eb134093fccbf26d1c3ccd3b97d3ef95d88',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '243',
@@ -4896,7 +5381,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '1550',
         'produced_blocks_counter': '1051054',
-        'validator_node_id': '67c098d7fa3baf4e37c17901f26a2afcdb8bdf90'
+        'validator_node_id': '67c098d7fa3baf4e37c17901f26a2afcdb8bdf90',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '244',
@@ -4915,7 +5402,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '18396',
         'produced_blocks_counter': '608713',
-        'validator_node_id': '444ef9dda007a3342d347b235685b69a7567d352'
+        'validator_node_id': '444ef9dda007a3342d347b235685b69a7567d352',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '245',
@@ -4934,7 +5423,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '765',
         'produced_blocks_counter': '383154',
-        'validator_node_id': '4d12e10ce5345e880d193beefb268faae2bee416'
+        'validator_node_id': '4d12e10ce5345e880d193beefb268faae2bee416',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '246',
@@ -4953,7 +5444,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '1045',
         'produced_blocks_counter': '1013132',
-        'validator_node_id': '25892220dfa89557b44a1776b4d8c65842a80aa8'
+        'validator_node_id': '25892220dfa89557b44a1776b4d8c65842a80aa8',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '247',
@@ -4972,7 +5465,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '652',
         'produced_blocks_counter': '1136757',
-        'validator_node_id': '7b7c288c5923d0741b975bc500a29fb5b110651d'
+        'validator_node_id': '7b7c288c5923d0741b975bc500a29fb5b110651d',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '248',
@@ -4991,7 +5486,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '13965',
         'produced_blocks_counter': '859265',
-        'validator_node_id': '8ac8fdb2d376942111d382846217fcc68dff5064'
+        'validator_node_id': '8ac8fdb2d376942111d382846217fcc68dff5064',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '249',
@@ -5010,7 +5507,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '460',
         'produced_blocks_counter': '302593',
-        'validator_node_id': '3a90a39705b5e9341f666f3844baf7a30a7d92cd'
+        'validator_node_id': '3a90a39705b5e9341f666f3844baf7a30a7d92cd',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '250',
@@ -5029,7 +5528,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '1120',
         'produced_blocks_counter': '1259474',
-        'validator_node_id': 'db7d5f16e3c2c76c0007b4fb0513dc687c0f7b23'
+        'validator_node_id': 'db7d5f16e3c2c76c0007b4fb0513dc687c0f7b23',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '251',
@@ -5047,7 +5548,9 @@ class MockApiValopers {
         'inactive_until': '2022-01-15T09:39:18.532716460Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '3379',
-        'produced_blocks_counter': '398839'
+        'produced_blocks_counter': '398839',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '252',
@@ -5066,7 +5569,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '429',
         'produced_blocks_counter': '1283885',
-        'validator_node_id': 'bb2fd47233d33760a9bda43c5c1e1f5bd2fa1ef4'
+        'validator_node_id': 'bb2fd47233d33760a9bda43c5c1e1f5bd2fa1ef4',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '253',
@@ -5085,7 +5590,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '323',
         'produced_blocks_counter': '228546',
-        'validator_node_id': 'be20ecd037dc5bff8d3efc323a224847125a2379'
+        'validator_node_id': 'be20ecd037dc5bff8d3efc323a224847125a2379',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '254',
@@ -5104,7 +5611,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '1331',
         'produced_blocks_counter': '358577',
-        'validator_node_id': '2145809ab2ee3c02ee48e514f2c025e33e01fdac'
+        'validator_node_id': '2145809ab2ee3c02ee48e514f2c025e33e01fdac',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '255',
@@ -5123,7 +5632,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '2969',
         'produced_blocks_counter': '1230175',
-        'validator_node_id': 'a38c33a20cad4ac95b3e572148c6940e2ea49a69'
+        'validator_node_id': 'a38c33a20cad4ac95b3e572148c6940e2ea49a69',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '256',
@@ -5142,7 +5653,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '2173',
         'produced_blocks_counter': '1187578',
-        'validator_node_id': 'a4034f77fa39d4b6e7065b9ea88374c90d5ddaac'
+        'validator_node_id': 'a4034f77fa39d4b6e7065b9ea88374c90d5ddaac',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '257',
@@ -5161,7 +5674,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '474',
         'produced_blocks_counter': '559458',
-        'validator_node_id': '8466979376bd7e298dd202d169f43493f228f017'
+        'validator_node_id': '8466979376bd7e298dd202d169f43493f228f017',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '258',
@@ -5180,7 +5695,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '916',
         'produced_blocks_counter': '1151004',
-        'validator_node_id': 'cd0b8ad47501ef31094d7180a181271877f6037c'
+        'validator_node_id': 'cd0b8ad47501ef31094d7180a181271877f6037c',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '259',
@@ -5199,7 +5716,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '972',
         'produced_blocks_counter': '1149668',
-        'validator_node_id': '018b107b86d6898158556a34de115bc367cca710'
+        'validator_node_id': '018b107b86d6898158556a34de115bc367cca710',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '260',
@@ -5218,7 +5737,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '448',
         'produced_blocks_counter': '504124',
-        'validator_node_id': '0cd6d4d40ec4805c8dc1fc94c66e35c9b9e6a97c'
+        'validator_node_id': '0cd6d4d40ec4805c8dc1fc94c66e35c9b9e6a97c',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '261',
@@ -5237,7 +5758,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '3531',
         'produced_blocks_counter': '955515',
-        'validator_node_id': 'd22328481b3e60aba715b4c5386607f33e601c4b'
+        'validator_node_id': 'd22328481b3e60aba715b4c5386607f33e601c4b',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '262',
@@ -5255,7 +5778,9 @@ class MockApiValopers {
         'inactive_until': '2022-01-19T11:03:15.192397007Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '1265',
-        'produced_blocks_counter': '1146701'
+        'produced_blocks_counter': '1146701',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '263',
@@ -5274,7 +5799,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '27',
         'produced_blocks_counter': '189739',
-        'validator_node_id': 'ceabc6e01f9679aaa169482442e35c947121bd5e'
+        'validator_node_id': 'ceabc6e01f9679aaa169482442e35c947121bd5e',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '264',
@@ -5293,7 +5820,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '84',
         'produced_blocks_counter': '189483',
-        'validator_node_id': 'faa9f60a87e842b9745a712cf5d8f43b6d8c0318'
+        'validator_node_id': 'faa9f60a87e842b9745a712cf5d8f43b6d8c0318',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '265',
@@ -5312,7 +5841,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '11',
         'produced_blocks_counter': '186494',
-        'validator_node_id': 'eb9e6d76b7b75496bad31e80f9fd707ede906a81'
+        'validator_node_id': 'eb9e6d76b7b75496bad31e80f9fd707ede906a81',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '266',
@@ -5330,7 +5861,9 @@ class MockApiValopers {
         'inactive_until': '2022-01-28T09:49:33.199859084Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '2145',
-        'produced_blocks_counter': '1207823'
+        'produced_blocks_counter': '1207823',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '267',
@@ -5349,7 +5882,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '15',
         'produced_blocks_counter': '183032',
-        'validator_node_id': '2be6c42ec6e2847e084de1c4c8068da4f0e65b8a'
+        'validator_node_id': '2be6c42ec6e2847e084de1c4c8068da4f0e65b8a',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '268',
@@ -5368,7 +5903,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '235',
         'produced_blocks_counter': '182787',
-        'validator_node_id': 'b85d64f4322b4020cb65e1f19a7fac96b9725fff'
+        'validator_node_id': 'b85d64f4322b4020cb65e1f19a7fac96b9725fff',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '269',
@@ -5387,7 +5924,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '9',
         'produced_blocks_counter': '180735',
-        'validator_node_id': '3dd6c834e3a8dd798a57aa0b004834f562594516'
+        'validator_node_id': '3dd6c834e3a8dd798a57aa0b004834f562594516',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '270',
@@ -5406,7 +5945,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '64',
         'produced_blocks_counter': '178586',
-        'validator_node_id': 'bdb7fe29b15c801910840e64bfad0a6ce5ad78f8'
+        'validator_node_id': 'bdb7fe29b15c801910840e64bfad0a6ce5ad78f8',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '271',
@@ -5425,7 +5966,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '1938',
         'produced_blocks_counter': '195789',
-        'validator_node_id': 'c9368840dd49e811b882374fa5562d1e1b5d81bc'
+        'validator_node_id': 'c9368840dd49e811b882374fa5562d1e1b5d81bc',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '272',
@@ -5444,7 +5987,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '551',
         'produced_blocks_counter': '310729',
-        'validator_node_id': '801793227c083e57ed9fb98e887acd83e483a8c7'
+        'validator_node_id': '801793227c083e57ed9fb98e887acd83e483a8c7',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '273',
@@ -5463,7 +6008,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '104',
         'produced_blocks_counter': '175463',
-        'validator_node_id': '2ac017a14352339d3e18c93f864d2aef41d447e5'
+        'validator_node_id': '2ac017a14352339d3e18c93f864d2aef41d447e5',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '274',
@@ -5481,7 +6028,9 @@ class MockApiValopers {
         'inactive_until': '1970-01-01T00:00:00Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '28',
-        'produced_blocks_counter': '173104'
+        'produced_blocks_counter': '173104',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '275',
@@ -5499,7 +6048,9 @@ class MockApiValopers {
         'inactive_until': '2022-01-25T07:28:00.910887207Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '187',
-        'produced_blocks_counter': '167928'
+        'produced_blocks_counter': '167928',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '276',
@@ -5518,7 +6069,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '846',
         'produced_blocks_counter': '326415',
-        'validator_node_id': '68121001a311e3df3a3d62073eafd7ce1ef4fddd'
+        'validator_node_id': '68121001a311e3df3a3d62073eafd7ce1ef4fddd',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '277',
@@ -5537,7 +6090,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '2283',
         'produced_blocks_counter': '1210040',
-        'validator_node_id': '9a1fe6507022ee91e99ea577ac9845bebbc3bf29'
+        'validator_node_id': '9a1fe6507022ee91e99ea577ac9845bebbc3bf29',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '278',
@@ -5556,7 +6111,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '1020',
         'produced_blocks_counter': '755574',
-        'validator_node_id': 'f4c721edb9b9d1a14e1aa24c688d17b36472e2df'
+        'validator_node_id': 'f4c721edb9b9d1a14e1aa24c688d17b36472e2df',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '279',
@@ -5575,7 +6132,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '82',
         'produced_blocks_counter': '182956',
-        'validator_node_id': '92f9e5c07dacc5318ef023d6caabff2324eee025'
+        'validator_node_id': '92f9e5c07dacc5318ef023d6caabff2324eee025',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '280',
@@ -5594,7 +6153,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '261',
         'produced_blocks_counter': '143375',
-        'validator_node_id': '8097a4eaf3a8d6509cd363f129c3dca7a27de2b1'
+        'validator_node_id': '8097a4eaf3a8d6509cd363f129c3dca7a27de2b1',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '281',
@@ -5613,7 +6174,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '643',
         'produced_blocks_counter': '1235374',
-        'validator_node_id': 'a749ae2c5e8ec5deda0edd6fe5413460c765becf'
+        'validator_node_id': 'a749ae2c5e8ec5deda0edd6fe5413460c765becf',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '282',
@@ -5632,7 +6195,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '192',
         'produced_blocks_counter': '383154',
-        'validator_node_id': '6a394ee594d112e92ef02ed09f1a3d64bff7fe89'
+        'validator_node_id': '6a394ee594d112e92ef02ed09f1a3d64bff7fe89',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '283',
@@ -5651,7 +6216,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '3568',
         'produced_blocks_counter': '974636',
-        'validator_node_id': '6ced9425fcf8e3532e066ba2458f659f294d80b1'
+        'validator_node_id': '6ced9425fcf8e3532e066ba2458f659f294d80b1',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '284',
@@ -5669,7 +6236,9 @@ class MockApiValopers {
         'inactive_until': '2022-02-06T19:54:48.296895573Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '814',
-        'produced_blocks_counter': '648974'
+        'produced_blocks_counter': '648974',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '285',
@@ -5688,7 +6257,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '995',
         'produced_blocks_counter': '305789',
-        'validator_node_id': '7e756022a677121ac59f3a741eaef696006b0b8b'
+        'validator_node_id': '7e756022a677121ac59f3a741eaef696006b0b8b',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '286',
@@ -5707,7 +6278,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '500',
         'produced_blocks_counter': '228390',
-        'validator_node_id': '959d32fb6a3f401e54bd8f13a59094b5ba6ffee7'
+        'validator_node_id': '959d32fb6a3f401e54bd8f13a59094b5ba6ffee7',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '287',
@@ -5726,7 +6299,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '701',
         'produced_blocks_counter': '670651',
-        'validator_node_id': '0a79d288dc177b8e02b6248f077b0d1230575dd6'
+        'validator_node_id': '0a79d288dc177b8e02b6248f077b0d1230575dd6',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '288',
@@ -5745,7 +6320,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '279',
         'produced_blocks_counter': '757466',
-        'validator_node_id': '90bdca9c7d1e1d9bf9290b46288a1236497afd39'
+        'validator_node_id': '90bdca9c7d1e1d9bf9290b46288a1236497afd39',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '289',
@@ -5763,7 +6340,9 @@ class MockApiValopers {
         'inactive_until': '2022-01-29T22:06:22.342150371Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '291',
-        'produced_blocks_counter': '516894'
+        'produced_blocks_counter': '516894',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '290',
@@ -5782,7 +6361,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '513',
         'produced_blocks_counter': '426976',
-        'validator_node_id': 'c52ac24934cda9a86bea52c289f896ac8a40f49a'
+        'validator_node_id': 'c52ac24934cda9a86bea52c289f896ac8a40f49a',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '291',
@@ -5801,7 +6382,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '2326',
         'produced_blocks_counter': '796422',
-        'validator_node_id': '6cc6195a9a0146f6088051a7150ca33402b3a391'
+        'validator_node_id': '6cc6195a9a0146f6088051a7150ca33402b3a391',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '292',
@@ -5820,7 +6403,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '151',
         'produced_blocks_counter': '170490',
-        'validator_node_id': 'c5095ec5db15a5c7f25f1a0271b49032eb910231'
+        'validator_node_id': 'c5095ec5db15a5c7f25f1a0271b49032eb910231',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '293',
@@ -5839,7 +6424,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '2530',
         'produced_blocks_counter': '1152772',
-        'validator_node_id': '3bcc6402ec0a4010d47b3f7405cd64c4a8c04878'
+        'validator_node_id': '3bcc6402ec0a4010d47b3f7405cd64c4a8c04878',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '294',
@@ -5858,7 +6445,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '482',
         'produced_blocks_counter': '732753',
-        'validator_node_id': '60f342a35cbdb1e015beb80790b0f685cb97dc4d'
+        'validator_node_id': '60f342a35cbdb1e015beb80790b0f685cb97dc4d',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '295',
@@ -5877,7 +6466,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '1386',
         'produced_blocks_counter': '90163',
-        'validator_node_id': 'c5e6893f58aa67672fa46edfa3bd31e828f6a60b'
+        'validator_node_id': 'c5e6893f58aa67672fa46edfa3bd31e828f6a60b',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '296',
@@ -5895,7 +6486,9 @@ class MockApiValopers {
         'inactive_until': '2022-01-30T10:01:37.145433069Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '3860',
-        'produced_blocks_counter': '209052'
+        'produced_blocks_counter': '209052',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '297',
@@ -5913,7 +6506,9 @@ class MockApiValopers {
         'inactive_until': '2022-01-28T13:14:10.029461494Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '642',
-        'produced_blocks_counter': '152842'
+        'produced_blocks_counter': '152842',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '298',
@@ -5932,7 +6527,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '824',
         'produced_blocks_counter': '1193056',
-        'validator_node_id': 'dd9d055df53d1c87de0d6697f6848fcc4f138d0a'
+        'validator_node_id': 'dd9d055df53d1c87de0d6697f6848fcc4f138d0a',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '299',
@@ -5951,7 +6548,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '620',
         'produced_blocks_counter': '1184204',
-        'validator_node_id': '54b160adb43b3346250a6367ce4a599b3f96f961'
+        'validator_node_id': '54b160adb43b3346250a6367ce4a599b3f96f961',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '300',
@@ -5970,7 +6569,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '936',
         'produced_blocks_counter': '517788',
-        'validator_node_id': '6a514a12952d644a85f2b60ec31f55bbfeec4d90'
+        'validator_node_id': '6a514a12952d644a85f2b60ec31f55bbfeec4d90',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '301',
@@ -5988,7 +6589,9 @@ class MockApiValopers {
         'inactive_until': '2022-02-02T13:52:53.988908452Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '1089',
-        'produced_blocks_counter': '1138244'
+        'produced_blocks_counter': '1138244',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '302',
@@ -6007,7 +6610,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '167',
         'produced_blocks_counter': '181519',
-        'validator_node_id': '163cfaf8b79caba27667cc9e36a9e31b57b142b9'
+        'validator_node_id': '163cfaf8b79caba27667cc9e36a9e31b57b142b9',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '303',
@@ -6025,7 +6630,9 @@ class MockApiValopers {
         'inactive_until': '2022-02-04T09:07:00.405290758Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '3814',
-        'produced_blocks_counter': '1132420'
+        'produced_blocks_counter': '1132420',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '304',
@@ -6044,7 +6651,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '290',
         'produced_blocks_counter': '169935',
-        'validator_node_id': 'b034b643fbd427cdf310c0c89a99087427c60ca9'
+        'validator_node_id': 'b034b643fbd427cdf310c0c89a99087427c60ca9',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '305',
@@ -6063,7 +6672,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '1259',
         'produced_blocks_counter': '1011682',
-        'validator_node_id': 'ddb4f1b91a427f0e44d2275e82f0f44f6971443b'
+        'validator_node_id': 'ddb4f1b91a427f0e44d2275e82f0f44f6971443b',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '306',
@@ -6082,7 +6693,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '345',
         'produced_blocks_counter': '162551',
-        'validator_node_id': '4c432c367f1fa23ac6bead835ee61fc9740f4c50'
+        'validator_node_id': '4c432c367f1fa23ac6bead835ee61fc9740f4c50',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '307',
@@ -6101,7 +6714,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '497',
         'produced_blocks_counter': '676715',
-        'validator_node_id': '4d392ac89d10795cd3cede18875b399b8b33b99e'
+        'validator_node_id': '4d392ac89d10795cd3cede18875b399b8b33b99e',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '308',
@@ -6120,7 +6735,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '0',
         'produced_blocks_counter': '41323',
-        'validator_node_id': '5921d6a20392e0f102caf0862aa18e4cfcc3b222'
+        'validator_node_id': '5921d6a20392e0f102caf0862aa18e4cfcc3b222',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '309',
@@ -6138,7 +6755,9 @@ class MockApiValopers {
         'inactive_until': '1970-01-01T00:00:00Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '4',
-        'produced_blocks_counter': '40821'
+        'produced_blocks_counter': '40821',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '310',
@@ -6157,7 +6776,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '4174',
         'produced_blocks_counter': '849891',
-        'validator_node_id': 'db393fdd3676215369b38596057983f772152c83'
+        'validator_node_id': 'db393fdd3676215369b38596057983f772152c83',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '311',
@@ -6175,7 +6796,9 @@ class MockApiValopers {
         'inactive_until': '1970-01-01T00:00:00Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '4',
-        'produced_blocks_counter': '34444'
+        'produced_blocks_counter': '34444',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '312',
@@ -6194,7 +6817,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '2634',
         'produced_blocks_counter': '1071064',
-        'validator_node_id': 'acbec496b5f059dd0b0c927c16a5d527a07990a0'
+        'validator_node_id': 'acbec496b5f059dd0b0c927c16a5d527a07990a0',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '313',
@@ -6213,7 +6838,9 @@ class MockApiValopers {
         'last_present_block': '1307348',
         'missed_blocks_counter': '10815',
         'produced_blocks_counter': '92071',
-        'validator_node_id': '65d78899a73d7b53e39827744e98fdc27489613f'
+        'validator_node_id': '65d78899a73d7b53e39827744e98fdc27489613f',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '314',
@@ -6232,7 +6859,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '0',
         'produced_blocks_counter': '23252',
-        'validator_node_id': '5d43742e10caaf7d063948e8f741f5843a74014b'
+        'validator_node_id': '5d43742e10caaf7d063948e8f741f5843a74014b',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '315',
@@ -6251,7 +6880,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '7',
         'produced_blocks_counter': '17768',
-        'validator_node_id': '75f7e806011a3a93bf1bdccd8ac0ebbf35d33f51'
+        'validator_node_id': '75f7e806011a3a93bf1bdccd8ac0ebbf35d33f51',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '316',
@@ -6270,7 +6901,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '22852',
         'produced_blocks_counter': '448408',
-        'validator_node_id': 'ec78292a9ec19f195d634161e19ea1a02338d122'
+        'validator_node_id': 'ec78292a9ec19f195d634161e19ea1a02338d122',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '317',
@@ -6288,7 +6921,9 @@ class MockApiValopers {
         'inactive_until': '1970-01-01T00:00:00Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '1',
-        'produced_blocks_counter': '11654'
+        'produced_blocks_counter': '11654',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '318',
@@ -6307,7 +6942,9 @@ class MockApiValopers {
         'last_present_block': '1307360',
         'missed_blocks_counter': '0',
         'produced_blocks_counter': '10362',
-        'validator_node_id': '815db8f6c9d947ad062f07cca4f45f6655d28076'
+        'validator_node_id': '815db8f6c9d947ad062f07cca4f45f6655d28076',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '319',
@@ -6325,7 +6962,9 @@ class MockApiValopers {
         'inactive_until': '2022-02-07T20:09:34.984139372Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '2818',
-        'produced_blocks_counter': '95597'
+        'produced_blocks_counter': '95597',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '320',
@@ -6344,7 +6983,9 @@ class MockApiValopers {
         'last_present_block': '1245483',
         'missed_blocks_counter': '811',
         'produced_blocks_counter': '1031284',
-        'validator_node_id': 'af7d98f501f3403f0e7398087f3fa2237532d1c5'
+        'validator_node_id': 'af7d98f501f3403f0e7398087f3fa2237532d1c5',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '321',
@@ -6363,7 +7004,9 @@ class MockApiValopers {
         'last_present_block': '1231552',
         'missed_blocks_counter': '2948',
         'produced_blocks_counter': '1139132',
-        'validator_node_id': '3e221eb96500abb7a97e88533e46918a487d6e02'
+        'validator_node_id': '3e221eb96500abb7a97e88533e46918a487d6e02',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '322',
@@ -6382,7 +7025,9 @@ class MockApiValopers {
         'last_present_block': '1149255',
         'missed_blocks_counter': '101',
         'produced_blocks_counter': '948813',
-        'validator_node_id': '46d43fb1863130a0c1e6dfa3d6ecc3c42ef267b4'
+        'validator_node_id': '46d43fb1863130a0c1e6dfa3d6ecc3c42ef267b4',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '323',
@@ -6401,7 +7046,9 @@ class MockApiValopers {
         'last_present_block': '474994',
         'missed_blocks_counter': '309',
         'produced_blocks_counter': '333591',
-        'validator_node_id': 'e3ae459a86b1a25b1fb474d324080de911496757'
+        'validator_node_id': 'e3ae459a86b1a25b1fb474d324080de911496757',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '324',
@@ -6420,7 +7067,9 @@ class MockApiValopers {
         'last_present_block': '1211746',
         'missed_blocks_counter': '362',
         'produced_blocks_counter': '901312',
-        'validator_node_id': 'd9ee04180e4ca22ae28cf4eab1b63efbde70ebbc'
+        'validator_node_id': 'd9ee04180e4ca22ae28cf4eab1b63efbde70ebbc',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '325',
@@ -6439,7 +7088,9 @@ class MockApiValopers {
         'last_present_block': '882648',
         'missed_blocks_counter': '1401',
         'produced_blocks_counter': '589541',
-        'validator_node_id': 'a3b63adcd84b4bcf4db12058917e05a08ccc504d'
+        'validator_node_id': 'a3b63adcd84b4bcf4db12058917e05a08ccc504d',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '326',
@@ -6458,7 +7109,9 @@ class MockApiValopers {
         'last_present_block': '1233010',
         'missed_blocks_counter': '52',
         'produced_blocks_counter': '240689',
-        'validator_node_id': 'c0652d605182fe1c4fc131bf6dc036867a929e72'
+        'validator_node_id': 'c0652d605182fe1c4fc131bf6dc036867a929e72',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '327',
@@ -6477,7 +7130,9 @@ class MockApiValopers {
         'last_present_block': '1149267',
         'missed_blocks_counter': '171',
         'produced_blocks_counter': '983199',
-        'validator_node_id': '14c2bd04c5862856ec3e8e5aaa070c60c289dcd1'
+        'validator_node_id': '14c2bd04c5862856ec3e8e5aaa070c60c289dcd1',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '328',
@@ -6496,7 +7151,9 @@ class MockApiValopers {
         'last_present_block': '1201951',
         'missed_blocks_counter': '828',
         'produced_blocks_counter': '1078160',
-        'validator_node_id': 'c0957e45ec7352967f87712ad9d79adeb242acd2'
+        'validator_node_id': 'c0957e45ec7352967f87712ad9d79adeb242acd2',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '329',
@@ -6515,7 +7172,9 @@ class MockApiValopers {
         'last_present_block': '1036113',
         'missed_blocks_counter': '1337',
         'produced_blocks_counter': '332961',
-        'validator_node_id': '12bbfbbfe2ccca7097271d8706b2a842d54d9783'
+        'validator_node_id': '12bbfbbfe2ccca7097271d8706b2a842d54d9783',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '330',
@@ -6534,7 +7193,9 @@ class MockApiValopers {
         'last_present_block': '271005',
         'missed_blocks_counter': '654',
         'produced_blocks_counter': '189651',
-        'validator_node_id': '01fc001bb7717e5a1c1cb37df934454d8e681e47'
+        'validator_node_id': '01fc001bb7717e5a1c1cb37df934454d8e681e47',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '331',
@@ -6552,7 +7213,9 @@ class MockApiValopers {
         'inactive_until': '2021-12-31T10:01:32.429713452Z',
         'last_present_block': '1026386',
         'missed_blocks_counter': '1969',
-        'produced_blocks_counter': '470949'
+        'produced_blocks_counter': '470949',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '332',
@@ -6571,7 +7234,9 @@ class MockApiValopers {
         'last_present_block': '1192412',
         'missed_blocks_counter': '733',
         'produced_blocks_counter': '284263',
-        'validator_node_id': 'a67a527c0dc627a459cce0bd24aa1981d39d39e5'
+        'validator_node_id': 'a67a527c0dc627a459cce0bd24aa1981d39d39e5',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '333',
@@ -6589,7 +7254,9 @@ class MockApiValopers {
         'inactive_until': '2022-01-19T11:03:15.192397007Z',
         'last_present_block': '1307360',
         'missed_blocks_counter': '1265',
-        'produced_blocks_counter': '1146701'
+        'produced_blocks_counter': '1146701',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '334',
@@ -6608,7 +7275,9 @@ class MockApiValopers {
         'last_present_block': '138404',
         'missed_blocks_counter': '0',
         'produced_blocks_counter': '127508',
-        'validator_node_id': '6429e81fe9b2df2bbeeffa746a91c3f4ccf984a2'
+        'validator_node_id': '6429e81fe9b2df2bbeeffa746a91c3f4ccf984a2',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '335',
@@ -6627,7 +7296,9 @@ class MockApiValopers {
         'last_present_block': '138404',
         'missed_blocks_counter': '173',
         'produced_blocks_counter': '122886',
-        'validator_node_id': '19e0ac5b35bddc82ffd450771efc541767a43229'
+        'validator_node_id': '19e0ac5b35bddc82ffd450771efc541767a43229',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '336',
@@ -6645,7 +7316,9 @@ class MockApiValopers {
         'inactive_until': '9999-12-31T23:59:59Z',
         'last_present_block': '138404',
         'missed_blocks_counter': '80',
-        'produced_blocks_counter': '114852'
+        'produced_blocks_counter': '114852',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '337',
@@ -6664,7 +7337,9 @@ class MockApiValopers {
         'last_present_block': '138404',
         'missed_blocks_counter': '380',
         'produced_blocks_counter': '109678',
-        'validator_node_id': 'aee1b424f4ea4eccb3bf61f169fb769e80f5a370'
+        'validator_node_id': 'aee1b424f4ea4eccb3bf61f169fb769e80f5a370',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '338',
@@ -6683,7 +7358,9 @@ class MockApiValopers {
         'last_present_block': '116762',
         'missed_blocks_counter': '129',
         'produced_blocks_counter': '105409',
-        'validator_node_id': '8b1a95fd124b817bd02bc72bf00fca6a4eeeed4c'
+        'validator_node_id': '8b1a95fd124b817bd02bc72bf00fca6a4eeeed4c',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '339',
@@ -6702,7 +7379,9 @@ class MockApiValopers {
         'last_present_block': '138404',
         'missed_blocks_counter': '237',
         'produced_blocks_counter': '103495',
-        'validator_node_id': 'c2b8c911179d0ff52aa1cbb886727c139de6435e'
+        'validator_node_id': 'c2b8c911179d0ff52aa1cbb886727c139de6435e',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '340',
@@ -6721,7 +7400,9 @@ class MockApiValopers {
         'last_present_block': '981128',
         'missed_blocks_counter': '0',
         'produced_blocks_counter': '16',
-        'validator_node_id': '68f8a305a55ad4845e7c17f0237b779f44097e6b'
+        'validator_node_id': '68f8a305a55ad4845e7c17f0237b779f44097e6b',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '341',
@@ -6740,7 +7421,9 @@ class MockApiValopers {
         'last_present_block': '920528',
         'missed_blocks_counter': '1172',
         'produced_blocks_counter': '781273',
-        'validator_node_id': 'ac992a5ea39a93734026c44fa48df57fabb64d3a'
+        'validator_node_id': 'ac992a5ea39a93734026c44fa48df57fabb64d3a',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '342',
@@ -6759,7 +7442,9 @@ class MockApiValopers {
         'last_present_block': '1202254',
         'missed_blocks_counter': '538',
         'produced_blocks_counter': '1193414',
-        'validator_node_id': '849c04b3274dd90d0506bd2e6db580ec58f19a69'
+        'validator_node_id': '849c04b3274dd90d0506bd2e6db580ec58f19a69',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '343',
@@ -6778,7 +7463,9 @@ class MockApiValopers {
         'last_present_block': '920526',
         'missed_blocks_counter': '181',
         'produced_blocks_counter': '846548',
-        'validator_node_id': '812337fe102ab02b3fc45131851961d44990955c'
+        'validator_node_id': '812337fe102ab02b3fc45131851961d44990955c',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '344',
@@ -6797,7 +7484,9 @@ class MockApiValopers {
         'last_present_block': '920526',
         'missed_blocks_counter': '369',
         'produced_blocks_counter': '846829',
-        'validator_node_id': 'bfe7dd8877f7c84fd6932814ab28f744c3b263da'
+        'validator_node_id': 'bfe7dd8877f7c84fd6932814ab28f744c3b263da',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '345',
@@ -6816,7 +7505,9 @@ class MockApiValopers {
         'last_present_block': '920526',
         'missed_blocks_counter': '550',
         'produced_blocks_counter': '811573',
-        'validator_node_id': 'c1a7f0b8c4a81b1e950ffdb78079daa58d73ec58'
+        'validator_node_id': 'c1a7f0b8c4a81b1e950ffdb78079daa58d73ec58',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '346',
@@ -6835,7 +7526,9 @@ class MockApiValopers {
         'last_present_block': '920526',
         'missed_blocks_counter': '325',
         'produced_blocks_counter': '841732',
-        'validator_node_id': '16250812e64d061cff663fd019516625252278e3'
+        'validator_node_id': '16250812e64d061cff663fd019516625252278e3',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '347',
@@ -6854,7 +7547,9 @@ class MockApiValopers {
         'last_present_block': '920526',
         'missed_blocks_counter': '379',
         'produced_blocks_counter': '801075',
-        'validator_node_id': '467cbddb2828a39179738f1e352aa10816e9b56f'
+        'validator_node_id': '467cbddb2828a39179738f1e352aa10816e9b56f',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '348',
@@ -6873,7 +7568,9 @@ class MockApiValopers {
         'last_present_block': '750503',
         'missed_blocks_counter': '92',
         'produced_blocks_counter': '739346',
-        'validator_node_id': '77e6fdbc9f65c86ff329e0a789df237930faf1a9'
+        'validator_node_id': '77e6fdbc9f65c86ff329e0a789df237930faf1a9',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '349',
@@ -6892,7 +7589,9 @@ class MockApiValopers {
         'last_present_block': '750161',
         'missed_blocks_counter': '479',
         'produced_blocks_counter': '731611',
-        'validator_node_id': 'a91455783b3d5389ea96b1cc118d64cba920c56c'
+        'validator_node_id': 'a91455783b3d5389ea96b1cc118d64cba920c56c',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '350',
@@ -6911,7 +7610,9 @@ class MockApiValopers {
         'last_present_block': '920526',
         'missed_blocks_counter': '273',
         'produced_blocks_counter': '647012',
-        'validator_node_id': '2cc4c3c6a56fc81605ec7f25de0ac56428dbdc97'
+        'validator_node_id': '2cc4c3c6a56fc81605ec7f25de0ac56428dbdc97',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '351',
@@ -6930,7 +7631,9 @@ class MockApiValopers {
         'last_present_block': '748781',
         'missed_blocks_counter': '95',
         'produced_blocks_counter': '610076',
-        'validator_node_id': 'd343f4e55b771c76e59fbdbb85f92cfe331f30e2'
+        'validator_node_id': 'd343f4e55b771c76e59fbdbb85f92cfe331f30e2',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '352',
@@ -6949,7 +7652,9 @@ class MockApiValopers {
         'last_present_block': '747181',
         'missed_blocks_counter': '97',
         'produced_blocks_counter': '608225',
-        'validator_node_id': '993e8926789da4efb88572f24c2bb984dd136744'
+        'validator_node_id': '993e8926789da4efb88572f24c2bb984dd136744',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '353',
@@ -6968,7 +7673,9 @@ class MockApiValopers {
         'last_present_block': '611632',
         'missed_blocks_counter': '504',
         'produced_blocks_counter': '594081',
-        'validator_node_id': 'fdf6ed2b16ac6f4e754caa5ba4b86d6a6505cd4e'
+        'validator_node_id': 'fdf6ed2b16ac6f4e754caa5ba4b86d6a6505cd4e',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '354',
@@ -6987,7 +7694,9 @@ class MockApiValopers {
         'last_present_block': '610202',
         'missed_blocks_counter': '623',
         'produced_blocks_counter': '593243',
-        'validator_node_id': '098057c1811ec99b5b5780dcc3505e09b04a36e5'
+        'validator_node_id': '098057c1811ec99b5b5780dcc3505e09b04a36e5',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '355',
@@ -7006,7 +7715,9 @@ class MockApiValopers {
         'last_present_block': '600302',
         'missed_blocks_counter': '827',
         'produced_blocks_counter': '582420',
-        'validator_node_id': 'a2a784b5cb71b54c84a7e18375f8ef731058606d'
+        'validator_node_id': 'a2a784b5cb71b54c84a7e18375f8ef731058606d',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '356',
@@ -7025,7 +7736,9 @@ class MockApiValopers {
         'last_present_block': '600443',
         'missed_blocks_counter': '700',
         'produced_blocks_counter': '582922',
-        'validator_node_id': '55f29d0113365349963d75102808f547e9eef777'
+        'validator_node_id': '55f29d0113365349963d75102808f547e9eef777',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '357',
@@ -7044,7 +7757,9 @@ class MockApiValopers {
         'last_present_block': '1282002',
         'missed_blocks_counter': '6013',
         'produced_blocks_counter': '1263045',
-        'validator_node_id': 'b2e144d8abdf02869e89227e525cf894327c819e'
+        'validator_node_id': 'b2e144d8abdf02869e89227e525cf894327c819e',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '358',
@@ -7063,7 +7778,9 @@ class MockApiValopers {
         'last_present_block': '700381',
         'missed_blocks_counter': '80',
         'produced_blocks_counter': '539500',
-        'validator_node_id': '47d5db1065c79234f553b92907947d7ff1180584'
+        'validator_node_id': '47d5db1065c79234f553b92907947d7ff1180584',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '359',
@@ -7082,7 +7799,9 @@ class MockApiValopers {
         'last_present_block': '1027511',
         'missed_blocks_counter': '742',
         'produced_blocks_counter': '786025',
-        'validator_node_id': '804f51d0d08a034d42059003826c3f9424933eec'
+        'validator_node_id': '804f51d0d08a034d42059003826c3f9424933eec',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '360',
@@ -7101,7 +7820,9 @@ class MockApiValopers {
         'last_present_block': '920526',
         'missed_blocks_counter': '498',
         'produced_blocks_counter': '768642',
-        'validator_node_id': 'e75d72174609179d45da1227992d7a223f1b6752'
+        'validator_node_id': 'e75d72174609179d45da1227992d7a223f1b6752',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '361',
@@ -7120,7 +7841,9 @@ class MockApiValopers {
         'last_present_block': '613792',
         'missed_blocks_counter': '586',
         'produced_blocks_counter': '532159',
-        'validator_node_id': '9f5372daf2e0a3c3f6a9f1f0a65e3e041213cdfd'
+        'validator_node_id': '9f5372daf2e0a3c3f6a9f1f0a65e3e041213cdfd',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '362',
@@ -7139,7 +7862,9 @@ class MockApiValopers {
         'last_present_block': '471065',
         'missed_blocks_counter': '244',
         'produced_blocks_counter': '467234',
-        'validator_node_id': 'e808ae63dc84cc7c895a2dda7787f6eaf93546c5'
+        'validator_node_id': 'e808ae63dc84cc7c895a2dda7787f6eaf93546c5',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '363',
@@ -7158,7 +7883,9 @@ class MockApiValopers {
         'last_present_block': '614164',
         'missed_blocks_counter': '181',
         'produced_blocks_counter': '587255',
-        'validator_node_id': '1b2b4278ead304485d39acaa40c5f32130f96032'
+        'validator_node_id': '1b2b4278ead304485d39acaa40c5f32130f96032',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '364',
@@ -7177,7 +7904,9 @@ class MockApiValopers {
         'last_present_block': '465239',
         'missed_blocks_counter': '83',
         'produced_blocks_counter': '452987',
-        'validator_node_id': 'bfb408c48df305689125674bf341683771c39440'
+        'validator_node_id': 'bfb408c48df305689125674bf341683771c39440',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '365',
@@ -7196,7 +7925,9 @@ class MockApiValopers {
         'last_present_block': '465419',
         'missed_blocks_counter': '190',
         'produced_blocks_counter': '452784',
-        'validator_node_id': '68efb999394a23945658fa2c213a20caedbc2a39'
+        'validator_node_id': '68efb999394a23945658fa2c213a20caedbc2a39',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '366',
@@ -7215,7 +7946,9 @@ class MockApiValopers {
         'last_present_block': '465289',
         'missed_blocks_counter': '145',
         'produced_blocks_counter': '452719',
-        'validator_node_id': '15996a28ab5d6d2ae24763b961c9afa3dcdc00d7'
+        'validator_node_id': '15996a28ab5d6d2ae24763b961c9afa3dcdc00d7',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '367',
@@ -7234,7 +7967,9 @@ class MockApiValopers {
         'last_present_block': '465179',
         'missed_blocks_counter': '96',
         'produced_blocks_counter': '452636',
-        'validator_node_id': '153353955d6bbaf4eb2d6711cb2098f3bf5be832'
+        'validator_node_id': '153353955d6bbaf4eb2d6711cb2098f3bf5be832',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '368',
@@ -7253,7 +7988,9 @@ class MockApiValopers {
         'last_present_block': '465183',
         'missed_blocks_counter': '117',
         'produced_blocks_counter': '452616',
-        'validator_node_id': 'c4b2ea5efe57c85feb1120d042ea4ec00f684733'
+        'validator_node_id': 'c4b2ea5efe57c85feb1120d042ea4ec00f684733',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '369',
@@ -7272,7 +8009,9 @@ class MockApiValopers {
         'last_present_block': '465209',
         'missed_blocks_counter': '329',
         'produced_blocks_counter': '452475',
-        'validator_node_id': 'cb509cc8f9568532f5b087092c89db1b869339b0'
+        'validator_node_id': 'cb509cc8f9568532f5b087092c89db1b869339b0',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '370',
@@ -7291,7 +8030,9 @@ class MockApiValopers {
         'last_present_block': '465060',
         'missed_blocks_counter': '140',
         'produced_blocks_counter': '452471',
-        'validator_node_id': '185541177f851884b47f071bd21254e9e94af2a3'
+        'validator_node_id': '185541177f851884b47f071bd21254e9e94af2a3',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '371',
@@ -7310,7 +8051,9 @@ class MockApiValopers {
         'last_present_block': '465055',
         'missed_blocks_counter': '444',
         'produced_blocks_counter': '452109',
-        'validator_node_id': '731f6751d3e63db097bd7e174de5557642b30d5e'
+        'validator_node_id': '731f6751d3e63db097bd7e174de5557642b30d5e',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '372',
@@ -7329,7 +8072,9 @@ class MockApiValopers {
         'last_present_block': '1220959',
         'missed_blocks_counter': '1408',
         'produced_blocks_counter': '1098829',
-        'validator_node_id': 'eb92ffc99f487b7923d0ee21e56feedfada2f281'
+        'validator_node_id': 'eb92ffc99f487b7923d0ee21e56feedfada2f281',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '373',
@@ -7347,7 +8092,9 @@ class MockApiValopers {
         'inactive_until': '2021-12-04T11:25:37.328751227Z',
         'last_present_block': '466300',
         'missed_blocks_counter': '112',
-        'produced_blocks_counter': '430581'
+        'produced_blocks_counter': '430581',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '374',
@@ -7366,7 +8113,9 @@ class MockApiValopers {
         'last_present_block': '548605',
         'missed_blocks_counter': '395',
         'produced_blocks_counter': '474223',
-        'validator_node_id': '1ed1a9eea5dbf7ff9d3fc1b1b2626d28663cfeac'
+        'validator_node_id': '1ed1a9eea5dbf7ff9d3fc1b1b2626d28663cfeac',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '375',
@@ -7385,7 +8134,9 @@ class MockApiValopers {
         'last_present_block': '920526',
         'missed_blocks_counter': '570',
         'produced_blocks_counter': '815845',
-        'validator_node_id': '0c6e6ab723744c1603ea297b8637069ca72cfb41'
+        'validator_node_id': '0c6e6ab723744c1603ea297b8637069ca72cfb41',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '376',
@@ -7404,7 +8155,9 @@ class MockApiValopers {
         'last_present_block': '1265811',
         'missed_blocks_counter': '1792',
         'produced_blocks_counter': '1226871',
-        'validator_node_id': 'bc71b8ecbd6da807ba0f936c4a33cd45a56fde70'
+        'validator_node_id': 'bc71b8ecbd6da807ba0f936c4a33cd45a56fde70',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '377',
@@ -7423,7 +8176,9 @@ class MockApiValopers {
         'last_present_block': '1012265',
         'missed_blocks_counter': '629',
         'produced_blocks_counter': '999035',
-        'validator_node_id': 'd20307244f28bed379c5fc4633a4fdd086ca5e56'
+        'validator_node_id': 'd20307244f28bed379c5fc4633a4fdd086ca5e56',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '378',
@@ -7442,7 +8197,9 @@ class MockApiValopers {
         'last_present_block': '562266',
         'missed_blocks_counter': '486',
         'produced_blocks_counter': '382066',
-        'validator_node_id': '5ae0e485158c3a5f7c1ff802ddb5deeeb80eed07'
+        'validator_node_id': '5ae0e485158c3a5f7c1ff802ddb5deeeb80eed07',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '379',
@@ -7461,7 +8218,9 @@ class MockApiValopers {
         'last_present_block': '1287001',
         'missed_blocks_counter': '906',
         'produced_blocks_counter': '354681',
-        'validator_node_id': 'a2f8a5bcd74439a9dcf958dcc60389b7e8a73619'
+        'validator_node_id': 'a2f8a5bcd74439a9dcf958dcc60389b7e8a73619',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '380',
@@ -7480,7 +8239,9 @@ class MockApiValopers {
         'last_present_block': '1131105',
         'missed_blocks_counter': '378',
         'produced_blocks_counter': '707451',
-        'validator_node_id': 'a25712e10cd2886dd169a029d910f5b5f16ac1b7'
+        'validator_node_id': 'a25712e10cd2886dd169a029d910f5b5f16ac1b7',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '381',
@@ -7499,7 +8260,9 @@ class MockApiValopers {
         'last_present_block': '470059',
         'missed_blocks_counter': '649',
         'produced_blocks_counter': '319491',
-        'validator_node_id': 'db1a68a43c3c23b71230c61bcf15c4756ac783df'
+        'validator_node_id': 'db1a68a43c3c23b71230c61bcf15c4756ac783df',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '382',
@@ -7518,7 +8281,9 @@ class MockApiValopers {
         'last_present_block': '469896',
         'missed_blocks_counter': '565',
         'produced_blocks_counter': '319337',
-        'validator_node_id': '65f2d19fecabad1737a8bc7427b036f66df68846'
+        'validator_node_id': '65f2d19fecabad1737a8bc7427b036f66df68846',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '383',
@@ -7537,7 +8302,9 @@ class MockApiValopers {
         'last_present_block': '469866',
         'missed_blocks_counter': '318',
         'produced_blocks_counter': '415613',
-        'validator_node_id': '467d88d7dac4979498474e8602c1682b0fe080c1'
+        'validator_node_id': '467d88d7dac4979498474e8602c1682b0fe080c1',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '384',
@@ -7556,7 +8323,9 @@ class MockApiValopers {
         'last_present_block': '1292594',
         'missed_blocks_counter': '856',
         'produced_blocks_counter': '309852',
-        'validator_node_id': '723063f97891a36b3955b9e7210dbda48ccc853f'
+        'validator_node_id': '723063f97891a36b3955b9e7210dbda48ccc853f',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '385',
@@ -7575,7 +8344,9 @@ class MockApiValopers {
         'last_present_block': '1093507',
         'missed_blocks_counter': '501',
         'produced_blocks_counter': '817515',
-        'validator_node_id': '437dd0f6f1ec0104ba18b28304adc935d4ad910d'
+        'validator_node_id': '437dd0f6f1ec0104ba18b28304adc935d4ad910d',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '386',
@@ -7594,7 +8365,9 @@ class MockApiValopers {
         'last_present_block': '432877',
         'missed_blocks_counter': '162',
         'produced_blocks_counter': '423969',
-        'validator_node_id': '3fcf27564cdbdd60cf2a4a8b72ab99897cad8dff'
+        'validator_node_id': '3fcf27564cdbdd60cf2a4a8b72ab99897cad8dff',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '387',
@@ -7613,7 +8386,9 @@ class MockApiValopers {
         'last_present_block': '1280002',
         'missed_blocks_counter': '1013',
         'produced_blocks_counter': '1117069',
-        'validator_node_id': '1cc79683b817c98cf51fa3a1635aa220013d8a9e'
+        'validator_node_id': '1cc79683b817c98cf51fa3a1635aa220013d8a9e',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '388',
@@ -7631,7 +8406,9 @@ class MockApiValopers {
         'inactive_until': '2022-02-06T21:37:47.390452411Z',
         'last_present_block': '1285079',
         'missed_blocks_counter': '3281',
-        'produced_blocks_counter': '359580'
+        'produced_blocks_counter': '359580',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '389',
@@ -7650,7 +8427,9 @@ class MockApiValopers {
         'last_present_block': '723161',
         'missed_blocks_counter': '340',
         'produced_blocks_counter': '699684',
-        'validator_node_id': '34665d0dc994356c944981b8113ed36174f9c123'
+        'validator_node_id': '34665d0dc994356c944981b8113ed36174f9c123',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '390',
@@ -7669,7 +8448,9 @@ class MockApiValopers {
         'last_present_block': '1203098',
         'missed_blocks_counter': '1568',
         'produced_blocks_counter': '464829',
-        'validator_node_id': '076a1183ae67c1073318107a5169a6d0832fecb8'
+        'validator_node_id': '076a1183ae67c1073318107a5169a6d0832fecb8',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '391',
@@ -7688,7 +8469,9 @@ class MockApiValopers {
         'last_present_block': '1242009',
         'missed_blocks_counter': '85',
         'produced_blocks_counter': '251065',
-        'validator_node_id': 'ba965aa17fcf2c710638a81be10b5bffd639218b'
+        'validator_node_id': 'ba965aa17fcf2c710638a81be10b5bffd639218b',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '392',
@@ -7707,7 +8490,9 @@ class MockApiValopers {
         'last_present_block': '925540',
         'missed_blocks_counter': '169',
         'produced_blocks_counter': '247328',
-        'validator_node_id': '88609b15a440abc4869b231d84c8018772e09779'
+        'validator_node_id': '88609b15a440abc4869b231d84c8018772e09779',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '393',
@@ -7726,7 +8511,9 @@ class MockApiValopers {
         'last_present_block': '1213569',
         'missed_blocks_counter': '4810',
         'produced_blocks_counter': '996211',
-        'validator_node_id': '9e296d79953c1186f2be1188b99f0ae76b4de3cd'
+        'validator_node_id': '9e296d79953c1186f2be1188b99f0ae76b4de3cd',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '394',
@@ -7745,7 +8532,9 @@ class MockApiValopers {
         'last_present_block': '1224838',
         'missed_blocks_counter': '81',
         'produced_blocks_counter': '222797',
-        'validator_node_id': '37e4f3f4b50d2db5cc3046bc92b28da0cbb1a204'
+        'validator_node_id': '37e4f3f4b50d2db5cc3046bc92b28da0cbb1a204',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '395',
@@ -7764,7 +8553,9 @@ class MockApiValopers {
         'last_present_block': '1221262',
         'missed_blocks_counter': '718',
         'produced_blocks_counter': '1107227',
-        'validator_node_id': 'f47158011cdf73eb9a4fab9358f03b9dcd47648a'
+        'validator_node_id': 'f47158011cdf73eb9a4fab9358f03b9dcd47648a',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '396',
@@ -7783,7 +8574,9 @@ class MockApiValopers {
         'last_present_block': '1078543',
         'missed_blocks_counter': '780',
         'produced_blocks_counter': '554938',
-        'validator_node_id': '59932f16815ff981cccf57c76e9d619c7a565201'
+        'validator_node_id': '59932f16815ff981cccf57c76e9d619c7a565201',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '397',
@@ -7802,7 +8595,9 @@ class MockApiValopers {
         'last_present_block': '400440',
         'missed_blocks_counter': '111',
         'produced_blocks_counter': '210488',
-        'validator_node_id': 'b0f70ea98b6b381b464528ab52e5ef022df2117d'
+        'validator_node_id': 'b0f70ea98b6b381b464528ab52e5ef022df2117d',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '398',
@@ -7821,7 +8616,9 @@ class MockApiValopers {
         'last_present_block': '1149291',
         'missed_blocks_counter': '258',
         'produced_blocks_counter': '982862',
-        'validator_node_id': 'bba59a30bef6b478ceb193ca88ee262577aa60cc'
+        'validator_node_id': 'bba59a30bef6b478ceb193ca88ee262577aa60cc',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '399',
@@ -7840,7 +8637,9 @@ class MockApiValopers {
         'last_present_block': '492479',
         'missed_blocks_counter': '1259',
         'produced_blocks_counter': '335133',
-        'validator_node_id': '02f0918384a73e8d510864b0f7c7fbeae1e54a11'
+        'validator_node_id': '02f0918384a73e8d510864b0f7c7fbeae1e54a11',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '400',
@@ -7859,7 +8658,9 @@ class MockApiValopers {
         'last_present_block': '1126461',
         'missed_blocks_counter': '5650',
         'produced_blocks_counter': '699559',
-        'validator_node_id': '7933350104c796b136c44f1a444db516f5c2ecfb'
+        'validator_node_id': '7933350104c796b136c44f1a444db516f5c2ecfb',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '401',
@@ -7877,7 +8678,9 @@ class MockApiValopers {
         'inactive_until': '2022-01-08T21:01:52.738722491Z',
         'last_present_block': '920526',
         'missed_blocks_counter': '77',
-        'produced_blocks_counter': '191225'
+        'produced_blocks_counter': '191225',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '402',
@@ -7896,7 +8699,9 @@ class MockApiValopers {
         'last_present_block': '329551',
         'missed_blocks_counter': '79',
         'produced_blocks_counter': '189874',
-        'validator_node_id': 'cdf781694d9a54c1d93a7d81c7b702fe05c991d4'
+        'validator_node_id': 'cdf781694d9a54c1d93a7d81c7b702fe05c991d4',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '403',
@@ -7915,7 +8720,9 @@ class MockApiValopers {
         'last_present_block': '329550',
         'missed_blocks_counter': '95',
         'produced_blocks_counter': '189859',
-        'validator_node_id': '8a95a772c9f2310a8f754a875b0ba9f5e5bd37f0'
+        'validator_node_id': '8a95a772c9f2310a8f754a875b0ba9f5e5bd37f0',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '404',
@@ -7934,7 +8741,9 @@ class MockApiValopers {
         'last_present_block': '1297624',
         'missed_blocks_counter': '158',
         'produced_blocks_counter': '180651',
-        'validator_node_id': '2788f8e0de9c2d4cb197559a1e473dd624048b4c'
+        'validator_node_id': '2788f8e0de9c2d4cb197559a1e473dd624048b4c',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '405',
@@ -7953,7 +8762,9 @@ class MockApiValopers {
         'last_present_block': '1138983',
         'missed_blocks_counter': '154',
         'produced_blocks_counter': '468609',
-        'validator_node_id': 'd1053a645baa55d0693f5246947fce36b2a396f8'
+        'validator_node_id': 'd1053a645baa55d0693f5246947fce36b2a396f8',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '406',
@@ -7972,7 +8783,9 @@ class MockApiValopers {
         'last_present_block': '1283002',
         'missed_blocks_counter': '2872',
         'produced_blocks_counter': '1105396',
-        'validator_node_id': '1f62b22c4eb0e8a4bff320b33dac0e47e3c57534'
+        'validator_node_id': '1f62b22c4eb0e8a4bff320b33dac0e47e3c57534',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '407',
@@ -7991,7 +8804,9 @@ class MockApiValopers {
         'last_present_block': '1284144',
         'missed_blocks_counter': '2142',
         'produced_blocks_counter': '936015',
-        'validator_node_id': 'ecd0518afc65daa0af4a8abdfe4b6d91f7093272'
+        'validator_node_id': 'ecd0518afc65daa0af4a8abdfe4b6d91f7093272',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '408',
@@ -8010,7 +8825,9 @@ class MockApiValopers {
         'last_present_block': '319984',
         'missed_blocks_counter': '495',
         'produced_blocks_counter': '296832',
-        'validator_node_id': 'd4147cea6b542b17d59e915a948cab02f4959391'
+        'validator_node_id': 'd4147cea6b542b17d59e915a948cab02f4959391',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '409',
@@ -8028,7 +8845,9 @@ class MockApiValopers {
         'inactive_until': '2022-01-30T09:21:23.567508825Z',
         'last_present_block': '1188435',
         'missed_blocks_counter': '141',
-        'produced_blocks_counter': '205813'
+        'produced_blocks_counter': '205813',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '410',
@@ -8047,7 +8866,9 @@ class MockApiValopers {
         'last_present_block': '1276692',
         'missed_blocks_counter': '906',
         'produced_blocks_counter': '1065654',
-        'validator_node_id': '142539d426ba60401362a8b64663e251bf7c1edc'
+        'validator_node_id': '142539d426ba60401362a8b64663e251bf7c1edc',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '411',
@@ -8066,7 +8887,9 @@ class MockApiValopers {
         'last_present_block': '283014',
         'missed_blocks_counter': '104',
         'produced_blocks_counter': '143311',
-        'validator_node_id': '299e6597039391b00f35a5992e404457b31d6380'
+        'validator_node_id': '299e6597039391b00f35a5992e404457b31d6380',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '412',
@@ -8085,7 +8908,9 @@ class MockApiValopers {
         'last_present_block': '468116',
         'missed_blocks_counter': '110',
         'produced_blocks_counter': '139811',
-        'validator_node_id': '7446071d8dc5dc331faec7e86a4f73ba5d2e4c6e'
+        'validator_node_id': '7446071d8dc5dc331faec7e86a4f73ba5d2e4c6e',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '413',
@@ -8103,7 +8928,9 @@ class MockApiValopers {
         'inactive_until': '2022-02-06T06:10:06.901920609Z',
         'last_present_block': '1276692',
         'missed_blocks_counter': '127',
-        'produced_blocks_counter': '138137'
+        'produced_blocks_counter': '138137',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '414',
@@ -8121,7 +8948,9 @@ class MockApiValopers {
         'inactive_until': '2021-11-20T15:20:43.546988693Z',
         'last_present_block': '296100',
         'missed_blocks_counter': '217',
-        'produced_blocks_counter': '251838'
+        'produced_blocks_counter': '251838',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '415',
@@ -8139,7 +8968,9 @@ class MockApiValopers {
         'inactive_until': '2022-01-23T19:11:43.947910526Z',
         'last_present_block': '1104442',
         'missed_blocks_counter': '611',
-        'produced_blocks_counter': '764201'
+        'produced_blocks_counter': '764201',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '416',
@@ -8158,7 +8989,9 @@ class MockApiValopers {
         'last_present_block': '1280297',
         'missed_blocks_counter': '3066',
         'produced_blocks_counter': '680688',
-        'validator_node_id': 'c32156777923d4686d02a17c63fed49a5b600316'
+        'validator_node_id': 'c32156777923d4686d02a17c63fed49a5b600316',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '417',
@@ -8176,7 +9009,9 @@ class MockApiValopers {
         'inactive_until': '2022-01-17T23:54:39.006964380Z',
         'last_present_block': '1032889',
         'missed_blocks_counter': '2011',
-        'produced_blocks_counter': '754354'
+        'produced_blocks_counter': '754354',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '418',
@@ -8195,7 +9030,9 @@ class MockApiValopers {
         'last_present_block': '920526',
         'missed_blocks_counter': '310',
         'produced_blocks_counter': '225841',
-        'validator_node_id': 'f4dd5f0bc7aaf50847b21593b460092a357866b4'
+        'validator_node_id': 'f4dd5f0bc7aaf50847b21593b460092a357866b4',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '419',
@@ -8214,7 +9051,9 @@ class MockApiValopers {
         'last_present_block': '138402',
         'missed_blocks_counter': '232',
         'produced_blocks_counter': '110605',
-        'validator_node_id': '74350b10bc2991b3537eee01da2c31fb08efe0c3'
+        'validator_node_id': '74350b10bc2991b3537eee01da2c31fb08efe0c3',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '420',
@@ -8233,7 +9072,9 @@ class MockApiValopers {
         'last_present_block': '1267008',
         'missed_blocks_counter': '2811',
         'produced_blocks_counter': '905550',
-        'validator_node_id': 'c5342f17d164c09a9a46ecdb072e5b87aa38ec7e'
+        'validator_node_id': 'c5342f17d164c09a9a46ecdb072e5b87aa38ec7e',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '421',
@@ -8252,7 +9093,9 @@ class MockApiValopers {
         'last_present_block': '1027383',
         'missed_blocks_counter': '780',
         'produced_blocks_counter': '743664',
-        'validator_node_id': 'ddb0eb6621d8626a3f62628041d60ce9779af8ca'
+        'validator_node_id': 'ddb0eb6621d8626a3f62628041d60ce9779af8ca',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '422',
@@ -8271,7 +9114,9 @@ class MockApiValopers {
         'last_present_block': '1133002',
         'missed_blocks_counter': '3202',
         'produced_blocks_counter': '287165',
-        'validator_node_id': 'd3fb120d979dde9c15226544b59dced00c008591'
+        'validator_node_id': 'd3fb120d979dde9c15226544b59dced00c008591',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '423',
@@ -8290,7 +9135,9 @@ class MockApiValopers {
         'last_present_block': '1253002',
         'missed_blocks_counter': '4430',
         'produced_blocks_counter': '520064',
-        'validator_node_id': '47f1e752d1eaf2f8a16aa643d4415d652beea382'
+        'validator_node_id': '47f1e752d1eaf2f8a16aa643d4415d652beea382',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '424',
@@ -8308,7 +9155,9 @@ class MockApiValopers {
         'inactive_until': '2021-12-23T17:02:47.390653549Z',
         'last_present_block': '718561',
         'missed_blocks_counter': '78',
-        'produced_blocks_counter': '91423'
+        'produced_blocks_counter': '91423',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '425',
@@ -8327,7 +9176,9 @@ class MockApiValopers {
         'last_present_block': '1277016',
         'missed_blocks_counter': '2224',
         'produced_blocks_counter': '1060644',
-        'validator_node_id': '58d5d8aaaf714b37de48a7293b9c322f583ef3d6'
+        'validator_node_id': '58d5d8aaaf714b37de48a7293b9c322f583ef3d6',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '426',
@@ -8346,7 +9197,9 @@ class MockApiValopers {
         'last_present_block': '1136235',
         'missed_blocks_counter': '554',
         'produced_blocks_counter': '351601',
-        'validator_node_id': '4d38c6c82d4650c12136ff0f588f3ad9c2d5222e'
+        'validator_node_id': '4d38c6c82d4650c12136ff0f588f3ad9c2d5222e',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '427',
@@ -8364,7 +9217,9 @@ class MockApiValopers {
         'inactive_until': '2022-02-06T06:14:11.534107294Z',
         'last_present_block': '1276728',
         'missed_blocks_counter': '896',
-        'produced_blocks_counter': '626363'
+        'produced_blocks_counter': '626363',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '428',
@@ -8383,7 +9238,9 @@ class MockApiValopers {
         'last_present_block': '138402',
         'missed_blocks_counter': '153',
         'produced_blocks_counter': '124713',
-        'validator_node_id': 'bcb40b65eefa6067d35a9950170ad0624eb56830'
+        'validator_node_id': 'bcb40b65eefa6067d35a9950170ad0624eb56830',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '429',
@@ -8402,7 +9259,9 @@ class MockApiValopers {
         'last_present_block': '1195422',
         'missed_blocks_counter': '1391',
         'produced_blocks_counter': '826660',
-        'validator_node_id': '0f1989fe185bdc7003a4d663a5b0b04596faa1f8'
+        'validator_node_id': '0f1989fe185bdc7003a4d663a5b0b04596faa1f8',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '430',
@@ -8420,7 +9279,9 @@ class MockApiValopers {
         'inactive_until': '2022-01-08T21:01:52.738722491Z',
         'last_present_block': '920526',
         'missed_blocks_counter': '212',
-        'produced_blocks_counter': '82570'
+        'produced_blocks_counter': '82570',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '431',
@@ -8438,7 +9299,9 @@ class MockApiValopers {
         'inactive_until': '2022-01-08T21:01:52.738722491Z',
         'last_present_block': '920526',
         'missed_blocks_counter': '94',
-        'produced_blocks_counter': '62870'
+        'produced_blocks_counter': '62870',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '432',
@@ -8457,7 +9320,9 @@ class MockApiValopers {
         'last_present_block': '470477',
         'missed_blocks_counter': '537',
         'produced_blocks_counter': '192954',
-        'validator_node_id': 'a6cf674a4a6224548eb7daab52c23204fdfe6c27'
+        'validator_node_id': 'a6cf674a4a6224548eb7daab52c23204fdfe6c27',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '433',
@@ -8475,7 +9340,9 @@ class MockApiValopers {
         'inactive_until': '2022-02-03T19:10:54.016629339Z',
         'last_present_block': '1244801',
         'missed_blocks_counter': '4240',
-        'produced_blocks_counter': '146140'
+        'produced_blocks_counter': '146140',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '434',
@@ -8494,7 +9361,9 @@ class MockApiValopers {
         'last_present_block': '1280002',
         'missed_blocks_counter': '1770',
         'produced_blocks_counter': '761358',
-        'validator_node_id': '8b37b74e486acacad57d8fdb8d5a4329d8f872d5'
+        'validator_node_id': '8b37b74e486acacad57d8fdb8d5a4329d8f872d5',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '435',
@@ -8513,7 +9382,9 @@ class MockApiValopers {
         'last_present_block': '402241',
         'missed_blocks_counter': '157',
         'produced_blocks_counter': '102840',
-        'validator_node_id': 'cd269d0d111da490375a251abf04bdfe6ba6cdfe'
+        'validator_node_id': 'cd269d0d111da490375a251abf04bdfe6ba6cdfe',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '436',
@@ -8531,7 +9402,9 @@ class MockApiValopers {
         'inactive_until': '2021-12-01T02:00:33.149004276Z',
         'last_present_block': '423614',
         'missed_blocks_counter': '6566',
-        'produced_blocks_counter': '223519'
+        'produced_blocks_counter': '223519',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '437',
@@ -8550,7 +9423,9 @@ class MockApiValopers {
         'last_present_block': '1279673',
         'missed_blocks_counter': '919',
         'produced_blocks_counter': '221314',
-        'validator_node_id': 'e60fc867bfa0ec003775bb7030d2d18b87b72a76'
+        'validator_node_id': 'e60fc867bfa0ec003775bb7030d2d18b87b72a76',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '438',
@@ -8569,7 +9444,9 @@ class MockApiValopers {
         'last_present_block': '1241122',
         'missed_blocks_counter': '578',
         'produced_blocks_counter': '507717',
-        'validator_node_id': '112b4e4ec0117e6a81274a2160624990ad387add'
+        'validator_node_id': '112b4e4ec0117e6a81274a2160624990ad387add',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '439',
@@ -8588,7 +9465,9 @@ class MockApiValopers {
         'last_present_block': '186523',
         'missed_blocks_counter': '2627',
         'produced_blocks_counter': '38911',
-        'validator_node_id': 'f25d30187f18bb918ea5d54cb4fb087398139a39'
+        'validator_node_id': 'f25d30187f18bb918ea5d54cb4fb087398139a39',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '440',
@@ -8607,7 +9486,9 @@ class MockApiValopers {
         'last_present_block': '1231548',
         'missed_blocks_counter': '14122',
         'produced_blocks_counter': '480066',
-        'validator_node_id': '3498181cdc388585a3541886aa97f352a7859a3a'
+        'validator_node_id': '3498181cdc388585a3541886aa97f352a7859a3a',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '441',
@@ -8625,7 +9506,9 @@ class MockApiValopers {
         'inactive_until': '2022-02-06T03:08:42.707338855Z',
         'last_present_block': '1275052',
         'missed_blocks_counter': '217',
-        'produced_blocks_counter': '30664'
+        'produced_blocks_counter': '30664',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '442',
@@ -8644,7 +9527,9 @@ class MockApiValopers {
         'last_present_block': '1306727',
         'missed_blocks_counter': '2702',
         'produced_blocks_counter': '728130',
-        'validator_node_id': 'c228ad647770cd183354b43d47ff42a8021e77f0'
+        'validator_node_id': 'c228ad647770cd183354b43d47ff42a8021e77f0',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '443',
@@ -8662,7 +9547,9 @@ class MockApiValopers {
         'inactive_until': '2022-02-06T08:36:31.034857527Z',
         'last_present_block': '1278002',
         'missed_blocks_counter': '3868',
-        'produced_blocks_counter': '340777'
+        'produced_blocks_counter': '340777',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '444',
@@ -8681,7 +9568,9 @@ class MockApiValopers {
         'last_present_block': '1152920',
         'missed_blocks_counter': '10245',
         'produced_blocks_counter': '781965',
-        'validator_node_id': 'fb6dacf90604f6e7e40529fcec16bb5b2ee8e00b'
+        'validator_node_id': 'fb6dacf90604f6e7e40529fcec16bb5b2ee8e00b',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '445',
@@ -8700,7 +9589,9 @@ class MockApiValopers {
         'last_present_block': '1247002',
         'missed_blocks_counter': '3303',
         'produced_blocks_counter': '500606',
-        'validator_node_id': '91ff4cb20b5a110e574020fe8fa4833a5b38b502'
+        'validator_node_id': '91ff4cb20b5a110e574020fe8fa4833a5b38b502',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '446',
@@ -8719,7 +9610,9 @@ class MockApiValopers {
         'last_present_block': '1171344',
         'missed_blocks_counter': '76',
         'produced_blocks_counter': '21900',
-        'validator_node_id': 'b6cf3171a18418978ebd4e0bd698121040e0b130'
+        'validator_node_id': 'b6cf3171a18418978ebd4e0bd698121040e0b130',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '447',
@@ -8738,7 +9631,9 @@ class MockApiValopers {
         'last_present_block': '1228632',
         'missed_blocks_counter': '8323',
         'produced_blocks_counter': '729958',
-        'validator_node_id': '5cf9933c89ceddab718ff4a46abe2966448b9560'
+        'validator_node_id': '5cf9933c89ceddab718ff4a46abe2966448b9560',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '448',
@@ -8757,7 +9652,9 @@ class MockApiValopers {
         'last_present_block': '402241',
         'missed_blocks_counter': '335',
         'produced_blocks_counter': '170125',
-        'validator_node_id': 'ab5402ff716dc4733456cde8c45edbcfa315b8cc'
+        'validator_node_id': 'ab5402ff716dc4733456cde8c45edbcfa315b8cc',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '449',
@@ -8776,7 +9673,9 @@ class MockApiValopers {
         'last_present_block': '1177059',
         'missed_blocks_counter': '838',
         'produced_blocks_counter': '50680',
-        'validator_node_id': 'b2791bb9a651295460cce03f5d020bd8af837ae6'
+        'validator_node_id': 'b2791bb9a651295460cce03f5d020bd8af837ae6',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '450',
@@ -8795,7 +9694,9 @@ class MockApiValopers {
         'last_present_block': '1249002',
         'missed_blocks_counter': '7229',
         'produced_blocks_counter': '686859',
-        'validator_node_id': '4a44420a1a01254357e736ecd06335f7bf235d68'
+        'validator_node_id': '4a44420a1a01254357e736ecd06335f7bf235d68',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '451',
@@ -8813,7 +9714,9 @@ class MockApiValopers {
         'inactive_until': '2022-02-08T06:05:13.757991958Z',
         'last_present_block': '1302733',
         'missed_blocks_counter': '762',
-        'produced_blocks_counter': '34108'
+        'produced_blocks_counter': '34108',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '452',
@@ -8832,7 +9735,9 @@ class MockApiValopers {
         'last_present_block': '1247002',
         'missed_blocks_counter': '5345',
         'produced_blocks_counter': '303064',
-        'validator_node_id': '0f5e4b7588db6407610b49a925038379b2571d60'
+        'validator_node_id': '0f5e4b7588db6407610b49a925038379b2571d60',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '453',
@@ -8851,7 +9756,9 @@ class MockApiValopers {
         'last_present_block': '1231358',
         'missed_blocks_counter': '7704',
         'produced_blocks_counter': '478378',
-        'validator_node_id': '205c2bd8758c917bf0f9a45e792ea20a034fb5b1'
+        'validator_node_id': '205c2bd8758c917bf0f9a45e792ea20a034fb5b1',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '454',
@@ -8870,7 +9777,9 @@ class MockApiValopers {
         'last_present_block': '1243002',
         'missed_blocks_counter': '9651',
         'produced_blocks_counter': '668357',
-        'validator_node_id': '304a11a7b8a33aab7b6b7307489addc4ae32f8bd'
+        'validator_node_id': '304a11a7b8a33aab7b6b7307489addc4ae32f8bd',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '455',
@@ -8889,7 +9798,9 @@ class MockApiValopers {
         'last_present_block': '325579',
         'missed_blocks_counter': '929',
         'produced_blocks_counter': '228906',
-        'validator_node_id': '5ea498f7baeec712cc6d9c3f7310fc102875a7b6'
+        'validator_node_id': '5ea498f7baeec712cc6d9c3f7310fc102875a7b6',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '456',
@@ -8908,7 +9819,9 @@ class MockApiValopers {
         'last_present_block': '1274360',
         'missed_blocks_counter': '17271',
         'produced_blocks_counter': '232558',
-        'validator_node_id': '70a27a805c32b852ff5e4e61e38de14351d4d440'
+        'validator_node_id': '70a27a805c32b852ff5e4e61e38de14351d4d440',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '457',
@@ -8927,7 +9840,9 @@ class MockApiValopers {
         'last_present_block': '1247002',
         'missed_blocks_counter': '5149',
         'produced_blocks_counter': '424524',
-        'validator_node_id': '908756dab61c18b7d47c072513afcf601f9f1418'
+        'validator_node_id': '908756dab61c18b7d47c072513afcf601f9f1418',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '458',
@@ -8945,7 +9860,9 @@ class MockApiValopers {
         'inactive_until': '2021-11-21T22:25:57.137005653Z',
         'last_present_block': '311753',
         'missed_blocks_counter': '935',
-        'produced_blocks_counter': '33056'
+        'produced_blocks_counter': '33056',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '459',
@@ -8964,7 +9881,9 @@ class MockApiValopers {
         'last_present_block': '766000',
         'missed_blocks_counter': '16413',
         'produced_blocks_counter': '243918',
-        'validator_node_id': '2b524d89de65ba30d906ddcc0ed3ceb7c4f6defb'
+        'validator_node_id': '2b524d89de65ba30d906ddcc0ed3ceb7c4f6defb',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '460',
@@ -8982,7 +9901,9 @@ class MockApiValopers {
         'inactive_until': '2022-02-03T00:18:03.280262557Z',
         'last_present_block': '1234730',
         'missed_blocks_counter': '3763',
-        'produced_blocks_counter': '27300'
+        'produced_blocks_counter': '27300',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '461',
@@ -9000,7 +9921,9 @@ class MockApiValopers {
         'inactive_until': '2022-01-23T01:07:16.789627499Z',
         'last_present_block': '1095002',
         'missed_blocks_counter': '2475',
-        'produced_blocks_counter': '38700'
+        'produced_blocks_counter': '38700',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '462',
@@ -9019,7 +9942,9 @@ class MockApiValopers {
         'last_present_block': '1295002',
         'missed_blocks_counter': '3019',
         'produced_blocks_counter': '131457',
-        'validator_node_id': 'c2ba37dcb0e93cb08131216293f20894bc0d1d52'
+        'validator_node_id': 'c2ba37dcb0e93cb08131216293f20894bc0d1d52',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '463',
@@ -9038,7 +9963,9 @@ class MockApiValopers {
         'last_present_block': '981002',
         'missed_blocks_counter': '6348',
         'produced_blocks_counter': '250647',
-        'validator_node_id': 'f70a774dfa7373251e669ba03f957a4c602ff15a'
+        'validator_node_id': 'f70a774dfa7373251e669ba03f957a4c602ff15a',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '464',
@@ -9056,7 +9983,9 @@ class MockApiValopers {
         'inactive_until': '2022-02-08T10:14:14.001209714Z',
         'last_present_block': '1305002',
         'missed_blocks_counter': '47567',
-        'produced_blocks_counter': '617177'
+        'produced_blocks_counter': '617177',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '465',
@@ -9074,7 +10003,9 @@ class MockApiValopers {
         'inactive_until': '2022-01-22T15:25:05.021830424Z',
         'last_present_block': '1090002',
         'missed_blocks_counter': '4057',
-        'produced_blocks_counter': '16214'
+        'produced_blocks_counter': '16214',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '466',
@@ -9093,7 +10024,9 @@ class MockApiValopers {
         'last_present_block': '1063001',
         'missed_blocks_counter': '3672',
         'produced_blocks_counter': '61716',
-        'validator_node_id': 'd2c58db6cf4d33134b31ef488a152659a9cd4b38'
+        'validator_node_id': 'd2c58db6cf4d33134b31ef488a152659a9cd4b38',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '467',
@@ -9112,7 +10045,9 @@ class MockApiValopers {
         'last_present_block': '1166001',
         'missed_blocks_counter': '2710',
         'produced_blocks_counter': '16639',
-        'validator_node_id': 'af0be7fcaa8b8eac154bd707d3c058802be735af'
+        'validator_node_id': 'af0be7fcaa8b8eac154bd707d3c058802be735af',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '468',
@@ -9130,7 +10065,9 @@ class MockApiValopers {
         'inactive_until': '2021-10-28T03:16:45.982559861Z',
         'last_present_block': '0',
         'missed_blocks_counter': '76',
-        'produced_blocks_counter': '0'
+        'produced_blocks_counter': '0',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '469',
@@ -9148,7 +10085,9 @@ class MockApiValopers {
         'inactive_until': '2022-02-04T19:08:53.709573035Z',
         'last_present_block': '0',
         'missed_blocks_counter': '76',
-        'produced_blocks_counter': '0'
+        'produced_blocks_counter': '0',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '470',
@@ -9167,7 +10106,9 @@ class MockApiValopers {
         'last_present_block': '0',
         'missed_blocks_counter': '76',
         'produced_blocks_counter': '0',
-        'validator_node_id': 'd0d89ee5b8b6ee387dfba4b2ec5c31cd3f75204e'
+        'validator_node_id': 'd0d89ee5b8b6ee387dfba4b2ec5c31cd3f75204e',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '471',
@@ -9185,7 +10126,9 @@ class MockApiValopers {
         'inactive_until': '2021-10-30T15:17:47.571084642Z',
         'last_present_block': '0',
         'missed_blocks_counter': '228',
-        'produced_blocks_counter': '0'
+        'produced_blocks_counter': '0',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '472',
@@ -9203,7 +10146,9 @@ class MockApiValopers {
         'inactive_until': '2021-11-26T06:10:24.562077571Z',
         'last_present_block': '0',
         'missed_blocks_counter': '228',
-        'produced_blocks_counter': '0'
+        'produced_blocks_counter': '0',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '473',
@@ -9222,7 +10167,9 @@ class MockApiValopers {
         'last_present_block': '469862',
         'missed_blocks_counter': '1825',
         'produced_blocks_counter': '395310',
-        'validator_node_id': 'cfc8bf8ced9d53f994a7f93af878ea35371c4cb6'
+        'validator_node_id': 'cfc8bf8ced9d53f994a7f93af878ea35371c4cb6',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '474',
@@ -9243,7 +10190,9 @@ class MockApiValopers {
         'produced_blocks_counter': '856',
         'website': 'https://sergiololpro.ru',
         'social': 'https://twitter.com/sergiololpro',
-        'validator_node_id': '060d2a5bc6d30363c56a5cbae18627bca86b93df'
+        'validator_node_id': '060d2a5bc6d30363c56a5cbae18627bca86b93df',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       },
       {
         'top': '475',
@@ -9262,7 +10211,9 @@ class MockApiValopers {
         'last_present_block': '124323',
         'missed_blocks_counter': '2660',
         'produced_blocks_counter': '56770',
-        'validator_node_id': '417d01370f38561561dd39e2b119a9293c0f176c'
+        'validator_node_id': '417d01370f38561561dd39e2b119a9293c0f176c',
+        'staking_pool_id': '0',
+        'staking_pool_status': 'DISABLED'
       }
     ]
   };

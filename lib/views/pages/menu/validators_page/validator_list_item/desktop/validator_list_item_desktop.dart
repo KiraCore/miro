@@ -41,7 +41,7 @@ class ValidatorListItemDesktop extends StatelessWidget {
       monikerWidget: Row(
         children: <Widget>[
           KiraIdentityAvatar(
-            address: validatorModel.address,
+            address: validatorModel.walletAddress.bech32Address,
             size: 40,
           ),
           const SizedBox(width: 20),
