@@ -5,10 +5,9 @@ import 'package:miro/infra/dto/api/query_validators/response/validator.dart';
 
 @immutable
 class QueryValidatorsResp extends Equatable {
-  final Status? status;
   final List<String> waiting;
-
   final List<Validator> validators;
+  final Status? status;
 
   const QueryValidatorsResp({
     required this.waiting,
@@ -31,5 +30,5 @@ class QueryValidatorsResp extends Equatable {
   }
 
   @override
-  List<Object?> get props => <Object?>[status];
+  List<Object?> get props => <Object?>[status, validators];
 }
