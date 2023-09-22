@@ -1,4 +1,5 @@
 import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/models/a_list_item.dart';
+import 'package:miro/infra/dto/api/query_blocks/response/block_meta.dart';
 import 'package:miro/shared/models/blocks/block_id.dart';
 import 'package:miro/shared/models/blocks/header.dart';
 
@@ -16,11 +17,11 @@ class BlockModel extends AListItem {
     required this.numTxs,
   });
 
-  factory BlockModel.fromJson(Map<String, dynamic> json) => BlockModel(
-        blockId: BlockId.fromJson(json['block_id'] as Map<String, dynamic>),
-        blockSize: json['block_size'] as String,
-        header: Header.fromJson(json['header'] as Map<String, dynamic>),
-        numTxs: json['num_txs'] as String,
+  factory BlockModel.fromDto(BlockMeta blockMeta) => BlockModel(
+        blockId: BlockId.fromDto(blockMeta.blockIdDto),
+        blockSize: blockMeta.blockSize,
+        header: Header.fromDto(blockMeta.headerDto),
+        numTxs: blockMeta.numTxs,
       );
 
   @override

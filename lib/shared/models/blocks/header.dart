@@ -1,4 +1,7 @@
-class Header {
+import 'package:equatable/equatable.dart';
+import 'package:miro/infra/dto/api/query_blocks/response/header_dto.dart';
+
+class Header extends Equatable {
   final String appHash;
   final String chainId;
   final String consensusHash;
@@ -9,7 +12,7 @@ class Header {
   final DateTime time;
   final String validatorsHash;
 
-  Header({
+  const Header({
     required this.appHash,
     required this.chainId,
     required this.consensusHash,
@@ -21,15 +24,28 @@ class Header {
     required this.validatorsHash,
   });
 
-  factory Header.fromJson(Map<String, dynamic> json) => Header(
-        appHash: json['app_hash'] as String,
-        chainId: json['chain_id'] as String,
-        consensusHash: json['consensus_hash'] as String,
-        dataHash: json['data_hash'] as String,
-        evidenceHash: json['evidence_hash'] as String,
-        height: json['height'] as String,
-        proposerAddress: json['proposer_address'] as String,
-        time: DateTime.parse(json['time'] as String),
-        validatorsHash: json['validators_hash'] as String,
+  factory Header.fromDto(HeaderDto headerDto) => Header(
+        appHash: headerDto.appHash,
+        chainId: headerDto.chainId,
+        consensusHash: headerDto.consensusHash,
+        dataHash: headerDto.dataHash,
+        evidenceHash: headerDto.evidenceHash,
+        height: headerDto.height,
+        proposerAddress: headerDto.proposerAddress,
+        time: headerDto.time,
+        validatorsHash: headerDto.validatorsHash,
       );
+
+  @override
+  List<Object?> get props => <Object?>[
+        appHash,
+        chainId,
+        consensusHash,
+        dataHash,
+        evidenceHash,
+        height,
+        proposerAddress,
+        time,
+        validatorsHash,
+      ];
 }

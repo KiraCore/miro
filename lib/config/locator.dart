@@ -14,6 +14,7 @@ import 'package:miro/infra/repositories/api/api_kira_repository.dart';
 import 'package:miro/infra/repositories/api/api_repository.dart';
 import 'package:miro/infra/repositories/cache/api_cache_repository.dart';
 import 'package:miro/infra/services/api/dashboard_service.dart';
+import 'package:miro/infra/services/api/query_blocks_service.dart';
 import 'package:miro/infra/services/api/query_interx_status_service.dart';
 import 'package:miro/infra/services/api/query_transactions_service.dart';
 import 'package:miro/infra/services/api/query_validators_service.dart';
@@ -59,6 +60,7 @@ void _initServices() {
     ..registerLazySingleton<NetworkModuleService>(NetworkModuleService.new)
     ..registerLazySingleton<QueryAccountService>(QueryAccountService.new)
     ..registerLazySingleton<QueryBalanceService>(QueryBalanceService.new)
+    ..registerLazySingleton<QueryBlocksService>(QueryBlocksService.new)
     ..registerLazySingleton<QueryDelegationsService>(QueryDelegationsService.new)
     ..registerLazySingleton<QueryExecutionFeeService>(QueryExecutionFeeService.new)
     ..registerLazySingleton<QueryInterxStatusService>(QueryInterxStatusService.new)

@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:miro/infra/dto/api/query_blocks/request/query_blocks_req.dart';
 import 'package:miro/infra/dto/api/query_transactions/request/query_transactions_req.dart';
 import 'package:miro/infra/dto/api/query_validators/request/query_validators_req.dart';
 import 'package:miro/infra/exceptions/dio_connect_exception.dart';
@@ -10,7 +11,7 @@ import 'package:miro/shared/utils/logger/app_logger.dart';
 abstract class IApiRepository {
   Future<Response<T>> fetchDashboard<T>(ApiRequestModel<void> apiRequestModel);
 
-  Future<Response<T>> fetchQueryBlocks<T>(ApiRequestModel<void> apiRequestModel);
+  Future<Response<T>> fetchQueryBlocks<T>(ApiRequestModel<QueryBlocksReq> apiRequestModel);
 
   Future<Response<T>> fetchQueryInterxStatus<T>(ApiRequestModel<void> apiRequestModel);
 
@@ -38,13 +39,14 @@ class RemoteApiRepository implements IApiRepository {
   }
 
   @override
-  Future<Response<T>> fetchQueryBlocks<T>(ApiRequestModel<void> apiRequestModel) async {
+  Future<Response<T>> fetchQueryBlocks<T>(ApiRequestModel<QueryBlocksReq> apiRequestModel) async {
     try {
-     final Response<T> response = await _httpClientManager.get<T>(
-       networkUri: apiRequestModel.networkUri,
-       path: '/api/blocks'
-     );
-     return response;
+      final Response<T> response = await _httpClientManager.get<T>(
+        networkUri: apiRequestModel.networkUri,
+        path: '/api/blocks',
+        apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: apiRequestModel.forceRequestBool),
+      );
+      return response;
     } on DioException catch (dioException) {
       AppLogger().log(message: 'RemoteApiRepository: Cannot fetch fetchQueryBlocks() for URI $apiRequestModel.networkUri: ${dioException.message}');
       throw DioConnectException(dioException: dioException);
