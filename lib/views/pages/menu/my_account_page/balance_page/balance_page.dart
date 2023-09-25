@@ -43,6 +43,15 @@ class _BalancePage extends State<BalancePage> {
   );
 
   @override
+  void dispose() {
+    searchBarTextEditingController.dispose();
+    sortBloc.close();
+    filtersBloc.close();
+    favouritesBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     double listHeight = MediaQuery.of(context).size.height - 470;
     double itemSize = const ResponsiveValue<double>(largeScreen: 70, smallScreen: 180).get(context);

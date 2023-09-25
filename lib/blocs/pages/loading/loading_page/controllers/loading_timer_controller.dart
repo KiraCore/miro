@@ -22,6 +22,7 @@ class LoadingTimerController {
     if (timer.isActive) {
       timer.cancel();
     }
+    timeNotifier.dispose();
   }
 
   void _handleTimerTick(Timer timer) {

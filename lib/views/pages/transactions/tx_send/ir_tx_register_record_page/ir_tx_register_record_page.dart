@@ -39,6 +39,12 @@ class _IRTxRegisterRecordPage extends State<IRTxRegisterRecordPage> {
   );
 
   @override
+  void dispose() {
+    txProcessCubit.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return TxProcessWrapper<IRMsgRegisterRecordFormModel>(
       txProcessCubit: txProcessCubit,

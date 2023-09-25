@@ -3,8 +3,6 @@ import 'package:miro/blocs/generic/auth/auth_cubit.dart';
 import 'package:miro/blocs/pages/transactions/tx_process_cubit/states/tx_process_confirm_state.dart';
 import 'package:miro/blocs/pages/transactions/tx_process_cubit/states/tx_process_loaded_state.dart';
 import 'package:miro/blocs/pages/transactions/tx_process_cubit/tx_process_cubit.dart';
-import 'package:miro/blocs/widgets/transactions/token_form/token_form_cubit.dart';
-import 'package:miro/config/app_config.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/shared/models/identity_registrar/ir_record_model.dart';
 import 'package:miro/shared/models/transactions/form_models/ir_msg_request_verification_form_model.dart';
@@ -35,7 +33,11 @@ class _IRTxRequestVerificationPage extends State<IRTxRequestVerificationPage> {
     ),
   );
 
-  TokenFormCubit? tokenFormCubit;
+  @override
+  void dispose() {
+    txProcessCubit.close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,14 +47,8 @@ class _IRTxRequestVerificationPage extends State<IRTxRequestVerificationPage> {
         if (authCubit.state == null) {
           return const SizedBox();
         }
-        tokenFormCubit ??= TokenFormCubit.fromTokenAlias(
-          tokenAliasModel: globalLocator<AppConfig>().defaultFeeTokenAliasModel,
-          feeTokenAmountModel: txProcessLoadedState.feeTokenAmountModel,
-          walletAddress: authCubit.state!.address,
-        );
 
         return IRTxRequestVerificationFormDialog(
-          tokenFormCubit: tokenFormCubit!,
           feeTokenAmountModel: txProcessLoadedState.feeTokenAmountModel,
           onTxFormCompleted: txProcessCubit.submitTransactionForm,
           minTipTokenAmountModel: txProcessLoadedState.networkPropertiesModel.minIdentityApprovalTip,

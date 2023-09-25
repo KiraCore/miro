@@ -53,6 +53,13 @@ class TokenFormCubit extends Cubit<TokenFormState> {
     }
   }
 
+  @override
+  Future<void> close() {
+    formFieldKey.currentState?.dispose();
+    amountTextEditingController.dispose();
+    return super.close();
+  }
+
   void clearTokenAmount() {
     emit(state.copyWith(tokenAmountModel: TokenAmountModel.zero(tokenAliasModel: state.tokenAmountModel!.tokenAliasModel)));
     _updateTextFieldValue();

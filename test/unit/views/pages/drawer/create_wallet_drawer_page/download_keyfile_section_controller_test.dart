@@ -8,16 +8,16 @@ void main() {
     test('Should reset [DownloadKeyfileSectionController] state after [clear] method is called', () {
       // Arrange
       DownloadKeyfileSectionController actualDownloadKeyfileSectionController = DownloadKeyfileSectionController();
-      actualDownloadKeyfileSectionController.passwordTextController.textController.text = 'password';
-      actualDownloadKeyfileSectionController.repeatedPasswordTextController.textController.text = 'password';
+      actualDownloadKeyfileSectionController.passwordTextController.textEditingController.text = 'password';
+      actualDownloadKeyfileSectionController.repeatedPasswordTextController.textEditingController.text = 'password';
       actualDownloadKeyfileSectionController.downloadEnabledNotifier.value = true;
 
       // Act
       actualDownloadKeyfileSectionController.clear();
       bool actualDownloadEnabledBool = actualDownloadKeyfileSectionController.downloadEnabledNotifier.value;
 
-      String actualPasswordValue = actualDownloadKeyfileSectionController.passwordTextController.textController.text;
-      String actualRepeatedPasswordValue = actualDownloadKeyfileSectionController.repeatedPasswordTextController.textController.text;
+      String actualPasswordValue = actualDownloadKeyfileSectionController.passwordTextController.textEditingController.text;
+      String actualRepeatedPasswordValue = actualDownloadKeyfileSectionController.repeatedPasswordTextController.textEditingController.text;
 
       // Assert
       expect(actualDownloadEnabledBool, false);
@@ -31,8 +31,8 @@ void main() {
     test('Should set [downloadEnabledNotifier] value to "true" if passwords are valid', () {
       // Arrange
       DownloadKeyfileSectionController actualDownloadKeyfileSectionController = DownloadKeyfileSectionController();
-      actualDownloadKeyfileSectionController.passwordTextController.textController.text = 'password';
-      actualDownloadKeyfileSectionController.repeatedPasswordTextController.textController.text = 'password';
+      actualDownloadKeyfileSectionController.passwordTextController.textEditingController.text = 'password';
+      actualDownloadKeyfileSectionController.repeatedPasswordTextController.textEditingController.text = 'password';
 
       // Act
       actualDownloadKeyfileSectionController.validatePassword();
@@ -45,8 +45,8 @@ void main() {
     test('Should set [downloadEnabledNotifier] value to "false" if passwords are different', () {
       // Arrange
       DownloadKeyfileSectionController actualDownloadKeyfileSectionController = DownloadKeyfileSectionController();
-      actualDownloadKeyfileSectionController.passwordTextController.textController.text = 'pass';
-      actualDownloadKeyfileSectionController.repeatedPasswordTextController.textController.text = 'word';
+      actualDownloadKeyfileSectionController.passwordTextController.textEditingController.text = 'pass';
+      actualDownloadKeyfileSectionController.repeatedPasswordTextController.textEditingController.text = 'word';
 
       // Act
       actualDownloadKeyfileSectionController.validatePassword();
@@ -59,8 +59,8 @@ void main() {
     test('Should set [downloadEnabledNotifier] value to "false" if passwords are empty', () {
       // Arrange
       DownloadKeyfileSectionController actualDownloadKeyfileSectionController = DownloadKeyfileSectionController();
-      actualDownloadKeyfileSectionController.passwordTextController.textController.text = '';
-      actualDownloadKeyfileSectionController.repeatedPasswordTextController.textController.text = '';
+      actualDownloadKeyfileSectionController.passwordTextController.textEditingController.text = '';
+      actualDownloadKeyfileSectionController.repeatedPasswordTextController.textEditingController.text = '';
 
       // Act
       actualDownloadKeyfileSectionController.validatePassword();
@@ -75,8 +75,8 @@ void main() {
     test('Should return "true" if passwords are valid', () {
       // Arrange
       DownloadKeyfileSectionController actualDownloadKeyfileSectionController = DownloadKeyfileSectionController();
-      actualDownloadKeyfileSectionController.passwordTextController.textController.text = 'password';
-      actualDownloadKeyfileSectionController.repeatedPasswordTextController.textController.text = 'password';
+      actualDownloadKeyfileSectionController.passwordTextController.textEditingController.text = 'password';
+      actualDownloadKeyfileSectionController.repeatedPasswordTextController.textEditingController.text = 'password';
 
       // Act
       bool actualPasswordsValidBool = actualDownloadKeyfileSectionController.arePasswordsValid;
@@ -88,8 +88,8 @@ void main() {
     test('Should return "false" if passwords are different', () {
       // Arrange
       DownloadKeyfileSectionController actualDownloadKeyfileSectionController = DownloadKeyfileSectionController();
-      actualDownloadKeyfileSectionController.passwordTextController.textController.text = 'pass';
-      actualDownloadKeyfileSectionController.repeatedPasswordTextController.textController.text = 'word';
+      actualDownloadKeyfileSectionController.passwordTextController.textEditingController.text = 'pass';
+      actualDownloadKeyfileSectionController.repeatedPasswordTextController.textEditingController.text = 'word';
 
       // Act
       bool actualPasswordsValidBool = actualDownloadKeyfileSectionController.arePasswordsValid;
@@ -101,8 +101,8 @@ void main() {
     test('Should return "false" if passwords are empty', () {
       // Arrange
       DownloadKeyfileSectionController actualDownloadKeyfileSectionController = DownloadKeyfileSectionController();
-      actualDownloadKeyfileSectionController.passwordTextController.textController.text = '';
-      actualDownloadKeyfileSectionController.repeatedPasswordTextController.textController.text = '';
+      actualDownloadKeyfileSectionController.passwordTextController.textEditingController.text = '';
+      actualDownloadKeyfileSectionController.repeatedPasswordTextController.textEditingController.text = '';
 
       // Act
       bool actualPasswordsValidBool = actualDownloadKeyfileSectionController.arePasswordsValid;
@@ -116,7 +116,7 @@ void main() {
     test('Should return "true" if repeated password is empty', () {
       // Arrange
       DownloadKeyfileSectionController actualDownloadKeyfileSectionController = DownloadKeyfileSectionController();
-      actualDownloadKeyfileSectionController.repeatedPasswordTextController.textController.text = '';
+      actualDownloadKeyfileSectionController.repeatedPasswordTextController.textEditingController.text = '';
 
       // Act
       bool actualPasswordEmptyBool = actualDownloadKeyfileSectionController.isRepeatedPasswordEmpty;
@@ -128,7 +128,7 @@ void main() {
     test('Should return "false" if repeated password is not empty', () {
       // Arrange
       DownloadKeyfileSectionController actualDownloadKeyfileSectionController = DownloadKeyfileSectionController();
-      actualDownloadKeyfileSectionController.repeatedPasswordTextController.textController.text = 'password';
+      actualDownloadKeyfileSectionController.repeatedPasswordTextController.textEditingController.text = 'password';
 
       // Act
       bool actualPasswordEmptyBool = actualDownloadKeyfileSectionController.isRepeatedPasswordEmpty;

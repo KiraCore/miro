@@ -47,6 +47,12 @@ class _Backdrop extends State<Backdrop> with SingleTickerProviderStateMixin {
   );
 
   @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () => _handleTryPop(context),

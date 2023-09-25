@@ -41,6 +41,12 @@ class _ListPopMenuState<T> extends State<ListPopMenu<T>> {
   }
 
   @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       width: const ResponsiveValue<double?>(

@@ -60,13 +60,19 @@ class _SliverInfinityList<T extends AListItem> extends State<SliverInfinityList<
   );
 
   @override
+  void dispose() {
+    infinityListBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: <BlocProvider<dynamic>>[
-        if (widget.filtersBloc != null) BlocProvider<FiltersBloc<T>>(lazy: false, create: (BuildContext context) => widget.filtersBloc!),
-        if (widget.sortBloc != null) BlocProvider<SortBloc<T>>(lazy: false, create: (BuildContext context) => widget.sortBloc!),
-        if (widget.favouritesBloc != null) BlocProvider<FavouritesBloc<T>>(lazy: false, create: (BuildContext context) => widget.favouritesBloc!),
-        BlocProvider<InfinityListBloc<T>>(create: (BuildContext context) => infinityListBloc),
+        if (widget.filtersBloc != null) BlocProvider<FiltersBloc<T>>.value(value: widget.filtersBloc!),
+        if (widget.sortBloc != null) BlocProvider<SortBloc<T>>.value(value: widget.sortBloc!),
+        if (widget.favouritesBloc != null) BlocProvider<FavouritesBloc<T>>.value(value: widget.favouritesBloc!),
+        BlocProvider<InfinityListBloc<T>>.value(value: infinityListBloc),
       ],
       child: ValueListenableBuilder<bool>(
         valueListenable: infinityListBloc.showLoadingOverlay,

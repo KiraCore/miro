@@ -79,7 +79,7 @@ class _KiraTextField extends State<KiraTextField> {
           builder: (BuildContext context, _) {
             return TextField(
               focusNode: widget.controller.focusNode,
-              controller: widget.controller.textController,
+              controller: widget.controller.textEditingController,
               onChanged: widget.onChanged,
               obscureText: widget.controller.obscureTextNotifier.value,
               readOnly: widget.readOnly,
@@ -126,7 +126,7 @@ class _KiraTextField extends State<KiraTextField> {
     if (widget.validator == null) {
       widget.controller.errorNotifier.value = null;
     } else {
-      widget.controller.errorNotifier.value = widget.validator!(widget.controller.textController.text);
+      widget.controller.errorNotifier.value = widget.validator!(widget.controller.textEditingController.text);
     }
   }
 

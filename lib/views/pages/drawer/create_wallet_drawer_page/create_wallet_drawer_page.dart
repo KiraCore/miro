@@ -43,6 +43,16 @@ class _CreateWalletDrawerPage extends State<CreateWalletDrawerPage> {
   }
 
   @override
+  void dispose() {
+    createWalletDrawerPageCubit.close();
+    downloadKeyfileSectionController.close();
+    keyfileTileController.dispose();
+    mnemonicTileController.dispose();
+    qrCodeTileController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
 

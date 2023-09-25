@@ -44,8 +44,8 @@ class _TxProcessWrapper<T extends AMsgFormModel> extends State<TxProcessWrapper<
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<TxProcessCubit<T>>(
-      create: (_) => widget.txProcessCubit,
+    return BlocProvider<TxProcessCubit<T>>.value(
+      value: widget.txProcessCubit,
       child: BlocBuilder<TxProcessCubit<T>, ATxProcessState>(
         bloc: widget.txProcessCubit,
         builder: (BuildContext context, ATxProcessState txProcessState) {

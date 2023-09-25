@@ -14,6 +14,12 @@ class CreateWalletDrawerPageCubit extends Cubit<ACreateWalletDrawerPageState> {
 
   CreateWalletDrawerPageCubit() : super(CreateWalletDrawerPageLoadingState());
 
+  @override
+  Future<void> close() async {
+    termsCheckedNotifier.dispose();
+    await super.close();
+  }
+
   Future<void> generateNewAddress() async {
     emit(CreateWalletDrawerPageLoadingState());
     await Future<void>.delayed(const Duration(milliseconds: 500));

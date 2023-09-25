@@ -50,6 +50,14 @@ class _IRMsgRegisterRecordForm extends State<IRMsgRegisterRecordForm> {
   }
 
   @override
+  void dispose() {
+    identityKeyTextEditingController.dispose();
+    identityValueTextEditingController.dispose();
+    memoTextEditingController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Form(
       key: widget.formKey,

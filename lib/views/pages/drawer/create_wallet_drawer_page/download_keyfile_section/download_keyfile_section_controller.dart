@@ -12,14 +12,20 @@ class DownloadKeyfileSectionController {
 
   void clear() {
     downloadEnabledNotifier.value = false;
-    passwordTextController.textController.clear();
-    repeatedPasswordTextController.textController.clear();
+    passwordTextController.textEditingController.clear();
+    repeatedPasswordTextController.textEditingController.clear();
     repeatedPasswordTextController.reloadErrorMessage();
+  }
+
+  void close() {
+    downloadEnabledNotifier.dispose();
+    passwordTextController.close();
+    repeatedPasswordTextController.close();
   }
 
   void downloadKeyfile(Wallet wallet) {
     KeyFile keyfile = KeyFile(wallet: wallet);
-    String password = passwordTextController.textController.text;
+    String password = passwordTextController.textEditingController.text;
     String keyfileString = keyfile.encode(password);
 
     BrowserController.downloadFile(<String>[keyfileString], keyfile.fileName);
@@ -31,13 +37,13 @@ class DownloadKeyfileSectionController {
   }
 
   bool get arePasswordsValid {
-    String password = passwordTextController.textController.text;
-    String repeatedPassword = repeatedPasswordTextController.textController.text;
+    String password = passwordTextController.textEditingController.text;
+    String repeatedPassword = repeatedPasswordTextController.textEditingController.text;
     return isRepeatedPasswordEmpty == false && password == repeatedPassword;
   }
 
   bool get isRepeatedPasswordEmpty {
-    String repeatedPassword = repeatedPasswordTextController.textController.text;
+    String repeatedPassword = repeatedPasswordTextController.textEditingController.text;
     bool repeatedPasswordEmptyBool = repeatedPassword.isEmpty;
     return repeatedPasswordEmptyBool;
   }

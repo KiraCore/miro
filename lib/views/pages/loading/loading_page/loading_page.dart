@@ -31,6 +31,12 @@ class _LoadingPage extends State<LoadingPage> {
   final LoadingPageCubit loadingPageCubit = LoadingPageCubit();
 
   @override
+  void dispose() {
+    loadingPageCubit.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
 
