@@ -28,6 +28,13 @@ class _ValidatorListItemBuilder extends State<ValidatorListItemBuilder> {
   final ValueNotifier<bool> hoverNotifier = ValueNotifier<bool>(false);
 
   @override
+  void dispose() {
+    expandNotifier.dispose();
+    hoverNotifier.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     Widget desktopListItem = ValidatorListItemDesktop(
       validatorModel: widget.validatorModel,

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:miro/blocs/widgets/transactions/token_form/token_form_cubit.dart';
 import 'package:miro/blocs/widgets/transactions/token_form/token_form_state.dart';
 import 'package:miro/config/app_config.dart';
 import 'package:miro/config/locator.dart';
@@ -12,14 +11,12 @@ import 'package:miro/views/widgets/transactions/token_form/token_form.dart';
 import 'package:miro/views/widgets/transactions/wallet_address_text_field.dart';
 
 class IRMsgRequestVerificationForm extends StatefulWidget {
-  final TokenFormCubit tokenFormCubit;
   final GlobalKey<FormState> formKey;
   final TokenAmountModel feeTokenAmountModel;
   final TokenAmountModel minTipTokenAmountModel;
   final IRMsgRequestVerificationFormModel irMsgRequestVerificationFormModel;
 
   const IRMsgRequestVerificationForm({
-    required this.tokenFormCubit,
     required this.formKey,
     required this.feeTokenAmountModel,
     required this.minTipTokenAmountModel,
@@ -40,6 +37,14 @@ class _IRMsgRequestVerificationForm extends State<IRMsgRequestVerificationForm> 
   void initState() {
     super.initState();
     _assignInitialValues();
+  }
+
+  @override
+  void dispose() {
+    memoTextEditingController.dispose();
+    recordIdTextEditingController.dispose();
+    recordKeyTextEditingController.dispose();
+    super.dispose();
   }
 
   @override

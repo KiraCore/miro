@@ -32,6 +32,12 @@ class _IRTxDeleteRecordPage extends State<IRTxDeleteRecordPage> {
   );
 
   @override
+  void dispose() {
+    txProcessCubit.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return TxProcessWrapper<IRMsgDeleteRecordsFormModel>(
       formEnabledBool: false,

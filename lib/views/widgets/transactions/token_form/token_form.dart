@@ -78,6 +78,12 @@ class _TokenForm extends State<TokenForm> {
   }
 
   @override
+  void dispose() {
+    tokenFormCubit.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
     Widget shimmerWidget = Shimmer.fromColors(
@@ -93,8 +99,8 @@ class _TokenForm extends State<TokenForm> {
       ),
     );
 
-    return BlocProvider<TokenFormCubit>(
-      create: (_) => tokenFormCubit,
+    return BlocProvider<TokenFormCubit>.value(
+      value: tokenFormCubit,
       child: BlocConsumer<TokenFormCubit, TokenFormState>(
         listener: (_, TokenFormState tokenFormState) => _notifyTokenAmountChanged(tokenFormState),
         builder: (BuildContext context, TokenFormState tokenFormState) {

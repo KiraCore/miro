@@ -36,6 +36,14 @@ class _WalletAddressTextField extends State<WalletAddressTextField> {
   }
 
   @override
+  void dispose() {
+    formFieldKey.currentState?.dispose();
+    textEditingController.dispose();
+    walletAddressNotifier.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
 

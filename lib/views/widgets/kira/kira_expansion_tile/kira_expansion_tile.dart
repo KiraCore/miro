@@ -36,6 +36,12 @@ class _KiraExpansionTile extends State<KiraExpansionTile> {
   }
 
   @override
+  void dispose() {
+    widget.kiraExpansionTileController.removeListener(_updateVisibility);
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Opacity(
       opacity: widget.disabled ? 0.3 : 1,

@@ -29,6 +29,12 @@ class _WalletTermsSection extends State<WalletTermsSection> {
   }
 
   @override
+  void dispose() {
+    termsAcceptedNotifier.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
 

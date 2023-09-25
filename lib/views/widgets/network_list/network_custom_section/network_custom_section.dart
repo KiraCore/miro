@@ -28,6 +28,12 @@ class _NetworkCustomSection extends State<NetworkCustomSection> {
   final NetworkCustomSectionCubit networkCustomSectionCubit = globalLocator<NetworkCustomSectionCubit>();
 
   @override
+  void dispose() {
+    kiraTextFieldController.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
     return BlocBuilder<NetworkCustomSectionCubit, NetworkCustomSectionState>(

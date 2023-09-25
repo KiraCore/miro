@@ -84,7 +84,6 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
     _favouritesStateSubscription = favouritesBloc?.stream.listen((_) => add(const ListUpdatedEvent(jumpToTop: true)));
     _filtersStateSubscription = filtersBloc?.stream.listen((_) => add(ListOptionsChangedEvent()));
     _networkModuleStateSubscription = networkModuleBloc.stream.listen(_reloadAfterNetworkModuleStateChanged);
-    _networkModuleStateSubscription = networkModuleBloc.stream.listen(_reloadAfterNetworkModuleStateChanged);
     _sortStateSubscription = sortBloc?.stream.listen((_) => add(ListOptionsChangedEvent()));
 
     // Call ListReloadEvent to fetch first page
@@ -94,6 +93,7 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
   @override
   Future<void> close() async {
     reloadNotifierModel?.removeListener(_handleReloadNotifierUpdate);
+    showLoadingOverlay.dispose();
 
     await _networkModuleStateSubscription.cancel();
     await _favouritesStateSubscription?.cancel();
@@ -251,7 +251,9 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
       return;
     }
 
-    showLoadingOverlay.value = false;
+    if (isClosed == false) {
+      showLoadingOverlay.value = false;
+    }
   }
 
   void _setupPagesCacheFromList(List<T> allListItems) {

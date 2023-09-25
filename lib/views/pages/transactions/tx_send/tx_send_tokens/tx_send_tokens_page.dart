@@ -34,6 +34,12 @@ class _TxSendTokensPage extends State<TxSendTokensPage> {
   );
 
   @override
+  void dispose() {
+    txProcessCubit.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return TxProcessWrapper<MsgSendFormModel>(
       txProcessCubit: txProcessCubit,

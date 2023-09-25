@@ -34,6 +34,13 @@ class _BalanceListItemBuilder extends State<BalanceListItemBuilder> {
   final ValueNotifier<bool> hoverNotifier = ValueNotifier<bool>(false);
 
   @override
+  void dispose() {
+    expandNotifier.dispose();
+    hoverNotifier.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return BalanceListItemLayout(
       expandNotifier: expandNotifier,

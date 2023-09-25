@@ -36,6 +36,12 @@ class _SearchBar extends State<SearchBar> {
   late final ValueNotifier<bool> clearButtonVisibleNotifier = ValueNotifier<bool>(widget.textEditingController.text.isNotEmpty);
 
   @override
+  void dispose() {
+    clearButtonVisibleNotifier.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     Widget searchBarWidget = SizedBox(
       width: widget.width,

@@ -31,6 +31,12 @@ class _NetworkCustomSectionContent extends State<NetworkCustomSectionContent> {
   final ValueNotifier<String?> errorNotifier = ValueNotifier<String?>(null);
 
   @override
+  void dispose() {
+    errorNotifier.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
     bool connectedNetworkExistsBool = widget.networkCustomSectionCubit.state.connectedNetworkStatusModel != null;
@@ -108,7 +114,7 @@ class _NetworkCustomSectionContent extends State<NetworkCustomSectionContent> {
     if (uri == null) {
       return;
     }
-    widget.kiraTextFieldController.textController.clear();
+    widget.kiraTextFieldController.textEditingController.clear();
     await widget.networkCustomSectionCubit.checkConnection(uri);
   }
 
@@ -123,7 +129,7 @@ class _NetworkCustomSectionContent extends State<NetworkCustomSectionContent> {
 
   bool _validateNetworkAddress() {
     Uri? networkUri = _parseTextFieldToUri();
-    String networkAddress = widget.kiraTextFieldController.textController.text;
+    String networkAddress = widget.kiraTextFieldController.textEditingController.text;
     if (networkAddress.isEmpty) {
       errorNotifier.value = S.of(context).networkErrorAddressEmpty;
     } else if (networkUri == null) {
@@ -136,7 +142,7 @@ class _NetworkCustomSectionContent extends State<NetworkCustomSectionContent> {
 
   Uri? _parseTextFieldToUri() {
     try {
-      String networkAddress = widget.kiraTextFieldController.textController.text;
+      String networkAddress = widget.kiraTextFieldController.textEditingController.text;
       Uri networkUri = NetworkUtils.parseUrlToInterxUri(networkAddress);
       return networkUri;
     } catch (_) {

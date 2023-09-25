@@ -35,6 +35,13 @@ class _MsgSendForm extends State<MsgSendForm> {
   }
 
   @override
+  void dispose() {
+    memoTextEditingController.dispose();
+    walletAddressNotifier.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Form(
       key: widget.formKey,

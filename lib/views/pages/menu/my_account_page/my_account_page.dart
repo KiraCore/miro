@@ -38,6 +38,7 @@ class _MyAccountPage extends State<MyAccountPage> with SingleTickerProviderState
   void dispose() {
     tabController.dispose();
     scrollController.dispose();
+    selectedPageNotifier.dispose();
     super.dispose();
   }
 

@@ -31,6 +31,12 @@ class _IRTxRegisterRecordFormDialog extends State<IRTxRegisterRecordFormDialog> 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
   @override
+  void dispose() {
+    formKey.currentState?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return TxDialog(
       title: S.of(context).irTxTitleRegisterIdentityRecord,

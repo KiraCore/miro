@@ -60,6 +60,12 @@ class _CoreApp extends State<CoreApp> {
   }
 
   @override
+  void dispose() {
+    appRouter.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (BuildContext context, BoxConstraints constraints) {

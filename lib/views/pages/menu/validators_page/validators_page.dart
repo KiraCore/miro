@@ -42,6 +42,16 @@ class _ValidatorsPage extends State<ValidatorsPage> {
   );
 
   @override
+  void dispose() {
+    searchBarTextEditingController.dispose();
+    scrollController.dispose();
+    filtersBloc.close();
+    sortBloc.close();
+    favouritesBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
 

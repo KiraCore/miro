@@ -35,9 +35,15 @@ class _TxBroadcastPage<T extends AMsgFormModel> extends State<TxBroadcastPage<T>
   }
 
   @override
+  void dispose() {
+    txBroadcastCubit.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BlocProvider<TxBroadcastCubit>(
-      create: (_) => txBroadcastCubit,
+    return BlocProvider<TxBroadcastCubit>.value(
+      value: txBroadcastCubit,
       child: BlocBuilder<TxBroadcastCubit, ATxBroadcastState>(
         builder: (BuildContext context, ATxBroadcastState txBroadcastState) {
           return AnimatedSwitcher(

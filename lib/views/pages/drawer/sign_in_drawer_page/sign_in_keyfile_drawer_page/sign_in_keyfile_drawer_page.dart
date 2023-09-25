@@ -33,6 +33,12 @@ class _SignInKeyfileDrawerPage extends State<SignInKeyfileDrawerPage> {
   final KeyfileDropzoneController dropZoneController = KeyfileDropzoneController();
 
   @override
+  void dispose() {
+    keyfilePasswordController.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -120,7 +126,7 @@ class _SignInKeyfileDrawerPage extends State<SignInKeyfileDrawerPage> {
 
   Wallet _getWalletFromKeyFileString(String keyFileEncryptedContent) {
     try {
-      String password = keyfilePasswordController.textController.text;
+      String password = keyfilePasswordController.textEditingController.text;
       KeyFile keyFile = KeyFile.decode(keyFileEncryptedContent, password);
       return keyFile.wallet;
     } catch (e) {

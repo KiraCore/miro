@@ -39,6 +39,12 @@ class _MemoTextField extends State<MemoTextField> {
   }
 
   @override
+  void dispose() {
+    replacedMemoLengthNotifier.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return TxInputWrapper(
       padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 20),

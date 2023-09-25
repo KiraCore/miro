@@ -62,6 +62,12 @@ class _SliverPaginatedList<T extends AListItem> extends State<SliverPaginatedLis
   );
 
   @override
+  void dispose() {
+    paginatedListBloc.close();
+    super.dispose();
+  }
+
+  @override
   void didUpdateWidget(covariant SliverPaginatedList<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.singlePageSize != widget.singlePageSize) {
@@ -79,10 +85,10 @@ class _SliverPaginatedList<T extends AListItem> extends State<SliverPaginatedLis
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: <BlocProvider<dynamic>>[
-        if (widget.filtersBloc != null) BlocProvider<FiltersBloc<T>>(create: (BuildContext context) => widget.filtersBloc!),
-        if (widget.sortBloc != null) BlocProvider<SortBloc<T>>(create: (BuildContext context) => widget.sortBloc!),
-        if (widget.favouritesBloc != null) BlocProvider<FavouritesBloc<T>>(create: (BuildContext context) => widget.favouritesBloc!),
-        BlocProvider<PaginatedListBloc<T>>(create: (BuildContext context) => paginatedListBloc),
+        if (widget.filtersBloc != null) BlocProvider<FiltersBloc<T>>.value(value: widget.filtersBloc!),
+        if (widget.sortBloc != null) BlocProvider<SortBloc<T>>.value(value: widget.sortBloc!),
+        if (widget.favouritesBloc != null) BlocProvider<FavouritesBloc<T>>.value(value: widget.favouritesBloc!),
+        BlocProvider<PaginatedListBloc<T>>.value(value: paginatedListBloc),
       ],
       child: ValueListenableBuilder<bool>(
         valueListenable: paginatedListBloc.showLoadingOverlay,

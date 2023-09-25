@@ -30,6 +30,12 @@ class _PopWrapperState extends State<PopWrapper> {
   final JustTheController justTheController = JustTheController();
 
   @override
+  void dispose() {
+    justTheController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     Widget desktopWidget = PopWrapperDesktop(
       justTheController: justTheController,

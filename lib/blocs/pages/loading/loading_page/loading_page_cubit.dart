@@ -35,6 +35,7 @@ class LoadingPageCubit extends Cubit<ALoadingPageState> {
   Future<void> close() {
     loadingTimerController.dispose();
     _networkModuleStateSubscription.cancel();
+    cancelButtonEnabledNotifier.dispose();
     return super.close();
   }
 

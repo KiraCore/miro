@@ -30,6 +30,7 @@ class _DashboardPage extends State<DashboardPage> {
   @override
   void dispose() {
     _dashboardCubit.close();
+    scrollController.dispose();
     super.dispose();
   }
 

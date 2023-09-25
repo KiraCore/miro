@@ -51,6 +51,12 @@ class _IRRecordDrawerPage extends State<IRRecordDrawerPage> {
   }
 
   @override
+  void dispose() {
+    irRecordDrawerPageCubit.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
 

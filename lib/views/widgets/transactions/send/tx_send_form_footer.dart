@@ -44,6 +44,12 @@ class _TxSendFormFooter extends State<TxSendFormFooter> {
   );
 
   @override
+  void dispose() {
+    txFormBuilderCubit.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
 

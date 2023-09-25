@@ -50,6 +50,14 @@ class _TokenDropdownList extends State<TokenDropdownList> {
   }
 
   @override
+  void dispose() {
+    sortBloc.close();
+    filtersBloc.close();
+    favouritesBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return PopupInfinityList<BalanceModel>(
       itemBuilder: (BalanceModel balanceModel) {
