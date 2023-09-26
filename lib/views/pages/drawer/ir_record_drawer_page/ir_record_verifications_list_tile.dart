@@ -3,8 +3,8 @@ import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/identity_registrar/ir_model.dart';
 import 'package:miro/shared/models/identity_registrar/ir_verification_model.dart';
+import 'package:miro/views/widgets/generic/account/account_tile.dart';
 import 'package:miro/views/widgets/generic/copy_wrapper/copy_button.dart';
-import 'package:miro/views/widgets/kira/kira_identity_avatar.dart';
 import 'package:miro/views/widgets/kira/kira_tooltip.dart';
 
 class IRRecordVerificationsListTile extends StatelessWidget {
@@ -17,7 +17,6 @@ class IRRecordVerificationsListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextTheme textTheme = Theme.of(context).textTheme;
     IRModel irModel = irVerificationModel.verifierIrModel;
 
     return Padding(
@@ -25,26 +24,11 @@ class IRRecordVerificationsListTile extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          KiraIdentityAvatar(
-            address: irModel.walletAddress.bech32Address,
-            size: 35,
-          ),
-          const SizedBox(width: 12),
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  irModel.name,
-                  maxLines: 1,
-                  style: textTheme.bodyText2!.copyWith(color: DesignColors.white1),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  irModel.walletAddress.buildBech32AddressShort(delimiter: '...'),
-                  style: textTheme.caption!.copyWith(color: DesignColors.white2),
-                ),
-              ],
+            child: AccountTile(
+              walletAddress: irModel.walletAddress,
+              username: irModel.usernameIRRecordModel.value,
+              avatarUrl: irModel.avatarIRRecordModel.value,
             ),
           ),
           const SizedBox(width: 8),

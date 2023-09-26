@@ -5,7 +5,7 @@ import 'package:miro/shared/models/validators/validator_model.dart';
 import 'package:miro/shared/utils/string_utils.dart';
 import 'package:miro/views/pages/menu/validators_page/validator_status_chip/validator_status_chip.dart';
 import 'package:miro/views/widgets/buttons/star_button.dart';
-import 'package:miro/views/widgets/kira/kira_identity_avatar.dart';
+import 'package:miro/views/widgets/generic/account/account_tile.dart';
 
 class ValidatorListItemMobile extends StatelessWidget {
   final ValidatorModel validatorModel;
@@ -42,18 +42,12 @@ class ValidatorListItemMobile extends StatelessWidget {
                   ),
                 ),
               ),
-              KiraIdentityAvatar(
-                address: validatorModel.walletAddress.bech32Address,
-                size: 32,
-              ),
-              const SizedBox(width: 8),
               Expanded(
-                child: Text(
-                  validatorModel.moniker,
-                  overflow: TextOverflow.ellipsis,
-                  style: textTheme.bodyText2!.copyWith(
-                    color: DesignColors.white2,
-                  ),
+                child: AccountTile(
+                  walletAddress: validatorModel.walletAddress,
+                  addressVisibleBool: false,
+                  username: validatorModel.moniker,
+                  avatarUrl: validatorModel.logo,
                 ),
               ),
               StarButton(

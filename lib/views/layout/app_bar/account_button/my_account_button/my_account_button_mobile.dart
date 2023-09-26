@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:miro/blocs/generic/identity_registrar/a_identity_registrar_state.dart';
+import 'package:miro/blocs/generic/identity_registrar/identity_registrar_cubit.dart';
+import 'package:miro/blocs/generic/identity_registrar/states/identity_registrar_loading_state.dart';
+import 'package:miro/config/locator.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
 import 'package:miro/views/pages/drawer/account_drawer_page/account_drawer_page.dart';
@@ -16,15 +21,24 @@ class MyAccountButtonMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      child: GestureDetector(
-        onTap: () => KiraScaffold.of(context).navigateEndDrawerRoute(AccountDrawerPage()),
-        child: KiraIdentityAvatar(
-          size: size.height,
+    return BlocBuilder<IdentityRegistrarCubit, AIdentityRegistrarState>(
+      bloc: globalLocator<IdentityRegistrarCubit>(),
+      builder: (BuildContext context, AIdentityRegistrarState identityRegistrarState) {
+        Widget buttonWidget = KiraIdentityAvatar(
+          loadingBool: identityRegistrarState is IdentityRegistrarLoadingState,
           address: wallet.address.bech32Address,
-        ),
-      ),
+          avatarUrl: identityRegistrarState.irModel?.avatarIRRecordModel.value,
+          size: size.height,
+        );
+
+        return MouseRegion(
+          cursor: SystemMouseCursors.click,
+          child: GestureDetector(
+            onTap: () => KiraScaffold.of(context).navigateEndDrawerRoute(AccountDrawerPage()),
+            child: buttonWidget,
+          ),
+        );
+      },
     );
   }
 }

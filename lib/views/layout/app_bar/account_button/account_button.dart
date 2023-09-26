@@ -8,12 +8,8 @@ import 'package:miro/views/layout/app_bar/account_button/my_account_button/my_ac
 
 class AccountButton extends StatelessWidget {
   final AuthCubit authCubit = globalLocator<AuthCubit>();
-  final Size size;
 
-  AccountButton({
-    required this.size,
-    Key? key,
-  }) : super(key: key);
+  AccountButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -21,9 +17,9 @@ class AccountButton extends StatelessWidget {
       bloc: authCubit,
       builder: (BuildContext context, Wallet? wallet) {
         if (authCubit.isSignedIn) {
-          return MyAccountButton(wallet: wallet!, size: size);
+          return MyAccountButton(wallet: wallet!);
         } else {
-          return ConnectWalletButton(size: size);
+          return const ConnectWalletButton();
         }
       },
     );

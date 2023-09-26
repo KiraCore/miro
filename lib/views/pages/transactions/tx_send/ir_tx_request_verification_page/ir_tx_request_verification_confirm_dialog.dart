@@ -21,7 +21,7 @@ class IRTxRequestVerificationConfirmDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TxDialogConfirmLayout<IRMsgRequestVerificationFormModel>(
-      title: S.of(context).irTxConfirmVerificationRequest,
+      title: S.of(context).irTxTitleConfirmVerificationRequest,
       formPreviewWidget: IRMsgRequestVerificationFormPreview(
         irMsgRequestVerificationFormModel: irMsgRequestVerificationFormModel,
         txLocalInfoModel: txLocalInfoModel,

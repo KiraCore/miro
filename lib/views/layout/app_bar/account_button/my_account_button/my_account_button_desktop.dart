@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:miro/blocs/generic/identity_registrar/a_identity_registrar_state.dart';
+import 'package:miro/blocs/generic/identity_registrar/identity_registrar_cubit.dart';
+import 'package:miro/blocs/generic/identity_registrar/states/identity_registrar_loading_state.dart';
+import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/shared/models/identity_registrar/ir_model.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/views/layout/app_bar/account_button/account_pop_menu.dart';
+import 'package:miro/views/widgets/generic/account/account_tile.dart';
 import 'package:miro/views/widgets/generic/pop_wrapper/pop_wrapper.dart';
 import 'package:miro/views/widgets/generic/pop_wrapper/pop_wrapper_controller.dart';
-import 'package:miro/views/widgets/kira/kira_identity_avatar.dart';
 
 class MyAccountButtonDesktop extends StatefulWidget {
   final Size size;
@@ -25,64 +31,47 @@ class _MyAccountButtonDesktop extends State<MyAccountButtonDesktop> {
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+
     return SizedBox(
       width: widget.size.width,
       height: widget.size.height,
       child: PopWrapper(
         popWrapperController: popWrapperController,
-        popupBuilder: _buildAccountPopMenu,
-        buttonBuilder: _buildButton,
+        popupBuilder: () {
+          return AccountPopMenu(
+            popWrapperController: popWrapperController,
+            width: widget.size.width - widget.size.width * 0.25,
+          );
+        },
+        buttonBuilder: () {
+          return BlocBuilder<IdentityRegistrarCubit, AIdentityRegistrarState>(
+            bloc: globalLocator<IdentityRegistrarCubit>(),
+            builder: (BuildContext context, AIdentityRegistrarState identityRegistrarState) {
+              IRModel? irModel = identityRegistrarState.irModel;
+              return Row(
+                children: <Widget>[
+                  Expanded(
+                    child: AccountTile(
+                      size: widget.size.height,
+                      walletAddress: widget.wallet.address,
+                      username: irModel?.usernameIRRecordModel.value,
+                      avatarUrl: irModel?.avatarIRRecordModel.value,
+                      loadingBool: identityRegistrarState is IdentityRegistrarLoadingState,
+                      usernameTextStyle: textTheme.bodyText1!.copyWith(color: DesignColors.white1),
+                      addressTextStyle: textTheme.bodyText2!.copyWith(color: DesignColors.grey1),
+                    ),
+                  ),
+                  const Icon(
+                    Icons.arrow_drop_down,
+                    color: DesignColors.white1,
+                  ),
+                ],
+              );
+            },
+          );
+        },
       ),
-    );
-  }
-
-  Widget _buildAccountPopMenu() {
-    return AccountPopMenu(
-      popWrapperController: popWrapperController,
-      width: widget.size.width,
-    );
-  }
-
-  Widget _buildButton() {
-    TextTheme textTheme = Theme.of(context).textTheme;
-
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: <Widget>[
-        KiraIdentityAvatar(
-          address: widget.wallet.address.bech32Address,
-          size: widget.size.height,
-        ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Text(
-                widget.wallet.address.buildBech32AddressShort(delimiter: '...'),
-                overflow: TextOverflow.ellipsis,
-                style: textTheme.bodyText1!.copyWith(
-                  color: DesignColors.white1,
-                ),
-              ),
-              const SizedBox(height: 6),
-              Text(
-                widget.wallet.address.buildBech32AddressShort(delimiter: '...'),
-                overflow: TextOverflow.ellipsis,
-                style: textTheme.bodyText2!.copyWith(
-                  color: DesignColors.white2,
-                ),
-              ),
-            ],
-          ),
-        ),
-        const Icon(
-          Icons.arrow_drop_down,
-          color: DesignColors.white1,
-        ),
-      ],
     );
   }
 }

@@ -4,17 +4,12 @@ import 'package:miro/views/layout/app_bar/account_button/connect_wallet_button/c
 import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 
 class ConnectWalletButton extends StatelessWidget {
-  final Size size;
-
-  const ConnectWalletButton({
-    required this.size,
-    Key? key,
-  }) : super(key: key);
+  const ConnectWalletButton({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Widget connectWalletButtonDesktop = ConnectWalletButtonDesktop(size: size);
-    Widget connectWalletButtonMobile = ConnectWalletButtonMobile(size: size);
+    Widget connectWalletButtonDesktop = const ConnectWalletButtonDesktop(size: Size(180, 48));
+    Widget connectWalletButtonMobile = const ConnectWalletButtonMobile(size: Size(40, 40));
 
     return ResponsiveWidget(
       largeScreen: connectWalletButtonDesktop,

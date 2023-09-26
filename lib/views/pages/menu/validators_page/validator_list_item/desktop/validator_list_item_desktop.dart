@@ -5,7 +5,7 @@ import 'package:miro/shared/utils/string_utils.dart';
 import 'package:miro/views/pages/menu/validators_page/validator_list_item/desktop/validator_list_item_desktop_layout.dart';
 import 'package:miro/views/pages/menu/validators_page/validator_status_chip/validator_status_chip.dart';
 import 'package:miro/views/widgets/buttons/star_button.dart';
-import 'package:miro/views/widgets/kira/kira_identity_avatar.dart';
+import 'package:miro/views/widgets/generic/account/account_tile.dart';
 
 class ValidatorListItemDesktop extends StatelessWidget {
   static const double height = 64;
@@ -38,23 +38,11 @@ class ValidatorListItemDesktop extends StatelessWidget {
           color: DesignColors.white2,
         ),
       ),
-      monikerWidget: Row(
-        children: <Widget>[
-          KiraIdentityAvatar(
-            address: validatorModel.walletAddress.bech32Address,
-            size: 40,
-          ),
-          const SizedBox(width: 20),
-          Expanded(
-            child: Text(
-              validatorModel.moniker,
-              overflow: TextOverflow.ellipsis,
-              style: textTheme.bodyText2!.copyWith(
-                color: DesignColors.white2,
-              ),
-            ),
-          ),
-        ],
+      monikerWidget: AccountTile(
+        walletAddress: validatorModel.walletAddress,
+        addressVisibleBool: false,
+        username: validatorModel.moniker,
+        avatarUrl: validatorModel.logo,
       ),
       streakWidget: Text(
         StringUtils.splitBigNumber(validatorModel.streak),
