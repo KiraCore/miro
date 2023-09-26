@@ -24,7 +24,7 @@ class IRModel extends Equatable {
   IRModel.empty({required this.walletAddress})
       : usernameIRRecordModel = const IRRecordModel.empty(key: 'username'),
         descriptionIRRecordModel = const IRRecordModel.empty(key: 'description'),
-        socialMediaIRRecordModel = const IRRecordModel.empty(key: 'social_media'),
+        socialMediaIRRecordModel = const IRRecordModel.empty(key: 'social'),
         avatarIRRecordModel = const IRRecordModel.empty(key: 'avatar'),
         otherIRRecordModelList = <IRRecordModel>[];
 
@@ -35,7 +35,7 @@ class IRModel extends Equatable {
   }) {
     IRRecordModel usernameIRRecordModel = const IRRecordModel.empty(key: 'username');
     IRRecordModel descriptionIRRecordModel = const IRRecordModel.empty(key: 'description');
-    IRRecordModel socialMediaIRRecordModel = const IRRecordModel.empty(key: 'social_media');
+    IRRecordModel socialMediaIRRecordModel = const IRRecordModel.empty(key: 'social');
     IRRecordModel avatarIRRecordModel = const IRRecordModel.empty(key: 'avatar');
     List<IRRecordModel> otherIRRecordModelList = <IRRecordModel>[];
 
@@ -52,7 +52,7 @@ class IRModel extends Equatable {
         case 'description':
           descriptionIRRecordModel = irRecordModel;
           break;
-        case 'social_media':
+        case 'social':
           socialMediaIRRecordModel = irRecordModel;
           break;
         case 'avatar':

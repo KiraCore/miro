@@ -1,12 +1,16 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:miro/blocs/generic/identity_registrar/a_identity_registrar_state.dart';
+import 'package:miro/blocs/generic/identity_registrar/identity_registrar_cubit.dart';
 import 'package:miro/config/app_icons.dart';
+import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/views/widgets/buttons/kira_elevated_button.dart';
-import 'package:miro/views/widgets/generic/account_tile.dart';
+import 'package:miro/views/widgets/generic/account/account_header.dart';
 import 'package:miro/views/widgets/generic/responsive/column_row_spacer.dart';
 import 'package:miro/views/widgets/generic/responsive/column_row_swapper.dart';
 import 'package:miro/views/widgets/generic/responsive/desktop_expanded.dart';
@@ -25,7 +29,14 @@ class MyAccountPageHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return ColumnRowSwapper(
       children: <Widget>[
-        DesktopExpanded(child: AccountTile(walletAddress: wallet.address)),
+        DesktopExpanded(
+          child: BlocBuilder<IdentityRegistrarCubit, AIdentityRegistrarState>(
+            bloc: globalLocator<IdentityRegistrarCubit>(),
+            builder: (BuildContext context, AIdentityRegistrarState identityRegistrarState) {
+              return AccountHeader(irModel: identityRegistrarState.irModel);
+            },
+          ),
+        ),
         const ColumnRowSpacer(size: 16),
         Row(
           mainAxisAlignment: MainAxisAlignment.end,

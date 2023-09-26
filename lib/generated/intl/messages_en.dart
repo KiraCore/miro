@@ -151,18 +151,19 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Add more"),
         "irRecordVerify": MessageLookupByLibrary.simpleMessage("Verify"),
         "irSocialMedia": MessageLookupByLibrary.simpleMessage("Social media"),
-        "irTxConfirmDeleteRecord": MessageLookupByLibrary.simpleMessage(
-            "Confirm Delete Identity Record"),
-        "irTxConfirmVerificationRequest": MessageLookupByLibrary.simpleMessage(
-            "Confirm verification request"),
         "irTxErrorTipMustBeGreater": m2,
         "irTxHintKey": MessageLookupByLibrary.simpleMessage("Key"),
         "irTxHintTip": MessageLookupByLibrary.simpleMessage("Tip"),
         "irTxHintValue": MessageLookupByLibrary.simpleMessage("Value"),
         "irTxHintVerifierWillGet":
             MessageLookupByLibrary.simpleMessage("Verifier will get"),
+        "irTxTitleConfirmDeleteRecord": MessageLookupByLibrary.simpleMessage(
+            "Confirm identity record deletion"),
+        "irTxTitleConfirmVerificationRequest":
+            MessageLookupByLibrary.simpleMessage(
+                "Confirm verification request"),
         "irTxTitleRegisterIdentityRecord":
-            MessageLookupByLibrary.simpleMessage("Register Identity Record"),
+            MessageLookupByLibrary.simpleMessage("Register identity record"),
         "irTxTitleRequestIdentityRecordVerification":
             MessageLookupByLibrary.simpleMessage("Request record verification"),
         "irUsername": MessageLookupByLibrary.simpleMessage("Username"),

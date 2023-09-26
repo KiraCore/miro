@@ -20,7 +20,7 @@ class KiraAppBarMobileHeader extends StatelessWidget {
         children: <Widget>[
           const BackdropMenuButton(),
           const KiraLogo(height: 30),
-          AccountButton(size: const Size(40, 40)),
+          AccountButton(),
         ],
       ),
     );

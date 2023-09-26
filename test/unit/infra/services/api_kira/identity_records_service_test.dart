@@ -47,7 +47,7 @@ Future<void> main() async {
       ],
     ),
     descriptionIRRecordModel: const IRRecordModel.empty(key: 'description'),
-    socialMediaIRRecordModel: const IRRecordModel.empty(key: 'social_media'),
+    socialMediaIRRecordModel: const IRRecordModel.empty(key: 'social'),
     avatarIRRecordModel: const IRRecordModel(
       id: '2',
       key: 'avatar',
@@ -84,7 +84,7 @@ Future<void> main() async {
       ],
     ),
     descriptionIRRecordModel: const IRRecordModel.empty(key: 'description'),
-    socialMediaIRRecordModel: const IRRecordModel.empty(key: 'social_media'),
+    socialMediaIRRecordModel: const IRRecordModel.empty(key: 'social'),
     avatarIRRecordModel: const IRRecordModel(
       id: '2',
       key: 'avatar',

@@ -590,21 +590,41 @@ class S {
     );
   }
 
-  /// `Confirm Delete Identity Record`
-  String get irTxConfirmDeleteRecord {
+  /// `Confirm identity record deletion`
+  String get irTxTitleConfirmDeleteRecord {
     return Intl.message(
-      'Confirm Delete Identity Record',
-      name: 'irTxConfirmDeleteRecord',
+      'Confirm identity record deletion',
+      name: 'irTxTitleConfirmDeleteRecord',
       desc: '',
       args: [],
     );
   }
 
   /// `Confirm verification request`
-  String get irTxConfirmVerificationRequest {
+  String get irTxTitleConfirmVerificationRequest {
     return Intl.message(
       'Confirm verification request',
-      name: 'irTxConfirmVerificationRequest',
+      name: 'irTxTitleConfirmVerificationRequest',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Register identity record`
+  String get irTxTitleRegisterIdentityRecord {
+    return Intl.message(
+      'Register identity record',
+      name: 'irTxTitleRegisterIdentityRecord',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Request record verification`
+  String get irTxTitleRequestIdentityRecordVerification {
+    return Intl.message(
+      'Request record verification',
+      name: 'irTxTitleRequestIdentityRecordVerification',
       desc: '',
       args: [],
     );
@@ -655,26 +675,6 @@ class S {
     return Intl.message(
       'Verifier will get',
       name: 'irTxHintVerifierWillGet',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Request record verification`
-  String get irTxTitleRequestIdentityRecordVerification {
-    return Intl.message(
-      'Request record verification',
-      name: 'irTxTitleRequestIdentityRecordVerification',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Register Identity Record`
-  String get irTxTitleRegisterIdentityRecord {
-    return Intl.message(
-      'Register Identity Record',
-      name: 'irTxTitleRegisterIdentityRecord',
       desc: '',
       args: [],
     );

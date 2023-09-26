@@ -18,7 +18,7 @@ class IRTxDeleteRecordConfirmDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TxDialogConfirmLayout<IRMsgDeleteRecordsFormModel>(
-      title: S.of(context).irTxConfirmDeleteRecord,
+      title: S.of(context).irTxTitleConfirmDeleteRecord,
       editButtonVisibleBool: false,
       formPreviewWidget: IRMsgDeleteRecordsFormPreview(
         txLocalInfoModel: txLocalInfoModel,
