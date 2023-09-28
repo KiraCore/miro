@@ -3,10 +3,10 @@ import 'package:miro/config/locator.dart';
 import 'package:miro/infra/exceptions/dio_connect_exception.dart';
 import 'package:miro/infra/exceptions/dio_parse_exception.dart';
 import 'package:miro/infra/services/api_kira/identity_records_service.dart';
+import 'package:miro/shared/models/identity_registrar/ir_inbound_verification_request_model.dart';
 import 'package:miro/shared/models/identity_registrar/ir_model.dart';
 import 'package:miro/shared/models/identity_registrar/ir_record_model.dart';
-import 'package:miro/shared/models/identity_registrar/ir_verification_model.dart';
-import 'package:miro/shared/models/identity_registrar/ir_verification_request_model.dart';
+import 'package:miro/shared/models/identity_registrar/ir_record_verification_request_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/shared/utils/network_utils.dart';
 import 'package:miro/test/utils/test_utils.dart';
@@ -42,40 +42,43 @@ Future<void> main() async {
     });
   });
 
-  group('Tests of IdentityRecordsService.getPendingVerificationRequests() method [GET in HTTP]', () {
-    test('Should return [List of IRVerificationRequestModel] assigned to selected requester address', () async {
+  group('Tests of IdentityRecordsService.getInboundVerificationRequests() method [GET in HTTP]', () {
+    test('Should return [List of IRInboundVerificationRequestModel] with all verifications waiting for approval', () async {
       TestUtils.printInfo('Data request');
       try {
-        List<IRVerificationRequestModel> actualIRVerificationRequests = await actualIdentityRecordsService.getPendingVerificationRequests(actualWalletAddress.bech32Address);
+        List<IRInboundVerificationRequestModel> actualIrApproverVerificationRequestModels =
+            await actualIdentityRecordsService.getInboundVerificationRequests(actualWalletAddress, 0, 10);
 
         TestUtils.printInfo('Data return');
-        print(actualIRVerificationRequests);
+        print(actualIrApproverVerificationRequestModels);
         print('');
       } on DioConnectException catch (e) {
-        TestUtils.printError('identity_records_service_test.dart: Cannot fetch [List<VerifyRequestModel>] for URI $networkUri: ${e.dioError.message}');
+        TestUtils.printError(
+            'identity_records_service_test.dart: Cannot fetch [List of IRInboundVerificationRequestModel] for URI $networkUri: ${e.dioError.message}');
       } on DioParseException catch (e) {
-        TestUtils.printError('identity_records_service_test.dart: Cannot parse [List<VerifyRequestModel>] for URI $networkUri: ${e}');
+        TestUtils.printError('identity_records_service_test.dart: Cannot parse [List of IRInboundVerificationRequestModel] for URI $networkUri: ${e}');
       } catch (e) {
         TestUtils.printError('identity_records_service_test.dart: Unknown error for URI $networkUri: ${e}');
       }
     });
   });
 
-  group('Tests of IdentityRecordsService.getRecordVerifications() method [GET in HTTP]', () {
-    test('Should return [List of IRVerificationModel] with all verifications for specified record', () async {
+  group('Tests of IdentityRecordsService.getOutboundRecordVerificationRequests() method [GET in HTTP]', () {
+    test('Should return [List of IRRecordVerificationRequestModel] with all verifiers that confirmed record', () async {
       TestUtils.printInfo('Data request');
       try {
         IRRecordModel actualIRRecordModel = const IRRecordModel.empty(key: 'username');
-
-        List<IRVerificationModel> actualIRVerificationModels = await actualIdentityRecordsService.getRecordVerifications(actualIRRecordModel);
+        List<IRRecordVerificationRequestModel> actualIrRecordVerificationRequestModels =
+            await actualIdentityRecordsService.getOutboundRecordVerificationRequests(actualIRRecordModel);
 
         TestUtils.printInfo('Data return');
-        print(actualIRVerificationModels);
+        print(actualIrRecordVerificationRequestModels);
         print('');
       } on DioConnectException catch (e) {
-        TestUtils.printError('identity_records_service_test.dart: Cannot fetch [List<IdentityRecordVerificationModel>] for URI $networkUri: ${e.dioError.message}');
+        TestUtils.printError(
+            'identity_records_service_test.dart: Cannot fetch [List of IRRecordVerificationRequestModel] for URI $networkUri: ${e.dioError.message}');
       } on DioParseException catch (e) {
-        TestUtils.printError('identity_records_service_test.dart: Cannot parse [List<IdentityRecordVerificationModel>] for URI $networkUri: ${e}');
+        TestUtils.printError('identity_records_service_test.dart: Cannot parse [List of IRRecordVerificationRequestModel] for URI $networkUri: ${e}');
       } catch (e) {
         TestUtils.printError('identity_records_service_test.dart: Unknown error for URI $networkUri: ${e}');
       }

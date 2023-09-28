@@ -1,7 +1,6 @@
 import 'package:decimal/decimal.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/shared/models/identity_registrar/ir_record_model.dart';
-import 'package:miro/shared/models/identity_registrar/ir_verification_request_model.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/transactions/form_models/ir_msg_request_verification_form_model.dart';
@@ -22,12 +21,8 @@ void main() {
     key: 'username',
     value: 'somnitear',
     verifiersAddresses: const <WalletAddress>[],
-    irVerificationRequests: <IRVerificationRequestModel>[
-      IRVerificationRequestModel(
-        requesterWalletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
-        verifierWalletAddress: WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
-        recordIds: const <String>['3'],
-      )
+    pendingVerifiersAddresses: <WalletAddress>[
+      WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
     ],
   );
 

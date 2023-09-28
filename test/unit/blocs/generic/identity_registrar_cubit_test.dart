@@ -8,7 +8,6 @@ import 'package:miro/blocs/generic/network_module/network_module_bloc.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/shared/models/identity_registrar/ir_model.dart';
 import 'package:miro/shared/models/identity_registrar/ir_record_model.dart';
-import 'package:miro/shared/models/identity_registrar/ir_verification_request_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
@@ -86,12 +85,8 @@ void main() {
             key: 'username',
             value: 'somnitear',
             verifiersAddresses: const <WalletAddress>[],
-            irVerificationRequests: <IRVerificationRequestModel>[
-              IRVerificationRequestModel(
-                requesterWalletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
-                verifierWalletAddress: WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
-                recordIds: const <String>['3'],
-              )
+            pendingVerifiersAddresses: <WalletAddress>[
+              WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
             ],
           ),
           descriptionIRRecordModel: const IRRecordModel.empty(key: 'description'),
@@ -101,7 +96,7 @@ void main() {
             key: 'avatar',
             value: 'https://avatars.githubusercontent.com/u/114292385',
             verifiersAddresses: <WalletAddress>[],
-            irVerificationRequests: <IRVerificationRequestModel>[],
+            pendingVerifiersAddresses: <WalletAddress>[],
           ),
           otherIRRecordModelList: <IRRecordModel>[
             IRRecordModel(
@@ -111,7 +106,7 @@ void main() {
               verifiersAddresses: <WalletAddress>[
                 WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
               ],
-              irVerificationRequests: const <IRVerificationRequestModel>[],
+              pendingVerifiersAddresses: const <WalletAddress>[],
             ),
           ],
         ),

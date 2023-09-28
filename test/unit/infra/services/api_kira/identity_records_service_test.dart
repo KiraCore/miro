@@ -3,11 +3,13 @@ import 'package:miro/config/locator.dart';
 import 'package:miro/infra/exceptions/dio_connect_exception.dart';
 import 'package:miro/infra/exceptions/dio_parse_exception.dart';
 import 'package:miro/infra/services/api_kira/identity_records_service.dart';
+import 'package:miro/shared/models/identity_registrar/ir_inbound_verification_request_model.dart';
 import 'package:miro/shared/models/identity_registrar/ir_model.dart';
 import 'package:miro/shared/models/identity_registrar/ir_record_model.dart';
-import 'package:miro/shared/models/identity_registrar/ir_verification_model.dart';
-import 'package:miro/shared/models/identity_registrar/ir_verification_request_model.dart';
+import 'package:miro/shared/models/identity_registrar/ir_record_verification_request_model.dart';
+import 'package:miro/shared/models/identity_registrar/ir_user_profile_model.dart';
 import 'package:miro/shared/models/identity_registrar/ir_verification_request_status.dart';
+import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/shared/utils/network_utils.dart';
 import 'package:miro/test/mock_locator.dart';
@@ -21,14 +23,14 @@ Future<void> main() async {
 
   final IdentityRecordsService actualIdentityRecordsService = globalLocator<IdentityRecordsService>();
   final WalletAddress actualWalletAddress = WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx');
-  final IRRecordModel actualIRRecordModel = IRRecordModel(
+  final IRRecordModel actualIrRecordModel = IRRecordModel(
     id: '3',
     key: 'username',
     value: 'somnitear',
     verifiersAddresses: <WalletAddress>[
       WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
     ],
-    irVerificationRequests: const <IRVerificationRequestModel>[],
+    pendingVerifiersAddresses: const <WalletAddress>[],
   );
 
   final IRModel expectedRequesterIRModel = IRModel(
@@ -38,12 +40,8 @@ Future<void> main() async {
       key: 'username',
       value: 'somnitear',
       verifiersAddresses: const <WalletAddress>[],
-      irVerificationRequests: <IRVerificationRequestModel>[
-        IRVerificationRequestModel(
-          requesterWalletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
-          verifierWalletAddress: WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
-          recordIds: const <String>['3'],
-        )
+      pendingVerifiersAddresses: <WalletAddress>[
+        WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
       ],
     ),
     descriptionIRRecordModel: const IRRecordModel.empty(key: 'description'),
@@ -53,7 +51,7 @@ Future<void> main() async {
       key: 'avatar',
       value: 'https://avatars.githubusercontent.com/u/114292385',
       verifiersAddresses: <WalletAddress>[],
-      irVerificationRequests: <IRVerificationRequestModel>[],
+      pendingVerifiersAddresses: <WalletAddress>[],
     ),
     otherIRRecordModelList: <IRRecordModel>[
       IRRecordModel(
@@ -63,46 +61,15 @@ Future<void> main() async {
         verifiersAddresses: <WalletAddress>[
           WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
         ],
-        irVerificationRequests: const <IRVerificationRequestModel>[],
+        pendingVerifiersAddresses: const <WalletAddress>[],
       ),
     ],
   );
 
-  final IRModel expectedVerifierIRModel = IRModel(
+  final IRUserProfileModel expectedIrUserProfileModel = IRUserProfileModel(
     walletAddress: WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
-    usernameIRRecordModel: IRRecordModel(
-      id: '3',
-      key: 'username',
-      value: 'somnitear',
-      verifiersAddresses: const <WalletAddress>[],
-      irVerificationRequests: <IRVerificationRequestModel>[
-        IRVerificationRequestModel(
-          requesterWalletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
-          verifierWalletAddress: WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
-          recordIds: const <String>['3'],
-        )
-      ],
-    ),
-    descriptionIRRecordModel: const IRRecordModel.empty(key: 'description'),
-    socialMediaIRRecordModel: const IRRecordModel.empty(key: 'social'),
-    avatarIRRecordModel: const IRRecordModel(
-      id: '2',
-      key: 'avatar',
-      value: 'https://avatars.githubusercontent.com/u/114292385',
-      verifiersAddresses: <WalletAddress>[],
-      irVerificationRequests: <IRVerificationRequestModel>[],
-    ),
-    otherIRRecordModelList: <IRRecordModel>[
-      IRRecordModel(
-        id: '4',
-        key: 'github',
-        value: 'https://github.com/kiracore',
-        verifiersAddresses: <WalletAddress>[
-          WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
-        ],
-        irVerificationRequests: const <IRVerificationRequestModel>[],
-      ),
-    ],
+    username: 'somnitear',
+    avatarUrl: 'https://avatars.githubusercontent.com/u/114292385',
   );
 
   group('Tests of IdentityRecordsService.getIdentityRecordsByAddress() method [GET in HTTP]', () {
@@ -112,10 +79,10 @@ Future<void> main() async {
       await TestUtils.setupNetworkModel(networkUri: networkUri);
 
       // Act
-      IRModel actualIRModel = await actualIdentityRecordsService.getIdentityRecordsByAddress(actualWalletAddress);
+      IRModel actualIrModel = await actualIdentityRecordsService.getIdentityRecordsByAddress(actualWalletAddress);
 
       // Assert
-      expect(actualIRModel, expectedRequesterIRModel);
+      expect(actualIrModel, expectedRequesterIRModel);
     });
 
     test(
@@ -146,28 +113,32 @@ Future<void> main() async {
     });
   });
 
-  group('Tests of IdentityRecordsService.getPendingVerificationRequests() method [GET in HTTP]', () {
+  group('Tests of IdentityRecordsService.getInboundVerificationRequests() method [GET in HTTP]', () {
     test(
-        'Should return [List of IRVerificationRequestModel] if [server HEALTHY] and response [CAN be parsed to QueryIdentityRecordVerifyRequestsByRequesterResp]',
+        'Should return [List of IRInboundVerificationRequestModel] if [server HEALTHY] and response [CAN be parsed to QueryIdentityRecordVerifyRequestsByRequesterResp]',
         () async {
       // Arrange
       Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://healthy.kira.network/');
       await TestUtils.setupNetworkModel(networkUri: networkUri);
 
       // Act
-      List<IRVerificationRequestModel> actualIRVerificationRequests =
-          await actualIdentityRecordsService.getPendingVerificationRequests(actualWalletAddress.bech32Address);
+      List<IRInboundVerificationRequestModel> actualIrInboundVerificationRequestModel =
+          await actualIdentityRecordsService.getInboundVerificationRequests(actualWalletAddress, 0, 10);
 
       // Assert
-      List<IRVerificationRequestModel> expectedIRVerificationRequests = <IRVerificationRequestModel>[
-        IRVerificationRequestModel(
-          requesterWalletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
-          verifierWalletAddress: WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
-          recordIds: const <String>['3'],
+      List<IRInboundVerificationRequestModel> expectedIrInboundVerificationRequestModel = <IRInboundVerificationRequestModel>[
+        IRInboundVerificationRequestModel(
+          id: '1',
+          requesterIrUserProfileModel: expectedIrUserProfileModel,
+          tipTokenAmountModel: TokenAmountModel.fromString('200ukex'),
+          dateTime: DateTime.parse('2021-09-30T12:00:00.000Z'),
+          records: <String, String>{
+            '3': 'somnitear',
+          },
         ),
       ];
 
-      expect(actualIRVerificationRequests, expectedIRVerificationRequests);
+      expect(actualIrInboundVerificationRequestModel, expectedIrInboundVerificationRequestModel);
     });
 
     test(
@@ -179,7 +150,7 @@ Future<void> main() async {
 
         // Assert
         expect(
-          actualIdentityRecordsService.getPendingVerificationRequests(actualWalletAddress.bech32Address),
+          () => actualIdentityRecordsService.getInboundVerificationRequests(actualWalletAddress, 0, 10),
           throwsA(isA<DioParseException>()),
         );
       },
@@ -192,29 +163,31 @@ Future<void> main() async {
 
       // Assert
       expect(
-        actualIdentityRecordsService.getPendingVerificationRequests(actualWalletAddress.bech32Address),
+        () => actualIdentityRecordsService.getInboundVerificationRequests(actualWalletAddress, 0, 10),
         throwsA(isA<DioConnectException>()),
       );
     });
   });
 
-  group('Tests of IdentityRecordsService.getRecordVerifications() method [GET in HTTP]', () {
-    test('Should return [List of IRVerificationModel] if [server HEALTHY] and response [CAN be parsed to QueryIdentityRecordsByAddressResp]', () async {
+  group('Tests of IdentityRecordsService.getOutboundRecordVerificationRequests() method [GET in HTTP]', () {
+    test('Should return [List of IRRecordVerificationRequestModel] if [server HEALTHY] and response [CAN be parsed to QueryIdentityRecordsByAddressResp]',
+        () async {
       // Arrange
       Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://healthy.kira.network/');
       await TestUtils.setupNetworkModel(networkUri: networkUri);
 
       // Act
-      List<IRVerificationModel> actualIRVerificationModel = await actualIdentityRecordsService.getRecordVerifications(actualIRRecordModel);
+      List<IRRecordVerificationRequestModel> actualIrRecordVerificationRequestModels =
+          await actualIdentityRecordsService.getOutboundRecordVerificationRequests(actualIrRecordModel);
 
       // Assert
-      List<IRVerificationModel> expectedIRVerificationModel = <IRVerificationModel>[
-        IRVerificationModel(
-          verifierIrModel: expectedVerifierIRModel,
+      List<IRRecordVerificationRequestModel> expectedIrRecordVerificationRequestModels = <IRRecordVerificationRequestModel>[
+        IRRecordVerificationRequestModel(
+          verifierIrUserProfileModel: expectedIrUserProfileModel,
           irVerificationRequestStatus: IRVerificationRequestStatus.confirmed,
         )
       ];
-      expect(actualIRVerificationModel, expectedIRVerificationModel);
+      expect(actualIrRecordVerificationRequestModels, expectedIrRecordVerificationRequestModels);
     });
 
     test(
@@ -226,7 +199,7 @@ Future<void> main() async {
 
         // Assert
         expect(
-          actualIdentityRecordsService.getRecordVerifications(actualIRRecordModel),
+          actualIdentityRecordsService.getOutboundRecordVerificationRequests(actualIrRecordModel),
           throwsA(isA<DioParseException>()),
         );
       },
@@ -239,7 +212,7 @@ Future<void> main() async {
 
       // Assert
       expect(
-        actualIdentityRecordsService.getRecordVerifications(actualIRRecordModel),
+        actualIdentityRecordsService.getOutboundRecordVerificationRequests(actualIrRecordModel),
         throwsA(isA<DioConnectException>()),
       );
     });

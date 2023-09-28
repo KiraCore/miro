@@ -19,6 +19,19 @@ class TokenAmountModel {
 
   TokenAmountModel.zero({required this.tokenAliasModel}) : _lowestDenominationAmount = Decimal.zero;
 
+  factory TokenAmountModel.fromString(String value) {
+    RegExp regExpPattern = RegExp(r'(\d+)([a-zA-Z0-9/]+)');
+    RegExpMatch regExpMatch = regExpPattern.firstMatch(value)!;
+
+    Decimal amount = Decimal.parse(regExpMatch.group(1)!);
+    String denom = regExpMatch.group(2)!;
+
+    return TokenAmountModel(
+      lowestDenominationAmount: amount,
+      tokenAliasModel: TokenAliasModel.local(denom),
+    );
+  }
+
   TokenAmountModel copy() {
     return TokenAmountModel(
       lowestDenominationAmount: _lowestDenominationAmount,

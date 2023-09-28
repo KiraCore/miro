@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:miro/infra/dto/api_kira/query_identity_record_verify_requests_by_requester/response/verify_record.dart';
+import 'package:miro/infra/dto/api_kira/query_identity_record_verify_requests/response/verify_record.dart';
 
 class QueryIdentityRecordVerifyRequestsByRequesterResp extends Equatable {
   final List<VerifyRecord> verifyRecords;
@@ -10,8 +10,7 @@ class QueryIdentityRecordVerifyRequestsByRequesterResp extends Equatable {
 
   factory QueryIdentityRecordVerifyRequestsByRequesterResp.fromJson(Map<String, dynamic> json) {
     return QueryIdentityRecordVerifyRequestsByRequesterResp(
-      verifyRecords: (json['verify_records'] as List<dynamic>).map((dynamic e) => VerifyRecord.fromJson(e as Map<String, dynamic>)).toList()
-    );
+        verifyRecords: (json['verify_records'] as List<dynamic>).map((dynamic e) => VerifyRecord.fromJson(e as Map<String, dynamic>)).toList());
   }
 
   @override

@@ -4,10 +4,9 @@ import 'package:miro/blocs/pages/drawer/ir_record_drawer_page/ir_record_drawer_p
 import 'package:miro/blocs/pages/drawer/ir_record_drawer_page/state/ir_record_drawer_page_error_state.dart';
 import 'package:miro/blocs/pages/drawer/ir_record_drawer_page/state/ir_record_drawer_page_loaded_state.dart';
 import 'package:miro/blocs/pages/drawer/ir_record_drawer_page/state/ir_record_drawer_page_loading_state.dart';
-import 'package:miro/shared/models/identity_registrar/ir_model.dart';
 import 'package:miro/shared/models/identity_registrar/ir_record_model.dart';
-import 'package:miro/shared/models/identity_registrar/ir_verification_model.dart';
-import 'package:miro/shared/models/identity_registrar/ir_verification_request_model.dart';
+import 'package:miro/shared/models/identity_registrar/ir_record_verification_request_model.dart';
+import 'package:miro/shared/models/identity_registrar/ir_user_profile_model.dart';
 import 'package:miro/shared/models/identity_registrar/ir_verification_request_status.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/test/mock_locator.dart';
@@ -18,41 +17,10 @@ import 'package:miro/test/utils/test_utils.dart';
 Future<void> main() async {
   await initMockLocator();
 
-  final IRModel expectedVerifierIRModel = IRModel(
+  final IRUserProfileModel expectedIrUserProfileModel = IRUserProfileModel(
     walletAddress: WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
-    usernameIRRecordModel: IRRecordModel(
-      id: '3',
-      key: 'username',
-      value: 'somnitear',
-      verifiersAddresses: const <WalletAddress>[],
-      irVerificationRequests: <IRVerificationRequestModel>[
-        IRVerificationRequestModel(
-          requesterWalletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
-          verifierWalletAddress: WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
-          recordIds: const <String>['3'],
-        )
-      ],
-    ),
-    descriptionIRRecordModel: const IRRecordModel.empty(key: 'description'),
-    socialMediaIRRecordModel: const IRRecordModel.empty(key: 'social'),
-    avatarIRRecordModel: const IRRecordModel(
-      id: '2',
-      key: 'avatar',
-      value: 'https://avatars.githubusercontent.com/u/114292385',
-      verifiersAddresses: <WalletAddress>[],
-      irVerificationRequests: <IRVerificationRequestModel>[],
-    ),
-    otherIRRecordModelList: <IRRecordModel>[
-      IRRecordModel(
-        id: '4',
-        key: 'github',
-        value: 'https://github.com/kiracore',
-        verifiersAddresses: <WalletAddress>[
-          WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
-        ],
-        irVerificationRequests: const <IRVerificationRequestModel>[],
-      ),
-    ],
+    username: 'somnitear',
+    avatarUrl: 'https://avatars.githubusercontent.com/u/114292385',
   );
 
   group('Tests of [IRRecordDrawerPageCubit] process', () {
@@ -63,12 +31,8 @@ Future<void> main() async {
         key: 'username',
         value: 'somnitear',
         verifiersAddresses: const <WalletAddress>[],
-        irVerificationRequests: <IRVerificationRequestModel>[
-          IRVerificationRequestModel(
-            requesterWalletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
-            verifierWalletAddress: WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
-            recordIds: const <String>['3'],
-          )
+        pendingVerifiersAddresses: <WalletAddress>[
+          WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
         ],
       );
       IRRecordDrawerPageCubit actualIrRecordDrawerPageCubit = IRRecordDrawerPageCubit(irRecordModel: actualIrRecordModel);
@@ -101,9 +65,9 @@ Future<void> main() async {
 
       // Assert
       expectedIrRecordDrawerPageState = IRRecordDrawerPageLoadedState(
-        irVerificationModels: <IRVerificationModel>[
-          IRVerificationModel(
-            verifierIrModel: expectedVerifierIRModel,
+        irRecordVerificationRequestModels: <IRRecordVerificationRequestModel>[
+          IRRecordVerificationRequestModel(
+            verifierIrUserProfileModel: expectedIrUserProfileModel,
             irVerificationRequestStatus: IRVerificationRequestStatus.pending,
           ),
         ],

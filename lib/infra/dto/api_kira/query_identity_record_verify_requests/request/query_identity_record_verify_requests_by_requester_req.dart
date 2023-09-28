@@ -15,6 +15,13 @@ class QueryIdentityRecordVerifyRequestsByRequesterReq extends Equatable {
     this.offset,
   });
 
+  Map<String, dynamic> get queryParameters => <String, dynamic>{
+        'count_total': countTotal,
+        'key': key,
+        'limit': limit,
+        'offset': offset,
+      };
+
   @override
   List<Object?> get props => <Object?>[address, countTotal, key, limit, offset];
 }

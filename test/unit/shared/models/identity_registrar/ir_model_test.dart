@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/shared/models/identity_registrar/ir_model.dart';
 import 'package:miro/shared/models/identity_registrar/ir_record_model.dart';
-import 'package:miro/shared/models/identity_registrar/ir_verification_request_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 
 void main() {
@@ -32,7 +31,7 @@ void main() {
           key: 'avatar',
           value: 'https://avatars.githubusercontent.com/u/57797119?v=4',
           verifiersAddresses: <WalletAddress>[],
-          irVerificationRequests: <IRVerificationRequestModel>[],
+          pendingVerifiersAddresses: <WalletAddress>[],
         ),
         usernameIRRecordModel: const IRRecordModel.empty(key: 'username'),
         descriptionIRRecordModel: const IRRecordModel.empty(key: 'description'),
@@ -56,7 +55,7 @@ void main() {
           key: 'username',
           value: 'foobar',
           verifiersAddresses: <WalletAddress>[],
-          irVerificationRequests: <IRVerificationRequestModel>[],
+          pendingVerifiersAddresses: <WalletAddress>[],
         ),
         descriptionIRRecordModel: const IRRecordModel.empty(key: 'description'),
         socialMediaIRRecordModel: const IRRecordModel.empty(key: 'social'),
@@ -80,7 +79,7 @@ void main() {
           key: 'description',
           value: 'Hello World',
           verifiersAddresses: <WalletAddress>[],
-          irVerificationRequests: <IRVerificationRequestModel>[],
+          pendingVerifiersAddresses: <WalletAddress>[],
         ),
         socialMediaIRRecordModel: const IRRecordModel.empty(key: 'social'),
       );
@@ -104,7 +103,7 @@ void main() {
           key: 'social',
           value: 'https://github.com/kiracore',
           verifiersAddresses: <WalletAddress>[],
-          irVerificationRequests: <IRVerificationRequestModel>[],
+          pendingVerifiersAddresses: <WalletAddress>[],
         ),
       );
 
@@ -129,7 +128,7 @@ void main() {
             key: 'foo',
             value: 'bar',
             verifiersAddresses: <WalletAddress>[],
-            irVerificationRequests: <IRVerificationRequestModel>[],
+            pendingVerifiersAddresses: <WalletAddress>[],
           ),
         ],
       );
@@ -153,7 +152,7 @@ void main() {
           key: 'username',
           value: 'foobar',
           verifiersAddresses: <WalletAddress>[],
-          irVerificationRequests: <IRVerificationRequestModel>[],
+          pendingVerifiersAddresses: <WalletAddress>[],
         ),
         descriptionIRRecordModel: const IRRecordModel.empty(key: 'description'),
         socialMediaIRRecordModel: const IRRecordModel.empty(key: 'social'),

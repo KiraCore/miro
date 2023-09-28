@@ -128,7 +128,7 @@ class _IRRecordDrawerPage extends State<IRRecordDrawerPage> {
             const SizedBox(height: 30),
             if (irRecordDrawerPageState is IRRecordDrawerPageLoadedState) ...<Widget>[
               IRRecordVerificationsList(
-                irVerificationModels: irRecordDrawerPageState.irVerificationModels,
+                irRecordVerificationRequestModels: irRecordDrawerPageState.irRecordVerificationRequestModels,
               ),
             ] else if (irRecordDrawerPageState is IRRecordDrawerPageLoadingState) ...<Widget>[
               const IRRecordVerificationsListShimmer(),
