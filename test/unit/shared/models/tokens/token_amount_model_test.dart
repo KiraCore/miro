@@ -59,6 +59,34 @@ void main() {
     });
   });
 
+  group('Tests of TokenAmountModel.fromString() constructor', () {
+    test('Should return [TokenAmountModel] created from "500ukex" string', () {
+      // Act
+      TokenAmountModel actualTokenAmountModel = TokenAmountModel.fromString('500ukex');
+
+      // Assert
+      TokenAmountModel expectedTokenAmountModel = TokenAmountModel(
+        lowestDenominationAmount: Decimal.fromInt(500),
+        tokenAliasModel: TokenAliasModel.local('ukex'),
+      );
+
+      expect(actualTokenAmountModel, expectedTokenAmountModel);
+    });
+
+    test('Should return [TokenAmountModel] created from "500v1/ukex" string', () {
+      // Act
+      TokenAmountModel actualTokenAmountModel = TokenAmountModel.fromString('500v1/ukex');
+
+      // Assert
+      TokenAmountModel expectedTokenAmountModel = TokenAmountModel(
+        lowestDenominationAmount: Decimal.fromInt(500),
+        tokenAliasModel: TokenAliasModel.local('v1/ukex'),
+      );
+
+      expect(actualTokenAmountModel, expectedTokenAmountModel);
+    });
+  });
+
   group('Tests of TokenAmountModel containing TokenAliasModel created from local() constructor', () {
     // Arrange
     TokenAmountModel actualTokenAmountModel = TokenAmountModel(
@@ -325,8 +353,8 @@ void main() {
     });
   });
 
-  group('Tests of TokenAmountModel [ + ] operator overload', (){
-    test('Should [add] TokenAmountModels if [aliases EQUAL] ', (){
+  group('Tests of TokenAmountModel [ + ] operator overload', () {
+    test('Should [add] TokenAmountModels if [aliases EQUAL] ', () {
       // Arrange
       TokenAmountModel actualFirstTokenAmountModel = TokenAmountModel(
         lowestDenominationAmount: Decimal.fromInt(500),
@@ -349,7 +377,7 @@ void main() {
       expect(actualResultTokenAmountModel, expectedResultTokenAmountModel);
     });
 
-    test('Should [ignore adding] TokenAmountModels if [aliases DIFFERENT] ', (){
+    test('Should [ignore adding] TokenAmountModels if [aliases DIFFERENT] ', () {
       // Arrange
       TokenAmountModel actualFirstTokenAmountModel = TokenAmountModel(
         lowestDenominationAmount: Decimal.fromInt(500),
@@ -373,8 +401,8 @@ void main() {
     });
   });
 
-  group('Tests of TokenAmountModel [ - ] operator overload', (){
-    test('Should [subtract] TokenAmountModels if [aliases EQUAL] ', (){
+  group('Tests of TokenAmountModel [ - ] operator overload', () {
+    test('Should [subtract] TokenAmountModels if [aliases EQUAL] ', () {
       // Arrange
       TokenAmountModel actualFirstTokenAmountModel = TokenAmountModel(
         lowestDenominationAmount: Decimal.fromInt(500),
@@ -397,7 +425,7 @@ void main() {
       expect(actualResultTokenAmountModel, expectedResultTokenAmountModel);
     });
 
-    test('Should [ignore subtracting] TokenAmountModels if [aliases DIFFERENT] ', (){
+    test('Should [ignore subtracting] TokenAmountModels if [aliases DIFFERENT] ', () {
       // Arrange
       TokenAmountModel actualFirstTokenAmountModel = TokenAmountModel(
         lowestDenominationAmount: Decimal.fromInt(500),
@@ -420,7 +448,7 @@ void main() {
       expect(actualResultTokenAmountModel, expectedResultTokenAmountModel);
     });
 
-    test('Should [return 0] if result of subtraction is negative ', (){
+    test('Should [return 0] if result of subtraction is negative ', () {
       // Arrange
       TokenAmountModel actualFirstTokenAmountModel = TokenAmountModel(
         lowestDenominationAmount: Decimal.fromInt(500),

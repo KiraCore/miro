@@ -6,7 +6,7 @@ import 'package:miro/blocs/pages/drawer/ir_record_drawer_page/state/ir_record_dr
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/services/api_kira/identity_records_service.dart';
 import 'package:miro/shared/models/identity_registrar/ir_record_model.dart';
-import 'package:miro/shared/models/identity_registrar/ir_verification_model.dart';
+import 'package:miro/shared/models/identity_registrar/ir_record_verification_request_model.dart';
 
 class IRRecordDrawerPageCubit extends Cubit<AIRRecordDrawerPageState> {
   final IdentityRecordsService _identityRecordsService = globalLocator<IdentityRecordsService>();
@@ -20,8 +20,9 @@ class IRRecordDrawerPageCubit extends Cubit<AIRRecordDrawerPageState> {
   Future<void> init() async {
     try {
       emit(const IRRecordDrawerPageLoadingState());
-      List<IRVerificationModel> identityRecordVerificationModels = await _identityRecordsService.getRecordVerifications(irRecordModel);
-      emit(IRRecordDrawerPageLoadedState(irVerificationModels: identityRecordVerificationModels));
+      List<IRRecordVerificationRequestModel> irRecordVerificationRequestModels =
+          await _identityRecordsService.getOutboundRecordVerificationRequests(irRecordModel);
+      emit(IRRecordDrawerPageLoadedState(irRecordVerificationRequestModels: irRecordVerificationRequestModels));
     } catch (e) {
       emit(IRRecordDrawerPageErrorState());
     }

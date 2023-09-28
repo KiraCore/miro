@@ -1,7 +1,7 @@
 import 'package:equatable/equatable.dart';
+import 'package:miro/infra/dto/api_kira/query_identity_record_verify_requests/response/pending_verification.dart';
 import 'package:miro/infra/dto/api_kira/query_identity_records/response/record.dart';
 import 'package:miro/shared/models/identity_registrar/ir_record_model.dart';
-import 'package:miro/shared/models/identity_registrar/ir_verification_request_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 
 class IRModel extends Equatable {
@@ -31,7 +31,7 @@ class IRModel extends Equatable {
   factory IRModel.fromDto({
     required WalletAddress walletAddress,
     required List<Record> records,
-    required List<IRVerificationRequestModel> irVerificationRequests,
+    required List<PendingVerification> pendingVerifications,
   }) {
     IRRecordModel usernameIRRecordModel = const IRRecordModel.empty(key: 'username');
     IRRecordModel descriptionIRRecordModel = const IRRecordModel.empty(key: 'description');
@@ -40,11 +40,13 @@ class IRModel extends Equatable {
     List<IRRecordModel> otherIRRecordModelList = <IRRecordModel>[];
 
     for (Record record in records) {
-      List<IRVerificationRequestModel> recordVerificationRequests = irVerificationRequests
-          .where((IRVerificationRequestModel irVerificationRequestModel) => irVerificationRequestModel.recordIds.contains(record.id))
+      List<WalletAddress> pendingVerifiersAddresses = pendingVerifications
+          .where((PendingVerification pendingVerification) => pendingVerification.recordIds.contains(record.id))
+          .map((PendingVerification pendingVerification) => WalletAddress.fromBech32(pendingVerification.verifierAddress))
+          .toSet()
           .toList();
 
-      IRRecordModel irRecordModel = IRRecordModel.fromDto(record, recordVerificationRequests);
+      IRRecordModel irRecordModel = IRRecordModel.fromDto(record, pendingVerifiersAddresses);
       switch (irRecordModel.key) {
         case 'username':
           usernameIRRecordModel = irRecordModel;

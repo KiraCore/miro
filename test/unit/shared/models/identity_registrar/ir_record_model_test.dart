@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/shared/models/identity_registrar/ir_record_model.dart';
 import 'package:miro/shared/models/identity_registrar/ir_record_status.dart';
-import 'package:miro/shared/models/identity_registrar/ir_verification_request_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 
 void main() {
@@ -24,7 +23,7 @@ void main() {
         key: 'username',
         value: '',
         verifiersAddresses: <WalletAddress>[],
-        irVerificationRequests: <IRVerificationRequestModel>[],
+        pendingVerifiersAddresses: <WalletAddress>[],
         dateTime: null,
       );
 
@@ -42,7 +41,7 @@ void main() {
         key: 'username',
         value: 'foobar',
         verifiersAddresses: <WalletAddress>[],
-        irVerificationRequests: <IRVerificationRequestModel>[],
+        pendingVerifiersAddresses: <WalletAddress>[],
         dateTime: null,
       );
 
@@ -64,7 +63,7 @@ void main() {
         verifiersAddresses: <WalletAddress>[
           WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
         ],
-        irVerificationRequests: const <IRVerificationRequestModel>[],
+        pendingVerifiersAddresses: const <WalletAddress>[],
         dateTime: null,
       );
 
@@ -83,12 +82,8 @@ void main() {
         key: 'username',
         value: 'foobar',
         verifiersAddresses: const <WalletAddress>[],
-        irVerificationRequests: <IRVerificationRequestModel>[
-          IRVerificationRequestModel(
-            requesterWalletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
-            verifierWalletAddress: WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
-            recordIds: const <String>['3'],
-          )
+        pendingVerifiersAddresses: <WalletAddress>[
+          WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
         ],
         dateTime: null,
       );
@@ -108,7 +103,7 @@ void main() {
         key: 'username',
         value: 'foobar',
         verifiersAddresses: <WalletAddress>[],
-        irVerificationRequests: <IRVerificationRequestModel>[],
+        pendingVerifiersAddresses: <WalletAddress>[],
         dateTime: null,
       );
 

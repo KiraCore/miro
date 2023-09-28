@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:miro/generated/l10n.dart';
-import 'package:miro/shared/models/identity_registrar/ir_verification_model.dart';
+import 'package:miro/shared/models/identity_registrar/ir_record_verification_request_model.dart';
 import 'package:miro/shared/models/identity_registrar/ir_verification_request_status.dart';
 import 'package:miro/views/pages/drawer/ir_record_drawer_page/ir_record_verifications_list_tile.dart';
 import 'package:miro/views/widgets/generic/prefixed_widget.dart';
 
 class IRRecordVerificationsList extends StatelessWidget {
-  final List<IRVerificationModel> irVerificationModels;
+  final List<IRRecordVerificationRequestModel> irRecordVerificationRequestModels;
 
   const IRRecordVerificationsList({
-    required this.irVerificationModels,
+    required this.irRecordVerificationRequestModels,
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    List<IRVerificationModel> confirmedIrRecordVerificationsList = irVerificationModels
-        .where((IRVerificationModel irVerificationModel) => irVerificationModel.irVerificationRequestStatus == IRVerificationRequestStatus.confirmed)
+    List<IRRecordVerificationRequestModel> confirmedIrRecordVerificationsList = irRecordVerificationRequestModels
+        .where((IRRecordVerificationRequestModel e) => e.irVerificationRequestStatus == IRVerificationRequestStatus.confirmed)
         .toList();
 
-    List<IRVerificationModel> pendingIrRecordVerificationsList = irVerificationModels
-        .where((IRVerificationModel irVerificationModel) => irVerificationModel.irVerificationRequestStatus == IRVerificationRequestStatus.pending)
+    List<IRRecordVerificationRequestModel> pendingIrRecordVerificationsList = irRecordVerificationRequestModels
+        .where((IRRecordVerificationRequestModel e) => e.irVerificationRequestStatus == IRVerificationRequestStatus.pending)
         .toList();
 
     return Column(
@@ -34,7 +34,7 @@ class IRRecordVerificationsList extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               itemCount: confirmedIrRecordVerificationsList.length,
               itemBuilder: (BuildContext context, int index) {
-                return IRRecordVerificationsListTile(irVerificationModel: confirmedIrRecordVerificationsList[index]);
+                return IRRecordVerificationsListTile(irRecordVerificationRequestModel: confirmedIrRecordVerificationsList[index]);
               },
             ),
           ),
@@ -48,7 +48,7 @@ class IRRecordVerificationsList extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               itemCount: pendingIrRecordVerificationsList.length,
               itemBuilder: (BuildContext context, int index) {
-                return IRRecordVerificationsListTile(irVerificationModel: pendingIrRecordVerificationsList[index]);
+                return IRRecordVerificationsListTile(irRecordVerificationRequestModel: pendingIrRecordVerificationsList[index]);
               },
             ),
           ),

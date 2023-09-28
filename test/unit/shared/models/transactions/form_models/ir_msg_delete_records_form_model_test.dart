@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/shared/models/identity_registrar/ir_record_model.dart';
-import 'package:miro/shared/models/identity_registrar/ir_verification_request_model.dart';
 import 'package:miro/shared/models/transactions/form_models/ir_msg_delete_records_form_model.dart';
 import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
 import 'package:miro/shared/models/transactions/messages/identity_registrar/ir_msg_delete_records_model.dart';
@@ -19,7 +18,7 @@ void main() {
             key: 'key1',
             value: 'value',
             verifiersAddresses: <WalletAddress>[],
-            irVerificationRequests: <IRVerificationRequestModel>[],
+            pendingVerifiersAddresses: <WalletAddress>[],
           ),
         ],
         walletAddress: actualSenderAddress,
@@ -50,8 +49,7 @@ void main() {
       // Arrange
       IRMsgDeleteRecordsFormModel actualIRMsgDeleteRecordsFormModel = IRMsgDeleteRecordsFormModel(
         irRecordModels: <IRRecordModel>[
-          const IRRecordModel(
-              id: '0', key: 'key1', value: 'value', verifiersAddresses: <WalletAddress>[], irVerificationRequests: <IRVerificationRequestModel>[]),
+          const IRRecordModel(id: '0', key: 'key1', value: 'value', verifiersAddresses: <WalletAddress>[], pendingVerifiersAddresses: <WalletAddress>[]),
         ],
         walletAddress: null,
       );
@@ -69,8 +67,7 @@ void main() {
       // Arrange
       IRMsgDeleteRecordsFormModel actualIRMsgDeleteRecordsFormModel = IRMsgDeleteRecordsFormModel(
         irRecordModels: <IRRecordModel>[
-          const IRRecordModel(
-              id: '0', key: 'key1', value: 'value', verifiersAddresses: <WalletAddress>[], irVerificationRequests: <IRVerificationRequestModel>[]),
+          const IRRecordModel(id: '0', key: 'key1', value: 'value', verifiersAddresses: <WalletAddress>[], pendingVerifiersAddresses: <WalletAddress>[]),
         ],
         walletAddress: actualSenderAddress,
       );
@@ -105,8 +102,7 @@ void main() {
       // Arrange
       IRMsgDeleteRecordsFormModel actualIRMsgDeleteRecordsFormModel = IRMsgDeleteRecordsFormModel(
         irRecordModels: <IRRecordModel>[
-          const IRRecordModel(
-              id: '0', key: 'key1', value: 'value', verifiersAddresses: <WalletAddress>[], irVerificationRequests: <IRVerificationRequestModel>[]),
+          const IRRecordModel(id: '0', key: 'key1', value: 'value', verifiersAddresses: <WalletAddress>[], pendingVerifiersAddresses: <WalletAddress>[]),
         ],
         walletAddress: null,
       );

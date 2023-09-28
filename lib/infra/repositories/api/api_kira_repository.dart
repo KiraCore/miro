@@ -3,7 +3,8 @@ import 'package:miro/infra/dto/api_kira/broadcast/request/broadcast_req.dart';
 import 'package:miro/infra/dto/api_kira/query_account/request/query_account_req.dart';
 import 'package:miro/infra/dto/api_kira/query_balance/request/query_balance_req.dart';
 import 'package:miro/infra/dto/api_kira/query_execution_fee/request/query_execution_fee_request.dart';
-import 'package:miro/infra/dto/api_kira/query_identity_record_verify_requests_by_requester/request/query_identity_record_verify_requests_by_requester_resp.dart';
+import 'package:miro/infra/dto/api_kira/query_identity_record_verify_requests/request/query_identity_record_verify_requests_by_approver_req.dart';
+import 'package:miro/infra/dto/api_kira/query_identity_record_verify_requests/request/query_identity_record_verify_requests_by_requester_req.dart';
 import 'package:miro/infra/exceptions/dio_connect_exception.dart';
 import 'package:miro/infra/managers/api/http_client_manager.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';
@@ -18,6 +19,11 @@ abstract class IApiKiraRepository {
   Future<Response<T>> fetchQueryExecutionFee<T>(Uri networkUri, QueryExecutionFeeRequest queryExecutionFeeRequest);
 
   Future<Response<T>> fetchQueryIdentityRecordsByAddress<T>(Uri networkUri, String creator);
+
+  Future<Response<T>> fetchQueryIdentityRecordById<T>(Uri networkUri, String id);
+
+  Future<Response<T>> fetchQueryIdentityRecordVerifyRequestsByApprover<T>(
+      Uri networkUri, QueryIdentityRecordVerifyRequestsByApproverReq queryIdentityRecordVerifyRequestsByApproverReq);
 
   Future<Response<T>> fetchQueryIdentityRecordVerifyRequestsByRequester<T>(
       Uri networkUri, QueryIdentityRecordVerifyRequestsByRequesterReq queryIdentityRecordVerifyRequestsByRequesterReq);
@@ -106,12 +112,45 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
   }
 
   @override
+  Future<Response<T>> fetchQueryIdentityRecordById<T>(Uri networkUri, String id) async {
+    try {
+      final Response<T> response = await _httpClientManager.get<T>(
+        networkUri: networkUri,
+        path: '/api/kira/gov/identity_record/$id',
+      );
+      return response;
+    } on DioError catch (dioError) {
+      AppLogger().log(message: 'RemoteApiKiraRepository: Cannot fetch fetchQueryIdentityRecordById() for URI $networkUri: ${dioError.message}');
+      throw DioConnectException(dioError: dioError);
+    }
+  }
+
+  @override
+  Future<Response<T>> fetchQueryIdentityRecordVerifyRequestsByApprover<T>(
+      Uri networkUri, QueryIdentityRecordVerifyRequestsByApproverReq queryIdentityRecordVerifyRequestsByApproverReq) async {
+    try {
+      final Response<T> response = await _httpClientManager.get<T>(
+        networkUri: networkUri,
+        path: '/api/kira/gov/identity_verify_requests_by_approver/${queryIdentityRecordVerifyRequestsByApproverReq.address}',
+        queryParameters: queryIdentityRecordVerifyRequestsByApproverReq.queryParameters,
+      );
+      return response;
+    } on DioError catch (dioError) {
+      AppLogger().log(
+        message: 'RemoteApiKiraRepository: Cannot fetch fetchQueryIdentityRecordVerifyRequestsByApprover() for URI $networkUri: ${dioError.message}',
+      );
+      throw DioConnectException(dioError: dioError);
+    }
+  }
+
+  @override
   Future<Response<T>> fetchQueryIdentityRecordVerifyRequestsByRequester<T>(
       Uri networkUri, QueryIdentityRecordVerifyRequestsByRequesterReq queryIdentityRecordVerifyRequestsByRequesterReq) async {
     try {
       final Response<T> response = await _httpClientManager.get<T>(
         networkUri: networkUri,
         path: '/api/kira/gov/identity_verify_requests_by_requester/${queryIdentityRecordVerifyRequestsByRequesterReq.address}',
+        queryParameters: queryIdentityRecordVerifyRequestsByRequesterReq.queryParameters,
       );
       return response;
     } on DioError catch (dioError) {
