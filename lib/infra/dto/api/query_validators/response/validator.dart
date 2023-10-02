@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:miro/shared/models/validators/staking_pool_status.dart';
 
 class Validator extends Equatable {
   final String top;
@@ -18,8 +17,8 @@ class Validator extends Equatable {
   final String lastPresentBlock;
   final String missedBlocksCounter;
   final String producedBlocksCounter;
-  final String stakingPoolId;
-  final StakingPoolStatus stakingPoolStatus;
+  final String? stakingPoolId;
+  final String? stakingPoolStatus;
   final String? description;
   final String? website;
   final String? logo;
@@ -45,8 +44,8 @@ class Validator extends Equatable {
     required this.lastPresentBlock,
     required this.missedBlocksCounter,
     required this.producedBlocksCounter,
-    required this.stakingPoolId,
-    required this.stakingPoolStatus,
+    this.stakingPoolId,
+    this.stakingPoolStatus,
     this.description,
     this.website,
     this.logo,
@@ -74,8 +73,8 @@ class Validator extends Equatable {
       lastPresentBlock: json['last_present_block'] as String,
       missedBlocksCounter: json['missed_blocks_counter'] as String,
       producedBlocksCounter: json['produced_blocks_counter'] as String,
-      stakingPoolId: json['staking_pool_id'] as String,
-      stakingPoolStatus: StakingPoolStatus.fromString(json['staking_pool_status'] as String?),
+      stakingPoolId: json['staking_pool_id'] as String?,
+      stakingPoolStatus: json['staking_pool_status'] as String?,
       description: json['description'] as String?,
       website: json['website'] as String?,
       logo: json['logo'] as String?,

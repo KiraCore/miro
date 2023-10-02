@@ -27,12 +27,12 @@ class TransactionListItemDesktopLayout extends StatelessWidget {
       child: Row(
         children: <Widget>[
           Expanded(
-            flex: 2,
+            flex: 4,
             child: txWidget,
           ),
           SizedBox(width: gapSize),
           Expanded(
-            flex: 2,
+            flex: 4,
             child: hashWidget,
           ),
           SizedBox(width: gapSize),
@@ -42,12 +42,12 @@ class TransactionListItemDesktopLayout extends StatelessWidget {
           ),
           SizedBox(width: gapSize),
           SizedBox(
-            width: 130,
+            width: 150,
             child: dateWidget,
           ),
           SizedBox(width: gapSize),
           Expanded(
-            flex: 2,
+            flex: 3,
             child: Align(
               alignment: Alignment.centerRight,
               child: amountWidget,

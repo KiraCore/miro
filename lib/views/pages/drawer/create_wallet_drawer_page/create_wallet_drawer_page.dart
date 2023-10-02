@@ -157,7 +157,7 @@ class _CreateWalletDrawerPage extends State<CreateWalletDrawerPage> {
               valueListenable: createWalletDrawerPageCubit.termsCheckedNotifier,
               builder: (_, bool termsCheckedBool, __) {
                 return Opacity(
-                  opacity: walletCreatedBool ? 0.3 : 1,
+                  opacity: walletCreatedBool ? 1 : 0.3,
                   child: WalletTermsSection(
                     checked: termsCheckedBool,
                     onChanged: (bool newTermsCheckedBool) => createWalletDrawerPageCubit.termsCheckedNotifier.value = newTermsCheckedBool,
