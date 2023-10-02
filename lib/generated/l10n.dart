@@ -590,6 +590,106 @@ class S {
     );
   }
 
+  /// `Verification Requests`
+  String get irVerificationRequests {
+    return Intl.message(
+      'Verification Requests',
+      name: 'irVerificationRequests',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Verify record`
+  String get irVerificationRequestsVerifyRecord {
+    return Intl.message(
+      'Verify record',
+      name: 'irVerificationRequestsVerifyRecord',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Verify records`
+  String get irVerificationRequestsVerifyRecords {
+    return Intl.message(
+      'Verify records',
+      name: 'irVerificationRequestsVerifyRecords',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Creation date`
+  String get irVerificationRequestsCreationDate {
+    return Intl.message(
+      'Creation date',
+      name: 'irVerificationRequestsCreationDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tip`
+  String get irVerificationRequestsTip {
+    return Intl.message(
+      'Tip',
+      name: 'irVerificationRequestsTip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Record to verify`
+  String get irVerificationRequestsRecordToVerify {
+    return Intl.message(
+      'Record to verify',
+      name: 'irVerificationRequestsRecordToVerify',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Records to verify`
+  String get irVerificationRequestsRecordsToVerify {
+    return Intl.message(
+      'Records to verify',
+      name: 'irVerificationRequestsRecordsToVerify',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Records`
+  String get irVerificationRequestsRecords {
+    return Intl.message(
+      'Records',
+      name: 'irVerificationRequestsRecords',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `From`
+  String get irVerificationRequestsFrom {
+    return Intl.message(
+      'From',
+      name: 'irVerificationRequestsFrom',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search requests`
+  String get irVerificationRequestsListSearchRequests {
+    return Intl.message(
+      'Search requests',
+      name: 'irVerificationRequestsListSearchRequests',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Confirm identity record deletion`
   String get irTxTitleConfirmDeleteRecord {
     return Intl.message(
@@ -2442,10 +2542,10 @@ class S {
     );
   }
 
-  /// `Show details`
+  /// `Show Details`
   String get showDetails {
     return Intl.message(
-      'Show details',
+      'Show Details',
       name: 'showDetails',
       desc: '',
       args: [],

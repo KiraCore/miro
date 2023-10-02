@@ -10,6 +10,7 @@ import 'package:miro/views/pages/menu/my_account_page/identity_registrar/identit
 import 'package:miro/views/pages/menu/my_account_page/my_account_page_header.dart';
 import 'package:miro/views/pages/menu/my_account_page/my_account_tab_mode.dart';
 import 'package:miro/views/pages/menu/my_account_page/transactions_page/transactions_page.dart';
+import 'package:miro/views/pages/menu/my_account_page/verification_requests/verification_requests_page.dart';
 import 'package:miro/views/widgets/kira/kira_list/components/last_block_time_widget.dart';
 import 'package:miro/views/widgets/kira/kira_tab_bar/kira_tab_bar.dart';
 import 'package:sliver_tools/sliver_tools.dart';
@@ -48,6 +49,7 @@ class _MyAccountPage extends State<MyAccountPage> with SingleTickerProviderState
       MyAccountTabMode.balances: S.of(context).balances,
       MyAccountTabMode.transactions: S.of(context).tx,
       MyAccountTabMode.identityRegistrar: S.of(context).ir,
+      MyAccountTabMode.verificationRequests: S.of(context).irVerificationRequests,
     };
 
     return BlocBuilder<AuthCubit, Wallet?>(
@@ -114,6 +116,11 @@ class _MyAccountPage extends State<MyAccountPage> with SingleTickerProviderState
         );
       case MyAccountTabMode.identityRegistrar:
         return IdentityRegistrarPage(walletAddress: wallet.address);
+      case MyAccountTabMode.verificationRequests:
+        return VerificationRequestsPage(
+          walletAddress: wallet.address,
+          parentScrollController: scrollController,
+        );
       default:
         return const SizedBox();
     }

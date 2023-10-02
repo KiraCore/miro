@@ -77,6 +77,17 @@
   "irRecordStatusNotVerified": "Not verified",
   "irRecordStatusPending": "Pending",
 
+  "irVerificationRequests": "Verification Requests",
+  "irVerificationRequestsVerifyRecord": "Verify record",
+  "irVerificationRequestsVerifyRecords": "Verify records",
+  "irVerificationRequestsCreationDate": "Creation date",
+  "irVerificationRequestsTip": "Tip",
+  "irVerificationRequestsRecordToVerify": "Record to verify",
+  "irVerificationRequestsRecordsToVerify": "Records to verify",
+  "irVerificationRequestsRecords": "Records",
+  "irVerificationRequestsFrom": "From",
+  "irVerificationRequestsListSearchRequests": "Search requests",
+
   "irTxTitleConfirmDeleteRecord": "Confirm identity record deletion",
   "irTxTitleConfirmVerificationRequest": "Confirm verification request",
   "irTxTitleRegisterIdentityRecord": "Register identity record",
@@ -352,5 +363,5 @@
   "creationDate": "Creation date",
   "seeMore": "See more",
   "seeAll": "See all",
-  "showDetails": "Show details"
+  "showDetails": "Show Details"
 }

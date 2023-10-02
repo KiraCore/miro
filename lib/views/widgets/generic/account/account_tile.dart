@@ -86,6 +86,7 @@ class _AccountTile extends State<AccountTile> {
         widget.walletAddress.buildBech32AddressShort(delimiter: '...'),
         maxLines: 1,
         softWrap: true,
+        overflow: TextOverflow.ellipsis,
         style: widget.addressTextStyle ?? textTheme.caption!.copyWith(color: DesignColors.grey1),
       ),
     );

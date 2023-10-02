@@ -167,6 +167,26 @@ class MessageLookup extends MessageLookupByLibrary {
         "irTxTitleRequestIdentityRecordVerification":
             MessageLookupByLibrary.simpleMessage("Request record verification"),
         "irUsername": MessageLookupByLibrary.simpleMessage("Username"),
+        "irVerificationRequests":
+            MessageLookupByLibrary.simpleMessage("Verification Requests"),
+        "irVerificationRequestsCreationDate":
+            MessageLookupByLibrary.simpleMessage("Creation date"),
+        "irVerificationRequestsFrom":
+            MessageLookupByLibrary.simpleMessage("From"),
+        "irVerificationRequestsListSearchRequests":
+            MessageLookupByLibrary.simpleMessage("Search requests"),
+        "irVerificationRequestsRecordToVerify":
+            MessageLookupByLibrary.simpleMessage("Record to verify"),
+        "irVerificationRequestsRecords":
+            MessageLookupByLibrary.simpleMessage("Records"),
+        "irVerificationRequestsRecordsToVerify":
+            MessageLookupByLibrary.simpleMessage("Records to verify"),
+        "irVerificationRequestsTip":
+            MessageLookupByLibrary.simpleMessage("Tip"),
+        "irVerificationRequestsVerifyRecord":
+            MessageLookupByLibrary.simpleMessage("Verify record"),
+        "irVerificationRequestsVerifyRecords":
+            MessageLookupByLibrary.simpleMessage("Verify records"),
         "keyfile": MessageLookupByLibrary.simpleMessage("Keyfile"),
         "keyfileButtonDownload":
             MessageLookupByLibrary.simpleMessage("Download"),
@@ -309,7 +329,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "sec": MessageLookupByLibrary.simpleMessage("sec."),
         "seeAll": MessageLookupByLibrary.simpleMessage("See all"),
         "seeMore": MessageLookupByLibrary.simpleMessage("See more"),
-        "showDetails": MessageLookupByLibrary.simpleMessage("Show details"),
+        "showDetails": MessageLookupByLibrary.simpleMessage("Show Details"),
         "sortBy": MessageLookupByLibrary.simpleMessage("Sort by"),
         "toastCannotLoadDashboard": MessageLookupByLibrary.simpleMessage(
             "Cannot load dashboard. Please check your connection."),
