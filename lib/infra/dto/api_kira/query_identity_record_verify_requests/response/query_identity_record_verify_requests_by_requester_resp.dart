@@ -9,8 +9,10 @@ class QueryIdentityRecordVerifyRequestsByRequesterResp extends Equatable {
   });
 
   factory QueryIdentityRecordVerifyRequestsByRequesterResp.fromJson(Map<String, dynamic> json) {
-    return QueryIdentityRecordVerifyRequestsByRequesterResp(
-        verifyRecords: (json['verify_records'] as List<dynamic>).map((dynamic e) => VerifyRecord.fromJson(e as Map<String, dynamic>)).toList());
+    List<VerifyRecord> verifyRecords = json['verify_records'] != null
+        ? (json['verify_records'] as List<dynamic>).map((dynamic e) => VerifyRecord.fromJson(e as Map<String, dynamic>)).toList()
+        : List<VerifyRecord>.empty();
+    return QueryIdentityRecordVerifyRequestsByRequesterResp(verifyRecords: verifyRecords);
   }
 
   @override

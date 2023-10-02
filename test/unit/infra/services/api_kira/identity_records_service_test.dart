@@ -142,16 +142,21 @@ Future<void> main() async {
     });
 
     test(
-      'Should throw [DioParseException] if [server HEALTHY] and response [CANNOT be parsed to QueryIdentityRecordVerifyRequestsByRequesterResp] (e.g. response structure changed)',
+      'Should return [EMPTY List of IRInboundVerificationRequestModel] if [server HEALTHY] and response [CANNOT be parsed to QueryIdentityRecordVerifyRequestsByRequesterResp] (e.g. response structure changed)',
       () async {
         // Arrange
         Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://invalid.kira.network/');
         await TestUtils.setupNetworkModel(networkUri: networkUri);
 
+        // Act
+        List<IRInboundVerificationRequestModel> actualIrInboundVerificationRequestModel =
+            await actualIdentityRecordsService.getInboundVerificationRequests(actualWalletAddress, 0, 10);
+
         // Assert
+        List<IRInboundVerificationRequestModel> expectedIrInboundVerificationRequestModel = <IRInboundVerificationRequestModel>[];
         expect(
-          () => actualIdentityRecordsService.getInboundVerificationRequests(actualWalletAddress, 0, 10),
-          throwsA(isA<DioParseException>()),
+          actualIrInboundVerificationRequestModel,
+          expectedIrInboundVerificationRequestModel,
         );
       },
     );

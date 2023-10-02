@@ -39,7 +39,7 @@ class ValidatorModel extends AListItem {
       uptime: uptime,
       moniker: validator.moniker,
       streak: validator.streak,
-      stakingPoolStatus: validator.stakingPoolStatus,
+      stakingPoolStatus: StakingPoolStatus.fromString(validator.stakingPoolStatus),
       validatorStatus: validatorStatus,
       walletAddress: WalletAddress.fromBech32(validator.address),
       valoperWalletAddress: WalletAddress.fromBech32(validator.valkey),

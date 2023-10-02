@@ -152,7 +152,7 @@ Future<void> main() async {
           missedBlocksCounter: '4',
           producedBlocksCounter: '1303599',
           stakingPoolId: '1',
-          stakingPoolStatus: StakingPoolStatus.enabled,
+          stakingPoolStatus: 'ENABLED',
         ),
         Validator(
           top: '2',
@@ -173,7 +173,7 @@ Future<void> main() async {
           producedBlocksCounter: '1303553',
           validatorNodeId: '46bc0b2dc7860cc419f4022ae734e3731e27abf2',
           stakingPoolId: '2',
-          stakingPoolStatus: StakingPoolStatus.withdraw,
+          stakingPoolStatus: 'WITHDRAW',
         )
       ]);
 
