@@ -27,6 +27,7 @@ class IRRecordVerificationsList extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         if (confirmedIrRecordVerificationsList.isNotEmpty) ...<Widget>[
+          const SizedBox(height: 30),
           PrefixedWidget(
             prefix: S.of(context).irRecordConfirmedVerifications,
             child: ListView.builder(
@@ -38,8 +39,11 @@ class IRRecordVerificationsList extends StatelessWidget {
               },
             ),
           ),
-          const SizedBox(height: 32),
         ],
+        if (confirmedIrRecordVerificationsList.isNotEmpty && pendingIrRecordVerificationsList.isNotEmpty)
+          const SizedBox(height: 15)
+        else if (confirmedIrRecordVerificationsList.isEmpty && pendingIrRecordVerificationsList.isNotEmpty)
+          const SizedBox(height: 30),
         if (pendingIrRecordVerificationsList.isNotEmpty) ...<Widget>[
           PrefixedWidget(
             prefix: S.of(context).irRecordPendingVerifications,

@@ -55,7 +55,7 @@
   "irUsername": "Username",
   "irDescription": "Description",
   "irSocialMedia": "Social media",
-  "irAddCustomEntry": "Add custom entry",
+  "irAddCustomRecord": "Add custom record",
 
   "irRecordAdd": "Add",
   "irRecordDelete": "Delete",
@@ -63,10 +63,11 @@
   "irRecordVerify": "Verify",
   "irRecordConfirmedVerifications": "Confirmed verification requests",
   "irRecordPendingVerifications": "Pending verification requests",
-  "irRecordVerifiersAddMore": "Add more",
+  "irRecordVerifiersRequestVerification": "Request verification",
 
   "irRecordStatus": "Status",
   "irRecordStatusVerificationsCount": "Verifications: {verificationsCount}",
+
   "@irRecordStatusVerificationsCount": {
     "placeholders": {
       "verificationsCount": {
@@ -87,6 +88,14 @@
   "irVerificationRequestsRecords": "Records",
   "irVerificationRequestsFrom": "From",
   "irVerificationRequestsListSearchRequests": "Search requests",
+  "irVerificationRequestsApprove": "Approve",
+  "irVerificationRequestsReject": "Reject",
+  "irVerificationRequestsApprovedRecords": "Approved records",
+  "irVerificationRequestsApprovedRecord": "Approved record",
+  "irVerificationRequestsRejectedRecords": "Rejected records",
+  "irVerificationRequestsRejectedRecord": "Rejected record",
+  "irVerificationRequestsConfirmApproval": "Confirm approval",
+  "irVerificationRequestsConfirmRejection": "Confirm rejection",
 
   "irTxTitleConfirmDeleteRecord": "Confirm identity record deletion",
   "irTxTitleConfirmVerificationRequest": "Confirm verification request",
@@ -251,6 +260,7 @@
   "txSendTokens": "Send tokens",
   "txTotalAmount": "Total amount",
   "txRecipientWillGet": "Recipient will get",
+  "txYouWillGet": "You will get",
   "txSigning": "Signing transaction",
   "txSearchTokens": "Search tokens",
   "txConfirm": "Confirm transaction",

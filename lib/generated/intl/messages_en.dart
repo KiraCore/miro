@@ -127,8 +127,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "errorUnknown": MessageLookupByLibrary.simpleMessage("Unknown error"),
         "governance": MessageLookupByLibrary.simpleMessage("Governance"),
         "ir": MessageLookupByLibrary.simpleMessage("Identity Registrar"),
-        "irAddCustomEntry":
-            MessageLookupByLibrary.simpleMessage("Add custom entry"),
+        "irAddCustomRecord":
+            MessageLookupByLibrary.simpleMessage("Add custom record"),
         "irAvatar": MessageLookupByLibrary.simpleMessage("Avatar"),
         "irDescription": MessageLookupByLibrary.simpleMessage("Description"),
         "irEntries": MessageLookupByLibrary.simpleMessage("Entries"),
@@ -147,8 +147,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "irRecordStatusPending":
             MessageLookupByLibrary.simpleMessage("Pending"),
         "irRecordStatusVerificationsCount": m1,
-        "irRecordVerifiersAddMore":
-            MessageLookupByLibrary.simpleMessage("Add more"),
+        "irRecordVerifiersRequestVerification":
+            MessageLookupByLibrary.simpleMessage("Request verification"),
         "irRecordVerify": MessageLookupByLibrary.simpleMessage("Verify"),
         "irSocialMedia": MessageLookupByLibrary.simpleMessage("Social media"),
         "irTxErrorTipMustBeGreater": m2,
@@ -169,6 +169,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "irUsername": MessageLookupByLibrary.simpleMessage("Username"),
         "irVerificationRequests":
             MessageLookupByLibrary.simpleMessage("Verification Requests"),
+        "irVerificationRequestsApprove":
+            MessageLookupByLibrary.simpleMessage("Approve"),
+        "irVerificationRequestsApprovedRecord":
+            MessageLookupByLibrary.simpleMessage("Approved record"),
+        "irVerificationRequestsApprovedRecords":
+            MessageLookupByLibrary.simpleMessage("Approved records"),
+        "irVerificationRequestsConfirmApproval":
+            MessageLookupByLibrary.simpleMessage("Confirm approval"),
+        "irVerificationRequestsConfirmRejection":
+            MessageLookupByLibrary.simpleMessage("Confirm rejection"),
         "irVerificationRequestsCreationDate":
             MessageLookupByLibrary.simpleMessage("Creation date"),
         "irVerificationRequestsFrom":
@@ -181,6 +191,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Records"),
         "irVerificationRequestsRecordsToVerify":
             MessageLookupByLibrary.simpleMessage("Records to verify"),
+        "irVerificationRequestsReject":
+            MessageLookupByLibrary.simpleMessage("Reject"),
+        "irVerificationRequestsRejectedRecord":
+            MessageLookupByLibrary.simpleMessage("Rejected record"),
+        "irVerificationRequestsRejectedRecords":
+            MessageLookupByLibrary.simpleMessage("Rejected records"),
         "irVerificationRequestsTip":
             MessageLookupByLibrary.simpleMessage("Tip"),
         "irVerificationRequestsVerifyRecord":
@@ -425,6 +441,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "txTryAgain": MessageLookupByLibrary.simpleMessage("Try again"),
         "txWarningDoNotCloseWindow":
             MessageLookupByLibrary.simpleMessage("Do not close this window"),
+        "txYouWillGet": MessageLookupByLibrary.simpleMessage("You will get"),
         "validators": MessageLookupByLibrary.simpleMessage("Validators"),
         "validatorsActive": MessageLookupByLibrary.simpleMessage("Active"),
         "validatorsButtonFilter": m11,

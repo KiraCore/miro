@@ -66,6 +66,11 @@ class IRRecordTileDesktop extends StatelessWidget {
         children: <Widget>[
           if (loadingBool == false && recordExistsBool) ...<Widget>[
             IconButton(
+              icon: const Icon(AppIcons.verification, color: DesignColors.grey1, size: 20),
+              tooltip: S.of(context).irRecordVerify,
+              onPressed: onVerifyPressed,
+            ),
+            IconButton(
               icon: const Icon(AppIcons.pencil, color: DesignColors.grey1, size: 20),
               tooltip: S.of(context).irRecordEdit,
               onPressed: onEditPressed,
@@ -74,11 +79,6 @@ class IRRecordTileDesktop extends StatelessWidget {
               icon: const Icon(AppIcons.delete, color: DesignColors.grey1, size: 20),
               tooltip: S.of(context).irRecordDelete,
               onPressed: onDeletePressed,
-            ),
-            IconButton(
-              icon: const Icon(AppIcons.verification, color: DesignColors.grey1, size: 20),
-              tooltip: S.of(context).irRecordVerify,
-              onPressed: onVerifyPressed,
             ),
           ] else if (loadingBool == false)
             KiraOutlinedButton(

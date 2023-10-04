@@ -13,6 +13,7 @@ import 'package:miro/views/pages/menu/validators_page/validators_page.dart';
 import 'package:miro/views/pages/pages_wrapper.dart';
 import 'package:miro/views/pages/transactions/transactions_wrapper.dart';
 import 'package:miro/views/pages/transactions/tx_send/ir_tx_delete_record_page/ir_tx_delete_record_page.dart';
+import 'package:miro/views/pages/transactions/tx_send/ir_tx_handle_verification_request_page/ir_tx_handle_verification_request_page.dart';
 import 'package:miro/views/pages/transactions/tx_send/ir_tx_register_record_page/ir_tx_register_record_page.dart';
 import 'package:miro/views/pages/transactions/tx_send/ir_tx_request_verification_page/ir_tx_request_verification_page.dart';
 import 'package:miro/views/pages/transactions/tx_send/tx_send_tokens/tx_send_tokens_page.dart';
@@ -110,6 +111,13 @@ import 'package:miro/views/pages/transactions/tx_send/tx_send_tokens/tx_send_tok
             page: IRTxRequestVerificationPage,
             name: 'IRTxRequestVerificationRoute',
             path: 'identity/verify',
+            guards: <Type>[AuthGuard],
+            transitionsBuilder: TransitionsBuilders.fadeIn,
+          ),
+          CustomRoute<void>(
+            page: IRTxHandleVerificationRequestPage,
+            name: 'IRTxHandleVerificationRequestRoute',
+            path: 'identity/handle-verification-request',
             guards: <Type>[AuthGuard],
             transitionsBuilder: TransitionsBuilders.fadeIn,
           ),

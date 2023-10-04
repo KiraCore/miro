@@ -8,7 +8,7 @@ class MsgHandleIdentityRecordsVerifyRequest extends ATxMsg {
   final String verifier;
 
   /// The id of verification request
-  final BigInt verifyRequestId;
+  final int verifyRequestId;
 
   /// Defines approval or rejecting an identity request
   final bool yes;
@@ -25,7 +25,7 @@ class MsgHandleIdentityRecordsVerifyRequest extends ATxMsg {
   factory MsgHandleIdentityRecordsVerifyRequest.fromJson(Map<String, dynamic> json) {
     return MsgHandleIdentityRecordsVerifyRequest(
       verifier: json['verifier'] as String,
-      verifyRequestId: BigInt.from(json['verify_request_id'] as num),
+      verifyRequestId: json['verify_request_id'] as int,
       yes: json['yes'] as bool,
     );
   }
@@ -35,7 +35,7 @@ class MsgHandleIdentityRecordsVerifyRequest extends ATxMsg {
     return <String, dynamic>{
       'verifier': verifier,
       'verify_request_id': verifyRequestId.toString(),
-      'yes': yes,
+      if (yes == true) 'yes': yes,
     };
   }
 

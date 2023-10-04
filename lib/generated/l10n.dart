@@ -470,11 +470,11 @@ class S {
     );
   }
 
-  /// `Add custom entry`
-  String get irAddCustomEntry {
+  /// `Add custom record`
+  String get irAddCustomRecord {
     return Intl.message(
-      'Add custom entry',
-      name: 'irAddCustomEntry',
+      'Add custom record',
+      name: 'irAddCustomRecord',
       desc: '',
       args: [],
     );
@@ -540,11 +540,11 @@ class S {
     );
   }
 
-  /// `Add more`
-  String get irRecordVerifiersAddMore {
+  /// `Request verification`
+  String get irRecordVerifiersRequestVerification {
     return Intl.message(
-      'Add more',
-      name: 'irRecordVerifiersAddMore',
+      'Request verification',
+      name: 'irRecordVerifiersRequestVerification',
       desc: '',
       args: [],
     );
@@ -685,6 +685,86 @@ class S {
     return Intl.message(
       'Search requests',
       name: 'irVerificationRequestsListSearchRequests',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Approve`
+  String get irVerificationRequestsApprove {
+    return Intl.message(
+      'Approve',
+      name: 'irVerificationRequestsApprove',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reject`
+  String get irVerificationRequestsReject {
+    return Intl.message(
+      'Reject',
+      name: 'irVerificationRequestsReject',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Approved records`
+  String get irVerificationRequestsApprovedRecords {
+    return Intl.message(
+      'Approved records',
+      name: 'irVerificationRequestsApprovedRecords',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Approved record`
+  String get irVerificationRequestsApprovedRecord {
+    return Intl.message(
+      'Approved record',
+      name: 'irVerificationRequestsApprovedRecord',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Rejected records`
+  String get irVerificationRequestsRejectedRecords {
+    return Intl.message(
+      'Rejected records',
+      name: 'irVerificationRequestsRejectedRecords',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Rejected record`
+  String get irVerificationRequestsRejectedRecord {
+    return Intl.message(
+      'Rejected record',
+      name: 'irVerificationRequestsRejectedRecord',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm approval`
+  String get irVerificationRequestsConfirmApproval {
+    return Intl.message(
+      'Confirm approval',
+      name: 'irVerificationRequestsConfirmApproval',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm rejection`
+  String get irVerificationRequestsConfirmRejection {
+    return Intl.message(
+      'Confirm rejection',
+      name: 'irVerificationRequestsConfirmRejection',
       desc: '',
       args: [],
     );
@@ -1816,6 +1896,16 @@ class S {
     return Intl.message(
       'Recipient will get',
       name: 'txRecipientWillGet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `You will get`
+  String get txYouWillGet {
+    return Intl.message(
+      'You will get',
+      name: 'txYouWillGet',
       desc: '',
       args: [],
     );
