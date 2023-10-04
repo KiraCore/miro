@@ -8,20 +8,20 @@ import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 
 class IRMsgHandleVerificationRequestModel extends ATxMsgModel {
-  final bool approvedBool;
-  final BigInt verifyRequestId;
+  final bool approvalStatusBool;
+  final String verifyRequestId;
   final WalletAddress walletAddress;
 
   const IRMsgHandleVerificationRequestModel({
-    required this.approvedBool,
+    required this.approvalStatusBool,
     required this.verifyRequestId,
     required this.walletAddress,
   }) : super(txMsgType: TxMsgType.msgHandleIdentityRecordsVerifyRequest);
 
   factory IRMsgHandleVerificationRequestModel.fromDto(MsgHandleIdentityRecordsVerifyRequest msgHandleIdentityRecordsVerifyRequest) {
     return IRMsgHandleVerificationRequestModel(
-      approvedBool: msgHandleIdentityRecordsVerifyRequest.yes,
-      verifyRequestId: msgHandleIdentityRecordsVerifyRequest.verifyRequestId,
+      approvalStatusBool: msgHandleIdentityRecordsVerifyRequest.yes,
+      verifyRequestId: msgHandleIdentityRecordsVerifyRequest.verifyRequestId.toString(),
       walletAddress: WalletAddress.fromBech32(msgHandleIdentityRecordsVerifyRequest.verifier),
     );
   }
@@ -29,9 +29,9 @@ class IRMsgHandleVerificationRequestModel extends ATxMsgModel {
   @override
   MsgHandleIdentityRecordsVerifyRequest toMsgDto() {
     return MsgHandleIdentityRecordsVerifyRequest(
-      verifyRequestId: verifyRequestId,
+      verifyRequestId: int.parse(verifyRequestId),
       verifier: walletAddress.bech32Address,
-      yes: approvedBool,
+      yes: approvalStatusBool,
     );
   }
 
@@ -52,5 +52,5 @@ class IRMsgHandleVerificationRequestModel extends ATxMsgModel {
   String getTitle(BuildContext context, TxDirectionType txDirectionType) => S.of(context).txMsgHandleIdentityRecordsVerifyRequest;
 
   @override
-  List<Object?> get props => <Object>[approvedBool, verifyRequestId, walletAddress];
+  List<Object?> get props => <Object>[approvalStatusBool, verifyRequestId, walletAddress];
 }

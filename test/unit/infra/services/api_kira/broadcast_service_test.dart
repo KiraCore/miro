@@ -510,8 +510,8 @@ Future<void> main() async {
         memo: 'Test of MsgHandleIdentityRecordsVerifyRequest message',
         feeTokenAmountModel: feeTokenAmountModel,
         txMsgModel: IRMsgHandleVerificationRequestModel(
-          approvedBool: true,
-          verifyRequestId: BigInt.from(2),
+          approvalStatusBool: true,
+          verifyRequestId: '2',
           walletAddress: recipientWallet.address,
         ),
       );

@@ -169,8 +169,8 @@ Future<void> main() async {
       prefixedTokenAmounts: <PrefixedTokenAmountModel>[],
       txMsgModels: <ATxMsgModel>[
         IRMsgHandleVerificationRequestModel(
-          approvedBool: true,
-          verifyRequestId: BigInt.from(4),
+          approvalStatusBool: true,
+          verifyRequestId: '4',
           walletAddress: WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
         ),
       ],

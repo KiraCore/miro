@@ -21,6 +21,7 @@ import 'package:miro/views/pages/menu/my_account_page/identity_registrar/ir_reco
 import 'package:miro/views/pages/menu/my_account_page/identity_registrar/ir_record_value_widget/ir_record_text_value_widget.dart';
 import 'package:miro/views/pages/menu/my_account_page/identity_registrar/ir_record_value_widget/ir_record_urls_value_widget.dart';
 import 'package:miro/views/widgets/buttons/kira_outlined_button.dart';
+import 'package:miro/views/widgets/buttons/kira_text_button.dart';
 import 'package:miro/views/widgets/generic/expandable_text.dart';
 import 'package:miro/views/widgets/generic/prefixed_widget.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_value.dart';
@@ -125,33 +126,26 @@ class _IRRecordDrawerPage extends State<IRRecordDrawerPage> {
                 style: textTheme.bodyText2!.copyWith(color: DesignColors.white1),
               ),
             ),
-            const SizedBox(height: 30),
             if (irRecordDrawerPageState is IRRecordDrawerPageLoadedState) ...<Widget>[
               IRRecordVerificationsList(
                 irRecordVerificationRequestModels: irRecordDrawerPageState.irRecordVerificationRequestModels,
               ),
+              if (irRecordDrawerPageState.irRecordVerificationRequestModels.isEmpty) const SizedBox(height: 15),
+              KiraTextButton(
+                label: S.of(context).irRecordVerifiersRequestVerification,
+                icon: const Icon(Icons.add, size: 18),
+                onPressed: _pressRequestVerificationButton,
+              ),
             ] else if (irRecordDrawerPageState is IRRecordDrawerPageLoadingState) ...<Widget>[
+              const SizedBox(height: 30),
               const IRRecordVerificationsListShimmer(),
             ] else ...<Widget>[
+              const SizedBox(height: 30),
               Text(
                 S.of(context).errorCannotFetchData,
                 style: textTheme.bodyText2!.copyWith(color: DesignColors.redStatus1),
               )
             ],
-            const SizedBox(height: 30),
-            InkWell(
-              onTap: _pressAddMoreButton,
-              child: Row(
-                children: <Widget>[
-                  const Icon(
-                    Icons.add,
-                    color: DesignColors.accent,
-                  ),
-                  const SizedBox(width: 10),
-                  Text(S.of(context).irRecordVerifiersAddMore),
-                ],
-              ),
-            ),
             const SizedBox(height: 100),
           ],
         );
@@ -175,7 +169,7 @@ class _IRRecordDrawerPage extends State<IRRecordDrawerPage> {
     Navigator.of(context).pop();
   }
 
-  Future<void> _pressAddMoreButton() async {
+  Future<void> _pressRequestVerificationButton() async {
     await KiraRouter.of(context).push<void>(PagesWrapperRoute(
       children: <PageRouteInfo>[
         TransactionsWrapperRoute(children: <PageRouteInfo>[
