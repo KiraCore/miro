@@ -132,7 +132,7 @@ Future<void> main() async {
           message: 'Cannot reach the server. Please check your internet connection.',
           uri: Uri.parse('offline.kira.network'),
           method: 'GET',
-          response: '',
+          response: null,
         ),
       );
 

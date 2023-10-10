@@ -21,8 +21,8 @@ class ErrorExplorerModel extends Equatable {
   });
 
   factory ErrorExplorerModel.fromDioConnectException(DioConnectException dioConnectException) {
-    DioError dioError = dioConnectException.dioError;
-    RequestOptions requestOptions = dioError.requestOptions;
+    DioException dioException = dioConnectException.dioException;
+    RequestOptions requestOptions = dioException.requestOptions;
 
     return ErrorExplorerModel(
       code: 'NETWORK_ERROR',
@@ -30,7 +30,7 @@ class ErrorExplorerModel extends Equatable {
       uri: requestOptions.uri,
       method: requestOptions.method,
       request: requestOptions.data,
-      response: dioError.response?.data ?? dioError.message,
+      response: dioException.response?.data ?? dioException.message,
     );
   }
 

@@ -65,7 +65,7 @@ class _KiraTextField extends State<KiraTextField> {
         if (widget.label != null) ...<Widget>[
           Text(
             widget.label!,
-            style: textTheme.bodyText2!.copyWith(
+            style: textTheme.bodyMedium!.copyWith(
               color: _getLabelColor(),
             ),
           ),
@@ -84,7 +84,7 @@ class _KiraTextField extends State<KiraTextField> {
               obscureText: widget.controller.obscureTextNotifier.value,
               readOnly: widget.readOnly,
               inputFormatters: widget.inputFormatters,
-              style: textTheme.bodyText1!.copyWith(
+              style: textTheme.bodyLarge!.copyWith(
                 color: DesignColors.white1,
               ),
               decoration: InputDecoration(
@@ -92,13 +92,13 @@ class _KiraTextField extends State<KiraTextField> {
                 fillColor: DesignColors.black,
                 hoverColor: DesignColors.greyHover2,
                 errorText: widget.controller.errorNotifier.value,
-                errorStyle: textTheme.caption!.copyWith(
+                errorStyle: textTheme.bodySmall!.copyWith(
                   color: DesignColors.redStatus1,
                 ),
                 suffixIcon: _getSuffixIcon(),
                 errorMaxLines: 1,
                 hintText: widget.hint,
-                hintStyle: textTheme.bodyText1!.copyWith(
+                hintStyle: textTheme.bodyLarge!.copyWith(
                   color: DesignColors.grey1,
                 ),
                 border: outlineInputBorder,

@@ -66,7 +66,7 @@ class _TxBroadcastPage<T extends AMsgFormModel> extends State<TxBroadcastPage<T>
     } else if (txBroadcastState is TxBroadcastCompletedState) {
       return TxBroadcastCompleteBody(txBroadcastCompletedState: txBroadcastState);
     } else {
-      AppLogger().log(message: 'Unexpected ATxBroadcastState state $txBroadcastState', logLevel: LogLevel.terribleFailure);
+      AppLogger().log(message: 'Unexpected ATxBroadcastState state $txBroadcastState', logLevel: LogLevel.fatal);
       return const SizedBox();
     }
   }

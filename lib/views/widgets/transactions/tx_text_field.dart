@@ -41,7 +41,7 @@ class _TxTextField extends State<TxTextField> {
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
-    TextStyle? textStyle = ResponsiveWidget.isLargeScreen(context) ? textTheme.bodyText1 : textTheme.bodyText2;
+    TextStyle? textStyle = ResponsiveWidget.isLargeScreen(context) ? textTheme.bodyLarge : textTheme.bodyMedium;
 
     return TextFormField(
       focusNode: widget.focusNode,
@@ -68,7 +68,7 @@ class _TxTextField extends State<TxTextField> {
         hintStyle: textStyle?.copyWith(
           color: widget.hasErrors ? DesignColors.redStatus1 : DesignColors.white1,
         ),
-        errorStyle: textTheme.caption!.copyWith(
+        errorStyle: textTheme.bodySmall!.copyWith(
           color: DesignColors.redStatus1,
         ),
         isDense: true,

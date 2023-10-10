@@ -8,7 +8,7 @@ import 'package:miro/views/widgets/buttons/kira_outlined_button.dart';
 class BalanceListItemDesktopTitle extends StatelessWidget {
   final double sectionsSpace;
   final BalanceModel balanceModel;
-  final FavouritePressedCallback favouritePressedCallback;
+  final ValueChanged<bool> favouritePressedCallback;
   final ValueNotifier<bool> hoverNotifier;
   final VoidCallback onSendButtonPressed;
 
@@ -43,7 +43,7 @@ class BalanceListItemDesktopTitle extends StatelessWidget {
         Expanded(
           child: Text(
             balanceModel.tokenAmountModel.tokenAliasModel.defaultTokenDenominationModel.name,
-            style: textTheme.bodyText1!.copyWith(
+            style: textTheme.bodyLarge!.copyWith(
               color: DesignColors.white2,
             ),
           ),
@@ -53,7 +53,7 @@ class BalanceListItemDesktopTitle extends StatelessWidget {
           flex: 2,
           child: Text(
             balanceModel.tokenAmountModel.getAmountInDefaultDenomination().toString(),
-            style: textTheme.subtitle1!.copyWith(
+            style: textTheme.titleMedium!.copyWith(
               color: DesignColors.white1,
             ),
           ),

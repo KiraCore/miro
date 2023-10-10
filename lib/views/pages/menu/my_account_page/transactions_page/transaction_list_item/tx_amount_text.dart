@@ -37,7 +37,7 @@ class TxAmountText extends StatelessWidget {
           PrefixedTokenAmountText(
             prefixedTokenAmountModel: prefixedTokenAmountModel,
             textAlign: textAlign,
-            textStyle: textTheme.bodyText2!.copyWith(
+            textStyle: textTheme.bodyMedium!.copyWith(
               fontWeight: FontWeight.w600,
               color: color,
             ),
@@ -49,7 +49,7 @@ class TxAmountText extends StatelessWidget {
               Text(
                 S.of(context).txListAmountPlusMore(totalAmountsCount - 1),
                 textAlign: TextAlign.right,
-                style: textTheme.caption!.copyWith(
+                style: textTheme.bodySmall!.copyWith(
                   color: DesignColors.grey1,
                 ),
               ),
@@ -66,7 +66,7 @@ class TxAmountText extends StatelessWidget {
               Text(
                 S.of(context).txListAmountPlusFees,
                 textAlign: TextAlign.right,
-                style: textTheme.caption!.copyWith(
+                style: textTheme.bodySmall!.copyWith(
                   color: DesignColors.grey1,
                 ),
               ),
@@ -83,7 +83,7 @@ class TxAmountText extends StatelessWidget {
               Text(
                 S.of(context).txListAmountFeesOnly,
                 textAlign: TextAlign.right,
-                style: textTheme.bodyText2!.copyWith(
+                style: textTheme.bodyMedium!.copyWith(
                   color: DesignColors.white2,
                 ),
               ),

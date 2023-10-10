@@ -21,7 +21,7 @@ class ExpansionTileTitle extends StatelessWidget {
       children: <Widget>[
         Text(
           title,
-          style: textTheme.bodyText1!.copyWith(
+          style: textTheme.bodyLarge!.copyWith(
             color: DesignColors.white1,
           ),
         ),

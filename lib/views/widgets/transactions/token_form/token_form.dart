@@ -149,7 +149,7 @@ class _TokenForm extends State<TokenForm> {
                       icon: const Icon(Icons.refresh, color: DesignColors.redStatus1, size: 16),
                       label: Text(
                         'Cannot load balances, try again',
-                        style: textTheme.caption!.copyWith(color: DesignColors.redStatus1),
+                        style: textTheme.bodySmall!.copyWith(color: DesignColors.redStatus1),
                       ),
                     ),
                   ],

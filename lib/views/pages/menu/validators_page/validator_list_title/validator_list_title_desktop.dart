@@ -24,7 +24,7 @@ class ValidatorListTitleDesktop extends StatelessWidget {
         children: <Widget>[
           Text(
             S.of(context).validatorsList,
-            style: textTheme.headline2!.copyWith(
+            style: textTheme.displayMedium!.copyWith(
               color: DesignColors.white1,
             ),
           ),
@@ -37,12 +37,12 @@ class ValidatorListTitleDesktop extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: <Widget>[
-                    SizedBox(
+                    const SizedBox(
                       width: 340,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        children: const <Widget>[
+                        children: <Widget>[
                           ValidatorsFilterDropdown(),
                         ],
                       ),

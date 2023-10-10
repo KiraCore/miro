@@ -52,7 +52,7 @@ class MockApiKiraRepository implements IApiKiraRepository {
         requestOptions: RequestOptions(path: ''),
       );
     } else {
-      throw DioConnectException(dioError: DioError(requestOptions: RequestOptions(path: networkUri.host)));
+      throw DioConnectException(dioException: DioException(requestOptions: RequestOptions(path: networkUri.host)));
     }
   }
 
@@ -82,7 +82,7 @@ class MockApiKiraRepository implements IApiKiraRepository {
         requestOptions: RequestOptions(path: ''),
       );
     } else {
-      throw DioConnectException(dioError: DioError(requestOptions: RequestOptions(path: networkUri.host)));
+      throw DioConnectException(dioException: DioException(requestOptions: RequestOptions(path: networkUri.host)));
     }
   }
 
@@ -104,7 +104,7 @@ class MockApiKiraRepository implements IApiKiraRepository {
         requestOptions: RequestOptions(path: ''),
       );
     } else {
-      throw DioConnectException(dioError: DioError(requestOptions: RequestOptions(path: networkUri.host)));
+      throw DioConnectException(dioException: DioException(requestOptions: RequestOptions(path: networkUri.host)));
     }
   }
 
@@ -128,7 +128,7 @@ class MockApiKiraRepository implements IApiKiraRepository {
         requestOptions: RequestOptions(path: ''),
       );
     } else {
-      throw DioConnectException(dioError: DioError(requestOptions: RequestOptions(path: networkUri.host)));
+      throw DioConnectException(dioException: DioException(requestOptions: RequestOptions(path: networkUri.host)));
     }
   }
 
@@ -150,7 +150,7 @@ class MockApiKiraRepository implements IApiKiraRepository {
         requestOptions: RequestOptions(path: ''),
       );
     } else {
-      throw DioConnectException(dioError: DioError(requestOptions: RequestOptions(path: networkUri.host)));
+      throw DioConnectException(dioException: DioException(requestOptions: RequestOptions(path: networkUri.host)));
     }
   }
 
@@ -172,7 +172,7 @@ class MockApiKiraRepository implements IApiKiraRepository {
         requestOptions: RequestOptions(path: ''),
       );
     } else {
-      throw DioConnectException(dioError: DioError(requestOptions: RequestOptions(path: networkUri.host)));
+      throw DioConnectException(dioException: DioException(requestOptions: RequestOptions(path: networkUri.host)));
     }
   }
 
@@ -195,7 +195,7 @@ class MockApiKiraRepository implements IApiKiraRepository {
         requestOptions: RequestOptions(path: ''),
       );
     } else {
-      throw DioConnectException(dioError: DioError(requestOptions: RequestOptions(path: networkUri.host)));
+      throw DioConnectException(dioException: DioException(requestOptions: RequestOptions(path: networkUri.host)));
     }
   }
 
@@ -218,7 +218,7 @@ class MockApiKiraRepository implements IApiKiraRepository {
         requestOptions: RequestOptions(path: ''),
       );
     } else {
-      throw DioConnectException(dioError: DioError(requestOptions: RequestOptions(path: networkUri.host)));
+      throw DioConnectException(dioException: DioException(requestOptions: RequestOptions(path: networkUri.host)));
     }
   }
 
@@ -240,7 +240,7 @@ class MockApiKiraRepository implements IApiKiraRepository {
         requestOptions: RequestOptions(path: ''),
       );
     } else {
-      throw DioConnectException(dioError: DioError(requestOptions: RequestOptions(path: networkUri.host)));
+      throw DioConnectException(dioException: DioException(requestOptions: RequestOptions(path: networkUri.host)));
     }
   }
 
@@ -262,7 +262,7 @@ class MockApiKiraRepository implements IApiKiraRepository {
         requestOptions: RequestOptions(path: ''),
       );
     } else {
-      throw DioConnectException(dioError: DioError(requestOptions: RequestOptions(path: networkUri.host)));
+      throw DioConnectException(dioException: DioException(requestOptions: RequestOptions(path: networkUri.host)));
     }
   }
 
@@ -284,7 +284,7 @@ class MockApiKiraRepository implements IApiKiraRepository {
         requestOptions: RequestOptions(path: ''),
       );
     } else {
-      throw DioConnectException(dioError: DioError(requestOptions: RequestOptions(path: networkUri.host)));
+      throw DioConnectException(dioException: DioException(requestOptions: RequestOptions(path: networkUri.host)));
     }
   }
 }

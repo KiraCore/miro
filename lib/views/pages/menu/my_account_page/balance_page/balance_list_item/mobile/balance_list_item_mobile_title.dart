@@ -6,7 +6,7 @@ import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_token
 class BalanceListItemMobileTitle extends StatelessWidget {
   final BalanceModel balanceModel;
   final ValueNotifier<bool> hoverNotifier;
-  final FavouritePressedCallback favouritePressedCallback;
+  final ValueChanged<bool> favouritePressedCallback;
 
   const BalanceListItemMobileTitle({
     required this.balanceModel,
@@ -37,7 +37,7 @@ class BalanceListItemMobileTitle extends StatelessWidget {
           children: <Widget>[
             Text(
               balanceModel.tokenAmountModel.tokenAliasModel.defaultTokenDenominationModel.name,
-              style: textTheme.bodyText1!.copyWith(
+              style: textTheme.bodyLarge!.copyWith(
                 color: DesignColors.white1,
               ),
             ),
@@ -45,7 +45,7 @@ class BalanceListItemMobileTitle extends StatelessWidget {
             Expanded(
               child: Text(
                 balanceModel.tokenAmountModel.getAmountInDefaultDenomination().toString(),
-                style: textTheme.bodyText1!.copyWith(
+                style: textTheme.bodyLarge!.copyWith(
                   color: DesignColors.white1,
                 ),
               ),

@@ -38,7 +38,7 @@ class NetworkButton extends StatelessWidget {
         width: double.infinity,
         child: Text(
           S.of(context).networkServerOffline,
-          style: textTheme.caption!.copyWith(
+          style: textTheme.bodySmall!.copyWith(
             color: DesignColors.redStatus1,
           ),
         ),
@@ -80,7 +80,7 @@ class NetworkButton extends StatelessWidget {
     } else {
       return Text(
         S.of(context).networkErrorCannotConnect,
-        style: textTheme.caption!.copyWith(
+        style: textTheme.bodySmall!.copyWith(
           color: DesignColors.redStatus1,
         ),
       );

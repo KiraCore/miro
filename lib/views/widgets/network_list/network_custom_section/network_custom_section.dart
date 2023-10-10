@@ -52,7 +52,7 @@ class _NetworkCustomSection extends State<NetworkCustomSection> {
                   children: <Widget>[
                     Text(
                       S.of(context).networkSwitchCustomAddress,
-                      style: textTheme.bodyText1!.copyWith(
+                      style: textTheme.bodyLarge!.copyWith(
                         fontWeight: FontWeight.w400,
                         color: DesignColors.white1,
                       ),

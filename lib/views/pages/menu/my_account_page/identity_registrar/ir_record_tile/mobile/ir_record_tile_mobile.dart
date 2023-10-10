@@ -57,7 +57,7 @@ class IRRecordTileMobile extends StatelessWidget {
               children: <Widget>[
                 Text(
                   S.of(context).irRecordStatus,
-                  style: textTheme.bodyText2!.copyWith(color: DesignColors.white2),
+                  style: textTheme.bodyMedium!.copyWith(color: DesignColors.white2),
                 ),
                 const SizedBox(width: 8),
                 IRRecordStatusChip(

@@ -47,9 +47,9 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
         path: '/api/kira/txs',
       );
       return response;
-    } on DioError catch (dioError) {
-      AppLogger().log(message: 'RemoteApiKiraRepository: Cannot fetch broadcast for URI $networkUri: ${dioError.message}');
-      throw DioConnectException(dioError: dioError);
+    } on DioException catch (dioException) {
+      AppLogger().log(message: 'RemoteApiKiraRepository: Cannot fetch broadcast for URI $networkUri: ${dioException.message}');
+      throw DioConnectException(dioException: dioException);
     }
   }
 
@@ -61,9 +61,9 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
         path: '/api/kira/accounts/${request.address}',
       );
       return response;
-    } on DioError catch (dioError) {
-      AppLogger().log(message: 'RemoteApiKiraRepository: Cannot fetch fetchQueryAccount() for URI $networkUri: ${dioError.message}');
-      throw DioConnectException(dioError: dioError);
+    } on DioException catch (dioException) {
+      AppLogger().log(message: 'RemoteApiKiraRepository: Cannot fetch fetchQueryAccount() for URI $networkUri: ${dioException.message}');
+      throw DioConnectException(dioException: dioException);
     }
   }
 
@@ -76,9 +76,9 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
         queryParameters: queryBalanceReq.toJson(),
       );
       return response;
-    } on DioError catch (dioError) {
-      AppLogger().log(message: 'RemoteApiKiraRepository: Cannot fetch fetchQueryBalance() for URI $networkUri: ${dioError.message}');
-      throw DioConnectException(dioError: dioError);
+    } on DioException catch (dioException) {
+      AppLogger().log(message: 'RemoteApiKiraRepository: Cannot fetch fetchQueryBalance() for URI $networkUri: ${dioException.message}');
+      throw DioConnectException(dioException: dioException);
     }
   }
 
@@ -91,9 +91,9 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
         queryParameters: queryExecutionFeeRequest.toJson(),
       );
       return response;
-    } on DioError catch (dioError) {
-      AppLogger().log(message: 'RemoteApiKiraRepository: Cannot fetch fetchQueryExecutionFee for URI $networkUri: ${dioError.message}');
-      throw DioConnectException(dioError: dioError);
+    } on DioException catch (dioException) {
+      AppLogger().log(message: 'RemoteApiKiraRepository: Cannot fetch fetchQueryExecutionFee for URI $networkUri: ${dioException.message}');
+      throw DioConnectException(dioException: dioException);
     }
   }
 
@@ -105,9 +105,9 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
         path: '/api/kira/gov/identity_records/$creator',
       );
       return response;
-    } on DioError catch (dioError) {
-      AppLogger().log(message: 'RemoteApiKiraRepository: Cannot fetch fetchQueryIdentityRecordsByAddress() for URI $networkUri: ${dioError.message}');
-      throw DioConnectException(dioError: dioError);
+    } on DioException catch (dioException) {
+      AppLogger().log(message: 'RemoteApiKiraRepository: Cannot fetch fetchQueryIdentityRecordsByAddress() for URI $networkUri: ${dioException.message}');
+      throw DioConnectException(dioException: dioException);
     }
   }
 
@@ -119,9 +119,9 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
         path: '/api/kira/gov/identity_record/$id',
       );
       return response;
-    } on DioError catch (dioError) {
-      AppLogger().log(message: 'RemoteApiKiraRepository: Cannot fetch fetchQueryIdentityRecordById() for URI $networkUri: ${dioError.message}');
-      throw DioConnectException(dioError: dioError);
+    } on DioException catch (dioException) {
+      AppLogger().log(message: 'RemoteApiKiraRepository: Cannot fetch fetchQueryIdentityRecordById() for URI $networkUri: ${dioException.message}');
+      throw DioConnectException(dioException: dioException);
     }
   }
 
@@ -135,11 +135,11 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
         queryParameters: queryIdentityRecordVerifyRequestsByApproverReq.queryParameters,
       );
       return response;
-    } on DioError catch (dioError) {
+    } on DioException catch (dioException) {
       AppLogger().log(
-        message: 'RemoteApiKiraRepository: Cannot fetch fetchQueryIdentityRecordVerifyRequestsByApprover() for URI $networkUri: ${dioError.message}',
+        message: 'RemoteApiKiraRepository: Cannot fetch fetchQueryIdentityRecordVerifyRequestsByApprover() for URI $networkUri: ${dioException.message}',
       );
-      throw DioConnectException(dioError: dioError);
+      throw DioConnectException(dioException: dioException);
     }
   }
 
@@ -153,11 +153,11 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
         queryParameters: queryIdentityRecordVerifyRequestsByRequesterReq.queryParameters,
       );
       return response;
-    } on DioError catch (dioError) {
+    } on DioException catch (dioException) {
       AppLogger().log(
-        message: 'RemoteApiKiraRepository: Cannot fetch fetchQueryIdentityRecordVerifyRequestsByRequester() for URI $networkUri: ${dioError.message}',
+        message: 'RemoteApiKiraRepository: Cannot fetch fetchQueryIdentityRecordVerifyRequestsByRequester() for URI $networkUri: ${dioException.message}',
       );
-      throw DioConnectException(dioError: dioError);
+      throw DioConnectException(dioException: dioException);
     }
   }
 
@@ -169,9 +169,9 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
         path: '/api/kira/tokens/aliases',
       );
       return response;
-    } on DioError catch (dioError) {
-      AppLogger().log(message: 'RemoteApiKiraRepository: Cannot fetch fetchQueryKiraTokensAliases() for URI $networkUri ${dioError.message}');
-      throw DioConnectException(dioError: dioError);
+    } on DioException catch (dioException) {
+      AppLogger().log(message: 'RemoteApiKiraRepository: Cannot fetch fetchQueryKiraTokensAliases() for URI $networkUri ${dioException.message}');
+      throw DioConnectException(dioException: dioException);
     }
   }
 
@@ -183,9 +183,9 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
         path: '/api/kira/tokens/rates',
       );
       return response;
-    } on DioError catch (dioError) {
-      AppLogger().log(message: 'RemoteApiKiraRepository: Cannot fetch fetchQueryKiraTokensRates() for URI $networkUri ${dioError.message}');
-      throw DioConnectException(dioError: dioError);
+    } on DioException catch (dioException) {
+      AppLogger().log(message: 'RemoteApiKiraRepository: Cannot fetch fetchQueryKiraTokensRates() for URI $networkUri ${dioException.message}');
+      throw DioConnectException(dioException: dioException);
     }
   }
 
@@ -197,9 +197,9 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
         path: '/api/kira/gov/network_properties',
       );
       return response;
-    } on DioError catch (dioError) {
-      AppLogger().log(message: 'RemoteApiKiraRepository: Cannot fetch fetchQueryNetworkProperties() for URI $networkUri ${dioError.message}');
-      throw DioConnectException(dioError: dioError);
+    } on DioException catch (dioException) {
+      AppLogger().log(message: 'RemoteApiKiraRepository: Cannot fetch fetchQueryNetworkProperties() for URI $networkUri ${dioException.message}');
+      throw DioConnectException(dioException: dioException);
     }
   }
 }

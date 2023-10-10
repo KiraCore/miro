@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:miro/blocs/generic/auth/auth_cubit.dart';
 import 'package:miro/blocs/pages/transactions/tx_process_cubit/states/tx_process_confirm_state.dart';
@@ -9,6 +10,7 @@ import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
 import 'package:miro/views/pages/transactions/tx_send/ir_tx_handle_verification_request_page/ir_tx_handle_verification_request_confirm_dialog.dart';
 import 'package:miro/views/widgets/transactions/send/tx_process_wrapper.dart';
 
+@RoutePage()
 class IRTxHandleVerificationRequestPage extends StatefulWidget {
   final bool approvalStatusBool;
   final IRInboundVerificationRequestModel irInboundVerificationRequestModel;

@@ -26,7 +26,7 @@ class DrawerTitle extends StatelessWidget {
           children: <Widget>[
             Text(
               title,
-              style: textTheme.headline3!.copyWith(
+              style: textTheme.displaySmall!.copyWith(
                 color: DesignColors.white1,
               ),
             ),
@@ -39,7 +39,7 @@ class DrawerTitle extends StatelessWidget {
             children: <Widget>[
               Text(
                 subtitle!,
-                style: textTheme.bodyText1!.copyWith(
+                style: textTheme.bodyLarge!.copyWith(
                   color: DesignColors.accent,
                 ),
               ),

@@ -43,10 +43,10 @@ class _SmallBalancesCheckbox extends State<SmallBalanceCheckbox> {
               Text(
                 S.of(context).balancesHideSmall,
                 style: ResponsiveValue<TextStyle>(
-                  largeScreen: textTheme.bodyText2!.copyWith(
+                  largeScreen: textTheme.bodyMedium!.copyWith(
                     color: DesignColors.white1,
                   ),
-                  smallScreen: textTheme.caption!.copyWith(
+                  smallScreen: textTheme.bodySmall!.copyWith(
                     color: DesignColors.white1,
                   ),
                 ).get(context),

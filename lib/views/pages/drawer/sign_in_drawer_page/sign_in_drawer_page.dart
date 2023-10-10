@@ -47,7 +47,7 @@ class _SignInDrawerPage extends State<SignInDrawerPage> {
         const SizedBox(height: 32),
         Text(
           S.of(context).createWalletDontHave,
-          style: textTheme.bodyText2!.copyWith(
+          style: textTheme.bodyMedium!.copyWith(
             color: DesignColors.white1,
           ),
         ),

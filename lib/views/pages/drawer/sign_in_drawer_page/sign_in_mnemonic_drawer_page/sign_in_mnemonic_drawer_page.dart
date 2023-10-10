@@ -87,7 +87,7 @@ class _SignInMnemonicDrawerPage extends State<SignInMnemonicDrawerPage> {
                 if (mnemonicValidBool && mnemonicCompleteBool)
                   Text(
                     mnemonicErrors[mnemonicValidationResult]!,
-                    style: textTheme.caption!.copyWith(
+                    style: textTheme.bodySmall!.copyWith(
                       color: DesignColors.redStatus1,
                     ),
                   ),
@@ -126,7 +126,7 @@ class _SignInMnemonicDrawerPage extends State<SignInMnemonicDrawerPage> {
     try {
       return Wallet.derive(mnemonic: mnemonic);
     } catch (e) {
-      AppLogger().log(message: 'Cannot generate wallet', logLevel: LogLevel.terribleFailure);
+      AppLogger().log(message: 'Cannot generate wallet', logLevel: LogLevel.fatal);
       return null;
     }
   }

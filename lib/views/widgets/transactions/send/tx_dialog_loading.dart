@@ -19,7 +19,7 @@ class TxDialogLoading extends StatelessWidget {
           const SizedBox(height: 20),
           Text(
             S.of(context).txFetchingRemoteData,
-            style: textTheme.bodyText1!.copyWith(
+            style: textTheme.bodyLarge!.copyWith(
               color: DesignColors.white1,
             ),
           ),

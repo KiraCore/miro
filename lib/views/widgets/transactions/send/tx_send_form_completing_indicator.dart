@@ -17,7 +17,7 @@ class TxSendFormCompletingIndicator extends StatelessWidget {
         const SizedBox(width: 10),
         Text(
           S.of(context).txSigning,
-          style: textTheme.caption!.copyWith(color: DesignColors.white1),
+          style: textTheme.bodySmall!.copyWith(color: DesignColors.white1),
         ),
       ],
     );

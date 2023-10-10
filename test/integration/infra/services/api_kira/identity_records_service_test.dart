@@ -33,7 +33,7 @@ Future<void> main() async {
         print(actualIRModel);
         print('');
       } on DioConnectException catch (e) {
-        TestUtils.printError('identity_records_service_test.dart: Cannot fetch [IRModel] for URI $networkUri: ${e.dioError.message}');
+        TestUtils.printError('identity_records_service_test.dart: Cannot fetch [IRModel] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
         TestUtils.printError('identity_records_service_test.dart: Cannot parse [IRModel] for URI $networkUri: ${e}');
       } catch (e) {
@@ -54,7 +54,7 @@ Future<void> main() async {
         print('');
       } on DioConnectException catch (e) {
         TestUtils.printError(
-            'identity_records_service_test.dart: Cannot fetch [List of IRInboundVerificationRequestModel] for URI $networkUri: ${e.dioError.message}');
+            'identity_records_service_test.dart: Cannot fetch [List of IRInboundVerificationRequestModel] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
         TestUtils.printError('identity_records_service_test.dart: Cannot parse [List of IRInboundVerificationRequestModel] for URI $networkUri: ${e}');
       } catch (e) {
@@ -76,7 +76,7 @@ Future<void> main() async {
         print('');
       } on DioConnectException catch (e) {
         TestUtils.printError(
-            'identity_records_service_test.dart: Cannot fetch [List of IRRecordVerificationRequestModel] for URI $networkUri: ${e.dioError.message}');
+            'identity_records_service_test.dart: Cannot fetch [List of IRRecordVerificationRequestModel] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
         TestUtils.printError('identity_records_service_test.dart: Cannot parse [List of IRRecordVerificationRequestModel] for URI $networkUri: ${e}');
       } catch (e) {

@@ -15,6 +15,7 @@ import 'package:miro/views/widgets/network_list/network_custom_section/network_c
 import 'package:miro/views/widgets/network_list/network_list.dart';
 import 'package:miro/views/widgets/network_list/network_list_tile.dart';
 
+@RoutePage()
 class NetworkListPage extends StatefulWidget {
   final ConnectionErrorType connectionErrorType;
   final ANetworkStatusModel? canceledNetworkStatusModel;
@@ -54,7 +55,7 @@ class _NetworkListPage extends State<NetworkListPage> {
               ),
               const SizedBox(height: 16),
               NetworkHeadline(
-                textStyle: textTheme.headline1!.copyWith(
+                textStyle: textTheme.displayLarge!.copyWith(
                   color: DesignColors.white1,
                 ),
               ),
@@ -63,7 +64,7 @@ class _NetworkListPage extends State<NetworkListPage> {
                 Text(
                   connectionErrorModel.message,
                   textAlign: TextAlign.center,
-                  style: textTheme.bodyText2!.copyWith(
+                  style: textTheme.bodyMedium!.copyWith(
                     color: connectionErrorModel.color,
                   ),
                 ),
@@ -72,7 +73,7 @@ class _NetworkListPage extends State<NetworkListPage> {
               if (_isAutoDisconnected == false) ...<Widget>[
                 Text(
                   S.of(context).networkSelectServers,
-                  style: textTheme.bodyText1!.copyWith(
+                  style: textTheme.bodyLarge!.copyWith(
                     color: DesignColors.white1,
                   ),
                 ),
@@ -90,7 +91,7 @@ class _NetworkListPage extends State<NetworkListPage> {
                     if (_isAutoDisconnected) ...<Widget>[
                       Text(
                         S.of(context).networkServerToConnect,
-                        style: textTheme.bodyText1!.copyWith(color: DesignColors.white1),
+                        style: textTheme.bodyLarge!.copyWith(color: DesignColors.white1),
                       ),
                       const SizedBox(height: 10),
                       NetworkListTile(
@@ -101,7 +102,7 @@ class _NetworkListPage extends State<NetworkListPage> {
                       const SizedBox(height: 20),
                       Text(
                         S.of(context).networkOtherServers,
-                        style: textTheme.bodyText1!.copyWith(color: DesignColors.white1),
+                        style: textTheme.bodyLarge!.copyWith(color: DesignColors.white1),
                       ),
                       const SizedBox(height: 10),
                     ],
@@ -110,7 +111,7 @@ class _NetworkListPage extends State<NetworkListPage> {
                       hiddenNetworkStatusModel: _isAutoDisconnected ? widget.canceledNetworkStatusModel : null,
                       emptyListWidget: Text(
                         S.of(context).networkNoAvailable,
-                        style: textTheme.bodyText2!.copyWith(color: DesignColors.white2),
+                        style: textTheme.bodyMedium!.copyWith(color: DesignColors.white2),
                       ),
                       arrowEnabledBool: true,
                     ),

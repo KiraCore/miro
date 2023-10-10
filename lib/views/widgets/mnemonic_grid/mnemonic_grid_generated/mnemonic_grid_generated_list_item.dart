@@ -29,7 +29,7 @@ class MnemonicGridGeneratedListItem extends StatelessWidget {
             child: Text(
               '${index + 1}',
               textAlign: TextAlign.center,
-              style: textTheme.caption!.copyWith(
+              style: textTheme.bodySmall!.copyWith(
                 color: DesignColors.greenStatus1,
               ),
             ),
@@ -39,7 +39,7 @@ class MnemonicGridGeneratedListItem extends StatelessWidget {
             child: Text(
               word,
               maxLines: 1,
-              style: textTheme.caption!.copyWith(
+              style: textTheme.bodySmall!.copyWith(
                 color: DesignColors.white2,
                 letterSpacing: 3,
               ),

@@ -36,7 +36,7 @@ class TokenAvailableAmount extends StatelessWidget {
         if (formFieldState.hasError) ...<Widget>[
           Text(
             formFieldState.errorText!,
-            style: textTheme.caption!.copyWith(
+            style: textTheme.bodySmall!.copyWith(
               color: DesignColors.redStatus1,
             ),
           ),
@@ -47,7 +47,7 @@ class TokenAvailableAmount extends StatelessWidget {
             const SizedBox(height: 7),
             Text(
               S.of(context).txAvailableBalances(availableAmountText, tokenDenominationModel!.name),
-              style: textTheme.caption!.copyWith(
+              style: textTheme.bodySmall!.copyWith(
                 color: formFieldState.hasError ? DesignColors.redStatus1 : DesignColors.white2,
               ),
             ),

@@ -51,7 +51,7 @@ class _MnemonicTextField extends State<MnemonicTextField> {
           prefixWidget: Text(
             '${widget.mnemonicTextFieldCubit.index + 1}',
             textAlign: TextAlign.center,
-            style: textTheme.caption!.copyWith(
+            style: textTheme.bodySmall!.copyWith(
               color: mnemonicTextFieldState.mnemonicTextFieldStatus == MnemonicTextFieldStatus.valid
                   ? DesignColors.greenStatus1
                   : DesignColors.white2,
@@ -63,14 +63,14 @@ class _MnemonicTextField extends State<MnemonicTextField> {
               return RichText(
                 text: TextSpan(
                   text: mnemonicTextFieldState.mnemonicText,
-                  style: textTheme.caption!.copyWith(
+                  style: textTheme.bodySmall!.copyWith(
                     letterSpacing: 3,
                     color: Colors.transparent,
                   ),
                   children: <TextSpan>[
                     TextSpan(
                       text: mnemonicHintState.hintText,
-                      style: textTheme.caption!.copyWith(
+                      style: textTheme.bodySmall!.copyWith(
                         letterSpacing: 3,
                         color: DesignColors.white2,
                       ),
@@ -90,7 +90,7 @@ class _MnemonicTextField extends State<MnemonicTextField> {
               FilteringTextInputFormatter.allow(RegExp('[a-z]')),
               LengthLimitingTextInputFormatter(8),
             ],
-            style: textTheme.caption!.copyWith(
+            style: textTheme.bodySmall!.copyWith(
               letterSpacing: 3,
               color: DesignColors.white1,
             ),

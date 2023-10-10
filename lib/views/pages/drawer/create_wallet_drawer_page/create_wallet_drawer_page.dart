@@ -78,7 +78,7 @@ class _CreateWalletDrawerPage extends State<CreateWalletDrawerPage> {
             const SizedBox(height: 24),
             Text(
               S.of(context).createWalletAddress,
-              style: textTheme.bodyText2!.copyWith(color: DesignColors.white1),
+              style: textTheme.bodyMedium!.copyWith(color: DesignColors.white1),
             ),
             const SizedBox(height: 8),
             Container(
@@ -91,7 +91,7 @@ class _CreateWalletDrawerPage extends State<CreateWalletDrawerPage> {
               ),
               child: SelectableText(
                 addressTextValue,
-                style: textTheme.caption!.copyWith(
+                style: textTheme.bodySmall!.copyWith(
                   fontSize: 13,
                   color: DesignColors.white1,
                 ),

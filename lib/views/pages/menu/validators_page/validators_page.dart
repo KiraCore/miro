@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/favourites/favourites_bloc.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/filters/filters_bloc.dart';
@@ -16,6 +17,7 @@ import 'package:miro/views/pages/menu/validators_page/validator_list_title/valid
 import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 import 'package:miro/views/widgets/kira/kira_list/infinity_list/sliver_infinity_list/sliver_infinity_list.dart';
 
+@RoutePage()
 class ValidatorsPage extends StatefulWidget {
   const ValidatorsPage({
     Key? key,
@@ -59,11 +61,11 @@ class _ValidatorsPage extends State<ValidatorsPage> {
     Widget listHeaderWidget = ValidatorListItemDesktopLayout(
       height: 64,
       favouriteButtonWidget: const SizedBox(),
-      topWidget: Text(S.of(context).validatorsTableTop, style: textTheme.caption!.copyWith(color: DesignColors.white1)),
-      monikerWidget: Text(S.of(context).validatorsTableMoniker, style: textTheme.caption!.copyWith(color: DesignColors.white1)),
-      statusWidget: Text(S.of(context).validatorsTableStatus, style: textTheme.caption!.copyWith(color: DesignColors.white1)),
-      uptimeWidget: Text(S.of(context).validatorsTableUptime, style: textTheme.caption!.copyWith(color: DesignColors.white1)),
-      streakWidget: Text(S.of(context).validatorsTableStreak, style: textTheme.caption!.copyWith(color: DesignColors.white1)),
+      topWidget: Text(S.of(context).validatorsTableTop, style: textTheme.bodySmall!.copyWith(color: DesignColors.white1)),
+      monikerWidget: Text(S.of(context).validatorsTableMoniker, style: textTheme.bodySmall!.copyWith(color: DesignColors.white1)),
+      statusWidget: Text(S.of(context).validatorsTableStatus, style: textTheme.bodySmall!.copyWith(color: DesignColors.white1)),
+      uptimeWidget: Text(S.of(context).validatorsTableUptime, style: textTheme.bodySmall!.copyWith(color: DesignColors.white1)),
+      streakWidget: Text(S.of(context).validatorsTableStreak, style: textTheme.bodySmall!.copyWith(color: DesignColors.white1)),
     );
 
     return CustomScrollView(

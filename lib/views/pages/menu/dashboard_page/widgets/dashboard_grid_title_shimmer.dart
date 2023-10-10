@@ -29,7 +29,7 @@ class DashboardGridTileShimmer extends StatelessWidget {
               width: 100,
               color: DesignColors.grey2,
               constraints: const BoxConstraints(minWidth: 100),
-              child: Text('', style: textTheme.headline4),
+              child: Text('', style: textTheme.headlineMedium),
             ),
           ),
         ),

@@ -64,9 +64,9 @@ class ToastContainer extends StatelessWidget {
                 padding: const EdgeInsets.symmetric(vertical: 8),
                 child: Text(
                   title.data ?? '',
-                  style: textTheme.bodyText2!.copyWith(
+                  style: textTheme.bodyMedium!.copyWith(
                     color: localToastDecoration.titleColor,
-                    fontSize: title.style?.fontSize ?? textTheme.bodyText2!.fontSize,
+                    fontSize: title.style?.fontSize ?? textTheme.bodyMedium!.fontSize,
                   ),
                 ),
               ),
@@ -74,9 +74,9 @@ class ToastContainer extends StatelessWidget {
           else
             Text(
               title.data ?? '',
-              style: textTheme.bodyText2!.copyWith(
+              style: textTheme.bodyMedium!.copyWith(
                 color: localToastDecoration.titleColor,
-                fontSize: title.style?.fontSize ?? textTheme.bodyText2!.fontSize,
+                fontSize: title.style?.fontSize ?? textTheme.bodyMedium!.fontSize,
               ),
             ),
           if (actionTitle != null) ...<Widget>[

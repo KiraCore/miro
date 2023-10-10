@@ -44,7 +44,7 @@ class SortDropdownButton<T extends AListItem> extends StatelessWidget {
             overflow: TextOverflow.fade,
             textAlign: TextAlign.center,
             maxLines: 1,
-            style: textTheme.caption!.copyWith(
+            style: textTheme.bodySmall!.copyWith(
               color: DesignColors.white1,
             ),
           ),

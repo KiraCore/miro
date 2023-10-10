@@ -34,7 +34,7 @@ class KiraChipButton extends StatelessWidget {
           child: Center(
             child: Text(
               label,
-              style: textTheme.caption!.copyWith(
+              style: textTheme.bodySmall!.copyWith(
                 color: selected ? DesignColors.black : DesignColors.white1,
                 fontWeight: FontWeight.w600,
               ),

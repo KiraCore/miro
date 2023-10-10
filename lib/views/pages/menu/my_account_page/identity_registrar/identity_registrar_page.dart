@@ -58,8 +58,8 @@ class _IdentityRegistrarPage extends State<IdentityRegistrarPage> {
                   infoButtonVisibleBool: infoButtonVisibleBool,
                   height: 53,
                   infoButtonWidget: const SizedBox(),
-                  recordWidget: Text(S.of(context).irEntries, style: textTheme.caption!.copyWith(color: DesignColors.white1)),
-                  statusWidget: Text(S.of(context).irRecordStatus, style: textTheme.caption!.copyWith(color: DesignColors.white1)),
+                  recordWidget: Text(S.of(context).irEntries, style: textTheme.bodySmall!.copyWith(color: DesignColors.white1)),
+                  statusWidget: Text(S.of(context).irRecordStatus, style: textTheme.bodySmall!.copyWith(color: DesignColors.white1)),
                   buttonWidget: const SizedBox(),
                 ),
               IRRecordTile(

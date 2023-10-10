@@ -62,12 +62,12 @@ class IRRecordUrlsValueWidget extends StatelessWidget {
                             Text(
                               socialUrl.title,
                               overflow: TextOverflow.ellipsis,
-                              style: textTheme.bodyText2!.copyWith(color: DesignColors.white1),
+                              style: textTheme.bodyMedium!.copyWith(color: DesignColors.white1),
                             ),
                           Text(
                             socialUrl.url,
                             overflow: TextOverflow.ellipsis,
-                            style: textTheme.bodyText2!.copyWith(color: states.contains(MaterialState.hovered) ? DesignColors.white2 : DesignColors.grey1),
+                            style: textTheme.bodyMedium!.copyWith(color: states.contains(MaterialState.hovered) ? DesignColors.white2 : DesignColors.grey1),
                           ),
                         ],
                       ),

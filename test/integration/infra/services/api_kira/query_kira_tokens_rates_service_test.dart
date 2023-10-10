@@ -28,7 +28,8 @@ Future<void> main() async {
         print(actualQueryKiraTokensRatesResp);
         print('');
       } on DioConnectException catch (e) {
-        TestUtils.printError('query_kira_tokens_rates_service_test.dart: Cannot fetch [QueryKiraTokensRatesResp] for URI $networkUri: ${e.dioError.message}');
+        TestUtils.printError(
+            'query_kira_tokens_rates_service_test.dart: Cannot fetch [QueryKiraTokensRatesResp] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
         TestUtils.printError('query_kira_tokens_rates_service_test.dart: Cannot parse [QueryKiraTokensRatesResp] for URI $networkUri: ${e}');
       } catch (e) {

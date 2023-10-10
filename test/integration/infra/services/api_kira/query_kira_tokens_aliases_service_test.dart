@@ -28,7 +28,8 @@ Future<void> main() async {
         print(actualTokenAliasModelList);
         print('');
       } on DioConnectException catch (e) {
-        TestUtils.printError('query_kira_tokens_aliases_service_test.dart: Cannot fetch [List<TokenAliasModel>] for URI $networkUri: ${e.dioError.message}');
+        TestUtils.printError(
+            'query_kira_tokens_aliases_service_test.dart: Cannot fetch [List<TokenAliasModel>] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
         TestUtils.printError('query_kira_tokens_aliases_service_test.dart: Cannot parse [List<TokenAliasModel>] for URI $networkUri: ${e}');
       } catch (e) {

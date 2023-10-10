@@ -56,7 +56,7 @@ class _ExpandableText extends State<ExpandableText> {
 
                       Widget textButton = Text(
                         S.of(context).seeMore,
-                        style: (ResponsiveWidget.isLargeScreen(context) ? textTheme.caption : textTheme.bodyText2)?.copyWith(
+                        style: (ResponsiveWidget.isLargeScreen(context) ? textTheme.bodySmall : textTheme.bodyMedium)?.copyWith(
                           overflow: TextOverflow.visible,
                           color: seeMoreHoveredBool ? DesignColors.white1 : DesignColors.greenStatus1,
                           fontWeight: FontWeight.bold,

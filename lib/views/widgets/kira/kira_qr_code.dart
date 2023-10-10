@@ -30,11 +30,11 @@ class KiraQrCode extends StatelessWidget {
       ),
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8),
-        child: QrImage(
+        child: QrImageView(
           data: data,
           version: version,
           size: size,
-          foregroundColor: foregroundColor,
+          eyeStyle: QrEyeStyle(color: foregroundColor),
           backgroundColor: backgroundColor,
           gapless: true,
         ),

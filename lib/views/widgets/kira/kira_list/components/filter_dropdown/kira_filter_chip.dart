@@ -36,7 +36,7 @@ class KiraFilterChip extends StatelessWidget {
               SizedBox(width: size / 2),
               Text(
                 title,
-                style: textTheme.caption!.copyWith(
+                style: textTheme.bodySmall!.copyWith(
                   color: DesignColors.white2,
                   fontSize: size + size / 6,
                 ),

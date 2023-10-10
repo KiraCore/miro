@@ -36,7 +36,7 @@ class TxBroadcastErrorBody<T extends AMsgFormModel> extends StatelessWidget {
         Text(
           S.of(context).txErrorFailed,
           textAlign: TextAlign.center,
-          style: textTheme.headline3!.copyWith(color: DesignColors.white1),
+          style: textTheme.displaySmall!.copyWith(color: DesignColors.white1),
         ),
         const SizedBox(height: 12),
         Row(
@@ -45,11 +45,11 @@ class TxBroadcastErrorBody<T extends AMsgFormModel> extends StatelessWidget {
           children: <Widget>[
             Text(
               '<${errorExplorerModel.code}>',
-              style: textTheme.caption!.copyWith(color: DesignColors.white1),
+              style: textTheme.bodySmall!.copyWith(color: DesignColors.white1),
             ),
             const SizedBox(width: 8),
             TextLink(
-              textStyle: textTheme.caption!.copyWith(color: DesignColors.white1),
+              textStyle: textTheme.bodySmall!.copyWith(color: DesignColors.white1),
               onTap: () => _showErrorExplorerDialog(context),
               text: S.of(context).txErrorSeeMore,
             ),

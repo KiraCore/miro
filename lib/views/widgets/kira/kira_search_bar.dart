@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:miro/config/app_icons.dart';
 import 'package:miro/config/theme/design_colors.dart';
 
-class SearchBar extends StatefulWidget {
+class KiraSearchBar extends StatefulWidget {
   final TextEditingController textEditingController;
   final TextStyle textStyle;
   final bool enabled;
@@ -14,7 +14,7 @@ class SearchBar extends StatefulWidget {
   final ValueChanged<String>? onSubmit;
   final InputBorder? border;
 
-  const SearchBar({
+  const KiraSearchBar({
     required this.textEditingController,
     required this.textStyle,
     this.enabled = true,
@@ -29,10 +29,10 @@ class SearchBar extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _SearchBar();
+  State<StatefulWidget> createState() => _KiraSearchBar();
 }
 
-class _SearchBar extends State<SearchBar> {
+class _KiraSearchBar extends State<KiraSearchBar> {
   late final ValueNotifier<bool> clearButtonVisibleNotifier = ValueNotifier<bool>(widget.textEditingController.text.isNotEmpty);
 
   @override

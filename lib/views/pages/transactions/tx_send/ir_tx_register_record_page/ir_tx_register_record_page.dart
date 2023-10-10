@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:miro/blocs/generic/auth/auth_cubit.dart';
 import 'package:miro/blocs/pages/transactions/tx_process_cubit/states/tx_process_confirm_state.dart';
@@ -11,6 +12,7 @@ import 'package:miro/views/pages/transactions/tx_send/ir_tx_register_record_page
 import 'package:miro/views/pages/transactions/tx_send/ir_tx_register_record_page/ir_tx_register_record_form_dialog.dart';
 import 'package:miro/views/widgets/transactions/send/tx_process_wrapper.dart';
 
+@RoutePage()
 class IRTxRegisterRecordPage extends StatefulWidget {
   final bool irKeyEditableBool;
   final IRRecordModel? irRecordModel;

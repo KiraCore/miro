@@ -90,7 +90,7 @@ class _SignInKeyfileDrawerPage extends State<SignInKeyfileDrawerPage> {
       AppLogger().log(message: errorMessage, logLevel: LogLevel.warning);
       return errorMessage;
     } catch (e) {
-      AppLogger().log(message: 'Unknown error: ${e.toString()}', logLevel: LogLevel.terribleFailure);
+      AppLogger().log(message: 'Unknown error: ${e.toString()}', logLevel: LogLevel.fatal);
       return null;
     }
   }
@@ -130,7 +130,7 @@ class _SignInKeyfileDrawerPage extends State<SignInKeyfileDrawerPage> {
       KeyFile keyFile = KeyFile.decode(keyFileEncryptedContent, password);
       return keyFile.wallet;
     } catch (e) {
-      AppLogger().log(message: 'Unknown error: ${e.toString()}', logLevel: LogLevel.terribleFailure);
+      AppLogger().log(message: 'Unknown error: ${e.toString()}', logLevel: LogLevel.fatal);
       rethrow;
     }
   }

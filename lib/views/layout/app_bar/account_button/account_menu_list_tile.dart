@@ -29,7 +29,7 @@ class AccountMenuListTile extends StatelessWidget {
           decoration: BoxDecoration(color: _selectBackgroundColor(states)),
           child: Text(
             title,
-            style: textTheme.bodyText2!.copyWith(
+            style: textTheme.bodyMedium!.copyWith(
               color: onTap != null ? color : color.withOpacity(0.5),
             ),
           ),

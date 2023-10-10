@@ -28,7 +28,7 @@ class NetworkWarningContainer extends StatelessWidget {
         width: double.infinity,
         title: Text(
           interxWarningMessages[interxWarningType] ?? S.of(context).errorUndefined,
-          style: textTheme.caption!,
+          style: textTheme.bodySmall!,
         ),
         toastType: ToastType.warning,
       ),

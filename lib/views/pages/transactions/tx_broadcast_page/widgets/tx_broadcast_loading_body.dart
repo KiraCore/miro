@@ -29,7 +29,7 @@ class TxBroadcastLoadingBody extends StatelessWidget {
         Text(
           S.of(context).txIsBeingBroadcast,
           textAlign: TextAlign.center,
-          style: textTheme.headline3!.copyWith(
+          style: textTheme.displaySmall!.copyWith(
             color: DesignColors.white1,
           ),
         ),
@@ -37,7 +37,7 @@ class TxBroadcastLoadingBody extends StatelessWidget {
         Text(
           S.of(context).txWarningDoNotCloseWindow,
           textAlign: TextAlign.center,
-          style: textTheme.caption!.copyWith(
+          style: textTheme.bodySmall!.copyWith(
             color: DesignColors.white2,
           ),
         ),

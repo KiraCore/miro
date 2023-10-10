@@ -49,7 +49,7 @@ class _IRRecordTextValueWidget extends State<IRRecordTextValueWidget> {
         widget.value ?? '---',
         maxLines: widget.maxLines,
         overflow: TextOverflow.ellipsis,
-        style: textTheme.bodyText2!.copyWith(color: DesignColors.white1),
+        style: textTheme.bodyMedium!.copyWith(color: DesignColors.white1),
       );
     } else {
       child = ExpandableText(
@@ -59,7 +59,7 @@ class _IRRecordTextValueWidget extends State<IRRecordTextValueWidget> {
           smallScreen: 150,
         ).get(context),
         textLengthSeeMore: 500,
-        text: Text(widget.value ?? '---', style: textTheme.bodyText2!.copyWith(color: DesignColors.white1)),
+        text: Text(widget.value ?? '---', style: textTheme.bodyMedium!.copyWith(color: DesignColors.white1)),
       );
     }
 

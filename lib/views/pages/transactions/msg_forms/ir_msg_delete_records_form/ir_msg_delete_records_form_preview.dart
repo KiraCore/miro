@@ -62,7 +62,7 @@ class _IRMsgDeleteRecordsFormPreview extends State<IRMsgDeleteRecordsFormPreview
           ),
         Text(
           S.of(context).txNoticeFee(_feeAmountText),
-          style: textTheme.caption!.copyWith(
+          style: textTheme.bodySmall!.copyWith(
             color: DesignColors.white1,
           ),
         ),

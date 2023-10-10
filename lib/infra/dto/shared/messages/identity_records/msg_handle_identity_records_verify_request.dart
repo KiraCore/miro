@@ -26,7 +26,7 @@ class MsgHandleIdentityRecordsVerifyRequest extends ATxMsg {
     return MsgHandleIdentityRecordsVerifyRequest(
       verifier: json['verifier'] as String,
       verifyRequestId: json['verify_request_id'] as int,
-      yes: json['yes'] as bool,
+      yes: json['yes'] as bool? ?? false,
     );
   }
 

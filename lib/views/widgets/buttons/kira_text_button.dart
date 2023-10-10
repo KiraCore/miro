@@ -36,7 +36,7 @@ class KiraTextButton extends StatelessWidget {
               ],
               Text(
                 label,
-                style: textTheme.bodyText2!.copyWith(fontWeight: FontWeight.bold, color: foregroundColor),
+                style: textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.bold, color: foregroundColor),
               ),
             ],
           );

@@ -28,7 +28,7 @@ Future<void> main() async {
         print(actualDashboardModel);
         print('');
       } on DioConnectException catch (e) {
-        TestUtils.printError('dashboard_service_test.dart: Cannot fetch [DashboardModel] for URI $networkUri: ${e.dioError.message}');
+        TestUtils.printError('dashboard_service_test.dart: Cannot fetch [DashboardModel] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
         TestUtils.printError('dashboard_service_test.dart: Cannot parse [DashboardModel] for URI $networkUri: ${e}');
       } catch (e) {

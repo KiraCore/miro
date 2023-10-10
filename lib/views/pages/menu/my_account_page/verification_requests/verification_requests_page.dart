@@ -64,10 +64,10 @@ class _VerificationRequestsPage extends State<VerificationRequestsPage> {
       child: VerificationRequestListItemDesktopLayout(
         height: 53,
         infoButtonWidget: const SizedBox(),
-        requesterAddressWidget: Text(S.of(context).irVerificationRequestsFrom, style: textTheme.caption!.copyWith(color: DesignColors.white1)),
-        dateWidget: Text(S.of(context).irVerificationRequestsCreationDate, style: textTheme.caption!.copyWith(color: DesignColors.white1)),
-        keysWidget: Text(S.of(context).irVerificationRequestsRecords, style: textTheme.caption!.copyWith(color: DesignColors.white1)),
-        tipWidget: Text(S.of(context).irVerificationRequestsTip, style: textTheme.caption!.copyWith(color: DesignColors.white1)),
+        requesterAddressWidget: Text(S.of(context).irVerificationRequestsFrom, style: textTheme.bodySmall!.copyWith(color: DesignColors.white1)),
+        dateWidget: Text(S.of(context).irVerificationRequestsCreationDate, style: textTheme.bodySmall!.copyWith(color: DesignColors.white1)),
+        keysWidget: Text(S.of(context).irVerificationRequestsRecords, style: textTheme.bodySmall!.copyWith(color: DesignColors.white1)),
+        tipWidget: Text(S.of(context).irVerificationRequestsTip, style: textTheme.bodySmall!.copyWith(color: DesignColors.white1)),
       ),
     );
 

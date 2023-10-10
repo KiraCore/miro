@@ -20,12 +20,12 @@ class CreateWalletLinkButton extends StatelessWidget {
         const SizedBox(height: 32),
         Text(
           S.of(context).createWalletDontHave,
-          style: textTheme.bodyText2!.copyWith(color: DesignColors.white1),
+          style: textTheme.bodyMedium!.copyWith(color: DesignColors.white1),
         ),
         const SizedBox(height: 8),
         TextLink(
           text: S.of(context).createWalletButton,
-          textStyle: textTheme.bodyText2!,
+          textStyle: textTheme.bodyMedium!,
           onTap: () => KiraScaffold.of(context).navigateEndDrawerRoute(const CreateWalletDrawerPage()),
         ),
         const SizedBox(height: 15),

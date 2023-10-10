@@ -41,7 +41,7 @@ class AccountHeader extends StatelessWidget {
           highlightColor: DesignColors.grey2,
           child: Container(
             width: 150,
-            height: textTheme.bodyText1?.fontSize,
+            height: textTheme.bodyLarge?.fontSize,
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(5)),
               color: DesignColors.grey2,
@@ -53,7 +53,7 @@ class AccountHeader extends StatelessWidget {
           highlightColor: DesignColors.grey2,
           child: Container(
             width: 200,
-            height: textTheme.bodyText2?.fontSize,
+            height: textTheme.bodyMedium?.fontSize,
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(5)),
               color: DesignColors.grey2,
@@ -65,7 +65,7 @@ class AccountHeader extends StatelessWidget {
       Widget addressWidget = Text(
         irModel!.walletAddress.bech32Address,
         softWrap: true,
-        style: textTheme.bodyText2!.copyWith(color: DesignColors.grey1),
+        style: textTheme.bodyMedium!.copyWith(color: DesignColors.grey1),
       );
 
       return Row(
@@ -85,8 +85,8 @@ class AccountHeader extends StatelessWidget {
                 irModel!.usernameIRRecordModel.value ?? irModel!.walletAddress.buildBech32AddressShort(delimiter: '...'),
                 overflow: TextOverflow.ellipsis,
                 style: ResponsiveValue<TextStyle>(
-                  largeScreen: textTheme.headline2!.copyWith(color: DesignColors.white1),
-                  smallScreen: textTheme.headline4!.copyWith(color: DesignColors.white1),
+                  largeScreen: textTheme.displayMedium!.copyWith(color: DesignColors.white1),
+                  smallScreen: textTheme.headlineMedium!.copyWith(color: DesignColors.white1),
                 ).get(context),
               ),
               addressWidget: ResponsiveWidget.isLargeScreen(context)

@@ -8,6 +8,7 @@ import 'package:miro/views/layout/nav_menu/model/nav_item_model.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
 import 'package:miro/views/pages/drawer/drawer_wrapper.dart';
 
+@RoutePage(name: 'MenuWrapperRoute')
 class MenuWrapper extends StatelessWidget {
   const MenuWrapper({
     Key? key,

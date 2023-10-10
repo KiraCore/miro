@@ -1,8 +1,8 @@
 enum LogLevel {
-  verbose,
+  trace,
   debug,
   info,
   warning,
   error,
-  terribleFailure,
+  fatal,
 }

@@ -55,7 +55,7 @@ class TxDialog extends StatelessWidget {
                         Expanded(
                           child: Text(
                             title,
-                            style: textTheme.headline2!.copyWith(
+                            style: textTheme.displayMedium!.copyWith(
                               color: DesignColors.white1,
                             ),
                           ),
@@ -71,7 +71,7 @@ class TxDialog extends StatelessWidget {
                               padding: const EdgeInsets.symmetric(vertical: 3),
                               child: Text(
                                 message,
-                                style: textTheme.bodyText1!.copyWith(color: DesignColors.orange),
+                                style: textTheme.bodyLarge!.copyWith(color: DesignColors.orange),
                               ),
                             ),
                           )

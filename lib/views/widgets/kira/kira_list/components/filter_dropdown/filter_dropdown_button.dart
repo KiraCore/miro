@@ -52,7 +52,7 @@ class FilterDropdownButton<T extends AListItem> extends StatelessWidget {
             overflow: TextOverflow.ellipsis,
             textAlign: TextAlign.start,
             maxLines: 1,
-            style: textTheme.caption!.copyWith(
+            style: textTheme.bodySmall!.copyWith(
               color: DesignColors.white1,
             ),
           ),

@@ -35,10 +35,6 @@ class KiraRouter {
     return _stackRouter.popUntilRouteWithName(name);
   }
 
-  Future<void> navigateBack() async {
-    return _stackRouter.navigateBack();
-  }
-
   Future<void> replaceAll(List<PageRouteInfo> pageRouteInfoList) async {
     return _stackRouter.replaceAll(pageRouteInfoList);
   }

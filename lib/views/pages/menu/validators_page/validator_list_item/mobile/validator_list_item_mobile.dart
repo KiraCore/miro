@@ -37,7 +37,7 @@ class ValidatorListItemMobile extends StatelessWidget {
                 child: Text(
                   validatorModel.top.toString(),
                   overflow: TextOverflow.ellipsis,
-                  style: textTheme.bodyText2!.copyWith(
+                  style: textTheme.bodyMedium!.copyWith(
                     color: DesignColors.white2,
                   ),
                 ),
@@ -72,7 +72,7 @@ class ValidatorListItemMobile extends StatelessWidget {
                     Text(
                       S.of(context).validatorsTableStatus,
                       overflow: TextOverflow.ellipsis,
-                      style: textTheme.bodyText2!.copyWith(
+                      style: textTheme.bodyMedium!.copyWith(
                         color: DesignColors.white2,
                       ),
                     ),
@@ -88,7 +88,7 @@ class ValidatorListItemMobile extends StatelessWidget {
                     Text(
                       S.of(context).validatorsTableUptime,
                       overflow: TextOverflow.ellipsis,
-                      style: textTheme.bodyText2!.copyWith(
+                      style: textTheme.bodyMedium!.copyWith(
                         color: DesignColors.white2,
                       ),
                     ),
@@ -96,7 +96,7 @@ class ValidatorListItemMobile extends StatelessWidget {
                     Text(
                       '${validatorModel.uptime}%',
                       overflow: TextOverflow.ellipsis,
-                      style: textTheme.bodyText2!.copyWith(
+                      style: textTheme.bodyMedium!.copyWith(
                         color: DesignColors.white1,
                       ),
                     ),
@@ -113,7 +113,7 @@ class ValidatorListItemMobile extends StatelessWidget {
               Text(
                 S.of(context).validatorsTableStreak,
                 overflow: TextOverflow.ellipsis,
-                style: textTheme.bodyText2!.copyWith(
+                style: textTheme.bodyMedium!.copyWith(
                   color: DesignColors.white2,
                 ),
               ),
@@ -121,7 +121,7 @@ class ValidatorListItemMobile extends StatelessWidget {
               Text(
                 StringUtils.splitBigNumber(validatorModel.streak),
                 overflow: TextOverflow.ellipsis,
-                style: textTheme.bodyText2!.copyWith(
+                style: textTheme.bodyMedium!.copyWith(
                   color: DesignColors.white1,
                 ),
               ),

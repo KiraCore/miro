@@ -37,8 +37,8 @@ class _PageSizeDropdown extends State<PageSizeDropdown> {
         Text(
           '${S.of(context).paginatedListPageSize}: ',
           style: ResponsiveValue<TextStyle>(
-            largeScreen: textTheme.bodyText2!.copyWith(color: DesignColors.white2),
-            smallScreen: textTheme.caption!.copyWith(color: DesignColors.white2),
+            largeScreen: textTheme.bodyMedium!.copyWith(color: DesignColors.white2),
+            smallScreen: textTheme.bodySmall!.copyWith(color: DesignColors.white2),
           ).get(context),
         ),
         const ResponsiveWidget(

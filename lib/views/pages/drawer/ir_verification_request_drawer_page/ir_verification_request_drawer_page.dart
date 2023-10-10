@@ -50,8 +50,8 @@ class _IRVerificationRequestDrawerPage extends State<IRVerificationRequestDrawer
           avatarUrl: requesterIrUserProfileModel.avatarUrl,
           username: requesterIrUserProfileModel.username,
           walletAddress: requesterIrUserProfileModel.walletAddress,
-          usernameTextStyle: textTheme.bodyText1!.copyWith(color: DesignColors.white1),
-          addressTextStyle: textTheme.bodyText2!.copyWith(color: DesignColors.white2),
+          usernameTextStyle: textTheme.bodyLarge!.copyWith(color: DesignColors.white1),
+          addressTextStyle: textTheme.bodyMedium!.copyWith(color: DesignColors.white2),
         ),
         const SizedBox(height: 8),
         const Divider(color: DesignColors.grey2),
@@ -60,7 +60,7 @@ class _IRVerificationRequestDrawerPage extends State<IRVerificationRequestDrawer
           prefix: S.of(context).irVerificationRequestsCreationDate,
           child: Text(
             DateFormat('d MMM y, HH:mm').format(widget.irInboundVerificationRequestModel.dateTime.toLocal()),
-            style: textTheme.bodyText2!.copyWith(color: DesignColors.white1),
+            style: textTheme.bodyMedium!.copyWith(color: DesignColors.white1),
           ),
         ),
         const SizedBox(height: 16),
@@ -68,7 +68,7 @@ class _IRVerificationRequestDrawerPage extends State<IRVerificationRequestDrawer
           prefix: S.of(context).irVerificationRequestsTip,
           child: Text(
             widget.irInboundVerificationRequestModel.tipTokenAmountModel.toString(),
-            style: textTheme.bodyText2!.copyWith(color: DesignColors.white1),
+            style: textTheme.bodyMedium!.copyWith(color: DesignColors.white1),
           ),
         ),
         const SizedBox(height: 16),
@@ -80,7 +80,7 @@ class _IRVerificationRequestDrawerPage extends State<IRVerificationRequestDrawer
               const SizedBox(height: 8),
               if (widget.irInboundVerificationRequestModel.records.isEmpty) ...<Widget>[
                 const SizedBox(height: 8),
-                Text('---', style: textTheme.bodyText2!.copyWith(color: DesignColors.white2)),
+                Text('---', style: textTheme.bodyMedium!.copyWith(color: DesignColors.white2)),
               ],
               for (String key in widget.irInboundVerificationRequestModel.records.keys)
                 Container(
@@ -104,7 +104,7 @@ class _IRVerificationRequestDrawerPage extends State<IRVerificationRequestDrawer
                           textLengthSeeMore: 500,
                           text: Text(
                             key,
-                            style: textTheme.bodyText2!.copyWith(color: DesignColors.white1),
+                            style: textTheme.bodyMedium!.copyWith(color: DesignColors.white1),
                           ),
                         ),
                       ),
@@ -120,7 +120,7 @@ class _IRVerificationRequestDrawerPage extends State<IRVerificationRequestDrawer
                           textLengthSeeMore: 500,
                           text: Text(
                             widget.irInboundVerificationRequestModel.records[key] ?? '---',
-                            style: textTheme.bodyText2!.copyWith(color: DesignColors.white1),
+                            style: textTheme.bodyMedium!.copyWith(color: DesignColors.white1),
                           ),
                         ),
                       ),

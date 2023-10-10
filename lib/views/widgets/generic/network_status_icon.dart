@@ -22,7 +22,7 @@ class NetworkStatusIcon extends StatelessWidget {
         Assets.iconsNetworkStatus,
         fit: BoxFit.contain,
         allowDrawingOutsideViewBox: true,
-        color: networkStatusModel.statusColor,
+        colorFilter: ColorFilter.mode(networkStatusModel.statusColor, BlendMode.srcIn),
       ),
     );
   }

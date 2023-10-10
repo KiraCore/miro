@@ -58,7 +58,7 @@ class _IRMsgRegisterRecordFormPreview extends State<IRMsgRegisterRecordFormPrevi
         const SizedBox(height: 15),
         Text(
           S.of(context).txNoticeFee(_feeAmountText),
-          style: textTheme.caption!.copyWith(
+          style: textTheme.bodySmall!.copyWith(
             color: DesignColors.white1,
           ),
         ),

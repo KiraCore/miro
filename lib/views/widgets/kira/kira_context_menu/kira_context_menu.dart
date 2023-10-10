@@ -38,7 +38,7 @@ class KiraContextMenu {
   }
 
   Future<int?> _showContextMenu(Offset position, List<PopupMenuItem<int>> popupMenuItemsList) async {
-    RenderBox overlay = Overlay.of(context)!.context.findRenderObject() as RenderBox;
+    RenderBox overlay = Overlay.of(context).context.findRenderObject() as RenderBox;
     return showMenu<int>(
       context: context,
       color: DesignColors.grey2,

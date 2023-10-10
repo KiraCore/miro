@@ -4,7 +4,7 @@ import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/models/a_list_it
 import 'package:miro/blocs/widgets/kira/kira_list/filters/events/filters_search_event.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/filters/filters_bloc.dart';
 import 'package:miro/config/theme/design_colors.dart';
-import 'package:miro/views/widgets/generic/search_bar.dart';
+import 'package:miro/views/widgets/kira/kira_search_bar.dart';
 
 class ListSearchWidget<T extends AListItem> extends StatefulWidget {
   final TextEditingController textEditingController;
@@ -27,10 +27,9 @@ class ListSearchWidget<T extends AListItem> extends StatefulWidget {
 }
 
 class _ListSearchWidget<T extends AListItem> extends State<ListSearchWidget<T>> {
-
   @override
   Widget build(BuildContext context) {
-    return SearchBar(
+    return KiraSearchBar(
       textEditingController: widget.textEditingController,
       textStyle: const TextStyle(
         fontSize: 14,
