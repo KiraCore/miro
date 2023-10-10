@@ -5,6 +5,7 @@ import 'package:miro/infra/dto/api_kira/query_balance/request/query_balance_req.
 import 'package:miro/infra/dto/api_kira/query_execution_fee/request/query_execution_fee_request.dart';
 import 'package:miro/infra/dto/api_kira/query_identity_record_verify_requests/request/query_identity_record_verify_requests_by_approver_req.dart';
 import 'package:miro/infra/dto/api_kira/query_identity_record_verify_requests/request/query_identity_record_verify_requests_by_requester_req.dart';
+import 'package:miro/infra/dto/api_kira/query_staking_pool/request/query_staking_pool_req.dart';
 import 'package:miro/infra/exceptions/dio_connect_exception.dart';
 import 'package:miro/infra/repositories/api/api_kira_repository.dart';
 import 'package:miro/test/mocks/api_kira/mock_api_kira_accounts.dart';
@@ -15,6 +16,7 @@ import 'package:miro/test/mocks/api_kira/mock_api_kira_identity_record_by_id.dar
 import 'package:miro/test/mocks/api_kira/mock_api_kira_identity_records.dart';
 import 'package:miro/test/mocks/api_kira/mock_api_kira_identity_verify_requests_by_approver.dart';
 import 'package:miro/test/mocks/api_kira/mock_api_kira_identity_verify_requests_by_requester.dart';
+import 'package:miro/test/mocks/api_kira/mock_api_kira_staking_pool.dart';
 import 'package:miro/test/mocks/api_kira/mock_api_kira_tokens_aliases.dart';
 import 'package:miro/test/mocks/api_kira/mock_api_kira_tokens_rates.dart';
 import 'package:miro/test/mocks/api_kira/mock_api_kira_txs.dart';
@@ -277,6 +279,28 @@ class MockApiKiraRepository implements IApiKiraRepository {
           break;
         default:
           response = MockApiKiraGovNetworkProperties.defaultResponse as T;
+      }
+      return Response<T>(
+        statusCode: 200,
+        data: response,
+        requestOptions: RequestOptions(path: ''),
+      );
+    } else {
+      throw DioConnectException(dioException: DioException(requestOptions: RequestOptions(path: networkUri.host)));
+    }
+  }
+
+  @override
+  Future<Response<T>> fetchQueryStakingPool<T>(Uri networkUri, QueryStakingPoolReq queryStakingPoolReq) async {
+    bool responseExistsBool = workingEndpoints.contains(networkUri.host);
+    if (responseExistsBool) {
+      late T response;
+      switch (networkUri.host) {
+        case 'invalid.kira.network':
+          response = <String, dynamic>{'invalid': 'response'} as T;
+          break;
+        default:
+          response = MockApiKiraStakingPool.defaultResponse as T;
       }
       return Response<T>(
         statusCode: 200,
