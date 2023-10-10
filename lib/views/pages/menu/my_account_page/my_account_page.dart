@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/generic/auth/auth_cubit.dart';
@@ -15,6 +16,7 @@ import 'package:miro/views/widgets/kira/kira_list/components/last_block_time_wid
 import 'package:miro/views/widgets/kira/kira_tab_bar/kira_tab_bar.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 
+@RoutePage()
 class MyAccountPage extends StatefulWidget {
   const MyAccountPage({Key? key}) : super(key: key);
 

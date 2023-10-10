@@ -27,7 +27,7 @@ class ValidatorStatusTip extends StatelessWidget {
         ),
         child: Text(
           validatorStatusChipModel.title,
-          style: textTheme.caption!.copyWith(
+          style: textTheme.bodySmall!.copyWith(
             color: validatorStatusChipModel.color,
           ),
         ),

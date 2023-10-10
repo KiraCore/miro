@@ -4,7 +4,7 @@ import 'package:miro/generated/l10n.dart';
 import 'package:miro/views/widgets/kira/kira_checkbox.dart';
 
 class WalletTermsSection extends StatefulWidget {
-  final void Function(bool value) onChanged;
+  final ValueChanged<bool> onChanged;
   final bool checked;
 
   const WalletTermsSection({
@@ -60,7 +60,7 @@ class _WalletTermsSection extends State<WalletTermsSection> {
               child: SizedBox(
                 child: Text(
                   S.of(context).createWalletAcknowledgement,
-                  style: textTheme.caption!.copyWith(
+                  style: textTheme.bodySmall!.copyWith(
                     color: DesignColors.white1,
                   ),
                 ),

@@ -19,7 +19,7 @@ class NetworkListTileContent extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
-    TextStyle networkDetailsTextStyle = textTheme.caption!.copyWith(
+    TextStyle networkDetailsTextStyle = textTheme.bodySmall!.copyWith(
       color: DesignColors.white2,
     );
 

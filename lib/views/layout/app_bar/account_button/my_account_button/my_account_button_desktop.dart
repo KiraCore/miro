@@ -58,8 +58,8 @@ class _MyAccountButtonDesktop extends State<MyAccountButtonDesktop> {
                       username: irModel?.usernameIRRecordModel.value,
                       avatarUrl: irModel?.avatarIRRecordModel.value,
                       loadingBool: identityRegistrarState is IdentityRegistrarLoadingState,
-                      usernameTextStyle: textTheme.bodyText1!.copyWith(color: DesignColors.white1),
-                      addressTextStyle: textTheme.bodyText2!.copyWith(color: DesignColors.grey1),
+                      usernameTextStyle: textTheme.bodyLarge!.copyWith(color: DesignColors.white1),
+                      addressTextStyle: textTheme.bodyMedium!.copyWith(color: DesignColors.grey1),
                     ),
                   ),
                   const Icon(

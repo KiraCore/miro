@@ -53,7 +53,7 @@ class TransactionListItemMobile extends StatelessWidget {
                       ? Text(
                           txListItemModel.getSubtitle(context)!,
                           overflow: TextOverflow.ellipsis,
-                          style: textTheme.bodyText2!.copyWith(
+                          style: textTheme.bodyMedium!.copyWith(
                             color: DesignColors.white2,
                           ),
                         )
@@ -77,7 +77,7 @@ class TransactionListItemMobile extends StatelessWidget {
                         child: Text(
                           txListItemModel.hash,
                           overflow: TextOverflow.ellipsis,
-                          style: textTheme.bodyText2!.copyWith(
+                          style: textTheme.bodyMedium!.copyWith(
                             color: DesignColors.white2,
                           ),
                         ),
@@ -107,7 +107,7 @@ class TransactionListItemMobile extends StatelessWidget {
                   prefix: S.of(context).txListDate,
                   child: Text(
                     DateFormat('d MMM y, HH:mm').format(txListItemModel.time.toLocal()),
-                    style: textTheme.bodyText2!.copyWith(
+                    style: textTheme.bodyMedium!.copyWith(
                       color: DesignColors.white2,
                     ),
                   ),

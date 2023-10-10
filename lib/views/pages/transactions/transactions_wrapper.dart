@@ -4,6 +4,7 @@ import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 import 'package:miro/views/widgets/kira/kira_background.dart';
 import 'package:miro/views/widgets/transactions/tx_app_bar.dart';
 
+@RoutePage(name: 'TransactionsWrapperRoute')
 class TransactionsWrapper extends StatelessWidget {
   const TransactionsWrapper({Key? key}) : super(key: key);
 

@@ -64,7 +64,7 @@ class _NetworkCustomSectionContent extends State<NetworkCustomSectionContent> {
           if (connectedNetworkExistsBool) const SizedBox(height: 16),
           Text(
             S.of(context).networkCheckedConnection,
-            style: textTheme.subtitle2!.copyWith(color: DesignColors.white2),
+            style: textTheme.titleSmall!.copyWith(color: DesignColors.white2),
           ),
           NetworkListTile(
             networkStatusModel: widget.networkCustomSectionCubit.state.checkedNetworkStatusModel!,
@@ -91,7 +91,7 @@ class _NetworkCustomSectionContent extends State<NetworkCustomSectionContent> {
               padding: const EdgeInsets.only(top: 8),
               child: Text(
                 errorMessage,
-                style: textTheme.caption!.copyWith(
+                style: textTheme.bodySmall!.copyWith(
                   color: DesignColors.redStatus1,
                 ),
               ),

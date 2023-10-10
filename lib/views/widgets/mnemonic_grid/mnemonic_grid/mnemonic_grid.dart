@@ -55,7 +55,7 @@ class _MnemonicGrid extends State<MnemonicGrid> with SingleTickerProviderStateMi
       children: <Widget>[
         Text(
           S.of(context).mnemonicWordsSelectAmount,
-          style: textTheme.caption!.copyWith(
+          style: textTheme.bodySmall!.copyWith(
             color: DesignColors.white2,
           ),
         ),

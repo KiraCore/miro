@@ -55,7 +55,7 @@ class IRRecordStatusChip extends StatelessWidget {
           ],
           Text(
             irRecordStatusChipModel.title,
-            style: textTheme.caption!.copyWith(
+            style: textTheme.bodySmall!.copyWith(
               color: irRecordStatusChipModel.color,
             ),
           ),

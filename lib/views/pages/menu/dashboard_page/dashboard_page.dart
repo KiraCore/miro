@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/pages/menu/dashboard/a_dashboard_state.dart';
@@ -16,6 +17,7 @@ import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 import 'package:miro/views/widgets/kira/kira_toast/toast_container.dart';
 import 'package:miro/views/widgets/kira/kira_toast/toast_type.dart';
 
+@RoutePage()
 class DashboardPage extends StatefulWidget {
   const DashboardPage({Key? key}) : super(key: key);
 
@@ -56,7 +58,7 @@ class _DashboardPage extends State<DashboardPage> {
                         width: double.infinity,
                         title: Text(
                           S.of(context).toastCannotLoadDashboard,
-                          style: textTheme.bodyText2!,
+                          style: textTheme.bodyMedium!,
                         ),
                         toastType: ToastType.error,
                       ),

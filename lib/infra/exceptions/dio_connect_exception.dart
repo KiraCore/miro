@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 
 class DioConnectException implements Exception {
-  final DioError dioError;
+  final DioException dioException;
 
-  DioConnectException({required this.dioError});
+  DioConnectException({required this.dioException});
 }

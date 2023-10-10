@@ -22,7 +22,7 @@ class ValidatorListTitleMobile extends StatelessWidget {
       children: <Widget>[
         Text(
           S.of(context).validatorsList,
-          style: textTheme.headline3!.copyWith(
+          style: textTheme.displaySmall!.copyWith(
             color: DesignColors.white1,
           ),
         ),

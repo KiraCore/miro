@@ -56,7 +56,7 @@ class _NavMenu extends State<NavMenu> {
     try {
       Backdrop.of(context).invertVisibility();
     } catch (_) {
-      AppLogger().log(message: 'Backdrop doesn`t exists in current context', logLevel: LogLevel.terribleFailure);
+      AppLogger().log(message: 'Backdrop doesn`t exists in current context', logLevel: LogLevel.fatal);
     }
   }
 }

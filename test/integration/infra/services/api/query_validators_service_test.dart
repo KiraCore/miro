@@ -36,7 +36,7 @@ Future<void> main() async {
         print('${actualResponseString.substring(0, 1000 < actualResponseLength ? 1000 : actualResponseLength)} ....');
         print('');
       } on DioConnectException catch (e) {
-        TestUtils.printError('query_validators_service_test.dart: Cannot fetch [List<ValidatorModel>] for URI $networkUri: ${e.dioError.message}');
+        TestUtils.printError('query_validators_service_test.dart: Cannot fetch [List<ValidatorModel>] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
         TestUtils.printError('query_validators_service_test.dart: Cannot parse [List<ValidatorModel>] for URI $networkUri: ${e}');
       } catch (e) {
@@ -61,7 +61,7 @@ Future<void> main() async {
         print(actualValidatorModelList);
         print('');
       } on DioConnectException catch (e) {
-        TestUtils.printError('query_validators_service_test.dart: Cannot fetch [List<ValidatorModel>] for URI $networkUri: ${e.dioError.message}');
+        TestUtils.printError('query_validators_service_test.dart: Cannot fetch [List<ValidatorModel>] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
         TestUtils.printError('query_validators_service_test.dart: Cannot parse [List<ValidatorModel>] for URI $networkUri: ${e}');
       } catch (e) {
@@ -86,7 +86,7 @@ Future<void> main() async {
         print('${responseString.substring(0, 1000 < responseLength ? 1000 : responseLength)} ....');
         print('');
       } on DioConnectException catch (e) {
-        TestUtils.printError('query_validators_service_test.dart: Cannot fetch [List<ValidatorModel>] for URI $networkUri: ${e.dioError.message}');
+        TestUtils.printError('query_validators_service_test.dart: Cannot fetch [List<ValidatorModel>] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
         TestUtils.printError('query_validators_service_test.dart: Cannot parse [List<ValidatorModel>] for URI $networkUri: ${e}');
       } catch (e) {
@@ -105,7 +105,7 @@ Future<void> main() async {
         print(actualStatus);
         print('');
       } on DioConnectException catch (e) {
-        TestUtils.printError('query_validators_service_test.dart: Cannot fetch [Status] for URI $networkUri: ${e.dioError.message}');
+        TestUtils.printError('query_validators_service_test.dart: Cannot fetch [Status] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
         TestUtils.printError('query_validators_service_test.dart: Cannot parse [Status] for URI $networkUri: ${e}');
       } catch (e) {

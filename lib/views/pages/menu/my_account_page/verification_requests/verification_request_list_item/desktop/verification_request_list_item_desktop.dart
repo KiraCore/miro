@@ -35,22 +35,22 @@ class VerificationRequestListItemDesktop extends StatelessWidget {
         avatarUrl: requesterIrUserProfileModel.avatarUrl,
         username: requesterIrUserProfileModel.username,
         walletAddress: requesterIrUserProfileModel.walletAddress,
-        usernameTextStyle: textTheme.bodyText1!.copyWith(color: DesignColors.white1),
-        addressTextStyle: textTheme.bodyText2!.copyWith(color: DesignColors.white2),
+        usernameTextStyle: textTheme.bodyLarge!.copyWith(color: DesignColors.white1),
+        addressTextStyle: textTheme.bodyMedium!.copyWith(color: DesignColors.white2),
       ),
       dateWidget: Text(
         DateFormat('d MMM y, HH:mm').format(irInboundVerificationRequestModel.dateTime.toLocal()),
-        style: textTheme.bodyText2!.copyWith(color: DesignColors.white2),
+        style: textTheme.bodyMedium!.copyWith(color: DesignColors.white2),
       ),
       keysWidget: Text(
         irInboundVerificationRequestModel.records.isNotEmpty ? irInboundVerificationRequestModel.records.keys.join(', ') : '---',
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
-        style: textTheme.bodyText2!.copyWith(color: DesignColors.white2),
+        style: textTheme.bodyMedium!.copyWith(color: DesignColors.white2),
       ),
       tipWidget: Text(
         irInboundVerificationRequestModel.tipTokenAmountModel.toString(),
-        style: textTheme.bodyText2!.copyWith(color: DesignColors.white2),
+        style: textTheme.bodyMedium!.copyWith(color: DesignColors.white2),
       ),
     );
   }

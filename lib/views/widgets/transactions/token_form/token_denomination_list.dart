@@ -53,7 +53,7 @@ class _TokenDenominationList extends State<TokenDenominationList> {
       children: <Widget>[
         Text(
           S.of(context).balancesDenomination,
-          style: textTheme.caption!.copyWith(
+          style: textTheme.bodySmall!.copyWith(
             color: DesignColors.white2,
           ),
         ),

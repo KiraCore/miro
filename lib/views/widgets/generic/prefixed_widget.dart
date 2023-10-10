@@ -34,7 +34,7 @@ class PrefixedWidget extends StatelessWidget {
                 prefix,
                 maxLines: prefixMaxLines,
                 overflow: prefixMaxLines != null ? TextOverflow.ellipsis : null,
-                style: (child != null ? textTheme.caption! : textTheme.bodyText2!).copyWith(
+                style: (child != null ? textTheme.bodySmall! : textTheme.bodyMedium!).copyWith(
                   color: DesignColors.accent,
                 ),
               ),

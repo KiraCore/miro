@@ -34,7 +34,7 @@ class ValidatorListItemDesktop extends StatelessWidget {
       topWidget: Text(
         validatorModel.top.toString(),
         overflow: TextOverflow.ellipsis,
-        style: textTheme.bodyText1!.copyWith(
+        style: textTheme.bodyLarge!.copyWith(
           color: DesignColors.white2,
         ),
       ),
@@ -47,7 +47,7 @@ class ValidatorListItemDesktop extends StatelessWidget {
       streakWidget: Text(
         StringUtils.splitBigNumber(validatorModel.streak),
         overflow: TextOverflow.ellipsis,
-        style: textTheme.bodyText2!.copyWith(
+        style: textTheme.bodyMedium!.copyWith(
           color: DesignColors.white2,
         ),
       ),
@@ -55,7 +55,7 @@ class ValidatorListItemDesktop extends StatelessWidget {
       uptimeWidget: Text(
         '${validatorModel.uptime}%',
         overflow: TextOverflow.ellipsis,
-        style: textTheme.bodyText2!.copyWith(
+        style: textTheme.bodyMedium!.copyWith(
           color: DesignColors.white2,
         ),
       ),

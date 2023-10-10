@@ -26,9 +26,9 @@ class RemoteApiRepository implements IApiRepository {
         path: '/api/dashboard',
       );
       return response;
-    } on DioError catch (dioError) {
-      AppLogger().log(message: 'RemoteApiRepository: Cannot fetch fetchDashboard() for URI $networkUri: ${dioError.message}');
-      throw DioConnectException(dioError: dioError);
+    } on DioException catch (dioException) {
+      AppLogger().log(message: 'RemoteApiRepository: Cannot fetch fetchDashboard() for URI $networkUri: ${dioException.message}');
+      throw DioConnectException(dioException: dioException);
     }
   }
 
@@ -40,9 +40,9 @@ class RemoteApiRepository implements IApiRepository {
         path: '/api/status',
       );
       return response;
-    } on DioError catch (dioError) {
-      AppLogger().log(message: 'RemoteApiRepository: Cannot fetch fetchQueryInterxStatus() for URI $networkUri: ${dioError.message}');
-      throw DioConnectException(dioError: dioError);
+    } on DioException catch (dioException) {
+      AppLogger().log(message: 'RemoteApiRepository: Cannot fetch fetchQueryInterxStatus() for URI $networkUri: ${dioException.message}');
+      throw DioConnectException(dioException: dioException);
     }
   }
 
@@ -55,9 +55,9 @@ class RemoteApiRepository implements IApiRepository {
         queryParameters: queryTransactionsReq.toJson(),
       );
       return response;
-    } on DioError catch (dioError) {
-      AppLogger().log(message: 'RemoteApiRepository: Cannot fetch fetchQueryTransactions() for URI $networkUri: ${dioError.message}');
-      throw DioConnectException(dioError: dioError);
+    } on DioException catch (dioException) {
+      AppLogger().log(message: 'RemoteApiRepository: Cannot fetch fetchQueryTransactions() for URI $networkUri: ${dioException.message}');
+      throw DioConnectException(dioException: dioException);
     }
   }
 
@@ -70,9 +70,9 @@ class RemoteApiRepository implements IApiRepository {
         queryParameters: queryValidatorsReq.toJson(),
       );
       return response;
-    } on DioError catch (dioError) {
-      AppLogger().log(message: 'RemoteApiRepository: Cannot fetch fetchQueryValidators() for URI $networkUri: ${dioError.message}');
-      throw DioConnectException(dioError: dioError);
+    } on DioException catch (dioException) {
+      AppLogger().log(message: 'RemoteApiRepository: Cannot fetch fetchQueryValidators() for URI $networkUri: ${dioException.message}');
+      throw DioConnectException(dioException: dioException);
     }
   }
 }

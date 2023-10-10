@@ -29,7 +29,7 @@ class TxDialogError<T extends AMsgFormModel> extends StatelessWidget {
             Text(
               S.of(context).txErrorAccountNumberNotExist,
               textAlign: TextAlign.center,
-              style: textTheme.bodyText2!.copyWith(
+              style: textTheme.bodyMedium!.copyWith(
                 color: DesignColors.redStatus1,
               ),
             )
@@ -37,7 +37,7 @@ class TxDialogError<T extends AMsgFormModel> extends StatelessWidget {
             Text(
               S.of(context).txErrorCannotFetchDetails,
               textAlign: TextAlign.center,
-              style: textTheme.bodyText2!.copyWith(
+              style: textTheme.bodyMedium!.copyWith(
                 color: DesignColors.redStatus1,
               ),
             ),
@@ -50,7 +50,7 @@ class TxDialogError<T extends AMsgFormModel> extends StatelessWidget {
             ),
             label: Text(
               S.of(context).txTryAgain,
-              style: textTheme.subtitle2!.copyWith(
+              style: textTheme.titleSmall!.copyWith(
                 color: DesignColors.white1,
               ),
             ),

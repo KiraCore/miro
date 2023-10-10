@@ -17,10 +17,10 @@ class VerificationRequestsListTitleDesktop extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: <Widget>[
-        Column(
+        const Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const <Widget>[
+          children: <Widget>[
             SizedBox(height: 15),
             VerificationRequestsSortDropdown(),
           ],

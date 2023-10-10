@@ -16,10 +16,10 @@ class KiraScaffoldMobile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Backdrop(
-      appbarBuilder: (bool isCollapsed) {
+      appbarBuilder: ({required bool expandedBool}) {
         return KiraAppBarMobile(
           height: 52,
-          isExpanded: isCollapsed,
+          isExpanded: expandedBool,
           navItemModelList: navItemModelList,
         );
       },

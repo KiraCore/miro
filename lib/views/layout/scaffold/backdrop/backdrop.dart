@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-typedef AppbarBuilder = Widget Function(bool isCollapsed);
+typedef AppbarBuilder = Widget Function({required bool expandedBool});
 
 class Backdrop extends StatefulWidget {
   final AppbarBuilder appbarBuilder;
@@ -60,7 +60,7 @@ class _Backdrop extends State<Backdrop> with SingleTickerProviderStateMixin {
         children: <Widget>[
           AnimatedBuilder(
             animation: animationController,
-            builder: (_, __) => widget.appbarBuilder(_isExpanded),
+            builder: (_, __) => widget.appbarBuilder(expandedBool: _isExpanded),
           ),
           Expanded(child: widget.body),
         ],

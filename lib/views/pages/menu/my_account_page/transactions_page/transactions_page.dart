@@ -29,7 +29,7 @@ class _TransactionsPage extends State<TransactionsPage> {
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
-    TextStyle headerTextStyle = textTheme.caption!.copyWith(color: DesignColors.white1);
+    TextStyle headerTextStyle = textTheme.bodySmall!.copyWith(color: DesignColors.white1);
 
     Widget listHeaderWidget = TransactionListItemDesktopLayout(
       height: 53,

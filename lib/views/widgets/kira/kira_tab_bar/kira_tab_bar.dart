@@ -37,9 +37,9 @@ class KiraTabBar extends StatelessWidget {
             color: DesignColors.grey2,
           ),
           labelPadding: const EdgeInsets.symmetric(horizontal: 20),
-          labelStyle: textTheme.caption!.copyWith(fontWeight: FontWeight.w400),
+          labelStyle: textTheme.bodySmall!.copyWith(fontWeight: FontWeight.w400),
           labelColor: DesignColors.white1,
-          unselectedLabelStyle: textTheme.caption,
+          unselectedLabelStyle: textTheme.bodySmall,
           unselectedLabelColor: DesignColors.white2,
           tabs: tabs.map((Tab tab) {
             return Tab(

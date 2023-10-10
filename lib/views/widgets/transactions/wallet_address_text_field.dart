@@ -89,7 +89,7 @@ class _WalletAddressTextField extends State<WalletAddressTextField> {
               const SizedBox(height: 7),
               Text(
                 field.errorText!,
-                style: textTheme.caption!.copyWith(color: DesignColors.redStatus1),
+                style: textTheme.bodySmall!.copyWith(color: DesignColors.redStatus1),
               ),
             ],
           ],

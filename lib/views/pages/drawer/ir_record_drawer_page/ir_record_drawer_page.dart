@@ -98,7 +98,7 @@ class _IRRecordDrawerPage extends State<IRRecordDrawerPage> {
                 textLengthSeeMore: 500,
                 text: Text(
                   widget.irRecordFieldConfigModel.label,
-                  style: textTheme.bodyText2!.copyWith(color: DesignColors.white1),
+                  style: textTheme.bodyMedium!.copyWith(color: DesignColors.white1),
                 ),
               ),
             ),
@@ -123,7 +123,7 @@ class _IRRecordDrawerPage extends State<IRRecordDrawerPage> {
               prefix: S.of(context).creationDate,
               child: Text(
                 widget.irRecordModel.dateTime != null ? DateFormat('d MMM y, HH:mm').format(widget.irRecordModel.dateTime!.toLocal()) : '---',
-                style: textTheme.bodyText2!.copyWith(color: DesignColors.white1),
+                style: textTheme.bodyMedium!.copyWith(color: DesignColors.white1),
               ),
             ),
             if (irRecordDrawerPageState is IRRecordDrawerPageLoadedState) ...<Widget>[
@@ -143,7 +143,7 @@ class _IRRecordDrawerPage extends State<IRRecordDrawerPage> {
               const SizedBox(height: 30),
               Text(
                 S.of(context).errorCannotFetchData,
-                style: textTheme.bodyText2!.copyWith(color: DesignColors.redStatus1),
+                style: textTheme.bodyMedium!.copyWith(color: DesignColors.redStatus1),
               )
             ],
             const SizedBox(height: 100),

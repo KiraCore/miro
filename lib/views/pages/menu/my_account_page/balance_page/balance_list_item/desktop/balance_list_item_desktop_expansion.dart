@@ -31,7 +31,7 @@ class BalanceListItemDesktopExpansion extends StatelessWidget {
             prefix: S.of(context).balancesDenomination,
             child: Text(
               tokenAmountModel.tokenAliasModel.lowestTokenDenominationModel.name,
-              style: textTheme.subtitle1!.copyWith(
+              style: textTheme.titleMedium!.copyWith(
                 color: DesignColors.white2,
               ),
             ),
@@ -44,7 +44,7 @@ class BalanceListItemDesktopExpansion extends StatelessWidget {
             prefix: S.of(context).balancesAmount,
             child: Text(
               tokenAmountModel.getAmountInLowestDenomination().toString(),
-              style: textTheme.subtitle1!.copyWith(
+              style: textTheme.titleMedium!.copyWith(
                 color: DesignColors.white2,
               ),
             ),

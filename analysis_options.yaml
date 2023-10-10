@@ -22,12 +22,8 @@ analyzer:
     - lib/**.g.dart
     - lib/**.gr.dart
     - lib/test/mocks/**
-  #    - test/integration/**
+   # - test/integration/**
 
-  # If you want stricter static checks than the Dart type system requires, consider using the implicit-casts and implicit-dynamic flags
-  strong-mode:
-    implicit-casts: false # value of false ensures that the type inference engine never implicitly casts to a more specific type
-    implicit-dynamic: false # value of false ensures that the type inference engine never chooses the dynamic type when it can’t determine a static type
   errors:
     missing_required_param: error
     missing_return: error
@@ -287,16 +283,6 @@ linter:
     # Conditions should not unconditionally evaluate to true or to false.
     #- invariant_booleans (experimental).
 
-    # Dart SDK: >= 2.0.0 • (Linter v0.1.17)
-    # Invocation of Iterable.contains with references of unrelated types.
-    # core recommended flutter
-    - iterable_contains_unrelated_type
-
-    # Dart SDK: >= 2.0.0 • (Linter v0.1.22)
-    # Invocation of remove with references of unrelated types.
-    # core recommended flutter
-    - list_remove_unrelated_type
-
     # Dart SDK: >= 2.0.0 • (Linter v0.1.25)
     # Boolean expression composed only with literals.
     - literal_only_boolean_expressions
@@ -308,7 +294,7 @@ linter:
     # Dart SDK: >= 2.0.0 • (Linter v0.1.30)
     # Don't use more than one case with same value.
     # core recommended flutter // pedantic
-    - no_duplicate_case_values
+    - collection_methods_unrelated_type
 
     # Dart SDK: >= 2.8.0-dev.1.0 • (Linter v0.1.106)
     # Don't put any logic in createState.

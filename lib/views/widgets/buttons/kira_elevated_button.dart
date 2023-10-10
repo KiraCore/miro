@@ -57,7 +57,7 @@ class _KiraElevatedButton extends State<KiraElevatedButton> {
                   Text(
                     widget.title!.toUpperCase(),
                     textAlign: TextAlign.center,
-                    style: textTheme.button!.copyWith(
+                    style: textTheme.labelLarge!.copyWith(
                       color: widget.foregroundColor ?? DesignColors.background,
                     ),
                   ),

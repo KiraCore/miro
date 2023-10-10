@@ -42,13 +42,13 @@ class TokenDropdownListItem extends StatelessWidget {
       ),
       title: Text(
         tokenAliasModel.defaultTokenDenominationModel.name,
-        style: textTheme.subtitle2!.copyWith(
+        style: textTheme.titleSmall!.copyWith(
           color: DesignColors.white1,
         ),
       ),
       subtitle: Text(
         tokenAliasModel.name,
-        style: textTheme.caption!.copyWith(
+        style: textTheme.bodySmall!.copyWith(
           color: DesignColors.white1,
         ),
       ),

@@ -68,7 +68,7 @@ class TxFormBuilderCubit extends Cubit<ATxFormBuilderState> {
     try {
       TxRemoteInfoModel txRemoteInfoModel = await _queryAccountService.getTxRemoteInfo(_authCubit.state!.address.bech32Address);
       return txRemoteInfoModel;
-    } on DioError catch (e) {
+    } on DioException catch (e) {
       throw Exception('Cannot download TxRemoteInfoModel: ${e.message}');
     } catch (e) {
       throw Exception('Cannot parse TxRemoteInfoModel: ${e}');

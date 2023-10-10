@@ -57,7 +57,7 @@ class KiraToolTip extends StatelessWidget {
         ),
       ),
       textStyle: textStyle ??
-          textTheme.caption!.copyWith(
+          textTheme.bodySmall!.copyWith(
             color: DesignColors.white1,
           ),
       waitDuration: waitDuration,

@@ -73,7 +73,7 @@ Future<void> main() async {
 
       return actualSignedTxModel;
     } on DioConnectException catch (e) {
-      TestUtils.printError('broadcast_service_test.dart: Cannot fetch [TxRemoteInfoModel] for URI $networkUri: ${e.dioError.message}');
+      TestUtils.printError('broadcast_service_test.dart: Cannot fetch [TxRemoteInfoModel] for URI $networkUri: ${e.dioException.message}');
       rethrow;
     } on DioParseException catch (e) {
       TestUtils.printError('broadcast_service_test.dart: Cannot parse [TxRemoteInfoModel] for URI $networkUri: ${e}');
@@ -93,7 +93,8 @@ Future<void> main() async {
       print(broadcastRespModel);
       print('');
     } on DioConnectException catch (e) {
-      TestUtils.printError('broadcast_service_test.dart: Cannot fetch [BroadcastResp] for URI $networkUri: ${e.dioError.message}\n${e.dioError.response}');
+      TestUtils.printError(
+          'broadcast_service_test.dart: Cannot fetch [BroadcastResp] for URI $networkUri: ${e.dioException.message}\n${e.dioException.response}');
     } on DioParseException catch (e) {
       TestUtils.printError('broadcast_service_test.dart: Cannot parse [BroadcastResp] for URI $networkUri: ${e}');
     } catch (e) {

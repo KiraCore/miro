@@ -44,7 +44,7 @@ class MockApiRepository implements IApiRepository {
         requestOptions: RequestOptions(path: ''),
       );
     } else {
-      throw DioConnectException(dioError: DioError(requestOptions: RequestOptions(path: networkUri.host)));
+      throw DioConnectException(dioException: DioException(requestOptions: RequestOptions(path: networkUri.host)));
     }
   }
 
@@ -87,7 +87,7 @@ class MockApiRepository implements IApiRepository {
     }
 
     if (statusCode == 404) {
-      throw DioConnectException(dioError: DioError(requestOptions: RequestOptions(path: networkUri.host)));
+      throw DioConnectException(dioException: DioException(requestOptions: RequestOptions(path: networkUri.host)));
     }
 
     return Response<T>(
@@ -116,7 +116,7 @@ class MockApiRepository implements IApiRepository {
         requestOptions: RequestOptions(path: ''),
       );
     } else {
-      throw DioConnectException(dioError: DioError(requestOptions: RequestOptions(path: networkUri.host)));
+      throw DioConnectException(dioException: DioException(requestOptions: RequestOptions(path: networkUri.host)));
     }
   }
 
@@ -133,7 +133,7 @@ class MockApiRepository implements IApiRepository {
       return _fetchQueryValidatorsPaginated<T>(queryValidatorsReq);
     } else if (responseExistsBool && queryValidatorsReq.statusOnly == true) {
       if (networkUri.host == 'unhealthy.kira.network') {
-        throw DioConnectException(dioError: DioError(requestOptions: RequestOptions(path: networkUri.host)));
+        throw DioConnectException(dioException: DioException(requestOptions: RequestOptions(path: networkUri.host)));
       }
       return Response<T>(
         statusCode: 200,
@@ -147,7 +147,7 @@ class MockApiRepository implements IApiRepository {
         requestOptions: RequestOptions(path: ''),
       );
     } else {
-      throw DioConnectException(dioError: DioError(requestOptions: RequestOptions(path: networkUri.host)));
+      throw DioConnectException(dioException: DioException(requestOptions: RequestOptions(path: networkUri.host)));
     }
   }
 

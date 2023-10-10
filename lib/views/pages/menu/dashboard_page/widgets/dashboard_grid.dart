@@ -43,7 +43,7 @@ class _DashboardGrid extends State<DashboardGrid> {
             children: <Widget>[
               Text(
                 widget.title,
-                style: textTheme.headline2!.copyWith(
+                style: textTheme.displayMedium!.copyWith(
                   color: DesignColors.white1,
                 ),
               ),

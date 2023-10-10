@@ -11,7 +11,7 @@ class NavMenuState extends Equatable {
   const NavMenuState.empty() : selectedPath = null;
 
   bool pathEquals(NavItemModel navItemModel) {
-    return selectedPath == navItemModel.pageRouteInfo?.path;
+    return selectedPath == navItemModel.pageRouteInfo?.fragment;
   }
 
   @override

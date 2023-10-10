@@ -33,7 +33,7 @@ class NetworkConnectButton extends StatelessWidget {
               )),
             ),
             child: Text(S.of(context).networkButtonConnect.toUpperCase(),
-                style: textTheme.button!.copyWith(
+                style: textTheme.labelLarge!.copyWith(
                   color: DesignColors.white1,
                   fontWeight: FontWeight.w500,
                 )),

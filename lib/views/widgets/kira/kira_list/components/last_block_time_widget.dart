@@ -28,20 +28,20 @@ class LastBlockTimeWidget extends StatelessWidget {
         return RichText(
           text: TextSpan(
             text: S.of(context).balancesLastBlockTime,
-            style: textTheme.caption!.copyWith(
+            style: textTheme.bodySmall!.copyWith(
               color: DesignColors.grey1,
             ),
             children: <TextSpan>[
               TextSpan(
                 text: blockTimeModel?.toString() ?? '---',
-                style: textTheme.caption!.copyWith(
+                style: textTheme.bodySmall!.copyWith(
                   color: _selectTextColor(blockTimeModel),
                 ),
               ),
               if (blockTimeModel != null && blockTimeModel.isOutdated())
                 TextSpan(
                   text: S.of(context).balancesTimeSinceBlock(blockTimeModel.durationSinceBlock.inMinutes),
-                  style: textTheme.caption!.copyWith(
+                  style: textTheme.bodySmall!.copyWith(
                     color: _selectTextColor(blockTimeModel),
                   ),
                 )

@@ -34,7 +34,7 @@ class ListPopMenuItem extends StatelessWidget {
               Expanded(
                 child: Text(
                   title,
-                  style: textTheme.bodyText2!.copyWith(
+                  style: textTheme.bodyMedium!.copyWith(
                     color: states.contains(MaterialState.hovered) || selected ? DesignColors.white1 : DesignColors.white2,
                   ),
                 ),

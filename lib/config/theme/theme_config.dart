@@ -6,8 +6,7 @@ class ThemeConfig {
     final ThemeData themeData = ThemeData.dark();
 
     return themeData.copyWith(
-      colorScheme: const ColorScheme.dark(),
-      backgroundColor: DesignColors.background,
+      colorScheme: const ColorScheme.dark(background: DesignColors.background),
       canvasColor: DesignColors.background,
       scaffoldBackgroundColor: DesignColors.background,
       elevatedButtonTheme: _buildElevatedButtonThemeData(themeData.elevatedButtonTheme),
@@ -120,46 +119,46 @@ class ThemeConfig {
     final TextTheme textTheme = baseTextTheme.apply(fontFamily: 'Inter');
 
     return textTheme.copyWith(
-      headline1: textTheme.headline1!.copyWith(
+      displayLarge: textTheme.displayLarge!.copyWith(
         fontWeight: FontWeight.w500,
         fontSize: 25,
       ),
-      headline2: textTheme.headline2!.copyWith(
+      displayMedium: textTheme.displayMedium!.copyWith(
         fontWeight: FontWeight.w500,
         fontSize: 23,
       ),
-      headline3: textTheme.headline3!.copyWith(
+      displaySmall: textTheme.displaySmall!.copyWith(
         fontWeight: FontWeight.w500,
         fontSize: 20,
         letterSpacing: 0.5,
       ),
-      headline4: textTheme.headline4!.copyWith(
+      headlineMedium: textTheme.headlineMedium!.copyWith(
         fontWeight: FontWeight.w500,
         fontSize: 18,
         letterSpacing: 0.5,
       ),
-      subtitle1: textTheme.subtitle1!.copyWith(
+      titleMedium: textTheme.titleMedium!.copyWith(
         fontWeight: FontWeight.w500,
         fontSize: 14,
         letterSpacing: 0.5,
       ),
-      subtitle2: textTheme.subtitle2!.copyWith(
+      titleSmall: textTheme.titleSmall!.copyWith(
         fontWeight: FontWeight.w500,
         fontSize: 12,
       ),
-      bodyText1: textTheme.bodyText1!.copyWith(
+      bodyLarge: textTheme.bodyLarge!.copyWith(
         fontWeight: FontWeight.w400,
         fontSize: 14,
       ),
-      bodyText2: textTheme.bodyText2!.copyWith(
+      bodyMedium: textTheme.bodyMedium!.copyWith(
         fontWeight: FontWeight.w400,
         fontSize: 13,
       ),
-      caption: textTheme.caption!.copyWith(
+      bodySmall: textTheme.bodySmall!.copyWith(
         fontWeight: FontWeight.w400,
         fontSize: 11,
       ),
-      button: textTheme.button!.copyWith(
+      labelLarge: textTheme.labelLarge!.copyWith(
         fontWeight: FontWeight.w700,
         fontSize: 11,
         letterSpacing: 0.4,
@@ -171,47 +170,47 @@ class ThemeConfig {
     final TextTheme textTheme = baseTextTheme.apply(fontFamily: 'Inter');
 
     return textTheme.copyWith(
-      headline1: textTheme.headline1!.copyWith(
+      displayLarge: textTheme.displayLarge!.copyWith(
         fontWeight: FontWeight.w700,
         fontSize: 32,
       ),
-      headline2: textTheme.headline2!.copyWith(
+      displayMedium: textTheme.displayMedium!.copyWith(
         fontWeight: FontWeight.w500,
         fontSize: 26,
       ),
-      headline3: textTheme.headline3!.copyWith(
+      displaySmall: textTheme.displaySmall!.copyWith(
         fontWeight: FontWeight.w500,
         fontSize: 24,
         letterSpacing: 0.5,
       ),
-      headline4: textTheme.headline4!.copyWith(
+      headlineMedium: textTheme.headlineMedium!.copyWith(
         fontWeight: FontWeight.w500,
         fontSize: 22,
         letterSpacing: 0.5,
       ),
-      subtitle1: textTheme.subtitle1!.copyWith(
+      titleMedium: textTheme.titleMedium!.copyWith(
         fontWeight: FontWeight.w500,
         fontSize: 16,
         letterSpacing: 0.5,
       ),
-      subtitle2: textTheme.subtitle2!.copyWith(
+      titleSmall: textTheme.titleSmall!.copyWith(
         fontWeight: FontWeight.w600,
         fontSize: 14,
         letterSpacing: 0.5,
       ),
-      bodyText1: textTheme.bodyText1!.copyWith(
+      bodyLarge: textTheme.bodyLarge!.copyWith(
         fontWeight: FontWeight.w400,
         fontSize: 16,
       ),
-      bodyText2: textTheme.bodyText2!.copyWith(
+      bodyMedium: textTheme.bodyMedium!.copyWith(
         fontWeight: FontWeight.w400,
         fontSize: 14,
       ),
-      caption: textTheme.caption!.copyWith(
+      bodySmall: textTheme.bodySmall!.copyWith(
         fontWeight: FontWeight.w400,
         fontSize: 12,
       ),
-      button: textTheme.button!.copyWith(
+      labelLarge: textTheme.labelLarge!.copyWith(
         fontWeight: FontWeight.w700,
         fontSize: 12,
         letterSpacing: 0.4,

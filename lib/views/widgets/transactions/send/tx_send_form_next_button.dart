@@ -36,7 +36,7 @@ class TxSendFormNextButton extends StatelessWidget {
         if (errorExistsBool)
           Text(
             S.of(context).txErrorCannotCreate,
-            style: textTheme.caption!.copyWith(color: DesignColors.redStatus1),
+            style: textTheme.bodySmall!.copyWith(color: DesignColors.redStatus1),
           )
       ],
     );

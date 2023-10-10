@@ -65,7 +65,7 @@ class _NavTile extends State<NavTile> {
                     const SizedBox(width: 33),
                     Text(
                       widget.navItemModel.name,
-                      style: textTheme.subtitle1!.copyWith(
+                      style: textTheme.titleMedium!.copyWith(
                         color: foregroundColor,
                       ),
                     ),

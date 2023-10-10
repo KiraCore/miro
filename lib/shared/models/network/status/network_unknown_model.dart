@@ -19,7 +19,7 @@ class NetworkUnknownModel extends ANetworkStatusModel {
     return NetworkUnknownModel(
       connectionStatusType: ConnectionStatusType.disconnected,
       uri: NetworkUtils.parseUrlToInterxUri(json['address'] as String),
-      name: json['name'] as String,
+      name: json['name'] as String?,
     );
   }
 

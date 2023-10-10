@@ -9,14 +9,9 @@ import 'package:miro/blocs/widgets/network_list/network_list/network_list_cubit.
 import 'package:miro/config/app_config.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/theme_config.dart';
-import 'package:miro/generated/assets.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/infra/managers/cache/i_cache_manager.dart';
-import 'package:miro/shared/router/guards/auth_guard.dart';
-import 'package:miro/shared/router/guards/connection_guard.dart';
-import 'package:miro/shared/router/guards/navigation_guard.dart';
-import 'package:miro/shared/router/guards/pages/loading_page_guard.dart';
-import 'package:miro/shared/router/router.gr.dart';
+import 'package:miro/shared/router/router.dart';
 import 'package:miro/shared/utils/assets_manager.dart';
 
 Future<void> main() async {
@@ -44,19 +39,11 @@ class CoreApp extends StatefulWidget {
 }
 
 class _CoreApp extends State<CoreApp> {
-  final ConnectionGuard connectionGuard = ConnectionGuard();
-  late final AppRouter appRouter = AppRouter(
-    authGuard: AuthGuard(),
-    navigationGuard: NavigationGuard(),
-    connectionGuard: connectionGuard,
-    loadingPageGuard: LoadingPageGuard(connectionGuard: connectionGuard),
-  );
+  final AppRouter appRouter = AppRouter();
 
   @override
   void initState() {
     super.initState();
-    precacheImage(const AssetImage(Assets.assetsLogoSignet), context);
-    precacheImage(const AssetImage(Assets.assetsLogoLoading), context);
   }
 
   @override

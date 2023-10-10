@@ -47,7 +47,7 @@ class TransactionListItemDesktop extends StatelessWidget {
                   ? Text(
                       txListItemModel.getSubtitle(context)!,
                       overflow: TextOverflow.ellipsis,
-                      style: textTheme.bodyText2!.copyWith(
+                      style: textTheme.bodyMedium!.copyWith(
                         color: DesignColors.white2,
                       ),
                     )
@@ -67,7 +67,7 @@ class TransactionListItemDesktop extends StatelessWidget {
             child: Text(
               txListItemModel.hash,
               overflow: TextOverflow.ellipsis,
-              style: textTheme.bodyText2!.copyWith(
+              style: textTheme.bodyMedium!.copyWith(
                 color: DesignColors.white2,
               ),
             ),
@@ -77,7 +77,7 @@ class TransactionListItemDesktop extends StatelessWidget {
       statusWidget: TransactionStatusChip(txStatusType: txListItemModel.txStatusType),
       dateWidget: Text(
         DateFormat('d MMM y, HH:mm').format(txListItemModel.time.toLocal()),
-        style: textTheme.bodyText2!.copyWith(
+        style: textTheme.bodyMedium!.copyWith(
           color: DesignColors.white2,
         ),
       ),

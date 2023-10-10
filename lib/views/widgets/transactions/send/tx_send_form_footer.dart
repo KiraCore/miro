@@ -81,7 +81,7 @@ class _TxSendFormFooter extends State<TxSendFormFooter> {
               children: <Widget>[
                 Text(
                   S.of(context).txNoticeFee(widget.feeTokenAmountModel.toString()),
-                  style: textTheme.caption!.copyWith(
+                  style: textTheme.bodySmall!.copyWith(
                     color: DesignColors.white1,
                   ),
                 ),

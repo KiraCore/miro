@@ -27,7 +27,7 @@ Future<void> main() async {
         print(actualQueryInterxStatusResp);
         print('');
       } on DioConnectException catch (e) {
-        TestUtils.printError('query_interx_status_service_test.dart: Cannot fetch [QueryInterxStatusResp] for URI $networkUri: ${e.dioError.message}');
+        TestUtils.printError('query_interx_status_service_test.dart: Cannot fetch [QueryInterxStatusResp] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
         TestUtils.printError('query_interx_status_service_test.dart: Cannot parse [QueryInterxStatusResp] for URI $networkUri: ${e}');
       } catch (e) {

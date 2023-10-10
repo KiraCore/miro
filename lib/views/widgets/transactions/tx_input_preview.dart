@@ -21,7 +21,7 @@ class TxInputPreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
-    TextStyle? textStyle = ResponsiveWidget.isLargeScreen(context) ? textTheme.bodyText1 : textTheme.bodyText2;
+    TextStyle? textStyle = ResponsiveWidget.isLargeScreen(context) ? textTheme.bodyLarge : textTheme.bodyMedium;
 
     return Row(
       children: <Widget>[
@@ -36,7 +36,7 @@ class TxInputPreview extends StatelessWidget {
             children: <Widget>[
               Text(
                 label,
-                style: textTheme.caption!.copyWith(
+                style: textTheme.bodySmall!.copyWith(
                   color: DesignColors.accent,
                 ),
               ),

@@ -29,7 +29,7 @@ Future<void> main() async {
         print(actualTokenAmountModel.toString());
         print('');
       } on DioConnectException catch (e) {
-        TestUtils.printError('query_execution_fee_service_test.dart: Cannot fetch [TokenAmountModel] for URI $networkUri: ${e.dioError.message}');
+        TestUtils.printError('query_execution_fee_service_test.dart: Cannot fetch [TokenAmountModel] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
         TestUtils.printError('query_execution_fee_service_test.dart: Cannot parse [TokenAmountModel] for URI $networkUri: ${e}');
       } catch (e) {

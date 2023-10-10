@@ -28,7 +28,7 @@ class TxBroadcastCompleteBody extends StatelessWidget {
         Text(
           S.of(context).txCompleted,
           textAlign: TextAlign.center,
-          style: textTheme.headline3!.copyWith(
+          style: textTheme.displaySmall!.copyWith(
             color: DesignColors.white1,
           ),
         ),
@@ -39,7 +39,7 @@ class TxBroadcastCompleteBody extends StatelessWidget {
           child: Text(
             S.of(context).txHash(txBroadcastCompletedState.broadcastRespModel.hash),
             textAlign: TextAlign.center,
-            style: textTheme.caption!.copyWith(
+            style: textTheme.bodySmall!.copyWith(
               color: DesignColors.white1,
             ),
           ),

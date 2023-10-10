@@ -13,8 +13,6 @@ import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_list_
 import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_list_item/mobile/balance_list_item_mobile.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 
-typedef ExpansionChangedCallback = void Function(bool status);
-
 class BalanceListItemBuilder extends StatefulWidget {
   final BalanceModel balanceModel;
   final ScrollController scrollController;

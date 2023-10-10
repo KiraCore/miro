@@ -30,7 +30,7 @@ Future<void> main() async {
         print(actualTxRemoteInfoModel);
         print('');
       } on DioConnectException catch (e) {
-        TestUtils.printError('query_account_service_test.dart: Cannot fetch [TxRemoteInfoModel] for URI $networkUri: ${e.dioError.message}');
+        TestUtils.printError('query_account_service_test.dart: Cannot fetch [TxRemoteInfoModel] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
         TestUtils.printError('query_account_service_test.dart: Cannot parse [TxRemoteInfoModel] for URI $networkUri: ${e}');
       } catch (e) {
@@ -51,7 +51,7 @@ Future<void> main() async {
         print(actualFetchAvailableBool);
         print('');
       } on DioConnectException catch (e) {
-        TestUtils.printError('query_account_service_test.dart: Cannot fetch [boolean value] for URI $networkUri: ${e.dioError.message}');
+        TestUtils.printError('query_account_service_test.dart: Cannot fetch [boolean value] for URI $networkUri: ${e.dioException.message}');
       } catch (e) {
         TestUtils.printError('query_account_service_test.dart: Unknown error for URI $networkUri: ${e}');
       }

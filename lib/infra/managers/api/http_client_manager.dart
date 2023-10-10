@@ -1,4 +1,4 @@
-import 'package:dio/browser_imp.dart';
+import 'package:dio/browser.dart';
 import 'package:dio/dio.dart';
 import 'package:miro/config/app_config.dart';
 import 'package:miro/config/locator.dart';
@@ -25,7 +25,7 @@ class HttpClientManager {
         cancelToken: cancelToken,
         onReceiveProgress: onReceiveProgress,
       );
-    } on DioError {
+    } on DioException {
       rethrow;
     }
   }
@@ -49,7 +49,7 @@ class HttpClientManager {
         cancelToken: cancelToken,
         onReceiveProgress: onReceiveProgress,
       );
-    } on DioError {
+    } on DioException {
       rethrow;
     }
   }

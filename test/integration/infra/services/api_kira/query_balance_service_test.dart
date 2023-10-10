@@ -32,7 +32,7 @@ Future<void> main() async {
         print(actualBalanceModelList);
         print('');
       } on DioConnectException catch (e) {
-        TestUtils.printError('query_balance_service_test.dart: Cannot fetch [List<BalanceModel>] for URI $networkUri: ${e.dioError.message}');
+        TestUtils.printError('query_balance_service_test.dart: Cannot fetch [List<BalanceModel>] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
         TestUtils.printError('query_balance_service_test.dart: Cannot parse [List<BalanceModel>] for URI $networkUri: ${e}');
       } catch (e) {

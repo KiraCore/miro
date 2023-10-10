@@ -32,7 +32,7 @@ class NetworkListTileTitle extends StatelessWidget {
               child: Text(
                 networkStatusModel.name,
                 overflow: TextOverflow.ellipsis,
-                style: textTheme.bodyText1!.copyWith(
+                style: textTheme.bodyLarge!.copyWith(
                   color: DesignColors.white1,
                 ),
               ),
@@ -47,7 +47,7 @@ class NetworkListTileTitle extends StatelessWidget {
               child: Text(
                 networkStatusModel.uri.toString(),
                 overflow: TextOverflow.ellipsis,
-                style: textTheme.caption!.copyWith(
+                style: textTheme.bodySmall!.copyWith(
                   color: DesignColors.white2,
                 ),
               ),
@@ -59,7 +59,7 @@ class NetworkListTileTitle extends StatelessWidget {
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
             child: Text(
               S.of(context).networkHowManyProblems(_errorsCount),
-              style: textTheme.caption!.copyWith(
+              style: textTheme.bodySmall!.copyWith(
                 color: DesignColors.yellowStatus1,
               ),
             ),

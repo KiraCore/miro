@@ -3,7 +3,7 @@ import 'package:miro/config/app_icons.dart';
 import 'package:miro/config/theme/design_colors.dart';
 
 class StarButton extends StatefulWidget {
-  final void Function(bool value) onChanged;
+  final ValueChanged<bool> onChanged;
   final bool value;
   final double size;
 

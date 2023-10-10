@@ -35,7 +35,7 @@ Future<void> main() async {
         print(actualTxListItemModelList);
         print('');
       } on DioConnectException catch (e) {
-        TestUtils.printError('query_transactions_service_test.dart: Cannot fetch [List<TxListItemModel>] for URI $networkUri: ${e.dioError.message}');
+        TestUtils.printError('query_transactions_service_test.dart: Cannot fetch [List<TxListItemModel>] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
         TestUtils.printError('query_transactions_service_test.dart: Cannot parse [List<TxListItemModel>] for URI $networkUri: ${e}');
       } catch (e) {
@@ -57,7 +57,7 @@ Future<void> main() async {
         print(actualTxListItemModelList);
         print('');
       } on DioConnectException catch (e) {
-        TestUtils.printError('query_transactions_service_test.dart: Cannot fetch [List<TxListItemModel>] for URI $networkUri: ${e.dioError.message}');
+        TestUtils.printError('query_transactions_service_test.dart: Cannot fetch [List<TxListItemModel>] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
         TestUtils.printError('query_transactions_service_test.dart: Cannot parse [List<TxListItemModel>] for URI $networkUri: ${e}');
       } catch (e) {
@@ -78,7 +78,7 @@ Future<void> main() async {
         print(actualTxListItemModelList);
         print('');
       } on DioConnectException catch (e) {
-        TestUtils.printError('query_transactions_service_test.dart: Cannot fetch [List<TxListItemModel>] for URI $networkUri: ${e.dioError.message}');
+        TestUtils.printError('query_transactions_service_test.dart: Cannot fetch [List<TxListItemModel>] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
         TestUtils.printError('query_transactions_service_test.dart: Cannot parse [List<TxListItemModel>] for URI $networkUri: ${e}');
       } catch (e) {
@@ -99,7 +99,7 @@ Future<void> main() async {
         print(actualTxListItemModelList);
         print('');
       } on DioConnectException catch (e) {
-        TestUtils.printError('query_transactions_service_test.dart: Cannot fetch [List<TxListItemModel>] for URI $networkUri: ${e.dioError.message}');
+        TestUtils.printError('query_transactions_service_test.dart: Cannot fetch [List<TxListItemModel>] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
         TestUtils.printError('query_transactions_service_test.dart: Cannot parse [List<TxListItemModel>] for URI $networkUri: ${e}');
       } catch (e) {
@@ -120,7 +120,7 @@ Future<void> main() async {
         print(actualTxListItemModelList);
         print('');
       } on DioConnectException catch (e) {
-        TestUtils.printError('query_transactions_service_test.dart: Cannot fetch [List<TxListItemModel>] for URI $networkUri: ${e.dioError.message}');
+        TestUtils.printError('query_transactions_service_test.dart: Cannot fetch [List<TxListItemModel>] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
         TestUtils.printError('query_transactions_service_test.dart: Cannot parse [List<TxListItemModel>] for URI $networkUri: ${e}');
       } catch (e) {
@@ -141,7 +141,7 @@ Future<void> main() async {
         print(actualTxListItemModelList);
         print('');
       } on DioConnectException catch (e) {
-        TestUtils.printError('query_transactions_service_test.dart: Cannot fetch [List<TxListItemModel>] for URI $networkUri: ${e.dioError.message}');
+        TestUtils.printError('query_transactions_service_test.dart: Cannot fetch [List<TxListItemModel>] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
         TestUtils.printError('query_transactions_service_test.dart: Cannot parse [List<TxListItemModel>] for URI $networkUri: ${e}');
       } catch (e) {
@@ -159,7 +159,7 @@ Future<void> main() async {
         print(actualTxListItemModelList);
         print('');
       } on DioConnectException catch (e) {
-        TestUtils.printError('query_transactions_service_test.dart: Cannot fetch [List<TxListItemModel>] for URI $networkUri: ${e.dioError.message}');
+        TestUtils.printError('query_transactions_service_test.dart: Cannot fetch [List<TxListItemModel>] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
         TestUtils.printError('query_transactions_service_test.dart: Cannot parse [List<TxListItemModel>] for URI $networkUri: ${e}');
       } catch (e) {
@@ -177,7 +177,7 @@ Future<void> main() async {
         print(actualTxListItemModelList);
         print('');
       } on DioConnectException catch (e) {
-        TestUtils.printError('query_transactions_service_test.dart: Cannot fetch [List<TxListItemModel>] for URI $networkUri: ${e.dioError.message}');
+        TestUtils.printError('query_transactions_service_test.dart: Cannot fetch [List<TxListItemModel>] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
         TestUtils.printError('query_transactions_service_test.dart: Cannot parse [List<TxListItemModel>] for URI $networkUri: ${e}');
       } catch (e) {

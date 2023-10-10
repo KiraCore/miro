@@ -4,14 +4,12 @@ import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/views/widgets/buttons/star_button.dart';
 import 'package:miro/views/widgets/generic/token_avatar.dart';
 
-typedef FavouritePressedCallback = void Function(bool value);
-
 class BalanceTokenPrefix extends StatelessWidget {
   final TokenAliasModel tokenAliasModel;
   final bool favourite;
   final bool favouriteAlwaysVisible;
   final ValueNotifier<bool> hoverNotifier;
-  final FavouritePressedCallback favouritePressedCallback;
+  final ValueChanged<bool> favouritePressedCallback;
   final double height;
 
   const BalanceTokenPrefix({
@@ -51,7 +49,7 @@ class BalanceTokenPrefix extends StatelessWidget {
                 child: Text(
                   tokenAliasModel.name,
                   overflow: TextOverflow.ellipsis,
-                  style: textTheme.bodyText1!.copyWith(
+                  style: textTheme.bodyLarge!.copyWith(
                     color: DesignColors.white1,
                   ),
                 ),

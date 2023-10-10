@@ -27,7 +27,7 @@ class TransactionStatusChip extends StatelessWidget {
         ),
         child: Text(
           transactionStatusChipModel.title,
-          style: textTheme.caption!.copyWith(
+          style: textTheme.bodySmall!.copyWith(
             color: transactionStatusChipModel.color,
           ),
         ),

@@ -15,6 +15,7 @@ import 'package:miro/shared/utils/router_utils.dart';
 import 'package:miro/views/widgets/buttons/kira_outlined_button.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 
+@RoutePage()
 class LoadingPage extends StatefulWidget {
   final PageRouteInfo? nextPageRouteInfo;
 
@@ -66,7 +67,7 @@ class _LoadingPage extends State<LoadingPage> {
                     return Text(
                       S.of(context).networkConnectingTo(separator, networkName, parsedRemainingTime),
                       textAlign: TextAlign.center,
-                      style: textTheme.headline3!.copyWith(
+                      style: textTheme.displaySmall!.copyWith(
                         color: DesignColors.white1,
                       ),
                     );

@@ -48,7 +48,7 @@ class _AccountTile extends State<AccountTile> {
           highlightColor: DesignColors.grey2,
           child: Container(
             width: 150,
-            height: (widget.usernameTextStyle ?? textTheme.bodyText2)?.fontSize,
+            height: (widget.usernameTextStyle ?? textTheme.bodyMedium)?.fontSize,
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(5)),
               color: DesignColors.grey2,
@@ -60,7 +60,7 @@ class _AccountTile extends State<AccountTile> {
           highlightColor: DesignColors.grey2,
           child: Container(
             width: 200,
-            height: (widget.addressTextStyle ?? textTheme.caption)?.fontSize,
+            height: (widget.addressTextStyle ?? textTheme.bodySmall)?.fontSize,
             decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(5)),
               color: DesignColors.grey2,
@@ -80,14 +80,14 @@ class _AccountTile extends State<AccountTile> {
       usernameWidget: Text(
         widget.username ?? widget.walletAddress.buildBech32AddressShort(delimiter: '...'),
         overflow: TextOverflow.ellipsis,
-        style: widget.usernameTextStyle ?? textTheme.bodyText2!.copyWith(color: DesignColors.white1),
+        style: widget.usernameTextStyle ?? textTheme.bodyMedium!.copyWith(color: DesignColors.white1),
       ),
       addressWidget: Text(
         widget.walletAddress.buildBech32AddressShort(delimiter: '...'),
         maxLines: 1,
         softWrap: true,
         overflow: TextOverflow.ellipsis,
-        style: widget.addressTextStyle ?? textTheme.caption!.copyWith(color: DesignColors.grey1),
+        style: widget.addressTextStyle ?? textTheme.bodySmall!.copyWith(color: DesignColors.grey1),
       ),
     );
   }
