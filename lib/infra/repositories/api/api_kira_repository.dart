@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:miro/infra/dto/api_kira/broadcast/request/broadcast_req.dart';
 import 'package:miro/infra/dto/api_kira/query_account/request/query_account_req.dart';
 import 'package:miro/infra/dto/api_kira/query_balance/request/query_balance_req.dart';
+import 'package:miro/infra/dto/api_kira/query_delegations/request/query_delegations_req.dart';
 import 'package:miro/infra/dto/api_kira/query_execution_fee/request/query_execution_fee_request.dart';
 import 'package:miro/infra/dto/api_kira/query_identity_record_verify_requests/request/query_identity_record_verify_requests_by_approver_req.dart';
 import 'package:miro/infra/dto/api_kira/query_identity_record_verify_requests/request/query_identity_record_verify_requests_by_requester_req.dart';
@@ -16,6 +17,8 @@ abstract class IApiKiraRepository {
   Future<Response<T>> fetchQueryAccount<T>(Uri networkUri, QueryAccountReq request);
 
   Future<Response<T>> fetchQueryBalance<T>(Uri networkUri, QueryBalanceReq queryBalanceReq);
+
+  Future<Response<T>> fetchQueryDelegations<T>(Uri networkUri, QueryDelegationsReq queryDelegationsReq);
 
   Future<Response<T>> fetchQueryExecutionFee<T>(Uri networkUri, QueryExecutionFeeRequest queryExecutionFeeRequest);
 
@@ -81,6 +84,21 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
       return response;
     } on DioException catch (dioException) {
       AppLogger().log(message: 'RemoteApiKiraRepository: Cannot fetch fetchQueryBalance() for URI $networkUri: ${dioException.message}');
+      throw DioConnectException(dioException: dioException);
+    }
+  }
+
+  @override
+  Future<Response<T>> fetchQueryDelegations<T>(Uri networkUri, QueryDelegationsReq queryDelegationsReq) async {
+    try {
+      final Response<T> response = await _httpClientManager.get<T>(
+        networkUri: networkUri,
+        path: '/api/kira/delegations',
+        queryParameters: queryDelegationsReq.toJson(),
+      );
+      return response;
+    } on DioException catch (dioException) {
+      AppLogger().log(message: 'RemoteApiKiraRepository: Cannot fetch fetchQueryDelegations() for URI $networkUri: ${dioException.message}');
       throw DioConnectException(dioException: dioException);
     }
   }

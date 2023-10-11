@@ -19,6 +19,7 @@ import 'package:miro/infra/services/api_kira/broadcast_service.dart';
 import 'package:miro/infra/services/api_kira/identity_records_service.dart';
 import 'package:miro/infra/services/api_kira/query_account_service.dart';
 import 'package:miro/infra/services/api_kira/query_balance_service.dart';
+import 'package:miro/infra/services/api_kira/query_delegations_service.dart';
 import 'package:miro/infra/services/api_kira/query_execution_fee_service.dart';
 import 'package:miro/infra/services/api_kira/query_kira_tokens_aliases_service.dart';
 import 'package:miro/infra/services/api_kira/query_kira_tokens_rates_service.dart';
@@ -58,6 +59,7 @@ void _initServices() {
     ..registerLazySingleton<NetworkModuleService>(NetworkModuleService.new)
     ..registerLazySingleton<QueryAccountService>(QueryAccountService.new)
     ..registerLazySingleton<QueryBalanceService>(QueryBalanceService.new)
+    ..registerLazySingleton<QueryDelegationsService>(QueryDelegationsService.new)
     ..registerLazySingleton<QueryExecutionFeeService>(QueryExecutionFeeService.new)
     ..registerLazySingleton<QueryInterxStatusService>(QueryInterxStatusService.new)
     ..registerLazySingleton<QueryKiraTokensAliasesService>(QueryKiraTokensAliasesService.new)

@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:miro/infra/dto/api_kira/broadcast/request/broadcast_req.dart';
 import 'package:miro/infra/dto/api_kira/query_account/request/query_account_req.dart';
 import 'package:miro/infra/dto/api_kira/query_balance/request/query_balance_req.dart';
+import 'package:miro/infra/dto/api_kira/query_delegations/request/query_delegations_req.dart';
 import 'package:miro/infra/dto/api_kira/query_execution_fee/request/query_execution_fee_request.dart';
 import 'package:miro/infra/dto/api_kira/query_identity_record_verify_requests/request/query_identity_record_verify_requests_by_approver_req.dart';
 import 'package:miro/infra/dto/api_kira/query_identity_record_verify_requests/request/query_identity_record_verify_requests_by_requester_req.dart';
@@ -10,6 +11,7 @@ import 'package:miro/infra/exceptions/dio_connect_exception.dart';
 import 'package:miro/infra/repositories/api/api_kira_repository.dart';
 import 'package:miro/test/mocks/api_kira/mock_api_kira_accounts.dart';
 import 'package:miro/test/mocks/api_kira/mock_api_kira_balances.dart';
+import 'package:miro/test/mocks/api_kira/mock_api_kira_delegations.dart';
 import 'package:miro/test/mocks/api_kira/mock_api_kira_gov_execution_fee.dart';
 import 'package:miro/test/mocks/api_kira/mock_api_kira_gov_network_properties.dart';
 import 'package:miro/test/mocks/api_kira/mock_api_kira_identity_record_by_id.dart';
@@ -99,6 +101,28 @@ class MockApiKiraRepository implements IApiKiraRepository {
           break;
         default:
           response = MockApiKiraBalances.defaultResponse as T;
+      }
+      return Response<T>(
+        statusCode: 200,
+        data: response,
+        requestOptions: RequestOptions(path: ''),
+      );
+    } else {
+      throw DioConnectException(dioException: DioException(requestOptions: RequestOptions(path: networkUri.host)));
+    }
+  }
+
+  @override
+  Future<Response<T>> fetchQueryDelegations<T>(Uri networkUri, QueryDelegationsReq queryDelegationsReq) async {
+    bool responseExistsBool = workingEndpoints.contains(networkUri.host);
+    if (responseExistsBool) {
+      late T response;
+      switch (networkUri.host) {
+        case 'invalid.kira.network':
+          response = <String, dynamic>{'invalid': 'response'} as T;
+          break;
+        default:
+          response = MockApiKiraDelegations.defaultResponse as T;
       }
       return Response<T>(
         statusCode: 200,
