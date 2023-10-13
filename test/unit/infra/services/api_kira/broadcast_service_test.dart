@@ -21,6 +21,10 @@ import 'package:miro/shared/models/transactions/messages/identity_registrar/ir_m
 import 'package:miro/shared/models/transactions/messages/identity_registrar/register/ir_entry_model.dart';
 import 'package:miro/shared/models/transactions/messages/identity_registrar/register/ir_msg_register_records_model.dart';
 import 'package:miro/shared/models/transactions/messages/msg_send_model.dart';
+import 'package:miro/shared/models/transactions/messages/staking/staking_msg_claim_rewards_model.dart';
+import 'package:miro/shared/models/transactions/messages/staking/staking_msg_claim_undelegation_model.dart';
+import 'package:miro/shared/models/transactions/messages/staking/staking_msg_delegate_model.dart';
+import 'package:miro/shared/models/transactions/messages/staking/staking_msg_undelegate_model.dart';
 import 'package:miro/shared/models/transactions/signature_model.dart';
 import 'package:miro/shared/models/transactions/signed_transaction_model.dart';
 import 'package:miro/shared/models/transactions/tx_local_info_model.dart';
@@ -28,6 +32,7 @@ import 'package:miro/shared/models/transactions/tx_remote_info_model.dart';
 import 'package:miro/shared/models/transactions/unsigned_tx_model.dart';
 import 'package:miro/shared/models/wallet/mnemonic.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
+import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/shared/utils/network_utils.dart';
 import 'package:miro/shared/utils/transactions/tx_utils.dart';
 import 'package:miro/test/mock_locator.dart';
@@ -45,10 +50,14 @@ Future<void> main() async {
 
   // Set up the constants to run the tests.
   // @formatter:off
-  final Mnemonic senderMnemonic = Mnemonic(value: 'require point property company tongue busy bench burden caution gadget knee glance thought bulk assist month cereal report quarter tool section often require shield');
+  final Mnemonic senderMnemonic = Mnemonic(
+      value:
+          'require point property company tongue busy bench burden caution gadget knee glance thought bulk assist month cereal report quarter tool section often require shield');
   final Wallet senderWallet = Wallet.derive(mnemonic: senderMnemonic);
 
-  final Mnemonic recipientMnemonic = Mnemonic(value:  'nature light entire memory garden ostrich bottom ensure brand fantasy curtain coast also solve cannon wealth hole quantum fantasy purchase check drift cloth ecology');
+  final Mnemonic recipientMnemonic = Mnemonic(
+      value:
+          'nature light entire memory garden ostrich bottom ensure brand fantasy curtain coast also solve cannon wealth hole quantum fantasy purchase check drift cloth ecology');
   final Wallet recipientWallet = Wallet.derive(mnemonic: recipientMnemonic);
   // @formatter:on
 
@@ -582,6 +591,348 @@ Future<void> main() async {
       };
 
       TestUtils.printInfo('Should return Tx json with IRMsgHandleVerificationRequestModel message');
+      expect(
+        actualBroadcastReq.toJson(),
+        expectedBroadcastReqJson,
+      );
+    });
+
+    test('Should return signed transaction with [MsgDelegate] message', () async {
+      final TxLocalInfoModel actualTxLocalInfoModel = TxLocalInfoModel(
+        memo: 'Test of MsgDelegate message',
+        feeTokenAmountModel: feeTokenAmountModel,
+        txMsgModel: StakingMsgDelegateModel.single(
+          delegatorWalletAddress: senderWallet.address,
+          valoperWalletAddress: WalletAddress.fromBech32('kiravaloper1c6slygj2tx7hzm0mn4qeflqpvngj73c2cw7fh7'),
+          tokenAmountModel: TokenAmountModel(
+            lowestDenominationAmount: Decimal.fromInt(100),
+            tokenAliasModel: TokenAliasModel.local('ukex'),
+          ),
+        ),
+      );
+
+      // Act
+      UnsignedTxModel actualUnsignedTxModel = await buildUnsignedTxModel(actualTxLocalInfoModel, senderWallet);
+      SignedTxModel actualSignedTxModel = TxUtils.sign(
+        unsignedTxModel: actualUnsignedTxModel,
+        wallet: senderWallet,
+      );
+
+      // Assert
+      SignedTxModel expectedSignedTxModel = SignedTxModel(
+        txLocalInfoModel: actualTxLocalInfoModel,
+        txRemoteInfoModel: expectedTxRemoteInfoModel,
+        publicKeyCompressed: 'AlLas8CJ6lm5yZJ8h0U5Qu9nzVvgvskgHuURPB3jvUx8',
+        signatureModel: const SignatureModel(
+          signature: '+VDMEjwfiab+bolnQzY4G5q1E0a8sIln0k0EA1b6ReJGvWymB/hjvNlu2pdqavKCslwfrAQVQP2isqrxbz2FZA==',
+        ),
+      );
+
+      TestUtils.printInfo('Should return [SignedTxModel] with [StakingMsgDelegateModel] message');
+      expect(
+        actualSignedTxModel,
+        expectedSignedTxModel,
+      );
+
+      // Act
+      BroadcastReq actualBroadcastReq = BroadcastReq(tx: Tx.fromSignedTxModel(actualSignedTxModel));
+
+      // Assert
+      Map<String, dynamic> expectedBroadcastReqJson = <String, dynamic>{
+        'tx': {
+          'body': {
+            'messages': [
+              {
+                '@type': '/kira.multistaking.MsgDelegate',
+                'delegator_address': 'kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx',
+                'validator_address': 'kiravaloper1c6slygj2tx7hzm0mn4qeflqpvngj73c2cw7fh7',
+                'amounts': [
+                  {
+                    'amount': '100',
+                    'denom': 'ukex',
+                  }
+                ]
+              }
+            ],
+            'memo': 'Test of MsgDelegate message',
+            'timeout_height': '0',
+            'extension_options': <dynamic>[],
+            'non_critical_extension_options': <dynamic>[]
+          },
+          'auth_info': {
+            'signer_infos': [
+              {
+                'public_key': {'@type': '/cosmos.crypto.secp256k1.PubKey', 'key': 'AlLas8CJ6lm5yZJ8h0U5Qu9nzVvgvskgHuURPB3jvUx8'},
+                'mode_info': {
+                  'single': {'mode': 'SIGN_MODE_LEGACY_AMINO_JSON'}
+                },
+                'sequence': '106'
+              }
+            ],
+            'fee': {
+              'amount': [
+                {'amount': '200', 'denom': 'ukex'}
+              ],
+              'gas_limit': '999999'
+            }
+          },
+          'signatures': ['+VDMEjwfiab+bolnQzY4G5q1E0a8sIln0k0EA1b6ReJGvWymB/hjvNlu2pdqavKCslwfrAQVQP2isqrxbz2FZA==']
+        },
+        'mode': 'block'
+      };
+
+      TestUtils.printInfo('Should return [Tx] as json with [MsgDelegate] message');
+      expect(
+        actualBroadcastReq.toJson(),
+        expectedBroadcastReqJson,
+      );
+    });
+
+    test('Should return signed transaction with [MsgUndelegate] message', () async {
+      final TxLocalInfoModel actualTxLocalInfoModel = TxLocalInfoModel(
+        memo: 'Test of MsgUndelegate message',
+        feeTokenAmountModel: feeTokenAmountModel,
+        txMsgModel: StakingMsgUndelegateModel.single(
+          delegatorWalletAddress: senderWallet.address,
+          valoperWalletAddress: WalletAddress.fromBech32('kiravaloper1c6slygj2tx7hzm0mn4qeflqpvngj73c2cw7fh7'),
+          tokenAmountModel: TokenAmountModel(
+            lowestDenominationAmount: Decimal.fromInt(100),
+            tokenAliasModel: TokenAliasModel.local('ukex'),
+          ),
+        ),
+      );
+
+      // Act
+      UnsignedTxModel actualUnsignedTxModel = await buildUnsignedTxModel(actualTxLocalInfoModel, senderWallet);
+      SignedTxModel actualSignedTxModel = TxUtils.sign(
+        unsignedTxModel: actualUnsignedTxModel,
+        wallet: senderWallet,
+      );
+
+      // Assert
+      SignedTxModel expectedSignedTxModel = SignedTxModel(
+        txLocalInfoModel: actualTxLocalInfoModel,
+        txRemoteInfoModel: expectedTxRemoteInfoModel,
+        publicKeyCompressed: 'AlLas8CJ6lm5yZJ8h0U5Qu9nzVvgvskgHuURPB3jvUx8',
+        signatureModel: const SignatureModel(
+          signature: '//rz08ukc2feJPf/PB8OR+JjZL+NI7kXkmhjb0I+TxkJfjPBtgoFPy6UfEkWtU9QAccAj94jX8TtrQ00j6L6+Q==',
+        ),
+      );
+
+      TestUtils.printInfo('Should return [SignedTxModel] with [StakingMsgUndelegateModel] message');
+      expect(
+        actualSignedTxModel,
+        expectedSignedTxModel,
+      );
+
+      // Act
+      BroadcastReq actualBroadcastReq = BroadcastReq(tx: Tx.fromSignedTxModel(actualSignedTxModel));
+
+      // Assert
+      Map<String, dynamic> expectedBroadcastReqJson = <String, dynamic>{
+        'tx': {
+          'body': {
+            'messages': [
+              {
+                '@type': '/kira.multistaking.MsgUndelegate',
+                'delegator_address': 'kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx',
+                'validator_address': 'kiravaloper1c6slygj2tx7hzm0mn4qeflqpvngj73c2cw7fh7',
+                'amounts': [
+                  {
+                    'amount': '100',
+                    'denom': 'ukex',
+                  }
+                ]
+              }
+            ],
+            'memo': 'Test of MsgUndelegate message',
+            'timeout_height': '0',
+            'extension_options': <dynamic>[],
+            'non_critical_extension_options': <dynamic>[]
+          },
+          'auth_info': {
+            'signer_infos': [
+              {
+                'public_key': {'@type': '/cosmos.crypto.secp256k1.PubKey', 'key': 'AlLas8CJ6lm5yZJ8h0U5Qu9nzVvgvskgHuURPB3jvUx8'},
+                'mode_info': {
+                  'single': {'mode': 'SIGN_MODE_LEGACY_AMINO_JSON'}
+                },
+                'sequence': '106'
+              }
+            ],
+            'fee': {
+              'amount': [
+                {'amount': '200', 'denom': 'ukex'}
+              ],
+              'gas_limit': '999999'
+            }
+          },
+          'signatures': ['//rz08ukc2feJPf/PB8OR+JjZL+NI7kXkmhjb0I+TxkJfjPBtgoFPy6UfEkWtU9QAccAj94jX8TtrQ00j6L6+Q==']
+        },
+        'mode': 'block'
+      };
+
+      TestUtils.printInfo('Should return [Tx] as json with [MsgUndelegate] message');
+      expect(
+        actualBroadcastReq.toJson(),
+        expectedBroadcastReqJson,
+      );
+    });
+
+    test('Should return signed transaction with [MsgClaimRewards] message', () async {
+      final TxLocalInfoModel actualTxLocalInfoModel = TxLocalInfoModel(
+        memo: 'Test of MsgClaimRewards message',
+        feeTokenAmountModel: feeTokenAmountModel,
+        txMsgModel: StakingMsgClaimRewardsModel(
+          senderWalletAddress: senderWallet.address,
+        ),
+      );
+
+      // Act
+      UnsignedTxModel actualUnsignedTxModel = await buildUnsignedTxModel(actualTxLocalInfoModel, senderWallet);
+      SignedTxModel actualSignedTxModel = TxUtils.sign(
+        unsignedTxModel: actualUnsignedTxModel,
+        wallet: senderWallet,
+      );
+
+      // Assert
+      SignedTxModel expectedSignedTxModel = SignedTxModel(
+        txLocalInfoModel: actualTxLocalInfoModel,
+        txRemoteInfoModel: expectedTxRemoteInfoModel,
+        publicKeyCompressed: 'AlLas8CJ6lm5yZJ8h0U5Qu9nzVvgvskgHuURPB3jvUx8',
+        signatureModel: const SignatureModel(
+          signature: 'n7LHpDL0eFVCospJCjR8EH9C+ib7COZ8p0CVf1z1vD0BAq0j2LDfKVot4lQrV7io0pqdHjxUy7gZq7rLjaSsxA==',
+        ),
+      );
+
+      TestUtils.printInfo('Should return [SignedTxModel] with [StakingMsgClaimRewardsModel] message');
+      expect(
+        actualSignedTxModel,
+        expectedSignedTxModel,
+      );
+
+      // Act
+      BroadcastReq actualBroadcastReq = BroadcastReq(tx: Tx.fromSignedTxModel(actualSignedTxModel));
+
+      // Assert
+      Map<String, dynamic> expectedBroadcastReqJson = <String, dynamic>{
+        'tx': {
+          'body': {
+            'messages': [
+              {
+                '@type': '/kira.multistaking.MsgClaimRewards',
+                'sender': 'kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx',
+              }
+            ],
+            'memo': 'Test of MsgClaimRewards message',
+            'timeout_height': '0',
+            'extension_options': <dynamic>[],
+            'non_critical_extension_options': <dynamic>[]
+          },
+          'auth_info': {
+            'signer_infos': [
+              {
+                'public_key': {'@type': '/cosmos.crypto.secp256k1.PubKey', 'key': 'AlLas8CJ6lm5yZJ8h0U5Qu9nzVvgvskgHuURPB3jvUx8'},
+                'mode_info': {
+                  'single': {'mode': 'SIGN_MODE_LEGACY_AMINO_JSON'}
+                },
+                'sequence': '106'
+              }
+            ],
+            'fee': {
+              'amount': [
+                {'amount': '200', 'denom': 'ukex'}
+              ],
+              'gas_limit': '999999'
+            }
+          },
+          'signatures': ['n7LHpDL0eFVCospJCjR8EH9C+ib7COZ8p0CVf1z1vD0BAq0j2LDfKVot4lQrV7io0pqdHjxUy7gZq7rLjaSsxA==']
+        },
+        'mode': 'block'
+      };
+
+      TestUtils.printInfo('Should return [Tx] as json with [MsgClaimRewards] message');
+      expect(
+        actualBroadcastReq.toJson(),
+        expectedBroadcastReqJson,
+      );
+    });
+
+    test('Should return signed transaction with [MsgClaimUndelegation] message', () async {
+      final TxLocalInfoModel actualTxLocalInfoModel = TxLocalInfoModel(
+        memo: 'Test of ClaimUndelegation message',
+        feeTokenAmountModel: feeTokenAmountModel,
+        txMsgModel: StakingMsgClaimUndelegationModel(
+          senderWalletAddress: senderWallet.address,
+          undelegationId: '1',
+        ),
+      );
+
+      // Act
+      UnsignedTxModel actualUnsignedTxModel = await buildUnsignedTxModel(actualTxLocalInfoModel, senderWallet);
+      SignedTxModel actualSignedTxModel = TxUtils.sign(
+        unsignedTxModel: actualUnsignedTxModel,
+        wallet: senderWallet,
+      );
+
+      // Assert
+      SignedTxModel expectedSignedTxModel = SignedTxModel(
+        txLocalInfoModel: actualTxLocalInfoModel,
+        txRemoteInfoModel: expectedTxRemoteInfoModel,
+        publicKeyCompressed: 'AlLas8CJ6lm5yZJ8h0U5Qu9nzVvgvskgHuURPB3jvUx8',
+        signatureModel: const SignatureModel(
+          signature: '0N4MNaiczcv8Qot5UD0c6aPbG1dttpiI8WCnlynndMk3M0H0m+bnr7RokB35YAscTRchBL1P+i7134q3ksgQ3w==',
+        ),
+      );
+
+      TestUtils.printInfo('Should return [SignedTxModel] with [StakingMsgClaimUndelegationModel] message');
+      expect(
+        actualSignedTxModel,
+        expectedSignedTxModel,
+      );
+
+      // Act
+      BroadcastReq actualBroadcastReq = BroadcastReq(tx: Tx.fromSignedTxModel(actualSignedTxModel));
+
+      // Assert
+      Map<String, dynamic> expectedBroadcastReqJson = <String, dynamic>{
+        'tx': {
+          'body': {
+            'messages': [
+              {
+                '@type': '/kira.multistaking.MsgClaimUndelegation',
+                'sender': 'kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx',
+                'undelegation_id': '1',
+              }
+            ],
+            'memo': 'Test of ClaimUndelegation message',
+            'timeout_height': '0',
+            'extension_options': <dynamic>[],
+            'non_critical_extension_options': <dynamic>[]
+          },
+          'auth_info': {
+            'signer_infos': [
+              {
+                'public_key': {'@type': '/cosmos.crypto.secp256k1.PubKey', 'key': 'AlLas8CJ6lm5yZJ8h0U5Qu9nzVvgvskgHuURPB3jvUx8'},
+                'mode_info': {
+                  'single': {'mode': 'SIGN_MODE_LEGACY_AMINO_JSON'}
+                },
+                'sequence': '106'
+              }
+            ],
+            'fee': {
+              'amount': [
+                {'amount': '200', 'denom': 'ukex'}
+              ],
+              'gas_limit': '999999'
+            }
+          },
+          'signatures': ['0N4MNaiczcv8Qot5UD0c6aPbG1dttpiI8WCnlynndMk3M0H0m+bnr7RokB35YAscTRchBL1P+i7134q3ksgQ3w==']
+        },
+        'mode': 'block'
+      };
+
+      TestUtils.printInfo('Should return [Tx] as json with [MsgClaimUndelegation] message');
       expect(
         actualBroadcastReq.toJson(),
         expectedBroadcastReqJson,

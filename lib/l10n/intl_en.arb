@@ -289,7 +289,6 @@
       }
     }
   },
-
   "txPreviewUnavailable": "Preview for {txMsgType} unavailable",
   "@txPreviewUnavailable": {
     "placeholders": {
@@ -299,15 +298,19 @@
     }
   },
 
-  "txMsgRegisterIdentityRecords": "Register Identity Records",
   "txMsgCancelIdentityRecordsVerifyRequest": "Cancel Verification Request",
+  "txMsgClaimUndelegation": "Claim Undelegation",
+  "txMsgClaimRewards": "Claim Rewards",
+  "txMsgDelegateTokens": "Delegate Tokens",
   "txMsgDeleteIdentityRecords": "Delete Identity Records",
   "txMsgHandleIdentityRecordsVerifyRequest": "Handle Verification Request",
+  "txMsgRegisterIdentityRecords": "Register Identity Records",
   "txMsgRequestIdentityRecordsVerify": "Request Verification",
-  "txMsgSendSendTokens": "Send",
   "txMsgSendReceiveTokens": "Receive",
-  "txMsgUndefined": "Unknown transaction type",
+  "txMsgSendSendTokens": "Send",
+  "txMsgUndelegateTokens": "Undelegate Tokens",
   "txMsgMulti": "Multi transaction",
+  "txMsgUndefined": "Unknown transaction type",
 
   "txListDetails": "Details",
   "txListHash": "Transaction hash",

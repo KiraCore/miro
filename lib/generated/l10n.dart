@@ -2032,21 +2032,41 @@ class S {
     );
   }
 
-  /// `Register Identity Records`
-  String get txMsgRegisterIdentityRecords {
-    return Intl.message(
-      'Register Identity Records',
-      name: 'txMsgRegisterIdentityRecords',
-      desc: '',
-      args: [],
-    );
-  }
-
   /// `Cancel Verification Request`
   String get txMsgCancelIdentityRecordsVerifyRequest {
     return Intl.message(
       'Cancel Verification Request',
       name: 'txMsgCancelIdentityRecordsVerifyRequest',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Claim Undelegation`
+  String get txMsgClaimUndelegation {
+    return Intl.message(
+      'Claim Undelegation',
+      name: 'txMsgClaimUndelegation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Claim Rewards`
+  String get txMsgClaimRewards {
+    return Intl.message(
+      'Claim Rewards',
+      name: 'txMsgClaimRewards',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delegate Tokens`
+  String get txMsgDelegateTokens {
+    return Intl.message(
+      'Delegate Tokens',
+      name: 'txMsgDelegateTokens',
       desc: '',
       args: [],
     );
@@ -2072,21 +2092,21 @@ class S {
     );
   }
 
-  /// `Request Verification`
-  String get txMsgRequestIdentityRecordsVerify {
+  /// `Register Identity Records`
+  String get txMsgRegisterIdentityRecords {
     return Intl.message(
-      'Request Verification',
-      name: 'txMsgRequestIdentityRecordsVerify',
+      'Register Identity Records',
+      name: 'txMsgRegisterIdentityRecords',
       desc: '',
       args: [],
     );
   }
 
-  /// `Send`
-  String get txMsgSendSendTokens {
+  /// `Request Verification`
+  String get txMsgRequestIdentityRecordsVerify {
     return Intl.message(
-      'Send',
-      name: 'txMsgSendSendTokens',
+      'Request Verification',
+      name: 'txMsgRequestIdentityRecordsVerify',
       desc: '',
       args: [],
     );
@@ -2102,11 +2122,21 @@ class S {
     );
   }
 
-  /// `Unknown transaction type`
-  String get txMsgUndefined {
+  /// `Send`
+  String get txMsgSendSendTokens {
     return Intl.message(
-      'Unknown transaction type',
-      name: 'txMsgUndefined',
+      'Send',
+      name: 'txMsgSendSendTokens',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Undelegate Tokens`
+  String get txMsgUndelegateTokens {
+    return Intl.message(
+      'Undelegate Tokens',
+      name: 'txMsgUndelegateTokens',
       desc: '',
       args: [],
     );
@@ -2117,6 +2147,16 @@ class S {
     return Intl.message(
       'Multi transaction',
       name: 'txMsgMulti',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unknown transaction type`
+  String get txMsgUndefined {
+    return Intl.message(
+      'Unknown transaction type',
+      name: 'txMsgUndefined',
       desc: '',
       args: [],
     );
