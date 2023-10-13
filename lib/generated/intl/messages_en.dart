@@ -410,6 +410,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "txListStatusPending": MessageLookupByLibrary.simpleMessage("Pending"),
         "txMsgCancelIdentityRecordsVerifyRequest":
             MessageLookupByLibrary.simpleMessage("Cancel Verification Request"),
+        "txMsgClaimRewards":
+            MessageLookupByLibrary.simpleMessage("Claim Rewards"),
+        "txMsgClaimUndelegation":
+            MessageLookupByLibrary.simpleMessage("Claim Undelegation"),
+        "txMsgDelegateTokens":
+            MessageLookupByLibrary.simpleMessage("Delegate Tokens"),
         "txMsgDeleteIdentityRecords":
             MessageLookupByLibrary.simpleMessage("Delete Identity Records"),
         "txMsgHandleIdentityRecordsVerifyRequest":
@@ -424,6 +430,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "txMsgSendSendTokens": MessageLookupByLibrary.simpleMessage("Send"),
         "txMsgUndefined":
             MessageLookupByLibrary.simpleMessage("Unknown transaction type"),
+        "txMsgUndelegateTokens":
+            MessageLookupByLibrary.simpleMessage("Undelegate Tokens"),
         "txNoticeFee": m9,
         "txPleaseSelectToken":
             MessageLookupByLibrary.simpleMessage("Please select a token"),

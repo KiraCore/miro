@@ -129,7 +129,77 @@ class MockApiTransactions {
           {"type": "handle-identity-records-verify-request", "verifier": "kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl", "verify_request_id": 4, "yes": true}
         ]
       },
+      // MsgDelegate
+      {
+        "time": 1672674564,
+        "hash": "0x3ADE47F67589A9B8FE75F9E669BBB2FA49B1B010525BD54C75D2F8E94A970F07",
+        "status": "confirmed",
+        "direction": "outbound",
+        "memo": "Test of MsgDelegate message",
+        "fee": [
+          {"denom": "ukex", "amount": "100"}
+        ],
+        "txs": [
+          {
+            "type": "delegate",
+            "delegator_address": "kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx",
+            "validator_address": "kiravaloper1c6slygj2tx7hzm0mn4qeflqpvngj73c2cw7fh7",
+            "amounts": [
+              {"denom": "ukex", "amount": "100"}
+            ]
+          }
+        ]
+      },
+      // MsgUndelegate
+      {
+        "time": 1672674565,
+        "hash": "0x72873A65DA27D3B1E967EA2BA5364A69BB8C52E8EBB74C599356DEE279543B1A",
+        "status": "confirmed",
+        "direction": "outbound",
+        "memo": "Test of MsgUndelegate message",
+        "fee": [
+          {"denom": "ukex", "amount": "100"}
+        ],
+        "txs": [
+          {
+            "type": "undelegate",
+            "delegator_address": "kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx",
+            "validator_address": "kiravaloper1c6slygj2tx7hzm0mn4qeflqpvngj73c2cw7fh7",
+            "amounts": [
+              {"denom": "ukex", "amount": "100"}
+            ]
+          }
+        ]
+      },
+      // MsgClaimRewards
+      {
+        "time": 1672674566,
+        "hash": "0x1B3CB7CCBAD84FAAF28F9481B376309B0D63249A466571D6CCDF5FD5C8044434",
+        "status": "confirmed",
+        "direction": "outbound",
+        "memo": "Test of MsgClaimRewards message",
+        "fee": [
+          {"denom": "ukex", "amount": "100"}
+        ],
+        "txs": [
+          {"type": "claim_rewards", "sender": "kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx"}
+        ]
+      },
+      // MsgClaimUndelegation
+      {
+        "time": 1672674567,
+        "hash": "0xEB41A34FC3B56EDB29743431C8816F6F33D3C7C0C649DB9E9A3784D9B9EE5FA0",
+        "status": "confirmed",
+        "direction": "outbound",
+        "memo": "Test of MsgClaimUndelegation message",
+        "fee": [
+          {"denom": "ukex", "amount": "100"}
+        ],
+        "txs": [
+          {"type": "claim_undelegation", "sender": "kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx", "undelegation_id": 1}
+        ]
+      },
     ],
-    "total_count": 35
+    "total_count": 11
   };
 }

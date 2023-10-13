@@ -63,8 +63,8 @@ void main() {
   String stakingPoolNotFoundLog =
       'github.com/cosmos/cosmos-sdk/baseapp.(*BaseApp).runMsgs\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.4/baseapp/baseapp.go:757\ngithub.com/cosmos/cosmos-sdk/baseapp.(*BaseApp).runTx\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.4/baseapp/baseapp.go:693\ngithub.com/cosmos/cosmos-sdk/baseapp.(*BaseApp).DeliverTx\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.4/baseapp/abci.go:276\ngithub.com/tendermint/tendermint/abci/client.(*localClient).DeliverTxAsync\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.19/abci/client/local_client.go:93\ngithub.com/tendermint/tendermint/proxy.(*appConnConsensus).DeliverTxAsync\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.19/proxy/app_conn.go:85\ngithub.com/tendermint/tendermint/state.execBlockOnProxyApp\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.19/state/execution.go:320\ngithub.com/tendermint/tendermint/state.(*BlockExecutor).ApplyBlock\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.19/state/execution.go:140\ngithub.com/tendermint/tendermint/consensus.(*State).finalizeCommit\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.19/consensus/state.go:1655\ngithub.com/tendermint/tendermint/consensus.(*State).tryFinalizeCommit\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.19/consensus/state.go:1564\ngithub.com/tendermint/tendermint/consensus.(*State).enterCommit.func1\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.19/consensus/state.go:1499\ngithub.com/tendermint/tendermint/consensus.(*State).enterCommit\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.19/consensus/state.go:1537\ngithub.com/tendermint/tendermint/consensus.(*State).addVote\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.19/consensus/state.go:2151\ngithub.com/tendermint/tendermint/consensus.(*State).tryAddVote\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.19/consensus/state.go:1949\ngithub.com/tendermint/tendermint/consensus.(*State).handleMsg\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.19/consensus/state.go:856\ngithub.com/tendermint/tendermint/consensus.(*State).receiveRoutine\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.19/consensus/state.go:783\nfailed to execute message; message index: 0: staking pool not found';
   BroadcastTx stakingPoolNotFoundBroadcastTx = BroadcastTx(
-    code: 5,
-    codespace: 'sdk',
+    code: 2,
+    codespace: 'multistaking',
     events: const <Event>[],
     info: '',
     log: stakingPoolNotFoundLog,
@@ -90,6 +90,47 @@ void main() {
     events: const <Event>[],
     info: '',
     log: executorNotValidatorOwnerLog,
+  );
+
+  // checksum verification failed
+  String checksumVerificationFailedLog =
+      'github.com/cosmos/cosmos-sdk/baseapp.(*BaseApp).runMsgs\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.4/baseapp/baseapp.go:757\ngithub.com/cosmos/cosmos-sdk/baseapp.(*BaseApp).runTx\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.4/baseapp/baseapp.go:693\ngithub.com/cosmos/cosmos-sdk/baseapp.(*BaseApp).DeliverTx\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.4/baseapp/abci.go:276\ngithub.com/tendermint/tendermint/abci/client.(*localClient).DeliverTxAsync\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.19/abci/client/local_client.go:93\ngithub.com/tendermint/tendermint/proxy.(*appConnConsensus).DeliverTxAsync\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.19/proxy/app_conn.go:85\ngithub.com/tendermint/tendermint/state.execBlockOnProxyApp\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.19/state/execution.go:320\ngithub.com/tendermint/tendermint/state.(*BlockExecutor).ApplyBlock\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.19/state/execution.go:140\ngithub.com/tendermint/tendermint/consensus.(*State).finalizeCommit\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.19/consensus/state.go:1655\ngithub.com/tendermint/tendermint/consensus.(*State).tryFinalizeCommit\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.19/consensus/state.go:1564\ngithub.com/tendermint/tendermint/consensus.(*State).enterCommit.func1\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.19/consensus/state.go:1499\ngithub.com/tendermint/tendermint/consensus.(*State).enterCommit\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.19/consensus/state.go:1537\ngithub.com/tendermint/tendermint/consensus.(*State).addVote\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.19/consensus/state.go:2151\ngithub.com/tendermint/tendermint/consensus.(*State).tryAddVote\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.19/consensus/state.go:1949\ngithub.com/tendermint/tendermint/consensus.(*State).handleMsg\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.19/consensus/state.go:856\ngithub.com/tendermint/tendermint/consensus.(*State).receiveRoutine\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.19/consensus/state.go:783\nfailed to execute message; message index: 0: checksum verification failed';
+  BroadcastTx checksumVerificationFailedBroadcastTx = BroadcastTx(
+    code: 5,
+    codespace: 'sdk',
+    events: const <Event>[],
+    info: '',
+    log: checksumVerificationFailedLog,
+  );
+
+  String validatorNotFoundLog =
+      'github.com/cosmos/cosmos-sdk/baseapp.(*BaseApp).runMsgs\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/baseapp/baseapp.go:781\ngithub.com/cosmos/cosmos-sdk/baseapp.(*BaseApp).runTx\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/baseapp/baseapp.go:717\ngithub.com/cosmos/cosmos-sdk/baseapp.(*BaseApp).DeliverTx\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/baseapp/abci.go:282\ngithub.com/tendermint/tendermint/abci/client.(*localClient).DeliverTxAsync\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.22/abci/client/local_client.go:93\ngithub.com/tendermint/tendermint/proxy.(*appConnConsensus).DeliverTxAsync\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.22/proxy/app_conn.go:85\ngithub.com/tendermint/tendermint/state.execBlockOnProxyApp\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.22/state/execution.go:320\ngithub.com/tendermint/tendermint/state.(*BlockExecutor).ApplyBlock\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.22/state/execution.go:140\ngithub.com/tendermint/tendermint/consensus.(*State).finalizeCommit\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.22/consensus/state.go:1659\ngithub.com/tendermint/tendermint/consensus.(*State).tryFinalizeCommit\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.22/consensus/state.go:1568\ngithub.com/tendermint/tendermint/consensus.(*State).enterCommit.func1\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.22/consensus/state.go:1503\ngithub.com/tendermint/tendermint/consensus.(*State).enterCommit\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.22/consensus/state.go:1541\ngithub.com/tendermint/tendermint/consensus.(*State).addVote\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.22/consensus/state.go:2155\ngithub.com/tendermint/tendermint/consensus.(*State).tryAddVote\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.22/consensus/state.go:1953\ngithub.com/tendermint/tendermint/consensus.(*State).handleMsg\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.22/consensus/state.go:856\ngithub.com/tendermint/tendermint/consensus.(*State).receiveRoutine\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.22/consensus/state.go:783\nfailed to execute message; message index: 0: validator not found';
+  BroadcastTx validatorNotFoundBroadcastTx = BroadcastTx(
+    code: 1,
+    codespace: 'undefined',
+    events: const <Event>[],
+    info: '',
+    log: validatorNotFoundLog,
+  );
+
+  String invalidPubkeyLog =
+      'github.com/cosmos/cosmos-sdk/x/auth/ante.SetPubKeyDecorator.AnteHandle\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/x/auth/ante/sigverify.go:79\ngithub.com/cosmos/cosmos-sdk/types.ChainAnteDecorators.func1\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/types/handler.go:40\ngithub.com/KiraCore/sekai/app/ante.ValidateFeeRangeDecorator.AnteHandle\n\t/root/sekai/app/ante/ante.go:361\ngithub.com/cosmos/cosmos-sdk/types.ChainAnteDecorators.func1\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/types/handler.go:40\ngithub.com/cosmos/cosmos-sdk/x/auth/ante.ConsumeTxSizeGasDecorator.AnteHandle\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/x/auth/ante/basic.go:142\ngithub.com/cosmos/cosmos-sdk/types.ChainAnteDecorators.func1\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/types/handler.go:40\ngithub.com/cosmos/cosmos-sdk/x/auth/ante.ValidateMemoDecorator.AnteHandle\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/x/auth/ante/basic.go:66\ngithub.com/cosmos/cosmos-sdk/types.ChainAnteDecorators.func1\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/types/handler.go:40\ngithub.com/cosmos/cosmos-sdk/x/auth/ante.TxTimeoutHeightDecorator.AnteHandle\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/x/auth/ante/basic.go:205\ngithub.com/cosmos/cosmos-sdk/types.ChainAnteDecorators.func1\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/types/handler.go:40\ngithub.com/cosmos/cosmos-sdk/x/auth/ante.ValidateBasicDecorator.AnteHandle\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/x/auth/ante/basic.go:34\ngithub.com/cosmos/cosmos-sdk/types.ChainAnteDecorators.func1\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/types/handler.go:40\ngithub.com/cosmos/cosmos-sdk/x/auth/ante.MempoolFeeDecorator.AnteHandle\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/x/auth/ante/fee.go:54\ngithub.com/cosmos/cosmos-sdk/types.ChainAnteDecorators.func1\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/types/handler.go:40\ngithub.com/cosmos/cosmos-sdk/x/auth/ante.RejectExtensionOptionsDecorator.AnteHandle\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/x/auth/ante/ext.go:35\ngithub.com/cosmos/cosmos-sdk/types.ChainAnteDecorators.func1\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/types/handler.go:40\ngithub.com/KiraCore/sekai/app/ante.ZeroGasMeterDecorator.AnteHandle\n\t/root/sekai/app/ante/ante.go:508\ngithub.com/cosmos/cosmos-sdk/types.ChainAnteDecorators.func1\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/types/handler.go:40\ngithub.com/KiraCore/sekai/app/ante.CustodyDecorator.AnteHandle\n\t/root/sekai/app/ante/ante.go:287\ngithub.com/cosmos/cosmos-sdk/types.ChainAnteDecorators.func1\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/types/handler.go:40\ngithub.com/cosmos/cosmos-sdk/x/auth/ante.SetUpContextDecorator.AnteHandle\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/x/auth/ante/setup.go:62\ngithub.com/cosmos/cosmos-sdk/types.ChainAnteDecorators.func1\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/types/handler.go:40\ngithub.com/cosmos/cosmos-sdk/baseapp.(*BaseApp).runTx\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/baseapp/baseapp.go:684\ngithub.com/cosmos/cosmos-sdk/baseapp.(*BaseApp).CheckTx\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/baseapp/abci.go:242\ngithub.com/tendermint/tendermint/abci/client.(*localClient).CheckTxAsync\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.22/abci/client/local_client.go:104\ngithub.com/tendermint/tendermint/proxy.(*appConnMempool).CheckTxAsync\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.22/proxy/app_conn.go:126\ngithub.com/tendermint/tendermint/mempool/v0.(*CListMempool).CheckTx\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.22/mempool/v0/clist_mempool.go:254\ngithub.com/tendermint/tendermint/rpc/core.BroadcastTxCommit\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.22/rpc/core/mempool.go:91\nreflect.Value.call\n\t/usr/local/go/src/reflect/value.go:586\nreflect.Value.Call\n\t/usr/local/go/src/reflect/value.go:370\npubKey does not match signer address kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl with signer index: 0: invalid pubkey';
+  BroadcastTx invalidPubkeyBroadcastTx = BroadcastTx(
+    code: 8,
+    codespace: 'sdk',
+    events: const <Event>[],
+    info: '',
+    log: invalidPubkeyLog,
+  );
+
+  String undelegationNotFountLog =
+      'github.com/cosmos/cosmos-sdk/baseapp.(*BaseApp).runMsgs\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/baseapp/baseapp.go:781\ngithub.com/cosmos/cosmos-sdk/baseapp.(*BaseApp).runTx\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/baseapp/baseapp.go:717\ngithub.com/cosmos/cosmos-sdk/baseapp.(*BaseApp).DeliverTx\n\t/root/go/pkg/mod/github.com/cosmos/cosmos-sdk@v0.45.10/baseapp/abci.go:282\ngithub.com/tendermint/tendermint/abci/client.(*localClient).DeliverTxAsync\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.22/abci/client/local_client.go:93\ngithub.com/tendermint/tendermint/proxy.(*appConnConsensus).DeliverTxAsync\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.22/proxy/app_conn.go:85\ngithub.com/tendermint/tendermint/state.execBlockOnProxyApp\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.22/state/execution.go:320\ngithub.com/tendermint/tendermint/state.(*BlockExecutor).ApplyBlock\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.22/state/execution.go:140\ngithub.com/tendermint/tendermint/consensus.(*State).finalizeCommit\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.22/consensus/state.go:1659\ngithub.com/tendermint/tendermint/consensus.(*State).tryFinalizeCommit\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.22/consensus/state.go:1568\ngithub.com/tendermint/tendermint/consensus.(*State).enterCommit.func1\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.22/consensus/state.go:1503\ngithub.com/tendermint/tendermint/consensus.(*State).enterCommit\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.22/consensus/state.go:1541\ngithub.com/tendermint/tendermint/consensus.(*State).addVote\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.22/consensus/state.go:2155\ngithub.com/tendermint/tendermint/consensus.(*State).tryAddVote\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.22/consensus/state.go:1953\ngithub.com/tendermint/tendermint/consensus.(*State).handleMsg\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.22/consensus/state.go:856\ngithub.com/tendermint/tendermint/consensus.(*State).receiveRoutine\n\t/root/go/pkg/mod/github.com/tendermint/tendermint@v0.34.22/consensus/state.go:783\nfailed to execute message; message index: 0: undelegation not found';
+  BroadcastTx undelegationNotFountBroadcastTx = BroadcastTx(
+    code: 3,
+    codespace: 'multistaking',
+    events: const <Event>[],
+    info: '',
+    log: undelegationNotFountLog,
   );
 
   group('Tests for "UNAUTHORIZED" error', () {
@@ -185,6 +226,54 @@ void main() {
     });
 
     test('Should return "EXECUTOR_IS_NOT_VALIDATOR_OWNER" error message', () {
+      expect(actualBroadcastErrorLogModel?.message, 'Failed to execute message\nMessage index: 0');
+    });
+  });
+
+  group('Tests for "CHECKSUM_VERIFICATION_FAILED" error', () {
+    BroadcastErrorLogModel? actualBroadcastErrorLogModel = BroadcastErrorLogModel.fromDto(checksumVerificationFailedBroadcastTx);
+
+    test('Should return "CHECKSUM_VERIFICATION_FAILED" as an error name', () {
+      expect(actualBroadcastErrorLogModel?.code, 'CHECKSUM_VERIFICATION_FAILED');
+    });
+
+    test('Should return "CHECKSUM_VERIFICATION_FAILED" error message', () {
+      expect(actualBroadcastErrorLogModel?.message, 'Failed to execute message\nMessage index: 0');
+    });
+  });
+
+  group('Tests for "VALIDATOR_NOT_FOUND" error', () {
+    BroadcastErrorLogModel? actualBroadcastErrorLogModel = BroadcastErrorLogModel.fromDto(validatorNotFoundBroadcastTx);
+
+    test('Should return "VALIDATOR_NOT_FOUND" as an error name', () {
+      expect(actualBroadcastErrorLogModel?.code, 'VALIDATOR_NOT_FOUND');
+    });
+
+    test('Should return "VALIDATOR_NOT_FOUND" error message', () {
+      expect(actualBroadcastErrorLogModel?.message, 'Failed to execute message\nMessage index: 0');
+    });
+  });
+
+  group('Tests for "INVALID_PUBKEY" error', () {
+    BroadcastErrorLogModel? actualBroadcastErrorLogModel = BroadcastErrorLogModel.fromDto(invalidPubkeyBroadcastTx);
+
+    test('Should return "INVALID_PUBKEY" as an error name', () {
+      expect(actualBroadcastErrorLogModel?.code, 'INVALID_PUBKEY');
+    });
+
+    test('Should return "INVALID_PUBKEY" error message', () {
+      expect(actualBroadcastErrorLogModel?.message, 'PubKey does not match signer address kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl with signer index: 0');
+    });
+  });
+
+  group('Tests for "UNDELEGATION_NOT_FOUND" error', () {
+    BroadcastErrorLogModel? actualBroadcastErrorLogModel = BroadcastErrorLogModel.fromDto(undelegationNotFountBroadcastTx);
+
+    test('Should return "UNDELEGATION_NOT_FOUND" as an error name', () {
+      expect(actualBroadcastErrorLogModel?.code, 'UNDELEGATION_NOT_FOUND');
+    });
+
+    test('Should return "UNDELEGATION_NOT_FOUND" error message', () {
       expect(actualBroadcastErrorLogModel?.message, 'Failed to execute message\nMessage index: 0');
     });
   });

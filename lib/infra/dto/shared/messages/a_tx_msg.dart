@@ -6,6 +6,10 @@ import 'package:miro/infra/dto/shared/messages/identity_records/msg_request_iden
 import 'package:miro/infra/dto/shared/messages/identity_records/register/msg_register_identity_records.dart';
 import 'package:miro/infra/dto/shared/messages/msg_send.dart';
 import 'package:miro/infra/dto/shared/messages/msg_undefined.dart';
+import 'package:miro/infra/dto/shared/messages/staking/msg_claim_rewards.dart';
+import 'package:miro/infra/dto/shared/messages/staking/msg_claim_undelegation.dart';
+import 'package:miro/infra/dto/shared/messages/staking/msg_delegate.dart';
+import 'package:miro/infra/dto/shared/messages/staking/msg_undelegate.dart';
 import 'package:miro/shared/models/transactions/messages/interx_msg_types.dart';
 import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
 
@@ -28,18 +32,26 @@ abstract class ATxMsg extends Equatable {
     TxMsgType txMsgType = InterxMsgTypes.getType(json['type'] as String);
 
     switch (txMsgType) {
-      case TxMsgType.msgSend:
-        return MsgSend.fromJson(json);
+      case TxMsgType.msgCancelIdentityRecordsVerifyRequest:
+        return MsgCancelIdentityRecordsVerifyRequest.fromJson(json);
+      case TxMsgType.msgClaimRewards:
+        return MsgClaimRewards.fromJson(json);
+      case TxMsgType.msgClaimUndelegation:
+        return MsgClaimUndelegation.fromJson(json);
+      case TxMsgType.msgDelegate:
+        return MsgDelegate.fromJson(json);
+      case TxMsgType.msgDeleteIdentityRecords:
+        return MsgDeleteIdentityRecords.fromJson(json);
+      case TxMsgType.msgHandleIdentityRecordsVerifyRequest:
+        return MsgHandleIdentityRecordsVerifyRequest.fromJson(json);
       case TxMsgType.msgRegisterIdentityRecords:
         return MsgRegisterIdentityRecords.fromJson(json);
       case TxMsgType.msgRequestIdentityRecordsVerify:
         return MsgRequestIdentityRecordsVerify.fromJson(json);
-      case TxMsgType.msgHandleIdentityRecordsVerifyRequest:
-        return MsgHandleIdentityRecordsVerifyRequest.fromJson(json);
-      case TxMsgType.msgCancelIdentityRecordsVerifyRequest:
-        return MsgCancelIdentityRecordsVerifyRequest.fromJson(json);
-      case TxMsgType.msgDeleteIdentityRecords:
-        return MsgDeleteIdentityRecords.fromJson(json);
+      case TxMsgType.msgSend:
+        return MsgSend.fromJson(json);
+      case TxMsgType.msgUndelegate:
+        return MsgUndelegate.fromJson(json);
       default:
         return const MsgUndefined();
     }

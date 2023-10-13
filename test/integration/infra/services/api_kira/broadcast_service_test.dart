@@ -7,6 +7,7 @@ import 'package:miro/infra/dto/api_kira/broadcast/request/broadcast_req.dart';
 import 'package:miro/infra/dto/api_kira/broadcast/request/transaction/tx.dart';
 import 'package:miro/infra/exceptions/dio_connect_exception.dart';
 import 'package:miro/infra/exceptions/dio_parse_exception.dart';
+import 'package:miro/infra/exceptions/tx_broadcast_exception.dart';
 import 'package:miro/infra/services/api_kira/broadcast_service.dart';
 import 'package:miro/infra/services/api_kira/query_account_service.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
@@ -19,12 +20,17 @@ import 'package:miro/shared/models/transactions/messages/identity_registrar/ir_m
 import 'package:miro/shared/models/transactions/messages/identity_registrar/register/ir_entry_model.dart';
 import 'package:miro/shared/models/transactions/messages/identity_registrar/register/ir_msg_register_records_model.dart';
 import 'package:miro/shared/models/transactions/messages/msg_send_model.dart';
+import 'package:miro/shared/models/transactions/messages/staking/staking_msg_claim_rewards_model.dart';
+import 'package:miro/shared/models/transactions/messages/staking/staking_msg_claim_undelegation_model.dart';
+import 'package:miro/shared/models/transactions/messages/staking/staking_msg_delegate_model.dart';
+import 'package:miro/shared/models/transactions/messages/staking/staking_msg_undelegate_model.dart';
 import 'package:miro/shared/models/transactions/signed_transaction_model.dart';
 import 'package:miro/shared/models/transactions/tx_local_info_model.dart';
 import 'package:miro/shared/models/transactions/tx_remote_info_model.dart';
 import 'package:miro/shared/models/transactions/unsigned_tx_model.dart';
 import 'package:miro/shared/models/wallet/mnemonic.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
+import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/shared/utils/network_utils.dart';
 import 'package:miro/shared/utils/transactions/tx_utils.dart';
 import 'package:miro/test/utils/test_utils.dart';
@@ -97,6 +103,8 @@ Future<void> main() async {
           'broadcast_service_test.dart: Cannot fetch [BroadcastResp] for URI $networkUri: ${e.dioException.message}\n${e.dioException.response}');
     } on DioParseException catch (e) {
       TestUtils.printError('broadcast_service_test.dart: Cannot parse [BroadcastResp] for URI $networkUri: ${e}');
+    } on TxBroadcastException catch (e) {
+      TestUtils.printError('broadcast_service_test.dart: [TxBroadcastException] for URI $networkUri: ${e.response.data}');
     } catch (e) {
       TestUtils.printError('broadcast_service_test.dart: Unknown error for URI $networkUri: ${e}');
     }
@@ -217,6 +225,82 @@ Future<void> main() async {
 
       BroadcastReq actualBroadcastReq = BroadcastReq(tx: Tx.fromSignedTxModel(actualSignedTxModel));
       TestUtils.printInfo('Signed [IRMsgHandleVerificationRequestModel] transaction: ${json.encode(actualBroadcastReq.toJson())}');
+
+      // await broadcastTx(actualSignedTxModel);
+    });
+
+    test('Should return signed transaction with [MsgDelegate] message', () async {
+      final TxLocalInfoModel actualTxLocalInfoModel = TxLocalInfoModel(
+        memo: 'Test of MsgDelegate message',
+        feeTokenAmountModel: feeTokenAmountModel,
+        txMsgModel: StakingMsgDelegateModel.single(
+          delegatorWalletAddress: senderWallet.address,
+          valoperWalletAddress: WalletAddress.fromBech32('kiravaloper1c6slygj2tx7hzm0mn4qeflqpvngj73c2cw7fh7'),
+          tokenAmountModel: TokenAmountModel(
+            lowestDenominationAmount: Decimal.fromInt(100),
+            tokenAliasModel: TokenAliasModel.local('ukex'),
+          ),
+        ),
+      );
+
+      SignedTxModel actualSignedTxModel = await signTx(actualTxLocalInfoModel, senderWallet);
+
+      BroadcastReq actualBroadcastReq = BroadcastReq(tx: Tx.fromSignedTxModel(actualSignedTxModel));
+      TestUtils.printInfo('Signed [MsgDelegate] transaction: ${json.encode(actualBroadcastReq.toJson())}');
+
+      // await broadcastTx(actualSignedTxModel);
+    });
+
+    test('Should return a signed transaction with [MsgUndelegate] message', () async {
+      final TxLocalInfoModel actualTxLocalInfoModel = TxLocalInfoModel(
+        memo: 'Test of MsgUndelegate message',
+        feeTokenAmountModel: feeTokenAmountModel,
+        txMsgModel: StakingMsgUndelegateModel.single(
+          delegatorWalletAddress: senderWallet.address,
+          valoperWalletAddress: WalletAddress.fromBech32('kiravaloper1c6slygj2tx7hzm0mn4qeflqpvngj73c2cw7fh7'),
+          tokenAmountModel: TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TokenAliasModel.local('ukex')),
+        ),
+      );
+
+      SignedTxModel actualSignedTxModel = await signTx(actualTxLocalInfoModel, senderWallet);
+
+      BroadcastReq actualBroadcastReq = BroadcastReq(tx: Tx.fromSignedTxModel(actualSignedTxModel));
+      TestUtils.printInfo('Signed [MsgUndelegate] transaction: ${json.encode(actualBroadcastReq.toJson())}');
+
+      // await broadcastTx(actualSignedTxModel);
+    });
+
+    test('Should return a signed transaction with [MsgClaimRewards] message', () async {
+      final TxLocalInfoModel actualTxLocalInfoModel = TxLocalInfoModel(
+        memo: 'Test of MsgClaimRewards message',
+        feeTokenAmountModel: feeTokenAmountModel,
+        txMsgModel: StakingMsgClaimRewardsModel(
+          senderWalletAddress: senderWallet.address,
+        ),
+      );
+
+      SignedTxModel actualSignedTxModel = await signTx(actualTxLocalInfoModel, senderWallet);
+
+      BroadcastReq actualBroadcastReq = BroadcastReq(tx: Tx.fromSignedTxModel(actualSignedTxModel));
+      TestUtils.printInfo('Signed [MsgClaimRewards] transaction: ${json.encode(actualBroadcastReq.toJson())}');
+
+      // await broadcastTx(actualSignedTxModel);
+    });
+
+    test('Should return a signed transaction with [MsgClaimUndelegation] message', () async {
+      final TxLocalInfoModel actualTxLocalInfoModel = TxLocalInfoModel(
+        memo: 'Test of MsgClaimUndelegation message',
+        feeTokenAmountModel: feeTokenAmountModel,
+        txMsgModel: StakingMsgClaimUndelegationModel(
+          senderWalletAddress: senderWallet.address,
+          undelegationId: '1',
+        ),
+      );
+
+      SignedTxModel actualSignedTxModel = await signTx(actualTxLocalInfoModel, senderWallet);
+
+      BroadcastReq actualBroadcastReq = BroadcastReq(tx: Tx.fromSignedTxModel(actualSignedTxModel));
+      TestUtils.printInfo('Signed [MsgClaimUndelegation] transaction: ${json.encode(actualBroadcastReq.toJson())}');
 
       // await broadcastTx(actualSignedTxModel);
     });
