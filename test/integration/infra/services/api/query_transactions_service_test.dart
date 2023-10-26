@@ -9,6 +9,7 @@ import 'package:miro/shared/models/transactions/list/tx_list_item_model.dart';
 import 'package:miro/shared/models/transactions/list/tx_sort_type.dart';
 import 'package:miro/shared/models/transactions/list/tx_status_type.dart';
 import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
+import 'package:miro/shared/utils/custom_date_utils.dart';
 import 'package:miro/shared/utils/network_utils.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
@@ -46,10 +47,10 @@ Future<void> main() async {
     test('Should return [List of TxListItemModel] after query with [dateStart, dateEnd] query parameters', () async {
       TestUtils.printInfo('Data request');
       try {
-        QueryTransactionsReq actualQueryTransactionsReq = const QueryTransactionsReq(
+        QueryTransactionsReq actualQueryTransactionsReq = QueryTransactionsReq(
           address: actualWalletAddress,
-          dateStart: '1672651150',
-          dateEnd: '1672669166',
+          dateStart: CustomDateUtils.buildDateFromSecondsSinceEpoch(1672651150),
+          dateEnd: CustomDateUtils.buildDateFromSecondsSinceEpoch(1672669166),
         );
         List<TxListItemModel> actualTxListItemModelList = await actualQueryTransactionsService.getTransactionList(actualQueryTransactionsReq);
 

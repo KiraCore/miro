@@ -4,16 +4,17 @@ import 'package:miro/shared/models/transactions/list/tx_sort_type.dart';
 import 'package:miro/shared/models/transactions/list/tx_status_type.dart';
 import 'package:miro/shared/models/transactions/messages/interx_msg_types.dart';
 import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
+import 'package:miro/shared/utils/custom_date_utils.dart';
 
 class QueryTransactionsReq extends Equatable {
   /// This represents the kira account address
   final String address;
 
   /// This represents the ending point in timestamp or date(DD/MM/YY) format
-  final String? dateEnd;
+  final DateTime? dateEnd;
 
   /// This represents the starting point in timestamp or date(DD/MM/YY) format
-  final String? dateStart;
+  final DateTime? dateStart;
 
   /// This represents direction of the transaction(outbound, inbound)
   final List<TxDirectionType>? direction;
@@ -57,9 +58,9 @@ class QueryTransactionsReq extends Equatable {
     return <String, dynamic>{
       'address': address,
       // TODO(dominik): Replace camelCase with snake_case
-      'dateEnd': dateEnd,
+      'dateEnd': dateEnd != null ? CustomDateUtils.parseDateToSecondsSinceEpoch(dateEnd!) : null,
       // TODO(dominik): Replace camelCase with snake_case
-      'dateStart': dateStart,
+      'dateStart': dateStart != null ? CustomDateUtils.parseDateToSecondsSinceEpoch(dateStart!) : null,
       'direction': direction?.map((TxDirectionType txDirectionType) => txDirectionType.name).join(','),
       'limit': limit,
       'offset': offset,

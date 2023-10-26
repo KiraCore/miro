@@ -7,4 +7,8 @@ class CustomDateUtils {
     }
     return DateTime.fromMillisecondsSinceEpoch(seconds * 1000, isUtc: true);
   }
+
+  static int parseDateToSecondsSinceEpoch(DateTime date) {
+    return date.millisecondsSinceEpoch ~/ 1000;
+  }
 }

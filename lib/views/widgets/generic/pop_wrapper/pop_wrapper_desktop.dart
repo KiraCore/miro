@@ -81,7 +81,6 @@ class _PopWrapperDesktop extends State<PopWrapperDesktop> {
         onTap: widget.disabled ? null : widget.popWrapperController.showTooltip,
         childBuilder: (Set<MaterialState> states) {
           return Container(
-            constraints: const BoxConstraints(maxWidth: 200),
             color: Colors.transparent,
             child: widget.buttonBuilder(),
           );

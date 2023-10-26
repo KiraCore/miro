@@ -12,7 +12,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.11.2
+version: 1.12.0
 
 environment:
   sdk: ">=3.1.3"
@@ -140,10 +140,6 @@ dependencies:
   # https://pub.dev/packages/jdenticon_dart
   jdenticon_dart: ^2.0.0
 
-  # A multi directional tooltip used to display any content with inbuilt support for list views
-  # https://pub.dev/packages/just_the_tooltip
-  just_the_tooltip: ^0.0.12
-
   # A package that allows you to use a native file explorer to pick single or multiple absolute file paths, with extension filtering support
   # https://pub.dev/packages/file_picker
   file_picker: ^5.5.0
@@ -185,6 +181,22 @@ dependencies:
   # Regexes to match and extract information from URLs of social media profiles
   # https://pub.dev/packages/url_recognizer
   url_recognizer: ^0.0.2+2
+
+  # A lightweight and customizable calendar picker based on Flutter CalendarDatePicker,
+  # with support for single date picker, range picker and multi picker.
+  # https://pub.dev/packages/calendar_date_picker2
+  calendar_date_picker2: ^0.5.2
+
+  # An extensible library that provides the functionality of the parsing strings in different formats to extract dates.
+  # https://pub.dev/packages/datify
+  datify: ^1.1.3
+
+  # A multi-directional tooltip used to display any content with inbuilt support for list views
+  # https://pub.dev/packages/just_the_tooltip
+  just_the_tooltip:
+    git:
+      url: https://github.com/CandyLabsIT/just_the_tooltip.git
+      ref: dp-bugfix/target-information
 
 dev_dependencies:
   # AutoRoute is a declarative routing solution, where everything needed for navigation is automatically generated for you.

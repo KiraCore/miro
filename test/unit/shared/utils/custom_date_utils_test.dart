@@ -46,4 +46,42 @@ void main() {
       );
     });
   });
+
+  group('Tests of CustomDateUtils.parseDateToSecondsSinceEpoch()', () {
+    test('Should return [0 seconds] for 1970-01-01', () {
+      // Arrange
+      DateTime actuaDateTime = DateTime.parse('1970-01-01 00:00:00.000Z');
+
+      // Act
+      int actualSecondsSinceEpoch = CustomDateUtils.parseDateToSecondsSinceEpoch(actuaDateTime);
+
+      // Assert
+      int expectedSecondsSinceEpoch = 0;
+      expect(actualSecondsSinceEpoch, expectedSecondsSinceEpoch);
+    });
+
+    test('Should return [8 640 000 000 000 seconds] for 275760-09-13 00:00:00.000Z ', () {
+      // Arrange
+      DateTime actuaDateTime = DateTime.parse('275760-09-13 00:00:00.000Z');
+
+      // Act
+      int actualSecondsSinceEpoch = CustomDateUtils.parseDateToSecondsSinceEpoch(actuaDateTime);
+
+      // Assert
+      int expectedSecondsSinceEpoch = 8640000000000;
+      expect(actualSecondsSinceEpoch, expectedSecondsSinceEpoch);
+    });
+
+    test('Should return [1 686 727 887 seconds] for 2023-06-14 07:31:27.000Z', () {
+      // Arrange
+      DateTime actuaDateTime = DateTime.parse('2023-06-14 07:31:27.000Z');
+
+      // Act
+      int actualSecondsSinceEpoch = CustomDateUtils.parseDateToSecondsSinceEpoch(actuaDateTime);
+
+      // Assert
+      int expectedSecondsSinceEpoch = 1686727887;
+      expect(actualSecondsSinceEpoch, expectedSecondsSinceEpoch);
+    });
+  });
 }
