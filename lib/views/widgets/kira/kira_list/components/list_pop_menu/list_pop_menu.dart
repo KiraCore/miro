@@ -58,6 +58,7 @@ class _ListPopMenuState<T> extends State<ListPopMenu<T>> {
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 0),
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
             ListPopMenuHeader(
@@ -67,6 +68,18 @@ class _ListPopMenuState<T> extends State<ListPopMenu<T>> {
             const Divider(color: DesignColors.grey2),
             ...widget.listItems.map<Widget>(
               (T item) {
+                if (item is Widget) {
+                  return Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+                    decoration: const BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(color: DesignColors.grey2),
+                      ),
+                    ),
+                    child: item,
+                  );
+                }
                 return ListPopMenuItem(
                   title: widget.itemToString(item),
                   onTap: () => _handleItemSelected(item),

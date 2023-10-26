@@ -371,6 +371,20 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Transaction completed"),
         "txConfirm":
             MessageLookupByLibrary.simpleMessage("Confirm transaction"),
+        "txDateDropdownAll": MessageLookupByLibrary.simpleMessage("All"),
+        "txDateDropdownCancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "txDateDropdownClear": MessageLookupByLibrary.simpleMessage("Clear"),
+        "txDateDropdownEndDate":
+            MessageLookupByLibrary.simpleMessage("End date"),
+        "txDateDropdownOneMonth":
+            MessageLookupByLibrary.simpleMessage("1 month"),
+        "txDateDropdownOneWeek": MessageLookupByLibrary.simpleMessage("1 week"),
+        "txDateDropdownSave": MessageLookupByLibrary.simpleMessage("Save"),
+        "txDateDropdownStartDate":
+            MessageLookupByLibrary.simpleMessage("Start date"),
+        "txDateDropdownToday": MessageLookupByLibrary.simpleMessage("Today"),
+        "txDateDropdownYesterday":
+            MessageLookupByLibrary.simpleMessage("Yesterday"),
         "txErrorAccountNumberNotExist": MessageLookupByLibrary.simpleMessage(
             "Cannot create transaction. Deposit tokens to your account and try again."),
         "txErrorCannotCreate": MessageLookupByLibrary.simpleMessage(
@@ -402,6 +416,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "txListAmountPlusMore": m8,
         "txListDate": MessageLookupByLibrary.simpleMessage("Date"),
         "txListDetails": MessageLookupByLibrary.simpleMessage("Details"),
+        "txListDirection": MessageLookupByLibrary.simpleMessage("Direction"),
+        "txListDirectionInbound":
+            MessageLookupByLibrary.simpleMessage("Inbound"),
+        "txListDirectionOutbound":
+            MessageLookupByLibrary.simpleMessage("Outbound"),
+        "txListFiltersTitle": MessageLookupByLibrary.simpleMessage("Filters"),
         "txListHash": MessageLookupByLibrary.simpleMessage("Transaction hash"),
         "txListStatus": MessageLookupByLibrary.simpleMessage("Status"),
         "txListStatusConfirmed":

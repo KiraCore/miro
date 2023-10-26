@@ -5,6 +5,7 @@ import 'package:miro/shared/controllers/menu/my_account_page/transactions_page/t
 import 'package:miro/shared/models/transactions/list/tx_list_item_model.dart';
 import 'package:miro/views/pages/menu/my_account_page/transactions_page/transaction_list_item/desktop/transaction_list_item_desktop_layout.dart';
 import 'package:miro/views/pages/menu/my_account_page/transactions_page/transaction_list_item/transaction_list_item_builder.dart';
+import 'package:miro/views/pages/menu/my_account_page/transactions_page/transactions_list_title.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 import 'package:miro/views/widgets/kira/kira_list/sliver_paginated_list/page_size_dropdown/page_size_dropdown.dart';
 import 'package:miro/views/widgets/kira/kira_list/sliver_paginated_list/sliver_paginated_list.dart';
@@ -24,7 +25,15 @@ class TransactionsPage extends StatefulWidget {
 }
 
 class _TransactionsPage extends State<TransactionsPage> {
+  final TextEditingController searchBarTextEditingController = TextEditingController();
+  late final TransactionsListController transactionsListController = TransactionsListController(address: widget.address);
   int pageSize = 10;
+
+  @override
+  void dispose() {
+    searchBarTextEditingController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,31 +49,26 @@ class _TransactionsPage extends State<TransactionsPage> {
       amountWidget: Text(S.of(context).txListAmount, style: headerTextStyle),
     );
 
+    Widget pageSizeDropdown = PageSizeDropdown(
+      selectedPageSize: pageSize,
+      availablePageSizes: const <int>[10, 25, 50, 100],
+      onPageSizeChanged: (int pageSize) => setState(() => this.pageSize = pageSize),
+    );
+
     return SliverPaginatedList<TxListItemModel>(
       scrollController: widget.parentScrollController,
       hasBackgroundBool: ResponsiveWidget.isLargeScreen(context),
       singlePageSize: pageSize,
-      listController: TransactionsListController(address: widget.address),
+      listController: transactionsListController,
       listHeaderWidget: ResponsiveWidget.isLargeScreen(context) ? listHeaderWidget : null,
-      title: Padding(
-        padding: const EdgeInsets.only(top: 18),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            PageSizeDropdown(
-              selectedPageSize: pageSize,
-              availablePageSizes: const <int>[10, 25, 50, 100],
-              onPageSizeChanged: (int pageSize) {
-                setState(() => this.pageSize = pageSize);
-              },
-            ),
-          ],
-        ),
-      ),
-      itemBuilder: (TxListItemModel txListItemModel) {
-        return TransactionListItemBuilder(
-          txListItemModel: txListItemModel,
+      titleBuilder: (BuildContext context) {
+        return TransactionsListTitle(
+          transactionsListController: transactionsListController,
+          pageSizeDropdownWidget: pageSizeDropdown,
         );
+      },
+      itemBuilder: (TxListItemModel txListItemModel) {
+        return TransactionListItemBuilder(txListItemModel: txListItemModel);
       },
     );
   }

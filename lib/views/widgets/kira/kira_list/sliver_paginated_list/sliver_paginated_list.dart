@@ -28,7 +28,7 @@ class SliverPaginatedList<T extends AListItem> extends StatefulWidget {
   final int singlePageSize;
   final bool hasBackgroundBool;
   final Widget? listHeaderWidget;
-  final Widget? title;
+  final WidgetBuilder? titleBuilder;
   final FavouritesBloc<T>? favouritesBloc;
   final FiltersBloc<T>? filtersBloc;
   final SortBloc<T>? sortBloc;
@@ -40,7 +40,7 @@ class SliverPaginatedList<T extends AListItem> extends StatefulWidget {
     this.singlePageSize = 20,
     this.hasBackgroundBool = true,
     this.listHeaderWidget,
-    this.title,
+    this.titleBuilder,
     this.favouritesBloc,
     this.filtersBloc,
     this.sortBloc,
@@ -103,15 +103,16 @@ class _SliverPaginatedList<T extends AListItem> extends State<SliverPaginatedLis
                   builder: (BuildContext context, AListState state) {
                     return MultiSliver(
                       children: <Widget>[
-                        SliverToBoxAdapter(
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 32),
-                            child: Opacity(
-                              opacity: state is ListLoadedState ? 1 : 0.5,
-                              child: state is ListLoadedState ? widget.title : IgnorePointer(child: widget.title),
+                        if (widget.titleBuilder != null)
+                          SliverToBoxAdapter(
+                            child: Padding(
+                              padding: const EdgeInsets.only(bottom: 32),
+                              child: Opacity(
+                                opacity: state is ListLoadedState ? 1 : 0.5,
+                                child: state is ListLoadedState ? widget.titleBuilder!(context) : IgnorePointer(child: widget.titleBuilder!(context)),
+                              ),
                             ),
                           ),
-                        ),
                         if (state is ListLoadingState)
                           const SliverFillRemaining(
                             hasScrollBody: false,

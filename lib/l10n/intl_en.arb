@@ -315,6 +315,7 @@
   "txListDetails": "Details",
   "txListHash": "Transaction hash",
   "txListStatus": "Status",
+  "txListDirection": "Direction",
   "txListDate": "Date",
 
   "txListAmount": "Amount",
@@ -322,9 +323,24 @@
   "txListAmountPlusFees": "+ fees",
   "txListAmountFeesOnly": "Fees only",
 
+  "txListFiltersTitle": "Filters",
+
   "txListStatusConfirmed": "Confirmed",
   "txListStatusPending": "Pending",
   "txListStatusFailed": "Failed",
+
+  "txListDirectionInbound": "Inbound",
+  "txListDirectionOutbound": "Outbound",
+  "txDateDropdownStartDate": "Start date",
+  "txDateDropdownEndDate": "End date",
+  "txDateDropdownAll": "All",
+  "txDateDropdownToday": "Today",
+  "txDateDropdownYesterday": "Yesterday",
+  "txDateDropdownOneWeek": "1 week",
+  "txDateDropdownOneMonth": "1 month",
+  "txDateDropdownClear": "Clear",
+  "txDateDropdownCancel": "Cancel",
+  "txDateDropdownSave": "Save",
 
   "validators": "Validators",
   "validatorsButtonFilter": "{selected} selected",

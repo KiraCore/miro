@@ -2192,6 +2192,16 @@ class S {
     );
   }
 
+  /// `Direction`
+  String get txListDirection {
+    return Intl.message(
+      'Direction',
+      name: 'txListDirection',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Date`
   String get txListDate {
     return Intl.message(
@@ -2242,6 +2252,16 @@ class S {
     );
   }
 
+  /// `Filters`
+  String get txListFiltersTitle {
+    return Intl.message(
+      'Filters',
+      name: 'txListFiltersTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Confirmed`
   String get txListStatusConfirmed {
     return Intl.message(
@@ -2267,6 +2287,126 @@ class S {
     return Intl.message(
       'Failed',
       name: 'txListStatusFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Inbound`
+  String get txListDirectionInbound {
+    return Intl.message(
+      'Inbound',
+      name: 'txListDirectionInbound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Outbound`
+  String get txListDirectionOutbound {
+    return Intl.message(
+      'Outbound',
+      name: 'txListDirectionOutbound',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Start date`
+  String get txDateDropdownStartDate {
+    return Intl.message(
+      'Start date',
+      name: 'txDateDropdownStartDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `End date`
+  String get txDateDropdownEndDate {
+    return Intl.message(
+      'End date',
+      name: 'txDateDropdownEndDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `All`
+  String get txDateDropdownAll {
+    return Intl.message(
+      'All',
+      name: 'txDateDropdownAll',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Today`
+  String get txDateDropdownToday {
+    return Intl.message(
+      'Today',
+      name: 'txDateDropdownToday',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Yesterday`
+  String get txDateDropdownYesterday {
+    return Intl.message(
+      'Yesterday',
+      name: 'txDateDropdownYesterday',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `1 week`
+  String get txDateDropdownOneWeek {
+    return Intl.message(
+      '1 week',
+      name: 'txDateDropdownOneWeek',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `1 month`
+  String get txDateDropdownOneMonth {
+    return Intl.message(
+      '1 month',
+      name: 'txDateDropdownOneMonth',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Clear`
+  String get txDateDropdownClear {
+    return Intl.message(
+      'Clear',
+      name: 'txDateDropdownClear',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cancel`
+  String get txDateDropdownCancel {
+    return Intl.message(
+      'Cancel',
+      name: 'txDateDropdownCancel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Save`
+  String get txDateDropdownSave {
+    return Intl.message(
+      'Save',
+      name: 'txDateDropdownSave',
       desc: '',
       args: [],
     );
