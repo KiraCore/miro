@@ -45,7 +45,7 @@ class _NavMenu extends State<NavMenu> {
     if (navItemModel.disabled || navItemModel.pageRouteInfo == null) {
       return;
     }
-    KiraRouter.of(context).navigate(navItemModel.pageRouteInfo!);
+    KiraRouter.of(context).replace(navItemModel.pageRouteInfo!);
     bool hasBackdrop = ResponsiveWidget.isSmallScreen(context) || ResponsiveWidget.isMediumScreen(context);
     if (hasBackdrop) {
       _closeBackdrop();

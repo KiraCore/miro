@@ -27,7 +27,6 @@ import 'package:miro/blocs/widgets/kira/kira_list/sort/sort_state.dart';
 import 'package:miro/config/app_config.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/shared/controllers/page_reload/page_reload_controller.dart';
-import 'package:miro/shared/controllers/reload_notifier/reload_notifier_model.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
 import 'package:miro/shared/models/network/status/network_offline_model.dart';
 import 'package:miro/shared/utils/list_utils.dart';
@@ -44,7 +43,6 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
   final FavouritesBloc<T>? favouritesBloc;
   final FiltersBloc<T>? filtersBloc;
   final SortBloc<T>? sortBloc;
-  final ReloadNotifierModel? reloadNotifierModel;
 
   late StreamSubscription<NetworkModuleState> _networkModuleStateSubscription;
   late StreamSubscription<AFavouritesState>? _favouritesStateSubscription;
@@ -71,7 +69,6 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
     this.favouritesBloc,
     this.filtersBloc,
     this.sortBloc,
-    this.reloadNotifierModel,
   }) : super(ListLoadingState()) {
     // Assign events to methods
     on<ListReloadEvent>(_mapListReloadEventToState);
@@ -79,8 +76,6 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
     on<ListOptionsChangedEvent>(_mapListOptionsChangedEventToState);
 
     // Init listeners
-    reloadNotifierModel?.addListener(_handleReloadNotifierUpdate);
-
     _favouritesStateSubscription = favouritesBloc?.stream.listen((_) => add(const ListUpdatedEvent(jumpToTop: true)));
     _filtersStateSubscription = filtersBloc?.stream.listen((_) => add(ListOptionsChangedEvent()));
     _networkModuleStateSubscription = networkModuleBloc.stream.listen(_reloadAfterNetworkModuleStateChanged);
@@ -92,7 +87,6 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
 
   @override
   Future<void> close() async {
-    reloadNotifierModel?.removeListener(_handleReloadNotifierUpdate);
     showLoadingOverlay.dispose();
 
     await _networkModuleStateSubscription.cancel();
@@ -150,9 +144,8 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
       await _downloadAllListData(emit);
     }
 
-    bool canReloadComplete = pageReloadController.canReloadComplete(localReloadId);
-    bool isBlocActive = !isClosed;
-    if (canReloadComplete && isBlocActive) {
+    bool reloadActiveBool = pageReloadController.canReloadComplete(localReloadId) && isClosed == false;
+    if (reloadActiveBool) {
       add(const ListNextPageEvent(afterReloadBool: true));
     }
   }
@@ -186,10 +179,6 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
   Future<void> _mapListOptionsChangedEventToState(ListOptionsChangedEvent listOptionsChangedEvent, Emitter<AListState> emit) async {
     await _downloadAllListData(emit);
     add(const ListUpdatedEvent(jumpToTop: true));
-  }
-
-  void _handleReloadNotifierUpdate() {
-    add(ListReloadEvent());
   }
 
   void _reloadAfterNetworkModuleStateChanged(NetworkModuleState networkModuleState) {

@@ -39,11 +39,11 @@ class AccountMenuList extends StatelessWidget {
     );
   }
 
-  void _onNavigateToMyAccountPressed(BuildContext context) {
+  Future<void> _onNavigateToMyAccountPressed(BuildContext context) async {
     if (onItemTap != null) {
       onItemTap!();
     }
-    KiraRouter.of(context).navigate(const MyAccountRoute());
+    await KiraRouter.of(context).replace(const MyAccountRoute());
   }
 
   void _pressSignOutButton(BuildContext context) {

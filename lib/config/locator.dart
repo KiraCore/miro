@@ -26,7 +26,6 @@ import 'package:miro/infra/services/api_kira/query_kira_tokens_rates_service.dar
 import 'package:miro/infra/services/api_kira/query_network_properties_service.dart';
 import 'package:miro/infra/services/api_kira/query_staking_pool_service.dart';
 import 'package:miro/infra/services/network_module_service.dart';
-import 'package:miro/shared/controllers/reload_notifier/reload_notifier_controller.dart';
 
 final GetIt globalLocator = GetIt.I;
 
@@ -73,6 +72,5 @@ void _initControllers() {
     ..registerLazySingleton<NavMenuCubit>(NavMenuCubit.new)
     ..registerLazySingleton<NetworkCustomSectionCubit>(NetworkCustomSectionCubit.new)
     ..registerLazySingleton<NetworkListCubit>(NetworkListCubit.new)
-    ..registerLazySingleton<NetworkModuleBloc>(NetworkModuleBloc.new)
-    ..registerLazySingleton<ReloadNotifierController>(ReloadNotifierController.new);
+    ..registerLazySingleton<NetworkModuleBloc>(NetworkModuleBloc.new);
 }

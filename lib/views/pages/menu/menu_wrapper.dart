@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:miro/config/app_icons.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
+import 'package:miro/shared/router/router.dart';
 import 'package:miro/shared/router/router.gr.dart';
 import 'package:miro/views/layout/nav_menu/model/nav_item_model.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
@@ -61,8 +62,9 @@ class MenuWrapper extends StatelessWidget {
       ],
       drawerScrimColor: DesignColors.greyTransparent,
       endDrawer: const DrawerWrapper(),
-      body: const AutoRouter(
-        key: GlobalObjectKey('pages_router'),
+      body: AutoRouter(
+        key: const GlobalObjectKey('menu_router'),
+        navigatorObservers: () => <NavigatorObserver>[AppRouter.menuNavigationObserver],
       ),
     );
   }

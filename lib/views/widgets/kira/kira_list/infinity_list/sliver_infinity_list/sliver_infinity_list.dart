@@ -11,7 +11,6 @@ import 'package:miro/blocs/widgets/kira/kira_list/filters/filters_bloc.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/infinity_list/infinity_list_bloc.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/sort/sort_bloc.dart';
 import 'package:miro/generated/l10n.dart';
-import 'package:miro/shared/controllers/reload_notifier/reload_notifier_model.dart';
 import 'package:miro/views/widgets/kira/kira_list/infinity_list/sliver_infinity_list/sliver_infinity_list_content.dart';
 import 'package:miro/views/widgets/kira/kira_list/list_error_widget.dart';
 import 'package:miro/views/widgets/kira/kira_list/list_loading_widget.dart';
@@ -28,7 +27,6 @@ class SliverInfinityList<T extends AListItem> extends StatefulWidget {
   final FavouritesBloc<T>? favouritesBloc;
   final FiltersBloc<T>? filtersBloc;
   final SortBloc<T>? sortBloc;
-  final ReloadNotifierModel? reloadNotifierModel;
 
   SliverInfinityList({
     required this.itemBuilder,
@@ -41,7 +39,6 @@ class SliverInfinityList<T extends AListItem> extends StatefulWidget {
     this.favouritesBloc,
     this.filtersBloc,
     this.sortBloc,
-    this.reloadNotifierModel,
     Key? key,
   })  : scrollController = scrollController ?? ScrollController(),
         super(key: key);

@@ -2,9 +2,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/events/list_reload_event.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/favourites/events/favourites_add_record_event.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/favourites/events/favourites_remove_record_event.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/favourites/favourites_bloc.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/infinity_list/infinity_list_bloc.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
 import 'package:miro/shared/router/kira_router.dart';
 import 'package:miro/shared/router/router.gr.dart';
@@ -81,13 +83,12 @@ class _BalanceListItemBuilder extends State<BalanceListItemBuilder> {
     }
   }
 
-  void _handleSendButtonPressed() {
-    KiraRouter.of(context).navigate(PagesWrapperRoute(
+  Future<void> _handleSendButtonPressed() async {
+    await KiraRouter.of(context).push<void>(TransactionsWrapperRoute(
       children: <PageRouteInfo>[
-        TransactionsWrapperRoute(children: <PageRouteInfo>[
-          TxSendTokensRoute(defaultBalanceModel: widget.balanceModel),
-        ])
+        TxSendTokensRoute(defaultBalanceModel: widget.balanceModel),
       ],
     ));
+    BlocProvider.of<InfinityListBloc<BalanceModel>>(context).add(ListReloadEvent());
   }
 }

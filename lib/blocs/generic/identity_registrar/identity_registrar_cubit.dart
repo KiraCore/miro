@@ -56,8 +56,8 @@ class IdentityRegistrarCubit extends Cubit<AIdentityRegistrarState> {
 
     try {
       IRModel irModel = await _identityRecordsService.getIdentityRecordsByAddress(walletAddress!);
-      bool canReloadComplete = pageReloadController.canReloadComplete(localReloadId);
-      if (canReloadComplete) {
+      bool reloadActiveBool = pageReloadController.canReloadComplete(localReloadId) && isClosed == false;
+      if (reloadActiveBool) {
         emit(IdentityRegistrarLoadedState(irModel: irModel));
       }
     } catch (e) {

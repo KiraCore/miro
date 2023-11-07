@@ -60,14 +60,15 @@ class DashboardCubit extends Cubit<ADashboardState> {
 
     try {
       DashboardModel dashboardModel = await dashboardService.getDashboardModel();
-      bool canReloadComplete = pageReloadController.canReloadComplete(localReloadId);
-      if (canReloadComplete) {
+      bool reloadActiveBool = pageReloadController.canReloadComplete(localReloadId) && isClosed == false;
+      if (reloadActiveBool) {
         emit(DashboardLoadedState(dashboardModel: dashboardModel));
       }
     } catch (e) {
       AppLogger().log(message: 'Cannot update dashboard');
-      bool canReloadComplete = pageReloadController.canReloadComplete(localReloadId);
-      if (canReloadComplete && changedNetwork) {
+      bool canReloadComplete = pageReloadController.canReloadComplete(localReloadId) && isClosed == false;
+      bool isBlocActive = isClosed == false;
+      if (canReloadComplete && changedNetwork && isBlocActive) {
         emit(DashboardErrorState());
       }
     }

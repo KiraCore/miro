@@ -71,6 +71,7 @@ class _SliverPaginatedList<T extends AListItem> extends State<SliverPaginatedLis
   void didUpdateWidget(covariant SliverPaginatedList<T> oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.singlePageSize != widget.singlePageSize) {
+      paginatedListBloc.close();
       paginatedListBloc = PaginatedListBloc<T>(
         listController: widget.listController,
         singlePageSize: widget.singlePageSize,

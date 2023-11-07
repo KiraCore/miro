@@ -4,7 +4,7 @@ import 'package:miro/blocs/layout/nav_menu/nav_menu_state.dart';
 class NavMenuCubit extends Cubit<NavMenuState> {
   NavMenuCubit() : super(const NavMenuState.empty());
 
-  void updatePath(String path) {
-    emit(NavMenuState(selectedPath: path));
+  void updateRouteName(String path) {
+    emit(NavMenuState(selectedRouteName: path));
   }
 }
