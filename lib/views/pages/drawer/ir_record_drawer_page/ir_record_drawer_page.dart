@@ -154,15 +154,13 @@ class _IRRecordDrawerPage extends State<IRRecordDrawerPage> {
   }
 
   Future<void> _pressEditButton() async {
-    await KiraRouter.of(context).push<void>(PagesWrapperRoute(
+    await KiraRouter.of(context).push<void>(TransactionsWrapperRoute(
       children: <PageRouteInfo>[
-        TransactionsWrapperRoute(children: <PageRouteInfo>[
-          IRTxRegisterRecordRoute(
-            irRecordModel: widget.irRecordModel,
-            irKeyEditableBool: false,
-            irValueMaxLength: widget.irRecordFieldConfigModel.valueMaxLength,
-          ),
-        ]),
+        IRTxRegisterRecordRoute(
+          irRecordModel: widget.irRecordModel,
+          irKeyEditableBool: false,
+          irValueMaxLength: widget.irRecordFieldConfigModel.valueMaxLength,
+        ),
       ],
     ));
     await widget.identityRegistrarCubit.refresh();
@@ -170,11 +168,9 @@ class _IRRecordDrawerPage extends State<IRRecordDrawerPage> {
   }
 
   Future<void> _pressRequestVerificationButton() async {
-    await KiraRouter.of(context).push<void>(PagesWrapperRoute(
+    await KiraRouter.of(context).push<void>(TransactionsWrapperRoute(
       children: <PageRouteInfo>[
-        TransactionsWrapperRoute(children: <PageRouteInfo>[
-          IRTxRequestVerificationRoute(irRecordModel: widget.irRecordModel),
-        ]),
+        IRTxRequestVerificationRoute(irRecordModel: widget.irRecordModel),
       ],
     ));
     await widget.identityRegistrarCubit.refresh();

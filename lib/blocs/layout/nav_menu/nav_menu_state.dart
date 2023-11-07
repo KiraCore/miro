@@ -2,18 +2,18 @@ import 'package:equatable/equatable.dart';
 import 'package:miro/views/layout/nav_menu/model/nav_item_model.dart';
 
 class NavMenuState extends Equatable {
-  final String? selectedPath;
+  final String? selectedRouteName;
 
   const NavMenuState({
-    required this.selectedPath,
+    required this.selectedRouteName,
   });
 
-  const NavMenuState.empty() : selectedPath = null;
+  const NavMenuState.empty() : selectedRouteName = null;
 
   bool pathEquals(NavItemModel navItemModel) {
-    return selectedPath == navItemModel.pageRouteInfo?.fragment;
+    return selectedRouteName == navItemModel.pageRouteInfo?.routeName;
   }
 
   @override
-  List<Object?> get props => <Object?>[selectedPath];
+  List<Object?> get props => <Object?>[selectedRouteName];
 }

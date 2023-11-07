@@ -3,11 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/favourites/favourites_bloc.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/filters/filters_bloc.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/sort/sort_bloc.dart';
-import 'package:miro/config/locator.dart';
 import 'package:miro/shared/controllers/menu/my_account_page/balances_page/balances_filter_options.dart';
 import 'package:miro/shared/controllers/menu/my_account_page/balances_page/balances_list_controller.dart';
 import 'package:miro/shared/controllers/menu/my_account_page/balances_page/balances_sort_options.dart';
-import 'package:miro/shared/controllers/reload_notifier/reload_notifier_controller.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
 import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_list_item/balance_list_item_builder.dart';
 import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_list_title/balance_list_title.dart';
@@ -69,7 +67,6 @@ class _BalancePage extends State<BalancePage> {
       sortBloc: sortBloc,
       filtersBloc: filtersBloc,
       favouritesBloc: favouritesBloc,
-      reloadNotifierModel: globalLocator<ReloadNotifierController>().myAccountBalanceListNotifier,
     );
   }
 }

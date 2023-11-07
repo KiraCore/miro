@@ -6,29 +6,13 @@ import 'package:miro/shared/utils/router_utils.dart';
 // To run tests use:
 // fvm flutter test "test/unit/shared/utils/router_utils_test.dart" --platform chrome --null-assertions
 void main() {
-  PageRouteInfo dashboardPageRouteInfo = const PagesWrapperRoute(
-    children: <PageRouteInfo>[
-      MenuWrapperRoute(children: <PageRouteInfo>[DashboardRoute()]),
-    ],
-  );
+  PageRouteInfo dashboardPageRouteInfo = const MenuWrapperRoute(children: <PageRouteInfo>[DashboardRoute()]);
 
-  PageRouteInfo accountsPageRouteInfo = const PagesWrapperRoute(
-    children: <PageRouteInfo>[
-      MenuWrapperRoute(children: <PageRouteInfo>[ValidatorsRoute()]),
-    ],
-  );
+  PageRouteInfo accountsPageRouteInfo = const MenuWrapperRoute(children: <PageRouteInfo>[ValidatorsRoute()]);
 
-  PageRouteInfo loadingPageRouteInfo = PagesWrapperRoute(
-    children: <PageRouteInfo>[
-      LoadingWrapperRoute(children: <PageRouteInfo>[LoadingRoute()]),
-    ],
-  );
+  PageRouteInfo loadingPageRouteInfo = LoadingWrapperRoute(children: <PageRouteInfo>[LoadingRoute()]);
 
-  PageRouteInfo networkListPageRouteInfo = PagesWrapperRoute(
-    children: <PageRouteInfo>[
-      LoadingWrapperRoute(children: <PageRouteInfo>[NetworkListRoute()]),
-    ],
-  );
+  PageRouteInfo networkListPageRouteInfo = LoadingWrapperRoute(children: <PageRouteInfo>[NetworkListRoute()]);
 
   group('Tests of RouterUtils.getNextRouteAfterLoading()', () {
     test('Should return [default route] if [initial path NOT exists]', () {

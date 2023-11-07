@@ -172,14 +172,12 @@ class _IRVerificationRequestDrawerPage extends State<IRVerificationRequestDrawer
   }
 
   Future<void> _openTransactionPage({required bool approvalStatusBool}) async {
-    await KiraRouter.of(context).push<void>(PagesWrapperRoute(
+    await KiraRouter.of(context).push<void>(TransactionsWrapperRoute(
       children: <PageRouteInfo>[
-        TransactionsWrapperRoute(children: <PageRouteInfo>[
-          IRTxHandleVerificationRequestRoute(
-            approvalStatusBool: approvalStatusBool,
-            irInboundVerificationRequestModel: widget.irInboundVerificationRequestModel,
-          ),
-        ]),
+        IRTxHandleVerificationRequestRoute(
+          approvalStatusBool: approvalStatusBool,
+          irInboundVerificationRequestModel: widget.irInboundVerificationRequestModel,
+        ),
       ],
     ));
   }

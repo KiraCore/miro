@@ -9,9 +9,9 @@ import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_page.dart';
 import 'package:miro/views/pages/menu/my_account_page/identity_registrar/identity_registrar_page.dart';
 import 'package:miro/views/pages/menu/my_account_page/my_account_page_header.dart';
-import 'package:miro/views/pages/menu/my_account_page/my_account_tab_mode.dart';
 import 'package:miro/views/pages/menu/my_account_page/transactions_page/transactions_page.dart';
 import 'package:miro/views/pages/menu/my_account_page/verification_requests/verification_requests_page.dart';
+import 'package:miro/views/widgets/generic/sliver_tab_bar_view.dart';
 import 'package:miro/views/widgets/kira/kira_list/components/last_block_time_widget.dart';
 import 'package:miro/views/widgets/kira/kira_tab_bar/kira_tab_bar.dart';
 import 'package:sliver_tools/sliver_tools.dart';
@@ -25,35 +25,20 @@ class MyAccountPage extends StatefulWidget {
 }
 
 class _MyAccountPage extends State<MyAccountPage> with SingleTickerProviderStateMixin {
-  late final TabController tabController = TabController(length: MyAccountTabMode.values.length, vsync: this);
+  late final TabController tabController = TabController(length: 4, vsync: this);
 
   final AuthCubit authCubit = globalLocator<AuthCubit>();
   final ScrollController scrollController = ScrollController();
-  final ValueNotifier<MyAccountTabMode> selectedPageNotifier = ValueNotifier<MyAccountTabMode>(MyAccountTabMode.values.first);
-
-  @override
-  void initState() {
-    super.initState();
-    tabController.addListener(_handleTabChange);
-  }
 
   @override
   void dispose() {
     tabController.dispose();
     scrollController.dispose();
-    selectedPageNotifier.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    Map<MyAccountTabMode, String> tabNames = <MyAccountTabMode, String>{
-      MyAccountTabMode.balances: S.of(context).balances,
-      MyAccountTabMode.transactions: S.of(context).tx,
-      MyAccountTabMode.identityRegistrar: S.of(context).ir,
-      MyAccountTabMode.verificationRequests: S.of(context).irVerificationRequests,
-    };
-
     return BlocBuilder<AuthCubit, Wallet?>(
       bloc: authCubit,
       builder: (BuildContext context, Wallet? wallet) {
@@ -74,20 +59,25 @@ class _MyAccountPage extends State<MyAccountPage> with SingleTickerProviderState
                       children: <Widget>[
                         MyAccountPageHeader(wallet: wallet!),
                         const SizedBox(height: 20),
-                        KiraTabBar(
-                          tabController: tabController,
-                          tabs: MyAccountTabMode.values.map((MyAccountTabMode myAccountTabMode) => Tab(text: tabNames[myAccountTabMode])).toList(),
-                        ),
+                        KiraTabBar(tabController: tabController, tabs: <Tab>[
+                          Tab(text: S.of(context).balances),
+                          Tab(text: S.of(context).tx),
+                          Tab(text: S.of(context).ir),
+                          Tab(text: S.of(context).irVerificationRequests),
+                        ]),
                         const SizedBox(height: 15),
                         const LastBlockTimeWidget(),
                       ],
                     ),
                   ),
-                  ValueListenableBuilder<MyAccountTabMode>(
-                    valueListenable: selectedPageNotifier,
-                    builder: (_, MyAccountTabMode myAccountTabMode, __) {
-                      return _selectCurrentPage(myAccountTabMode: myAccountTabMode, wallet: wallet);
-                    },
+                  SliverTabBarView(
+                    tabController: tabController,
+                    children: <Widget>[
+                      BalancePage(address: wallet.address.bech32Address, parentScrollController: scrollController),
+                      TransactionsPage(address: wallet.address.bech32Address, parentScrollController: scrollController),
+                      IdentityRegistrarPage(walletAddress: wallet.address),
+                      VerificationRequestsPage(walletAddress: wallet.address, parentScrollController: scrollController),
+                    ],
                   ),
                 ],
               ),
@@ -96,35 +86,5 @@ class _MyAccountPage extends State<MyAccountPage> with SingleTickerProviderState
         );
       },
     );
-  }
-
-  void _handleTabChange() {
-    int selectedIndex = tabController.index;
-    MyAccountTabMode myAccountTabMode = MyAccountTabMode.values[selectedIndex];
-    selectedPageNotifier.value = myAccountTabMode;
-  }
-
-  Widget _selectCurrentPage({required MyAccountTabMode myAccountTabMode, required Wallet wallet}) {
-    switch (myAccountTabMode) {
-      case MyAccountTabMode.balances:
-        return BalancePage(
-          address: wallet.address.bech32Address,
-          parentScrollController: scrollController,
-        );
-      case MyAccountTabMode.transactions:
-        return TransactionsPage(
-          address: wallet.address.bech32Address,
-          parentScrollController: scrollController,
-        );
-      case MyAccountTabMode.identityRegistrar:
-        return IdentityRegistrarPage(walletAddress: wallet.address);
-      case MyAccountTabMode.verificationRequests:
-        return VerificationRequestsPage(
-          walletAddress: wallet.address,
-          parentScrollController: scrollController,
-        );
-      default:
-        return const SizedBox();
-    }
   }
 }

@@ -83,15 +83,13 @@ class _IdentityRecordTile extends State<IRRecordTile> {
   }
 
   Future<void> _openRegisterRecordRoute() async {
-    await KiraRouter.of(context).push<void>(PagesWrapperRoute(
+    await KiraRouter.of(context).push<void>(TransactionsWrapperRoute(
       children: <PageRouteInfo>[
-        TransactionsWrapperRoute(children: <PageRouteInfo>[
-          IRTxRegisterRecordRoute(
-            irRecordModel: widget.irRecordModel,
-            irKeyEditableBool: widget.irRecordModel?.key.isNotEmpty == true,
-            irValueMaxLength: widget.irRecordFieldConfigModel.valueMaxLength,
-          ),
-        ]),
+        IRTxRegisterRecordRoute(
+          irRecordModel: widget.irRecordModel,
+          irKeyEditableBool: widget.irRecordModel?.key.isNotEmpty == true,
+          irValueMaxLength: widget.irRecordFieldConfigModel.valueMaxLength,
+        )
       ],
     ));
     await widget.identityRegistrarCubit.refresh();
@@ -101,22 +99,18 @@ class _IdentityRecordTile extends State<IRRecordTile> {
     if (widget.irRecordModel == null) {
       return;
     }
-    await KiraRouter.of(context).push<void>(PagesWrapperRoute(
+    await KiraRouter.of(context).push<void>(TransactionsWrapperRoute(
       children: <PageRouteInfo>[
-        TransactionsWrapperRoute(children: <PageRouteInfo>[
-          IRTxDeleteRecordRoute(irRecordModel: widget.irRecordModel!),
-        ]),
+        IRTxDeleteRecordRoute(irRecordModel: widget.irRecordModel!),
       ],
     ));
     await widget.identityRegistrarCubit.refresh();
   }
 
   Future<void> _pressVerifyButton() async {
-    await KiraRouter.of(context).push<void>(PagesWrapperRoute(
+    await KiraRouter.of(context).push<void>(TransactionsWrapperRoute(
       children: <PageRouteInfo>[
-        TransactionsWrapperRoute(children: <PageRouteInfo>[
-          IRTxRequestVerificationRoute(irRecordModel: widget.irRecordModel!),
-        ]),
+        IRTxRequestVerificationRoute(irRecordModel: widget.irRecordModel!),
       ],
     ));
     await widget.identityRegistrarCubit.refresh();

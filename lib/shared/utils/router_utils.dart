@@ -2,11 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:miro/shared/router/router.gr.dart';
 
 class RouterUtils {
-  static PageRouteInfo<dynamic> defaultRoute = const PagesWrapperRoute(children: <PageRouteInfo>[
-    MenuWrapperRoute(children: <PageRouteInfo>[
-      DashboardRoute(),
-    ])
-  ]);
+  static PageRouteInfo<dynamic> defaultRoute = const MenuWrapperRoute(children: <PageRouteInfo>[DashboardRoute()]);
 
   static PageRouteInfo<dynamic> getNextRouteAfterLoading(PageRouteInfo? initialPageRouteInfo) {
     if (initialPageRouteInfo == null) {

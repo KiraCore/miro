@@ -9,13 +9,11 @@ import 'package:miro/infra/exceptions/dio_connect_exception.dart';
 import 'package:miro/infra/exceptions/dio_parse_exception.dart';
 import 'package:miro/infra/exceptions/tx_broadcast_exception.dart';
 import 'package:miro/infra/services/api_kira/broadcast_service.dart';
-import 'package:miro/shared/controllers/reload_notifier/reload_notifier_controller.dart';
 import 'package:miro/shared/models/network/error_explorer_model.dart';
 import 'package:miro/shared/models/transactions/broadcast_resp_model.dart';
 import 'package:miro/shared/models/transactions/signed_transaction_model.dart';
 
 class TxBroadcastCubit extends Cubit<ATxBroadcastState> {
-  final ReloadNotifierController reloadNotifierController = globalLocator<ReloadNotifierController>();
   final BroadcastService broadcastService = globalLocator<BroadcastService>();
 
   TxBroadcastCubit() : super(TxBroadcastLoadingState());
@@ -24,7 +22,6 @@ class TxBroadcastCubit extends Cubit<ATxBroadcastState> {
     emit(TxBroadcastLoadingState());
     try {
       BroadcastRespModel broadcastRespModel = await broadcastService.broadcastTx(signedTxModel);
-      reloadNotifierController.myAccountBalanceListNotifier.reload();
       emit(TxBroadcastCompletedState(broadcastRespModel: broadcastRespModel));
     } on DioConnectException catch (dioConnectException) {
       ErrorExplorerModel errorExplorerModel = ErrorExplorerModel.fromDioConnectException(dioConnectException);
