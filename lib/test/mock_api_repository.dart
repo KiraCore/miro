@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:miro/infra/dto/api/query_transactions/request/query_transactions_req.dart';
 import 'package:miro/infra/dto/api/query_validators/request/query_validators_req.dart';
 import 'package:miro/infra/exceptions/dio_connect_exception.dart';
+import 'package:miro/infra/models/api_request_model.dart';
 import 'package:miro/infra/repositories/api/api_repository.dart';
 import 'package:miro/test/mocks/api/mock_api_dashboard.dart';
 import 'package:miro/test/mocks/api/mock_api_status.dart';
@@ -26,7 +27,8 @@ class MockApiRepository implements IApiRepository {
   DynamicNetworkStatus dynamicNetworkStatus = DynamicNetworkStatus.healthy;
 
   @override
-  Future<Response<T>> fetchDashboard<T>(Uri networkUri) async {
+  Future<Response<T>> fetchDashboard<T>(ApiRequestModel<void> apiRequestModel) async {
+    Uri networkUri = apiRequestModel.networkUri;
     bool responseExistsBool = workingEndpoints.contains(networkUri.host);
     if (responseExistsBool) {
       late T response;
@@ -49,7 +51,8 @@ class MockApiRepository implements IApiRepository {
   }
 
   @override
-  Future<Response<T>> fetchQueryInterxStatus<T>(Uri networkUri) async {
+  Future<Response<T>> fetchQueryInterxStatus<T>(ApiRequestModel<void> apiRequestModel) async {
+    Uri networkUri = apiRequestModel.networkUri;
     int statusCode = 404;
     Map<String, dynamic>? mockedResponse;
     await Future<void>.delayed(const Duration(milliseconds: 50));
@@ -98,7 +101,8 @@ class MockApiRepository implements IApiRepository {
   }
 
   @override
-  Future<Response<T>> fetchQueryTransactions<T>(Uri networkUri, QueryTransactionsReq queryTransactionsReq) async {
+  Future<Response<T>> fetchQueryTransactions<T>(ApiRequestModel<QueryTransactionsReq> apiRequestModel) async {
+    Uri networkUri = apiRequestModel.networkUri;
     bool responseExistsBool = workingEndpoints.contains(networkUri.host);
     if (responseExistsBool) {
       late T response;
@@ -121,7 +125,9 @@ class MockApiRepository implements IApiRepository {
   }
 
   @override
-  Future<Response<T>> fetchQueryValidators<T>(Uri networkUri, QueryValidatorsReq queryValidatorsReq) async {
+  Future<Response<T>> fetchQueryValidators<T>(ApiRequestModel<QueryValidatorsReq> apiRequestModel) async {
+    Uri networkUri = apiRequestModel.networkUri;
+    QueryValidatorsReq queryValidatorsReq = apiRequestModel.requestData;
     bool responseExistsBool = workingEndpoints.contains(networkUri.host);
     if (networkUri.host == 'invalid.kira.network') {
       return Response<T>(
@@ -155,11 +161,11 @@ class MockApiRepository implements IApiRepository {
     late Map<String, dynamic> mockedResponse;
 
     List<dynamic> mockedResponseList = MockApiValopers.all['validators'] as List<dynamic>;
-    if (queryValidatorsReq.offset == '0' && queryValidatorsReq.limit == '2') {
+    if (queryValidatorsReq.offset == 0 && queryValidatorsReq.limit == 2) {
       mockedResponse = <String, dynamic>{
         'validators': mockedResponseList.sublist(0, 2),
       };
-    } else if (queryValidatorsReq.offset == '0' && queryValidatorsReq.limit == '500') {
+    } else if (queryValidatorsReq.offset == 0 && queryValidatorsReq.limit == 500) {
       mockedResponse = <String, dynamic>{
         'validators': mockedResponseList.sublist(0, 3),
       };

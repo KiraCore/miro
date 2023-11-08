@@ -15,8 +15,6 @@ import 'package:miro/blocs/widgets/kira/kira_list/sort/sort_bloc.dart';
 import 'package:miro/shared/utils/list_utils.dart';
 
 class PaginatedListBloc<T extends AListItem> extends AListBloc<T> {
-  int lastPageIndex = 0;
-
   PaginatedListBloc({
     required int singlePageSize,
     required IListController<T> listController,
@@ -66,7 +64,7 @@ class PaginatedListBloc<T extends AListItem> extends AListBloc<T> {
     emit(PaginatedListLoadedState<T>(
       pageIndex: lastPageIndex,
       listItems: currentPageData.listItems,
-      lastPageBool: currentPageData.isLastPage,
+      lastPageBool: currentPageData.lastPageBool,
     ));
 
     showLoadingOverlay.value = false;
@@ -88,9 +86,8 @@ class PaginatedListBloc<T extends AListItem> extends AListBloc<T> {
     );
 
     currentPageData = PageData<T>(
-      index: lastPageIndex,
       listItems: currentPageItems,
-      isLastPage: currentPageItems.length < singlePageSize,
+      lastPageBool: currentPageItems.length < singlePageSize,
     );
   }
 }

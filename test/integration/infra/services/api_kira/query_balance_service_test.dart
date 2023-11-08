@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/models/page_data.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api_kira/query_balance/request/query_balance_req.dart';
 import 'package:miro/infra/exceptions/dio_connect_exception.dart';
@@ -20,21 +21,21 @@ Future<void> main() async {
   final QueryBalanceService actualQueryBalanceService = globalLocator<QueryBalanceService>();
 
   group('Tests of QueryBalanceService.getBalanceModelList() method', () {
-    test('Should return [List of BalanceModel] for specific account', () async {
+    test('Should return [PageData<BalanceModel>] for specific account', () async {
       String actualAccountAddress = 'kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx';
-      QueryBalanceReq actualQueryBalanceReq = QueryBalanceReq(address: actualAccountAddress);
+      QueryBalanceReq actualQueryBalanceReq = QueryBalanceReq(address: actualAccountAddress, limit: 10, offset: 0);
 
       TestUtils.printInfo('Data request');
       try {
-        List<BalanceModel> actualBalanceModelList = await actualQueryBalanceService.getBalanceModelList(actualQueryBalanceReq);
+        PageData<BalanceModel> actualBalancesPageData = await actualQueryBalanceService.getBalanceModelList(actualQueryBalanceReq);
 
         TestUtils.printInfo('Data return');
-        print(actualBalanceModelList);
+        print(actualBalancesPageData);
         print('');
       } on DioConnectException catch (e) {
-        TestUtils.printError('query_balance_service_test.dart: Cannot fetch [List<BalanceModel>] for URI $networkUri: ${e.dioException.message}');
+        TestUtils.printError('query_balance_service_test.dart: Cannot fetch [PageData<BalanceModel>] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
-        TestUtils.printError('query_balance_service_test.dart: Cannot parse [List<BalanceModel>] for URI $networkUri: ${e}');
+        TestUtils.printError('query_balance_service_test.dart: Cannot parse [PageData<BalanceModel>] for URI $networkUri: ${e}');
       } catch (e) {
         TestUtils.printError('query_balance_service_test.dart: Unknown error for URI $networkUri: ${e}');
       }

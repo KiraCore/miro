@@ -5,6 +5,7 @@ import 'package:miro/config/app_config.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api_kira/query_execution_fee/request/query_execution_fee_request.dart';
 import 'package:miro/infra/dto/api_kira/query_execution_fee/response/query_execution_fee_response.dart';
+import 'package:miro/infra/models/api_request_model.dart';
 import 'package:miro/infra/repositories/api/api_kira_repository.dart';
 import 'package:miro/infra/services/api_kira/query_network_properties_service.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
@@ -24,7 +25,10 @@ class QueryExecutionFeeService implements _IQueryExecutionFeeService {
     Uri networkUri = globalLocator<NetworkModuleBloc>().state.networkUri;
 
     try {
-      Response<dynamic> response = await _apiKiraRepository.fetchQueryExecutionFee<dynamic>(networkUri, QueryExecutionFeeRequest(message: messageName));
+      Response<dynamic> response = await _apiKiraRepository.fetchQueryExecutionFee<dynamic>(ApiRequestModel<QueryExecutionFeeRequest>(
+        networkUri: networkUri,
+        requestData: QueryExecutionFeeRequest(message: messageName),
+      ));
 
       QueryExecutionFeeResponse queryExecutionFeeResponse = QueryExecutionFeeResponse.fromJson(response.data as Map<String, dynamic>);
       TokenAmountModel feeTokenAmountModel = TokenAmountModel(

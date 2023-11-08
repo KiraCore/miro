@@ -1,5 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/models/page_data.dart';
 import 'package:miro/config/locator.dart';
+import 'package:miro/infra/dto/api_kira/query_identity_record_verify_requests/request/query_identity_record_verify_requests_by_approver_req.dart';
 import 'package:miro/infra/exceptions/dio_connect_exception.dart';
 import 'package:miro/infra/exceptions/dio_parse_exception.dart';
 import 'package:miro/infra/services/api_kira/identity_records_service.dart';
@@ -115,48 +117,57 @@ Future<void> main() async {
 
   group('Tests of IdentityRecordsService.getInboundVerificationRequests() method [GET in HTTP]', () {
     test(
-        'Should return [List of IRInboundVerificationRequestModel] if [server HEALTHY] and response [CAN be parsed to QueryIdentityRecordVerifyRequestsByRequesterResp]',
+        'Should return [PageData<IRInboundVerificationRequestModel>] if [server HEALTHY] and response [CAN be parsed to QueryIdentityRecordVerifyRequestsByRequesterResp]',
         () async {
       // Arrange
       Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://healthy.kira.network/');
       await TestUtils.setupNetworkModel(networkUri: networkUri);
 
       // Act
-      List<IRInboundVerificationRequestModel> actualIrInboundVerificationRequestModel =
-          await actualIdentityRecordsService.getInboundVerificationRequests(actualWalletAddress, 0, 10);
+      PageData<IRInboundVerificationRequestModel> actualVerificationRequestsPageData = await actualIdentityRecordsService.getInboundVerificationRequests(
+        QueryIdentityRecordVerifyRequestsByApproverReq(address: actualWalletAddress.bech32Address, offset: 0, limit: 10),
+      );
 
       // Assert
-      List<IRInboundVerificationRequestModel> expectedIrInboundVerificationRequestModel = <IRInboundVerificationRequestModel>[
-        IRInboundVerificationRequestModel(
-          id: '1',
-          requesterIrUserProfileModel: expectedIrUserProfileModel,
-          tipTokenAmountModel: TokenAmountModel.fromString('200ukex'),
-          dateTime: DateTime.parse('2021-09-30T12:00:00.000Z'),
-          records: <String, String>{
-            '3': 'somnitear',
-          },
-        ),
-      ];
+      PageData<IRInboundVerificationRequestModel> expectedVerificationRequestsPageData = PageData<IRInboundVerificationRequestModel>(
+        lastPageBool: true,
+        listItems: <IRInboundVerificationRequestModel>[
+          IRInboundVerificationRequestModel(
+            id: '1',
+            requesterIrUserProfileModel: expectedIrUserProfileModel,
+            tipTokenAmountModel: TokenAmountModel.fromString('200ukex'),
+            dateTime: DateTime.parse('2021-09-30T12:00:00.000Z'),
+            records: <String, String>{
+              '3': 'somnitear',
+            },
+          ),
+        ],
+      );
 
-      expect(actualIrInboundVerificationRequestModel, expectedIrInboundVerificationRequestModel);
+      expect(actualVerificationRequestsPageData, expectedVerificationRequestsPageData);
     });
 
     test(
-      'Should return [EMPTY List of IRInboundVerificationRequestModel] if [server HEALTHY] and response [CANNOT be parsed to QueryIdentityRecordVerifyRequestsByRequesterResp] (e.g. response structure changed)',
+      'Should return [EMPTY PageData<IRInboundVerificationRequestModel>] if [server HEALTHY] and response [CANNOT be parsed to QueryIdentityRecordVerifyRequestsByRequesterResp] (e.g. response structure changed)',
       () async {
         // Arrange
         Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://invalid.kira.network/');
         await TestUtils.setupNetworkModel(networkUri: networkUri);
 
         // Act
-        List<IRInboundVerificationRequestModel> actualIrInboundVerificationRequestModel =
-            await actualIdentityRecordsService.getInboundVerificationRequests(actualWalletAddress, 0, 10);
+        PageData<IRInboundVerificationRequestModel> actualVerificationRequestsPageData = await actualIdentityRecordsService.getInboundVerificationRequests(
+          QueryIdentityRecordVerifyRequestsByApproverReq(address: actualWalletAddress.bech32Address, offset: 0, limit: 10),
+        );
 
         // Assert
-        List<IRInboundVerificationRequestModel> expectedIrInboundVerificationRequestModel = <IRInboundVerificationRequestModel>[];
+        PageData<IRInboundVerificationRequestModel> expectedVerificationRequestsPageData = const PageData<IRInboundVerificationRequestModel>(
+          lastPageBool: true,
+          listItems: <IRInboundVerificationRequestModel>[],
+        );
+
         expect(
-          actualIrInboundVerificationRequestModel,
-          expectedIrInboundVerificationRequestModel,
+          actualVerificationRequestsPageData,
+          expectedVerificationRequestsPageData,
         );
       },
     );
@@ -168,7 +179,9 @@ Future<void> main() async {
 
       // Assert
       expect(
-        () => actualIdentityRecordsService.getInboundVerificationRequests(actualWalletAddress, 0, 10),
+        () => actualIdentityRecordsService.getInboundVerificationRequests(
+          QueryIdentityRecordVerifyRequestsByApproverReq(address: actualWalletAddress.bech32Address, offset: 0, limit: 10),
+        ),
         throwsA(isA<DioConnectException>()),
       );
     });

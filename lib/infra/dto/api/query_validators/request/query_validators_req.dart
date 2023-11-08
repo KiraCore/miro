@@ -22,7 +22,7 @@ class QueryValidatorsReq extends Equatable {
   /// This is an option to validators pagination. limit is the total number
   /// of results to be returned in the result page.
   /// If left empty it will default to a value to be set by each app.
-  final String? limit;
+  final int? limit;
 
   /// This is an option to query validator by a given moniker
   final String? moniker;
@@ -30,7 +30,7 @@ class QueryValidatorsReq extends Equatable {
   /// This is an option to validators pagination. offset is a numeric
   /// offset that can be used when key is unavailable.
   /// It is less efficient than using key. Only one of offset or key should be set
-  final String? offset;
+  final int? offset;
 
   /// This is an option to query validators by a given proposer address
   final String? proposer;

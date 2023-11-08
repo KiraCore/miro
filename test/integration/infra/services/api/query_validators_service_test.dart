@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/models/page_data.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api/query_validators/request/query_validators_req.dart';
 import 'package:miro/infra/dto/api/query_validators/response/query_validators_resp.dart';
@@ -22,23 +23,20 @@ Future<void> main() async {
   final QueryValidatorsService actualQueryValidatorsService = globalLocator<QueryValidatorsService>();
 
   group('Tests of QueryValidatorsService.getValidatorsList() method', () {
-    test('Should return [List of ValidatorModel]', () async {
-      QueryValidatorsReq actualQueryValidatorsReq = const QueryValidatorsReq();
+    test('Should return [PageData<ValidatorModel>]', () async {
+      QueryValidatorsReq actualQueryValidatorsReq = const QueryValidatorsReq(limit: 10, offset: 0);
 
       TestUtils.printInfo('Data request');
       try {
-        List<ValidatorModel> actualValidatorModels = await actualQueryValidatorsService.getValidatorsList(actualQueryValidatorsReq);
+        PageData<ValidatorModel> actualValidatorsPageData = await actualQueryValidatorsService.getValidatorsList(actualQueryValidatorsReq);
 
         TestUtils.printInfo('Data return');
-        String actualResponseString = actualValidatorModels.toString();
-        int actualResponseLength = actualResponseString.length;
-
-        print('${actualResponseString.substring(0, 1000 < actualResponseLength ? 1000 : actualResponseLength)} ....');
+        print(actualValidatorsPageData);
         print('');
       } on DioConnectException catch (e) {
-        TestUtils.printError('query_validators_service_test.dart: Cannot fetch [List<ValidatorModel>] for URI $networkUri: ${e.dioException.message}');
+        TestUtils.printError('query_validators_service_test.dart: Cannot fetch [PageData<ValidatorModel>] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
-        TestUtils.printError('query_validators_service_test.dart: Cannot parse [List<ValidatorModel>] for URI $networkUri: ${e}');
+        TestUtils.printError('query_validators_service_test.dart: Cannot parse [PageData<ValidatorModel>] for URI $networkUri: ${e}');
       } catch (e) {
         TestUtils.printError('query_validators_service_test.dart: Unknown error for URI $networkUri: ${e}');
       }

@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:miro/blocs/generic/network_module/network_module_bloc.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/models/page_data.dart';
 import 'package:miro/config/app_config.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api_kira/query_identity_record_verify_requests/request/query_identity_record_verify_requests_by_approver_req.dart';
@@ -11,6 +12,7 @@ import 'package:miro/infra/dto/api_kira/query_identity_record_verify_requests/re
 import 'package:miro/infra/dto/api_kira/query_identity_records/response/query_identity_record_by_id_resp.dart';
 import 'package:miro/infra/dto/api_kira/query_identity_records/response/query_identity_records_by_address_resp.dart';
 import 'package:miro/infra/exceptions/dio_parse_exception.dart';
+import 'package:miro/infra/models/api_request_model.dart';
 import 'package:miro/infra/repositories/api/api_kira_repository.dart';
 import 'package:miro/shared/models/identity_registrar/ir_inbound_verification_request_model.dart';
 import 'package:miro/shared/models/identity_registrar/ir_model.dart';
@@ -26,7 +28,8 @@ import 'package:miro/shared/utils/logger/log_level.dart';
 abstract class _IIdentityRecordsService {
   Future<IRModel> getIdentityRecordsByAddress(WalletAddress walletAddress);
 
-  Future<List<IRInboundVerificationRequestModel>> getInboundVerificationRequests(WalletAddress approverWalletAddress, int offset, int limit);
+  Future<PageData<IRInboundVerificationRequestModel>> getInboundVerificationRequests(
+      QueryIdentityRecordVerifyRequestsByApproverReq queryIdentityRecordVerifyRequestsByApproverReq);
 
   Future<List<IRRecordVerificationRequestModel>> getOutboundRecordVerificationRequests(IRRecordModel irRecordModel);
 }
@@ -39,7 +42,10 @@ class IdentityRecordsService implements _IIdentityRecordsService {
   Future<IRModel> getIdentityRecordsByAddress(WalletAddress walletAddress) async {
     Uri networkUri = globalLocator<NetworkModuleBloc>().state.networkUri;
 
-    Response<dynamic> response = await _apiKiraRepository.fetchQueryIdentityRecordsByAddress<dynamic>(networkUri, walletAddress.bech32Address);
+    Response<dynamic> response = await _apiKiraRepository.fetchQueryIdentityRecordsByAddress<dynamic>(ApiRequestModel<String>(
+      networkUri: networkUri,
+      requestData: walletAddress.bech32Address,
+    ));
     List<PendingVerification> pendingVerifications = await _getAllPendingVerificationsByRequester(walletAddress);
 
     try {
@@ -57,11 +63,15 @@ class IdentityRecordsService implements _IIdentityRecordsService {
   }
 
   @override
-  Future<List<IRInboundVerificationRequestModel>> getInboundVerificationRequests(WalletAddress approverWalletAddress, int offset, int limit) async {
+  Future<PageData<IRInboundVerificationRequestModel>> getInboundVerificationRequests(
+      QueryIdentityRecordVerifyRequestsByApproverReq queryIdentityRecordVerifyRequestsByApproverReq) async {
     Uri networkUri = globalLocator<NetworkModuleBloc>().state.networkUri;
+
     Response<dynamic> response = await _apiKiraRepository.fetchQueryIdentityRecordVerifyRequestsByApprover<dynamic>(
-      networkUri,
-      QueryIdentityRecordVerifyRequestsByApproverReq(address: approverWalletAddress.bech32Address, offset: offset, limit: limit),
+      ApiRequestModel<QueryIdentityRecordVerifyRequestsByApproverReq>(
+        networkUri: networkUri,
+        requestData: queryIdentityRecordVerifyRequestsByApproverReq,
+      ),
     );
 
     late QueryIdentityRecordVerifyRequestsByApproverResp queryIdentityRecordVerifyRequestsByApproverResp;
@@ -99,15 +109,18 @@ class IdentityRecordsService implements _IIdentityRecordsService {
       irInboundVerificationRequestModels.add(irInboundVerificationRequestModel);
     }
 
-    return irInboundVerificationRequestModels;
+    return PageData<IRInboundVerificationRequestModel>(
+      listItems: irInboundVerificationRequestModels,
+      lastPageBool: irInboundVerificationRequestModels.length < queryIdentityRecordVerifyRequestsByApproverReq.limit!,
+    );
   }
 
   @override
   Future<List<IRRecordVerificationRequestModel>> getOutboundRecordVerificationRequests(IRRecordModel irRecordModel) async {
-    List<WalletAddress> allWalletAddresses = <WalletAddress>[
+    List<WalletAddress> allWalletAddresses = <WalletAddress>{
       ...irRecordModel.verifiersAddresses,
       ...irRecordModel.pendingVerifiersAddresses,
-    ];
+    }.toList();
     Map<WalletAddress, IRUserProfileModel> irUserProfileModelsMap = await _getUserProfilesByAddresses(allWalletAddresses);
 
     List<IRRecordVerificationRequestModel> irRecordVerificationRequestModels = <IRRecordVerificationRequestModel>[
@@ -133,11 +146,13 @@ class IdentityRecordsService implements _IIdentityRecordsService {
     int pageSize = _appConfig.bulkSinglePageSize;
     while (downloadInProgressBool) {
       Response<dynamic> response = await _apiKiraRepository.fetchQueryIdentityRecordVerifyRequestsByRequester<dynamic>(
-        networkUri,
-        QueryIdentityRecordVerifyRequestsByRequesterReq(
-          address: requesterWalletAddress.bech32Address,
-          offset: index * pageSize,
-          limit: pageSize,
+        ApiRequestModel<QueryIdentityRecordVerifyRequestsByRequesterReq>(
+          networkUri: networkUri,
+          requestData: QueryIdentityRecordVerifyRequestsByRequesterReq(
+            address: requesterWalletAddress.bech32Address,
+            offset: index * pageSize,
+            limit: pageSize,
+          ),
         ),
       );
 
@@ -182,7 +197,9 @@ class IdentityRecordsService implements _IIdentityRecordsService {
       Uri networkUri = globalLocator<NetworkModuleBloc>().state.networkUri;
 
       try {
-        Response<dynamic> response = await _apiKiraRepository.fetchQueryIdentityRecordById<dynamic>(networkUri, id);
+        Response<dynamic> response = await _apiKiraRepository.fetchQueryIdentityRecordById<dynamic>(
+          ApiRequestModel<String>(networkUri: networkUri, requestData: id),
+        );
         Map<String, dynamic> jsonData = response.data as Map<String, dynamic>;
         QueryIdentityRecordByIdResp queryIdentityRecordByIdResp = QueryIdentityRecordByIdResp.fromJson(jsonData);
         records[queryIdentityRecordByIdResp.record.key] = queryIdentityRecordByIdResp.record.value;

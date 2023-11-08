@@ -3,6 +3,7 @@ import 'package:miro/blocs/generic/network_module/network_module_bloc.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api_kira/query_kira_tokens_rates/response/query_kira_tokens_rates_resp.dart';
 import 'package:miro/infra/exceptions/dio_parse_exception.dart';
+import 'package:miro/infra/models/api_request_model.dart';
 import 'package:miro/infra/repositories/api/api_kira_repository.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';
 import 'package:miro/shared/utils/logger/log_level.dart';
@@ -17,7 +18,10 @@ class QueryKiraTokensRatesService implements _IQueryKiraTokensRatesService {
   @override
   Future<QueryKiraTokensRatesResp> getTokenRates() async {
     Uri networkUri = globalLocator<NetworkModuleBloc>().state.networkUri;
-    Response<dynamic> response = await _apiKiraRepository.fetchQueryKiraTokensRates<dynamic>(networkUri);
+    Response<dynamic> response = await _apiKiraRepository.fetchQueryKiraTokensRates<dynamic>(ApiRequestModel<void>(
+      networkUri: networkUri,
+      requestData: null,
+    ));
 
     try {
       return QueryKiraTokensRatesResp.fromJson(response.data as Map<String, dynamic>);
