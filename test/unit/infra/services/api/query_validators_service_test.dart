@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/models/page_data.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api/query_validators/request/query_validators_req.dart';
 import 'package:miro/infra/dto/api/query_validators/response/query_validators_resp.dart';
@@ -24,34 +25,72 @@ Future<void> main() async {
   final QueryValidatorsService queryValidatorsService = globalLocator<QueryValidatorsService>();
 
   group('Tests of QueryValidatorsService.getValidatorsList() method', () {
-    test('Should return [List of ValidatorModel] if [server HEALTHY] and [response data VALID]', () async {
+    test('Should return [PageData<ValidatorModel>] if [server HEALTHY] and [response data VALID]', () async {
       // Arrange
       Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://healthy.kira.network/');
       await TestUtils.setupNetworkModel(networkUri: networkUri);
 
-      QueryValidatorsReq actualQueryValidatorsReq = const QueryValidatorsReq();
+      QueryValidatorsReq actualQueryValidatorsReq = const QueryValidatorsReq(limit: 10, offset: 0);
 
       // Act
-      List<ValidatorModel> actualValidatorModels = await queryValidatorsService.getValidatorsList(actualQueryValidatorsReq);
+      PageData<ValidatorModel> actualValidatorsPageData = await queryValidatorsService.getValidatorsList(actualQueryValidatorsReq);
 
       // Assert
-      // Because we have a lot of validators, defining all objects will be inefficient.
-      // Therefore, we check whether all objects were successfully parsed
-      expect(actualValidatorModels.length, 475);
+      PageData<ValidatorModel> expectedValidatorsPageData = PageData<ValidatorModel>(
+        lastPageBool: true,
+        listItems: <ValidatorModel>[
+          ValidatorModel(
+            top: 1,
+            uptime: 100,
+            moniker: 'OneStar',
+            streak: '1303599',
+            stakingPoolStatus: StakingPoolStatus.enabled,
+            validatorStatus: ValidatorStatus.active,
+            walletAddress: WalletAddress.fromBech32('kira1fffuhtsuc6qskp4tsy5ptjssshynacj462ptdy'),
+            valoperWalletAddress: WalletAddress.fromBech32('kiravaloper1fffuhtsuc6qskp4tsy5ptjssshynacj4fvag4g'),
+          ),
+          ValidatorModel(
+            top: 2,
+            uptime: 100,
+            moniker: 'necrus',
+            streak: '1303553',
+            stakingPoolStatus: StakingPoolStatus.withdraw,
+            validatorStatus: ValidatorStatus.active,
+            walletAddress: WalletAddress.fromBech32('kira1gfqq3kqn7tuhnpph4487d57c00dkptt3hefgkk'),
+            valoperWalletAddress: WalletAddress.fromBech32('kiravaloper1gfqq3kqn7tuhnpph4487d57c00dkptt3yl4tw6'),
+          ),
+          ValidatorModel(
+            top: 3,
+            uptime: 100,
+            moniker: 'apexnode',
+            streak: '1303545',
+            stakingPoolStatus: StakingPoolStatus.disabled,
+            validatorStatus: ValidatorStatus.active,
+            walletAddress: WalletAddress.fromBech32('kira13hrpqkv53t82n2e72kfr3kuvvvr3565p234g3g'),
+            valoperWalletAddress: WalletAddress.fromBech32('kiravaloper13hrpqkv53t82n2e72kfr3kuvvvr3565pehftfy'),
+          ),
+        ],
+      );
+
+      expect(actualValidatorsPageData, expectedValidatorsPageData);
     });
 
-    test('Should return [Empty list] if [server HEALTHY] and [response data INVALID]', () async {
+    test('Should return [EMPTY PageData<IRInboundVerificationRequestModel>] if [server HEALTHY] and [response data INVALID]', () async {
       // Arrange
       Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://invalid.kira.network/');
       await TestUtils.setupNetworkModel(networkUri: networkUri);
 
-      QueryValidatorsReq actualQueryValidatorsReq = const QueryValidatorsReq();
+      QueryValidatorsReq actualQueryValidatorsReq = const QueryValidatorsReq(limit: 10, offset: 0);
 
-      List<ValidatorModel> actualValidatorList = await queryValidatorsService.getValidatorsList(actualQueryValidatorsReq);
+      PageData<ValidatorModel> actualValidatorsPageData = await queryValidatorsService.getValidatorsList(actualQueryValidatorsReq);
 
       // Assert
-      List<ValidatorModel> expectedValidatorList = const <ValidatorModel>[];
-      expect(actualValidatorList, expectedValidatorList);
+      PageData<ValidatorModel> expectedValidatorsPageData = const PageData<ValidatorModel>(
+        lastPageBool: true,
+        listItems: <ValidatorModel>[],
+      );
+
+      expect(actualValidatorsPageData, expectedValidatorsPageData);
     });
 
     test('Should throw [DioConnectException] if [server OFFLINE]', () async {
@@ -59,7 +98,7 @@ Future<void> main() async {
       Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://offline.kira.network/');
       await TestUtils.setupNetworkModel(networkUri: networkUri);
 
-      QueryValidatorsReq actualQueryValidatorsReq = const QueryValidatorsReq();
+      QueryValidatorsReq actualQueryValidatorsReq = const QueryValidatorsReq(limit: 10, offset: 0);
 
       // Assert
       expect(
@@ -127,7 +166,7 @@ Future<void> main() async {
       Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://healthy.kira.network/');
       await TestUtils.setupNetworkModel(networkUri: networkUri);
 
-      QueryValidatorsReq actualQueryValidatorsReq = const QueryValidatorsReq(limit: '2', offset: '0');
+      QueryValidatorsReq actualQueryValidatorsReq = const QueryValidatorsReq(limit: 2, offset: 0);
 
       // Act
       QueryValidatorsResp? actualQueryValidatorsResp = await queryValidatorsService.getQueryValidatorsResp(actualQueryValidatorsReq);

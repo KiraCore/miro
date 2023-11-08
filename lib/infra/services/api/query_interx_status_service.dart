@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api/query_interx_status/query_interx_status_resp.dart';
 import 'package:miro/infra/exceptions/dio_parse_exception.dart';
+import 'package:miro/infra/models/api_request_model.dart';
 import 'package:miro/infra/repositories/api/api_repository.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';
 import 'package:miro/shared/utils/logger/log_level.dart';
@@ -15,7 +16,10 @@ class QueryInterxStatusService implements _IQueryInterxStatusService {
 
   @override
   Future<QueryInterxStatusResp> getQueryInterxStatusResp(Uri networkUri) async {
-    Response<dynamic> response = await _apiRepository.fetchQueryInterxStatus<dynamic>(networkUri);
+    Response<dynamic> response = await _apiRepository.fetchQueryInterxStatus<dynamic>(ApiRequestModel<void>(
+      networkUri: networkUri,
+      requestData: null,
+    ));
 
     try {
       QueryInterxStatusResp queryInterxStatusResp = QueryInterxStatusResp.fromJson(response.data as Map<String, dynamic>);

@@ -27,6 +27,7 @@ import 'package:miro/blocs/widgets/kira/kira_list/sort/sort_state.dart';
 import 'package:miro/config/app_config.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/shared/controllers/page_reload/page_reload_controller.dart';
+import 'package:miro/shared/models/list/pagination_details_model.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
 import 'package:miro/shared/models/network/status/network_offline_model.dart';
 import 'package:miro/shared/utils/list_utils.dart';
@@ -48,6 +49,8 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
   late StreamSubscription<AFavouritesState>? _favouritesStateSubscription;
   late StreamSubscription<AFiltersState<T>>? _filtersStateSubscription;
   late StreamSubscription<SortState<T>>? _sortStateSubscription;
+
+  int lastPageIndex = 0;
 
   /// Stores information about current page.
   /// In case of infinity list, this is the last loaded page.
@@ -134,6 +137,7 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
 
     downloadedPagesCache.clear();
     currentPageData = PageData<T>.initial();
+    lastPageIndex = 0;
 
     await favouritesBloc?.initFavourites();
 
@@ -152,12 +156,11 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
 
   Future<void> _mapListNextPageEventToState(ListNextPageEvent listNextPageEvent, Emitter<AListState> emit) async {
     int localReloadId = pageReloadController.activeReloadId;
-    int nextPageIndex = currentPageData.index + 1;
     pageDownloadingStatus = true;
     try {
-      PageData<T> pageData = await _getPageData(nextPageIndex);
+      PageData<T> pageData = await _getPageData(lastPageIndex);
 
-      downloadedPagesCache[nextPageIndex] = pageData;
+      downloadedPagesCache[lastPageIndex] = pageData;
       currentPageData = pageData;
 
       bool canReloadComplete = pageReloadController.canReloadComplete(localReloadId);
@@ -166,7 +169,7 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
         add(ListUpdatedEvent(jumpToTop: listNextPageEvent.afterReloadBool));
       }
     } catch (e) {
-      AppLogger().log(message: 'Cannot fetch list data for page $nextPageIndex');
+      AppLogger().log(message: 'Cannot fetch list data for page $lastPageIndex');
       bool canReloadComplete = pageReloadController.canReloadComplete(localReloadId);
       if (canReloadComplete) {
         pageReloadController.hasErrors = true;
@@ -198,12 +201,11 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
       return downloadedPagesCache[pageIndex]!;
     } else {
       int offset = pageIndex * singlePageSize;
-      List<T> pageListItems = await listController.getPageData(pageIndex, offset, singlePageSize);
-      return PageData<T>(
-        index: pageIndex,
-        listItems: pageListItems,
-        isLastPage: pageListItems.length < singlePageSize,
-      );
+      PageData<T> pageData = await listController.getPageData(PaginationDetailsModel(
+        offset: offset,
+        limit: singlePageSize,
+      ));
+      return pageData;
     }
   }
 
@@ -211,7 +213,7 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
     bool lastPageBool = false;
     if (downloadedPagesCache.isNotEmpty) {
       PageData<T> lastPageData = downloadedPagesCache[downloadedPagesCache.keys.last]!;
-      lastPageBool = lastPageData.isLastPage;
+      lastPageBool = lastPageData.lastPageBool;
     }
     if (lastPageBool) {
       return;
@@ -219,17 +221,20 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
     showLoadingOverlay.value = true;
 
     await Future<void>.delayed(const Duration(milliseconds: 500));
-    List<T> allListItems = List<T>.empty(growable: true);
+    List<PageData<T>> allListItems = List<PageData<T>>.empty(growable: true);
     int downloadedPagesCount = 0;
     int bulkSinglePageSize = appConfig.bulkSinglePageSize;
 
     try {
       await Future.doWhile(() async {
         int offset = downloadedPagesCount * bulkSinglePageSize;
-        List<T> currentPageItems = await listController.getPageData(downloadedPagesCount, offset, bulkSinglePageSize);
-        allListItems.addAll(currentPageItems);
+        PageData<T> currentPageData = await listController.getPageData(PaginationDetailsModel(
+          offset: offset,
+          limit: bulkSinglePageSize,
+        ));
+        allListItems.add(currentPageData);
         downloadedPagesCount += 1;
-        return currentPageItems.length == bulkSinglePageSize;
+        return currentPageData.lastPageBool == false;
       });
       _setupPagesCacheFromList(allListItems);
     } catch (_) {
@@ -245,15 +250,16 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
     }
   }
 
-  void _setupPagesCacheFromList(List<T> allListItems) {
+  void _setupPagesCacheFromList(List<PageData<T>> allPagesData) {
+    List<T> allListItems = allPagesData.expand((PageData<T> pageData) => pageData.listItems).toList();
+
     for (int i = 0; i < allListItems.length; i += singlePageSize) {
       int pageIndex = i ~/ singlePageSize;
       List<T> pageListItems = ListUtils.getSafeSublist<T>(list: allListItems, start: i, end: i + singlePageSize);
-      bool isLastPage = i + singlePageSize >= allListItems.length - 1;
+      bool lastPageBool = i + singlePageSize >= allListItems.length - 1;
       downloadedPagesCache[pageIndex] = PageData<T>(
-        index: pageIndex,
         listItems: pageListItems,
-        isLastPage: isLastPage,
+        lastPageBool: lastPageBool,
       );
     }
   }

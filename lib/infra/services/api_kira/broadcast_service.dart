@@ -6,6 +6,7 @@ import 'package:miro/infra/dto/api_kira/broadcast/request/transaction/tx.dart';
 import 'package:miro/infra/dto/api_kira/broadcast/response/broadcast_resp.dart';
 import 'package:miro/infra/exceptions/dio_parse_exception.dart';
 import 'package:miro/infra/exceptions/tx_broadcast_exception.dart';
+import 'package:miro/infra/models/api_request_model.dart';
 import 'package:miro/infra/repositories/api/api_kira_repository.dart';
 import 'package:miro/shared/models/transactions/broadcast_resp_model.dart';
 import 'package:miro/shared/models/transactions/signed_transaction_model.dart';
@@ -21,9 +22,10 @@ class BroadcastService implements _IBroadcastService {
   @override
   Future<BroadcastRespModel> broadcastTx(SignedTxModel signedTransactionModel) async {
     Uri networkUri = globalLocator<NetworkModuleBloc>().state.networkUri;
-    BroadcastReq broadcastReq = BroadcastReq(tx: Tx.fromSignedTxModel(signedTransactionModel));
-
-    Response<dynamic> response = await _apiKiraRepository.broadcast<dynamic>(networkUri, broadcastReq);
+    Response<dynamic> response = await _apiKiraRepository.broadcast<dynamic>(ApiRequestModel<BroadcastReq>(
+      networkUri: networkUri,
+      requestData: BroadcastReq(tx: Tx.fromSignedTxModel(signedTransactionModel)),
+    ));
 
     late BroadcastRespModel broadcastRespModel;
     try {

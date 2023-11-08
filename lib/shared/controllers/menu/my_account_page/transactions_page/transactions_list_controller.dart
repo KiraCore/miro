@@ -1,8 +1,10 @@
 import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/controllers/i_list_controller.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/models/page_data.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api/query_transactions/request/query_transactions_req.dart';
 import 'package:miro/infra/services/api/query_transactions_service.dart';
 import 'package:miro/infra/services/cache/favourites_cache_service.dart';
+import 'package:miro/shared/models/list/pagination_details_model.dart';
 import 'package:miro/shared/models/transactions/list/tx_direction_type.dart';
 import 'package:miro/shared/models/transactions/list/tx_list_item_model.dart';
 import 'package:miro/shared/models/transactions/list/tx_sort_type.dart';
@@ -33,12 +35,12 @@ class TransactionsListController implements IListController<TxListItemModel> {
   }
 
   @override
-  Future<List<TxListItemModel>> getPageData(int pageIndex, int offset, int limit) async {
-    List<TxListItemModel> transactionsList = await queryTransactionsService.getTransactionList(
+  Future<PageData<TxListItemModel>> getPageData(PaginationDetailsModel paginationDetailsModel) async {
+    PageData<TxListItemModel> transactionsPageData = await queryTransactionsService.getTransactionList(
       QueryTransactionsReq(
         address: address,
-        offset: offset,
-        limit: limit,
+        limit: paginationDetailsModel.limit,
+        offset: paginationDetailsModel.offset,
         sort: TxSortType.dateDESC,
         dateStart: startDateTime,
         dateEnd: endDateTime,
@@ -46,6 +48,6 @@ class TransactionsListController implements IListController<TxListItemModel> {
         direction: directionFilters,
       ),
     );
-    return transactionsList;
+    return transactionsPageData;
   }
 }

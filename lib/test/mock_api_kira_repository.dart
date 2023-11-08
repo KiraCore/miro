@@ -8,6 +8,7 @@ import 'package:miro/infra/dto/api_kira/query_identity_record_verify_requests/re
 import 'package:miro/infra/dto/api_kira/query_identity_record_verify_requests/request/query_identity_record_verify_requests_by_requester_req.dart';
 import 'package:miro/infra/dto/api_kira/query_staking_pool/request/query_staking_pool_req.dart';
 import 'package:miro/infra/exceptions/dio_connect_exception.dart';
+import 'package:miro/infra/models/api_request_model.dart';
 import 'package:miro/infra/repositories/api/api_kira_repository.dart';
 import 'package:miro/test/mocks/api_kira/mock_api_kira_accounts.dart';
 import 'package:miro/test/mocks/api_kira/mock_api_kira_balances.dart';
@@ -33,7 +34,8 @@ class MockApiKiraRepository implements IApiKiraRepository {
   ];
 
   @override
-  Future<Response<T>> broadcast<T>(Uri networkUri, BroadcastReq request) async {
+  Future<Response<T>> broadcast<T>(ApiRequestModel<BroadcastReq> apiRequestModel) async {
+    Uri networkUri = apiRequestModel.networkUri;
     bool responseExistsBool = workingEndpoints.contains(networkUri.host);
     if (responseExistsBool) {
       late T response;
@@ -61,7 +63,8 @@ class MockApiKiraRepository implements IApiKiraRepository {
   }
 
   @override
-  Future<Response<T>> fetchQueryAccount<T>(Uri networkUri, QueryAccountReq request) async {
+  Future<Response<T>> fetchQueryAccount<T>(ApiRequestModel<QueryAccountReq> apiRequestModel) async {
+    Uri networkUri = apiRequestModel.networkUri;
     bool responseExistsBool = workingEndpoints.contains(networkUri.host);
     if (responseExistsBool) {
       late T response;
@@ -91,7 +94,8 @@ class MockApiKiraRepository implements IApiKiraRepository {
   }
 
   @override
-  Future<Response<T>> fetchQueryBalance<T>(Uri networkUri, QueryBalanceReq queryBalanceReq) async {
+  Future<Response<T>> fetchQueryBalance<T>(ApiRequestModel<QueryBalanceReq> apiRequestModel) async {
+    Uri networkUri = apiRequestModel.networkUri;
     bool responseExistsBool = workingEndpoints.contains(networkUri.host);
     if (responseExistsBool) {
       late T response;
@@ -113,7 +117,8 @@ class MockApiKiraRepository implements IApiKiraRepository {
   }
 
   @override
-  Future<Response<T>> fetchQueryDelegations<T>(Uri networkUri, QueryDelegationsReq queryDelegationsReq) async {
+  Future<Response<T>> fetchQueryDelegations<T>(ApiRequestModel<QueryDelegationsReq> apiRequestModel) async {
+    Uri networkUri = apiRequestModel.networkUri;
     bool responseExistsBool = workingEndpoints.contains(networkUri.host);
     if (responseExistsBool) {
       late T response;
@@ -135,7 +140,8 @@ class MockApiKiraRepository implements IApiKiraRepository {
   }
 
   @override
-  Future<Response<T>> fetchQueryExecutionFee<T>(Uri networkUri, QueryExecutionFeeRequest queryExecutionFeeRequest) async {
+  Future<Response<T>> fetchQueryExecutionFee<T>(ApiRequestModel<QueryExecutionFeeRequest> apiRequestModel) async {
+    Uri networkUri = apiRequestModel.networkUri;
     bool responseExistsBool = workingEndpoints.contains(networkUri.host);
     if (responseExistsBool) {
       late T response;
@@ -145,7 +151,7 @@ class MockApiKiraRepository implements IApiKiraRepository {
           break;
         default:
           Map<String, dynamic> defaultResponse = MockApiKiraGovExecutionFee.defaultResponse;
-          defaultResponse['transaction_type'] = queryExecutionFeeRequest.message;
+          defaultResponse['transaction_type'] = apiRequestModel.requestData.message;
           response = defaultResponse as T;
       }
       return Response<T>(
@@ -159,7 +165,8 @@ class MockApiKiraRepository implements IApiKiraRepository {
   }
 
   @override
-  Future<Response<T>> fetchQueryIdentityRecordsByAddress<T>(Uri networkUri, String creator) async {
+  Future<Response<T>> fetchQueryIdentityRecordsByAddress<T>(ApiRequestModel<String> apiRequestModel) async {
+    Uri networkUri = apiRequestModel.networkUri;
     bool responseExistsBool = workingEndpoints.contains(networkUri.host);
     if (responseExistsBool) {
       late T response;
@@ -181,7 +188,8 @@ class MockApiKiraRepository implements IApiKiraRepository {
   }
 
   @override
-  Future<Response<T>> fetchQueryIdentityRecordById<T>(Uri networkUri, String id) async {
+  Future<Response<T>> fetchQueryIdentityRecordById<T>(ApiRequestModel<String> apiRequestModel) async {
+    Uri networkUri = apiRequestModel.networkUri;
     bool responseExistsBool = workingEndpoints.contains(networkUri.host);
     if (responseExistsBool) {
       late T response;
@@ -204,7 +212,8 @@ class MockApiKiraRepository implements IApiKiraRepository {
 
   @override
   Future<Response<T>> fetchQueryIdentityRecordVerifyRequestsByApprover<T>(
-      Uri networkUri, QueryIdentityRecordVerifyRequestsByApproverReq queryIdentityRecordVerifyRequestsByApproverReq) async {
+      ApiRequestModel<QueryIdentityRecordVerifyRequestsByApproverReq> apiRequestModel) async {
+    Uri networkUri = apiRequestModel.networkUri;
     bool responseExistsBool = workingEndpoints.contains(networkUri.host);
     if (responseExistsBool) {
       late T response;
@@ -227,7 +236,8 @@ class MockApiKiraRepository implements IApiKiraRepository {
 
   @override
   Future<Response<T>> fetchQueryIdentityRecordVerifyRequestsByRequester<T>(
-      Uri networkUri, QueryIdentityRecordVerifyRequestsByRequesterReq queryIdentityRecordVerifyRequestsByRequesterReq) async {
+      ApiRequestModel<QueryIdentityRecordVerifyRequestsByRequesterReq> apiRequestModel) async {
+    Uri networkUri = apiRequestModel.networkUri;
     bool responseExistsBool = workingEndpoints.contains(networkUri.host);
     if (responseExistsBool) {
       late T response;
@@ -249,7 +259,8 @@ class MockApiKiraRepository implements IApiKiraRepository {
   }
 
   @override
-  Future<Response<T>> fetchQueryKiraTokensAliases<T>(Uri networkUri) async {
+  Future<Response<T>> fetchQueryKiraTokensAliases<T>(ApiRequestModel<void> apiRequestModel) async {
+    Uri networkUri = apiRequestModel.networkUri;
     bool responseExistsBool = workingEndpoints.contains(networkUri.host);
     if (responseExistsBool) {
       late T response;
@@ -271,7 +282,8 @@ class MockApiKiraRepository implements IApiKiraRepository {
   }
 
   @override
-  Future<Response<T>> fetchQueryKiraTokensRates<T>(Uri networkUri) async {
+  Future<Response<T>> fetchQueryKiraTokensRates<T>(ApiRequestModel<void> apiRequestModel) async {
+    Uri networkUri = apiRequestModel.networkUri;
     bool responseExistsBool = workingEndpoints.contains(networkUri.host);
     if (responseExistsBool) {
       late T response;
@@ -293,7 +305,8 @@ class MockApiKiraRepository implements IApiKiraRepository {
   }
 
   @override
-  Future<Response<T>> fetchQueryNetworkProperties<T>(Uri networkUri) async {
+  Future<Response<T>> fetchQueryNetworkProperties<T>(ApiRequestModel<void> apiRequestModel) async {
+    Uri networkUri = apiRequestModel.networkUri;
     bool responseExistsBool = workingEndpoints.contains(networkUri.host);
     if (responseExistsBool) {
       late T response;
@@ -315,7 +328,8 @@ class MockApiKiraRepository implements IApiKiraRepository {
   }
 
   @override
-  Future<Response<T>> fetchQueryStakingPool<T>(Uri networkUri, QueryStakingPoolReq queryStakingPoolReq) async {
+  Future<Response<T>> fetchQueryStakingPool<T>(ApiRequestModel<QueryStakingPoolReq> apiRequestModel) async {
+    Uri networkUri = apiRequestModel.networkUri;
     bool responseExistsBool = workingEndpoints.contains(networkUri.host);
     if (responseExistsBool) {
       late T response;
