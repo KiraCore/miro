@@ -1,9 +1,11 @@
 import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/controllers/i_list_controller.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/models/page_data.dart';
 import 'package:miro/config/locator.dart';
+import 'package:miro/infra/dto/api/query_blocks/request/query_blocks_req.dart';
 import 'package:miro/infra/services/api/query_blocks_service.dart';
 import 'package:miro/infra/services/cache/favourites_cache_service.dart';
 import 'package:miro/shared/models/blocks/block_model.dart';
-import 'package:miro/shared/utils/list_utils.dart';
+import 'package:miro/shared/models/list/pagination_details_model.dart';
 
 class BlocksListController implements IListController<BlockModel> {
   final FavouritesCacheService favouritesCacheService = FavouritesCacheService(domainName: 'blocks');
@@ -15,15 +17,19 @@ class BlocksListController implements IListController<BlockModel> {
   }
 
   @override
-  Future<List<BlockModel>> getFavouritesData() async {
+  Future<List<BlockModel>> getFavouritesData({bool forceRequestBool = false}) async {
     return <BlockModel>[];
   }
 
   @override
-  Future<List<BlockModel>> getPageData(int pageIndex, int offset, int limit) async {
-    List<BlockModel> blockModelList = await _queryBlocksService.getBlockList();
-
-    return ListUtils.getSafeSublist(list: blockModelList, start: offset, end: limit);
+  Future<PageData<BlockModel>> getPageData(PaginationDetailsModel paginationDetailsModel, {bool forceRequestBool = false}) async {
+    PageData<BlockModel> blocksPageData = await _queryBlocksService.getBlockList(
+        QueryBlocksReq(
+          limit: paginationDetailsModel.limit,
+          offset: paginationDetailsModel.offset,
+        ),
+        forceRequestBool: forceRequestBool);
+    return blocksPageData;
     // List<BlockModel> blocksModelList = <BlockModel>[
     //   BlockModel(
     //       blockId: const BlockId(hash: '5DA5429BE2DFABC2B808942E710C51067CB594928AEBE92B1B575616C0FD7D67'),

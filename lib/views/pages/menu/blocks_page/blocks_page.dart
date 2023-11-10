@@ -59,6 +59,7 @@ class _BlocksPageState extends State<BlocksPage> {
       SliverPadding(
         padding: AppSizes.getPagePadding(context),
         sliver: SliverPaginatedList<BlockModel>(
+          desktopItemHeight: 80,
           itemBuilder: (BlockModel blockModel) => BlocksListItemBuilder(
             blockModel: blockModel,
             scrollController: scrollController,

@@ -51,6 +51,10 @@ class AppRouter extends $AppRouter {
             path: 'validators',
           ),
           AutoRoute(
+            page: BlocksRoute.page,
+            path: 'blocks',
+          ),
+          AutoRoute(
             page: MyAccountRoute.page,
             path: 'my-account',
             guards: <AutoRouteGuard>[authGuard],
