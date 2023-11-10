@@ -48,6 +48,7 @@ class _TokenDropdown extends State<TokenDropdown> {
       height: 80,
       padding: EdgeInsets.zero,
       child: Container(
+        width: boxConstraints.maxWidth,
         padding: const EdgeInsets.all(16),
         child: TokenDropdownButton(
           tokenAliasModel: widget.defaultBalanceModel?.tokenAmountModel.tokenAliasModel,
