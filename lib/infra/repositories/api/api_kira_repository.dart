@@ -137,7 +137,7 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
       );
       return response;
     } on DioException catch (dioException) {
-      AppLogger().log(message: 'RemoteApiKiraRepository: Cannot fetch fetchQueryProposals() for URI $apiRequestModel.networkUri: ${dioException.message}');
+      AppLogger().log(message: 'Cannot fetch fetchQueryProposals() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
       throw DioConnectException(dioException: dioException);
     }
   }

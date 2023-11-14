@@ -1,13 +1,14 @@
 enum ProposalType {
   setNetworkProperty,
-  softwareUpgrade,
-  assignPermission,
   assignRoleToAccount,
   blacklistAccountPermission,
   blacklistRolePermission,
   createRole,
+  jailCouncilor,
+  msgVoteProposal,
   removeBlacklistedAccountPermission,
   removeBlacklistedRolePermission,
+  removeRoleProposal,
   removeWhitelistedAccountPermission,
   removeWhitelistedRolePermission,
   resetWholeCouncilorRank,
@@ -15,7 +16,6 @@ enum ProposalType {
   setProposalDurations,
   unassignRoleFromAccount,
   upsertDataRegistry,
-  upsertTokenAlias,
   whitelistAccountPermission,
   whitelistRolePermission,
   unknown;
@@ -24,10 +24,6 @@ enum ProposalType {
     switch (value) {
       case '/kira.gov.SetNetworkPropertyProposal':
         return ProposalType.setNetworkProperty;
-      case '/kira.upgrade.ProposalSoftwareUpgrade':
-        return ProposalType.softwareUpgrade;
-      case '/kira.gov.AssignPermissionProposal':
-        return ProposalType.assignPermission;
       case '/kira.gov.AssignRoleToAccountProposal':
         return ProposalType.assignRoleToAccount;
       case '/kira.gov.BlacklistAccountPermissionProposal':
@@ -36,10 +32,18 @@ enum ProposalType {
         return ProposalType.blacklistRolePermission;
       case '/kira.gov.CreateRoleProposal':
         return ProposalType.createRole;
+      // '/kira.gov.ProposalJailCouncilor' is not confirmed
+      case '/kira.gov.ProposalJailCouncilor':
+        return ProposalType.jailCouncilor;
+      case '/kira.gov.MsgVoteProposal':
+        return ProposalType.msgVoteProposal;
       case '/kira.gov.RemoveBlacklistedAccountPermissionProposal':
         return ProposalType.removeBlacklistedAccountPermission;
       case '/kira.gov.RemoveBlacklistedRolePermissionProposal':
         return ProposalType.removeBlacklistedRolePermission;
+      // '/kira.gov.RemoveRoleProposal' is not confirmed
+      case '/kira.gov.RemoveRoleProposal':
+        return ProposalType.removeRoleProposal;
       case '/kira.gov.RemoveWhitelistedAccountPermissionProposal':
         return ProposalType.removeWhitelistedAccountPermission;
       case '/kira.gov.RemoveWhitelistedRolePermissionProposal':
@@ -54,8 +58,6 @@ enum ProposalType {
         return ProposalType.unassignRoleFromAccount;
       case '/kira.gov.UpsertDataRegistryProposal':
         return ProposalType.upsertDataRegistry;
-      case '/kira.tokens.ProposalUpsertTokenAlias':
-        return ProposalType.upsertTokenAlias;
       case '/kira.gov.WhitelistAccountPermissionProposal':
         return ProposalType.whitelistAccountPermission;
       case '/kira.gov.WhitelistRolePermissionProposal':
