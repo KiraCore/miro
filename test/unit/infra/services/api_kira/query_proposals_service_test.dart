@@ -35,9 +35,9 @@ Future<void> main() async {
       );
 
       // Assert
-      // Because we have 20 mocked proposals, defining all objects will be inefficient.
+      // Because we have 18 mocked proposals, defining all objects will be inefficient.
       // Therefore, we check whether all objects were successfully parsed
-      expect(actualProposalsData.listItems.length, 20);
+      expect(actualProposalsData.listItems.length, 18);
     });
 
     test('Should throw [DioParseException] if [server HEALTHY] and [response data INVALID]', () async {

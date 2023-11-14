@@ -13,12 +13,13 @@ import 'package:miro/generated/l10n.dart';
 import 'package:miro/infra/managers/cache/i_cache_manager.dart';
 import 'package:miro/shared/router/router.dart';
 import 'package:miro/shared/utils/assets_manager.dart';
+import 'package:miro/test/mock_locator.dart';
 
 Future<void> main() async {
   // disable default context menu
   window.document.onContextMenu.listen((MouseEvent mouseEvent) => mouseEvent.preventDefault());
 
-  await initLocator();
+  await initMockLocator();
   await globalLocator<ICacheManager>().init();
 
   Map<String, dynamic> configJson = await AssetsManager().getAsMap('assets/network_list_config.json');

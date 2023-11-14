@@ -68,7 +68,7 @@ class _ProposalsPageState extends State<ProposalsPage> {
             proposalModel: proposalModel,
             scrollController: scrollController,
           ),
-          listController: ProposalsListController(),
+          listController: proposalsListController,
           scrollController: scrollController,
           singlePageSize: pageSize,
           hasBackgroundBool: ResponsiveWidget.isLargeScreen(context),

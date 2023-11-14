@@ -36,20 +36,6 @@ class ProposalsFilterOptions {
     filterComparator: (ProposalModel a) => a.proposalStatus == ProposalStatus.passedWithExecFail,
   );
 
-  static FilterComparator<ProposalModel> isAfter(DateTime startDateTime) {
-    return (ProposalModel item) {
-      bool inRangeBool = item.votingEndTime.isAfter(startDateTime);
-      return inRangeBool;
-    };
-  }
-
-  static FilterComparator<ProposalModel> isBefore(DateTime endDateTime) {
-    return (ProposalModel item) {
-      bool inRangeBool = item.votingEndTime.isBefore(endDateTime);
-      return inRangeBool;
-    };
-  }
-
   static FilterComparator<ProposalModel> search(String searchText) {
     return (ProposalModel item) {
       bool titleMatchBool = item.title.replaceAll(' ', '').toLowerCase().contains(searchText.replaceAll(' ', '').toLowerCase());

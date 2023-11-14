@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:miro/blocs/widgets/kira/kira_list/filters/events/filters_add_option_event.dart';
-import 'package:miro/blocs/widgets/kira/kira_list/filters/events/filters_remove_option_event.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/filters/filters_bloc.dart';
-import 'package:miro/blocs/widgets/kira/kira_list/filters/models/filter_mode.dart';
-import 'package:miro/blocs/widgets/kira/kira_list/filters/models/filter_option.dart';
-import 'package:miro/shared/controllers/menu/proposals_page/proposals_filter_options.dart';
 import 'package:miro/shared/controllers/menu/proposals_page/proposals_list_controller.dart';
 import 'package:miro/shared/models/proposals/proposal_model.dart';
 import 'package:miro/views/pages/menu/proposals_page/proposal_list_title/proposal_list_title_desktop.dart';
@@ -34,59 +29,15 @@ class ProposalListTitle extends StatelessWidget {
         pageSize: pageSize,
         filtersBloc: filtersBloc,
         pageSizeValueChanged: pageSizeValueChanged,
-        updateFiltersByDate: _updateFiltersByDate,
+        proposalsListController: proposalsListController,
         searchBarTextEditingController: searchBarTextEditingController,
       ),
       mediumScreen: ProposalListTitleMobile(
         pageSize: pageSize,
         pageSizeValueChanged: pageSizeValueChanged,
+        proposalsListController: proposalsListController,
         searchBarTextEditingController: searchBarTextEditingController,
       ),
     );
-  }
-
-  void _updateFiltersByDate(DateTime? startDateTime, DateTime? endDateTime) {
-    if (proposalsListController.filteringByStartDate != null) {
-      _removeFilterByStartDate();
-    }
-    if (proposalsListController.filteringByEndDate != null) {
-      _removeFilterByEndDate();
-    }
-    if (startDateTime != null) {
-      _addFilterByStartDate(startDateTime);
-    }
-    if (endDateTime != null) {
-      _addFilterByEndDate(endDateTime);
-    }
-  }
-
-  void _addFilterByStartDate(DateTime startDateTime) {
-    proposalsListController.filteringByStartDate = FilterOption<ProposalModel>(
-      id: 'byStartDate',
-      filterComparator: ProposalsFilterOptions.isAfter(startDateTime),
-      filterMode: FilterMode.and,
-    );
-    filtersBloc.add(
-      FiltersAddOptionEvent<ProposalModel>(proposalsListController.filteringByStartDate!),
-    );
-  }
-
-  void _addFilterByEndDate(DateTime endDateTime) {
-    proposalsListController.filteringByEndDate = FilterOption<ProposalModel>(
-      id: 'byEndDate',
-      filterComparator: ProposalsFilterOptions.isBefore(endDateTime),
-      filterMode: FilterMode.and,
-    );
-    filtersBloc.add(
-      FiltersAddOptionEvent<ProposalModel>(proposalsListController.filteringByEndDate!),
-    );
-  }
-
-  void _removeFilterByStartDate() {
-    filtersBloc.add(FiltersRemoveOptionEvent<ProposalModel>(proposalsListController.filteringByStartDate!));
-  }
-
-  void _removeFilterByEndDate() {
-    filtersBloc.add(FiltersRemoveOptionEvent<ProposalModel>(proposalsListController.filteringByEndDate!));
   }
 }
