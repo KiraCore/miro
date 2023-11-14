@@ -3,20 +3,19 @@ import 'package:miro/shared/controllers/menu/proposals_page/proposals_sort_optio
 import 'package:miro/shared/models/proposals/proposal_model.dart';
 import 'package:miro/shared/models/proposals/proposal_status.dart';
 import 'package:miro/shared/models/proposals/proposal_type.dart';
-import 'package:miro/shared/models/proposals/types/proposal_upsert_token_alias_model.dart';
+import 'package:miro/shared/models/proposals/types/proposal_upsert_data_registry_model.dart';
 import 'package:miro/shared/models/validators/validator_simplified_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 
 void main() {
   ProposalModel unknownProposalModel = ProposalModel(
-    proposalTypeContentModel: const ProposalUpsertTokenAliasModel(
-      proposalType: ProposalType.upsertTokenAlias,
-      decimals: 6,
-      denoms: <String>['ukex'],
-      icon: 'http://kira-network.s3-eu-west-1.amazonaws.com/assets/img/tokens/kex.svg',
-      symbol: 'KEX',
-      name: 'KIRA',
-      invalidatedBool: false,
+    proposalTypeContentModel: const ProposalUpsertDataRegistryModel(
+      proposalType: ProposalType.upsertDataRegistry,
+      encoding: 'picture',
+      hash: '891bd9d3b2ee0c6eed43a8129b096bebc7e5ae517d0b855b2116a3205211fe21',
+      key: 'icon2',
+      reference: 'https://kira-network.s3-eu-west-1.amazonaws.com/assets/img/tokens/kex.svg',
+      size: '1597',
     ),
     description: 'description',
     transactionHash: '0xb50a9cf774ca9762558cce61d992ca1fbe7ed7d4',
@@ -37,14 +36,13 @@ void main() {
   );
 
   ProposalModel passedProposalModel = ProposalModel(
-    proposalTypeContentModel: const ProposalUpsertTokenAliasModel(
-      proposalType: ProposalType.upsertTokenAlias,
-      decimals: 6,
-      denoms: <String>['ukex'],
-      icon: 'http://kira-network.s3-eu-west-1.amazonaws.com/assets/img/tokens/kex.svg',
-      symbol: 'KEX',
-      name: 'KIRA',
-      invalidatedBool: false,
+    proposalTypeContentModel: const ProposalUpsertDataRegistryModel(
+      proposalType: ProposalType.upsertDataRegistry,
+      encoding: 'picture',
+      hash: '891bd9d3b2ee0c6eed43a8129b096bebc7e5ae517d0b855b2116a3205211fe21',
+      key: 'icon2',
+      reference: 'https://kira-network.s3-eu-west-1.amazonaws.com/assets/img/tokens/kex.svg',
+      size: '1597',
     ),
     description: 'Initial Setup From KIRA Manager',
     transactionHash: '0xc3bc56239fc153a6e9ef41b4d95a9b6a10682d63',
@@ -65,14 +63,13 @@ void main() {
   );
 
   ProposalModel rejectedProposalModel = ProposalModel(
-    proposalTypeContentModel: const ProposalUpsertTokenAliasModel(
-      proposalType: ProposalType.upsertTokenAlias,
-      decimals: 6,
-      denoms: <String>['ukex'],
-      icon: 'http://kira-network.s3-eu-west-1.amazonaws.com/assets/img/tokens/kex.svg',
-      symbol: 'KEX',
-      name: 'KIRA',
-      invalidatedBool: false,
+    proposalTypeContentModel: const ProposalUpsertDataRegistryModel(
+      proposalType: ProposalType.upsertDataRegistry,
+      encoding: 'picture',
+      hash: '891bd9d3b2ee0c6eed43a8129b096bebc7e5ae517d0b855b2116a3205211fe21',
+      key: 'icon2',
+      reference: 'https://kira-network.s3-eu-west-1.amazonaws.com/assets/img/tokens/kex.svg',
+      size: '1597',
     ),
     description: 'description',
     transactionHash: '0xf969c7d1f71c05cf009623086c2b93605b3c27dd',
@@ -93,14 +90,13 @@ void main() {
   );
 
   ProposalModel rejectedWithVetoProposalModel = ProposalModel(
-    proposalTypeContentModel: const ProposalUpsertTokenAliasModel(
-      proposalType: ProposalType.upsertTokenAlias,
-      decimals: 6,
-      denoms: <String>['ukex'],
-      icon: 'http://kira-network.s3-eu-west-1.amazonaws.com/assets/img/tokens/kex.svg',
-      symbol: 'KEX',
-      name: 'KIRA',
-      invalidatedBool: false,
+    proposalTypeContentModel: const ProposalUpsertDataRegistryModel(
+      proposalType: ProposalType.upsertDataRegistry,
+      encoding: 'picture',
+      hash: '891bd9d3b2ee0c6eed43a8129b096bebc7e5ae517d0b855b2116a3205211fe21',
+      key: 'icon2',
+      reference: 'https://kira-network.s3-eu-west-1.amazonaws.com/assets/img/tokens/kex.svg',
+      size: '1597',
     ),
     description: 'description',
     transactionHash: '0xd033b16b4a2598eece41717e9395555b8f92e32a',
@@ -121,14 +117,13 @@ void main() {
   );
 
   ProposalModel pendingProposalModel = ProposalModel(
-    proposalTypeContentModel: const ProposalUpsertTokenAliasModel(
-      proposalType: ProposalType.upsertTokenAlias,
-      decimals: 6,
-      denoms: <String>['ukex'],
-      icon: 'http://kira-network.s3-eu-west-1.amazonaws.com/assets/img/tokens/kex.svg',
-      symbol: 'KEX',
-      name: 'KIRA',
-      invalidatedBool: false,
+    proposalTypeContentModel: const ProposalUpsertDataRegistryModel(
+      proposalType: ProposalType.upsertDataRegistry,
+      encoding: 'picture',
+      hash: '891bd9d3b2ee0c6eed43a8129b096bebc7e5ae517d0b855b2116a3205211fe21',
+      key: 'icon2',
+      reference: 'https://kira-network.s3-eu-west-1.amazonaws.com/assets/img/tokens/kex.svg',
+      size: '1597',
     ),
     description: 'description',
     transactionHash: '0xfa84815a206b6d7adabe773af9d19ed21a4cfa21',
@@ -149,14 +144,13 @@ void main() {
   );
 
   ProposalModel quorumNotReachedProposalModel = ProposalModel(
-    proposalTypeContentModel: const ProposalUpsertTokenAliasModel(
-      proposalType: ProposalType.upsertTokenAlias,
-      decimals: 6,
-      denoms: <String>['ukex'],
-      icon: 'http://kira-network.s3-eu-west-1.amazonaws.com/assets/img/tokens/kex.svg',
-      symbol: 'KEX',
-      name: 'KIRA',
-      invalidatedBool: false,
+    proposalTypeContentModel: const ProposalUpsertDataRegistryModel(
+      proposalType: ProposalType.upsertDataRegistry,
+      encoding: 'picture',
+      hash: '891bd9d3b2ee0c6eed43a8129b096bebc7e5ae517d0b855b2116a3205211fe21',
+      key: 'icon2',
+      reference: 'https://kira-network.s3-eu-west-1.amazonaws.com/assets/img/tokens/kex.svg',
+      size: '1597',
     ),
     description: 'description',
     transactionHash: '0xb136376b24310133032e667b75dece9e06105265',
@@ -177,14 +171,13 @@ void main() {
   );
 
   ProposalModel enactmentProposalModel = ProposalModel(
-    proposalTypeContentModel: const ProposalUpsertTokenAliasModel(
-      proposalType: ProposalType.upsertTokenAlias,
-      decimals: 6,
-      denoms: <String>['ukex'],
-      icon: 'http://kira-network.s3-eu-west-1.amazonaws.com/assets/img/tokens/kex.svg',
-      symbol: 'KEX',
-      name: 'KIRA',
-      invalidatedBool: false,
+    proposalTypeContentModel: const ProposalUpsertDataRegistryModel(
+      proposalType: ProposalType.upsertDataRegistry,
+      encoding: 'picture',
+      hash: '891bd9d3b2ee0c6eed43a8129b096bebc7e5ae517d0b855b2116a3205211fe21',
+      key: 'icon2',
+      reference: 'https://kira-network.s3-eu-west-1.amazonaws.com/assets/img/tokens/kex.svg',
+      size: '1597',
     ),
     description: 'description',
     transactionHash: '0xb136376b24310133032e667b75dece9e06105265',
@@ -205,14 +198,13 @@ void main() {
   );
 
   ProposalModel passedWithExecFailProposalModel = ProposalModel(
-    proposalTypeContentModel: const ProposalUpsertTokenAliasModel(
-      proposalType: ProposalType.upsertTokenAlias,
-      decimals: 6,
-      denoms: <String>['ukex'],
-      icon: 'http://kira-network.s3-eu-west-1.amazonaws.com/assets/img/tokens/kex.svg',
-      symbol: 'KEX',
-      name: 'KIRA',
-      invalidatedBool: false,
+    proposalTypeContentModel: const ProposalUpsertDataRegistryModel(
+      proposalType: ProposalType.upsertDataRegistry,
+      encoding: 'picture',
+      hash: '891bd9d3b2ee0c6eed43a8129b096bebc7e5ae517d0b855b2116a3205211fe21',
+      key: 'icon2',
+      reference: 'https://kira-network.s3-eu-west-1.amazonaws.com/assets/img/tokens/kex.svg',
+      size: '1597',
     ),
     description: 'description',
     transactionHash: '0xf2cdd6c4e17e640fc1a2e833ef534c554f661548',
