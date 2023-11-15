@@ -7,10 +7,12 @@ import 'package:miro/blocs/layout/nav_menu/nav_menu_cubit.dart';
 import 'package:miro/blocs/widgets/network_list/network_custom_section/network_custom_section_cubit.dart';
 import 'package:miro/blocs/widgets/network_list/network_list/network_list_cubit.dart';
 import 'package:miro/config/app_config.dart';
+import 'package:miro/infra/managers/cache/api_cache_manager.dart';
 import 'package:miro/infra/managers/cache/i_cache_manager.dart';
 import 'package:miro/infra/managers/cache/impl/auto_cache_manager.dart';
 import 'package:miro/infra/repositories/api/api_kira_repository.dart';
 import 'package:miro/infra/repositories/api/api_repository.dart';
+import 'package:miro/infra/repositories/cache/api_cache_repository.dart';
 import 'package:miro/infra/services/api/dashboard_service.dart';
 import 'package:miro/infra/services/api/query_interx_status_service.dart';
 import 'package:miro/infra/services/api/query_transactions_service.dart';
@@ -41,12 +43,14 @@ Future<void> initLocator() async {
 
 void _initRepositories() {
   globalLocator
+    ..registerLazySingleton<ApiCacheRepository>(ApiCacheRepository.new)
     ..registerLazySingleton<IApiKiraRepository>(RemoteApiKiraRepository.new)
     ..registerLazySingleton<IApiRepository>(RemoteApiRepository.new);
 }
 
 void _initServices() {
   globalLocator
+    ..registerLazySingleton<ApiCacheManager>(ApiCacheManager.new)
     ..registerLazySingleton<BroadcastService>(BroadcastService.new)
     ..registerLazySingleton<DashboardService>(DashboardService.new)
     ..registerLazySingleton<IdentityRecordsService>(IdentityRecordsService.new)

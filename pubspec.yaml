@@ -12,7 +12,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.13.2
+version: 1.13.3
 
 environment:
   sdk: ">=3.1.3"
@@ -63,10 +63,6 @@ dependencies:
   # Flutter Widgets that make it easy to implement the BLoC (Business Logic Component) design pattern. Built to be used with the bloc state management package.
   # https://pub.dev/packages/flutter_bloc
   flutter_bloc: ^8.1.3
-
-  # A testing library which makes it easy to test blocs. Built to be used with the bloc state management package.
-  # https://pub.dev/packages/bloc_test
-  bloc_test: ^9.1.0
 
   # Contains code to deal with internationalized/localized messages, date and number formatting and parsing, bi-directional text, and other internationalization issues.
   # https://pub.dev/packages/intl
@@ -210,6 +206,14 @@ dev_dependencies:
   # Extension for Hive. Automatically generates TypeAdapters to store any class.
   # https://pub.dev/packages/hive_generator
   hive_generator: ^2.0.1
+
+  # A simple to use mocking package for Dio intended to be used in tests. It provides various types and methods to declaratively mock request-response communication.
+  # https://pub.dev/packages/http_mock_adapter
+  http_mock_adapter: ^0.6.0
+
+  # A testing library which makes it easy to test blocs. Built to be used with the bloc state management package.
+  # https://pub.dev/packages/bloc_test
+  bloc_test: ^9.1.0
 
   # flutter_lints: ^1.0.4
 

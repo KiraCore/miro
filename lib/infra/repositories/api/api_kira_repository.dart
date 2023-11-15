@@ -9,6 +9,7 @@ import 'package:miro/infra/dto/api_kira/query_identity_record_verify_requests/re
 import 'package:miro/infra/dto/api_kira/query_staking_pool/request/query_staking_pool_req.dart';
 import 'package:miro/infra/exceptions/dio_connect_exception.dart';
 import 'package:miro/infra/managers/api/http_client_manager.dart';
+import 'package:miro/infra/models/api_cache_config_model.dart';
 import 'package:miro/infra/models/api_request_model.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';
 
@@ -50,6 +51,7 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
         body: apiRequestModel.requestData.toJson(),
         networkUri: apiRequestModel.networkUri,
         path: '/api/kira/txs',
+        apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: true),
       );
       return response;
     } on DioException catch (dioException) {
@@ -64,6 +66,7 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
       final Response<T> response = await _httpClientManager.get<T>(
         networkUri: apiRequestModel.networkUri,
         path: '/api/kira/accounts/${apiRequestModel.requestData.address}',
+        apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: true),
       );
       return response;
     } on DioException catch (dioException) {
@@ -79,6 +82,7 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
         networkUri: apiRequestModel.networkUri,
         path: '/api/kira/balances/${apiRequestModel.requestData.address}',
         queryParameters: apiRequestModel.requestData.toJson(),
+        apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: apiRequestModel.forceRequestBool),
       );
       return response;
     } on DioException catch (dioException) {
@@ -94,6 +98,7 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
         networkUri: apiRequestModel.networkUri,
         path: '/api/kira/delegations',
         queryParameters: apiRequestModel.requestData.toJson(),
+        apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: apiRequestModel.forceRequestBool),
       );
       return response;
     } on DioException catch (dioException) {
@@ -109,6 +114,7 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
         networkUri: apiRequestModel.networkUri,
         path: '/api/kira/gov/execution_fee',
         queryParameters: apiRequestModel.requestData.toJson(),
+        apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: apiRequestModel.forceRequestBool),
       );
       return response;
     } on DioException catch (dioException) {
@@ -123,6 +129,7 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
       final Response<T> response = await _httpClientManager.get<T>(
         networkUri: apiRequestModel.networkUri,
         path: '/api/kira/gov/identity_records/${apiRequestModel.requestData}',
+        apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: apiRequestModel.forceRequestBool),
       );
       return response;
     } on DioException catch (dioException) {
@@ -137,6 +144,7 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
       final Response<T> response = await _httpClientManager.get<T>(
         networkUri: apiRequestModel.networkUri,
         path: '/api/kira/gov/identity_record/${apiRequestModel.requestData}',
+        apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: apiRequestModel.forceRequestBool),
       );
       return response;
     } on DioException catch (dioException) {
@@ -153,6 +161,7 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
         networkUri: apiRequestModel.networkUri,
         path: '/api/kira/gov/identity_verify_requests_by_approver/${apiRequestModel.requestData.address}',
         queryParameters: apiRequestModel.requestData.queryParameters,
+        apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: apiRequestModel.forceRequestBool),
       );
       return response;
     } on DioException catch (dioException) {
@@ -171,6 +180,7 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
         networkUri: apiRequestModel.networkUri,
         path: '/api/kira/gov/identity_verify_requests_by_requester/${apiRequestModel.requestData.address}',
         queryParameters: apiRequestModel.requestData.queryParameters,
+        apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: apiRequestModel.forceRequestBool),
       );
       return response;
     } on DioException catch (dioException) {
@@ -187,6 +197,7 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
       final Response<T> response = await _httpClientManager.get<T>(
         networkUri: apiRequestModel.networkUri,
         path: '/api/kira/tokens/aliases',
+        apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: apiRequestModel.forceRequestBool),
       );
       return response;
     } on DioException catch (dioException) {
@@ -201,6 +212,7 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
       final Response<T> response = await _httpClientManager.get<T>(
         networkUri: apiRequestModel.networkUri,
         path: '/api/kira/tokens/rates',
+        apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: apiRequestModel.forceRequestBool),
       );
       return response;
     } on DioException catch (dioException) {
@@ -215,6 +227,7 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
       final Response<T> response = await _httpClientManager.get<T>(
         networkUri: apiRequestModel.networkUri,
         path: '/api/kira/gov/network_properties',
+        apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: apiRequestModel.forceRequestBool),
       );
       return response;
     } on DioException catch (dioException) {
@@ -230,6 +243,7 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
         networkUri: apiRequestModel.networkUri,
         path: '/api/kira/staking-pool',
         queryParameters: apiRequestModel.requestData.toJson(),
+        apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: apiRequestModel.forceRequestBool),
       );
       return response;
     } on DioException catch (dioException) {

@@ -23,6 +23,7 @@ import 'package:miro/test/mocks/api_kira/mock_api_kira_staking_pool.dart';
 import 'package:miro/test/mocks/api_kira/mock_api_kira_tokens_aliases.dart';
 import 'package:miro/test/mocks/api_kira/mock_api_kira_tokens_rates.dart';
 import 'package:miro/test/mocks/api_kira/mock_api_kira_txs.dart';
+import 'package:miro/test/mocks/mock_headers.dart';
 
 class MockApiKiraRepository implements IApiKiraRepository {
   static List<String> workingEndpoints = <String>[
@@ -55,6 +56,7 @@ class MockApiKiraRepository implements IApiKiraRepository {
       return Response<T>(
         statusCode: 200,
         data: response,
+        headers: MockHeaders.defaultHeaders,
         requestOptions: RequestOptions(path: ''),
       );
     } else {
@@ -85,7 +87,7 @@ class MockApiKiraRepository implements IApiKiraRepository {
       return Response<T>(
         statusCode: statusCode,
         data: response,
-        headers: MockApiKiraAccounts.defaultHeaders,
+        headers: MockHeaders.defaultHeaders,
         requestOptions: RequestOptions(path: ''),
       );
     } else {
@@ -109,6 +111,7 @@ class MockApiKiraRepository implements IApiKiraRepository {
       return Response<T>(
         statusCode: 200,
         data: response,
+        headers: MockHeaders.defaultHeaders,
         requestOptions: RequestOptions(path: ''),
       );
     } else {
@@ -132,6 +135,7 @@ class MockApiKiraRepository implements IApiKiraRepository {
       return Response<T>(
         statusCode: 200,
         data: response,
+        headers: MockHeaders.defaultHeaders,
         requestOptions: RequestOptions(path: ''),
       );
     } else {
@@ -157,6 +161,7 @@ class MockApiKiraRepository implements IApiKiraRepository {
       return Response<T>(
         statusCode: 200,
         data: response,
+        headers: MockHeaders.defaultHeaders,
         requestOptions: RequestOptions(path: ''),
       );
     } else {
@@ -180,6 +185,7 @@ class MockApiKiraRepository implements IApiKiraRepository {
       return Response<T>(
         statusCode: 200,
         data: response,
+        headers: MockHeaders.defaultHeaders,
         requestOptions: RequestOptions(path: ''),
       );
     } else {
@@ -203,6 +209,7 @@ class MockApiKiraRepository implements IApiKiraRepository {
       return Response<T>(
         statusCode: 200,
         data: response,
+        headers: MockHeaders.defaultHeaders,
         requestOptions: RequestOptions(path: ''),
       );
     } else {
@@ -227,6 +234,7 @@ class MockApiKiraRepository implements IApiKiraRepository {
       return Response<T>(
         statusCode: 200,
         data: response,
+        headers: MockHeaders.defaultHeaders,
         requestOptions: RequestOptions(path: ''),
       );
     } else {
@@ -251,6 +259,7 @@ class MockApiKiraRepository implements IApiKiraRepository {
       return Response<T>(
         statusCode: 200,
         data: response,
+        headers: MockHeaders.defaultHeaders,
         requestOptions: RequestOptions(path: ''),
       );
     } else {
@@ -274,6 +283,7 @@ class MockApiKiraRepository implements IApiKiraRepository {
       return Response<T>(
         statusCode: 200,
         data: response,
+        headers: MockHeaders.defaultHeaders,
         requestOptions: RequestOptions(path: ''),
       );
     } else {
@@ -297,6 +307,7 @@ class MockApiKiraRepository implements IApiKiraRepository {
       return Response<T>(
         statusCode: 200,
         data: response,
+        headers: MockHeaders.defaultHeaders,
         requestOptions: RequestOptions(path: ''),
       );
     } else {
@@ -320,6 +331,7 @@ class MockApiKiraRepository implements IApiKiraRepository {
       return Response<T>(
         statusCode: 200,
         data: response,
+        headers: MockHeaders.defaultHeaders,
         requestOptions: RequestOptions(path: ''),
       );
     } else {
@@ -343,6 +355,7 @@ class MockApiKiraRepository implements IApiKiraRepository {
       return Response<T>(
         statusCode: 200,
         data: response,
+        headers: MockHeaders.defaultHeaders,
         requestOptions: RequestOptions(path: ''),
       );
     } else {

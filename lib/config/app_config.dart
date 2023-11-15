@@ -9,6 +9,7 @@ import 'package:miro/shared/utils/network_utils.dart';
 
 class AppConfig {
   final int bulkSinglePageSize;
+  final Duration defaultApiCacheMaxAge;
   final Duration outdatedBlockDuration;
   final Duration loadingPageTimerDuration;
   final List<String> supportedInterxVersions;
@@ -24,6 +25,7 @@ class AppConfig {
 
   AppConfig({
     required this.bulkSinglePageSize,
+    required this.defaultApiCacheMaxAge,
     required this.outdatedBlockDuration,
     required this.loadingPageTimerDuration,
     required this.supportedInterxVersions,
@@ -37,6 +39,7 @@ class AppConfig {
   factory AppConfig.buildDefaultConfig() {
     return AppConfig(
       bulkSinglePageSize: 500,
+      defaultApiCacheMaxAge: const Duration(seconds: 60),
       outdatedBlockDuration: const Duration(minutes: 5),
       loadingPageTimerDuration: const Duration(seconds: 4),
       supportedInterxVersions: <String>['v0.4.40'],
