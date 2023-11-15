@@ -8,6 +8,7 @@ import 'package:miro/test/mocks/api/mock_api_dashboard.dart';
 import 'package:miro/test/mocks/api/mock_api_status.dart';
 import 'package:miro/test/mocks/api/mock_api_transactions.dart';
 import 'package:miro/test/mocks/api/mock_api_valopers.dart';
+import 'package:miro/test/mocks/mock_headers.dart';
 
 enum DynamicNetworkStatus {
   healthy,
@@ -43,6 +44,7 @@ class MockApiRepository implements IApiRepository {
       return Response<T>(
         statusCode: 200,
         data: response,
+        headers: MockHeaders.defaultHeaders,
         requestOptions: RequestOptions(path: ''),
       );
     } else {
@@ -96,6 +98,7 @@ class MockApiRepository implements IApiRepository {
     return Response<T>(
       statusCode: statusCode,
       data: mockedResponse as T,
+      headers: MockHeaders.defaultHeaders,
       requestOptions: RequestOptions(path: ''),
     );
   }
@@ -117,6 +120,7 @@ class MockApiRepository implements IApiRepository {
       return Response<T>(
         statusCode: 200,
         data: response,
+        headers: MockHeaders.defaultHeaders,
         requestOptions: RequestOptions(path: ''),
       );
     } else {
@@ -144,12 +148,14 @@ class MockApiRepository implements IApiRepository {
       return Response<T>(
         statusCode: 200,
         data: MockApiValopers.statusOnly as T,
+        headers: MockHeaders.defaultHeaders,
         requestOptions: RequestOptions(path: ''),
       );
     } else if (responseExistsBool) {
       return Response<T>(
         statusCode: 200,
         data: MockApiValopers.all as T,
+        headers: MockHeaders.defaultHeaders,
         requestOptions: RequestOptions(path: ''),
       );
     } else {
@@ -177,6 +183,7 @@ class MockApiRepository implements IApiRepository {
     return Response<T>(
       statusCode: 200,
       data: mockedResponse as T,
+      headers: MockHeaders.defaultHeaders,
       requestOptions: RequestOptions(path: ''),
     );
   }

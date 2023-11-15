@@ -3,7 +3,17 @@ import 'package:miro/infra/managers/cache/i_cache_manager.dart';
 
 class MemoryCacheManager implements ICacheManager {
   @visibleForTesting
-  final Map<String, Map<String, dynamic>> cache = <String, Map<String, dynamic>>{};
+  late final Map<String, Map<String, dynamic>> cache;
+
+  MemoryCacheManager() : cache = <String, Map<String, dynamic>>{};
+
+  MemoryCacheManager.withMockedInitialValues(Map<String, Map<String, dynamic>> mockedCache) {
+    Map<String, Map<String, dynamic>> copiedCache = Map<String, Map<String, dynamic>>.from(mockedCache);
+    for (String key in copiedCache.keys) {
+      copiedCache[key] = Map<String, dynamic>.from(copiedCache[key] as Map<String, dynamic>);
+    }
+    cache = copiedCache;
+  }
 
   @override
   Future<void> init() async {}

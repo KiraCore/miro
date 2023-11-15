@@ -1,14 +1,16 @@
 import 'package:equatable/equatable.dart';
 
 class ApiRequestModel<T> extends Equatable {
-  final Uri networkUri;
   final T requestData;
+  final Uri networkUri;
+  final bool forceRequestBool;
 
   const ApiRequestModel({
-    required this.networkUri,
     required this.requestData,
+    required this.networkUri,
+    this.forceRequestBool = false,
   });
 
   @override
-  List<Object?> get props => <Object?>[networkUri, requestData];
+  List<Object?> get props => <Object?>[requestData, networkUri, forceRequestBool];
 }

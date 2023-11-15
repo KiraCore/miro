@@ -3,6 +3,7 @@ import 'package:miro/infra/dto/api/query_transactions/request/query_transactions
 import 'package:miro/infra/dto/api/query_validators/request/query_validators_req.dart';
 import 'package:miro/infra/exceptions/dio_connect_exception.dart';
 import 'package:miro/infra/managers/api/http_client_manager.dart';
+import 'package:miro/infra/models/api_cache_config_model.dart';
 import 'package:miro/infra/models/api_request_model.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';
 
@@ -25,6 +26,7 @@ class RemoteApiRepository implements IApiRepository {
       final Response<T> response = await _httpClientManager.get<T>(
         networkUri: apiRequestModel.networkUri,
         path: '/api/dashboard',
+        apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: apiRequestModel.forceRequestBool),
       );
       return response;
     } on DioException catch (dioException) {
@@ -39,6 +41,7 @@ class RemoteApiRepository implements IApiRepository {
       final Response<T> response = await _httpClientManager.get<T>(
         networkUri: apiRequestModel.networkUri,
         path: '/api/status',
+        apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: apiRequestModel.forceRequestBool),
       );
       return response;
     } on DioException catch (dioException) {
@@ -54,6 +57,7 @@ class RemoteApiRepository implements IApiRepository {
         networkUri: apiRequestModel.networkUri,
         path: '/api/transactions',
         queryParameters: apiRequestModel.requestData.toJson(),
+        apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: apiRequestModel.forceRequestBool),
       );
       return response;
     } on DioException catch (dioException) {
@@ -69,6 +73,7 @@ class RemoteApiRepository implements IApiRepository {
         networkUri: apiRequestModel.networkUri,
         path: '/api/valopers',
         queryParameters: apiRequestModel.requestData.toJson(),
+        apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: apiRequestModel.forceRequestBool),
       );
       return response;
     } on DioException catch (dioException) {

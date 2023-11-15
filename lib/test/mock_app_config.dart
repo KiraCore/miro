@@ -9,6 +9,7 @@ class MockAppConfig extends AppConfig {
   MockAppConfig({
     required int bulkSinglePageSize,
     required Duration outdatedBlockDuration,
+    required Duration defaultApiCacheMaxAge,
     required Duration loadingPageTimerDuration,
     required List<String> supportedInterxVersions,
     required RpcBrowserUrlController rpcBrowserUrlController,
@@ -16,19 +17,21 @@ class MockAppConfig extends AppConfig {
     required int defaultRefreshIntervalSeconds,
     required NetworkUnknownModel defaultNetworkUnknownModel,
   }) : super(
-    bulkSinglePageSize: bulkSinglePageSize,
-    outdatedBlockDuration: outdatedBlockDuration,
-    loadingPageTimerDuration: loadingPageTimerDuration,
-    supportedInterxVersions: supportedInterxVersions,
-    rpcBrowserUrlController: rpcBrowserUrlController,
-    defaultFeeTokenAliasModel: defaultFeeTokenAliasModel,
-    defaultRefreshIntervalSeconds: defaultRefreshIntervalSeconds,
-    defaultNetworkUnknownModel: defaultNetworkUnknownModel,
-  );
+          bulkSinglePageSize: bulkSinglePageSize,
+          defaultApiCacheMaxAge: defaultApiCacheMaxAge,
+          outdatedBlockDuration: outdatedBlockDuration,
+          loadingPageTimerDuration: loadingPageTimerDuration,
+          supportedInterxVersions: supportedInterxVersions,
+          rpcBrowserUrlController: rpcBrowserUrlController,
+          defaultFeeTokenAliasModel: defaultFeeTokenAliasModel,
+          defaultRefreshIntervalSeconds: defaultRefreshIntervalSeconds,
+          defaultNetworkUnknownModel: defaultNetworkUnknownModel,
+        );
 
   factory MockAppConfig.buildDefaultConfig() {
     return MockAppConfig(
       bulkSinglePageSize: 500,
+      defaultApiCacheMaxAge: const Duration(seconds: 60),
       outdatedBlockDuration: const Duration(minutes: 5),
       loadingPageTimerDuration: const Duration(seconds: 4),
       supportedInterxVersions: <String>['v0.4.22'],
