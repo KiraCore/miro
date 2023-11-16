@@ -22,15 +22,14 @@ class BalancesListController implements IListController<BalanceModel> {
   }
 
   @override
-  Future<List<BalanceModel>> getFavouritesData() async {
+  Future<List<BalanceModel>> getFavouritesData({bool forceRequestBool = false}) async {
     Set<String> favouriteBalances = favouriteCacheService.getAll();
     if (favouriteBalances.isNotEmpty) {
       // TODO(dominik): implement request Balances by name
-      PageData<BalanceModel> balancesPageData = await queryBalanceService.getBalanceModelList(QueryBalanceReq(
-        address: address,
-        offset: 0,
-        limit: 500,
-      ));
+      PageData<BalanceModel> balancesPageData = await queryBalanceService.getBalanceModelList(
+        QueryBalanceReq(address: address, offset: 0, limit: 500),
+        forceRequestBool: forceRequestBool,
+      );
 
       return balancesPageData.listItems.where((BalanceModel balanceModel) {
         return favouriteBalances.contains(balanceModel.tokenAmountModel.tokenAliasModel.lowestTokenDenominationModel.name);
@@ -40,12 +39,11 @@ class BalancesListController implements IListController<BalanceModel> {
   }
 
   @override
-  Future<PageData<BalanceModel>> getPageData(PaginationDetailsModel paginationDetailsModel) async {
-    PageData<BalanceModel> balancesPageData = await queryBalanceService.getBalanceModelList(QueryBalanceReq(
-      address: address,
-      limit: paginationDetailsModel.limit,
-      offset: paginationDetailsModel.offset,
-    ));
+  Future<PageData<BalanceModel>> getPageData(PaginationDetailsModel paginationDetailsModel, {bool forceRequestBool = false}) async {
+    PageData<BalanceModel> balancesPageData = await queryBalanceService.getBalanceModelList(
+      QueryBalanceReq(address: address, limit: paginationDetailsModel.limit, offset: paginationDetailsModel.offset),
+      forceRequestBool: forceRequestBool,
+    );
     return balancesPageData;
   }
 }

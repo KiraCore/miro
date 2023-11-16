@@ -15,10 +15,11 @@ class QueryInterxStatusService implements _IQueryInterxStatusService {
   final IApiRepository _apiRepository = globalLocator<IApiRepository>();
 
   @override
-  Future<QueryInterxStatusResp> getQueryInterxStatusResp(Uri networkUri) async {
+  Future<QueryInterxStatusResp> getQueryInterxStatusResp(Uri networkUri, {bool forceRequestBool = false}) async {
     Response<dynamic> response = await _apiRepository.fetchQueryInterxStatus<dynamic>(ApiRequestModel<void>(
       networkUri: networkUri,
       requestData: null,
+      forceRequestBool: forceRequestBool,
     ));
 
     try {

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/a_list_state.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/controllers/i_list_controller.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/events/list_reload_event.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/models/a_list_item.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/states/list_error_state.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/states/list_loaded_state.dart';
@@ -10,11 +11,12 @@ import 'package:miro/blocs/widgets/kira/kira_list/favourites/favourites_bloc.dar
 import 'package:miro/blocs/widgets/kira/kira_list/filters/filters_bloc.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/infinity_list/infinity_list_bloc.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/sort/sort_bloc.dart';
+import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
+import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 import 'package:miro/views/widgets/kira/kira_list/infinity_list/sliver_infinity_list/sliver_infinity_list_content.dart';
-import 'package:miro/views/widgets/kira/kira_list/list_error_widget.dart';
-import 'package:miro/views/widgets/kira/kira_list/list_loading_widget.dart';
-import 'package:sliver_tools/sliver_tools.dart';
+import 'package:miro/views/widgets/kira/kira_list/sliver_list_background.dart';
+import 'package:miro/views/widgets/kira/kira_list/sliver_list_layout.dart';
 
 class SliverInfinityList<T extends AListItem> extends StatefulWidget {
   final Widget Function(T item) itemBuilder;
@@ -64,6 +66,8 @@ class _SliverInfinityList<T extends AListItem> extends State<SliverInfinityList<
 
   @override
   Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+
     return MultiBlocProvider(
       providers: <BlocProvider<dynamic>>[
         if (widget.filtersBloc != null) BlocProvider<FiltersBloc<T>>.value(value: widget.filtersBloc!),
@@ -73,51 +77,61 @@ class _SliverInfinityList<T extends AListItem> extends State<SliverInfinityList<
       ],
       child: ValueListenableBuilder<bool>(
         valueListenable: infinityListBloc.showLoadingOverlay,
-        builder: (_, bool showLoadingOverlay, __) {
-          return SliverOpacity(
-            opacity: showLoadingOverlay ? 0.5 : 1,
-            sliver: BlocBuilder<InfinityListBloc<T>, AListState>(
-              bloc: infinityListBloc,
-              builder: (BuildContext context, AListState state) {
-                return MultiSliver(
-                  children: <Widget>[
-                    SliverToBoxAdapter(
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 32),
-                        child: Opacity(
-                          opacity: state is ListLoadedState ? 1 : 0.5,
-                          child: state is ListLoadedState ? widget.title : IgnorePointer(child: widget.title),
+        builder: (_, bool loadingOverlayVisibleBool, __) {
+          return BlocBuilder<InfinityListBloc<T>, AListState>(
+            bloc: infinityListBloc,
+            builder: (BuildContext context, AListState state) {
+              bool staticLoadingIndicatorBool = state is ListLoadedState<T> && state.listItems.length > widget.singlePageSize;
+
+              return SliverListLayout(
+                staticLoadingIndicatorBool: staticLoadingIndicatorBool || ResponsiveWidget.isLargeScreen(context) == false,
+                loadingOverlayVisibleBool: loadingOverlayVisibleBool || state is ListLoadingState,
+                titleBuilder: widget.title != null ? (_) => widget.title! : null,
+                lastBlockDateTime: state is ListLoadedState<T> ? state.blockDateTime : null,
+                cacheExpirationDateTime: state is ListLoadedState<T> ? state.cacheExpirationDateTime : null,
+                onRefresh: () => infinityListBloc.add(const ListReloadEvent(forceRequestBool: true, listContentVisibleBool: true)),
+                content: <Widget>[
+                  if (state is ListLoadingState)
+                    const SliverListBackground()
+                  else if (state is ListLoadedState<T> && state.listItems.isEmpty)
+                    SliverListBackground(
+                      child: Center(
+                        child: Text(
+                          S.of(context).errorNoResults,
+                          style: textTheme.bodySmall?.copyWith(color: DesignColors.white2),
                         ),
                       ),
-                    ),
-                    if (state is ListLoadingState)
-                      const SliverFillRemaining(
-                        hasScrollBody: false,
-                        child: ListLoadingWidget(),
-                      )
-                    else if (state is ListLoadedState<T>)
-                      SliverInfinityListContent<T>(
-                        isLastPage: state.lastPage,
-                        hasBackground: widget.hasBackgroundBool,
-                        items: state.listItems,
-                        itemBuilder: widget.itemBuilder,
-                        scrollController: widget.scrollController,
-                        listHeaderWidget: widget.listHeaderWidget,
-                      )
-                    else if (state is ListErrorState)
-                      SliverFillRemaining(
-                        hasScrollBody: false,
-                        child: ListErrorWidget(errorMessage: S.of(context).errorCannotFetchData),
-                      )
-                    else
-                      SliverFillRemaining(
-                        hasScrollBody: false,
-                        child: ListErrorWidget(errorMessage: S.of(context).errorUnknown),
+                    )
+                  else if (state is ListLoadedState<T>)
+                    SliverInfinityListContent<T>(
+                      isLastPage: state.lastPage,
+                      hasBackground: widget.hasBackgroundBool,
+                      items: state.listItems,
+                      itemBuilder: widget.itemBuilder,
+                      scrollController: widget.scrollController,
+                      listHeaderWidget: widget.listHeaderWidget,
+                    )
+                  else if (state is ListErrorState)
+                    SliverListBackground(
+                      child: Center(
+                        child: Text(
+                          S.of(context).errorCannotFetchData,
+                          style: textTheme.bodySmall?.copyWith(color: DesignColors.redStatus1),
+                        ),
                       ),
-                  ],
-                );
-              },
-            ),
+                    )
+                  else
+                    SliverListBackground(
+                      child: Center(
+                        child: Text(
+                          S.of(context).errorUnknown,
+                          style: textTheme.bodySmall?.copyWith(color: DesignColors.redStatus1),
+                        ),
+                      ),
+                    )
+                ],
+              );
+            },
           );
         },
       ),

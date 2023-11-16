@@ -19,9 +19,9 @@ class FavouritesBloc<T extends AListItem> extends Bloc<AFavouritesEvent, AFavour
     on<FavouritesRemoveRecordEvent<T>>(_mapFavouritesRemoveRecordEventToState);
   }
 
-  Future<void> initFavourites() async {
+  Future<void> initFavourites({bool forceRequestBool = false}) async {
     try {
-      List<T> newFavouritesList = await listController.getFavouritesData();
+      List<T> newFavouritesList = await listController.getFavouritesData(forceRequestBool: forceRequestBool);
       for (T favouriteListItem in newFavouritesList) {
         favouriteListItem.favourite = true;
       }

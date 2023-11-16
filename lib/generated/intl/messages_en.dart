@@ -35,19 +35,21 @@ class MessageLookup extends MessageLookupByLibrary {
   static String m5(latestBlockTime) =>
       "The last available block on this interx was created long time ago ${latestBlockTime}. The displayed contents may be out of date.";
 
-  static String m6(availableAmountText, tokenDenominationModelName) =>
+  static String m6(seconds) => "Refresh in ${seconds} sec.";
+
+  static String m7(availableAmountText, tokenDenominationModelName) =>
       "Available: ${availableAmountText} ${tokenDenominationModelName}";
 
-  static String m7(hash) => "Transaction hash: 0x${hash}";
+  static String m8(hash) => "Transaction hash: 0x${hash}";
 
-  static String m8(amount) => "+ ${amount} more";
+  static String m9(amount) => "+ ${amount} more";
 
-  static String m9(widgetFeeTokenAmountModel) =>
+  static String m10(widgetFeeTokenAmountModel) =>
       "Transaction fee ${widgetFeeTokenAmountModel}";
 
-  static String m10(txMsgType) => "Preview for ${txMsgType} unavailable";
+  static String m11(txMsgType) => "Preview for ${txMsgType} unavailable";
 
-  static String m11(selected) => "${selected} selected";
+  static String m12(selected) => "${selected} selected";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -342,6 +344,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "proposalsSuccessful":
             MessageLookupByLibrary.simpleMessage("Successful"),
         "proposalsVoters": MessageLookupByLibrary.simpleMessage("Voters"),
+        "refresh": MessageLookupByLibrary.simpleMessage("Refresh"),
+        "refreshInSeconds": m6,
         "sec": MessageLookupByLibrary.simpleMessage("sec."),
         "seeAll": MessageLookupByLibrary.simpleMessage("See all"),
         "seeMore": MessageLookupByLibrary.simpleMessage("See more"),
@@ -356,7 +360,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "toastSuccessfullyCopied":
             MessageLookupByLibrary.simpleMessage("Successfully copied"),
         "tx": MessageLookupByLibrary.simpleMessage("Transactions"),
-        "txAvailableBalances": m6,
+        "txAvailableBalances": m7,
         "txButtonBackToAccount":
             MessageLookupByLibrary.simpleMessage("Back to account"),
         "txButtonClear": MessageLookupByLibrary.simpleMessage("Clear"),
@@ -403,7 +407,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("See more on Explorer"),
         "txFetchingRemoteData": MessageLookupByLibrary.simpleMessage(
             "Fetching remote data. Please wait..."),
-        "txHash": m7,
+        "txHash": m8,
         "txHintMemo": MessageLookupByLibrary.simpleMessage("Memo"),
         "txHintSendFrom": MessageLookupByLibrary.simpleMessage("Send from"),
         "txHintSendTo": MessageLookupByLibrary.simpleMessage("Send to"),
@@ -413,7 +417,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "txListAmountFeesOnly":
             MessageLookupByLibrary.simpleMessage("Fees only"),
         "txListAmountPlusFees": MessageLookupByLibrary.simpleMessage("+ fees"),
-        "txListAmountPlusMore": m8,
+        "txListAmountPlusMore": m9,
         "txListDate": MessageLookupByLibrary.simpleMessage("Date"),
         "txListDetails": MessageLookupByLibrary.simpleMessage("Details"),
         "txListDirection": MessageLookupByLibrary.simpleMessage("Direction"),
@@ -452,10 +456,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Unknown transaction type"),
         "txMsgUndelegateTokens":
             MessageLookupByLibrary.simpleMessage("Undelegate Tokens"),
-        "txNoticeFee": m9,
+        "txNoticeFee": m10,
         "txPleaseSelectToken":
             MessageLookupByLibrary.simpleMessage("Please select a token"),
-        "txPreviewUnavailable": m10,
+        "txPreviewUnavailable": m11,
         "txRecipientWillGet":
             MessageLookupByLibrary.simpleMessage("Recipient will get"),
         "txSearchTokens": MessageLookupByLibrary.simpleMessage("Search tokens"),
@@ -472,7 +476,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "txYouWillGet": MessageLookupByLibrary.simpleMessage("You will get"),
         "validators": MessageLookupByLibrary.simpleMessage("Validators"),
         "validatorsActive": MessageLookupByLibrary.simpleMessage("Active"),
-        "validatorsButtonFilter": m11,
+        "validatorsButtonFilter": m12,
         "validatorsDropdownAll": MessageLookupByLibrary.simpleMessage("All"),
         "validatorsHintSearch":
             MessageLookupByLibrary.simpleMessage("Search validators"),

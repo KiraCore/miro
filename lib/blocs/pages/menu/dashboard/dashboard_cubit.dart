@@ -13,7 +13,6 @@ import 'package:miro/shared/controllers/page_reload/page_reload_controller.dart'
 import 'package:miro/shared/models/dashboard/dashboard_model.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
 import 'package:miro/shared/models/network/status/network_offline_model.dart';
-import 'package:miro/shared/models/network/status/online/a_network_online_model.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';
 
 class DashboardCubit extends Cubit<ADashboardState> {
@@ -38,14 +37,14 @@ class DashboardCubit extends Cubit<ADashboardState> {
     await _reload();
   }
 
-  void _reloadAfterNetworkModuleStateChanged(NetworkModuleState networkModuleState) {
-    bool isNetworkOnline = networkModuleState.networkStatusModel is ANetworkOnlineModel;
-    if (isNetworkOnline) {
-      _reload();
-    }
+  Future<void> _reloadAfterNetworkModuleStateChanged(NetworkModuleState networkModuleState) async {
+    ANetworkStatusModel networkStatusModel = networkModuleBloc.state.networkStatusModel;
+    bool networkUpdatedBool = networkStatusModel.uri == pageReloadController.usedUri;
+
+    await _reload(forceRequestBool: networkUpdatedBool);
   }
 
-  Future<void> _reload() async {
+  Future<void> _reload({bool forceRequestBool = false}) async {
     ANetworkStatusModel networkStatusModel = networkModuleBloc.state.networkStatusModel;
     bool changedNetwork = networkStatusModel.uri != pageReloadController.usedUri;
     pageReloadController.handleReloadCall(networkStatusModel);
@@ -59,16 +58,15 @@ class DashboardCubit extends Cubit<ADashboardState> {
     }
 
     try {
-      DashboardModel dashboardModel = await dashboardService.getDashboardModel();
+      DashboardModel dashboardModel = await dashboardService.getDashboardModel(forceRequestBool: forceRequestBool);
       bool reloadActiveBool = pageReloadController.canReloadComplete(localReloadId) && isClosed == false;
       if (reloadActiveBool) {
         emit(DashboardLoadedState(dashboardModel: dashboardModel));
       }
     } catch (e) {
       AppLogger().log(message: 'Cannot update dashboard');
-      bool canReloadComplete = pageReloadController.canReloadComplete(localReloadId) && isClosed == false;
-      bool isBlocActive = isClosed == false;
-      if (canReloadComplete && changedNetwork && isBlocActive) {
+      bool reloadActiveBool = pageReloadController.canReloadComplete(localReloadId) && isClosed == false;
+      if (reloadActiveBool && changedNetwork) {
         emit(DashboardErrorState());
       }
     }

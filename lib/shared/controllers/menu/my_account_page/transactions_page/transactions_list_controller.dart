@@ -30,12 +30,12 @@ class TransactionsListController implements IListController<TxListItemModel> {
   }
 
   @override
-  Future<List<TxListItemModel>> getFavouritesData() async {
+  Future<List<TxListItemModel>> getFavouritesData({bool forceRequestBool = false}) async {
     return List<TxListItemModel>.empty();
   }
 
   @override
-  Future<PageData<TxListItemModel>> getPageData(PaginationDetailsModel paginationDetailsModel) async {
+  Future<PageData<TxListItemModel>> getPageData(PaginationDetailsModel paginationDetailsModel, {bool forceRequestBool = false}) async {
     PageData<TxListItemModel> transactionsPageData = await queryTransactionsService.getTransactionList(
       QueryTransactionsReq(
         address: address,
@@ -47,6 +47,7 @@ class TransactionsListController implements IListController<TxListItemModel> {
         status: statusFilters,
         direction: directionFilters,
       ),
+        forceRequestBool: forceRequestBool,
     );
     return transactionsPageData;
   }

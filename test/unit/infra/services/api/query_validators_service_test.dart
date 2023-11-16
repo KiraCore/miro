@@ -38,6 +38,8 @@ Future<void> main() async {
       // Assert
       PageData<ValidatorModel> expectedValidatorsPageData = PageData<ValidatorModel>(
         lastPageBool: true,
+        blockDateTime: DateTime.parse('2022-08-26 22:08:27.607Z'),
+        cacheExpirationDateTime: DateTime.parse('2022-08-26 22:08:27.607Z'),
         listItems: <ValidatorModel>[
           ValidatorModel(
             top: 1,
@@ -75,22 +77,18 @@ Future<void> main() async {
       expect(actualValidatorsPageData, expectedValidatorsPageData);
     });
 
-    test('Should return [EMPTY PageData<IRInboundVerificationRequestModel>] if [server HEALTHY] and [response data INVALID]', () async {
+    test('Should throw [DioParseException] if [server HEALTHY] and [response data INVALID]', () async {
       // Arrange
       Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://invalid.kira.network/');
       await TestUtils.setupNetworkModel(networkUri: networkUri);
 
       QueryValidatorsReq actualQueryValidatorsReq = const QueryValidatorsReq(limit: 10, offset: 0);
 
-      PageData<ValidatorModel> actualValidatorsPageData = await queryValidatorsService.getValidatorsList(actualQueryValidatorsReq);
-
       // Assert
-      PageData<ValidatorModel> expectedValidatorsPageData = const PageData<ValidatorModel>(
-        lastPageBool: true,
-        listItems: <ValidatorModel>[],
+      expect(
+        () => queryValidatorsService.getValidatorsList(actualQueryValidatorsReq),
+        throwsA(isA<DioParseException>()),
       );
-
-      expect(actualValidatorsPageData, expectedValidatorsPageData);
     });
 
     test('Should throw [DioConnectException] if [server OFFLINE]', () async {

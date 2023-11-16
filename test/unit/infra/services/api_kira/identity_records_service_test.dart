@@ -131,6 +131,8 @@ Future<void> main() async {
       // Assert
       PageData<IRInboundVerificationRequestModel> expectedVerificationRequestsPageData = PageData<IRInboundVerificationRequestModel>(
         lastPageBool: true,
+        blockDateTime: DateTime.parse('2022-08-26 22:08:27.607Z'),
+        cacheExpirationDateTime: DateTime.parse('2022-08-26 22:08:27.607Z'),
         listItems: <IRInboundVerificationRequestModel>[
           IRInboundVerificationRequestModel(
             id: '1',
@@ -160,9 +162,11 @@ Future<void> main() async {
         );
 
         // Assert
-        PageData<IRInboundVerificationRequestModel> expectedVerificationRequestsPageData = const PageData<IRInboundVerificationRequestModel>(
+        PageData<IRInboundVerificationRequestModel> expectedVerificationRequestsPageData = PageData<IRInboundVerificationRequestModel>(
           lastPageBool: true,
-          listItems: <IRInboundVerificationRequestModel>[],
+          blockDateTime: DateTime.parse('2022-08-26 22:08:27.607Z'),
+          cacheExpirationDateTime: DateTime.parse('2022-08-26 22:08:27.607Z'),
+          listItems: const <IRInboundVerificationRequestModel>[],
         );
 
         expect(

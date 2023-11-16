@@ -84,6 +84,8 @@ Future<void> main() async {
         listItems: <MockListItem>[expectedMockListItem1, expectedMockListItem2],
         lastPageBool: false,
         pageIndex: 0,
+        blockDateTime: DateTime.parse('2021-01-01 00:00:00'),
+        cacheExpirationDateTime: DateTime.parse('2021-01-01 00:00:00'),
       );
 
       TestUtils.printInfo('Should return [PaginatedListLoadedState] with first page of items. [with default sort option]');
@@ -98,6 +100,8 @@ Future<void> main() async {
         listItems: <MockListItem>[expectedMockListItem3],
         lastPageBool: true,
         pageIndex: 1,
+        blockDateTime: DateTime.parse('2021-01-01 00:00:00'),
+        cacheExpirationDateTime: DateTime.parse('2021-01-01 00:00:00'),
       );
 
       TestUtils.printInfo('Should return [PaginatedListLoadedState] with last page of items. [with default sort option]');
@@ -112,6 +116,8 @@ Future<void> main() async {
         listItems: <MockListItem>[expectedMockListItem1, expectedMockListItem2],
         lastPageBool: false,
         pageIndex: 0,
+        blockDateTime: DateTime.parse('2021-01-01 00:00:00'),
+        cacheExpirationDateTime: DateTime.parse('2021-01-01 00:00:00'),
       );
 
       TestUtils.printInfo('Should return [PaginatedListLoadedState] with first page of items. [with default sort option]');
@@ -126,6 +132,8 @@ Future<void> main() async {
         listItems: <MockListItem>[expectedMockListItem3, expectedMockListItem2],
         lastPageBool: false,
         pageIndex: 0,
+        blockDateTime: DateTime.parse('2021-01-01 00:00:00'),
+        cacheExpirationDateTime: DateTime.parse('2021-01-01 00:00:00'),
       );
 
       TestUtils.printInfo('Should [set "sortById"] and return [PaginatedListLoadedState] with first page of sorted items');
@@ -140,6 +148,8 @@ Future<void> main() async {
         listItems: <MockListItem>[expectedMockListItem1],
         lastPageBool: true,
         pageIndex: 1,
+        blockDateTime: DateTime.parse('2021-01-01 00:00:00'),
+        cacheExpirationDateTime: DateTime.parse('2021-01-01 00:00:00'),
       );
       TestUtils.printInfo('Should return [PaginatedListLoadedState] with last page of items. [with "sortById" option]');
       expect(actualPaginatedListBloc.state, expectedListState);
@@ -153,6 +163,8 @@ Future<void> main() async {
         listItems: <MockListItem>[expectedMockListItem1, expectedMockListItem2],
         lastPageBool: false,
         pageIndex: 0,
+        blockDateTime: DateTime.parse('2021-01-01 00:00:00'),
+        cacheExpirationDateTime: DateTime.parse('2021-01-01 00:00:00'),
       );
 
       TestUtils.printInfo('Should clear sort options and return [PaginatedListLoadedState] with first page of items. [with default sort option]');
@@ -167,6 +179,8 @@ Future<void> main() async {
         listItems: <MockListItem>[expectedMockListItem1, expectedMockListItem2],
         lastPageBool: false,
         pageIndex: 0,
+        blockDateTime: DateTime.parse('2021-01-01 00:00:00'),
+        cacheExpirationDateTime: DateTime.parse('2021-01-01 00:00:00'),
       );
 
       TestUtils.printInfo('Should [set "filterByActive"] and return [PaginatedListLoadedState] with first page of items that match filters');
@@ -181,6 +195,8 @@ Future<void> main() async {
         listItems: <MockListItem>[expectedMockListItem2, expectedMockListItem1],
         lastPageBool: false,
         pageIndex: 0,
+        blockDateTime: DateTime.parse('2021-01-01 00:00:00'),
+        cacheExpirationDateTime: DateTime.parse('2021-01-01 00:00:00'),
       );
 
       TestUtils.printInfo('Should [set "sortById"] and return [PaginatedListLoadedState] with first page of sorted items that match "filterByActive" filter');
@@ -191,10 +207,12 @@ Future<void> main() async {
       await Future<void>.delayed(const Duration(milliseconds: 100));
 
       // Assert
-      expectedListState = const PaginatedListLoadedState<MockListItem>(
-        listItems: <MockListItem>[],
+      expectedListState = PaginatedListLoadedState<MockListItem>(
+        listItems: const <MockListItem>[],
         lastPageBool: true,
         pageIndex: 1,
+        blockDateTime: DateTime.parse('2021-01-01 00:00:00'),
+        cacheExpirationDateTime: DateTime.parse('2021-01-01 00:00:00'),
       );
 
       TestUtils.printInfo('Should return [PaginatedListLoadedState] with no elements if next page is empty and last page was not recognized');
@@ -209,6 +227,8 @@ Future<void> main() async {
         listItems: <MockListItem>[expectedMockListItem3, expectedMockListItem2],
         lastPageBool: false,
         pageIndex: 0,
+        blockDateTime: DateTime.parse('2021-01-01 00:00:00'),
+        cacheExpirationDateTime: DateTime.parse('2021-01-01 00:00:00'),
       );
 
       TestUtils.printInfo('Should [remove "filterByActive"] and return [PaginatedListLoadedState] with first page of items [with "sortById" option]');
@@ -223,6 +243,8 @@ Future<void> main() async {
         listItems: <MockListItem>[expectedMockListItem1, expectedMockListItem3],
         lastPageBool: false,
         pageIndex: 0,
+        blockDateTime: DateTime.parse('2021-01-01 00:00:00'),
+        cacheExpirationDateTime: DateTime.parse('2021-01-01 00:00:00'),
       );
 
       TestUtils.printInfo('Should return [PaginatedListLoadedState] with list of items containing favourites first [with "sortById" option]');
@@ -237,6 +259,8 @@ Future<void> main() async {
         listItems: <MockListItem>[expectedMockListItem3],
         lastPageBool: true,
         pageIndex: 0,
+        blockDateTime: DateTime.parse('2021-01-01 00:00:00'),
+        cacheExpirationDateTime: DateTime.parse('2021-01-01 00:00:00'),
       );
 
       TestUtils.printInfo('Should return [PaginatedListLoadedState] with first page of items that match search query ("coco") [with "sortById" option]');

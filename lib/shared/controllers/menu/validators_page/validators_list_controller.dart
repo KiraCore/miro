@@ -17,21 +17,27 @@ class ValidatorsListController implements IListController<ValidatorModel> {
   }
 
   @override
-  Future<List<ValidatorModel>> getFavouritesData() async {
+  Future<List<ValidatorModel>> getFavouritesData({bool forceRequestBool = false}) async {
     Set<String> favouriteAddresses = favouritesCacheService.getAll();
     if (favouriteAddresses.isNotEmpty) {
-      List<ValidatorModel> remoteFavourites = await queryValidatorsService.getValidatorsByAddresses(favouriteAddresses.toList());
+      List<ValidatorModel> remoteFavourites = await queryValidatorsService.getValidatorsByAddresses(
+        favouriteAddresses.toList(),
+        forceRequestBool: forceRequestBool,
+      );
       return remoteFavourites;
     }
     return List<ValidatorModel>.empty(growable: true);
   }
 
   @override
-  Future<PageData<ValidatorModel>> getPageData(PaginationDetailsModel paginationDetailsModel) async {
-    PageData<ValidatorModel> validatorsPageData = await queryValidatorsService.getValidatorsList(QueryValidatorsReq(
-      limit: paginationDetailsModel.limit,
-      offset: paginationDetailsModel.offset,
-    ));
+  Future<PageData<ValidatorModel>> getPageData(PaginationDetailsModel paginationDetailsModel, {bool forceRequestBool = false}) async {
+    PageData<ValidatorModel> validatorsPageData = await queryValidatorsService.getValidatorsList(
+      QueryValidatorsReq(
+        limit: paginationDetailsModel.limit,
+        offset: paginationDetailsModel.offset,
+      ),
+      forceRequestBool: forceRequestBool,
+    );
     return validatorsPageData;
   }
 }

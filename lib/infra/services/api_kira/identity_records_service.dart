@@ -11,6 +11,7 @@ import 'package:miro/infra/dto/api_kira/query_identity_record_verify_requests/re
 import 'package:miro/infra/dto/api_kira/query_identity_record_verify_requests/response/verify_record.dart';
 import 'package:miro/infra/dto/api_kira/query_identity_records/response/query_identity_record_by_id_resp.dart';
 import 'package:miro/infra/dto/api_kira/query_identity_records/response/query_identity_records_by_address_resp.dart';
+import 'package:miro/infra/dto/interx_headers.dart';
 import 'package:miro/infra/exceptions/dio_parse_exception.dart';
 import 'package:miro/infra/models/api_request_model.dart';
 import 'package:miro/infra/repositories/api/api_kira_repository.dart';
@@ -39,12 +40,13 @@ class IdentityRecordsService implements _IIdentityRecordsService {
   final IApiKiraRepository _apiKiraRepository = globalLocator<IApiKiraRepository>();
 
   @override
-  Future<IRModel> getIdentityRecordsByAddress(WalletAddress walletAddress) async {
+  Future<IRModel> getIdentityRecordsByAddress(WalletAddress walletAddress, {bool forceRequestBool = false}) async {
     Uri networkUri = globalLocator<NetworkModuleBloc>().state.networkUri;
 
     Response<dynamic> response = await _apiKiraRepository.fetchQueryIdentityRecordsByAddress<dynamic>(ApiRequestModel<String>(
       networkUri: networkUri,
       requestData: walletAddress.bech32Address,
+      forceRequestBool: forceRequestBool,
     ));
     List<PendingVerification> pendingVerifications = await _getAllPendingVerificationsByRequester(walletAddress);
 
@@ -64,13 +66,14 @@ class IdentityRecordsService implements _IIdentityRecordsService {
 
   @override
   Future<PageData<IRInboundVerificationRequestModel>> getInboundVerificationRequests(
-      QueryIdentityRecordVerifyRequestsByApproverReq queryIdentityRecordVerifyRequestsByApproverReq) async {
+      QueryIdentityRecordVerifyRequestsByApproverReq queryIdentityRecordVerifyRequestsByApproverReq, {bool forceRequestBool = true}) async {
     Uri networkUri = globalLocator<NetworkModuleBloc>().state.networkUri;
 
     Response<dynamic> response = await _apiKiraRepository.fetchQueryIdentityRecordVerifyRequestsByApprover<dynamic>(
       ApiRequestModel<QueryIdentityRecordVerifyRequestsByApproverReq>(
         networkUri: networkUri,
         requestData: queryIdentityRecordVerifyRequestsByApproverReq,
+        forceRequestBool: forceRequestBool
       ),
     );
 
@@ -109,9 +112,13 @@ class IdentityRecordsService implements _IIdentityRecordsService {
       irInboundVerificationRequestModels.add(irInboundVerificationRequestModel);
     }
 
+    InterxHeaders interxHeaders = InterxHeaders.fromHeaders(response.headers);
+
     return PageData<IRInboundVerificationRequestModel>(
       listItems: irInboundVerificationRequestModels,
       lastPageBool: irInboundVerificationRequestModels.length < queryIdentityRecordVerifyRequestsByApproverReq.limit!,
+      blockDateTime: interxHeaders.blockDateTime,
+      cacheExpirationDateTime: interxHeaders.cacheExpirationDateTime,
     );
   }
 
@@ -137,7 +144,7 @@ class IdentityRecordsService implements _IIdentityRecordsService {
     return irRecordVerificationRequestModels;
   }
 
-  Future<List<PendingVerification>> _getAllPendingVerificationsByRequester(WalletAddress requesterWalletAddress) async {
+  Future<List<PendingVerification>> _getAllPendingVerificationsByRequester(WalletAddress requesterWalletAddress, {bool forceRequestBool = false}) async {
     Uri networkUri = globalLocator<NetworkModuleBloc>().state.networkUri;
     List<PendingVerification> allPendingVerifications = List<PendingVerification>.empty(growable: true);
 
@@ -153,6 +160,7 @@ class IdentityRecordsService implements _IIdentityRecordsService {
             offset: index * pageSize,
             limit: pageSize,
           ),
+          forceRequestBool: forceRequestBool,
         ),
       );
 

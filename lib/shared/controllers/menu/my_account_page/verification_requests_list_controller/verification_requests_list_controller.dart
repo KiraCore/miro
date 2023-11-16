@@ -23,18 +23,19 @@ class VerificationRequestsListController implements IListController<IRInboundVer
   }
 
   @override
-  Future<List<IRInboundVerificationRequestModel>> getFavouritesData() async {
+  Future<List<IRInboundVerificationRequestModel>> getFavouritesData({bool forceRequestBool = false}) async {
     return List<IRInboundVerificationRequestModel>.empty(growable: true);
   }
 
   @override
-  Future<PageData<IRInboundVerificationRequestModel>> getPageData(PaginationDetailsModel paginationDetailsModel) async {
+  Future<PageData<IRInboundVerificationRequestModel>> getPageData(PaginationDetailsModel paginationDetailsModel, {bool forceRequestBool = false}) async {
     PageData<IRInboundVerificationRequestModel> irVerificationRequestModelList = await identityRecordsService.getInboundVerificationRequests(
       QueryIdentityRecordVerifyRequestsByApproverReq(
         address: walletAddress.bech32Address,
         limit: paginationDetailsModel.limit,
         offset: paginationDetailsModel.offset,
       ),
+      forceRequestBool: forceRequestBool,
     );
     return irVerificationRequestModelList;
   }

@@ -47,7 +47,7 @@ class _TransactionsListTitle extends State<TransactionsListTitle> {
               widget.transactionsListController
                 ..startDateTime = startDateTime
                 ..endDateTime = endDateTime;
-              BlocProvider.of<PaginatedListBloc<TxListItemModel>>(context).add(ListReloadEvent());
+              BlocProvider.of<PaginatedListBloc<TxListItemModel>>(context).add(const ListReloadEvent());
             },
           ),
           if (ResponsiveWidget.isLargeScreen(context)) ...<Widget>[
@@ -77,6 +77,6 @@ class _TransactionsListTitle extends State<TransactionsListTitle> {
     widget.transactionsListController
       ..directionFilters = activeFilters.whereType<TxDirectionType>().toList()
       ..statusFilters = activeFilters.whereType<TxStatusType>().toList();
-    BlocProvider.of<PaginatedListBloc<TxListItemModel>>(context).add(ListReloadEvent());
+    BlocProvider.of<PaginatedListBloc<TxListItemModel>>(context).add(const ListReloadEvent());
   }
 }

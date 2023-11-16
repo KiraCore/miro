@@ -24,6 +24,8 @@ Future<void> main() async {
 
   PageData<BalanceModel> expectedBalancesPageData = PageData<BalanceModel>(
     lastPageBool: true,
+    blockDateTime: DateTime.parse('2022-08-26 22:08:27.607Z'),
+    cacheExpirationDateTime: DateTime.parse('2022-08-26 22:08:27.607Z'),
     listItems: <BalanceModel>[
       BalanceModel(
         tokenAmountModel: TokenAmountModel(

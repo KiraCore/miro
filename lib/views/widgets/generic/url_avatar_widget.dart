@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:miro/config/theme/design_colors.dart';
@@ -22,10 +23,10 @@ class UrlAvatarWidget extends StatelessWidget {
 
     Widget primaryAvatarWidget = ClipRRect(
       borderRadius: BorderRadius.circular(1000),
-      child: Image.network(
-        url,
+      child: CachedNetworkImage(
+        imageUrl: url,
         fit: BoxFit.cover,
-        errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+        errorWidget: (BuildContext context, String url, Object error) {
           return SvgPicture.network(url, fit: BoxFit.cover);
         },
       ),

@@ -12,7 +12,6 @@ import 'package:miro/views/pages/menu/my_account_page/my_account_page_header.dar
 import 'package:miro/views/pages/menu/my_account_page/transactions_page/transactions_page.dart';
 import 'package:miro/views/pages/menu/my_account_page/verification_requests/verification_requests_page.dart';
 import 'package:miro/views/widgets/generic/sliver_tab_bar_view.dart';
-import 'package:miro/views/widgets/kira/kira_list/components/last_block_time_widget.dart';
 import 'package:miro/views/widgets/kira/kira_tab_bar/kira_tab_bar.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 
@@ -65,8 +64,7 @@ class _MyAccountPage extends State<MyAccountPage> with SingleTickerProviderState
                           Tab(text: S.of(context).ir),
                           Tab(text: S.of(context).irVerificationRequests),
                         ]),
-                        const SizedBox(height: 15),
-                        const LastBlockTimeWidget(),
+                        const SizedBox(height: 8),
                       ],
                     ),
                   ),

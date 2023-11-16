@@ -49,12 +49,12 @@ class NetworkModuleService implements _INetworkModuleService {
     Status? status;
 
     try {
-      status = await _queryValidatorsService.getStatus(networkUnknownModel.uri);
+      status = await _queryValidatorsService.getStatus(networkUnknownModel.uri, forceRequestBool: true);
     } catch (e) {
       AppLogger().log(message: 'NetworkModuleService: Cannot fetch getStatus() for URI ${networkUnknownModel.uri} $e');
     }
 
-    QueryInterxStatusResp queryInterxStatusResp = await _queryInterxStatusService.getQueryInterxStatusResp(networkUnknownModel.uri);
+    QueryInterxStatusResp queryInterxStatusResp = await _queryInterxStatusService.getQueryInterxStatusResp(networkUnknownModel.uri, forceRequestBool: true);
     return NetworkInfoModel.fromDto(queryInterxStatusResp, status);
   }
 }

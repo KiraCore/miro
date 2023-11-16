@@ -163,7 +163,7 @@ class _IRRecordDrawerPage extends State<IRRecordDrawerPage> {
         ),
       ],
     ));
-    await widget.identityRegistrarCubit.refresh();
+    await widget.identityRegistrarCubit.refresh(forceRequestBool: true);
     Navigator.of(context).pop();
   }
 
@@ -173,7 +173,7 @@ class _IRRecordDrawerPage extends State<IRRecordDrawerPage> {
         IRTxRequestVerificationRoute(irRecordModel: widget.irRecordModel),
       ],
     ));
-    await widget.identityRegistrarCubit.refresh();
+    await widget.identityRegistrarCubit.refresh(forceRequestBool: true);
     await irRecordDrawerPageCubit.init();
   }
 }

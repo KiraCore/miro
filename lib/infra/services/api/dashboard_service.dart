@@ -17,11 +17,12 @@ class DashboardService implements _IDashboardService {
   final IApiRepository _apiRepository = globalLocator<IApiRepository>();
 
   @override
-  Future<DashboardModel> getDashboardModel() async {
+  Future<DashboardModel> getDashboardModel({bool forceRequestBool = false}) async {
     Uri networkUri = globalLocator<NetworkModuleBloc>().state.networkUri;
     Response<dynamic> response = await _apiRepository.fetchDashboard<dynamic>(ApiRequestModel<void>(
       networkUri: networkUri,
       requestData: null,
+      forceRequestBool: forceRequestBool,
     ));
 
     try {

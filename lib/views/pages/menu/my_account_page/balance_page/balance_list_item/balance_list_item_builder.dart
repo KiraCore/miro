@@ -89,6 +89,6 @@ class _BalanceListItemBuilder extends State<BalanceListItemBuilder> {
         TxSendTokensRoute(defaultBalanceModel: widget.balanceModel),
       ],
     ));
-    BlocProvider.of<InfinityListBloc<BalanceModel>>(context).add(ListReloadEvent());
+    BlocProvider.of<InfinityListBloc<BalanceModel>>(context).add(const ListReloadEvent(forceRequestBool: true));
   }
 }
