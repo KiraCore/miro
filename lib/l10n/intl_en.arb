@@ -390,6 +390,15 @@
   "or": "or ",
   "browse": "browse",
   "creationDate": "Creation date",
+  "refresh": "Refresh",
+  "refreshInSeconds": "Refresh in {seconds} sec.",
+  "@refreshInSeconds": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
   "seeMore": "See more",
   "seeAll": "See all",
   "showDetails": "Show Details"

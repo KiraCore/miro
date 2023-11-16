@@ -6,6 +6,7 @@ import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api_kira/query_balance/request/query_balance_req.dart';
 import 'package:miro/infra/dto/api_kira/query_balance/response/balance.dart';
 import 'package:miro/infra/dto/api_kira/query_balance/response/query_balance_resp.dart';
+import 'package:miro/infra/dto/interx_headers.dart';
 import 'package:miro/infra/exceptions/dio_parse_exception.dart';
 import 'package:miro/infra/models/api_request_model.dart';
 import 'package:miro/infra/repositories/api/api_kira_repository.dart';
@@ -40,21 +41,26 @@ class QueryBalanceService implements _IQueryBalanceService {
   }
 
   @override
-  Future<PageData<BalanceModel>> getBalanceModelList(QueryBalanceReq queryBalanceReq) async {
+  Future<PageData<BalanceModel>> getBalanceModelList(QueryBalanceReq queryBalanceReq, {bool forceRequestBool = false}) async {
     Uri networkUri = globalLocator<NetworkModuleBloc>().state.networkUri;
 
     Response<dynamic> response = await _apiKiraRepository.fetchQueryBalance<dynamic>(ApiRequestModel<QueryBalanceReq>(
       networkUri: networkUri,
       requestData: queryBalanceReq,
+      forceRequestBool: forceRequestBool,
     ));
 
     try {
       QueryBalanceResp queryBalanceResp = QueryBalanceResp.fromJson(response.data as Map<String, dynamic>);
       List<BalanceModel> balanceModelList = await _buildBalanceModels(queryBalanceResp);
 
+      InterxHeaders interxHeaders = InterxHeaders.fromHeaders(response.headers);
+
       return PageData<BalanceModel>(
         listItems: balanceModelList,
         lastPageBool: balanceModelList.length < queryBalanceReq.limit!,
+        blockDateTime: interxHeaders.blockDateTime,
+        cacheExpirationDateTime: interxHeaders.cacheExpirationDateTime,
       );
     } catch (e) {
       AppLogger().log(message: 'QueryBalanceService: Cannot parse getBalanceModelList() for URI $networkUri ${e}', logLevel: LogLevel.error);

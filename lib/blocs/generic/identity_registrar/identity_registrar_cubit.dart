@@ -41,34 +41,37 @@ class IdentityRegistrarCubit extends Cubit<AIdentityRegistrarState> {
     }
   }
 
-  Future<void> refresh() async {
+  Future<void> refresh({bool forceRequestBool = false}) async {
     if (walletAddress == null) {
       return;
     }
     ANetworkStatusModel networkStatusModel = _networkModuleBloc.state.networkStatusModel;
-    bool changedNetwork = networkStatusModel.uri != pageReloadController.usedUri;
+    bool networkChangedBool = networkStatusModel.uri != pageReloadController.usedUri;
     pageReloadController.handleReloadCall(networkStatusModel);
     int localReloadId = pageReloadController.activeReloadId;
 
-    if (changedNetwork) {
+    if (networkChangedBool) {
       emit(const IdentityRegistrarLoadingState());
     }
 
     try {
-      IRModel irModel = await _identityRecordsService.getIdentityRecordsByAddress(walletAddress!);
+      IRModel irModel = await _identityRecordsService.getIdentityRecordsByAddress(walletAddress!, forceRequestBool: forceRequestBool);
       bool reloadActiveBool = pageReloadController.canReloadComplete(localReloadId) && isClosed == false;
       if (reloadActiveBool) {
         emit(IdentityRegistrarLoadedState(irModel: irModel));
       }
     } catch (e) {
       AppLogger().log(message: 'Cannot fetch identity records for wallet address ${walletAddress!.bech32Address}: Reason: ${e.runtimeType}');
-      emit(IdentityRegistrarLoadedState(irModel: IRModel.empty(walletAddress: walletAddress!)));
+      if (networkChangedBool) {
+        emit(IdentityRegistrarLoadedState(irModel: IRModel.empty(walletAddress: walletAddress!)));
+      }
     }
   }
 
   Future<void> _refreshAfterNetworkUpdate(NetworkModuleState networkModuleState) async {
-    if (networkModuleState.isConnected && state is IdentityRegistrarLoadedState) {
-      await refresh();
-    }
+    ANetworkStatusModel networkStatusModel = _networkModuleBloc.state.networkStatusModel;
+    bool networkUpdatedBool = networkStatusModel.uri == pageReloadController.usedUri;
+
+    await refresh(forceRequestBool: networkUpdatedBool);
   }
 }

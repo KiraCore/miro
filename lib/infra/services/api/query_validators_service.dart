@@ -6,6 +6,7 @@ import 'package:miro/infra/dto/api/query_validators/request/query_validators_req
 import 'package:miro/infra/dto/api/query_validators/response/query_validators_resp.dart';
 import 'package:miro/infra/dto/api/query_validators/response/status.dart';
 import 'package:miro/infra/dto/api/query_validators/response/validator.dart';
+import 'package:miro/infra/dto/interx_headers.dart';
 import 'package:miro/infra/exceptions/dio_parse_exception.dart';
 import 'package:miro/infra/models/api_request_model.dart';
 import 'package:miro/infra/repositories/api/api_repository.dart';
@@ -27,21 +28,26 @@ class QueryValidatorsService implements _IQueryValidatorsService {
   final IApiRepository _apiRepository = globalLocator<IApiRepository>();
 
   @override
-  Future<PageData<ValidatorModel>> getValidatorsList(QueryValidatorsReq queryValidatorsReq) async {
+  Future<PageData<ValidatorModel>> getValidatorsList(QueryValidatorsReq queryValidatorsReq, {bool forceRequestBool = false}) async {
     Uri networkUri = globalLocator<NetworkModuleBloc>().state.networkUri;
 
     Response<dynamic> response = await _apiRepository.fetchQueryValidators<dynamic>(ApiRequestModel<QueryValidatorsReq>(
       networkUri: networkUri,
       requestData: queryValidatorsReq,
+      forceRequestBool: forceRequestBool,
     ));
 
     try {
       QueryValidatorsResp queryValidatorsResp = QueryValidatorsResp.fromJson(response.data as Map<String, dynamic>);
       List<ValidatorModel> validatorModelList = queryValidatorsResp.validators.map(ValidatorModel.fromDto).toList();
 
+      InterxHeaders interxHeaders = InterxHeaders.fromHeaders(response.headers);
+
       return PageData<ValidatorModel>(
         listItems: validatorModelList,
         lastPageBool: validatorModelList.length < queryValidatorsReq.limit!,
+        blockDateTime: interxHeaders.blockDateTime,
+        cacheExpirationDateTime: interxHeaders.cacheExpirationDateTime,
       );
     } catch (e) {
       AppLogger().log(message: 'QueryValidatorsService: Cannot parse getValidatorsList() for URI $networkUri: $e', logLevel: LogLevel.error);
@@ -50,27 +56,29 @@ class QueryValidatorsService implements _IQueryValidatorsService {
   }
 
   @override
-  Future<List<ValidatorModel>> getValidatorsByAddresses(List<String> validatorAddresses) async {
-    QueryValidatorsResp queryValidatorsResp = await getQueryValidatorsResp(const QueryValidatorsReq(all: true));
+  Future<List<ValidatorModel>> getValidatorsByAddresses(List<String> validatorAddresses, {bool forceRequestBool = false}) async {
+    QueryValidatorsResp queryValidatorsResp = await getQueryValidatorsResp(const QueryValidatorsReq(all: true), forceRequestBool: forceRequestBool);
     return queryValidatorsResp.validators.where((Validator e) => validatorAddresses.contains(e.address)).map(ValidatorModel.fromDto).toList();
   }
 
   @override
-  Future<QueryValidatorsResp> getQueryValidatorsResp(QueryValidatorsReq queryValidatorsReq) async {
+  Future<QueryValidatorsResp> getQueryValidatorsResp(QueryValidatorsReq queryValidatorsReq, {bool forceRequestBool = false}) async {
     Uri networkUri = globalLocator<NetworkModuleBloc>().state.networkUri;
     Response<dynamic> response = await _apiRepository.fetchQueryValidators<dynamic>(ApiRequestModel<QueryValidatorsReq>(
       networkUri: networkUri,
       requestData: queryValidatorsReq,
+      forceRequestBool: forceRequestBool,
     ));
 
     return QueryValidatorsResp.fromJson(response.data as Map<String, dynamic>);
   }
 
   @override
-  Future<Status> getStatus(Uri networkUri) async {
+  Future<Status> getStatus(Uri networkUri, {bool forceRequestBool = false}) async {
     Response<dynamic> response = await _apiRepository.fetchQueryValidators<dynamic>(ApiRequestModel<QueryValidatorsReq>(
       networkUri: networkUri,
       requestData: const QueryValidatorsReq(statusOnly: true),
+      forceRequestBool: forceRequestBool,
     ));
 
     try {

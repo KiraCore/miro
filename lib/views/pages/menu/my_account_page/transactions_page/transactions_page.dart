@@ -56,6 +56,7 @@ class _TransactionsPage extends State<TransactionsPage> {
     );
 
     return SliverPaginatedList<TxListItemModel>(
+      desktopItemHeight: 80,
       scrollController: widget.parentScrollController,
       hasBackgroundBool: ResponsiveWidget.isLargeScreen(context),
       singlePageSize: pageSize,

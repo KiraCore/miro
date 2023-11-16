@@ -161,13 +161,13 @@ class _IRVerificationRequestDrawerPage extends State<IRVerificationRequestDrawer
 
   Future<void> _pressApproveButton() async {
     await _openTransactionPage(approvalStatusBool: true);
-    widget.listBloc.add(ListReloadEvent());
+    widget.listBloc.add(const ListReloadEvent(forceRequestBool: true));
     Navigator.of(context).pop();
   }
 
   Future<void> _pressRejectButton() async {
     await _openTransactionPage(approvalStatusBool: false);
-    widget.listBloc.add(ListReloadEvent());
+    widget.listBloc.add(const ListReloadEvent(forceRequestBool: true));
     Navigator.of(context).pop();
   }
 

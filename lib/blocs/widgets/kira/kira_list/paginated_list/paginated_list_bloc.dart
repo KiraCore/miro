@@ -65,6 +65,8 @@ class PaginatedListBloc<T extends AListItem> extends AListBloc<T> {
       pageIndex: lastPageIndex,
       listItems: currentPageData.listItems,
       lastPageBool: currentPageData.lastPageBool,
+      blockDateTime: currentPageData.blockDateTime!,
+      cacheExpirationDateTime: currentPageData.cacheExpirationDateTime!,
     ));
 
     showLoadingOverlay.value = false;
@@ -88,6 +90,8 @@ class PaginatedListBloc<T extends AListItem> extends AListBloc<T> {
     currentPageData = PageData<T>(
       listItems: currentPageItems,
       lastPageBool: currentPageItems.length < singlePageSize,
+      blockDateTime: downloadedPagesCache.values.first.blockDateTime,
+      cacheExpirationDateTime:  downloadedPagesCache.values.first.cacheExpirationDateTime,
     );
   }
 }

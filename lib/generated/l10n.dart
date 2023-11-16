@@ -2792,6 +2792,26 @@ class S {
     );
   }
 
+  /// `Refresh`
+  String get refresh {
+    return Intl.message(
+      'Refresh',
+      name: 'refresh',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Refresh in {seconds} sec.`
+  String refreshInSeconds(int seconds) {
+    return Intl.message(
+      'Refresh in $seconds sec.',
+      name: 'refreshInSeconds',
+      desc: '',
+      args: [seconds],
+    );
+  }
+
   /// `See more`
   String get seeMore {
     return Intl.message(

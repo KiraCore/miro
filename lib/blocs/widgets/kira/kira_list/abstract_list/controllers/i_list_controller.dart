@@ -6,7 +6,7 @@ import 'package:miro/shared/models/list/pagination_details_model.dart';
 abstract class IListController<T extends AListItem> {
   FavouritesCacheService getFavouritesCacheService();
 
-  Future<List<T>> getFavouritesData();
+  Future<List<T>> getFavouritesData({bool forceRequestBool = false});
 
-  Future<PageData<T>> getPageData(PaginationDetailsModel paginationDetailsModel);
+  Future<PageData<T>> getPageData(PaginationDetailsModel paginationDetailsModel, {bool forceRequestBool = false});
 }

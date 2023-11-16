@@ -21,13 +21,13 @@ class MockListController extends IListController<MockListItem> {
   }
 
   @override
-  Future<List<MockListItem>> getFavouritesData() async {
+  Future<List<MockListItem>> getFavouritesData({bool? forceRequestBool = false}) async {
     Set<String> favouritesId = favouritesCacheService.getAll();
     return _items.where((MockListItem mockListItem) => favouritesId.contains(mockListItem.cacheId)).toList();
   }
 
   @override
-  Future<PageData<MockListItem>> getPageData(PaginationDetailsModel paginationDetailsModel) async {
+  Future<PageData<MockListItem>> getPageData(PaginationDetailsModel paginationDetailsModel, {bool? forceRequestBool = false}) async {
     List<MockListItem> mockedList = ListUtils.getSafeSublist<MockListItem>(
       list: _items,
       start: paginationDetailsModel.offset,
@@ -37,6 +37,8 @@ class MockListController extends IListController<MockListItem> {
     return PageData<MockListItem>(
       listItems: mockedList,
       lastPageBool: mockedList.length < paginationDetailsModel.limit,
+      blockDateTime: DateTime.parse('2021-01-01 00:00:00'),
+      cacheExpirationDateTime: DateTime.parse('2021-01-01 00:00:00'),
     );
   }
 }

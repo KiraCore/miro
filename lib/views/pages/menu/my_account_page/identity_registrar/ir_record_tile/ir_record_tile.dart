@@ -92,7 +92,7 @@ class _IdentityRecordTile extends State<IRRecordTile> {
         )
       ],
     ));
-    await widget.identityRegistrarCubit.refresh();
+    await widget.identityRegistrarCubit.refresh(forceRequestBool: true);
   }
 
   Future<void> _pressDeleteButton() async {
@@ -104,7 +104,7 @@ class _IdentityRecordTile extends State<IRRecordTile> {
         IRTxDeleteRecordRoute(irRecordModel: widget.irRecordModel!),
       ],
     ));
-    await widget.identityRegistrarCubit.refresh();
+    await widget.identityRegistrarCubit.refresh(forceRequestBool: true);
   }
 
   Future<void> _pressVerifyButton() async {
@@ -113,7 +113,7 @@ class _IdentityRecordTile extends State<IRRecordTile> {
         IRTxRequestVerificationRoute(irRecordModel: widget.irRecordModel!),
       ],
     ));
-    await widget.identityRegistrarCubit.refresh();
+    await widget.identityRegistrarCubit.refresh(forceRequestBool: true);
   }
 
   Future<void> _openDetailsDrawer() async {

@@ -7,8 +7,15 @@ class PaginatedListLoadedState<T> extends ListLoadedState<T> {
     required this.pageIndex,
     required bool lastPageBool,
     required List<T> listItems,
-  }) : super(lastPage: lastPageBool, listItems: listItems);
+    required DateTime blockDateTime,
+    required DateTime cacheExpirationDateTime,
+  }) : super(
+          lastPage: lastPageBool,
+          listItems: listItems,
+          blockDateTime: blockDateTime,
+          cacheExpirationDateTime: cacheExpirationDateTime,
+        );
 
   @override
-  List<Object?> get props => <Object?>[pageIndex, listItems];
+  List<Object?> get props => <Object?>[pageIndex, lastPage, listItems, blockDateTime, cacheExpirationDateTime];
 }

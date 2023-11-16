@@ -5,7 +5,6 @@ import 'package:miro/blocs/widgets/kira/kira_list/infinity_list/infinity_list_bl
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/views/widgets/kira/kira_list/infinity_list/infinity_list_controller.dart';
 import 'package:miro/views/widgets/kira/kira_list/infinity_list/infinity_list_load_indicator.dart';
-import 'package:miro/views/widgets/kira/kira_list/list_no_results_widget.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 
 class SliverInfinityListContent<T extends AListItem> extends StatefulWidget {
@@ -60,48 +59,42 @@ class _SliverInfinityListContent<T extends AListItem> extends State<SliverInfini
   Widget build(BuildContext context) {
     return MultiSliver(
       children: <Widget>[
-        if (widget.items.isEmpty)
-          const SliverFillRemaining(
-            hasScrollBody: false,
-            child: ListNoResultsWidget(),
-          )
-        else
-          SliverStack(
-            insetOnOverlap: false,
-            children: <Widget>[
-              SliverPositioned.fill(
-                child: Container(
-                  margin: const EdgeInsets.only(bottom: 40),
-                  width: double.infinity,
-                  decoration: BoxDecoration(
-                    color: widget.hasBackground ? DesignColors.black : Colors.transparent,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
+        SliverStack(
+          insetOnOverlap: false,
+          children: <Widget>[
+            SliverPositioned.fill(
+              child: Container(
+                margin: const EdgeInsets.only(bottom: 40),
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: widget.hasBackground ? DesignColors.black : Colors.transparent,
+                  borderRadius: BorderRadius.circular(8),
                 ),
               ),
-              SliverPadding(
-                padding: const EdgeInsets.only(bottom: 40),
-                sliver: SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    childCount: _listLength,
-                    (_, int index) {
-                      if (widget.isLastPage == false && index == _listLength - 1) {
-                        return const InfinityListLoadIndicator();
-                      } else if (index == 0 && widget.listHeaderWidget != null) {
-                        return SizedBox(
-                          width: double.infinity,
-                          child: widget.listHeaderWidget!,
-                        );
-                      } else {
-                        T item = widget.items[index - _additionalStartItemsCount];
-                        return widget.itemBuilder(item);
-                      }
-                    },
-                  ),
+            ),
+            SliverPadding(
+              padding: const EdgeInsets.only(bottom: 40),
+              sliver: SliverList(
+                delegate: SliverChildBuilderDelegate(
+                  childCount: _listLength,
+                  (_, int index) {
+                    if (widget.isLastPage == false && index == _listLength - 1) {
+                      return const InfinityListLoadIndicator();
+                    } else if (index == 0 && widget.listHeaderWidget != null) {
+                      return SizedBox(
+                        width: double.infinity,
+                        child: widget.listHeaderWidget!,
+                      );
+                    } else {
+                      T item = widget.items[index - _additionalStartItemsCount];
+                      return widget.itemBuilder(item);
+                    }
+                  },
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
+        ),
       ],
     );
   }

@@ -12,7 +12,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # In iOS, build-name is used as CFBundleShortVersionString while build-number used as CFBundleVersion.
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
-version: 1.13.3
+version: 1.13.4
 
 environment:
   sdk: ">=3.1.3"
@@ -186,6 +186,10 @@ dependencies:
   # An extensible library that provides the functionality of the parsing strings in different formats to extract dates.
   # https://pub.dev/packages/datify
   datify: ^1.1.3
+
+  # Flutter library to load and cache network images. Can also be used with placeholder and error widgets.
+  # https://pub.dev/packages/cached_network_image
+  cached_network_image: ^3.3.0
 
   # A multi-directional tooltip used to display any content with inbuilt support for list views
   # https://pub.dev/packages/just_the_tooltip

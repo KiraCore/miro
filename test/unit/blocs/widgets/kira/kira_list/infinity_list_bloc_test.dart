@@ -96,6 +96,8 @@ Future<void> main() async {
       expectedListState = ListLoadedState<MockListItem>(
         listItems: <MockListItem>[expectedMockListItem1, expectedMockListItem2],
         lastPage: false,
+        blockDateTime: DateTime.parse('2021-01-01 00:00:00'),
+        cacheExpirationDateTime: DateTime.parse('2021-01-01 00:00:00'),
       );
 
       TestUtils.printInfo('Should return ListLoadedState with first page of list items');
@@ -113,6 +115,8 @@ Future<void> main() async {
       expectedListState = ListLoadedState<MockListItem>(
         listItems: <MockListItem>[expectedMockListItem1, expectedMockListItem2, expectedMockListItem3],
         lastPage: true,
+        blockDateTime: DateTime.parse('2021-01-01 00:00:00'),
+        cacheExpirationDateTime: DateTime.parse('2021-01-01 00:00:00'),
       );
 
       TestUtils.printInfo('Should return ListLoadedState with first and second pages of list items (second page is last page)');
@@ -129,6 +133,8 @@ Future<void> main() async {
       expectedListState = ListLoadedState<MockListItem>(
         listItems: <MockListItem>[expectedMockListItem3, expectedMockListItem2],
         lastPage: false,
+        blockDateTime: DateTime.parse('2021-01-01 00:00:00'),
+        cacheExpirationDateTime: DateTime.parse('2021-01-01 00:00:00'),
       );
 
       TestUtils.printInfo('Should reverse sort order and return ListLoadedState with sorted first page of list items');
@@ -145,6 +151,8 @@ Future<void> main() async {
       expectedListState = ListLoadedState<MockListItem>(
         listItems: <MockListItem>[expectedMockListItem3, expectedMockListItem2, expectedMockListItem1],
         lastPage: true,
+        blockDateTime: DateTime.parse('2021-01-01 00:00:00'),
+        cacheExpirationDateTime: DateTime.parse('2021-01-01 00:00:00'),
       );
 
       TestUtils.printInfo('Should fetch next page and return ListLoadedState with sorted first and second pages of list items');
@@ -161,6 +169,8 @@ Future<void> main() async {
       expectedListState = ListLoadedState<MockListItem>(
         listItems: <MockListItem>[expectedMockListItem1, expectedMockListItem2],
         lastPage: false,
+        blockDateTime: DateTime.parse('2021-01-01 00:00:00'),
+        cacheExpirationDateTime: DateTime.parse('2021-01-01 00:00:00'),
       );
 
       TestUtils.printInfo('Should clear filters and return ListLoadedState with first page of list items');
@@ -177,6 +187,8 @@ Future<void> main() async {
       expectedListState = ListLoadedState<MockListItem>(
         listItems: <MockListItem>[expectedMockListItem1, expectedMockListItem2],
         lastPage: false,
+        blockDateTime: DateTime.parse('2021-01-01 00:00:00'),
+        cacheExpirationDateTime: DateTime.parse('2021-01-01 00:00:00'),
       );
 
       TestUtils.printInfo('Should add filterByActive filter and return ListLoadedState with first page of list items that match filters');
@@ -193,6 +205,8 @@ Future<void> main() async {
       expectedListState = ListLoadedState<MockListItem>(
         listItems: <MockListItem>[expectedMockListItem2, expectedMockListItem1],
         lastPage: false,
+        blockDateTime: DateTime.parse('2021-01-01 00:00:00'),
+        cacheExpirationDateTime: DateTime.parse('2021-01-01 00:00:00'),
       );
 
       TestUtils.printInfo('Should return ListLoadedState with first page of sorted list items that match filters');
@@ -209,6 +223,8 @@ Future<void> main() async {
       expectedListState = ListLoadedState<MockListItem>(
         listItems: <MockListItem>[expectedMockListItem2, expectedMockListItem1],
         lastPage: true,
+        blockDateTime: DateTime.parse('2021-01-01 00:00:00'),
+        cacheExpirationDateTime: DateTime.parse('2021-01-01 00:00:00'),
       );
 
       TestUtils.printInfo('Should return ListLoadedState with first and second page of sorted list items that match filters');
@@ -225,6 +241,8 @@ Future<void> main() async {
       expectedListState = ListLoadedState<MockListItem>(
         listItems: <MockListItem>[expectedMockListItem3, expectedMockListItem2],
         lastPage: false,
+        blockDateTime: DateTime.parse('2021-01-01 00:00:00'),
+        cacheExpirationDateTime: DateTime.parse('2021-01-01 00:00:00'),
       );
 
       TestUtils.printInfo('Should remove filterByActive filter option and return ListLoadedState with first page of list items');
@@ -241,6 +259,8 @@ Future<void> main() async {
       expectedListState = ListLoadedState<MockListItem>(
         listItems: <MockListItem>[expectedMockListItem1, expectedMockListItem3],
         lastPage: false,
+        blockDateTime: DateTime.parse('2021-01-01 00:00:00'),
+        cacheExpirationDateTime: DateTime.parse('2021-01-01 00:00:00'),
       );
 
       TestUtils.printInfo('Should return ListLoadedState with list of list items containing favourites first ');
@@ -257,6 +277,8 @@ Future<void> main() async {
       expectedListState = ListLoadedState<MockListItem>(
         listItems: <MockListItem>[expectedMockListItem3],
         lastPage: true,
+        blockDateTime: DateTime.parse('2021-01-01 00:00:00'),
+        cacheExpirationDateTime: DateTime.parse('2021-01-01 00:00:00'),
       );
 
       TestUtils.printInfo('Should return ListLoadedState with first page pf list items that match search query');

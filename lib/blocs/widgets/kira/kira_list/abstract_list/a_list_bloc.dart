@@ -85,7 +85,7 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
     _sortStateSubscription = sortBloc?.stream.listen((_) => add(ListOptionsChangedEvent()));
 
     // Call ListReloadEvent to fetch first page
-    add(ListReloadEvent());
+    add(const ListReloadEvent());
   }
 
   @override
@@ -133,7 +133,11 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
     pageReloadController.handleReloadCall(networkStatusModel);
     int localReloadId = pageReloadController.activeReloadId;
 
-    emit(ListLoadingState());
+    if (listReloadEvent.listContentVisibleBool) {
+      showLoadingOverlay.value = true;
+    } else {
+      emit(ListLoadingState());
+    }
 
     downloadedPagesCache.clear();
     currentPageData = PageData<T>.initial();
@@ -145,12 +149,12 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
     bool sortEnabledBool = sortBloc != null;
 
     if (filtersEnabledBool || sortEnabledBool || sortBloc?.isDefaultSortEnabled == false) {
-      await _downloadAllListData(emit);
+      await _downloadAllListData(emit, forceRequestBool: listReloadEvent.forceRequestBool);
     }
 
     bool reloadActiveBool = pageReloadController.canReloadComplete(localReloadId) && isClosed == false;
     if (reloadActiveBool) {
-      add(const ListNextPageEvent(afterReloadBool: true));
+      add(ListNextPageEvent(afterReloadBool: true, forceRequestBool: listReloadEvent.forceRequestBool));
     }
   }
 
@@ -158,7 +162,7 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
     int localReloadId = pageReloadController.activeReloadId;
     pageDownloadingStatus = true;
     try {
-      PageData<T> pageData = await _getPageData(lastPageIndex);
+      PageData<T> pageData = await _getPageData(lastPageIndex, forceRequestBool: listNextPageEvent.forceRequestBool);
 
       downloadedPagesCache[lastPageIndex] = pageData;
       currentPageData = pageData;
@@ -173,6 +177,7 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
       bool canReloadComplete = pageReloadController.canReloadComplete(localReloadId);
       if (canReloadComplete) {
         pageReloadController.hasErrors = true;
+        showLoadingOverlay.value = false;
         emit(ListErrorState());
       }
     }
@@ -192,24 +197,27 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
     bool shouldReload = hasErrors || hasNetworkChanged;
 
     if (isClosed == false && shouldReload) {
-      add(ListReloadEvent());
+      add(const ListReloadEvent());
     }
   }
 
-  Future<PageData<T>> _getPageData(int pageIndex) async {
+  Future<PageData<T>> _getPageData(int pageIndex, {bool forceRequestBool = false}) async {
     if (downloadedPagesCache[pageIndex] != null) {
       return downloadedPagesCache[pageIndex]!;
     } else {
       int offset = pageIndex * singlePageSize;
-      PageData<T> pageData = await listController.getPageData(PaginationDetailsModel(
-        offset: offset,
-        limit: singlePageSize,
-      ));
+      PageData<T> pageData = await listController.getPageData(
+        PaginationDetailsModel(
+          offset: offset,
+          limit: singlePageSize,
+        ),
+        forceRequestBool: forceRequestBool,
+      );
       return pageData;
     }
   }
 
-  Future<void> _downloadAllListData(Emitter<AListState> emit) async {
+  Future<void> _downloadAllListData(Emitter<AListState> emit, {bool forceRequestBool = false}) async {
     bool lastPageBool = false;
     if (downloadedPagesCache.isNotEmpty) {
       PageData<T> lastPageData = downloadedPagesCache[downloadedPagesCache.keys.last]!;
@@ -228,10 +236,13 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
     try {
       await Future.doWhile(() async {
         int offset = downloadedPagesCount * bulkSinglePageSize;
-        PageData<T> currentPageData = await listController.getPageData(PaginationDetailsModel(
-          offset: offset,
-          limit: bulkSinglePageSize,
-        ));
+        PageData<T> currentPageData = await listController.getPageData(
+          PaginationDetailsModel(
+            offset: offset,
+            limit: bulkSinglePageSize,
+          ),
+          forceRequestBool: forceRequestBool,
+        );
         allListItems.add(currentPageData);
         downloadedPagesCount += 1;
         return currentPageData.lastPageBool == false;
@@ -260,6 +271,8 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
       downloadedPagesCache[pageIndex] = PageData<T>(
         listItems: pageListItems,
         lastPageBool: lastPageBool,
+        blockDateTime: allPagesData.first.blockDateTime,
+        cacheExpirationDateTime: allPagesData.first.cacheExpirationDateTime,
       );
     }
   }
