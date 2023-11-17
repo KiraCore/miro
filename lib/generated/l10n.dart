@@ -450,6 +450,16 @@ class S {
     );
   }
 
+  /// `Contact`
+  String get irContact {
+    return Intl.message(
+      'Contact',
+      name: 'irContact',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Description`
   String get irDescription {
     return Intl.message(
@@ -465,6 +475,16 @@ class S {
     return Intl.message(
       'Social media',
       name: 'irSocialMedia',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Website`
+  String get irWebsite {
+    return Intl.message(
+      'Website',
+      name: 'irWebsite',
       desc: '',
       args: [],
     );
@@ -1641,6 +1661,126 @@ class S {
     );
   }
 
+  /// `Staking Pool`
+  String get stakingPool {
+    return Intl.message(
+      'Staking Pool',
+      name: 'stakingPool',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Staking Pool available`
+  String get stakingPoolAvailable {
+    return Intl.message(
+      'Staking Pool available',
+      name: 'stakingPoolAvailable',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Staking Pool Details`
+  String get stakingPoolDetails {
+    return Intl.message(
+      'Staking Pool Details',
+      name: 'stakingPoolDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Commission`
+  String get stakingPoolLabelCommission {
+    return Intl.message(
+      'Commission',
+      name: 'stakingPoolLabelCommission',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Slashed`
+  String get stakingPoolLabelSlashed {
+    return Intl.message(
+      'Slashed',
+      name: 'stakingPoolLabelSlashed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Staking tokens`
+  String get stakingPoolLabelTokens {
+    return Intl.message(
+      'Staking tokens',
+      name: 'stakingPoolLabelTokens',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Voting Power`
+  String get stakingPoolLabelVotingPower {
+    return Intl.message(
+      'Voting Power',
+      name: 'stakingPoolLabelVotingPower',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Disabled`
+  String get stakingPoolStatusDisabled {
+    return Intl.message(
+      'Disabled',
+      name: 'stakingPoolStatusDisabled',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enabled`
+  String get stakingPoolStatusEnabled {
+    return Intl.message(
+      'Enabled',
+      name: 'stakingPoolStatusEnabled',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Withdraw Only`
+  String get stakingPoolStatusWithdraw {
+    return Intl.message(
+      'Withdraw Only',
+      name: 'stakingPoolStatusWithdraw',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `To enable staking sign `
+  String get stakingSignIn {
+    return Intl.message(
+      'To enable staking sign ',
+      name: 'stakingSignIn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Stake now`
+  String get stakingTxButtonStakeNow {
+    return Intl.message(
+      'Stake now',
+      name: 'stakingTxButtonStakeNow',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Transactions`
   String get tx {
     return Intl.message(
@@ -2572,6 +2712,16 @@ class S {
     );
   }
 
+  /// `About Validator`
+  String get validatorsAbout {
+    return Intl.message(
+      'About Validator',
+      name: 'validatorsAbout',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Report issues`
   String get buttonReportIssues {
     return Intl.message(
@@ -2837,6 +2987,16 @@ class S {
     return Intl.message(
       'Show Details',
       name: 'showDetails',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ` to your account`
+  String get toYourAccount {
+    return Intl.message(
+      ' to your account',
+      name: 'toYourAccount',
       desc: '',
       args: [],
     );

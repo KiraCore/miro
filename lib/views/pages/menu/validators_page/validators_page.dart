@@ -60,12 +60,14 @@ class _ValidatorsPage extends State<ValidatorsPage> {
     double listHeight = MediaQuery.of(context).size.height - 300;
     Widget listHeaderWidget = ValidatorListItemDesktopLayout(
       height: 64,
-      favouriteButtonWidget: const SizedBox(),
+      infoButtonWidget: const SizedBox(),
       topWidget: Text(S.of(context).validatorsTableTop, style: textTheme.bodySmall!.copyWith(color: DesignColors.white1)),
       monikerWidget: Text(S.of(context).validatorsTableMoniker, style: textTheme.bodySmall!.copyWith(color: DesignColors.white1)),
       statusWidget: Text(S.of(context).validatorsTableStatus, style: textTheme.bodySmall!.copyWith(color: DesignColors.white1)),
       uptimeWidget: Text(S.of(context).validatorsTableUptime, style: textTheme.bodySmall!.copyWith(color: DesignColors.white1)),
       streakWidget: Text(S.of(context).validatorsTableStreak, style: textTheme.bodySmall!.copyWith(color: DesignColors.white1)),
+      stakingPoolWidget: Text(S.of(context).stakingPool, style: textTheme.bodySmall!.copyWith(color: DesignColors.white1)),
+      favouriteButtonWidget: const SizedBox(),
     );
 
     return CustomScrollView(

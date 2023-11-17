@@ -37,7 +37,14 @@ Future<void> main() async {
           TokenAmountModel(
             lowestDenominationAmount: Decimal.parse('100'),
             tokenAliasModel: TokenAliasModel.local('ukex'),
-          )
+          ),
+        ],
+        commission: '10%',
+        tokens: <TokenAliasModel>[
+          TokenAliasModel.local('frozen'),
+          TokenAliasModel.local('ubtc'),
+          TokenAliasModel.local('ukex'),
+          TokenAliasModel.local('xeth'),
         ],
       );
 

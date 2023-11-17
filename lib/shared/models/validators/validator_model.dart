@@ -14,7 +14,11 @@ class ValidatorModel extends AListItem {
   final ValidatorStatus validatorStatus;
   final WalletAddress walletAddress;
   final WalletAddress valoperWalletAddress;
+  final String? contact;
+  final String? description;
   final String? logo;
+  final String? social;
+  final String? website;
   bool _favourite = false;
 
   ValidatorModel({
@@ -26,7 +30,11 @@ class ValidatorModel extends AListItem {
     required this.validatorStatus,
     required this.walletAddress,
     required this.valoperWalletAddress,
+    this.contact,
+    this.description,
     this.logo,
+    this.social,
+    this.website,
   });
 
   factory ValidatorModel.fromDto(Validator validator) {
@@ -43,7 +51,11 @@ class ValidatorModel extends AListItem {
       validatorStatus: validatorStatus,
       walletAddress: WalletAddress.fromBech32(validator.address),
       valoperWalletAddress: WalletAddress.fromBech32(validator.valkey),
+      contact: validator.contact,
+      description: validator.description,
       logo: validator.logo,
+      social: validator.social,
+      website: validator.website,
     );
   }
 
@@ -69,6 +81,6 @@ class ValidatorModel extends AListItem {
 
   @override
   String toString() {
-    return 'ValidatorModel{top: $top, uptime: $uptime, moniker: $moniker, streak: $streak, stakingPool: $stakingPoolStatus, validatorStatus: $validatorStatus, walletAddress: $walletAddress, valoperWalletAddress: $valoperWalletAddress, favourite: $isFavourite}';
+    return 'ValidatorModel{top: $top, uptime: $uptime, moniker: $moniker, streak: $streak, stakingPool: $stakingPoolStatus, validatorStatus: $validatorStatus, walletAddress: $walletAddress, valoperWalletAddress: $valoperWalletAddress, contact: $contact, description: $description, logo: $logo, social: $social, website: $website, favourite: $isFavourite}';
   }
 }
