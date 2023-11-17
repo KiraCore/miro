@@ -1661,6 +1661,16 @@ class S {
     );
   }
 
+  /// `Staking`
+  String get staking {
+    return Intl.message(
+      'Staking',
+      name: 'staking',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Staking Pool`
   String get stakingPool {
     return Intl.message(
@@ -1711,10 +1721,10 @@ class S {
     );
   }
 
-  /// `Staking tokens`
+  /// `Tokens`
   String get stakingPoolLabelTokens {
     return Intl.message(
-      'Staking tokens',
+      'Tokens',
       name: 'stakingPoolLabelTokens',
       desc: '',
       args: [],
@@ -1761,11 +1771,11 @@ class S {
     );
   }
 
-  /// `To enable staking sign `
-  String get stakingSignIn {
+  /// `To enable staking `
+  String get stakingToEnable {
     return Intl.message(
-      'To enable staking sign ',
-      name: 'stakingSignIn',
+      'To enable staking ',
+      name: 'stakingToEnable',
       desc: '',
       args: [],
     );
@@ -2552,11 +2562,31 @@ class S {
     );
   }
 
+  /// `Validator`
+  String get validator {
+    return Intl.message(
+      'Validator',
+      name: 'validator',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Validators`
   String get validators {
     return Intl.message(
       'Validators',
       name: 'validators',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `About Validator`
+  String get validatorsAbout {
+    return Intl.message(
+      'About Validator',
+      name: 'validatorsAbout',
       desc: '',
       args: [],
     );
@@ -2707,16 +2737,6 @@ class S {
     return Intl.message(
       'Streak',
       name: 'validatorsTableStreak',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `About Validator`
-  String get validatorsAbout {
-    return Intl.message(
-      'About Validator',
-      name: 'validatorsAbout',
       desc: '',
       args: [],
     );

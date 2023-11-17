@@ -353,6 +353,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "seeMore": MessageLookupByLibrary.simpleMessage("See more"),
         "showDetails": MessageLookupByLibrary.simpleMessage("Show Details"),
         "sortBy": MessageLookupByLibrary.simpleMessage("Sort by"),
+        "staking": MessageLookupByLibrary.simpleMessage("Staking"),
         "stakingPool": MessageLookupByLibrary.simpleMessage("Staking Pool"),
         "stakingPoolAvailable":
             MessageLookupByLibrary.simpleMessage("Staking Pool available"),
@@ -363,7 +364,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "stakingPoolLabelSlashed":
             MessageLookupByLibrary.simpleMessage("Slashed"),
         "stakingPoolLabelTokens":
-            MessageLookupByLibrary.simpleMessage("Staking tokens"),
+            MessageLookupByLibrary.simpleMessage("Tokens"),
         "stakingPoolLabelVotingPower":
             MessageLookupByLibrary.simpleMessage("Voting Power"),
         "stakingPoolStatusDisabled":
@@ -372,8 +373,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enabled"),
         "stakingPoolStatusWithdraw":
             MessageLookupByLibrary.simpleMessage("Withdraw Only"),
-        "stakingSignIn":
-            MessageLookupByLibrary.simpleMessage("To enable staking sign "),
+        "stakingToEnable":
+            MessageLookupByLibrary.simpleMessage("To enable staking "),
         "stakingTxButtonStakeNow":
             MessageLookupByLibrary.simpleMessage("Stake now"),
         "toYourAccount":
@@ -501,6 +502,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "txWarningDoNotCloseWindow":
             MessageLookupByLibrary.simpleMessage("Do not close this window"),
         "txYouWillGet": MessageLookupByLibrary.simpleMessage("You will get"),
+        "validator": MessageLookupByLibrary.simpleMessage("Validator"),
         "validators": MessageLookupByLibrary.simpleMessage("Validators"),
         "validatorsAbout":
             MessageLookupByLibrary.simpleMessage("About Validator"),

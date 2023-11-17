@@ -229,17 +229,18 @@
   "proposalsProposers": "Proposers",
   "proposalsVoters": "Voters",
 
+  "staking": "Staking",
   "stakingPool": "Staking Pool",
   "stakingPoolAvailable": "Staking Pool available",
   "stakingPoolDetails": "Staking Pool Details",
   "stakingPoolLabelCommission": "Commission",
   "stakingPoolLabelSlashed": "Slashed",
-  "stakingPoolLabelTokens": "Staking tokens",
+  "stakingPoolLabelTokens": "Tokens",
   "stakingPoolLabelVotingPower": "Voting Power",
   "stakingPoolStatusDisabled": "Disabled",
   "stakingPoolStatusEnabled": "Enabled",
   "stakingPoolStatusWithdraw": "Withdraw Only",
-  "stakingSignIn": "To enable staking sign ",
+  "stakingToEnable": "To enable staking ",
   "stakingTxButtonStakeNow": "Stake now",
 
   "tx": "Transactions",
@@ -357,7 +358,9 @@
   "txDateDropdownCancel": "Cancel",
   "txDateDropdownSave": "Save",
 
+  "validator": "Validator",
   "validators": "Validators",
+  "validatorsAbout": "About Validator",
   "validatorsButtonFilter": "{selected} selected",
   "@validatorsButtonFilter": {
     "placeholders": {
@@ -380,7 +383,6 @@
   "validatorsTableStatus": "Status",
   "validatorsTableUptime": "Uptime",
   "validatorsTableStreak": "Streak",
-  "validatorsAbout": "About Validator",
 
   "buttonReportIssues": "Report issues",
   "error": "Error",

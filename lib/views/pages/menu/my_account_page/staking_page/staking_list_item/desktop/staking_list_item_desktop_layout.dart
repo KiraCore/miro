@@ -1,0 +1,39 @@
+import 'package:flutter/cupertino.dart';
+
+class StakingListItemDesktopLayout extends StatelessWidget {
+  final double height;
+  final Widget infoButtonWidget;
+  final Widget validatorWidget;
+  final Widget statusWidget;
+  final Widget tokensWidget;
+  final Widget commissionWidget;
+
+  const StakingListItemDesktopLayout({
+    required this.height,
+    required this.infoButtonWidget,
+    required this.validatorWidget,
+    required this.statusWidget,
+    required this.tokensWidget,
+    required this.commissionWidget,
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: height,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(8),
+      ),
+      child: Row(
+        children: <Widget>[
+          SizedBox(width: 100, child: infoButtonWidget),
+          Expanded(flex: 6, child: validatorWidget),
+          Expanded(flex: 3, child: statusWidget),
+          Expanded(flex: 4, child: tokensWidget),
+          Expanded(flex: 3, child: commissionWidget),
+        ],
+      ),
+    );
+  }
+}

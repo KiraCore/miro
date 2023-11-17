@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/models/page_data.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api_kira/query_delegations/request/query_delegations_req.dart';
 import 'package:miro/infra/exceptions/dio_connect_exception.dart';
@@ -20,37 +21,43 @@ Future<void> main() async {
   final QueryDelegationsService actualDelegationsService = globalLocator<QueryDelegationsService>();
 
   group('Tests of QueryDelegationsService.getValidatorStakingModelList() method', () {
-    test('Should return [List<ValidatorStakingModel>] if [server HEALTHY] and [response data VALID]', () async {
+    test('Should return [PageData<ValidatorStakingModel>] if [server HEALTHY] and [response data VALID]', () async {
       // Arrange
       Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://healthy.kira.network/');
       await TestUtils.setupNetworkModel(networkUri: networkUri);
 
       QueryDelegationsReq actualQueryDelegationsReq = const QueryDelegationsReq(
         delegatorAddress: 'kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx',
+        offset: 0,
+        limit: 10,
       );
 
       // Act
-      List<ValidatorStakingModel> actualValidatorStakingModelList = await actualDelegationsService.getValidatorStakingModelList(actualQueryDelegationsReq);
+      PageData<ValidatorStakingModel> actualValidatorStakingModelList = await actualDelegationsService.getValidatorStakingModelList(actualQueryDelegationsReq);
 
       // Assert
-      List<ValidatorStakingModel> expectedValidatorStakingModelList = <ValidatorStakingModel>[
-        ValidatorStakingModel(
-          commission: '0.1',
-          stakingPoolStatus: StakingPoolStatus.enabled,
-          tokens: <TokenAliasModel>[
-            TokenAliasModel.local('frozen'),
-            TokenAliasModel.local('ubtc'),
-            TokenAliasModel.local('ukex'),
-            TokenAliasModel.local('xeth'),
-          ],
-          validatorSimplifiedModel: ValidatorSimplifiedModel(
-            walletAddress: WalletAddress.fromBech32('kira1ymx5gpvswq0cmj6zkdxwa233sdgq2k5zzfge8w'),
-            valkeyWalletAddress: WalletAddress.fromBech32('kiravaloper1ymx5gpvswq0cmj6zkdxwa233sdgq2k5z3056lz'),
-            moniker: 'GENESIS VALIDATOR',
-            logo: 'https://avatars.githubusercontent.com/u/114292385?s=200',
+      PageData<ValidatorStakingModel> expectedValidatorStakingModelList = PageData<ValidatorStakingModel>(
+        listItems: <ValidatorStakingModel>[
+          ValidatorStakingModel(
+            commission: '0.1',
+            stakingPoolStatus: StakingPoolStatus.enabled,
+            tokens: <TokenAliasModel>[
+              TokenAliasModel.local('frozen'),
+              TokenAliasModel.local('ubtc'),
+              TokenAliasModel.local('ukex'),
+              TokenAliasModel.local('xeth'),
+            ],
+            validatorSimplifiedModel: ValidatorSimplifiedModel(
+              walletAddress: WalletAddress.fromBech32('kira1ymx5gpvswq0cmj6zkdxwa233sdgq2k5zzfge8w'),
+              moniker: 'GENESIS VALIDATOR',
+              logo: 'https://avatars.githubusercontent.com/u/114292385?s=200',
+            ),
           ),
-        ),
-      ];
+        ],
+        lastPageBool: true,
+        blockDateTime: DateTime.parse('2022-08-26 22:08:27.607Z'),
+        cacheExpirationDateTime: DateTime.parse('2022-08-26 22:08:27.607Z'),
+      );
 
       expect(actualValidatorStakingModelList, expectedValidatorStakingModelList);
     });
