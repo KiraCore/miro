@@ -9,11 +9,15 @@ class StakingPoolModel extends Equatable {
   final int totalDelegators;
   final String slashed;
   final List<TokenAmountModel> votingPower;
+  final String commission;
+  final List<TokenAliasModel> tokens;
 
   const StakingPoolModel({
     required this.totalDelegators,
     required this.slashed,
     required this.votingPower,
+    required this.commission,
+    required this.tokens,
   });
 
   factory StakingPoolModel.fromDto(QueryStakingPoolResp queryStakingPoolResp) {
@@ -23,9 +27,11 @@ class StakingPoolModel extends Equatable {
       votingPower: queryStakingPoolResp.votingPower
           .map((Coin e) => TokenAmountModel(lowestDenominationAmount: Decimal.parse(e.amount), tokenAliasModel: TokenAliasModel.local(e.denom)))
           .toList(),
+      commission: '${(double.parse(queryStakingPoolResp.commission) * 100).toString()}%',
+      tokens: queryStakingPoolResp.tokens.map(TokenAliasModel.local).toList(),
     );
   }
 
   @override
-  List<Object?> get props => <Object?>[totalDelegators, slashed, votingPower];
+  List<Object?> get props => <Object?>[totalDelegators, slashed, votingPower, commission, tokens];
 }

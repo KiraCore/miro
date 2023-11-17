@@ -53,8 +53,10 @@
   "irEntries": "Entries",
   "irAvatar": "Avatar",
   "irUsername": "Username",
+  "irContact": "Contact",
   "irDescription": "Description",
   "irSocialMedia": "Social media",
+  "irWebsite": "Website",
   "irAddCustomRecord": "Add custom record",
 
   "irRecordAdd": "Add",
@@ -227,6 +229,19 @@
   "proposalsProposers": "Proposers",
   "proposalsVoters": "Voters",
 
+  "stakingPool": "Staking Pool",
+  "stakingPoolAvailable": "Staking Pool available",
+  "stakingPoolDetails": "Staking Pool Details",
+  "stakingPoolLabelCommission": "Commission",
+  "stakingPoolLabelSlashed": "Slashed",
+  "stakingPoolLabelTokens": "Staking tokens",
+  "stakingPoolLabelVotingPower": "Voting Power",
+  "stakingPoolStatusDisabled": "Disabled",
+  "stakingPoolStatusEnabled": "Enabled",
+  "stakingPoolStatusWithdraw": "Withdraw Only",
+  "stakingSignIn": "To enable staking sign ",
+  "stakingTxButtonStakeNow": "Stake now",
+
   "tx": "Transactions",
   "txButtonSendAll": "Send all",
   "txButtonClear": "Clear",
@@ -365,6 +380,7 @@
   "validatorsTableStatus": "Status",
   "validatorsTableUptime": "Uptime",
   "validatorsTableStreak": "Streak",
+  "validatorsAbout": "About Validator",
 
   "buttonReportIssues": "Report issues",
   "error": "Error",
@@ -401,5 +417,6 @@
   },
   "seeMore": "See more",
   "seeAll": "See all",
-  "showDetails": "Show Details"
+  "showDetails": "Show Details",
+  "toYourAccount": " to your account"
 }

@@ -8,6 +8,8 @@ class ValidatorListItemDesktopLayout extends StatelessWidget {
   final Widget statusWidget;
   final Widget uptimeWidget;
   final Widget streakWidget;
+  final Widget stakingPoolWidget;
+  final Widget infoButtonWidget;
 
   const ValidatorListItemDesktopLayout({
     required this.height,
@@ -17,6 +19,8 @@ class ValidatorListItemDesktopLayout extends StatelessWidget {
     required this.statusWidget,
     required this.uptimeWidget,
     required this.streakWidget,
+    required this.stakingPoolWidget,
+    required this.infoButtonWidget,
     Key? key,
   }) : super(key: key);
 
@@ -29,12 +33,14 @@ class ValidatorListItemDesktopLayout extends StatelessWidget {
       ),
       child: Row(
         children: <Widget>[
-          SizedBox(width: 100, child: favouriteButtonWidget),
+          SizedBox(width: 100, child: infoButtonWidget),
           Expanded(child: topWidget),
           Expanded(flex: 3, child: monikerWidget),
           Expanded(flex: 2, child: statusWidget),
           Expanded(flex: 2, child: uptimeWidget),
           Expanded(flex: 2, child: streakWidget),
+          Expanded(flex: 2, child: stakingPoolWidget),
+          SizedBox(width: 100, child: favouriteButtonWidget),
         ],
       ),
     );

@@ -132,6 +132,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "irAddCustomRecord":
             MessageLookupByLibrary.simpleMessage("Add custom record"),
         "irAvatar": MessageLookupByLibrary.simpleMessage("Avatar"),
+        "irContact": MessageLookupByLibrary.simpleMessage("Contact"),
         "irDescription": MessageLookupByLibrary.simpleMessage("Description"),
         "irEntries": MessageLookupByLibrary.simpleMessage("Entries"),
         "irRecordAdd": MessageLookupByLibrary.simpleMessage("Add"),
@@ -205,6 +206,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Verify record"),
         "irVerificationRequestsVerifyRecords":
             MessageLookupByLibrary.simpleMessage("Verify records"),
+        "irWebsite": MessageLookupByLibrary.simpleMessage("Website"),
         "keyfile": MessageLookupByLibrary.simpleMessage("Keyfile"),
         "keyfileButtonDownload":
             MessageLookupByLibrary.simpleMessage("Download"),
@@ -351,6 +353,31 @@ class MessageLookup extends MessageLookupByLibrary {
         "seeMore": MessageLookupByLibrary.simpleMessage("See more"),
         "showDetails": MessageLookupByLibrary.simpleMessage("Show Details"),
         "sortBy": MessageLookupByLibrary.simpleMessage("Sort by"),
+        "stakingPool": MessageLookupByLibrary.simpleMessage("Staking Pool"),
+        "stakingPoolAvailable":
+            MessageLookupByLibrary.simpleMessage("Staking Pool available"),
+        "stakingPoolDetails":
+            MessageLookupByLibrary.simpleMessage("Staking Pool Details"),
+        "stakingPoolLabelCommission":
+            MessageLookupByLibrary.simpleMessage("Commission"),
+        "stakingPoolLabelSlashed":
+            MessageLookupByLibrary.simpleMessage("Slashed"),
+        "stakingPoolLabelTokens":
+            MessageLookupByLibrary.simpleMessage("Staking tokens"),
+        "stakingPoolLabelVotingPower":
+            MessageLookupByLibrary.simpleMessage("Voting Power"),
+        "stakingPoolStatusDisabled":
+            MessageLookupByLibrary.simpleMessage("Disabled"),
+        "stakingPoolStatusEnabled":
+            MessageLookupByLibrary.simpleMessage("Enabled"),
+        "stakingPoolStatusWithdraw":
+            MessageLookupByLibrary.simpleMessage("Withdraw Only"),
+        "stakingSignIn":
+            MessageLookupByLibrary.simpleMessage("To enable staking sign "),
+        "stakingTxButtonStakeNow":
+            MessageLookupByLibrary.simpleMessage("Stake now"),
+        "toYourAccount":
+            MessageLookupByLibrary.simpleMessage(" to your account"),
         "toastCannotLoadDashboard": MessageLookupByLibrary.simpleMessage(
             "Cannot load dashboard. Please check your connection."),
         "toastHashCopied":
@@ -475,6 +502,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Do not close this window"),
         "txYouWillGet": MessageLookupByLibrary.simpleMessage("You will get"),
         "validators": MessageLookupByLibrary.simpleMessage("Validators"),
+        "validatorsAbout":
+            MessageLookupByLibrary.simpleMessage("About Validator"),
         "validatorsActive": MessageLookupByLibrary.simpleMessage("Active"),
         "validatorsButtonFilter": m12,
         "validatorsDropdownAll": MessageLookupByLibrary.simpleMessage("All"),
