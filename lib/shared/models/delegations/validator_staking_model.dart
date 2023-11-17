@@ -20,12 +20,11 @@ class ValidatorStakingModel extends AListItem {
 
   factory ValidatorStakingModel.fromDto(Delegation delegation) {
     return ValidatorStakingModel(
-      commission: delegation.poolInfo.commission,
+      commission: '${(double.parse(delegation.poolInfo.commission) * 100).toString()}%',
       stakingPoolStatus: StakingPoolStatus.fromString(delegation.poolInfo.status),
       tokens: delegation.poolInfo.tokens.map(TokenAliasModel.local).toList(),
       validatorSimplifiedModel: ValidatorSimplifiedModel(
         walletAddress: WalletAddress.fromBech32(delegation.validatorInfo.address),
-        valkeyWalletAddress: WalletAddress.fromBech32(delegation.validatorInfo.valkey),
         moniker: delegation.validatorInfo.moniker,
         logo: delegation.validatorInfo.logo,
       ),
@@ -40,4 +39,6 @@ class ValidatorStakingModel extends AListItem {
 
   @override
   set favourite(bool value) => false;
+
+  List<String> get tokenNames => tokens.map((TokenAliasModel e) => e.name).toList();
 }

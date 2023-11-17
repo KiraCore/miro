@@ -31,11 +31,11 @@ Future<void> main() async {
 
       // Assert
       StakingPoolModel expectedStakingPoolModel = StakingPoolModel(
-        totalDelegators: 1,
         slashed: '0%',
+        totalDelegators: 1,
         votingPower: <TokenAmountModel>[
           TokenAmountModel(
-            lowestDenominationAmount: Decimal.parse('100'),
+            lowestDenominationAmount: Decimal.fromInt(100),
             tokenAliasModel: TokenAliasModel.local('ukex'),
           ),
         ],

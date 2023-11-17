@@ -3,8 +3,8 @@ import 'package:equatable/equatable.dart';
 class QueryDelegationsReq extends Equatable {
   final String? countTotal;
   final String? delegatorAddress;
-  final String? limit;
-  final String? offset;
+  final int? limit;
+  final int? offset;
 
   const QueryDelegationsReq({
     this.countTotal,

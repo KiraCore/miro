@@ -9,6 +9,7 @@ import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_page.dart';
 import 'package:miro/views/pages/menu/my_account_page/identity_registrar/identity_registrar_page.dart';
 import 'package:miro/views/pages/menu/my_account_page/my_account_page_header.dart';
+import 'package:miro/views/pages/menu/my_account_page/staking_page/staking_page.dart';
 import 'package:miro/views/pages/menu/my_account_page/transactions_page/transactions_page.dart';
 import 'package:miro/views/pages/menu/my_account_page/verification_requests/verification_requests_page.dart';
 import 'package:miro/views/widgets/generic/sliver_tab_bar_view.dart';
@@ -24,7 +25,7 @@ class MyAccountPage extends StatefulWidget {
 }
 
 class _MyAccountPage extends State<MyAccountPage> with SingleTickerProviderStateMixin {
-  late final TabController tabController = TabController(length: 4, vsync: this);
+  late final TabController tabController = TabController(length: 5, vsync: this);
 
   final AuthCubit authCubit = globalLocator<AuthCubit>();
   final ScrollController scrollController = ScrollController();
@@ -63,6 +64,7 @@ class _MyAccountPage extends State<MyAccountPage> with SingleTickerProviderState
                           Tab(text: S.of(context).tx),
                           Tab(text: S.of(context).ir),
                           Tab(text: S.of(context).irVerificationRequests),
+                          Tab(text: S.of(context).staking),
                         ]),
                         const SizedBox(height: 8),
                       ],
@@ -75,6 +77,7 @@ class _MyAccountPage extends State<MyAccountPage> with SingleTickerProviderState
                       TransactionsPage(address: wallet.address.bech32Address, parentScrollController: scrollController),
                       IdentityRegistrarPage(walletAddress: wallet.address),
                       VerificationRequestsPage(walletAddress: wallet.address, parentScrollController: scrollController),
+                      StakingPage(walletAddress: wallet.address),
                     ],
                   ),
                 ],

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/identity_registrar/ir_record_verification_request_model.dart';
 import 'package:miro/shared/models/identity_registrar/ir_verification_request_status.dart';
-import 'package:miro/views/pages/drawer/ir_record_drawer_page/ir_record_verifications_list_tile.dart';
+import 'package:miro/views/widgets/generic/account_tile_copy_wrapper.dart';
 import 'package:miro/views/widgets/generic/prefixed_widget.dart';
 
 class IRRecordVerificationsList extends StatelessWidget {
@@ -35,7 +35,7 @@ class IRRecordVerificationsList extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               itemCount: confirmedIrRecordVerificationsList.length,
               itemBuilder: (BuildContext context, int index) {
-                return IRRecordVerificationsListTile(irRecordVerificationRequestModel: confirmedIrRecordVerificationsList[index]);
+                return AccountTileCopyWrapper.fromIRUserProfileModel(confirmedIrRecordVerificationsList[index].verifierIrUserProfileModel);
               },
             ),
           ),
@@ -52,7 +52,7 @@ class IRRecordVerificationsList extends StatelessWidget {
               physics: const NeverScrollableScrollPhysics(),
               itemCount: pendingIrRecordVerificationsList.length,
               itemBuilder: (BuildContext context, int index) {
-                return IRRecordVerificationsListTile(irRecordVerificationRequestModel: pendingIrRecordVerificationsList[index]);
+                return AccountTileCopyWrapper.fromIRUserProfileModel(pendingIrRecordVerificationsList[index].verifierIrUserProfileModel);
               },
             ),
           ),

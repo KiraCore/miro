@@ -2,6 +2,7 @@ import 'package:miro/blocs/generic/network_module/events/network_module_connect_
 import 'package:miro/blocs/generic/network_module/network_module_bloc.dart';
 import 'package:miro/config/app_config.dart';
 import 'package:miro/config/locator.dart';
+import 'package:miro/infra/managers/cache/i_cache_manager.dart';
 import 'package:miro/shared/models/network/data/connection_status_type.dart';
 import 'package:miro/shared/models/network/data/interx_warning_model.dart';
 import 'package:miro/shared/models/network/data/interx_warning_type.dart';
@@ -126,6 +127,7 @@ class TestUtils {
 
   static Future<void> initIntegrationTest() async {
     await initLocator();
+    await globalLocator<ICacheManager>().init();
     globalLocator<AppConfig>().init(MockNetworkListConfigJson.defaultNetworkListConfig);
   }
 
