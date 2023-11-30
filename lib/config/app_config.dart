@@ -42,7 +42,7 @@ class AppConfig {
       defaultApiCacheMaxAge: const Duration(seconds: 60),
       outdatedBlockDuration: const Duration(minutes: 5),
       loadingPageTimerDuration: const Duration(seconds: 4),
-      supportedInterxVersions: <String>['v0.4.40'],
+      supportedInterxVersions: <String>['v0.4.41'],
       rpcBrowserUrlController: RpcBrowserUrlController(),
       defaultFeeTokenAliasModel: const TokenAliasModel(
         name: 'Kira',

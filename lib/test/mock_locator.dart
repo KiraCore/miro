@@ -27,6 +27,7 @@ import 'package:miro/infra/services/api_kira/query_kira_tokens_aliases_service.d
 import 'package:miro/infra/services/api_kira/query_kira_tokens_rates_service.dart';
 import 'package:miro/infra/services/api_kira/query_network_properties_service.dart';
 import 'package:miro/infra/services/api_kira/query_staking_pool_service.dart';
+import 'package:miro/infra/services/api_kira/query_undelegations_service.dart';
 import 'package:miro/infra/services/network_module_service.dart';
 import 'package:miro/test/mock_api_kira_repository.dart';
 import 'package:miro/test/mock_api_repository.dart';
@@ -70,6 +71,7 @@ void _initServices() {
     ..registerLazySingleton<QueryNetworkPropertiesService>(QueryNetworkPropertiesService.new)
     ..registerLazySingleton<QueryStakingPoolService>(QueryStakingPoolService.new)
     ..registerLazySingleton<QueryTransactionsService>(QueryTransactionsService.new)
+    ..registerLazySingleton<QueryUndelegationsService>(QueryUndelegationsService.new)
     ..registerLazySingleton<QueryValidatorsService>(QueryValidatorsService.new);
 }
 
