@@ -12,8 +12,9 @@ class QueryDelegationsResp extends Equatable {
   });
 
   factory QueryDelegationsResp.fromJson(Map<String, dynamic> json) {
+    List<dynamic> delegations = (json['delegations'] as List<dynamic>?) ?? List<dynamic>.empty();
     return QueryDelegationsResp(
-      delegations: (json['delegations'] as List<dynamic>).map((dynamic e) => Delegation.fromJson(e as Map<String, dynamic>)).toList(),
+      delegations: delegations.map((dynamic e) => Delegation.fromJson(e as Map<String, dynamic>)).toList(),
       pagination: Pagination.fromJson(json['pagination'] as Map<String, dynamic>),
     );
   }

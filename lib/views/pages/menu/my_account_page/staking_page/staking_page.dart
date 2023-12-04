@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:miro/blocs/widgets/kira/kira_list/favourites/favourites_bloc.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/filters/filters_bloc.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
+import 'package:miro/shared/controllers/menu/my_account_page/staking_page/staking_filter_options.dart';
 import 'package:miro/shared/controllers/menu/my_account_page/staking_page/staking_list_controller.dart';
 import 'package:miro/shared/models/delegations/validator_staking_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
@@ -26,18 +27,20 @@ class StakingPage extends StatefulWidget {
 
 class _StakingPage extends State<StakingPage> {
   final TextEditingController searchBarTextEditingController = TextEditingController();
+
   final ScrollController scrollController = ScrollController();
 
-  late final StakingListController stakingListController = StakingListController(delegatorAddress: widget.walletAddress.bech32Address);
-  late final FavouritesBloc<ValidatorStakingModel> favouritesBloc = FavouritesBloc<ValidatorStakingModel>(
-    listController: stakingListController,
+  final FiltersBloc<ValidatorStakingModel> filtersBloc = FiltersBloc<ValidatorStakingModel>(
+    searchComparator: StakingFilterOptions.search,
   );
+
+  late final StakingListController stakingListController = StakingListController(delegatorAddress: widget.walletAddress.bech32Address);
 
   @override
   void dispose() {
     searchBarTextEditingController.dispose();
     scrollController.dispose();
-    favouritesBloc.close();
+    filtersBloc.close();
     super.dispose();
   }
 
@@ -67,7 +70,7 @@ class _StakingPage extends State<StakingPage> {
       hasBackgroundBool: ResponsiveWidget.isLargeScreen(context),
       listHeaderWidget: ResponsiveWidget.isLargeScreen(context) ? listHeaderWidget : null,
       title: StakingListTitle(searchBarTextEditingController: searchBarTextEditingController),
-      favouritesBloc: favouritesBloc,
+      filtersBloc: filtersBloc,
     );
   }
 }

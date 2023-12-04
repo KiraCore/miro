@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miro/generated/l10n.dart';
-import 'package:miro/shared/models/validators/validator_model.dart';
+import 'package:miro/shared/models/delegations/validator_staking_model.dart';
 import 'package:miro/views/widgets/kira/kira_list/components/list_search_widget.dart';
 
 class StakingListTitleMobile extends StatelessWidget {
@@ -19,7 +19,7 @@ class StakingListTitleMobile extends StatelessWidget {
         const SizedBox(height: 15),
         SizedBox(
           width: double.infinity,
-          child: ListSearchWidget<ValidatorModel>(
+          child: ListSearchWidget<ValidatorStakingModel>(
             textEditingController: searchBarTextEditingController,
             hint: S.of(context).validatorsHintSearch,
           ),
