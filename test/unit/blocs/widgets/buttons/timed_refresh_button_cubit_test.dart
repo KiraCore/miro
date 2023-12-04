@@ -1,6 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/blocs/widgets/buttons/timed_refresh_button/timed_refresh_button_cubit.dart';
-import 'package:miro/blocs/widgets/buttons/timed_refresh_button/timed_refresh_button_state.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
 // To run this test type in console:
@@ -11,45 +10,44 @@ void main() {
       // Arrange
       TimedRefreshButtonCubit actualTimedRefreshButtonCubit = TimedRefreshButtonCubit();
 
+      // Rounding Duration values to seconds due to a chance of minor time fluctuations (for example: 3.999000s instead of 4.000000)
+      int actualRemainingUnlockTime = (actualTimedRefreshButtonCubit.state.remainingUnlockTime.inMicroseconds / Duration.microsecondsPerSecond).round();
+
       // Arrange
-      TimedRefreshButtonState expectedTimedRefreshButtonState = const TimedRefreshButtonState(remainingUnlockTime: Duration.zero);
-
-      TestUtils.printInfo('Should return [TimedRefreshButtonState] with [Duration.zero] as a initial state');
-      expect(actualTimedRefreshButtonCubit.state, expectedTimedRefreshButtonState);
+      TestUtils.printInfo('Should return [TimedRefreshButtonState] with [0 seconds] as remaining unlock time');
+      expect(actualRemainingUnlockTime, 0);
 
       // ****************************************************************************************************
 
       // Act
-      DateTime expirationTime = DateTime.now().add(const Duration(seconds: 2));
+      DateTime expirationTime = DateTime.now().add(const Duration(seconds: 4));
       actualTimedRefreshButtonCubit.startCounting(expirationTime);
+      actualRemainingUnlockTime = (actualTimedRefreshButtonCubit.state.remainingUnlockTime.inMicroseconds / Duration.microsecondsPerSecond).round();
 
       // Assert
-      expectedTimedRefreshButtonState = const TimedRefreshButtonState(remainingUnlockTime: Duration(seconds: 2));
 
-      TestUtils.printInfo('Should return [TimedRefreshButtonState] with [Duration(seconds: 2)] as a remaining time to unlock');
-      expect(actualTimedRefreshButtonCubit.state, expectedTimedRefreshButtonState);
+      TestUtils.printInfo('Should return [TimedRefreshButtonState] with [4 seconds] as remaining unlock time');
+      expect(actualRemainingUnlockTime, 4);
 
       // ****************************************************************************************************
 
       // Act
-      await Future<void>.delayed(const Duration(seconds: 1));
+      await Future<void>.delayed(const Duration(seconds: 2));
+      actualRemainingUnlockTime = (actualTimedRefreshButtonCubit.state.remainingUnlockTime.inMicroseconds / Duration.microsecondsPerSecond).round();
 
       // Assert
-      expectedTimedRefreshButtonState = const TimedRefreshButtonState(remainingUnlockTime: Duration(seconds: 1));
-
-      TestUtils.printInfo('Should return [TimedRefreshButtonState] with [Duration(seconds: 1)] as a remaining time to unlock');
-      expect(actualTimedRefreshButtonCubit.state, expectedTimedRefreshButtonState);
+      TestUtils.printInfo('Should return [TimedRefreshButtonState] with [2 seconds] as remaining unlock time');
+      expect(actualRemainingUnlockTime, 2);
 
       // ****************************************************************************************************
 
       // Act
-      await Future<void>.delayed(const Duration(seconds: 1));
+      await Future<void>.delayed(const Duration(seconds: 2));
+      actualRemainingUnlockTime = (actualTimedRefreshButtonCubit.state.remainingUnlockTime.inMicroseconds / Duration.microsecondsPerSecond).round();
 
       // Assert
-      expectedTimedRefreshButtonState = const TimedRefreshButtonState(remainingUnlockTime: Duration.zero);
-
-      TestUtils.printInfo('Should return [TimedRefreshButtonState] with [Duration.zero] as a remaining time to unlock');
-      expect(actualTimedRefreshButtonCubit.state, expectedTimedRefreshButtonState);
+      TestUtils.printInfo('Should return [TimedRefreshButtonState] with [0 seconds] as remaining unlock time');
+      expect(actualRemainingUnlockTime, 0);
     });
   });
 }

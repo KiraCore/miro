@@ -39,7 +39,7 @@ Future<void> main() async {
       PageData<ValidatorStakingModel> expectedValidatorStakingModelList = PageData<ValidatorStakingModel>(
         listItems: <ValidatorStakingModel>[
           ValidatorStakingModel(
-            commission: '0.1',
+            commission: '10%',
             stakingPoolStatus: StakingPoolStatus.enabled,
             tokens: <TokenAliasModel>[
               TokenAliasModel.local('frozen'),

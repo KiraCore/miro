@@ -29,8 +29,11 @@ class StakingListItemDesktopLayout extends StatelessWidget {
         children: <Widget>[
           SizedBox(width: 100, child: infoButtonWidget),
           Expanded(flex: 6, child: validatorWidget),
+          const SizedBox(width: 8),
           Expanded(flex: 3, child: statusWidget),
+          const SizedBox(width: 8),
           Expanded(flex: 4, child: tokensWidget),
+          const SizedBox(width: 8),
           Expanded(flex: 3, child: commissionWidget),
         ],
       ),

@@ -7,9 +7,9 @@ import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
 import 'package:miro/views/pages/drawer/staking_drawer_page/staking_drawer_page.dart';
 import 'package:miro/views/pages/menu/my_account_page/staking_page/staking_status_chip/staking_status_chip.dart';
 import 'package:miro/views/widgets/buttons/kira_outlined_button.dart';
+import 'package:miro/views/widgets/generic/account/account_tile.dart';
 import 'package:miro/views/widgets/generic/prefixed_widget.dart';
 import 'package:miro/views/widgets/generic/text_column.dart';
-import 'package:miro/views/widgets/kira/kira_identity_avatar.dart';
 
 class StakingListItemMobile extends StatelessWidget {
   final ValidatorStakingModel validatorStakingModel;
@@ -32,23 +32,11 @@ class StakingListItemMobile extends StatelessWidget {
       ),
       child: Column(
         children: <Widget>[
-          Row(
-            children: <Widget>[
-              KiraIdentityAvatar(
-                address: validatorStakingModel.validatorSimplifiedModel.walletAddress.bech32Address,
-                size: 40,
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Text(
-                  validatorStakingModel.validatorSimplifiedModel.moniker.toString(),
-                  overflow: TextOverflow.ellipsis,
-                  style: textTheme.bodyLarge!.copyWith(
-                    color: DesignColors.white1,
-                  ),
-                ),
-              ),
-            ],
+          AccountTile(
+            walletAddress: validatorStakingModel.validatorSimplifiedModel.walletAddress,
+            username: validatorStakingModel.validatorSimplifiedModel.moniker,
+            avatarUrl: validatorStakingModel.validatorSimplifiedModel.logo,
+            addressVisibleBool: false,
           ),
           const SizedBox(height: 8),
           const Divider(color: DesignColors.grey2),
