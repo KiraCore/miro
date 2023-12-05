@@ -11,6 +11,7 @@ import 'package:miro/views/pages/menu/my_account_page/identity_registrar/identit
 import 'package:miro/views/pages/menu/my_account_page/my_account_page_header.dart';
 import 'package:miro/views/pages/menu/my_account_page/staking_page/staking_page.dart';
 import 'package:miro/views/pages/menu/my_account_page/transactions_page/transactions_page.dart';
+import 'package:miro/views/pages/menu/my_account_page/undelegations_page/undelegations_page.dart';
 import 'package:miro/views/pages/menu/my_account_page/verification_requests/verification_requests_page.dart';
 import 'package:miro/views/widgets/generic/sliver_tab_bar_view.dart';
 import 'package:miro/views/widgets/kira/kira_tab_bar/kira_tab_bar.dart';
@@ -25,7 +26,7 @@ class MyAccountPage extends StatefulWidget {
 }
 
 class _MyAccountPage extends State<MyAccountPage> with SingleTickerProviderStateMixin {
-  late final TabController tabController = TabController(length: 5, vsync: this);
+  late final TabController tabController = TabController(length: 6, vsync: this);
 
   final AuthCubit authCubit = globalLocator<AuthCubit>();
   final ScrollController scrollController = ScrollController();
@@ -65,6 +66,7 @@ class _MyAccountPage extends State<MyAccountPage> with SingleTickerProviderState
                           Tab(text: S.of(context).ir),
                           Tab(text: S.of(context).irVerificationRequests),
                           Tab(text: S.of(context).staking),
+                          Tab(text: S.of(context).undelegations),
                         ]),
                         const SizedBox(height: 8),
                       ],
@@ -78,6 +80,7 @@ class _MyAccountPage extends State<MyAccountPage> with SingleTickerProviderState
                       IdentityRegistrarPage(walletAddress: wallet.address),
                       VerificationRequestsPage(walletAddress: wallet.address, parentScrollController: scrollController),
                       StakingPage(walletAddress: wallet.address),
+                      UndelegationsPage(walletAddress: wallet.address, parentScrollController: scrollController),
                     ],
                   ),
                 ],
