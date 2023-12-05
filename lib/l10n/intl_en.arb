@@ -358,6 +358,10 @@
   "txDateDropdownCancel": "Cancel",
   "txDateDropdownSave": "Save",
 
+  "undelegations": "Undelegations",
+  "undelegationsHintSearch": "Search undelegations",
+  "undelegationLabelLockedUntil": "Locked until",
+
   "validator": "Validator",
   "validators": "Validators",
   "validatorsAbout": "About Validator",

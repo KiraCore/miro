@@ -40,11 +40,16 @@ class UndelegationModel extends AListItem {
   }
 
   @override
-  String get cacheId => validatorSimplifiedModel.walletAddress.bech32Address;
+  String get cacheId => id.toString();
 
   @override
   bool get isFavourite => false;
 
   @override
   set favourite(bool value) => false;
+
+  @override
+  String toString() {
+    return 'UndelegationModel(id: $id, lockedUntil: $lockedUntil, validatorSimplifiedModel: $validatorSimplifiedModel, tokens: $tokens)';
+  }
 }

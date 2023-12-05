@@ -2562,6 +2562,36 @@ class S {
     );
   }
 
+  /// `Undelegations`
+  String get undelegations {
+    return Intl.message(
+      'Undelegations',
+      name: 'undelegations',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search undelegations`
+  String get undelegationsHintSearch {
+    return Intl.message(
+      'Search undelegations',
+      name: 'undelegationsHintSearch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Locked until`
+  String get undelegationLabelLockedUntil {
+    return Intl.message(
+      'Locked until',
+      name: 'undelegationLabelLockedUntil',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Validator`
   String get validator {
     return Intl.message(

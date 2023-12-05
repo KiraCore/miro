@@ -502,6 +502,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "txWarningDoNotCloseWindow":
             MessageLookupByLibrary.simpleMessage("Do not close this window"),
         "txYouWillGet": MessageLookupByLibrary.simpleMessage("You will get"),
+        "undelegationLabelLockedUntil":
+            MessageLookupByLibrary.simpleMessage("Locked until"),
+        "undelegations": MessageLookupByLibrary.simpleMessage("Undelegations"),
+        "undelegationsHintSearch":
+            MessageLookupByLibrary.simpleMessage("Search undelegations"),
         "validator": MessageLookupByLibrary.simpleMessage("Validator"),
         "validators": MessageLookupByLibrary.simpleMessage("Validators"),
         "validatorsAbout":
