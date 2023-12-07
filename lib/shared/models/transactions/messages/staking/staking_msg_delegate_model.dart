@@ -77,7 +77,7 @@ class StakingMsgDelegateModel extends ATxMsgModel {
 
   @override
   String getTitle(BuildContext context, TxDirectionType txDirectionType) {
-    return S.of(context).txMsgDelegateTokens;
+    return S.of(context).stakingTxStakeTokens;
   }
 
   @override

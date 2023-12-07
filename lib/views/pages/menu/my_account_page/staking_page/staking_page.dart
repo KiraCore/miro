@@ -56,6 +56,7 @@ class _StakingPage extends State<StakingPage> {
       statusWidget: Text(S.of(context).validatorsTableStatus, style: textTheme.bodySmall!.copyWith(color: DesignColors.white1)),
       tokensWidget: Text(S.of(context).stakingPoolLabelTokens, style: textTheme.bodySmall!.copyWith(color: DesignColors.white1)),
       commissionWidget: Text(S.of(context).stakingPoolLabelCommission, style: textTheme.bodySmall!.copyWith(color: DesignColors.white1)),
+      actionsWidget: Text(S.of(context).stakingPoolLabelActions, style: textTheme.bodySmall!.copyWith(color: DesignColors.white1)),
     );
 
     return SliverInfinityList<ValidatorStakingModel>(

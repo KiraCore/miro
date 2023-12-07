@@ -1,8 +1,11 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/delegations/validator_staking_model.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
+import 'package:miro/shared/router/kira_router.dart';
+import 'package:miro/shared/router/router.gr.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
 import 'package:miro/views/pages/drawer/staking_drawer_page/staking_drawer_page.dart';
 import 'package:miro/views/pages/menu/my_account_page/staking_page/staking_status_chip/staking_status_chip.dart';
@@ -11,7 +14,7 @@ import 'package:miro/views/widgets/generic/account/account_tile.dart';
 import 'package:miro/views/widgets/generic/prefixed_widget.dart';
 import 'package:miro/views/widgets/generic/text_column.dart';
 
-class StakingListItemMobile extends StatelessWidget {
+class StakingListItemMobile extends StatefulWidget {
   final ValidatorStakingModel validatorStakingModel;
 
   const StakingListItemMobile({
@@ -19,6 +22,11 @@ class StakingListItemMobile extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
+  @override
+  State<StatefulWidget> createState() => _StakingListItemMobile();
+}
+
+class _StakingListItemMobile extends State<StakingListItemMobile> {
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
@@ -33,9 +41,9 @@ class StakingListItemMobile extends StatelessWidget {
       child: Column(
         children: <Widget>[
           AccountTile(
-            walletAddress: validatorStakingModel.validatorSimplifiedModel.walletAddress,
-            username: validatorStakingModel.validatorSimplifiedModel.moniker,
-            avatarUrl: validatorStakingModel.validatorSimplifiedModel.logo,
+            walletAddress: widget.validatorStakingModel.validatorSimplifiedModel.walletAddress,
+            username: widget.validatorStakingModel.validatorSimplifiedModel.moniker,
+            avatarUrl: widget.validatorStakingModel.validatorSimplifiedModel.logo,
             addressVisibleBool: false,
           ),
           const SizedBox(height: 8),
@@ -47,14 +55,14 @@ class StakingListItemMobile extends StatelessWidget {
               Expanded(
                 child: PrefixedWidget(
                   prefix: S.of(context).validatorsTableStatus,
-                  child: StakingStatusChip(stakingPoolStatus: validatorStakingModel.stakingPoolStatus),
+                  child: StakingStatusChip(stakingPoolStatus: widget.validatorStakingModel.stakingPoolStatus),
                 ),
               ),
               Expanded(
                 child: PrefixedWidget(
                   prefix: S.of(context).stakingPoolLabelCommission,
                   child: Text(
-                    validatorStakingModel.commission,
+                    widget.validatorStakingModel.commission,
                     overflow: TextOverflow.ellipsis,
                     style: textTheme.bodyLarge!.copyWith(
                       color: DesignColors.white1,
@@ -66,7 +74,7 @@ class StakingListItemMobile extends StatelessWidget {
                 child: PrefixedWidget(
                   prefix: S.of(context).stakingPoolLabelTokens,
                   child: TextColumn<TokenAliasModel>(
-                    itemList: validatorStakingModel.tokens,
+                    itemList: widget.validatorStakingModel.tokens,
                     displayItemAsString: (TokenAliasModel tokenAliasModel) => '${tokenAliasModel.name} ',
                   ),
                 ),
@@ -78,8 +86,35 @@ class StakingListItemMobile extends StatelessWidget {
             height: 40,
             title: S.of(context).showDetails,
             onPressed: () => KiraScaffold.of(context).navigateEndDrawerRoute(
-              StakingDrawerPage(validatorStakingModel: validatorStakingModel),
+              StakingDrawerPage(validatorStakingModel: widget.validatorStakingModel),
             ),
+          ),
+          const SizedBox(height: 18),
+          SizedBox(
+            height: 40,
+            child: Row(
+              children: <Widget>[
+                Expanded(
+                  child: KiraOutlinedButton(
+                    title: S.of(context).stakingTxButtonStake,
+                    onPressed: _handleStakeButtonPressed,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _handleStakeButtonPressed() {
+    KiraRouter.of(context).push(
+      TransactionsWrapperRoute(
+        children: <PageRouteInfo>[
+          StakingTxDelegateRoute(
+            stakeableTokens: widget.validatorStakingModel.tokens,
+            validatorSimplifiedModel: widget.validatorStakingModel.validatorSimplifiedModel,
           ),
         ],
       ),

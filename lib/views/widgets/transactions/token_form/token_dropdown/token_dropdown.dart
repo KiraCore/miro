@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/filters/models/filter_option.dart';
 import 'package:miro/blocs/widgets/transactions/token_form/token_form_cubit.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
@@ -13,11 +14,13 @@ import 'package:miro/views/widgets/transactions/tx_input_wrapper.dart';
 class TokenDropdown extends StatefulWidget {
   final bool disabledBool;
   final BalanceModel? defaultBalanceModel;
+  final FilterOption<BalanceModel>? initialFilterOption;
   final WalletAddress? walletAddress;
 
   const TokenDropdown({
     this.disabledBool = false,
     this.defaultBalanceModel,
+    this.initialFilterOption,
     this.walletAddress,
     Key? key,
   }) : super(key: key);
@@ -72,6 +75,7 @@ class _TokenDropdown extends State<TokenDropdown> {
       ),
       child: TokenDropdownList(
         initialTokenAliasModel: widget.defaultBalanceModel?.tokenAmountModel.tokenAliasModel,
+        initialFilterOption: widget.initialFilterOption,
         onBalanceModelSelected: _handleBalanceModelChanged,
         walletAddress: widget.walletAddress,
       ),

@@ -82,6 +82,10 @@ class AppRouter extends $AppRouter {
             page: IRTxHandleVerificationRequestRoute.page,
             path: 'identity/handle-verification-request',
           ),
+          AutoRoute(
+            page: StakingTxDelegateRoute.page,
+            path: 'staking/stake-tokens',
+          ),
         ],
       ),
       RedirectRoute(path: '*', redirectTo: '/network'),

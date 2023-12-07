@@ -359,6 +359,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Staking Pool available"),
         "stakingPoolDetails":
             MessageLookupByLibrary.simpleMessage("Staking Pool Details"),
+        "stakingPoolLabelActions":
+            MessageLookupByLibrary.simpleMessage("Actions"),
         "stakingPoolLabelCommission":
             MessageLookupByLibrary.simpleMessage("Commission"),
         "stakingPoolLabelSlashed":
@@ -375,8 +377,15 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Withdraw Only"),
         "stakingToEnable":
             MessageLookupByLibrary.simpleMessage("To enable staking "),
-        "stakingTxButtonStakeNow":
-            MessageLookupByLibrary.simpleMessage("Stake now"),
+        "stakingTxAmountToStake":
+            MessageLookupByLibrary.simpleMessage("Amount to stake"),
+        "stakingTxButtonStake": MessageLookupByLibrary.simpleMessage("Stake"),
+        "stakingTxConfirmStaking":
+            MessageLookupByLibrary.simpleMessage("Confirm staking"),
+        "stakingTxStakeTokens":
+            MessageLookupByLibrary.simpleMessage("Stake tokens"),
+        "stakingTxTokensToStake":
+            MessageLookupByLibrary.simpleMessage("Tokens to stake"),
         "toYourAccount":
             MessageLookupByLibrary.simpleMessage(" to your account"),
         "toastCannotLoadDashboard": MessageLookupByLibrary.simpleMessage(
@@ -399,6 +408,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Edit transaction"),
         "txButtonNext": MessageLookupByLibrary.simpleMessage("Next"),
         "txButtonSendAll": MessageLookupByLibrary.simpleMessage("Send all"),
+        "txCannotLoadBalancesTryAgain": MessageLookupByLibrary.simpleMessage(
+            "Cannot load balances, try again"),
         "txCompleted":
             MessageLookupByLibrary.simpleMessage("Transaction completed"),
         "txConfirm":
@@ -439,6 +450,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "txHintMemo": MessageLookupByLibrary.simpleMessage("Memo"),
         "txHintSendFrom": MessageLookupByLibrary.simpleMessage("Send from"),
         "txHintSendTo": MessageLookupByLibrary.simpleMessage("Send to"),
+        "txHintStakeBy": MessageLookupByLibrary.simpleMessage("Stake by"),
+        "txHintStakeOn": MessageLookupByLibrary.simpleMessage("Stake on"),
         "txIsBeingBroadcast": MessageLookupByLibrary.simpleMessage(
             "Your transaction is being broadcast"),
         "txListAmount": MessageLookupByLibrary.simpleMessage("Amount"),
@@ -466,8 +479,6 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Claim Rewards"),
         "txMsgClaimUndelegation":
             MessageLookupByLibrary.simpleMessage("Claim Undelegation"),
-        "txMsgDelegateTokens":
-            MessageLookupByLibrary.simpleMessage("Delegate Tokens"),
         "txMsgDeleteIdentityRecords":
             MessageLookupByLibrary.simpleMessage("Delete Identity Records"),
         "txMsgHandleIdentityRecordsVerifyRequest":
