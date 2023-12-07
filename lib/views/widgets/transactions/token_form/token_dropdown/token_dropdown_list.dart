@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/favourites/favourites_bloc.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/filters/events/filters_add_option_event.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/filters/filters_bloc.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/filters/models/filter_option.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/sort/sort_bloc.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/controllers/menu/my_account_page/balances_page/balances_filter_options.dart';
@@ -15,11 +17,13 @@ import 'package:miro/views/widgets/transactions/token_form/token_dropdown/token_
 class TokenDropdownList extends StatefulWidget {
   final TokenAliasModel? initialTokenAliasModel;
   final ValueChanged<BalanceModel> onBalanceModelSelected;
+  final FilterOption<BalanceModel>? initialFilterOption;
   final WalletAddress? walletAddress;
 
   const TokenDropdownList({
     required this.initialTokenAliasModel,
     required this.onBalanceModelSelected,
+    this.initialFilterOption,
     this.walletAddress,
     Key? key,
   }) : super(key: key);
@@ -47,6 +51,9 @@ class _TokenDropdownList extends State<TokenDropdownList> {
   void initState() {
     super.initState();
     selectedTokenAliasModel = widget.initialTokenAliasModel;
+    if (widget.initialFilterOption != null) {
+      filtersBloc.add(FiltersAddOptionEvent<BalanceModel>(widget.initialFilterOption!));
+    }
   }
 
   @override

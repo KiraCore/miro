@@ -1701,6 +1701,16 @@ class S {
     );
   }
 
+  /// `Actions`
+  String get stakingPoolLabelActions {
+    return Intl.message(
+      'Actions',
+      name: 'stakingPoolLabelActions',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Commission`
   String get stakingPoolLabelCommission {
     return Intl.message(
@@ -1781,11 +1791,51 @@ class S {
     );
   }
 
-  /// `Stake now`
-  String get stakingTxButtonStakeNow {
+  /// `Amount to stake`
+  String get stakingTxAmountToStake {
     return Intl.message(
-      'Stake now',
-      name: 'stakingTxButtonStakeNow',
+      'Amount to stake',
+      name: 'stakingTxAmountToStake',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Stake`
+  String get stakingTxButtonStake {
+    return Intl.message(
+      'Stake',
+      name: 'stakingTxButtonStake',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm staking`
+  String get stakingTxConfirmStaking {
+    return Intl.message(
+      'Confirm staking',
+      name: 'stakingTxConfirmStaking',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Stake tokens`
+  String get stakingTxStakeTokens {
+    return Intl.message(
+      'Stake tokens',
+      name: 'stakingTxStakeTokens',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tokens to stake`
+  String get stakingTxTokensToStake {
+    return Intl.message(
+      'Tokens to stake',
+      name: 'stakingTxTokensToStake',
       desc: '',
       args: [],
     );
@@ -1961,6 +2011,26 @@ class S {
     );
   }
 
+  /// `Stake by`
+  String get txHintStakeBy {
+    return Intl.message(
+      'Stake by',
+      name: 'txHintStakeBy',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Stake on`
+  String get txHintStakeOn {
+    return Intl.message(
+      'Stake on',
+      name: 'txHintStakeOn',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Send from`
   String get txHintSendFrom {
     return Intl.message(
@@ -1998,6 +2068,16 @@ class S {
       name: 'txNoticeFee',
       desc: '',
       args: [widgetFeeTokenAmountModel],
+    );
+  }
+
+  /// `Cannot load balances, try again`
+  String get txCannotLoadBalancesTryAgain {
+    return Intl.message(
+      'Cannot load balances, try again',
+      name: 'txCannotLoadBalancesTryAgain',
+      desc: '',
+      args: [],
     );
   }
 
@@ -2207,16 +2287,6 @@ class S {
     return Intl.message(
       'Claim Rewards',
       name: 'txMsgClaimRewards',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Delegate Tokens`
-  String get txMsgDelegateTokens {
-    return Intl.message(
-      'Delegate Tokens',
-      name: 'txMsgDelegateTokens',
       desc: '',
       args: [],
     );

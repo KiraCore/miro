@@ -7,6 +7,7 @@ class StakingListItemDesktopLayout extends StatelessWidget {
   final Widget statusWidget;
   final Widget tokensWidget;
   final Widget commissionWidget;
+  final Widget actionsWidget;
 
   const StakingListItemDesktopLayout({
     required this.height,
@@ -15,6 +16,7 @@ class StakingListItemDesktopLayout extends StatelessWidget {
     required this.statusWidget,
     required this.tokensWidget,
     required this.commissionWidget,
+    required this.actionsWidget,
     Key? key,
   }) : super(key: key);
 
@@ -35,6 +37,8 @@ class StakingListItemDesktopLayout extends StatelessWidget {
           Expanded(flex: 4, child: tokensWidget),
           const SizedBox(width: 8),
           Expanded(flex: 3, child: commissionWidget),
+          const SizedBox(width: 8),
+          Expanded(flex: 5, child: actionsWidget),
         ],
       ),
     );

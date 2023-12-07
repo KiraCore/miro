@@ -1,6 +1,7 @@
 import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/models/a_list_item.dart';
 import 'package:miro/infra/dto/api/query_validators/response/validator.dart';
 import 'package:miro/shared/models/validators/staking_pool_status.dart';
+import 'package:miro/shared/models/validators/validator_simplified_model.dart';
 import 'package:miro/shared/models/validators/validator_status.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/shared/utils/enum_utils.dart';
@@ -67,6 +68,13 @@ class ValidatorModel extends AListItem {
 
   @override
   set favourite(bool value) => _favourite = value;
+
+  ValidatorSimplifiedModel get validatorSimplifiedModel => ValidatorSimplifiedModel(
+        walletAddress: walletAddress,
+        moniker: moniker,
+        logo: logo,
+        website: website,
+      );
 
   static int _calcUptime(Validator validator) {
     int producedBlockCounter = int.parse(validator.producedBlocksCounter);

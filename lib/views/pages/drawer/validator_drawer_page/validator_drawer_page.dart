@@ -127,9 +127,7 @@ class _ValidatorDrawerPage extends State<ValidatorDrawerPage> {
             children: <Widget>[
               const Divider(color: DesignColors.grey1),
               const SizedBox(height: 15),
-              ValidatorDrawerStakingPoolSection(
-                validatorWalletAddress: widget.validatorModel.walletAddress,
-              ),
+              ValidatorDrawerStakingPoolSection(validatorModel: widget.validatorModel),
             ],
           ),
         const SizedBox(height: 30),

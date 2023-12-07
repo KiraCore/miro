@@ -1,6 +1,7 @@
 import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/filters/models/filter_option.dart';
 import 'package:miro/blocs/widgets/transactions/token_form/token_form_cubit.dart';
 import 'package:miro/blocs/widgets/transactions/token_form/token_form_state.dart';
 import 'package:miro/config/theme/design_colors.dart';
@@ -24,13 +25,14 @@ class TokenForm extends StatefulWidget {
   final String label;
   final ValueChanged<TokenFormState> onChanged;
   final TokenAmountModel feeTokenAmountModel;
+  final WalletAddress? walletAddress;
   final bool selectableBool;
   final BalanceModel? defaultBalanceModel;
+  final FilterOption<BalanceModel>? initialFilterOption;
   final TokenAliasModel? defaultTokenAliasModel;
   final TokenAmountModel? defaultTokenAmountModel;
   final TokenDenominationModel? defaultTokenDenominationModel;
   final ValidateCallback? validateCallback;
-  final WalletAddress? walletAddress;
 
   const TokenForm({
     required this.label,
@@ -39,6 +41,7 @@ class TokenForm extends StatefulWidget {
     required this.walletAddress,
     this.selectableBool = true,
     this.defaultBalanceModel,
+    this.initialFilterOption,
     this.defaultTokenAliasModel,
     this.defaultTokenAmountModel,
     this.defaultTokenDenominationModel,
@@ -136,6 +139,7 @@ class _TokenForm extends State<TokenForm> {
                         TokenDropdown(
                           disabledBool: widget.selectableBool == false,
                           defaultBalanceModel: tokenFormState.balanceModel,
+                          initialFilterOption: widget.initialFilterOption,
                           walletAddress: widget.walletAddress,
                         ),
                       ],
@@ -148,7 +152,7 @@ class _TokenForm extends State<TokenForm> {
                       style: TextButton.styleFrom(padding: EdgeInsets.zero),
                       icon: const Icon(Icons.refresh, color: DesignColors.redStatus1, size: 16),
                       label: Text(
-                        'Cannot load balances, try again',
+                        S.of(context).txCannotLoadBalancesTryAgain,
                         style: textTheme.bodySmall!.copyWith(color: DesignColors.redStatus1),
                       ),
                     ),
