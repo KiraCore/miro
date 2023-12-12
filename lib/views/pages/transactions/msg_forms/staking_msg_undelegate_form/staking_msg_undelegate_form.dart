@@ -2,14 +2,13 @@ import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/generic/auth/auth_cubit.dart';
-import 'package:miro/blocs/widgets/kira/kira_list/filters/models/filter_mode.dart';
-import 'package:miro/blocs/widgets/kira/kira_list/filters/models/filter_option.dart';
 import 'package:miro/blocs/widgets/transactions/token_form/token_form_state.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/generated/l10n.dart';
-import 'package:miro/shared/models/balances/balance_model.dart';
+import 'package:miro/shared/controllers/menu/my_account_page/balances_page/balances_filter_options.dart';
+import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
-import 'package:miro/shared/models/transactions/form_models/staking_msg_delegate_form_model.dart';
+import 'package:miro/shared/models/transactions/form_models/staking_msg_undelegate_form_model.dart';
 import 'package:miro/shared/models/validators/validator_simplified_model.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
@@ -18,27 +17,25 @@ import 'package:miro/views/widgets/transactions/token_form/token_form.dart';
 import 'package:miro/views/widgets/transactions/tx_validator_preview.dart';
 import 'package:miro/views/widgets/transactions/wallet_address_text_field.dart';
 
-class StakingMsgDelegateForm extends StatefulWidget {
+class StakingMsgUndelegateForm extends StatefulWidget {
   final GlobalKey<FormState> formKey;
-  final bool Function(BalanceModel) initialFilterComparator;
-  final StakingMsgDelegateFormModel stakingMsgDelegateFormModel;
+  final StakingMsgUndelegateFormModel stakingMsgUndelegateFormModel;
   final TokenAmountModel feeTokenAmountModel;
   final ValidatorSimplifiedModel validatorSimplifiedModel;
 
-  const StakingMsgDelegateForm({
+  const StakingMsgUndelegateForm({
     required this.formKey,
-    required this.initialFilterComparator,
-    required this.stakingMsgDelegateFormModel,
-    required this.validatorSimplifiedModel,
+    required this.stakingMsgUndelegateFormModel,
     required this.feeTokenAmountModel,
+    required this.validatorSimplifiedModel,
     Key? key,
   }) : super(key: key);
 
   @override
-  State<StakingMsgDelegateForm> createState() => _StakingMsgDelegateFormState();
+  State<StakingMsgUndelegateForm> createState() => _StakingMsgUndelegateFormState();
 }
 
-class _StakingMsgDelegateFormState extends State<StakingMsgDelegateForm> {
+class _StakingMsgUndelegateFormState extends State<StakingMsgUndelegateForm> {
   final AuthCubit authCubit = globalLocator<AuthCubit>();
   final TextEditingController memoTextEditingController = TextEditingController();
 
@@ -66,15 +63,15 @@ class _StakingMsgDelegateFormState extends State<StakingMsgDelegateForm> {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               WalletAddressTextField(
-                label: S.of(context).txHintStakeBy,
+                label: S.of(context).txHintUnstakeBy,
                 disabledBool: true,
                 onChanged: _handleDelegatorAddressChanged,
-                defaultWalletAddress: widget.stakingMsgDelegateFormModel.delegatorWalletAddress,
+                defaultWalletAddress: widget.stakingMsgUndelegateFormModel.delegatorWalletAddress,
               ),
               const SizedBox(height: 14),
               TxValidatorPreview(
                 validatorSimplifiedModel: widget.validatorSimplifiedModel,
-                label: S.of(context).txHintStakeOn,
+                label: S.of(context).txHintUnstakeFrom,
               ),
               const SizedBox(height: 14),
               Column(
@@ -84,15 +81,11 @@ class _StakingMsgDelegateFormState extends State<StakingMsgDelegateForm> {
                   TokenForm(
                     feeTokenAmountModel: widget.feeTokenAmountModel,
                     onChanged: _handleTokenAmountChanged,
-                    label: S.of(context).stakingTxAmountToStake,
-                    initialFilterOption: FilterOption<BalanceModel>(
-                      id: 'delegate',
-                      filterComparator: widget.initialFilterComparator,
-                      filterMode: FilterMode.and,
-                    ),
-                    defaultBalanceModel: widget.stakingMsgDelegateFormModel.balanceModel,
-                    defaultTokenAmountModel: widget.stakingMsgDelegateFormModel.tokenAmountModels?.first,
-                    defaultTokenDenominationModel: widget.stakingMsgDelegateFormModel.tokenDenominationModel,
+                    label: S.of(context).stakingTxAmountToUnstake,
+                    initialFilterOption: BalancesFilterOptions.filterByDerivedTokens,
+                    defaultBalanceModel: widget.stakingMsgUndelegateFormModel.balanceModel,
+                    defaultTokenAmountModel: widget.stakingMsgUndelegateFormModel.tokenAmountModels?.first,
+                    defaultTokenDenominationModel: widget.stakingMsgUndelegateFormModel.tokenDenominationModel,
                     walletAddress: wallet!.address,
                   ),
                 ],
@@ -111,24 +104,35 @@ class _StakingMsgDelegateFormState extends State<StakingMsgDelegateForm> {
   }
 
   void _assignDefaultValues() {
-    memoTextEditingController.text = widget.stakingMsgDelegateFormModel.memo;
+    memoTextEditingController.text = widget.stakingMsgUndelegateFormModel.memo;
   }
 
   void _handleDelegatorAddressChanged(WalletAddress? walletAddress) {
-    widget.stakingMsgDelegateFormModel.delegatorWalletAddress = walletAddress;
+    widget.stakingMsgUndelegateFormModel.delegatorWalletAddress = walletAddress;
   }
 
   void _handleTokenAmountChanged(TokenFormState tokenFormState) {
-    widget.stakingMsgDelegateFormModel.balanceModel = tokenFormState.balanceModel;
-    widget.stakingMsgDelegateFormModel.tokenDenominationModel = tokenFormState.tokenDenominationModel;
-    if (tokenFormState.tokenAmountModel != null && tokenFormState.tokenAmountModel?.getAmountInLowestDenomination() != Decimal.zero) {
-      widget.stakingMsgDelegateFormModel.tokenAmountModels = <TokenAmountModel>[tokenFormState.tokenAmountModel!];
+    widget.stakingMsgUndelegateFormModel.balanceModel = tokenFormState.balanceModel;
+    widget.stakingMsgUndelegateFormModel.tokenDenominationModel = tokenFormState.tokenDenominationModel;
+    bool tokenAmountModelEmpty = tokenFormState.tokenAmountModel == null || tokenFormState.tokenAmountModel?.getAmountInLowestDenomination() == Decimal.zero;
+    if (tokenAmountModelEmpty) {
+      widget.stakingMsgUndelegateFormModel.tokenAmountModels = null;
     } else {
-      widget.stakingMsgDelegateFormModel.tokenAmountModels = null;
+      _updateTokenAmountModels(tokenFormState);
     }
   }
 
+  void _updateTokenAmountModels(TokenFormState tokenFormState) {
+    String stakedTokenName = tokenFormState.tokenAmountModel!.tokenAliasModel.name;
+    String basicTokenName = stakedTokenName.substring(stakedTokenName.indexOf('/') + 1);
+    TokenAmountModel basicTokenAmountModel = TokenAmountModel(
+      lowestDenominationAmount: tokenFormState.tokenAmountModel!.getAmountInLowestDenomination(),
+      tokenAliasModel: TokenAliasModel.local(basicTokenName),
+    );
+    widget.stakingMsgUndelegateFormModel.tokenAmountModels = <TokenAmountModel>[basicTokenAmountModel];
+  }
+
   void _handleMemoChanged(String memo) {
-    widget.stakingMsgDelegateFormModel.memo = memo;
+    widget.stakingMsgUndelegateFormModel.memo = memo;
   }
 }

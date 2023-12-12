@@ -8,21 +8,21 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:auto_route/auto_route.dart' as _i15;
-import 'package:flutter/cupertino.dart' as _i17;
-import 'package:flutter/material.dart' as _i19;
-import 'package:miro/shared/models/balances/balance_model.dart' as _i24;
+import 'package:auto_route/auto_route.dart' as _i16;
+import 'package:flutter/cupertino.dart' as _i18;
+import 'package:flutter/material.dart' as _i20;
+import 'package:miro/shared/models/balances/balance_model.dart' as _i25;
 import 'package:miro/shared/models/identity_registrar/ir_inbound_verification_request_model.dart'
-    as _i18;
+    as _i19;
 import 'package:miro/shared/models/identity_registrar/ir_record_model.dart'
-    as _i16;
+    as _i17;
 import 'package:miro/shared/models/network/connection/connection_error_type.dart'
-    as _i20;
-import 'package:miro/shared/models/network/status/a_network_status_model.dart'
     as _i21;
-import 'package:miro/shared/models/tokens/token_alias_model.dart' as _i22;
+import 'package:miro/shared/models/network/status/a_network_status_model.dart'
+    as _i22;
+import 'package:miro/shared/models/tokens/token_alias_model.dart' as _i23;
 import 'package:miro/shared/models/validators/validator_simplified_model.dart'
-    as _i23;
+    as _i24;
 import 'package:miro/views/pages/loading/loading_page/loading_page.dart' as _i6;
 import 'package:miro/views/pages/loading/loading_wrapper.dart' as _i7;
 import 'package:miro/views/pages/loading/network_list_page/network_list_page.dart'
@@ -33,9 +33,9 @@ import 'package:miro/views/pages/menu/menu_wrapper.dart' as _i8;
 import 'package:miro/views/pages/menu/my_account_page/my_account_page.dart'
     as _i9;
 import 'package:miro/views/pages/menu/validators_page/validators_page.dart'
-    as _i14;
+    as _i15;
 import 'package:miro/views/pages/transactions/transactions_wrapper.dart'
-    as _i12;
+    as _i13;
 import 'package:miro/views/pages/transactions/tx_send/ir_tx_delete_record_page/ir_tx_delete_record_page.dart'
     as _i2;
 import 'package:miro/views/pages/transactions/tx_send/ir_tx_handle_verification_request_page/ir_tx_handle_verification_request_page.dart'
@@ -46,23 +46,25 @@ import 'package:miro/views/pages/transactions/tx_send/ir_tx_request_verification
     as _i5;
 import 'package:miro/views/pages/transactions/tx_send/staking_tx_delegate_page/staking_tx_delegate_page.dart'
     as _i11;
+import 'package:miro/views/pages/transactions/tx_send/staking_tx_undelegate_page/staking_tx_undelegate_page.dart'
+    as _i12;
 import 'package:miro/views/pages/transactions/tx_send/tx_send_tokens/tx_send_tokens_page.dart'
-    as _i13;
+    as _i14;
 
-abstract class $AppRouter extends _i15.RootStackRouter {
+abstract class $AppRouter extends _i16.RootStackRouter {
   $AppRouter({super.navigatorKey});
 
   @override
-  final Map<String, _i15.PageFactory> pagesMap = {
+  final Map<String, _i16.PageFactory> pagesMap = {
     DashboardRoute.name: (routeData) {
-      return _i15.AutoRoutePage<dynamic>(
+      return _i16.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i1.DashboardPage(),
       );
     },
     IRTxDeleteRecordRoute.name: (routeData) {
       final args = routeData.argsAs<IRTxDeleteRecordRouteArgs>();
-      return _i15.AutoRoutePage<dynamic>(
+      return _i16.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i2.IRTxDeleteRecordPage(
           irRecordModel: args.irRecordModel,
@@ -72,7 +74,7 @@ abstract class $AppRouter extends _i15.RootStackRouter {
     },
     IRTxHandleVerificationRequestRoute.name: (routeData) {
       final args = routeData.argsAs<IRTxHandleVerificationRequestRouteArgs>();
-      return _i15.AutoRoutePage<dynamic>(
+      return _i16.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i3.IRTxHandleVerificationRequestPage(
           approvalStatusBool: args.approvalStatusBool,
@@ -84,7 +86,7 @@ abstract class $AppRouter extends _i15.RootStackRouter {
     },
     IRTxRegisterRecordRoute.name: (routeData) {
       final args = routeData.argsAs<IRTxRegisterRecordRouteArgs>();
-      return _i15.AutoRoutePage<dynamic>(
+      return _i16.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i4.IRTxRegisterRecordPage(
           irKeyEditableBool: args.irKeyEditableBool,
@@ -96,7 +98,7 @@ abstract class $AppRouter extends _i15.RootStackRouter {
     },
     IRTxRequestVerificationRoute.name: (routeData) {
       final args = routeData.argsAs<IRTxRequestVerificationRouteArgs>();
-      return _i15.AutoRoutePage<dynamic>(
+      return _i16.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i5.IRTxRequestVerificationPage(
           irRecordModel: args.irRecordModel,
@@ -107,7 +109,7 @@ abstract class $AppRouter extends _i15.RootStackRouter {
     LoadingRoute.name: (routeData) {
       final args = routeData.argsAs<LoadingRouteArgs>(
           orElse: () => const LoadingRouteArgs());
-      return _i15.AutoRoutePage<dynamic>(
+      return _i16.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i6.LoadingPage(
           nextPageRouteInfo: args.nextPageRouteInfo,
@@ -116,19 +118,19 @@ abstract class $AppRouter extends _i15.RootStackRouter {
       );
     },
     LoadingWrapperRoute.name: (routeData) {
-      return _i15.AutoRoutePage<dynamic>(
+      return _i16.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i7.LoadingWrapper(),
       );
     },
     MenuWrapperRoute.name: (routeData) {
-      return _i15.AutoRoutePage<dynamic>(
+      return _i16.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i8.MenuWrapper(),
       );
     },
     MyAccountRoute.name: (routeData) {
-      return _i15.AutoRoutePage<dynamic>(
+      return _i16.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const _i9.MyAccountPage(),
       );
@@ -136,7 +138,7 @@ abstract class $AppRouter extends _i15.RootStackRouter {
     NetworkListRoute.name: (routeData) {
       final args = routeData.argsAs<NetworkListRouteArgs>(
           orElse: () => const NetworkListRouteArgs());
-      return _i15.AutoRoutePage<dynamic>(
+      return _i16.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i10.NetworkListPage(
           connectionErrorType: args.connectionErrorType,
@@ -148,7 +150,7 @@ abstract class $AppRouter extends _i15.RootStackRouter {
     },
     StakingTxDelegateRoute.name: (routeData) {
       final args = routeData.argsAs<StakingTxDelegateRouteArgs>();
-      return _i15.AutoRoutePage<dynamic>(
+      return _i16.AutoRoutePage<dynamic>(
         routeData: routeData,
         child: _i11.StakingTxDelegatePage(
           stakeableTokens: args.stakeableTokens,
@@ -157,27 +159,37 @@ abstract class $AppRouter extends _i15.RootStackRouter {
         ),
       );
     },
-    TransactionsWrapperRoute.name: (routeData) {
-      return _i15.AutoRoutePage<dynamic>(
+    StakingTxUndelegateRoute.name: (routeData) {
+      final args = routeData.argsAs<StakingTxUndelegateRouteArgs>();
+      return _i16.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i12.TransactionsWrapper(),
+        child: _i12.StakingTxUndelegatePage(
+          validatorSimplifiedModel: args.validatorSimplifiedModel,
+          key: args.key,
+        ),
+      );
+    },
+    TransactionsWrapperRoute.name: (routeData) {
+      return _i16.AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const _i13.TransactionsWrapper(),
       );
     },
     TxSendTokensRoute.name: (routeData) {
       final args = routeData.argsAs<TxSendTokensRouteArgs>(
           orElse: () => const TxSendTokensRouteArgs());
-      return _i15.AutoRoutePage<dynamic>(
+      return _i16.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: _i13.TxSendTokensPage(
+        child: _i14.TxSendTokensPage(
           defaultBalanceModel: args.defaultBalanceModel,
           key: args.key,
         ),
       );
     },
     ValidatorsRoute.name: (routeData) {
-      return _i15.AutoRoutePage<dynamic>(
+      return _i16.AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const _i14.ValidatorsPage(),
+        child: const _i15.ValidatorsPage(),
       );
     },
   };
@@ -185,8 +197,8 @@ abstract class $AppRouter extends _i15.RootStackRouter {
 
 /// generated route for
 /// [_i1.DashboardPage]
-class DashboardRoute extends _i15.PageRouteInfo<void> {
-  const DashboardRoute({List<_i15.PageRouteInfo>? children})
+class DashboardRoute extends _i16.PageRouteInfo<void> {
+  const DashboardRoute({List<_i16.PageRouteInfo>? children})
       : super(
           DashboardRoute.name,
           initialChildren: children,
@@ -194,17 +206,17 @@ class DashboardRoute extends _i15.PageRouteInfo<void> {
 
   static const String name = 'DashboardRoute';
 
-  static const _i15.PageInfo<void> page = _i15.PageInfo<void>(name);
+  static const _i16.PageInfo<void> page = _i16.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i2.IRTxDeleteRecordPage]
 class IRTxDeleteRecordRoute
-    extends _i15.PageRouteInfo<IRTxDeleteRecordRouteArgs> {
+    extends _i16.PageRouteInfo<IRTxDeleteRecordRouteArgs> {
   IRTxDeleteRecordRoute({
-    required _i16.IRRecordModel irRecordModel,
-    _i17.Key? key,
-    List<_i15.PageRouteInfo>? children,
+    required _i17.IRRecordModel irRecordModel,
+    _i18.Key? key,
+    List<_i16.PageRouteInfo>? children,
   }) : super(
           IRTxDeleteRecordRoute.name,
           args: IRTxDeleteRecordRouteArgs(
@@ -216,8 +228,8 @@ class IRTxDeleteRecordRoute
 
   static const String name = 'IRTxDeleteRecordRoute';
 
-  static const _i15.PageInfo<IRTxDeleteRecordRouteArgs> page =
-      _i15.PageInfo<IRTxDeleteRecordRouteArgs>(name);
+  static const _i16.PageInfo<IRTxDeleteRecordRouteArgs> page =
+      _i16.PageInfo<IRTxDeleteRecordRouteArgs>(name);
 }
 
 class IRTxDeleteRecordRouteArgs {
@@ -226,9 +238,9 @@ class IRTxDeleteRecordRouteArgs {
     this.key,
   });
 
-  final _i16.IRRecordModel irRecordModel;
+  final _i17.IRRecordModel irRecordModel;
 
-  final _i17.Key? key;
+  final _i18.Key? key;
 
   @override
   String toString() {
@@ -239,13 +251,13 @@ class IRTxDeleteRecordRouteArgs {
 /// generated route for
 /// [_i3.IRTxHandleVerificationRequestPage]
 class IRTxHandleVerificationRequestRoute
-    extends _i15.PageRouteInfo<IRTxHandleVerificationRequestRouteArgs> {
+    extends _i16.PageRouteInfo<IRTxHandleVerificationRequestRouteArgs> {
   IRTxHandleVerificationRequestRoute({
     required bool approvalStatusBool,
-    required _i18.IRInboundVerificationRequestModel
+    required _i19.IRInboundVerificationRequestModel
         irInboundVerificationRequestModel,
-    _i17.Key? key,
-    List<_i15.PageRouteInfo>? children,
+    _i18.Key? key,
+    List<_i16.PageRouteInfo>? children,
   }) : super(
           IRTxHandleVerificationRequestRoute.name,
           args: IRTxHandleVerificationRequestRouteArgs(
@@ -259,8 +271,8 @@ class IRTxHandleVerificationRequestRoute
 
   static const String name = 'IRTxHandleVerificationRequestRoute';
 
-  static const _i15.PageInfo<IRTxHandleVerificationRequestRouteArgs> page =
-      _i15.PageInfo<IRTxHandleVerificationRequestRouteArgs>(name);
+  static const _i16.PageInfo<IRTxHandleVerificationRequestRouteArgs> page =
+      _i16.PageInfo<IRTxHandleVerificationRequestRouteArgs>(name);
 }
 
 class IRTxHandleVerificationRequestRouteArgs {
@@ -272,10 +284,10 @@ class IRTxHandleVerificationRequestRouteArgs {
 
   final bool approvalStatusBool;
 
-  final _i18.IRInboundVerificationRequestModel
+  final _i19.IRInboundVerificationRequestModel
       irInboundVerificationRequestModel;
 
-  final _i17.Key? key;
+  final _i18.Key? key;
 
   @override
   String toString() {
@@ -286,13 +298,13 @@ class IRTxHandleVerificationRequestRouteArgs {
 /// generated route for
 /// [_i4.IRTxRegisterRecordPage]
 class IRTxRegisterRecordRoute
-    extends _i15.PageRouteInfo<IRTxRegisterRecordRouteArgs> {
+    extends _i16.PageRouteInfo<IRTxRegisterRecordRouteArgs> {
   IRTxRegisterRecordRoute({
     required bool irKeyEditableBool,
-    required _i16.IRRecordModel? irRecordModel,
+    required _i17.IRRecordModel? irRecordModel,
     int? irValueMaxLength,
-    _i17.Key? key,
-    List<_i15.PageRouteInfo>? children,
+    _i18.Key? key,
+    List<_i16.PageRouteInfo>? children,
   }) : super(
           IRTxRegisterRecordRoute.name,
           args: IRTxRegisterRecordRouteArgs(
@@ -306,8 +318,8 @@ class IRTxRegisterRecordRoute
 
   static const String name = 'IRTxRegisterRecordRoute';
 
-  static const _i15.PageInfo<IRTxRegisterRecordRouteArgs> page =
-      _i15.PageInfo<IRTxRegisterRecordRouteArgs>(name);
+  static const _i16.PageInfo<IRTxRegisterRecordRouteArgs> page =
+      _i16.PageInfo<IRTxRegisterRecordRouteArgs>(name);
 }
 
 class IRTxRegisterRecordRouteArgs {
@@ -320,11 +332,11 @@ class IRTxRegisterRecordRouteArgs {
 
   final bool irKeyEditableBool;
 
-  final _i16.IRRecordModel? irRecordModel;
+  final _i17.IRRecordModel? irRecordModel;
 
   final int? irValueMaxLength;
 
-  final _i17.Key? key;
+  final _i18.Key? key;
 
   @override
   String toString() {
@@ -335,11 +347,11 @@ class IRTxRegisterRecordRouteArgs {
 /// generated route for
 /// [_i5.IRTxRequestVerificationPage]
 class IRTxRequestVerificationRoute
-    extends _i15.PageRouteInfo<IRTxRequestVerificationRouteArgs> {
+    extends _i16.PageRouteInfo<IRTxRequestVerificationRouteArgs> {
   IRTxRequestVerificationRoute({
-    required _i16.IRRecordModel irRecordModel,
-    _i17.Key? key,
-    List<_i15.PageRouteInfo>? children,
+    required _i17.IRRecordModel irRecordModel,
+    _i18.Key? key,
+    List<_i16.PageRouteInfo>? children,
   }) : super(
           IRTxRequestVerificationRoute.name,
           args: IRTxRequestVerificationRouteArgs(
@@ -351,8 +363,8 @@ class IRTxRequestVerificationRoute
 
   static const String name = 'IRTxRequestVerificationRoute';
 
-  static const _i15.PageInfo<IRTxRequestVerificationRouteArgs> page =
-      _i15.PageInfo<IRTxRequestVerificationRouteArgs>(name);
+  static const _i16.PageInfo<IRTxRequestVerificationRouteArgs> page =
+      _i16.PageInfo<IRTxRequestVerificationRouteArgs>(name);
 }
 
 class IRTxRequestVerificationRouteArgs {
@@ -361,9 +373,9 @@ class IRTxRequestVerificationRouteArgs {
     this.key,
   });
 
-  final _i16.IRRecordModel irRecordModel;
+  final _i17.IRRecordModel irRecordModel;
 
-  final _i17.Key? key;
+  final _i18.Key? key;
 
   @override
   String toString() {
@@ -373,11 +385,11 @@ class IRTxRequestVerificationRouteArgs {
 
 /// generated route for
 /// [_i6.LoadingPage]
-class LoadingRoute extends _i15.PageRouteInfo<LoadingRouteArgs> {
+class LoadingRoute extends _i16.PageRouteInfo<LoadingRouteArgs> {
   LoadingRoute({
-    _i15.PageRouteInfo<dynamic>? nextPageRouteInfo,
-    _i19.Key? key,
-    List<_i15.PageRouteInfo>? children,
+    _i16.PageRouteInfo<dynamic>? nextPageRouteInfo,
+    _i20.Key? key,
+    List<_i16.PageRouteInfo>? children,
   }) : super(
           LoadingRoute.name,
           args: LoadingRouteArgs(
@@ -389,8 +401,8 @@ class LoadingRoute extends _i15.PageRouteInfo<LoadingRouteArgs> {
 
   static const String name = 'LoadingRoute';
 
-  static const _i15.PageInfo<LoadingRouteArgs> page =
-      _i15.PageInfo<LoadingRouteArgs>(name);
+  static const _i16.PageInfo<LoadingRouteArgs> page =
+      _i16.PageInfo<LoadingRouteArgs>(name);
 }
 
 class LoadingRouteArgs {
@@ -399,9 +411,9 @@ class LoadingRouteArgs {
     this.key,
   });
 
-  final _i15.PageRouteInfo<dynamic>? nextPageRouteInfo;
+  final _i16.PageRouteInfo<dynamic>? nextPageRouteInfo;
 
-  final _i19.Key? key;
+  final _i20.Key? key;
 
   @override
   String toString() {
@@ -411,8 +423,8 @@ class LoadingRouteArgs {
 
 /// generated route for
 /// [_i7.LoadingWrapper]
-class LoadingWrapperRoute extends _i15.PageRouteInfo<void> {
-  const LoadingWrapperRoute({List<_i15.PageRouteInfo>? children})
+class LoadingWrapperRoute extends _i16.PageRouteInfo<void> {
+  const LoadingWrapperRoute({List<_i16.PageRouteInfo>? children})
       : super(
           LoadingWrapperRoute.name,
           initialChildren: children,
@@ -420,13 +432,13 @@ class LoadingWrapperRoute extends _i15.PageRouteInfo<void> {
 
   static const String name = 'LoadingWrapperRoute';
 
-  static const _i15.PageInfo<void> page = _i15.PageInfo<void>(name);
+  static const _i16.PageInfo<void> page = _i16.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i8.MenuWrapper]
-class MenuWrapperRoute extends _i15.PageRouteInfo<void> {
-  const MenuWrapperRoute({List<_i15.PageRouteInfo>? children})
+class MenuWrapperRoute extends _i16.PageRouteInfo<void> {
+  const MenuWrapperRoute({List<_i16.PageRouteInfo>? children})
       : super(
           MenuWrapperRoute.name,
           initialChildren: children,
@@ -434,13 +446,13 @@ class MenuWrapperRoute extends _i15.PageRouteInfo<void> {
 
   static const String name = 'MenuWrapperRoute';
 
-  static const _i15.PageInfo<void> page = _i15.PageInfo<void>(name);
+  static const _i16.PageInfo<void> page = _i16.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i9.MyAccountPage]
-class MyAccountRoute extends _i15.PageRouteInfo<void> {
-  const MyAccountRoute({List<_i15.PageRouteInfo>? children})
+class MyAccountRoute extends _i16.PageRouteInfo<void> {
+  const MyAccountRoute({List<_i16.PageRouteInfo>? children})
       : super(
           MyAccountRoute.name,
           initialChildren: children,
@@ -448,19 +460,19 @@ class MyAccountRoute extends _i15.PageRouteInfo<void> {
 
   static const String name = 'MyAccountRoute';
 
-  static const _i15.PageInfo<void> page = _i15.PageInfo<void>(name);
+  static const _i16.PageInfo<void> page = _i16.PageInfo<void>(name);
 }
 
 /// generated route for
 /// [_i10.NetworkListPage]
-class NetworkListRoute extends _i15.PageRouteInfo<NetworkListRouteArgs> {
+class NetworkListRoute extends _i16.PageRouteInfo<NetworkListRouteArgs> {
   NetworkListRoute({
-    _i20.ConnectionErrorType connectionErrorType =
-        _i20.ConnectionErrorType.canceledByUser,
-    _i21.ANetworkStatusModel? canceledNetworkStatusModel,
-    _i15.PageRouteInfo<dynamic>? nextPageRouteInfo,
-    _i19.Key? key,
-    List<_i15.PageRouteInfo>? children,
+    _i21.ConnectionErrorType connectionErrorType =
+        _i21.ConnectionErrorType.canceledByUser,
+    _i22.ANetworkStatusModel? canceledNetworkStatusModel,
+    _i16.PageRouteInfo<dynamic>? nextPageRouteInfo,
+    _i20.Key? key,
+    List<_i16.PageRouteInfo>? children,
   }) : super(
           NetworkListRoute.name,
           args: NetworkListRouteArgs(
@@ -474,25 +486,25 @@ class NetworkListRoute extends _i15.PageRouteInfo<NetworkListRouteArgs> {
 
   static const String name = 'NetworkListRoute';
 
-  static const _i15.PageInfo<NetworkListRouteArgs> page =
-      _i15.PageInfo<NetworkListRouteArgs>(name);
+  static const _i16.PageInfo<NetworkListRouteArgs> page =
+      _i16.PageInfo<NetworkListRouteArgs>(name);
 }
 
 class NetworkListRouteArgs {
   const NetworkListRouteArgs({
-    this.connectionErrorType = _i20.ConnectionErrorType.canceledByUser,
+    this.connectionErrorType = _i21.ConnectionErrorType.canceledByUser,
     this.canceledNetworkStatusModel,
     this.nextPageRouteInfo,
     this.key,
   });
 
-  final _i20.ConnectionErrorType connectionErrorType;
+  final _i21.ConnectionErrorType connectionErrorType;
 
-  final _i21.ANetworkStatusModel? canceledNetworkStatusModel;
+  final _i22.ANetworkStatusModel? canceledNetworkStatusModel;
 
-  final _i15.PageRouteInfo<dynamic>? nextPageRouteInfo;
+  final _i16.PageRouteInfo<dynamic>? nextPageRouteInfo;
 
-  final _i19.Key? key;
+  final _i20.Key? key;
 
   @override
   String toString() {
@@ -503,12 +515,12 @@ class NetworkListRouteArgs {
 /// generated route for
 /// [_i11.StakingTxDelegatePage]
 class StakingTxDelegateRoute
-    extends _i15.PageRouteInfo<StakingTxDelegateRouteArgs> {
+    extends _i16.PageRouteInfo<StakingTxDelegateRouteArgs> {
   StakingTxDelegateRoute({
-    required List<_i22.TokenAliasModel> stakeableTokens,
-    required _i23.ValidatorSimplifiedModel validatorSimplifiedModel,
-    _i17.Key? key,
-    List<_i15.PageRouteInfo>? children,
+    required List<_i23.TokenAliasModel> stakeableTokens,
+    required _i24.ValidatorSimplifiedModel validatorSimplifiedModel,
+    _i18.Key? key,
+    List<_i16.PageRouteInfo>? children,
   }) : super(
           StakingTxDelegateRoute.name,
           args: StakingTxDelegateRouteArgs(
@@ -521,8 +533,8 @@ class StakingTxDelegateRoute
 
   static const String name = 'StakingTxDelegateRoute';
 
-  static const _i15.PageInfo<StakingTxDelegateRouteArgs> page =
-      _i15.PageInfo<StakingTxDelegateRouteArgs>(name);
+  static const _i16.PageInfo<StakingTxDelegateRouteArgs> page =
+      _i16.PageInfo<StakingTxDelegateRouteArgs>(name);
 }
 
 class StakingTxDelegateRouteArgs {
@@ -532,11 +544,11 @@ class StakingTxDelegateRouteArgs {
     this.key,
   });
 
-  final List<_i22.TokenAliasModel> stakeableTokens;
+  final List<_i23.TokenAliasModel> stakeableTokens;
 
-  final _i23.ValidatorSimplifiedModel validatorSimplifiedModel;
+  final _i24.ValidatorSimplifiedModel validatorSimplifiedModel;
 
-  final _i17.Key? key;
+  final _i18.Key? key;
 
   @override
   String toString() {
@@ -545,9 +557,48 @@ class StakingTxDelegateRouteArgs {
 }
 
 /// generated route for
-/// [_i12.TransactionsWrapper]
-class TransactionsWrapperRoute extends _i15.PageRouteInfo<void> {
-  const TransactionsWrapperRoute({List<_i15.PageRouteInfo>? children})
+/// [_i12.StakingTxUndelegatePage]
+class StakingTxUndelegateRoute
+    extends _i16.PageRouteInfo<StakingTxUndelegateRouteArgs> {
+  StakingTxUndelegateRoute({
+    required _i24.ValidatorSimplifiedModel validatorSimplifiedModel,
+    _i18.Key? key,
+    List<_i16.PageRouteInfo>? children,
+  }) : super(
+          StakingTxUndelegateRoute.name,
+          args: StakingTxUndelegateRouteArgs(
+            validatorSimplifiedModel: validatorSimplifiedModel,
+            key: key,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'StakingTxUndelegateRoute';
+
+  static const _i16.PageInfo<StakingTxUndelegateRouteArgs> page =
+      _i16.PageInfo<StakingTxUndelegateRouteArgs>(name);
+}
+
+class StakingTxUndelegateRouteArgs {
+  const StakingTxUndelegateRouteArgs({
+    required this.validatorSimplifiedModel,
+    this.key,
+  });
+
+  final _i24.ValidatorSimplifiedModel validatorSimplifiedModel;
+
+  final _i18.Key? key;
+
+  @override
+  String toString() {
+    return 'StakingTxUndelegateRouteArgs{validatorSimplifiedModel: $validatorSimplifiedModel, key: $key}';
+  }
+}
+
+/// generated route for
+/// [_i13.TransactionsWrapper]
+class TransactionsWrapperRoute extends _i16.PageRouteInfo<void> {
+  const TransactionsWrapperRoute({List<_i16.PageRouteInfo>? children})
       : super(
           TransactionsWrapperRoute.name,
           initialChildren: children,
@@ -555,16 +606,16 @@ class TransactionsWrapperRoute extends _i15.PageRouteInfo<void> {
 
   static const String name = 'TransactionsWrapperRoute';
 
-  static const _i15.PageInfo<void> page = _i15.PageInfo<void>(name);
+  static const _i16.PageInfo<void> page = _i16.PageInfo<void>(name);
 }
 
 /// generated route for
-/// [_i13.TxSendTokensPage]
-class TxSendTokensRoute extends _i15.PageRouteInfo<TxSendTokensRouteArgs> {
+/// [_i14.TxSendTokensPage]
+class TxSendTokensRoute extends _i16.PageRouteInfo<TxSendTokensRouteArgs> {
   TxSendTokensRoute({
-    _i24.BalanceModel? defaultBalanceModel,
-    _i17.Key? key,
-    List<_i15.PageRouteInfo>? children,
+    _i25.BalanceModel? defaultBalanceModel,
+    _i18.Key? key,
+    List<_i16.PageRouteInfo>? children,
   }) : super(
           TxSendTokensRoute.name,
           args: TxSendTokensRouteArgs(
@@ -576,8 +627,8 @@ class TxSendTokensRoute extends _i15.PageRouteInfo<TxSendTokensRouteArgs> {
 
   static const String name = 'TxSendTokensRoute';
 
-  static const _i15.PageInfo<TxSendTokensRouteArgs> page =
-      _i15.PageInfo<TxSendTokensRouteArgs>(name);
+  static const _i16.PageInfo<TxSendTokensRouteArgs> page =
+      _i16.PageInfo<TxSendTokensRouteArgs>(name);
 }
 
 class TxSendTokensRouteArgs {
@@ -586,9 +637,9 @@ class TxSendTokensRouteArgs {
     this.key,
   });
 
-  final _i24.BalanceModel? defaultBalanceModel;
+  final _i25.BalanceModel? defaultBalanceModel;
 
-  final _i17.Key? key;
+  final _i18.Key? key;
 
   @override
   String toString() {
@@ -597,9 +648,9 @@ class TxSendTokensRouteArgs {
 }
 
 /// generated route for
-/// [_i14.ValidatorsPage]
-class ValidatorsRoute extends _i15.PageRouteInfo<void> {
-  const ValidatorsRoute({List<_i15.PageRouteInfo>? children})
+/// [_i15.ValidatorsPage]
+class ValidatorsRoute extends _i16.PageRouteInfo<void> {
+  const ValidatorsRoute({List<_i16.PageRouteInfo>? children})
       : super(
           ValidatorsRoute.name,
           initialChildren: children,
@@ -607,5 +658,5 @@ class ValidatorsRoute extends _i15.PageRouteInfo<void> {
 
   static const String name = 'ValidatorsRoute';
 
-  static const _i15.PageInfo<void> page = _i15.PageInfo<void>(name);
+  static const _i16.PageInfo<void> page = _i16.PageInfo<void>(name);
 }

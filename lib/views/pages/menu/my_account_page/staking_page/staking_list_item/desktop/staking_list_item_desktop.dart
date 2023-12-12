@@ -1,5 +1,8 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/events/list_reload_event.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/infinity_list/infinity_list_bloc.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/delegations/validator_staking_model.dart';
@@ -82,7 +85,14 @@ class _StakingListItemDesktop extends State<StakingListItemDesktop> {
                 onPressed: _handleStakeButtonPressed,
               ),
             ),
-            const SizedBox(width: 20),
+            const SizedBox(width: 12),
+            Expanded(
+              child: KiraOutlinedButton(
+                title: S.of(context).stakingTxUnstake,
+                onPressed: _handleUnstakeButtonPressed,
+              ),
+            ),
+            const SizedBox(width: 12),
           ],
         ),
       ),
@@ -100,5 +110,18 @@ class _StakingListItemDesktop extends State<StakingListItemDesktop> {
         ],
       ),
     );
+  }
+
+  Future<void> _handleUnstakeButtonPressed() async {
+    await KiraRouter.of(context).push<void>(
+      TransactionsWrapperRoute(
+        children: <PageRouteInfo>[
+          StakingTxUndelegateRoute(
+            validatorSimplifiedModel: widget.validatorStakingModel.validatorSimplifiedModel,
+          ),
+        ],
+      ),
+    );
+    BlocProvider.of<InfinityListBloc<ValidatorStakingModel>>(context).add(const ListReloadEvent(forceRequestBool: true));
   }
 }

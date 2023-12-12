@@ -86,6 +86,10 @@ class AppRouter extends $AppRouter {
             page: StakingTxDelegateRoute.page,
             path: 'staking/stake-tokens',
           ),
+          AutoRoute(
+            page: StakingTxUndelegateRoute.page,
+            path: 'staking/unstake-tokens',
+          ),
         ],
       ),
       RedirectRoute(path: '*', redirectTo: '/network'),

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:miro/blocs/widgets/transactions/token_form/token_form_state.dart';
-import 'package:miro/config/app_config.dart';
-import 'package:miro/config/locator.dart';
 import 'package:miro/generated/l10n.dart';
+import 'package:miro/shared/controllers/menu/my_account_page/balances_page/balances_filter_options.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/transactions/form_models/ir_msg_request_verification_form_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
@@ -73,7 +72,7 @@ class _IRMsgRequestVerificationForm extends State<IRMsgRequestVerificationForm> 
             label: S.of(context).irTxHintTip,
             selectableBool: false,
             defaultBalanceModel: widget.irMsgRequestVerificationFormModel.balanceModel,
-            defaultTokenAliasModel: globalLocator<AppConfig>().defaultFeeTokenAliasModel,
+            initialFilterOption: BalancesFilterOptions.filterByDefaultToken,
             defaultTokenAmountModel: widget.irMsgRequestVerificationFormModel.tipTokenAmountModel,
             defaultTokenDenominationModel: widget.irMsgRequestVerificationFormModel.tokenDenominationModel,
             feeTokenAmountModel: widget.feeTokenAmountModel,

@@ -30,7 +30,7 @@ class TestUtils {
   );
 
   static TokenAliasModel ethTokenAliasModel = const TokenAliasModel(
-    name: 'Etherum',
+    name: 'Ethereum',
     lowestTokenDenominationModel: TokenDenominationModel(name: 'wei', decimals: 0),
     defaultTokenDenominationModel: TokenDenominationModel(name: 'ETH', decimals: 18),
   );
@@ -39,6 +39,11 @@ class TestUtils {
     name: 'Kira',
     lowestTokenDenominationModel: TokenDenominationModel(name: 'ukex', decimals: 0),
     defaultTokenDenominationModel: TokenDenominationModel(name: 'KEX', decimals: 6),
+  );
+
+  static TokenAliasModel derivedKexTokenAliasModel = const TokenAliasModel(
+    name: 'v1/Kira',
+    lowestTokenDenominationModel: TokenDenominationModel(name: 'v1/ukex', decimals: 0),
   );
 
   static final NetworkUnknownModel healthyNetworkUnknownModel = NetworkUnknownModel(

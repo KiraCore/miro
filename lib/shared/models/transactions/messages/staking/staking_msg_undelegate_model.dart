@@ -77,7 +77,7 @@ class StakingMsgUndelegateModel extends ATxMsgModel {
 
   @override
   String getTitle(BuildContext context, TxDirectionType txDirectionType) {
-    return S.of(context).txMsgUndelegateTokens;
+    return S.of(context).txMsgUndelegate;
   }
 
   @override

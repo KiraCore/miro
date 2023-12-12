@@ -10,7 +10,6 @@ class TokenFormState extends Equatable {
   final bool errorBool;
   final bool loadingBool;
   final BalanceModel? balanceModel;
-  final TokenAliasModel? tokenAliasModel;
   final TokenAmountModel? tokenAmountModel;
   final TokenDenominationModel? tokenDenominationModel;
   final WalletAddress? walletAddress;
@@ -20,7 +19,6 @@ class TokenFormState extends Equatable {
     this.errorBool = false,
     this.loadingBool = false,
     this.balanceModel,
-    this.tokenAliasModel,
     this.tokenAmountModel,
     this.tokenDenominationModel,
     this.walletAddress,
@@ -46,19 +44,15 @@ class TokenFormState extends Equatable {
     );
   }
 
-  factory TokenFormState.fromTokenAlias({
-    required TokenAliasModel tokenAliasModel,
+  factory TokenFormState.fromFirstBalance({
     required TokenAmountModel feeTokenAmountModel,
     required WalletAddress? walletAddress,
     bool loadingBool = false,
-    TokenDenominationModel? tokenDenominationModel,
   }) {
     return TokenFormState._(
-      tokenAliasModel: tokenAliasModel,
       feeTokenAmountModel: feeTokenAmountModel,
-      walletAddress: walletAddress,
       loadingBool: loadingBool,
-      tokenDenominationModel: tokenDenominationModel ?? tokenAliasModel.defaultTokenDenominationModel,
+      walletAddress: walletAddress,
     );
   }
 
@@ -78,7 +72,6 @@ class TokenFormState extends Equatable {
       loadingBool: loadingBool ?? this.loadingBool,
       tokenDenominationModel: tokenDenominationModel ?? this.tokenDenominationModel,
       balanceModel: balanceModel ?? this.balanceModel,
-      tokenAliasModel: tokenAliasModel ?? this.tokenAliasModel,
       tokenAmountModel: tokenAmountModel ?? this.tokenAmountModel,
       walletAddress: walletAddress ?? this.walletAddress,
     );

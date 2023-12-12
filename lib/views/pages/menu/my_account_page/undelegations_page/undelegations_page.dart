@@ -55,7 +55,7 @@ class _UndelegationsPageState extends State<UndelegationsPage> {
       height: 64,
       validatorWidget: Text(S.of(context).validator, style: textTheme.bodySmall!.copyWith(color: DesignColors.white1)),
       tokensWidget: Text(S.of(context).stakingPoolLabelTokens, style: textTheme.bodySmall!.copyWith(color: DesignColors.white1)),
-      lockedUntilWidget: Text(S.of(context).undelegationLabelLockedUntil, style: textTheme.bodySmall!.copyWith(color: DesignColors.white1)),
+      lockedUntilWidget: Text(S.of(context).unstakedLabelLockedUntil, style: textTheme.bodySmall!.copyWith(color: DesignColors.white1)),
     );
 
     return SliverInfinityList<UndelegationModel>(

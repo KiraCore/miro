@@ -1,18 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:miro/generated/l10n.dart';
-import 'package:miro/shared/models/transactions/form_models/staking_msg_delegate_form_model.dart';
+import 'package:miro/shared/models/transactions/form_models/staking_msg_undelegate_form_model.dart';
 import 'package:miro/shared/models/transactions/tx_local_info_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
-import 'package:miro/views/pages/transactions/msg_forms/staking_msg_delegate_form/staking_msg_delegate_form_preview.dart';
+import 'package:miro/views/pages/transactions/msg_forms/staking_msg_undelegate_form/staking_msg_undelegate_form_preview.dart';
 import 'package:miro/views/widgets/transactions/send/tx_dialog_confirm_layout.dart';
 
-class StakingTxDelegateConfirmDialog extends StatelessWidget {
+class StakingTxUndelegateConfirmDialog extends StatelessWidget {
   final String moniker;
-  final StakingMsgDelegateFormModel stakingMsgDelegateFormModel;
+  final StakingMsgUndelegateFormModel stakingMsgDelegateFormModel;
   final TxLocalInfoModel txLocalInfoModel;
   final WalletAddress validatorWalletAddress;
 
-  const StakingTxDelegateConfirmDialog({
+  const StakingTxUndelegateConfirmDialog({
     required this.moniker,
     required this.stakingMsgDelegateFormModel,
     required this.txLocalInfoModel,
@@ -22,11 +22,11 @@ class StakingTxDelegateConfirmDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TxDialogConfirmLayout<StakingMsgDelegateFormModel>(
-      title: S.of(context).stakingTxConfirmStake,
-      formPreviewWidget: StakingMsgDelegateFormPreview(
+    return TxDialogConfirmLayout<StakingMsgUndelegateFormModel>(
+      title: S.of(context).stakingTxConfirmUnstake,
+      formPreviewWidget: StakingMsgUndelegateFormPreview(
         moniker: moniker,
-        stakingMsgDelegateFormModel: stakingMsgDelegateFormModel,
+        stakingMsgUndelegateFormModel: stakingMsgDelegateFormModel,
         txLocalInfoModel: txLocalInfoModel,
         validatorWalletAddress: validatorWalletAddress,
       ),

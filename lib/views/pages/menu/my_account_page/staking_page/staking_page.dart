@@ -34,8 +34,6 @@ class _StakingPage extends State<StakingPage> {
     searchComparator: StakingFilterOptions.search,
   );
 
-  late final StakingListController stakingListController = StakingListController(delegatorAddress: widget.walletAddress.bech32Address);
-
   @override
   void dispose() {
     searchBarTextEditingController.dispose();
@@ -50,7 +48,7 @@ class _StakingPage extends State<StakingPage> {
 
     double listHeight = MediaQuery.of(context).size.height - 300;
     Widget listHeaderWidget = StakingListItemDesktopLayout(
-      height: 64,
+      height: StakingListItemDesktop.height,
       infoButtonWidget: const SizedBox(),
       validatorWidget: Text(S.of(context).validator, style: textTheme.bodySmall!.copyWith(color: DesignColors.white1)),
       statusWidget: Text(S.of(context).validatorsTableStatus, style: textTheme.bodySmall!.copyWith(color: DesignColors.white1)),
@@ -65,7 +63,7 @@ class _StakingPage extends State<StakingPage> {
         validatorStakingModel: validatorStakingModel,
         scrollController: scrollController,
       ),
-      listController: stakingListController,
+      listController: StakingListController(delegatorAddress: widget.walletAddress.bech32Address),
       scrollController: scrollController,
       singlePageSize: listHeight ~/ StakingListItemDesktop.height + 5,
       hasBackgroundBool: ResponsiveWidget.isLargeScreen(context),
