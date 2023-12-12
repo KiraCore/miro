@@ -15,6 +15,7 @@ class KiraToolTip extends StatelessWidget {
   final TextStyle? textStyle;
   final Duration? waitDuration;
   final Duration? showDuration;
+  final Color iconColor;
   final TooltipTriggerMode? triggerMode;
   final bool? enableFeedback;
 
@@ -31,6 +32,7 @@ class KiraToolTip extends StatelessWidget {
     this.waitDuration,
     this.showDuration,
     this.child,
+    this.iconColor = DesignColors.accent,
     this.triggerMode = TooltipTriggerMode.tap,
     this.enableFeedback,
     Key? key,
@@ -67,9 +69,9 @@ class KiraToolTip extends StatelessWidget {
       child: Padding(
         padding: childMargin,
         child: child ??
-            const Icon(
+            Icon(
               Icons.info_outline,
-              color: DesignColors.accent,
+              color: iconColor,
               size: 17,
             ),
       ),

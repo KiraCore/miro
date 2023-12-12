@@ -9,12 +9,14 @@ class TxInputPreview extends StatelessWidget {
   final String value;
   final Widget? icon;
   final bool large;
+  final Color labelColor;
 
   const TxInputPreview({
     required this.label,
     required this.value,
     this.icon,
     this.large = false,
+    this.labelColor = DesignColors.accent,
     Key? key,
   }) : super(key: key);
 
@@ -37,7 +39,7 @@ class TxInputPreview extends StatelessWidget {
               Text(
                 label,
                 style: textTheme.bodySmall!.copyWith(
-                  color: DesignColors.accent,
+                  color: labelColor,
                 ),
               ),
               SizedBox(height: const ResponsiveValue<double>(largeScreen: 5, mediumScreen: 2, smallScreen: 2).get(context)),

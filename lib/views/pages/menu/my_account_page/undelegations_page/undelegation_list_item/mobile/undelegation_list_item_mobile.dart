@@ -55,7 +55,7 @@ class UndelegationListItemMobile extends StatelessWidget {
               ),
               Expanded(
                 child: PrefixedWidget(
-                  prefix: S.of(context).undelegationLabelLockedUntil,
+                  prefix: S.of(context).unstakedLabelLockedUntil,
                   child: Text(
                     DateFormat('d MMM y, HH:mm').format(undelegationModel.lockedUntil.toLocal()),
                     overflow: TextOverflow.ellipsis,

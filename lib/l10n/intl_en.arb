@@ -229,7 +229,7 @@
   "proposalsProposers": "Proposers",
   "proposalsVoters": "Voters",
 
-  "staking": "Staking",
+  "staked": "Staked",
   "stakingPool": "Staking Pool",
   "stakingPoolAvailable": "Staking Pool available",
   "stakingPoolDetails": "Staking Pool Details",
@@ -244,9 +244,13 @@
   "stakingToEnable": "To enable staking ",
   "stakingTxAmountToStake": "Amount to stake",
   "stakingTxButtonStake": "Stake",
-  "stakingTxConfirmStaking": "Confirm staking",
+  "stakingTxConfirmStake": "Confirm stake",
   "stakingTxStakeTokens": "Stake tokens",
   "stakingTxTokensToStake": "Tokens to stake",
+  "stakingTxAmountToUnstake": "Amount to unstake",
+  "stakingTxTokensToUnstake": "Tokens to unstake",
+  "stakingTxUnstake": "Unstake",
+  "stakingTxConfirmUnstake": "Confirm unstake",
 
   "tx": "Transactions",
   "txButtonSendAll": "Send all",
@@ -259,6 +263,7 @@
   "txErrorNotEnoughTokens": "Not enough tokens",
   "txErrorAccountNumberNotExist": "Cannot create transaction. Deposit tokens to your account and try again.",
   "txErrorCannotCreate": "Cannot create transaction. Check your connection.",
+  "txErrorCannotLoadBalances": "Cannot load balances. Try again later.",
   "txErrorCannotFetchDetails": "Cannot fetch transaction details. Check your internet connection.",
   "txErrorEnterValidAddress": "Please enter a valid address",
   "txErrorFailed": "Transaction failed",
@@ -270,6 +275,8 @@
   "txHintSendFrom": "Send from",
   "txHintSendTo": "Send to",
   "txHintMemo": "Memo",
+  "txHintUnstakeFrom": "Unstake from",
+  "txHintUnstakeBy": "Unstake by",
   "txNoticeFee": "Transaction fee {widgetFeeTokenAmountModel}",
   "@txNoticeFee": {
     "placeholders": {
@@ -285,6 +292,8 @@
   "txTotalAmount": "Total amount",
   "txRecipientWillGet": "Recipient will get",
   "txYouWillGet": "You will get",
+  "txUnstakedLabel": "This will be visible in your list of unstaked",
+  "txUnstakedToolTip": "The amount will be available to claim after the unstake period has expired",
   "txSigning": "Signing transaction",
   "txSearchTokens": "Search tokens",
   "txConfirm": "Confirm transaction",
@@ -323,7 +332,7 @@
   },
 
   "txMsgCancelIdentityRecordsVerifyRequest": "Cancel Verification Request",
-  "txMsgClaimUndelegation": "Claim Undelegation",
+  "txMsgClaimUndelegation": "Claim Unstaked",
   "txMsgClaimRewards": "Claim Rewards",
   "txMsgDeleteIdentityRecords": "Delete Identity Records",
   "txMsgHandleIdentityRecordsVerifyRequest": "Handle Verification Request",
@@ -331,7 +340,7 @@
   "txMsgRequestIdentityRecordsVerify": "Request Verification",
   "txMsgSendReceiveTokens": "Receive",
   "txMsgSendSendTokens": "Send",
-  "txMsgUndelegateTokens": "Undelegate Tokens",
+  "txMsgUndelegate": "Unstake tokens",
   "txMsgMulti": "Multi transaction",
   "txMsgUndefined": "Unknown transaction type",
 
@@ -365,9 +374,9 @@
   "txDateDropdownCancel": "Cancel",
   "txDateDropdownSave": "Save",
 
-  "undelegations": "Undelegations",
-  "undelegationsHintSearch": "Search undelegations",
-  "undelegationLabelLockedUntil": "Locked until",
+  "unstaked": "Unstaked",
+  "unstakedHintSearch": "Search list of unstaked",
+  "unstakedLabelLockedUntil": "Locked until",
 
   "validator": "Validator",
   "validators": "Validators",

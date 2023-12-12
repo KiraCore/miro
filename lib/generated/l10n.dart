@@ -1661,11 +1661,11 @@ class S {
     );
   }
 
-  /// `Staking`
-  String get staking {
+  /// `Staked`
+  String get staked {
     return Intl.message(
-      'Staking',
-      name: 'staking',
+      'Staked',
+      name: 'staked',
       desc: '',
       args: [],
     );
@@ -1811,11 +1811,11 @@ class S {
     );
   }
 
-  /// `Confirm staking`
-  String get stakingTxConfirmStaking {
+  /// `Confirm stake`
+  String get stakingTxConfirmStake {
     return Intl.message(
-      'Confirm staking',
-      name: 'stakingTxConfirmStaking',
+      'Confirm stake',
+      name: 'stakingTxConfirmStake',
       desc: '',
       args: [],
     );
@@ -1836,6 +1836,46 @@ class S {
     return Intl.message(
       'Tokens to stake',
       name: 'stakingTxTokensToStake',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Amount to unstake`
+  String get stakingTxAmountToUnstake {
+    return Intl.message(
+      'Amount to unstake',
+      name: 'stakingTxAmountToUnstake',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tokens to unstake`
+  String get stakingTxTokensToUnstake {
+    return Intl.message(
+      'Tokens to unstake',
+      name: 'stakingTxTokensToUnstake',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unstake`
+  String get stakingTxUnstake {
+    return Intl.message(
+      'Unstake',
+      name: 'stakingTxUnstake',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm unstake`
+  String get stakingTxConfirmUnstake {
+    return Intl.message(
+      'Confirm unstake',
+      name: 'stakingTxConfirmUnstake',
       desc: '',
       args: [],
     );
@@ -1951,6 +1991,16 @@ class S {
     );
   }
 
+  /// `Cannot load balances. Try again later.`
+  String get txErrorCannotLoadBalances {
+    return Intl.message(
+      'Cannot load balances. Try again later.',
+      name: 'txErrorCannotLoadBalances',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Cannot fetch transaction details. Check your internet connection.`
   String get txErrorCannotFetchDetails {
     return Intl.message(
@@ -2061,6 +2111,26 @@ class S {
     );
   }
 
+  /// `Unstake from`
+  String get txHintUnstakeFrom {
+    return Intl.message(
+      'Unstake from',
+      name: 'txHintUnstakeFrom',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unstake by`
+  String get txHintUnstakeBy {
+    return Intl.message(
+      'Unstake by',
+      name: 'txHintUnstakeBy',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Transaction fee {widgetFeeTokenAmountModel}`
   String txNoticeFee(String widgetFeeTokenAmountModel) {
     return Intl.message(
@@ -2136,6 +2206,26 @@ class S {
     return Intl.message(
       'You will get',
       name: 'txYouWillGet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `This will be visible in your list of unstaked`
+  String get txUnstakedLabel {
+    return Intl.message(
+      'This will be visible in your list of unstaked',
+      name: 'txUnstakedLabel',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `The amount will be available to claim after the unstake period has expired`
+  String get txUnstakedToolTip {
+    return Intl.message(
+      'The amount will be available to claim after the unstake period has expired',
+      name: 'txUnstakedToolTip',
       desc: '',
       args: [],
     );
@@ -2272,10 +2362,10 @@ class S {
     );
   }
 
-  /// `Claim Undelegation`
+  /// `Claim Unstaked`
   String get txMsgClaimUndelegation {
     return Intl.message(
-      'Claim Undelegation',
+      'Claim Unstaked',
       name: 'txMsgClaimUndelegation',
       desc: '',
       args: [],
@@ -2352,11 +2442,11 @@ class S {
     );
   }
 
-  /// `Undelegate Tokens`
-  String get txMsgUndelegateTokens {
+  /// `Unstake tokens`
+  String get txMsgUndelegate {
     return Intl.message(
-      'Undelegate Tokens',
-      name: 'txMsgUndelegateTokens',
+      'Unstake tokens',
+      name: 'txMsgUndelegate',
       desc: '',
       args: [],
     );
@@ -2632,31 +2722,31 @@ class S {
     );
   }
 
-  /// `Undelegations`
-  String get undelegations {
+  /// `Unstaked`
+  String get unstaked {
     return Intl.message(
-      'Undelegations',
-      name: 'undelegations',
+      'Unstaked',
+      name: 'unstaked',
       desc: '',
       args: [],
     );
   }
 
-  /// `Search undelegations`
-  String get undelegationsHintSearch {
+  /// `Search list of unstaked`
+  String get unstakedHintSearch {
     return Intl.message(
-      'Search undelegations',
-      name: 'undelegationsHintSearch',
+      'Search list of unstaked',
+      name: 'unstakedHintSearch',
       desc: '',
       args: [],
     );
   }
 
   /// `Locked until`
-  String get undelegationLabelLockedUntil {
+  String get unstakedLabelLockedUntil {
     return Intl.message(
       'Locked until',
-      name: 'undelegationLabelLockedUntil',
+      name: 'unstakedLabelLockedUntil',
       desc: '',
       args: [],
     );

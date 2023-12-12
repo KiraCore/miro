@@ -23,7 +23,7 @@ class UndelegationListTitleMobile extends StatelessWidget {
           width: double.infinity,
           child: ListSearchWidget<UndelegationModel>(
             textEditingController: searchBarTextEditingController,
-            hint: S.of(context).undelegationsHintSearch,
+            hint: S.of(context).unstakedHintSearch,
           ),
         ),
         const SizedBox(height: 15),

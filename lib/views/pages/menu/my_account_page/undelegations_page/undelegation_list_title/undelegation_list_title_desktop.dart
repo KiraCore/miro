@@ -30,7 +30,7 @@ class UndelegationListTitleDesktop extends StatelessWidget {
           alignment: Alignment.bottomRight,
           child: ListSearchWidget<UndelegationModel>(
             textEditingController: searchBarTextEditingController,
-            hint: S.of(context).undelegationsHintSearch,
+            hint: S.of(context).unstakedHintSearch,
           ),
         ),
       ],

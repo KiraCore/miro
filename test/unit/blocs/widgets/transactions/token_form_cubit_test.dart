@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/blocs/widgets/transactions/token_form/token_form_cubit.dart';
 import 'package:miro/blocs/widgets/transactions/token_form/token_form_state.dart';
+import 'package:miro/shared/controllers/menu/my_account_page/balances_page/balances_filter_options.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
-import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
@@ -60,10 +60,10 @@ Future<void> main() async {
 
     test('Should download Balance and return [TokenFormState] after calling [TokenFormCubit.fromTokenAlias]', () async {
       // Arrange
-      TokenFormCubit actualTokenFormCubit = TokenFormCubit.fromTokenAlias(
+      TokenFormCubit actualTokenFormCubit = TokenFormCubit.fromFirstBalance(
         feeTokenAmountModel: feeTokenAmountModel,
-        tokenAliasModel: TokenAliasModel.local('ukex'),
         walletAddress: TestUtils.wallet.address,
+        initialFilterOption: BalancesFilterOptions.filterByDefaultToken,
       );
 
       // Act

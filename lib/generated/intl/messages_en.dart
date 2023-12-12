@@ -353,7 +353,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "seeMore": MessageLookupByLibrary.simpleMessage("See more"),
         "showDetails": MessageLookupByLibrary.simpleMessage("Show Details"),
         "sortBy": MessageLookupByLibrary.simpleMessage("Sort by"),
-        "staking": MessageLookupByLibrary.simpleMessage("Staking"),
+        "staked": MessageLookupByLibrary.simpleMessage("Staked"),
         "stakingPool": MessageLookupByLibrary.simpleMessage("Staking Pool"),
         "stakingPoolAvailable":
             MessageLookupByLibrary.simpleMessage("Staking Pool available"),
@@ -379,13 +379,20 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("To enable staking "),
         "stakingTxAmountToStake":
             MessageLookupByLibrary.simpleMessage("Amount to stake"),
+        "stakingTxAmountToUnstake":
+            MessageLookupByLibrary.simpleMessage("Amount to unstake"),
         "stakingTxButtonStake": MessageLookupByLibrary.simpleMessage("Stake"),
-        "stakingTxConfirmStaking":
-            MessageLookupByLibrary.simpleMessage("Confirm staking"),
+        "stakingTxConfirmStake":
+            MessageLookupByLibrary.simpleMessage("Confirm stake"),
+        "stakingTxConfirmUnstake":
+            MessageLookupByLibrary.simpleMessage("Confirm unstake"),
         "stakingTxStakeTokens":
             MessageLookupByLibrary.simpleMessage("Stake tokens"),
         "stakingTxTokensToStake":
             MessageLookupByLibrary.simpleMessage("Tokens to stake"),
+        "stakingTxTokensToUnstake":
+            MessageLookupByLibrary.simpleMessage("Tokens to unstake"),
+        "stakingTxUnstake": MessageLookupByLibrary.simpleMessage("Unstake"),
         "toYourAccount":
             MessageLookupByLibrary.simpleMessage(" to your account"),
         "toastCannotLoadDashboard": MessageLookupByLibrary.simpleMessage(
@@ -434,6 +441,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Cannot create transaction. Check your connection."),
         "txErrorCannotFetchDetails": MessageLookupByLibrary.simpleMessage(
             "Cannot fetch transaction details. Check your internet connection."),
+        "txErrorCannotLoadBalances": MessageLookupByLibrary.simpleMessage(
+            "Cannot load balances. Try again later."),
         "txErrorEnterValidAddress": MessageLookupByLibrary.simpleMessage(
             "Please enter a valid address"),
         "txErrorFailed":
@@ -452,6 +461,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "txHintSendTo": MessageLookupByLibrary.simpleMessage("Send to"),
         "txHintStakeBy": MessageLookupByLibrary.simpleMessage("Stake by"),
         "txHintStakeOn": MessageLookupByLibrary.simpleMessage("Stake on"),
+        "txHintUnstakeBy": MessageLookupByLibrary.simpleMessage("Unstake by"),
+        "txHintUnstakeFrom":
+            MessageLookupByLibrary.simpleMessage("Unstake from"),
         "txIsBeingBroadcast": MessageLookupByLibrary.simpleMessage(
             "Your transaction is being broadcast"),
         "txListAmount": MessageLookupByLibrary.simpleMessage("Amount"),
@@ -478,7 +490,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "txMsgClaimRewards":
             MessageLookupByLibrary.simpleMessage("Claim Rewards"),
         "txMsgClaimUndelegation":
-            MessageLookupByLibrary.simpleMessage("Claim Undelegation"),
+            MessageLookupByLibrary.simpleMessage("Claim Unstaked"),
         "txMsgDeleteIdentityRecords":
             MessageLookupByLibrary.simpleMessage("Delete Identity Records"),
         "txMsgHandleIdentityRecordsVerifyRequest":
@@ -493,8 +505,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "txMsgSendSendTokens": MessageLookupByLibrary.simpleMessage("Send"),
         "txMsgUndefined":
             MessageLookupByLibrary.simpleMessage("Unknown transaction type"),
-        "txMsgUndelegateTokens":
-            MessageLookupByLibrary.simpleMessage("Undelegate Tokens"),
+        "txMsgUndelegate":
+            MessageLookupByLibrary.simpleMessage("Unstake tokens"),
         "txNoticeFee": m10,
         "txPleaseSelectToken":
             MessageLookupByLibrary.simpleMessage("Please select a token"),
@@ -510,14 +522,18 @@ class MessageLookup extends MessageLookupByLibrary {
         "txToken": MessageLookupByLibrary.simpleMessage("Token"),
         "txTotalAmount": MessageLookupByLibrary.simpleMessage("Total amount"),
         "txTryAgain": MessageLookupByLibrary.simpleMessage("Try again"),
+        "txUnstakedLabel": MessageLookupByLibrary.simpleMessage(
+            "This will be visible in your list of unstaked"),
+        "txUnstakedToolTip": MessageLookupByLibrary.simpleMessage(
+            "The amount will be available to claim after the unstake period has expired"),
         "txWarningDoNotCloseWindow":
             MessageLookupByLibrary.simpleMessage("Do not close this window"),
         "txYouWillGet": MessageLookupByLibrary.simpleMessage("You will get"),
-        "undelegationLabelLockedUntil":
+        "unstaked": MessageLookupByLibrary.simpleMessage("Unstaked"),
+        "unstakedHintSearch":
+            MessageLookupByLibrary.simpleMessage("Search list of unstaked"),
+        "unstakedLabelLockedUntil":
             MessageLookupByLibrary.simpleMessage("Locked until"),
-        "undelegations": MessageLookupByLibrary.simpleMessage("Undelegations"),
-        "undelegationsHintSearch":
-            MessageLookupByLibrary.simpleMessage("Search undelegations"),
         "validator": MessageLookupByLibrary.simpleMessage("Validator"),
         "validators": MessageLookupByLibrary.simpleMessage("Validators"),
         "validatorsAbout":

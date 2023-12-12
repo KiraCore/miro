@@ -7,7 +7,6 @@ import 'package:miro/blocs/widgets/transactions/token_form/token_form_state.dart
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
-import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/tokens/token_denomination_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
@@ -29,7 +28,6 @@ class TokenForm extends StatefulWidget {
   final bool selectableBool;
   final BalanceModel? defaultBalanceModel;
   final FilterOption<BalanceModel>? initialFilterOption;
-  final TokenAliasModel? defaultTokenAliasModel;
   final TokenAmountModel? defaultTokenAmountModel;
   final TokenDenominationModel? defaultTokenDenominationModel;
   final ValidateCallback? validateCallback;
@@ -42,16 +40,11 @@ class TokenForm extends StatefulWidget {
     this.selectableBool = true,
     this.defaultBalanceModel,
     this.initialFilterOption,
-    this.defaultTokenAliasModel,
     this.defaultTokenAmountModel,
     this.defaultTokenDenominationModel,
     this.validateCallback,
     Key? key,
-  })  : assert(
-          defaultBalanceModel != null || defaultTokenAliasModel != null,
-          'defaultBalanceModel or defaultTokenAliasModel must be defined to use this widget',
-        ),
-        super(key: key);
+  }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _TokenForm();
@@ -72,9 +65,9 @@ class _TokenForm extends State<TokenForm> {
         tokenDenominationModel: widget.defaultTokenDenominationModel,
       );
     } else {
-      tokenFormCubit = TokenFormCubit.fromTokenAlias(
-        tokenAliasModel: widget.defaultTokenAliasModel!,
+      tokenFormCubit = TokenFormCubit.fromFirstBalance(
         feeTokenAmountModel: widget.feeTokenAmountModel,
+        initialFilterOption: widget.initialFilterOption,
         walletAddress: widget.walletAddress,
       );
     }
@@ -152,7 +145,7 @@ class _TokenForm extends State<TokenForm> {
                       style: TextButton.styleFrom(padding: EdgeInsets.zero),
                       icon: const Icon(Icons.refresh, color: DesignColors.redStatus1, size: 16),
                       label: Text(
-                        S.of(context).txCannotLoadBalancesTryAgain,
+                        S.of(context).txErrorCannotLoadBalances,
                         style: textTheme.bodySmall!.copyWith(color: DesignColors.redStatus1),
                       ),
                     ),

@@ -1,6 +1,8 @@
 import 'package:decimal/decimal.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/filters/models/filter_mode.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/filters/models/filter_option.dart';
+import 'package:miro/config/app_config.dart';
+import 'package:miro/config/locator.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
 
 class BalancesFilterOptions {
@@ -9,6 +11,18 @@ class BalancesFilterOptions {
   static FilterOption<BalanceModel> filterBySmallValues = FilterOption<BalanceModel>(
     id: 'small',
     filterComparator: (BalanceModel a) => a.tokenAmountModel.getAmountInDefaultDenomination() > _smallValueLimit,
+    filterMode: FilterMode.and,
+  );
+
+  static FilterOption<BalanceModel> filterByDefaultToken = FilterOption<BalanceModel>(
+    id: 'defaultToken',
+    filterComparator: (BalanceModel a) => a.tokenAmountModel.tokenAliasModel == globalLocator<AppConfig>().defaultFeeTokenAliasModel,
+    filterMode: FilterMode.and,
+  );
+
+  static FilterOption<BalanceModel> filterByDerivedTokens = FilterOption<BalanceModel>(
+    id: 'undelegate',
+    filterComparator: (BalanceModel a) => a.tokenAmountModel.tokenAliasModel.lowestTokenDenominationModel.name.contains('/'),
     filterMode: FilterMode.and,
   );
 

@@ -1,7 +1,10 @@
 import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/models/page_data.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/filters/models/filter_option.dart';
 import 'package:miro/blocs/widgets/transactions/token_form/token_form_state.dart';
+import 'package:miro/infra/dto/api_kira/query_balance/request/query_balance_req.dart';
 import 'package:miro/infra/services/api_kira/query_balance_service.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
@@ -31,25 +34,24 @@ class TokenFormCubit extends Cubit<TokenFormState> {
     init();
   }
 
-  TokenFormCubit.fromTokenAlias({
+  TokenFormCubit.fromFirstBalance({
     required TokenAmountModel feeTokenAmountModel,
-    required TokenAliasModel tokenAliasModel,
     required WalletAddress? walletAddress,
-  }) : super(TokenFormState.fromTokenAlias(
+    FilterOption<BalanceModel>? initialFilterOption,
+  }) : super(TokenFormState.fromFirstBalance(
           feeTokenAmountModel: feeTokenAmountModel,
           walletAddress: walletAddress,
-          tokenAliasModel: tokenAliasModel,
           loadingBool: true,
         )) {
-    init();
+    init(filterOption: initialFilterOption);
   }
 
-  void init() {
+  void init({FilterOption<BalanceModel>? filterOption}) {
     bool balanceExistsBool = state.balanceModel != null;
     if (balanceExistsBool) {
       _updateTextFieldValue();
-    } else if (state.tokenAliasModel != null) {
-      _initWithUnknownBalance(state.tokenAliasModel!);
+    } else {
+      _initWithFirstBalance(filterOption);
     }
   }
 
@@ -100,10 +102,21 @@ class TokenFormCubit extends Cubit<TokenFormState> {
     _updateTextFieldValue();
   }
 
-  Future<void> _initWithUnknownBalance(TokenAliasModel tokenAliasModel) async {
+  Future<void> _initWithFirstBalance(FilterOption<BalanceModel>? filterOption) async {
     try {
-      BalanceModel balanceModel = await queryBalanceService.getBalanceByToken(state.walletAddress!, tokenAliasModel);
-      updateBalance(balanceModel);
+      PageData<BalanceModel> balanceModelData = await queryBalanceService.getBalanceModelList(QueryBalanceReq(
+        address: state.walletAddress!.bech32Address,
+        offset: 0,
+        limit: 500,
+      ));
+      List<BalanceModel> balanceModelList = balanceModelData.listItems;
+
+      if (filterOption != null) {
+        balanceModelList = balanceModelList.where(filterOption.filterComparator).toList();
+      }
+
+      BalanceModel initialBalanceModel = balanceModelList.first;
+      updateBalance(initialBalanceModel);
     } catch (_) {
       emit(state.copyWith(errorBool: true));
     }
