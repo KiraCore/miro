@@ -38,7 +38,7 @@ class _StakingTxUndelegateFormDialog extends State<StakingTxUndelegateFormDialog
   @override
   Widget build(BuildContext context) {
     return TxDialog(
-      title: S.of(context).txMsgUndelegate,
+      title: S.of(context).unstakeTokens,
       child: Column(
         children: <Widget>[
           StakingMsgUndelegateForm(

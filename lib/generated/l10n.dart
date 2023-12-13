@@ -1811,6 +1811,16 @@ class S {
     );
   }
 
+  /// `Claim all rewards`
+  String get stakingTxClaimRewards {
+    return Intl.message(
+      'Claim all rewards',
+      name: 'stakingTxClaimRewards',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Confirm stake`
   String get stakingTxConfirmStake {
     return Intl.message(
@@ -1926,6 +1936,16 @@ class S {
     return Intl.message(
       'Edit',
       name: 'txButtonEdit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Claim All Rewards`
+  String get txButtonClaimAllRewards {
+    return Intl.message(
+      'Claim All Rewards',
+      name: 'txButtonClaimAllRewards',
       desc: '',
       args: [],
     );
@@ -2076,6 +2096,16 @@ class S {
     return Intl.message(
       'Stake on',
       name: 'txHintStakeOn',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Claim to`
+  String get txHintClaimTo {
+    return Intl.message(
+      'Claim to',
+      name: 'txHintClaimTo',
       desc: '',
       args: [],
     );
@@ -2372,10 +2402,10 @@ class S {
     );
   }
 
-  /// `Claim Rewards`
+  /// `Claim All Rewards`
   String get txMsgClaimRewards {
     return Intl.message(
-      'Claim Rewards',
+      'Claim All Rewards',
       name: 'txMsgClaimRewards',
       desc: '',
       args: [],
@@ -2387,6 +2417,16 @@ class S {
     return Intl.message(
       'Delete Identity Records',
       name: 'txMsgDeleteIdentityRecords',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Stake Tokens`
+  String get txMsgDelegate {
+    return Intl.message(
+      'Stake Tokens',
+      name: 'txMsgDelegate',
       desc: '',
       args: [],
     );
@@ -2442,10 +2482,10 @@ class S {
     );
   }
 
-  /// `Unstake tokens`
+  /// `Unstake Tokens`
   String get txMsgUndelegate {
     return Intl.message(
-      'Unstake tokens',
+      'Unstake Tokens',
       name: 'txMsgUndelegate',
       desc: '',
       args: [],
@@ -2747,6 +2787,16 @@ class S {
     return Intl.message(
       'Locked until',
       name: 'unstakedLabelLockedUntil',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unstake tokens`
+  String get unstakeTokens {
+    return Intl.message(
+      'Unstake tokens',
+      name: 'unstakeTokens',
       desc: '',
       args: [],
     );
