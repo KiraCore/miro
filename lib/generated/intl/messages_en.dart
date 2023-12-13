@@ -382,6 +382,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "stakingTxAmountToUnstake":
             MessageLookupByLibrary.simpleMessage("Amount to unstake"),
         "stakingTxButtonStake": MessageLookupByLibrary.simpleMessage("Stake"),
+        "stakingTxClaimRewards":
+            MessageLookupByLibrary.simpleMessage("Claim all rewards"),
         "stakingTxConfirmStake":
             MessageLookupByLibrary.simpleMessage("Confirm stake"),
         "stakingTxConfirmUnstake":
@@ -407,6 +409,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "txAvailableBalances": m7,
         "txButtonBackToAccount":
             MessageLookupByLibrary.simpleMessage("Back to account"),
+        "txButtonClaimAllRewards":
+            MessageLookupByLibrary.simpleMessage("Claim All Rewards"),
         "txButtonClear": MessageLookupByLibrary.simpleMessage("Clear"),
         "txButtonConfirmSend":
             MessageLookupByLibrary.simpleMessage("Confirm & send"),
@@ -456,6 +460,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "txFetchingRemoteData": MessageLookupByLibrary.simpleMessage(
             "Fetching remote data. Please wait..."),
         "txHash": m8,
+        "txHintClaimTo": MessageLookupByLibrary.simpleMessage("Claim to"),
         "txHintMemo": MessageLookupByLibrary.simpleMessage("Memo"),
         "txHintSendFrom": MessageLookupByLibrary.simpleMessage("Send from"),
         "txHintSendTo": MessageLookupByLibrary.simpleMessage("Send to"),
@@ -488,9 +493,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "txMsgCancelIdentityRecordsVerifyRequest":
             MessageLookupByLibrary.simpleMessage("Cancel Verification Request"),
         "txMsgClaimRewards":
-            MessageLookupByLibrary.simpleMessage("Claim Rewards"),
+            MessageLookupByLibrary.simpleMessage("Claim All Rewards"),
         "txMsgClaimUndelegation":
             MessageLookupByLibrary.simpleMessage("Claim Unstaked"),
+        "txMsgDelegate": MessageLookupByLibrary.simpleMessage("Stake Tokens"),
         "txMsgDeleteIdentityRecords":
             MessageLookupByLibrary.simpleMessage("Delete Identity Records"),
         "txMsgHandleIdentityRecordsVerifyRequest":
@@ -506,7 +512,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "txMsgUndefined":
             MessageLookupByLibrary.simpleMessage("Unknown transaction type"),
         "txMsgUndelegate":
-            MessageLookupByLibrary.simpleMessage("Unstake tokens"),
+            MessageLookupByLibrary.simpleMessage("Unstake Tokens"),
         "txNoticeFee": m10,
         "txPleaseSelectToken":
             MessageLookupByLibrary.simpleMessage("Please select a token"),
@@ -529,6 +535,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "txWarningDoNotCloseWindow":
             MessageLookupByLibrary.simpleMessage("Do not close this window"),
         "txYouWillGet": MessageLookupByLibrary.simpleMessage("You will get"),
+        "unstakeTokens": MessageLookupByLibrary.simpleMessage("Unstake tokens"),
         "unstaked": MessageLookupByLibrary.simpleMessage("Unstaked"),
         "unstakedHintSearch":
             MessageLookupByLibrary.simpleMessage("Search list of unstaked"),
