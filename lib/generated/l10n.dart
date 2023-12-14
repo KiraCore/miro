@@ -1661,11 +1661,11 @@ class S {
     );
   }
 
-  /// `Staked`
-  String get staked {
+  /// `Staking`
+  String get staking {
     return Intl.message(
-      'Staked',
-      name: 'staked',
+      'Staking',
+      name: 'staking',
       desc: '',
       args: [],
     );
@@ -1816,6 +1816,16 @@ class S {
     return Intl.message(
       'Claim all rewards',
       name: 'stakingTxClaimRewards',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Claim unstaked`
+  String get stakingTxClaimUnstaked {
+    return Intl.message(
+      'Claim unstaked',
+      name: 'stakingTxClaimUnstaked',
       desc: '',
       args: [],
     );
@@ -2076,6 +2086,36 @@ class S {
     return Intl.message(
       'Response',
       name: 'txErrorHttpResponse',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Amount to claim`
+  String get txHintAmountToClaim {
+    return Intl.message(
+      'Amount to claim',
+      name: 'txHintAmountToClaim',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Claim`
+  String get txHintClaim {
+    return Intl.message(
+      'Claim',
+      name: 'txHintClaim',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Claim by`
+  String get txHintClaimBy {
+    return Intl.message(
+      'Claim by',
+      name: 'txHintClaimBy',
       desc: '',
       args: [],
     );

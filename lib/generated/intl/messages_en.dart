@@ -353,7 +353,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "seeMore": MessageLookupByLibrary.simpleMessage("See more"),
         "showDetails": MessageLookupByLibrary.simpleMessage("Show Details"),
         "sortBy": MessageLookupByLibrary.simpleMessage("Sort by"),
-        "staked": MessageLookupByLibrary.simpleMessage("Staked"),
+        "staking": MessageLookupByLibrary.simpleMessage("Staking"),
         "stakingPool": MessageLookupByLibrary.simpleMessage("Staking Pool"),
         "stakingPoolAvailable":
             MessageLookupByLibrary.simpleMessage("Staking Pool available"),
@@ -384,6 +384,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "stakingTxButtonStake": MessageLookupByLibrary.simpleMessage("Stake"),
         "stakingTxClaimRewards":
             MessageLookupByLibrary.simpleMessage("Claim all rewards"),
+        "stakingTxClaimUnstaked":
+            MessageLookupByLibrary.simpleMessage("Claim unstaked"),
         "stakingTxConfirmStake":
             MessageLookupByLibrary.simpleMessage("Confirm stake"),
         "stakingTxConfirmUnstake":
@@ -460,6 +462,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "txFetchingRemoteData": MessageLookupByLibrary.simpleMessage(
             "Fetching remote data. Please wait..."),
         "txHash": m8,
+        "txHintAmountToClaim":
+            MessageLookupByLibrary.simpleMessage("Amount to claim"),
+        "txHintClaim": MessageLookupByLibrary.simpleMessage("Claim"),
+        "txHintClaimBy": MessageLookupByLibrary.simpleMessage("Claim by"),
         "txHintClaimTo": MessageLookupByLibrary.simpleMessage("Claim to"),
         "txHintMemo": MessageLookupByLibrary.simpleMessage("Memo"),
         "txHintSendFrom": MessageLookupByLibrary.simpleMessage("Send from"),

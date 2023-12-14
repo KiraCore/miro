@@ -94,6 +94,10 @@ class AppRouter extends $AppRouter {
             page: StakingTxClaimRewardsRoute.page,
             path: 'staking/claim-rewards',
           ),
+          AutoRoute(
+            page: StakingTxClaimUndelegationRoute.page,
+            path: 'staking/claim-unstaked',
+          ),
         ],
       ),
       RedirectRoute(path: '*', redirectTo: '/network'),

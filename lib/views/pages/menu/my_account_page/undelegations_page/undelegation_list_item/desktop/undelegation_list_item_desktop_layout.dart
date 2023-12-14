@@ -24,9 +24,9 @@ class UndelegationListItemDesktopLayout extends StatelessWidget {
       child: Row(
         children: <Widget>[
           const SizedBox(width: 25),
-          Expanded(flex: 3, child: validatorWidget),
-          Expanded(flex: 2, child: tokensWidget),
-          Expanded(flex: 3, child: lockedUntilWidget),
+          Expanded(flex: 2, child: validatorWidget),
+          Expanded(child: tokensWidget),
+          Expanded(child: lockedUntilWidget),
           const SizedBox(width: 25),
         ],
       ),
