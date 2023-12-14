@@ -27,7 +27,7 @@ jobs:
       - name: Setup version for branch WORKING
         if: github.event_name == 'pull_request'
         run: |
-          RELEASE_VER="0.0.0"
+          RELEASE_VER="0.0.1"
           echo "RELEASE_VER=$RELEASE_VER" >> $GITHUB_ENV
 
       - name: Setup version for branch DEV

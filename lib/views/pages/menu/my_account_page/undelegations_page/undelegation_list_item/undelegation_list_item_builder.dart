@@ -19,13 +19,9 @@ class UndelegationListItemBuilder extends StatefulWidget {
 class _UndelegationListItemBuilderState extends State<UndelegationListItemBuilder> {
   @override
   Widget build(BuildContext context) {
-    Widget desktopListItem = UndelegationListItemDesktop(
-      undelegationModel: widget.undelegationModel,
-    );
+    Widget desktopListItem = UndelegationListItemDesktop(undelegationModel: widget.undelegationModel);
 
-    Widget mobileListItem = UndelegationListItemMobile(
-      undelegationModel: widget.undelegationModel,
-    );
+    Widget mobileListItem = UndelegationListItemMobile(undelegationModel: widget.undelegationModel);
 
     return ResponsiveWidget(
       largeScreen: desktopListItem,

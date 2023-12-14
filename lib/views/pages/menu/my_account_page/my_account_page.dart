@@ -65,7 +65,7 @@ class _MyAccountPage extends State<MyAccountPage> with SingleTickerProviderState
                           Tab(text: S.of(context).tx),
                           Tab(text: S.of(context).ir),
                           Tab(text: S.of(context).irVerificationRequests),
-                          Tab(text: S.of(context).staked),
+                          Tab(text: S.of(context).staking),
                           Tab(text: S.of(context).unstaked),
                         ]),
                         const SizedBox(height: 8),

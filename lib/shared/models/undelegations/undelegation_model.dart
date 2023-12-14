@@ -48,6 +48,11 @@ class UndelegationModel extends AListItem {
   @override
   set favourite(bool value) => false;
 
+  bool isClaimingBlocked({DateTime? dateTime}) {
+    dateTime ??= DateTime.now();
+    return lockedUntil.difference(dateTime).inSeconds > 0;
+  }
+
   @override
   String toString() {
     return 'UndelegationModel(id: $id, lockedUntil: $lockedUntil, validatorSimplifiedModel: $validatorSimplifiedModel, tokens: $tokens)';
