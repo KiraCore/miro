@@ -1,6 +1,6 @@
 {
   "refresh_interval_seconds": 60,
-  "proxy_server_url": "https://cors-anywhere.kira.network",
+  "proxy_server_url": "https://cors.kira.network",
   "network_list": [
     {
       "name": "Public Node 1",
