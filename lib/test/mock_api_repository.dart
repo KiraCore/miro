@@ -5,6 +5,7 @@ import 'package:miro/infra/exceptions/dio_connect_exception.dart';
 import 'package:miro/infra/models/api_request_model.dart';
 import 'package:miro/infra/repositories/api/api_repository.dart';
 import 'package:miro/test/mocks/api/mock_api_dashboard.dart';
+import 'package:miro/test/mocks/api/mock_api_genesis.dart';
 import 'package:miro/test/mocks/api/mock_api_status.dart';
 import 'package:miro/test/mocks/api/mock_api_transactions.dart';
 import 'package:miro/test/mocks/api/mock_api_valopers.dart';
@@ -20,6 +21,7 @@ class MockApiRepository implements IApiRepository {
   static List<String> workingEndpoints = <String>[
     'unhealthy.kira.network',
     'custom-unhealthy.kira.network',
+    'dynamic.kira.network',
     'healthy.kira.network',
     'custom-healthy.kira.network',
     'invalid.kira.network',
@@ -39,6 +41,31 @@ class MockApiRepository implements IApiRepository {
           break;
         default:
           response = MockApiDashboard.defaultResponse as T;
+          break;
+      }
+      return Response<T>(
+        statusCode: 200,
+        data: response,
+        headers: MockHeaders.defaultHeaders,
+        requestOptions: RequestOptions(path: ''),
+      );
+    } else {
+      throw DioConnectException(dioException: DioException(requestOptions: RequestOptions(path: networkUri.host)));
+    }
+  }
+
+  @override
+  Future<Response<T>> fetchQueryGenesis<T>(ApiRequestModel<void> apiRequestModel) async {
+    Uri networkUri = apiRequestModel.networkUri;
+    bool responseExistsBool = workingEndpoints.contains(networkUri.host);
+    if (responseExistsBool) {
+      late T response;
+      switch (networkUri.host) {
+        case 'invalid.kira.network':
+          response = <String, dynamic>{'invalid': 'response'} as T;
+          break;
+        default:
+          response = MockApiGenesis.defaultResponse as T;
           break;
       }
       return Response<T>(

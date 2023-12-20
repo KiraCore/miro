@@ -73,6 +73,8 @@ class TestUtils {
       interxVersion: 'v0.4.22',
       latestBlockHeight: 108843,
       latestBlockTime: DateTime.now(),
+      defaultAddressPrefix: 'kira',
+      defaultTokenAliasModel: TokenAliasModel.local('ukex'),
       activeValidators: 319,
       totalValidators: 475,
     ),
@@ -91,6 +93,8 @@ class TestUtils {
       interxVersion: 'v0.7.0.4',
       latestBlockHeight: 108843,
       latestBlockTime: DateTime.parse('2021-11-04 12:42:54.395Z'),
+      defaultAddressPrefix: 'kira',
+      defaultTokenAliasModel: TokenAliasModel.local('ukex'),
     ),
   );
 
@@ -108,6 +112,8 @@ class TestUtils {
       interxVersion: 'v0.4.22',
       latestBlockHeight: 108843,
       latestBlockTime: DateTime.now(),
+      defaultAddressPrefix: 'kira',
+      defaultTokenAliasModel: TokenAliasModel.local('ukex'),
       activeValidators: 319,
       totalValidators: 475,
     ),
@@ -121,6 +127,8 @@ class TestUtils {
       interxVersion: 'v0.7.0.4',
       latestBlockHeight: 108843,
       latestBlockTime: DateTime.parse('2021-11-04T12:42:54.394946399Z'),
+      defaultAddressPrefix: 'kira',
+      defaultTokenAliasModel: TokenAliasModel.local('ukex'),
       activeValidators: 319,
       totalValidators: 475,
     ),
@@ -155,6 +163,8 @@ class TestUtils {
         interxVersion: 'test',
         latestBlockHeight: 0,
         latestBlockTime: DateTime.now(),
+        defaultAddressPrefix: 'kira',
+        defaultTokenAliasModel: TokenAliasModel.local('ukex'),
       ),
     );
 

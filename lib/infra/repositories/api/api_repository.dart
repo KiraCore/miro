@@ -10,6 +10,8 @@ import 'package:miro/shared/utils/logger/app_logger.dart';
 abstract class IApiRepository {
   Future<Response<T>> fetchDashboard<T>(ApiRequestModel<void> apiRequestModel);
 
+  Future<Response<T>> fetchQueryGenesis<T>(ApiRequestModel<void> apiRequestModel);
+
   Future<Response<T>> fetchQueryInterxStatus<T>(ApiRequestModel<void> apiRequestModel);
 
   Future<Response<T>> fetchQueryTransactions<T>(ApiRequestModel<QueryTransactionsReq> apiRequestModel);
@@ -31,6 +33,21 @@ class RemoteApiRepository implements IApiRepository {
       return response;
     } on DioException catch (dioException) {
       AppLogger().log(message: 'Cannot fetch fetchDashboard() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
+      throw DioConnectException(dioException: dioException);
+    }
+  }
+
+  @override
+  Future<Response<T>> fetchQueryGenesis<T>(ApiRequestModel<void> apiRequestModel) async {
+    try {
+      final Response<T> response = await _httpClientManager.get<T>(
+        networkUri: apiRequestModel.networkUri,
+        path: '/api/genesis',
+        apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: apiRequestModel.forceRequestBool),
+      );
+      return response;
+    } on DioException catch (dioException) {
+      AppLogger().log(message: 'Cannot fetch fetchQueryGenesis() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
       throw DioConnectException(dioException: dioException);
     }
   }

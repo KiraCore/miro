@@ -14,6 +14,7 @@ import 'package:miro/shared/models/network/status/network_offline_model.dart';
 import 'package:miro/shared/models/network/status/network_unknown_model.dart';
 import 'package:miro/shared/models/network/status/online/network_healthy_model.dart';
 import 'package:miro/shared/models/network/status/online/network_unhealthy_model.dart';
+import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
@@ -198,7 +199,7 @@ Future<void> main() async {
         connectionStatusType: ConnectionStatusType.disconnected,
         uri: Uri.parse('http://dynamic.kira.network'),
       );
-      
+
       NetworkHealthyModel dynamicNetworkHealthyModel = NetworkHealthyModel(
         connectionStatusType: ConnectionStatusType.disconnected,
         uri: Uri.parse('http://dynamic.kira.network'),
@@ -207,9 +208,13 @@ Future<void> main() async {
           interxVersion: 'v0.4.22',
           latestBlockHeight: 108843,
           latestBlockTime: DateTime.now(),
+          defaultAddressPrefix: 'kira',
+          defaultTokenAliasModel: TokenAliasModel.local('ukex'),
+          activeValidators: 319,
+          totalValidators: 475,
         ),
       );
-      
+
       NetworkUnhealthyModel dynamicNetworkUnhealthyModel = NetworkUnhealthyModel(
         connectionStatusType: ConnectionStatusType.disconnected,
         uri: Uri.parse('http://dynamic.kira.network'),
@@ -218,13 +223,17 @@ Future<void> main() async {
           interxVersion: 'v0.7.0.4',
           latestBlockHeight: 108843,
           latestBlockTime: DateTime.parse('2021-11-04T12:42:54.394946399Z'),
+          defaultAddressPrefix: 'kira',
+          defaultTokenAliasModel: TokenAliasModel.local('ukex'),
+          activeValidators: 319,
+          totalValidators: 475,
         ),
         interxWarningModel: const InterxWarningModel(<InterxWarningType>[
           InterxWarningType.versionOutdated,
           InterxWarningType.blockTimeOutdated,
         ]),
       );
-      
+
       NetworkOfflineModel dynamicNetworkOfflineModel = NetworkOfflineModel(
         connectionStatusType: ConnectionStatusType.disconnected,
         uri: Uri.parse('http://dynamic.kira.network'),
