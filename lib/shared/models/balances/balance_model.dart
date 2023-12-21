@@ -11,7 +11,7 @@ class BalanceModel extends AListItem {
   }) : _favourite = favourite;
 
   @override
-  String get cacheId => tokenAmountModel.tokenAliasModel.lowestTokenDenominationModel.name;
+  String get cacheId => tokenAmountModel.tokenAliasModel.defaultTokenDenominationModel.name;
 
   @override
   bool get isFavourite => _favourite;

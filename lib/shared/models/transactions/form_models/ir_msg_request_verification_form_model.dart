@@ -52,7 +52,7 @@ class IRMsgRequestVerificationFormModel extends AMsgFormModel {
   @override
   bool canBuildTxMsg() {
     bool fieldsFilledBool = _tipTokenAmountModel != null && _requesterWalletAddress != null && _verifierWalletAddress != null;
-    bool tipAmountNotEmptyBool = _tipTokenAmountModel?.getAmountInDefaultDenomination() != Decimal.zero;
+    bool tipAmountNotEmptyBool = _tipTokenAmountModel?.getAmountInNetworkDenomination() != Decimal.zero;
     return fieldsFilledBool && tipAmountNotEmptyBool;
   }
 

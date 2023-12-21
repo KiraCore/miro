@@ -9,7 +9,7 @@ class TokenDenominationModel extends Equatable {
   /// Example KEX, uKEX
   final String name;
 
-  /// Contains decimal number from lowest token denomination
+  /// Contains decimal number from default (lowest) token denomination
   /// Example: decimals for uKEX equals 0 and for KEX equals 8
   final int decimals;
 

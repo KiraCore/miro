@@ -28,7 +28,7 @@ void main() {
       validatorSimplifiedModel: validatorSimplifiedModel1,
       tokens: <TokenAmountModel>[
         TokenAmountModel(
-          lowestDenominationAmount: Decimal.fromInt(2000),
+          defaultDenominationAmount: Decimal.fromInt(2000),
           tokenAliasModel: TokenAliasModel.local('ukex'),
         ),
       ],
@@ -39,7 +39,7 @@ void main() {
       validatorSimplifiedModel: validatorSimplifiedModel2,
       tokens: <TokenAmountModel>[
         TokenAmountModel(
-          lowestDenominationAmount: Decimal.fromInt(300),
+          defaultDenominationAmount: Decimal.fromInt(300),
           tokenAliasModel: TokenAliasModel.local('samolean'),
         ),
       ],
@@ -50,7 +50,7 @@ void main() {
       validatorSimplifiedModel: validatorSimplifiedModel1,
       tokens: <TokenAmountModel>[
         TokenAmountModel(
-          lowestDenominationAmount: Decimal.fromInt(50000),
+          defaultDenominationAmount: Decimal.fromInt(50000),
           tokenAliasModel: TokenAliasModel.local('lol'),
         ),
       ],

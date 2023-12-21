@@ -121,7 +121,7 @@ class _StakingMsgDelegateFormState extends State<StakingMsgDelegateForm> {
   void _handleTokenAmountChanged(TokenFormState tokenFormState) {
     widget.stakingMsgDelegateFormModel.balanceModel = tokenFormState.balanceModel;
     widget.stakingMsgDelegateFormModel.tokenDenominationModel = tokenFormState.tokenDenominationModel;
-    if (tokenFormState.tokenAmountModel != null && tokenFormState.tokenAmountModel?.getAmountInLowestDenomination() != Decimal.zero) {
+    if (tokenFormState.tokenAmountModel != null && tokenFormState.tokenAmountModel?.getAmountInDefaultDenomination() != Decimal.zero) {
       widget.stakingMsgDelegateFormModel.tokenAmountModels = <TokenAmountModel>[tokenFormState.tokenAmountModel!];
     } else {
       widget.stakingMsgDelegateFormModel.tokenAmountModels = null;

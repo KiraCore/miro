@@ -12,11 +12,11 @@ class PrefixedTokenAmountModel extends Equatable {
   });
 
   String getAmountAsString() {
-    return '${getPrefix()}${tokenAmountModel.getAmountInLowestDenomination()}';
+    return '${getPrefix()}${tokenAmountModel.getAmountInDefaultDenomination()}';
   }
 
   String getDenominationName() {
-    return tokenAmountModel.tokenAliasModel.lowestTokenDenominationModel.name;
+    return tokenAmountModel.tokenAliasModel.defaultTokenDenominationModel.name;
   }
 
   String getPrefix() {

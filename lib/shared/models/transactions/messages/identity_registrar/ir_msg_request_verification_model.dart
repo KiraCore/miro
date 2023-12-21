@@ -37,7 +37,7 @@ class IRMsgRequestVerificationModel extends ATxMsgModel {
     return IRMsgRequestVerificationModel(
       recordIds: msgRequestIdentityRecordsVerify.recordIds,
       tipTokenAmountModel: TokenAmountModel(
-        lowestDenominationAmount: Decimal.parse(msgRequestIdentityRecordsVerify.tip.amount),
+        defaultDenominationAmount: Decimal.parse(msgRequestIdentityRecordsVerify.tip.amount),
         tokenAliasModel: TokenAliasModel.local(msgRequestIdentityRecordsVerify.tip.denom),
       ),
       verifierWalletAddress: WalletAddress.fromBech32(msgRequestIdentityRecordsVerify.verifier),

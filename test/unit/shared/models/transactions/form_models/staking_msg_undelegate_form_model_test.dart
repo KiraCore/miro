@@ -12,7 +12,7 @@ void main() {
   WalletAddress actualValoperWalletAddress = WalletAddress.fromBech32('kiravaloper1c6slygj2tx7hzm0mn4qeflqpvngj73c2cw7fh7');
   List<TokenAmountModel> actualTokenAmountModels = <TokenAmountModel>[
     TokenAmountModel(
-      lowestDenominationAmount: Decimal.fromInt(100),
+      defaultDenominationAmount: Decimal.fromInt(100),
       tokenAliasModel: TokenAliasModel.local('ukex'),
     ),
   ];
@@ -40,7 +40,7 @@ void main() {
         valoperWalletAddress: actualValoperWalletAddress,
         tokenAmountModels: <TokenAmountModel>[
           TokenAmountModel(
-            lowestDenominationAmount: Decimal.fromInt(0),
+            defaultDenominationAmount: Decimal.fromInt(0),
             tokenAliasModel: TokenAliasModel.local('ukex'),
           ),
         ],
@@ -128,7 +128,7 @@ void main() {
         valoperWalletAddress: actualValoperWalletAddress,
         tokenAmountModels: <TokenAmountModel>[
           TokenAmountModel(
-            lowestDenominationAmount: Decimal.fromInt(0),
+            defaultDenominationAmount: Decimal.fromInt(0),
             tokenAliasModel: TokenAliasModel.local('ukex'),
           ),
         ],

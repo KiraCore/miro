@@ -11,7 +11,7 @@ class MockMsgFormModel extends AMsgFormModel {
     fromWalletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
     toWalletAddress: WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
     tokenAmountModel: TokenAmountModel(
-      lowestDenominationAmount: Decimal.parse('1'),
+      defaultDenominationAmount: Decimal.parse('1'),
       tokenAliasModel: TokenAliasModel.local('ukex'),
     ),
   );

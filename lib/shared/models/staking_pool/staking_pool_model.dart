@@ -25,7 +25,7 @@ class StakingPoolModel extends Equatable {
       totalDelegators: queryStakingPoolResp.totalDelegators,
       slashed: '${(double.parse(queryStakingPoolResp.slashed) * 100).toString()}%',
       votingPower: queryStakingPoolResp.votingPower
-          .map((Coin e) => TokenAmountModel(lowestDenominationAmount: Decimal.parse(e.amount), tokenAliasModel: TokenAliasModel.local(e.denom)))
+          .map((Coin e) => TokenAmountModel(defaultDenominationAmount: Decimal.parse(e.amount), tokenAliasModel: TokenAliasModel.local(e.denom)))
           .toList(),
       commission: '${(double.parse(queryStakingPoolResp.commission) * 100).toString()}%',
       tokens: queryStakingPoolResp.tokens.map(TokenAliasModel.local).toList(),

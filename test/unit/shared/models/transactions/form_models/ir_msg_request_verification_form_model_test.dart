@@ -12,7 +12,7 @@ void main() {
   WalletAddress actualRequesterWalletAddress = WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx');
   WalletAddress actualVerifierWalletAddress = WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl');
   TokenAmountModel actualTipTokenAmountModel = TokenAmountModel(
-    lowestDenominationAmount: Decimal.fromInt(100),
+    defaultDenominationAmount: Decimal.fromInt(100),
     tokenAliasModel: TokenAliasModel.local('ukex'),
   );
 
@@ -48,7 +48,7 @@ void main() {
       IRMsgRequestVerificationFormModel actualIrMsgRequestVerificationFormModel = IRMsgRequestVerificationFormModel(
         irRecordModel: actualIrRecordModel,
         tipTokenAmountModel: TokenAmountModel(
-          lowestDenominationAmount: Decimal.fromInt(0),
+          defaultDenominationAmount: Decimal.fromInt(0),
           tokenAliasModel: TokenAliasModel.local('ukex'),
         ),
         requesterWalletAddress: actualRequesterWalletAddress,
@@ -140,7 +140,7 @@ void main() {
       IRMsgRequestVerificationFormModel actualIrMsgRequestVerificationFormModel = IRMsgRequestVerificationFormModel(
         irRecordModel: actualIrRecordModel,
         tipTokenAmountModel: TokenAmountModel(
-          lowestDenominationAmount: Decimal.fromInt(0),
+          defaultDenominationAmount: Decimal.fromInt(0),
           tokenAliasModel: TokenAliasModel.local('ukex'),
         ),
         requesterWalletAddress: actualRequesterWalletAddress,

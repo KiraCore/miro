@@ -7,17 +7,17 @@ import 'package:miro/test/utils/test_utils.dart';
 
 void main() {
   List<BalanceModel> balanceModelsList = <BalanceModel>[
-    BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.kexTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(2000000))),
-    BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.kexTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(1))),
-    BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.kexTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(200000))),
+    BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.kexTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(2000000))),
+    BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.kexTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(1))),
+    BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.kexTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(200000))),
     //----------
-    BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.btcTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(100000))),
-    BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.btcTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(200000))),
-    BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.btcTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(300000000))),
+    BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.btcTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(100000))),
+    BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.btcTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(200000))),
+    BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.btcTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(300000000))),
     //----------
-    BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.ethTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(10000))),
-    BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.ethTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(20000))),
-    BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.ethTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(30000))),
+    BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.ethTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(10000))),
+    BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.ethTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(20000))),
+    BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.ethTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(30000))),
   ];
 
   group('Tests of BalancesSortOptions.sortByDenom', () {
@@ -27,17 +27,17 @@ void main() {
 
       // Assert
       List<BalanceModel> expectedBalancesList = <BalanceModel>[
-        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.btcTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(100000))),
-        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.btcTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(200000))),
-        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.btcTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(300000000))),
+        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.btcTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(100000))),
+        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.btcTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(200000))),
+        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.btcTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(300000000))),
         //----------
-        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.ethTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(10000))),
-        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.ethTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(20000))),
-        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.ethTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(30000))),
+        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.ethTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(10000))),
+        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.ethTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(20000))),
+        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.ethTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(30000))),
         //----------
-        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.kexTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(2000000))),
-        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.kexTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(1))),
-        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.kexTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(200000))),
+        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.kexTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(2000000))),
+        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.kexTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(1))),
+        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.kexTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(200000))),
       ];
 
       expect(actualBalancesList, expectedBalancesList);
@@ -49,17 +49,17 @@ void main() {
 
       // Assert
       List<BalanceModel> expectedBalancesList = <BalanceModel>[
-        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.kexTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(2000000))),
-        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.kexTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(1))),
-        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.kexTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(200000))),
+        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.kexTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(2000000))),
+        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.kexTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(1))),
+        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.kexTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(200000))),
         //----------
-        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.ethTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(10000))),
-        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.ethTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(20000))),
-        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.ethTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(30000))),
+        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.ethTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(10000))),
+        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.ethTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(20000))),
+        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.ethTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(30000))),
         //----------
-        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.btcTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(100000))),
-        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.btcTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(200000))),
-        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.btcTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(300000000))),
+        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.btcTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(100000))),
+        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.btcTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(200000))),
+        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.btcTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(300000000))),
       ];
 
       expect(actualBalancesList, expectedBalancesList);
@@ -73,15 +73,15 @@ void main() {
 
       // Assert
       List<BalanceModel> expectedBalancesList = <BalanceModel>[
-        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.ethTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(10000))),
-        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.ethTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(20000))),
-        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.ethTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(30000))),
-        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.kexTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(1))),
-        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.btcTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(100000))),
-        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.btcTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(200000))),
-        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.kexTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(200000))),
-        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.kexTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(2000000))),
-        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.btcTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(300000000))),
+        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.ethTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(10000))),
+        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.ethTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(20000))),
+        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.ethTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(30000))),
+        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.kexTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(1))),
+        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.btcTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(100000))),
+        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.btcTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(200000))),
+        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.kexTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(200000))),
+        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.kexTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(2000000))),
+        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.btcTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(300000000))),
       ];
 
       expect(actualBalancesList, expectedBalancesList);
@@ -93,15 +93,15 @@ void main() {
 
       // Assert
       List<BalanceModel> expectedBalancesList = <BalanceModel>[
-        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.btcTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(300000000))),
-        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.kexTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(2000000))),
-        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.kexTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(200000))),
-        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.btcTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(200000))),
-        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.btcTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(100000))),
-        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.kexTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(1))),
-        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.ethTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(30000))),
-        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.ethTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(20000))),
-        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.ethTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(10000))),
+        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.btcTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(300000000))),
+        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.kexTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(2000000))),
+        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.kexTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(200000))),
+        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.btcTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(200000))),
+        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.btcTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(100000))),
+        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.kexTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(1))),
+        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.ethTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(30000))),
+        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.ethTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(20000))),
+        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.ethTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(10000))),
       ];
 
       expect(actualBalancesList, expectedBalancesList);

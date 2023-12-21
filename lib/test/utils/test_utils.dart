@@ -25,25 +25,25 @@ class TestUtils {
 
   static TokenAliasModel btcTokenAliasModel = const TokenAliasModel(
     name: 'Bitcoin',
-    lowestTokenDenominationModel: TokenDenominationModel(name: 'satoshi', decimals: 0),
-    defaultTokenDenominationModel: TokenDenominationModel(name: 'BTC', decimals: 8),
+    defaultTokenDenominationModel: TokenDenominationModel(name: 'satoshi', decimals: 0),
+    networkTokenDenominationModel: TokenDenominationModel(name: 'BTC', decimals: 8),
   );
 
   static TokenAliasModel ethTokenAliasModel = const TokenAliasModel(
     name: 'Ethereum',
-    lowestTokenDenominationModel: TokenDenominationModel(name: 'wei', decimals: 0),
-    defaultTokenDenominationModel: TokenDenominationModel(name: 'ETH', decimals: 18),
+    defaultTokenDenominationModel: TokenDenominationModel(name: 'wei', decimals: 0),
+    networkTokenDenominationModel: TokenDenominationModel(name: 'ETH', decimals: 18),
   );
 
   static TokenAliasModel kexTokenAliasModel = const TokenAliasModel(
     name: 'Kira',
-    lowestTokenDenominationModel: TokenDenominationModel(name: 'ukex', decimals: 0),
-    defaultTokenDenominationModel: TokenDenominationModel(name: 'KEX', decimals: 6),
+    defaultTokenDenominationModel: TokenDenominationModel(name: 'ukex', decimals: 0),
+    networkTokenDenominationModel: TokenDenominationModel(name: 'KEX', decimals: 6),
   );
 
   static TokenAliasModel derivedKexTokenAliasModel = const TokenAliasModel(
     name: 'v1/Kira',
-    lowestTokenDenominationModel: TokenDenominationModel(name: 'v1/ukex', decimals: 0),
+    defaultTokenDenominationModel: TokenDenominationModel(name: 'v1/ukex', decimals: 0),
   );
 
   static final NetworkUnknownModel healthyNetworkUnknownModel = NetworkUnknownModel(

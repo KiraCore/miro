@@ -36,7 +36,7 @@ class _StakingMsgClaimUndelegationFormPreviewState extends State<StakingMsgClaim
   late final StakingMsgClaimUndelegationModel stakingMsgClaimUndelegationModel = widget.txLocalInfoModel.txMsgModel as StakingMsgClaimUndelegationModel;
   late final TokenAliasModel tokenAliasModel = widget.amountToClaim.tokenAliasModel;
 
-  late TokenDenominationModel selectedTokenDenominationModel = widget.amountToClaim.tokenAliasModel.defaultTokenDenominationModel;
+  late TokenDenominationModel selectedTokenDenominationModel = widget.amountToClaim.tokenAliasModel.networkTokenDenominationModel;
 
   @override
   Widget build(BuildContext context) {

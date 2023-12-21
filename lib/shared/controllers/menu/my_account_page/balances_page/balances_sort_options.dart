@@ -13,7 +13,7 @@ class BalancesSortOptions {
     return SortOption<BalanceModel>.asc(
       id: 'amount',
       comparator: (BalanceModel a, BalanceModel b) =>
-          a.tokenAmountModel.getAmountInDefaultDenomination().compareTo(b.tokenAmountModel.getAmountInDefaultDenomination()),
+          a.tokenAmountModel.getAmountInNetworkDenomination().compareTo(b.tokenAmountModel.getAmountInNetworkDenomination()),
     );
   }
 }

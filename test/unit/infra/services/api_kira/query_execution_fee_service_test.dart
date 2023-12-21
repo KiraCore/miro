@@ -31,7 +31,7 @@ Future<void> main() async {
 
       // Assert
       TokenAmountModel expectedTokenAmountModel = TokenAmountModel(
-        lowestDenominationAmount: Decimal.parse('100'),
+        defaultDenominationAmount: Decimal.parse('100'),
         tokenAliasModel: appConfig.defaultFeeTokenAliasModel,
       );
 

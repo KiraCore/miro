@@ -24,19 +24,19 @@ void main() {
         txDirectionType: TxDirectionType.outbound,
         txStatusType: TxStatusType.confirmed,
         fees: <TokenAmountModel>[
-          TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel),
+          TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel),
         ],
         prefixedTokenAmounts: <PrefixedTokenAmountModel>[
           PrefixedTokenAmountModel(
             tokenAmountPrefixType: TokenAmountPrefixType.subtract,
-            tokenAmountModel: TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel),
+            tokenAmountModel: TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel),
           ),
         ],
         txMsgModels: <ATxMsgModel>[
           MsgSendModel(
               fromWalletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
               toWalletAddress: WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
-              tokenAmountModel: TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel)),
+              tokenAmountModel: TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel)),
         ],
       );
 
@@ -52,19 +52,19 @@ void main() {
         txDirectionType: TxDirectionType.inbound,
         txStatusType: TxStatusType.confirmed,
         fees: <TokenAmountModel>[
-          TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel),
+          TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel),
         ],
         prefixedTokenAmounts: <PrefixedTokenAmountModel>[
           PrefixedTokenAmountModel(
             tokenAmountPrefixType: TokenAmountPrefixType.subtract,
-            tokenAmountModel: TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel),
+            tokenAmountModel: TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel),
           ),
         ],
         txMsgModels: <ATxMsgModel>[
           MsgSendModel(
               fromWalletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
               toWalletAddress: WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
-              tokenAmountModel: TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel)),
+              tokenAmountModel: TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel)),
         ],
       );
 
@@ -82,12 +82,12 @@ void main() {
         txDirectionType: TxDirectionType.outbound,
         txStatusType: TxStatusType.confirmed,
         fees: <TokenAmountModel>[
-          TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel),
+          TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel),
         ],
         prefixedTokenAmounts: <PrefixedTokenAmountModel>[
           PrefixedTokenAmountModel(
             tokenAmountPrefixType: TokenAmountPrefixType.subtract,
-            tokenAmountModel: TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel),
+            tokenAmountModel: TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel),
           ),
         ],
         txMsgModels: <ATxMsgModel>[],
@@ -110,19 +110,19 @@ void main() {
         txDirectionType: TxDirectionType.outbound,
         txStatusType: TxStatusType.confirmed,
         fees: <TokenAmountModel>[
-          TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel),
+          TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel),
         ],
         prefixedTokenAmounts: <PrefixedTokenAmountModel>[
           PrefixedTokenAmountModel(
             tokenAmountPrefixType: TokenAmountPrefixType.subtract,
-            tokenAmountModel: TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel),
+            tokenAmountModel: TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel),
           ),
         ],
         txMsgModels: <ATxMsgModel>[
           MsgSendModel(
               fromWalletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
               toWalletAddress: WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
-              tokenAmountModel: TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel)),
+              tokenAmountModel: TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel)),
         ],
       );
 
@@ -143,23 +143,23 @@ void main() {
         txDirectionType: TxDirectionType.outbound,
         txStatusType: TxStatusType.confirmed,
         fees: <TokenAmountModel>[
-          TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel),
+          TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel),
         ],
         prefixedTokenAmounts: <PrefixedTokenAmountModel>[
           PrefixedTokenAmountModel(
             tokenAmountPrefixType: TokenAmountPrefixType.subtract,
-            tokenAmountModel: TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel),
+            tokenAmountModel: TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel),
           ),
         ],
         txMsgModels: <ATxMsgModel>[
           MsgSendModel(
               fromWalletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
               toWalletAddress: WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
-              tokenAmountModel: TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel)),
+              tokenAmountModel: TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel)),
           MsgSendModel(
               fromWalletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
               toWalletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
-              tokenAmountModel: TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel)),
+              tokenAmountModel: TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel)),
         ],
       );
 
@@ -182,12 +182,12 @@ void main() {
         txDirectionType: TxDirectionType.outbound,
         txStatusType: TxStatusType.confirmed,
         fees: <TokenAmountModel>[
-          TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel),
+          TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel),
         ],
         prefixedTokenAmounts: <PrefixedTokenAmountModel>[
           PrefixedTokenAmountModel(
             tokenAmountPrefixType: TokenAmountPrefixType.subtract,
-            tokenAmountModel: TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel),
+            tokenAmountModel: TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel),
           ),
         ],
         txMsgModels: <ATxMsgModel>[],
@@ -205,19 +205,19 @@ void main() {
         txDirectionType: TxDirectionType.outbound,
         txStatusType: TxStatusType.confirmed,
         fees: <TokenAmountModel>[
-          TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel),
+          TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel),
         ],
         prefixedTokenAmounts: <PrefixedTokenAmountModel>[
           PrefixedTokenAmountModel(
             tokenAmountPrefixType: TokenAmountPrefixType.subtract,
-            tokenAmountModel: TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel),
+            tokenAmountModel: TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel),
           ),
         ],
         txMsgModels: <ATxMsgModel>[
           MsgSendModel(
               fromWalletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
               toWalletAddress: WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
-              tokenAmountModel: TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel)),
+              tokenAmountModel: TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel)),
         ],
       );
 
@@ -233,23 +233,23 @@ void main() {
         txDirectionType: TxDirectionType.outbound,
         txStatusType: TxStatusType.confirmed,
         fees: <TokenAmountModel>[
-          TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel),
+          TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel),
         ],
         prefixedTokenAmounts: <PrefixedTokenAmountModel>[
           PrefixedTokenAmountModel(
             tokenAmountPrefixType: TokenAmountPrefixType.subtract,
-            tokenAmountModel: TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel),
+            tokenAmountModel: TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel),
           ),
         ],
         txMsgModels: <ATxMsgModel>[
           MsgSendModel(
               fromWalletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
               toWalletAddress: WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
-              tokenAmountModel: TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel)),
+              tokenAmountModel: TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel)),
           MsgSendModel(
               fromWalletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
               toWalletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
-              tokenAmountModel: TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel)),
+              tokenAmountModel: TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel)),
         ],
       );
 

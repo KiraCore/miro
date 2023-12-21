@@ -176,7 +176,7 @@ class _TokenForm extends State<TokenForm> {
       widget.onChanged(tokenFormState);
     } else if (tokenFormState.tokenAmountModel != null) {
       TokenFormState errorTokenFormState = tokenFormState.copyWith(
-        tokenAmountModel: TokenAmountModel(lowestDenominationAmount: Decimal.zero, tokenAliasModel: tokenFormState.tokenAmountModel!.tokenAliasModel),
+        tokenAmountModel: TokenAmountModel(defaultDenominationAmount: Decimal.zero, tokenAliasModel: tokenFormState.tokenAmountModel!.tokenAliasModel),
         tokenDenominationModel: tokenFormState.tokenDenominationModel,
       );
       widget.onChanged(errorTokenFormState);
@@ -192,8 +192,8 @@ class _TokenForm extends State<TokenForm> {
     TokenAmountModel? selectedTokenAmountModel = tokenFormState.tokenAmountModel;
     TokenAmountModel? availableTokenAmountModel = tokenFormState.availableTokenAmountModel;
 
-    Decimal selectedTokenAmount = selectedTokenAmountModel?.getAmountInLowestDenomination() ?? Decimal.zero;
-    Decimal availableTokenAmount = availableTokenAmountModel?.getAmountInLowestDenomination() ?? Decimal.zero;
+    Decimal selectedTokenAmount = selectedTokenAmountModel?.getAmountInDefaultDenomination() ?? Decimal.zero;
+    Decimal availableTokenAmount = availableTokenAmountModel?.getAmountInDefaultDenomination() ?? Decimal.zero;
 
     if (selectedTokenAmount == Decimal.zero) {
       return null;

@@ -17,7 +17,7 @@ void main() {
 
   List<TokenAmountModel> actualTokenAmountModelList = <TokenAmountModel>[
     TokenAmountModel(
-      lowestDenominationAmount: Decimal.parse('123'),
+      defaultDenominationAmount: Decimal.parse('123'),
       tokenAliasModel: TokenAliasModel.local('ukex'),
     ),
   ];

@@ -50,19 +50,19 @@ Future<void> main() async {
         txDirectionType: TxDirectionType.outbound,
         txStatusType: TxStatusType.confirmed,
         fees: <TokenAmountModel>[
-          TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TokenAliasModel.local('ukex')),
+          TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TokenAliasModel.local('ukex')),
         ],
         prefixedTokenAmounts: <PrefixedTokenAmountModel>[
           PrefixedTokenAmountModel(
             tokenAmountPrefixType: TokenAmountPrefixType.subtract,
-            tokenAmountModel: TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TokenAliasModel.local('samolean')),
+            tokenAmountModel: TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TokenAliasModel.local('samolean')),
           ),
         ],
         txMsgModels: <ATxMsgModel>[
           MsgSendModel(
             fromWalletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
             toWalletAddress: WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
-            tokenAmountModel: TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TokenAliasModel.local('samolean')),
+            tokenAmountModel: TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TokenAliasModel.local('samolean')),
           ),
         ],
       ),
@@ -73,19 +73,19 @@ Future<void> main() async {
         txDirectionType: TxDirectionType.inbound,
         txStatusType: TxStatusType.confirmed,
         fees: <TokenAmountModel>[
-          TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(500), tokenAliasModel: TokenAliasModel.local('ukex')),
+          TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(500), tokenAliasModel: TokenAliasModel.local('ukex')),
         ],
         prefixedTokenAmounts: <PrefixedTokenAmountModel>[
           PrefixedTokenAmountModel(
             tokenAmountPrefixType: TokenAmountPrefixType.add,
-            tokenAmountModel: TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(20000000), tokenAliasModel: TokenAliasModel.local('test')),
+            tokenAmountModel: TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(20000000), tokenAliasModel: TokenAliasModel.local('test')),
           ),
         ],
         txMsgModels: <ATxMsgModel>[
           MsgSendModel(
             fromWalletAddress: WalletAddress.fromBech32('kira1m82gva4kqj28ulnk02a8447uumdl26jyegsca4'),
             toWalletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
-            tokenAmountModel: TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(20000000), tokenAliasModel: TokenAliasModel.local('test')),
+            tokenAmountModel: TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(20000000), tokenAliasModel: TokenAliasModel.local('test')),
           ),
         ],
       ),
@@ -96,7 +96,7 @@ Future<void> main() async {
         txDirectionType: TxDirectionType.outbound,
         txStatusType: TxStatusType.confirmed,
         fees: <TokenAmountModel>[
-          TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(200), tokenAliasModel: TokenAliasModel.local('ukex')),
+          TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(200), tokenAliasModel: TokenAliasModel.local('ukex')),
         ],
         prefixedTokenAmounts: <PrefixedTokenAmountModel>[],
         txMsgModels: <ATxMsgModel>[
@@ -115,18 +115,18 @@ Future<void> main() async {
         txDirectionType: TxDirectionType.outbound,
         txStatusType: TxStatusType.confirmed,
         fees: <TokenAmountModel>[
-          TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(200), tokenAliasModel: TokenAliasModel.local('ukex')),
+          TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(200), tokenAliasModel: TokenAliasModel.local('ukex')),
         ],
         prefixedTokenAmounts: <PrefixedTokenAmountModel>[
           PrefixedTokenAmountModel(
             tokenAmountPrefixType: TokenAmountPrefixType.subtract,
-            tokenAmountModel: TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(200), tokenAliasModel: TokenAliasModel.local('ukex')),
+            tokenAmountModel: TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(200), tokenAliasModel: TokenAliasModel.local('ukex')),
           ),
         ],
         txMsgModels: <ATxMsgModel>[
           IRMsgRequestVerificationModel(
             recordIds: <BigInt>[BigInt.from(2)],
-            tipTokenAmountModel: TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(200), tokenAliasModel: TokenAliasModel.local('ukex')),
+            tipTokenAmountModel: TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(200), tokenAliasModel: TokenAliasModel.local('ukex')),
             verifierWalletAddress: WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
             walletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
           ),
@@ -139,7 +139,7 @@ Future<void> main() async {
         txDirectionType: TxDirectionType.outbound,
         txStatusType: TxStatusType.confirmed,
         fees: <TokenAmountModel>[
-          TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(200), tokenAliasModel: TokenAliasModel.local('ukex')),
+          TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(200), tokenAliasModel: TokenAliasModel.local('ukex')),
         ],
         prefixedTokenAmounts: <PrefixedTokenAmountModel>[],
         txMsgModels: <ATxMsgModel>[
@@ -156,7 +156,7 @@ Future<void> main() async {
         txDirectionType: TxDirectionType.outbound,
         txStatusType: TxStatusType.confirmed,
         fees: <TokenAmountModel>[
-          TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(200), tokenAliasModel: TokenAliasModel.local('ukex')),
+          TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(200), tokenAliasModel: TokenAliasModel.local('ukex')),
         ],
         prefixedTokenAmounts: <PrefixedTokenAmountModel>[],
         txMsgModels: <ATxMsgModel>[
@@ -173,7 +173,7 @@ Future<void> main() async {
         txDirectionType: TxDirectionType.outbound,
         txStatusType: TxStatusType.confirmed,
         fees: <TokenAmountModel>[
-          TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(200), tokenAliasModel: TokenAliasModel.local('ukex')),
+          TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(200), tokenAliasModel: TokenAliasModel.local('ukex')),
         ],
         prefixedTokenAmounts: <PrefixedTokenAmountModel>[],
         txMsgModels: <ATxMsgModel>[
@@ -195,18 +195,18 @@ Future<void> main() async {
             delegatorWalletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
             valoperWalletAddress: WalletAddress.fromBech32('kiravaloper1c6slygj2tx7hzm0mn4qeflqpvngj73c2cw7fh7'),
             tokenAmountModels: <TokenAmountModel>[
-              TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TokenAliasModel.local('ukex'))
+              TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TokenAliasModel.local('ukex'))
             ],
           ),
         ],
         prefixedTokenAmounts: <PrefixedTokenAmountModel>[
           PrefixedTokenAmountModel(
             tokenAmountPrefixType: TokenAmountPrefixType.subtract,
-            tokenAmountModel: TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TokenAliasModel.local('ukex')),
+            tokenAmountModel: TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TokenAliasModel.local('ukex')),
           ),
         ],
         fees: <TokenAmountModel>[
-          TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TokenAliasModel.local('ukex')),
+          TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TokenAliasModel.local('ukex')),
         ],
       ),
       // MsgUndelegate
@@ -220,18 +220,18 @@ Future<void> main() async {
             delegatorWalletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
             valoperWalletAddress: WalletAddress.fromBech32('kiravaloper1c6slygj2tx7hzm0mn4qeflqpvngj73c2cw7fh7'),
             tokenAmountModels: <TokenAmountModel>[
-              TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TokenAliasModel.local('ukex'))
+              TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TokenAliasModel.local('ukex'))
             ],
           ),
         ],
         prefixedTokenAmounts: <PrefixedTokenAmountModel>[
           PrefixedTokenAmountModel(
             tokenAmountPrefixType: TokenAmountPrefixType.add,
-            tokenAmountModel: TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TokenAliasModel.local('ukex')),
+            tokenAmountModel: TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TokenAliasModel.local('ukex')),
           ),
         ],
         fees: <TokenAmountModel>[
-          TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TokenAliasModel.local('ukex')),
+          TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TokenAliasModel.local('ukex')),
         ],
       ),
       // MsgClaimRewards
@@ -243,7 +243,7 @@ Future<void> main() async {
         txMsgModels: <ATxMsgModel>[StakingMsgClaimRewardsModel(senderWalletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'))],
         prefixedTokenAmounts: <PrefixedTokenAmountModel>[],
         fees: <TokenAmountModel>[
-          TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TokenAliasModel.local('ukex')),
+          TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TokenAliasModel.local('ukex')),
         ],
       ),
       // MsgClaimUndelegation
@@ -260,7 +260,7 @@ Future<void> main() async {
         ],
         prefixedTokenAmounts: <PrefixedTokenAmountModel>[],
         fees: <TokenAmountModel>[
-          TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TokenAliasModel.local('ukex')),
+          TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TokenAliasModel.local('ukex')),
         ],
       ),
     ],

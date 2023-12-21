@@ -32,7 +32,7 @@ class UndelegationModel extends AListItem {
       ),
       tokens: undelegation.tokens
           .map((Coin e) => TokenAmountModel(
-                lowestDenominationAmount: Decimal.parse(e.amount),
+                defaultDenominationAmount: Decimal.parse(e.amount),
                 tokenAliasModel: TokenAliasModel.local(e.denom),
               ))
           .toList(),

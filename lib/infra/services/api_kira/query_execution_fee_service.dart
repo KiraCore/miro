@@ -32,7 +32,7 @@ class QueryExecutionFeeService implements _IQueryExecutionFeeService {
 
       QueryExecutionFeeResponse queryExecutionFeeResponse = QueryExecutionFeeResponse.fromJson(response.data as Map<String, dynamic>);
       TokenAmountModel feeTokenAmountModel = TokenAmountModel(
-        lowestDenominationAmount: Decimal.parse(queryExecutionFeeResponse.fee.executionFee),
+        defaultDenominationAmount: Decimal.parse(queryExecutionFeeResponse.fee.executionFee),
         // tokenAliasModel - interx doesn't return denomination used in QueryExecutionFee endpoint, so we assumed that it's always represented in "ukex"
         tokenAliasModel: _appConfig.defaultFeeTokenAliasModel,
       );

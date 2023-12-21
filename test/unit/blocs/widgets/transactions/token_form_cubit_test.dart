@@ -16,20 +16,20 @@ Future<void> main() async {
   await initMockLocator();
 
   TokenAmountModel feeTokenAmountModel = TokenAmountModel(
-    lowestDenominationAmount: Decimal.fromInt(100),
+    defaultDenominationAmount: Decimal.fromInt(100),
     tokenAliasModel: TestUtils.kexTokenAliasModel,
   );
 
   BalanceModel kexBalanceModel = BalanceModel(
     tokenAmountModel: TokenAmountModel(
-      lowestDenominationAmount: Decimal.fromInt(1000),
+      defaultDenominationAmount: Decimal.fromInt(1000),
       tokenAliasModel: TestUtils.kexTokenAliasModel,
     ),
   );
 
   BalanceModel ethBalanceModel = BalanceModel(
     tokenAmountModel: TokenAmountModel(
-      lowestDenominationAmount: Decimal.fromInt(5000),
+      defaultDenominationAmount: Decimal.fromInt(5000),
       tokenAliasModel: TestUtils.ethTokenAliasModel,
     ),
   );
@@ -132,7 +132,7 @@ Future<void> main() async {
         feeTokenAmountModel: feeTokenAmountModel,
         balanceModel: kexBalanceModel,
         tokenAmountModel: TokenAmountModel(
-          lowestDenominationAmount: Decimal.fromInt(100000000),
+          defaultDenominationAmount: Decimal.fromInt(100),
           tokenAliasModel: TestUtils.kexTokenAliasModel,
         ),
         tokenDenominationModel: TestUtils.kexTokenAliasModel.defaultTokenDenominationModel,
@@ -146,23 +146,44 @@ Future<void> main() async {
       // ************************************************************************************************
 
       // Act
-      actualTokenFormCubit.updateTokenDenomination(TestUtils.kexTokenAliasModel.lowestTokenDenominationModel);
+      actualTokenFormCubit.updateTokenDenomination(TestUtils.kexTokenAliasModel.networkTokenDenominationModel);
 
       // Assert
       expectedTokenFormState = TokenFormState.fromBalance(
         feeTokenAmountModel: feeTokenAmountModel,
         balanceModel: kexBalanceModel,
         tokenAmountModel: TokenAmountModel(
-          lowestDenominationAmount: Decimal.fromInt(100000000),
+          defaultDenominationAmount: Decimal.fromInt(100),
           tokenAliasModel: TestUtils.kexTokenAliasModel,
         ),
-        tokenDenominationModel: TestUtils.kexTokenAliasModel.lowestTokenDenominationModel,
+        tokenDenominationModel: TestUtils.kexTokenAliasModel.networkTokenDenominationModel,
         walletAddress: TestUtils.wallet.address,
       );
 
       TestUtils.printInfo('Should [return TokenFormState] with updated TokenDenominationModel');
       expect(actualTokenFormCubit.state, expectedTokenFormState);
-      expect(actualTokenFormCubit.amountTextEditingController.text, '100000000');
+      expect(actualTokenFormCubit.amountTextEditingController.text, '0.0001');
+
+      // ************************************************************************************************
+
+      // Act
+      actualTokenFormCubit.updateTokenDenomination(TestUtils.kexTokenAliasModel.defaultTokenDenominationModel);
+
+      // Assert
+      expectedTokenFormState = TokenFormState.fromBalance(
+        feeTokenAmountModel: feeTokenAmountModel,
+        balanceModel: kexBalanceModel,
+        tokenAmountModel: TokenAmountModel(
+          defaultDenominationAmount: Decimal.fromInt(100),
+          tokenAliasModel: TestUtils.kexTokenAliasModel,
+        ),
+        tokenDenominationModel: TestUtils.kexTokenAliasModel.defaultTokenDenominationModel,
+        walletAddress: TestUtils.wallet.address,
+      );
+
+      TestUtils.printInfo('Should [return TokenFormState] with updated TokenDenominationModel');
+      expect(actualTokenFormCubit.state, expectedTokenFormState);
+      expect(actualTokenFormCubit.amountTextEditingController.text, '100');
 
       // ************************************************************************************************
 
@@ -174,10 +195,10 @@ Future<void> main() async {
         feeTokenAmountModel: feeTokenAmountModel,
         balanceModel: kexBalanceModel,
         tokenAmountModel: TokenAmountModel(
-          lowestDenominationAmount: Decimal.fromInt(900),
+          defaultDenominationAmount: Decimal.fromInt(900),
           tokenAliasModel: TestUtils.kexTokenAliasModel,
         ),
-        tokenDenominationModel: TestUtils.kexTokenAliasModel.lowestTokenDenominationModel,
+        tokenDenominationModel: TestUtils.kexTokenAliasModel.defaultTokenDenominationModel,
         walletAddress: TestUtils.wallet.address,
       );
 
@@ -194,13 +215,14 @@ Future<void> main() async {
       expectedTokenFormState = TokenFormState.fromBalance(
         feeTokenAmountModel: feeTokenAmountModel,
         balanceModel: kexBalanceModel,
-        tokenDenominationModel: TestUtils.kexTokenAliasModel.lowestTokenDenominationModel,
+        tokenDenominationModel: TestUtils.kexTokenAliasModel.defaultTokenDenominationModel,
         tokenAmountModel: TokenAmountModel.zero(tokenAliasModel: TestUtils.kexTokenAliasModel),
         walletAddress: TestUtils.wallet.address,
       );
 
       TestUtils.printInfo('Should [return TokenFormState] with cleared token amount');
       expect(actualTokenFormCubit.state, expectedTokenFormState);
+      expect(actualTokenFormCubit.amountTextEditingController.text, '0');
 
       // ************************************************************************************************
 
@@ -213,10 +235,10 @@ Future<void> main() async {
         feeTokenAmountModel: feeTokenAmountModel,
         balanceModel: kexBalanceModel,
         tokenAmountModel: TokenAmountModel(
-          lowestDenominationAmount: Decimal.fromInt(100),
+          defaultDenominationAmount: Decimal.fromInt(100),
           tokenAliasModel: TestUtils.kexTokenAliasModel,
         ),
-        tokenDenominationModel: TestUtils.kexTokenAliasModel.lowestTokenDenominationModel,
+        tokenDenominationModel: TestUtils.kexTokenAliasModel.defaultTokenDenominationModel,
         walletAddress: TestUtils.wallet.address,
       );
 

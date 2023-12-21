@@ -32,7 +32,7 @@ Future<void> main() async {
   await authCubit.signIn(senderWallet);
 
   TokenAmountModel feeTokenAmountModel = TokenAmountModel(
-    lowestDenominationAmount: Decimal.parse('100'),
+    defaultDenominationAmount: Decimal.parse('100'),
     tokenAliasModel: TestUtils.kexTokenAliasModel,
   );
 
@@ -40,7 +40,7 @@ Future<void> main() async {
     memo: '',
     feeTokenAmountModel: TokenAmountModel(
       tokenAliasModel: TestUtils.kexTokenAliasModel,
-      lowestDenominationAmount: Decimal.fromInt(100),
+      defaultDenominationAmount: Decimal.fromInt(100),
     ),
     txMsgModel: MockMsgFormModel.mockTxMsgModel,
   );

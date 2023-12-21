@@ -13,8 +13,8 @@ class Coin extends Equatable {
 
   factory Coin.fromTokenAmountModel(TokenAmountModel tokenAmountModel) {
     return Coin(
-      denom: tokenAmountModel.tokenAliasModel.lowestTokenDenominationModel.name,
-      amount: tokenAmountModel.getAmountInLowestDenomination().toString(),
+      denom: tokenAmountModel.tokenAliasModel.defaultTokenDenominationModel.name,
+      amount: tokenAmountModel.getAmountInDefaultDenomination().toString(),
     );
   }
 

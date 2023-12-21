@@ -13,7 +13,7 @@ void main() {
   WalletAddress actualSenderAddress = WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx');
   IRInboundVerificationRequestModel actualIrVerificationRequestModel = IRInboundVerificationRequestModel(
     id: '3',
-    tipTokenAmountModel: TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(200), tokenAliasModel: TokenAliasModel.local('ukex')),
+    tipTokenAmountModel: TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(200), tokenAliasModel: TokenAliasModel.local('ukex')),
     dateTime: DateTime.parse('2021-09-30 12:00:00'),
     requesterIrUserProfileModel: IRUserProfileModel(
       walletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),

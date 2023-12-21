@@ -4,48 +4,48 @@ import 'package:miro/shared/models/tokens/token_denomination_model.dart';
 
 class TokenAliasModel extends Equatable {
   final String name;
-  final TokenDenominationModel lowestTokenDenominationModel;
   final TokenDenominationModel defaultTokenDenominationModel;
+  final TokenDenominationModel networkTokenDenominationModel;
   final String? icon;
 
   const TokenAliasModel({
     required this.name,
-    required this.lowestTokenDenominationModel,
-    TokenDenominationModel? defaultTokenDenominationModel,
+    required this.defaultTokenDenominationModel,
+    TokenDenominationModel? networkTokenDenominationModel,
     this.icon,
-  }) : defaultTokenDenominationModel = defaultTokenDenominationModel ?? lowestTokenDenominationModel;
+  }) : networkTokenDenominationModel = networkTokenDenominationModel ?? defaultTokenDenominationModel;
 
   factory TokenAliasModel.local(String name) {
     return TokenAliasModel(
       name: name,
-      lowestTokenDenominationModel: TokenDenominationModel(name: name, decimals: 0),
+      defaultTokenDenominationModel: TokenDenominationModel(name: name, decimals: 0),
     );
   }
 
   factory TokenAliasModel.fromDto(TokenAlias tokenAlias) {
-    TokenDenominationModel defaultTokenDenominationModel = TokenDenominationModel(
+    TokenDenominationModel networkTokenDenominationModel = TokenDenominationModel(
       name: tokenAlias.symbol,
       decimals: tokenAlias.decimals,
     );
-    TokenDenominationModel lowestTokenDenominationModel =
-        tokenAlias.denoms.isNotEmpty ? TokenDenominationModel(name: tokenAlias.denoms.first, decimals: 0) : defaultTokenDenominationModel;
+    TokenDenominationModel defaultTokenDenominationModel =
+        tokenAlias.denoms.isNotEmpty ? TokenDenominationModel(name: tokenAlias.denoms.first, decimals: 0) : networkTokenDenominationModel;
 
     return TokenAliasModel(
       name: tokenAlias.name,
       icon: tokenAlias.icon,
+      networkTokenDenominationModel: networkTokenDenominationModel,
       defaultTokenDenominationModel: defaultTokenDenominationModel,
-      lowestTokenDenominationModel: lowestTokenDenominationModel,
     );
   }
 
   List<TokenDenominationModel> get tokenDenominations {
     Set<TokenDenominationModel> availableTokenDenominationModelSet = <TokenDenominationModel>{
       defaultTokenDenominationModel,
-      lowestTokenDenominationModel,
+      networkTokenDenominationModel,
     };
     return availableTokenDenominationModelSet.toList();
   }
 
   @override
-  List<Object?> get props => <Object>[lowestTokenDenominationModel];
+  List<Object?> get props => <Object>[defaultTokenDenominationModel];
 }

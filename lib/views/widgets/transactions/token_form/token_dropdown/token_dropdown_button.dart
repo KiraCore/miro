@@ -36,7 +36,7 @@ class TokenDropdownButton extends StatelessWidget {
                 ),
                 const SizedBox(width: 8),
                 Text(
-                  tokenAliasModel?.defaultTokenDenominationModel.name ?? '---',
+                  tokenAliasModel?.networkTokenDenominationModel.name ?? '---',
                   style: textTheme.bodyLarge!.copyWith(
                     color: DesignColors.white1,
                   ),

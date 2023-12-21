@@ -13,7 +13,7 @@ class VerificationRequestsSortOptions {
     return SortOption<IRInboundVerificationRequestModel>.asc(
       id: 'tip',
       comparator: (IRInboundVerificationRequestModel a, IRInboundVerificationRequestModel b) =>
-          a.tipTokenAmountModel.getAmountInLowestDenomination().compareTo(b.tipTokenAmountModel.getAmountInLowestDenomination()),
+          a.tipTokenAmountModel.getAmountInDefaultDenomination().compareTo(b.tipTokenAmountModel.getAmountInDefaultDenomination()),
     );
   }
 }

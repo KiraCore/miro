@@ -19,11 +19,11 @@ class NetworkPropertiesModel extends Equatable {
 
     return NetworkPropertiesModel(
       minTxFee: TokenAmountModel(
-        lowestDenominationAmount: Decimal.parse(properties.minTxFee),
+        defaultDenominationAmount: Decimal.parse(properties.minTxFee),
         tokenAliasModel: appConfig.defaultFeeTokenAliasModel,
       ),
       minIdentityApprovalTip: TokenAmountModel(
-        lowestDenominationAmount: Decimal.parse(properties.minIdentityApprovalTip),
+        defaultDenominationAmount: Decimal.parse(properties.minIdentityApprovalTip),
         tokenAliasModel: appConfig.defaultFeeTokenAliasModel,
       ),
     );

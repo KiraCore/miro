@@ -41,7 +41,7 @@ class TokenDropdownListItem extends StatelessWidget {
         ),
       ),
       title: Text(
-        tokenAliasModel.defaultTokenDenominationModel.name,
+        tokenAliasModel.networkTokenDenominationModel.name,
         style: textTheme.titleSmall!.copyWith(
           color: DesignColors.white1,
         ),

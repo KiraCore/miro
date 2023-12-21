@@ -75,11 +75,11 @@ class QueryBalanceService implements _IQueryBalanceService {
     List<BalanceModel> balanceModelList = List<BalanceModel>.empty(growable: true);
     for (Balance balance in queryBalanceResp.balances) {
       TokenAliasModel tokenAliasModel = tokenAliasModels.firstWhere((TokenAliasModel e) {
-        return e.lowestTokenDenominationModel.name == balance.denom;
+        return e.defaultTokenDenominationModel.name == balance.denom;
       }, orElse: () => TokenAliasModel.local(balance.denom));
 
       TokenAmountModel tokenAmountModel = TokenAmountModel(
-        lowestDenominationAmount: Decimal.parse(balance.amount),
+        defaultDenominationAmount: Decimal.parse(balance.amount),
         tokenAliasModel: tokenAliasModel,
       );
       balanceModelList.add(BalanceModel(tokenAmountModel: tokenAmountModel));

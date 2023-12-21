@@ -20,8 +20,8 @@ Future<void> main() async {
 
   const TokenAliasModel defaultFeeTokenAliasModel = TokenAliasModel(
     name: 'Kira',
-    lowestTokenDenominationModel: TokenDenominationModel(name: 'ukex', decimals: 0),
-    defaultTokenDenominationModel: TokenDenominationModel(name: 'KEX', decimals: 6),
+    defaultTokenDenominationModel: TokenDenominationModel(name: 'ukex', decimals: 0),
+    networkTokenDenominationModel: TokenDenominationModel(name: 'KEX', decimals: 6),
   );
 
   group('Tests of QueryNetworkPropertiesService.getTxFee() method', () {
@@ -35,7 +35,7 @@ Future<void> main() async {
 
       // Assert
       TokenAmountModel expectedTokenAmountModel = TokenAmountModel(
-        lowestDenominationAmount: Decimal.parse('100'),
+        defaultDenominationAmount: Decimal.parse('100'),
         tokenAliasModel: defaultFeeTokenAliasModel,
       );
 

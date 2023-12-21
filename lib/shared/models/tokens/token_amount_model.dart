@@ -4,20 +4,20 @@ import 'package:miro/shared/models/tokens/token_denomination_model.dart';
 
 class TokenAmountModel {
   final TokenAliasModel tokenAliasModel;
-  late Decimal _lowestDenominationAmount;
+  late Decimal _defaultDenominationAmount;
 
   TokenAmountModel({
-    required Decimal lowestDenominationAmount,
+    required Decimal defaultDenominationAmount,
     required this.tokenAliasModel,
   }) {
-    if (lowestDenominationAmount < Decimal.zero) {
-      _lowestDenominationAmount = Decimal.fromInt(-1);
+    if (defaultDenominationAmount < Decimal.zero) {
+      _defaultDenominationAmount = Decimal.fromInt(-1);
     } else {
-      _lowestDenominationAmount = lowestDenominationAmount;
+      _defaultDenominationAmount = defaultDenominationAmount;
     }
   }
 
-  TokenAmountModel.zero({required this.tokenAliasModel}) : _lowestDenominationAmount = Decimal.zero;
+  TokenAmountModel.zero({required this.tokenAliasModel}) : _defaultDenominationAmount = Decimal.zero;
 
   factory TokenAmountModel.fromString(String value) {
     RegExp regExpPattern = RegExp(r'(\d+)([a-zA-Z0-9/]+)');
@@ -27,37 +27,37 @@ class TokenAmountModel {
     String denom = regExpMatch.group(2)!;
 
     return TokenAmountModel(
-      lowestDenominationAmount: amount,
+      defaultDenominationAmount: amount,
       tokenAliasModel: TokenAliasModel.local(denom),
     );
   }
 
   TokenAmountModel copy() {
     return TokenAmountModel(
-      lowestDenominationAmount: _lowestDenominationAmount,
+      defaultDenominationAmount: _defaultDenominationAmount,
       tokenAliasModel: tokenAliasModel,
     );
   }
 
   int compareTo(TokenAmountModel tokenAmountModel) {
-    return tokenAmountModel._lowestDenominationAmount.compareTo(_lowestDenominationAmount);
-  }
-
-  Decimal getAmountInLowestDenomination() {
-    return _lowestDenominationAmount;
+    return tokenAmountModel._defaultDenominationAmount.compareTo(_defaultDenominationAmount);
   }
 
   Decimal getAmountInDefaultDenomination() {
-    return getAmountInDenomination(tokenAliasModel.defaultTokenDenominationModel);
+    return _defaultDenominationAmount;
+  }
+
+  Decimal getAmountInNetworkDenomination() {
+    return getAmountInDenomination(tokenAliasModel.networkTokenDenominationModel);
   }
 
   Decimal getAmountInDenomination(TokenDenominationModel tokenDenominationModel) {
-    bool isLowestTokenDenomination = tokenDenominationModel == tokenAliasModel.lowestTokenDenominationModel;
-    if (isLowestTokenDenomination) {
-      return _lowestDenominationAmount;
+    bool defaultTokenDenominationBool = tokenDenominationModel == tokenAliasModel.defaultTokenDenominationModel;
+    if (defaultTokenDenominationBool) {
+      return _defaultDenominationAmount;
     }
-    int decimalsDifference = tokenAliasModel.lowestTokenDenominationModel.decimals - tokenDenominationModel.decimals;
-    Decimal calculatedAmount = _lowestDenominationAmount.shift(decimalsDifference);
+    int decimalsDifference = tokenAliasModel.defaultTokenDenominationModel.decimals - tokenDenominationModel.decimals;
+    Decimal calculatedAmount = _defaultDenominationAmount.shift(decimalsDifference);
     return calculatedAmount;
   }
 
@@ -65,14 +65,14 @@ class TokenAmountModel {
     if (amount < Decimal.zero) {
       throw ArgumentError('Amount must be greater than zero');
     }
-    TokenDenominationModel lowestTokenDenomination = tokenAliasModel.lowestTokenDenominationModel;
+    TokenDenominationModel defaultTokenDenomination = tokenAliasModel.defaultTokenDenominationModel;
 
-    bool isLowestTokenDenomination = tokenDenominationModel == null || tokenDenominationModel == lowestTokenDenomination;
-    if (isLowestTokenDenomination) {
-      _lowestDenominationAmount = amount;
+    bool defaultTokenDenominationBool = tokenDenominationModel == null || tokenDenominationModel == defaultTokenDenomination;
+    if (defaultTokenDenominationBool) {
+      _defaultDenominationAmount = amount;
     } else {
-      int decimalsDifference = tokenDenominationModel.decimals - lowestTokenDenomination.decimals;
-      _lowestDenominationAmount = amount.shift(decimalsDifference);
+      int decimalsDifference = tokenDenominationModel.decimals - defaultTokenDenomination.decimals;
+      _defaultDenominationAmount = amount.shift(decimalsDifference);
     }
   }
 
@@ -80,9 +80,9 @@ class TokenAmountModel {
     if (tokenAmountModel.tokenAliasModel != tokenAliasModel) {
       return this;
     }
-    Decimal newAmount = _lowestDenominationAmount + tokenAmountModel._lowestDenominationAmount;
+    Decimal newAmount = _defaultDenominationAmount + tokenAmountModel._defaultDenominationAmount;
     return TokenAmountModel(
-      lowestDenominationAmount: newAmount,
+      defaultDenominationAmount: newAmount,
       tokenAliasModel: tokenAliasModel,
     );
   }
@@ -91,9 +91,9 @@ class TokenAmountModel {
     if (tokenAmountModel.tokenAliasModel != tokenAliasModel) {
       return this;
     }
-    Decimal newAmount = _lowestDenominationAmount - tokenAmountModel._lowestDenominationAmount;
+    Decimal newAmount = _defaultDenominationAmount - tokenAmountModel._defaultDenominationAmount;
     return TokenAmountModel(
-      lowestDenominationAmount: newAmount < Decimal.zero ? Decimal.zero : newAmount,
+      defaultDenominationAmount: newAmount < Decimal.zero ? Decimal.zero : newAmount,
       tokenAliasModel: tokenAliasModel,
     );
   }
@@ -103,14 +103,14 @@ class TokenAmountModel {
       identical(this, other) ||
       other is TokenAmountModel &&
           runtimeType == other.runtimeType &&
-          _lowestDenominationAmount == other._lowestDenominationAmount &&
+          _defaultDenominationAmount == other._defaultDenominationAmount &&
           tokenAliasModel == other.tokenAliasModel;
 
   @override
-  int get hashCode => _lowestDenominationAmount.hashCode ^ tokenAliasModel.hashCode;
+  int get hashCode => _defaultDenominationAmount.hashCode ^ tokenAliasModel.hashCode;
 
   @override
   String toString() {
-    return '${_lowestDenominationAmount} ${tokenAliasModel.lowestTokenDenominationModel.name}';
+    return '${_defaultDenominationAmount} ${tokenAliasModel.defaultTokenDenominationModel.name}';
   }
 }

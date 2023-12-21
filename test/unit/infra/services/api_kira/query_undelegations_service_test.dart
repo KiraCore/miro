@@ -48,7 +48,7 @@ Future<void> main() async {
             ),
             tokens: <TokenAmountModel>[
               TokenAmountModel(
-                lowestDenominationAmount: Decimal.fromInt(2000),
+                defaultDenominationAmount: Decimal.fromInt(2000),
                 tokenAliasModel: TokenAliasModel.local('ukex'),
               ),
             ],

@@ -29,25 +29,25 @@ Future<void> main() async {
     listItems: <BalanceModel>[
       BalanceModel(
         tokenAmountModel: TokenAmountModel(
-          lowestDenominationAmount: Decimal.parse('9878'),
+          defaultDenominationAmount: Decimal.parse('9878'),
           tokenAliasModel: TokenAliasModel.local('lol'),
         ),
       ),
       BalanceModel(
         tokenAmountModel: TokenAmountModel(
-          lowestDenominationAmount: Decimal.parse('90000000000000000000000000'),
+          defaultDenominationAmount: Decimal.parse('90000000000000000000000000'),
           tokenAliasModel: TokenAliasModel.local('samolean'),
         ),
       ),
       BalanceModel(
         tokenAmountModel: TokenAmountModel(
-          lowestDenominationAmount: Decimal.parse('199779999999631'),
+          defaultDenominationAmount: Decimal.parse('199779999999631'),
           tokenAliasModel: TokenAliasModel.local('test'),
         ),
       ),
       BalanceModel(
         tokenAmountModel: TokenAmountModel(
-          lowestDenominationAmount: Decimal.parse('856916'),
+          defaultDenominationAmount: Decimal.parse('856916'),
           tokenAliasModel: TokenAliasModel.local('ukex'),
         ),
       ),

@@ -49,7 +49,7 @@ class StakingMsgDelegateFormModel extends AMsgFormModel {
 
   @override
   bool canBuildTxMsg() {
-    bool amountZeroBool = tokenAmountModels?.length == 1 && tokenAmountModels?.first.getAmountInLowestDenomination() == Decimal.zero;
+    bool amountZeroBool = tokenAmountModels?.length == 1 && tokenAmountModels?.first.getAmountInDefaultDenomination() == Decimal.zero;
     bool fieldsFilledBool = _delegatorWalletAddress != null && _valoperWalletAddress != null && tokenAmountModels != null && amountZeroBool == false;
     return fieldsFilledBool;
   }
