@@ -1,9 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/network/data/block_time_model.dart';
+import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 
 class LastBlockTimeWidget extends StatefulWidget {
   final DateTime? blockTime;
@@ -36,30 +38,54 @@ class _LastBlockTimeWidget extends State<LastBlockTimeWidget> {
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
     BlockTimeModel? blockTimeModel = widget.blockTime != null ? BlockTimeModel(widget.blockTime!) : null;
-
-    return RichText(
-      text: TextSpan(
-        text: S.of(context).balancesLastBlockTime,
-        style: textTheme.bodySmall!.copyWith(
-          color: DesignColors.grey1,
-        ),
-        children: <TextSpan>[
-          TextSpan(
-            text: blockTimeModel?.toString() ?? '---',
+    if (ResponsiveWidget.isSmallScreen(context)) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          Text(
+            S.of(context).balancesLastBlockTime,
+            style: textTheme.bodySmall!.copyWith(
+              color: DesignColors.grey1,
+            ),
+          ),
+          Text(
+            _buildBlockTimeMessage(blockTimeModel),
             style: textTheme.bodySmall!.copyWith(
               color: _selectTextColor(blockTimeModel),
             ),
           ),
-          if (blockTimeModel != null && blockTimeModel.isOutdated())
+          const SizedBox(height: 6),
+        ],
+      );
+    } else {
+      return RichText(
+        text: TextSpan(
+          text: S.of(context).balancesLastBlockTime,
+          style: textTheme.bodySmall!.copyWith(
+            color: DesignColors.grey1,
+          ),
+          children: <TextSpan>[
             TextSpan(
-              text: S.of(context).balancesTimeSinceBlock(blockTimeModel.durationSinceBlock.inMinutes),
+              text: _buildBlockTimeMessage(blockTimeModel),
               style: textTheme.bodySmall!.copyWith(
                 color: _selectTextColor(blockTimeModel),
               ),
-            )
-        ],
-      ),
-    );
+            ),
+          ],
+        ),
+      );
+    }
+  }
+
+  String _buildBlockTimeMessage(BlockTimeModel? blockTimeModel) {
+    String text = '---';
+    if (blockTimeModel != null) {
+    text = DateFormat('d MMM y, HH:mm').format(blockTimeModel.blockTime.toLocal());
+    }
+    if (blockTimeModel != null && blockTimeModel.isOutdated()) {
+      text = text + S.of(context).balancesTimeSinceBlock(blockTimeModel.durationSinceBlock.inMinutes);
+    }
+    return text;
   }
 
   Color _selectTextColor(BlockTimeModel? blockTimeModel) {

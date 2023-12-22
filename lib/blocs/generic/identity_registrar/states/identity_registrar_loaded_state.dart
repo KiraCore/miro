@@ -4,8 +4,9 @@ import 'package:miro/shared/models/identity_registrar/ir_model.dart';
 class IdentityRegistrarLoadedState extends AIdentityRegistrarState {
   const IdentityRegistrarLoadedState({
     required IRModel irModel,
-  }) : super(irModel: irModel);
+    DateTime? blockDateTime,
+  }) : super(irModel: irModel, blockDateTime: blockDateTime);
 
   @override
-  List<Object?> get props => <Object?>[runtimeType, irModel];
+  List<Object?> get props => <Object?>[runtimeType, irModel, blockDateTime];
 }

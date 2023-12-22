@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:miro/views/widgets/buttons/timed_refresh_button.dart';
 import 'package:miro/views/widgets/generic/center_load_spinner.dart';
+import 'package:miro/views/widgets/generic/responsive/responsive_value.dart';
 import 'package:miro/views/widgets/kira/kira_list/components/last_block_time_widget.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 
@@ -47,7 +48,10 @@ class SliverListLayout extends StatelessWidget {
             child: IgnorePointer(
               ignoring: loadingOverlayVisibleBool,
               child: SizedBox(
-                height: 30,
+                height: const ResponsiveValue<double>(
+                  largeScreen: 30,
+                  smallScreen: 36,
+                ).get(context),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[

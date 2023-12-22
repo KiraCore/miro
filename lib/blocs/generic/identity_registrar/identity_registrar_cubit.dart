@@ -10,6 +10,7 @@ import 'package:miro/config/locator.dart';
 import 'package:miro/infra/services/api_kira/identity_records_service.dart';
 import 'package:miro/shared/controllers/page_reload/page_reload_controller.dart';
 import 'package:miro/shared/models/identity_registrar/ir_model.dart';
+import 'package:miro/shared/models/network/block_time_wrapper_model.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';
@@ -55,10 +56,16 @@ class IdentityRegistrarCubit extends Cubit<AIdentityRegistrarState> {
     }
 
     try {
-      IRModel irModel = await _identityRecordsService.getIdentityRecordsByAddress(walletAddress!, forceRequestBool: forceRequestBool);
+      BlockTimeWrapperModel<IRModel> wrappedIrModel = await _identityRecordsService.getIdentityRecordsByAddress(
+        walletAddress!,
+        forceRequestBool: forceRequestBool,
+      );
       bool reloadActiveBool = pageReloadController.canReloadComplete(localReloadId) && isClosed == false;
       if (reloadActiveBool) {
-        emit(IdentityRegistrarLoadedState(irModel: irModel));
+        emit(IdentityRegistrarLoadedState(
+          irModel: wrappedIrModel.model,
+          blockDateTime: wrappedIrModel.blockDateTime,
+        ));
       }
     } catch (e) {
       AppLogger().log(message: 'Cannot fetch identity records for wallet address ${walletAddress!.bech32Address}: Reason: ${e.runtimeType}');
