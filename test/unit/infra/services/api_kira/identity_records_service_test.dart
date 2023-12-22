@@ -11,6 +11,7 @@ import 'package:miro/shared/models/identity_registrar/ir_record_model.dart';
 import 'package:miro/shared/models/identity_registrar/ir_record_verification_request_model.dart';
 import 'package:miro/shared/models/identity_registrar/ir_user_profile_model.dart';
 import 'package:miro/shared/models/identity_registrar/ir_verification_request_status.dart';
+import 'package:miro/shared/models/network/block_time_wrapper_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/shared/utils/network_utils.dart';
@@ -81,10 +82,11 @@ Future<void> main() async {
       await TestUtils.setupNetworkModel(networkUri: networkUri);
 
       // Act
-      IRModel actualIrModel = await actualIdentityRecordsService.getIdentityRecordsByAddress(actualWalletAddress);
+      BlockTimeWrapperModel<IRModel> actualWrappedIRModel = await actualIdentityRecordsService.getIdentityRecordsByAddress(actualWalletAddress);
+      IRModel actualIRModel = actualWrappedIRModel.model;
 
       // Assert
-      expect(actualIrModel, expectedRequesterIRModel);
+      expect(actualIRModel, expectedRequesterIRModel);
     });
 
     test(

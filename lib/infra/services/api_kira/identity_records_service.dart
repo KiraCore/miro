@@ -21,13 +21,14 @@ import 'package:miro/shared/models/identity_registrar/ir_record_model.dart';
 import 'package:miro/shared/models/identity_registrar/ir_record_verification_request_model.dart';
 import 'package:miro/shared/models/identity_registrar/ir_user_profile_model.dart';
 import 'package:miro/shared/models/identity_registrar/ir_verification_request_status.dart';
+import 'package:miro/shared/models/network/block_time_wrapper_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';
 import 'package:miro/shared/utils/logger/log_level.dart';
 
 abstract class _IIdentityRecordsService {
-  Future<IRModel> getIdentityRecordsByAddress(WalletAddress walletAddress);
+  Future<BlockTimeWrapperModel<IRModel>> getIdentityRecordsByAddress(WalletAddress walletAddress);
 
   Future<PageData<IRInboundVerificationRequestModel>> getInboundVerificationRequests(
       QueryIdentityRecordVerifyRequestsByApproverReq queryIdentityRecordVerifyRequestsByApproverReq);
@@ -40,7 +41,7 @@ class IdentityRecordsService implements _IIdentityRecordsService {
   final IApiKiraRepository _apiKiraRepository = globalLocator<IApiKiraRepository>();
 
   @override
-  Future<IRModel> getIdentityRecordsByAddress(WalletAddress walletAddress, {bool forceRequestBool = false}) async {
+  Future<BlockTimeWrapperModel<IRModel>> getIdentityRecordsByAddress(WalletAddress walletAddress, {bool forceRequestBool = false}) async {
     Uri networkUri = globalLocator<NetworkModuleBloc>().state.networkUri;
 
     Response<dynamic> response = await _apiKiraRepository.fetchQueryIdentityRecordsByAddress<dynamic>(ApiRequestModel<String>(
@@ -52,12 +53,13 @@ class IdentityRecordsService implements _IIdentityRecordsService {
 
     try {
       QueryIdentityRecordsByAddressResp queryIdentityRecordsByAddressResp = QueryIdentityRecordsByAddressResp.fromJson(response.data as Map<String, dynamic>);
+      InterxHeaders interxHeaders = InterxHeaders.fromHeaders(response.headers);
       IRModel irModel = IRModel.fromDto(
         walletAddress: walletAddress,
         records: queryIdentityRecordsByAddressResp.records,
         pendingVerifications: pendingVerifications,
       );
-      return irModel;
+      return BlockTimeWrapperModel<IRModel>(model: irModel, blockDateTime: interxHeaders.blockDateTime);
     } catch (e) {
       AppLogger().log(message: 'IdentityRecordsService: Cannot parse getIdentityRecordsByAddress() for URI $networkUri ${e}', logLevel: LogLevel.error);
       throw DioParseException(response: response, error: e);
@@ -66,15 +68,14 @@ class IdentityRecordsService implements _IIdentityRecordsService {
 
   @override
   Future<PageData<IRInboundVerificationRequestModel>> getInboundVerificationRequests(
-      QueryIdentityRecordVerifyRequestsByApproverReq queryIdentityRecordVerifyRequestsByApproverReq, {bool forceRequestBool = true}) async {
+    QueryIdentityRecordVerifyRequestsByApproverReq queryIdentityRecordVerifyRequestsByApproverReq, {
+    bool forceRequestBool = true,
+  }) async {
     Uri networkUri = globalLocator<NetworkModuleBloc>().state.networkUri;
 
     Response<dynamic> response = await _apiKiraRepository.fetchQueryIdentityRecordVerifyRequestsByApprover<dynamic>(
       ApiRequestModel<QueryIdentityRecordVerifyRequestsByApproverReq>(
-        networkUri: networkUri,
-        requestData: queryIdentityRecordVerifyRequestsByApproverReq,
-        forceRequestBool: forceRequestBool
-      ),
+          networkUri: networkUri, requestData: queryIdentityRecordVerifyRequestsByApproverReq, forceRequestBool: forceRequestBool),
     );
 
     late QueryIdentityRecordVerifyRequestsByApproverResp queryIdentityRecordVerifyRequestsByApproverResp;
@@ -190,9 +191,9 @@ class IdentityRecordsService implements _IIdentityRecordsService {
     Map<WalletAddress, IRUserProfileModel> irUserProfileModelsMap = Map<WalletAddress, IRUserProfileModel>.fromEntries(
       await Future.wait(
         walletAddressList.map((WalletAddress walletAddress) async {
-          IRModel irModel = await getIdentityRecordsByAddress(walletAddress);
-          IRUserProfileModel irUserProfileModel = IRUserProfileModel.fromIrModel(irModel);
-          return MapEntry<WalletAddress, IRUserProfileModel>(irModel.walletAddress, irUserProfileModel);
+          BlockTimeWrapperModel<IRModel> wrappedIrModel = await getIdentityRecordsByAddress(walletAddress);
+          IRUserProfileModel irUserProfileModel = IRUserProfileModel.fromIrModel(wrappedIrModel.model);
+          return MapEntry<WalletAddress, IRUserProfileModel>(wrappedIrModel.model.walletAddress, irUserProfileModel);
         }),
       ),
     );

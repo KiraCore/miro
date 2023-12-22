@@ -110,6 +110,7 @@ void main() {
             ),
           ],
         ),
+        blockDateTime: DateTime.parse('2022-08-26 22:08:27.607Z'),
       );
 
       TestUtils.printInfo('Should return [IdentityRegistrarLoadedState] with [FILLED IRModel] if [WalletAddress exists] and [network CONNECTED]');

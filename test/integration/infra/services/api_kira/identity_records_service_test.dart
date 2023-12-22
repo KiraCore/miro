@@ -9,6 +9,7 @@ import 'package:miro/shared/models/identity_registrar/ir_inbound_verification_re
 import 'package:miro/shared/models/identity_registrar/ir_model.dart';
 import 'package:miro/shared/models/identity_registrar/ir_record_model.dart';
 import 'package:miro/shared/models/identity_registrar/ir_record_verification_request_model.dart';
+import 'package:miro/shared/models/network/block_time_wrapper_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/shared/utils/network_utils.dart';
 import 'package:miro/test/utils/test_utils.dart';
@@ -29,7 +30,8 @@ Future<void> main() async {
     test('Should return [IRModel] with all identity records assigned to selected address', () async {
       TestUtils.printInfo('Data request');
       try {
-        IRModel actualIRModel = await actualIdentityRecordsService.getIdentityRecordsByAddress(actualWalletAddress);
+        BlockTimeWrapperModel<IRModel> actualWrappedIRModel = await actualIdentityRecordsService.getIdentityRecordsByAddress(actualWalletAddress);
+        IRModel actualIRModel = actualWrappedIRModel.model;
 
         TestUtils.printInfo('Data return');
         print(actualIRModel);

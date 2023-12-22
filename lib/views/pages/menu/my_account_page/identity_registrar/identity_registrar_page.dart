@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/generic/identity_registrar/a_identity_registrar_state.dart';
 import 'package:miro/blocs/generic/identity_registrar/identity_registrar_cubit.dart';
+import 'package:miro/blocs/generic/identity_registrar/states/identity_registrar_loaded_state.dart';
 import 'package:miro/blocs/generic/identity_registrar/states/identity_registrar_loading_state.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';
@@ -18,6 +19,7 @@ import 'package:miro/views/pages/menu/my_account_page/identity_registrar/ir_cust
 import 'package:miro/views/pages/menu/my_account_page/identity_registrar/ir_record_tile/desktop/ir_record_tile_desktop_layout.dart';
 import 'package:miro/views/pages/menu/my_account_page/identity_registrar/ir_record_tile/ir_record_tile.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
+import 'package:miro/views/widgets/kira/kira_list/components/last_block_time_widget.dart';
 
 class IdentityRegistrarPage extends StatefulWidget {
   final WalletAddress walletAddress;
@@ -48,6 +50,13 @@ class _IdentityRegistrarPage extends State<IdentityRegistrarPage> {
           return Column(
             children: <Widget>[
               const SizedBox(height: 24),
+              Align(
+                alignment: Alignment.bottomLeft,
+                child: LastBlockTimeWidget(
+                  blockTime: identityRegistrarState is IdentityRegistrarLoadedState ? identityRegistrarState.blockDateTime : null,
+                ),
+              ),
+              const SizedBox(height: 6),
               Container(
                 margin: const EdgeInsets.only(bottom: 40),
                 width: double.infinity,
