@@ -12,6 +12,6 @@ export PATH="$PATH:/usr/lib/dart/bin"
 export PATH="$PATH:$HOME/.pub-cache/bin"
 export PATH="$PATH:./.fvm/flutter_sdk"
 dart pub global activate fvm
-fvm install 3.13.6
-fvm use 3.13.6
+fvm install 2.5.3
+fvm use 2.5.3
 fvm flutter build web
