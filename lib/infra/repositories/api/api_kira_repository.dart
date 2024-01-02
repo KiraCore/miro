@@ -2,272 +2,179 @@ import 'package:dio/dio.dart';
 import 'package:miro/infra/dto/api_kira/broadcast/request/broadcast_req.dart';
 import 'package:miro/infra/dto/api_kira/query_account/request/query_account_req.dart';
 import 'package:miro/infra/dto/api_kira/query_balance/request/query_balance_req.dart';
-import 'package:miro/infra/dto/api_kira/query_delegations/request/query_delegations_req.dart';
 import 'package:miro/infra/dto/api_kira/query_execution_fee/request/query_execution_fee_request.dart';
-import 'package:miro/infra/dto/api_kira/query_identity_record_verify_requests/request/query_identity_record_verify_requests_by_approver_req.dart';
-import 'package:miro/infra/dto/api_kira/query_identity_record_verify_requests/request/query_identity_record_verify_requests_by_requester_req.dart';
-import 'package:miro/infra/dto/api_kira/query_staking_pool/request/query_staking_pool_req.dart';
-import 'package:miro/infra/dto/api_kira/query_undelegations/request/query_undelegations_req.dart';
+import 'package:miro/infra/dto/api_kira/query_identity_record_verify_requests_by_requester/request/query_identity_record_verify_requests_by_requester_resp.dart';
 import 'package:miro/infra/exceptions/dio_connect_exception.dart';
 import 'package:miro/infra/managers/api/http_client_manager.dart';
-import 'package:miro/infra/models/api_cache_config_model.dart';
-import 'package:miro/infra/models/api_request_model.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';
 
 abstract class IApiKiraRepository {
-  Future<Response<T>> broadcast<T>(ApiRequestModel<BroadcastReq> apiRequestModel);
+  Future<Response<T>> broadcast<T>(Uri networkUri, BroadcastReq request);
 
-  Future<Response<T>> fetchQueryAccount<T>(ApiRequestModel<QueryAccountReq> apiRequestModel);
+  Future<Response<T>> fetchQueryAccount<T>(Uri networkUri, QueryAccountReq request);
 
-  Future<Response<T>> fetchQueryBalance<T>(ApiRequestModel<QueryBalanceReq> apiRequestModel);
+  Future<Response<T>> fetchQueryBalance<T>(Uri networkUri, QueryBalanceReq queryBalanceReq);
 
-  Future<Response<T>> fetchQueryDelegations<T>(ApiRequestModel<QueryDelegationsReq> apiRequestModel);
+  Future<Response<T>> fetchQueryExecutionFee<T>(Uri networkUri, QueryExecutionFeeRequest queryExecutionFeeRequest);
 
-  Future<Response<T>> fetchQueryExecutionFee<T>(ApiRequestModel<QueryExecutionFeeRequest> apiRequestModel);
+  Future<Response<T>> fetchQueryGovernanceProposals<T>(Uri networkUri);
 
-  Future<Response<T>> fetchQueryIdentityRecordsByAddress<T>(ApiRequestModel<String> apiRequestModel);
+  Future<Response<T>> fetchQueryIdentityRecordsByAddress<T>(Uri networkUri, String creator);
 
-  Future<Response<T>> fetchQueryIdentityRecordById<T>(ApiRequestModel<String> apiRequestModel);
+  Future<Response<T>> fetchQueryIdentityRecordVerifyRequestsByRequester<T>(Uri networkUri, QueryIdentityRecordVerifyRequestsByRequesterReq queryIdentityRecordVerifyRequestsByRequesterReq);
 
-  Future<Response<T>> fetchQueryIdentityRecordVerifyRequestsByApprover<T>(ApiRequestModel<QueryIdentityRecordVerifyRequestsByApproverReq> apiRequestModel);
+  Future<Response<T>> fetchQueryKiraTokensAliases<T>(Uri networkUri);
 
-  Future<Response<T>> fetchQueryIdentityRecordVerifyRequestsByRequester<T>(ApiRequestModel<QueryIdentityRecordVerifyRequestsByRequesterReq> apiRequestModel);
+  Future<Response<T>> fetchQueryKiraTokensRates<T>(Uri networkUri);
 
-  Future<Response<T>> fetchQueryKiraTokensAliases<T>(ApiRequestModel<void> apiRequestModel);
-
-  Future<Response<T>> fetchQueryKiraTokensRates<T>(ApiRequestModel<void> apiRequestModel);
-
-  Future<Response<T>> fetchQueryNetworkProperties<T>(ApiRequestModel<void> apiRequestModel);
-
-  Future<Response<T>> fetchQueryStakingPool<T>(ApiRequestModel<QueryStakingPoolReq> apiRequestModel);
-
-  Future<Response<T>> fetchQueryUndelegations<T>(ApiRequestModel<QueryUndelegationsReq> apiRequestModel);
+  Future<Response<T>> fetchQueryNetworkProperties<T>(Uri networkUri);
 }
 
 class RemoteApiKiraRepository implements IApiKiraRepository {
   final HttpClientManager _httpClientManager = HttpClientManager();
 
   @override
-  Future<Response<T>> broadcast<T>(ApiRequestModel<BroadcastReq> apiRequestModel) async {
+  Future<Response<T>> broadcast<T>(Uri networkUri, BroadcastReq request) async {
     try {
       final Response<T> response = await _httpClientManager.post<T>(
-        body: apiRequestModel.requestData.toJson(),
-        networkUri: apiRequestModel.networkUri,
+        body: request.toJson(),
+        networkUri: networkUri,
         path: '/api/kira/txs',
-        apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: true),
       );
       return response;
-    } on DioException catch (dioException) {
-      AppLogger().log(message: 'Cannot fetch broadcast() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
-      throw DioConnectException(dioException: dioException);
+    } on DioError catch (dioError) {
+      AppLogger().log(message: 'RemoteApiKiraRepository: Cannot fetch broadcast for URI $networkUri: ${dioError.message}');
+      throw DioConnectException(dioError: dioError);
     }
   }
 
   @override
-  Future<Response<T>> fetchQueryAccount<T>(ApiRequestModel<QueryAccountReq> apiRequestModel) async {
+  Future<Response<T>> fetchQueryAccount<T>(Uri networkUri, QueryAccountReq request) async {
     try {
       final Response<T> response = await _httpClientManager.get<T>(
-        networkUri: apiRequestModel.networkUri,
-        path: '/api/kira/accounts/${apiRequestModel.requestData.address}',
-        apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: true),
+        networkUri: networkUri,
+        path: '/api/kira/accounts/${request.address}',
       );
       return response;
-    } on DioException catch (dioException) {
-      AppLogger().log(message: 'Cannot fetch fetchQueryAccount() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
-      throw DioConnectException(dioException: dioException);
+    } on DioError catch (dioError) {
+      AppLogger().log(message: 'RemoteApiKiraRepository: Cannot fetch fetchQueryAccount() for URI $networkUri: ${dioError.message}');
+      throw DioConnectException(dioError: dioError);
     }
   }
 
   @override
-  Future<Response<T>> fetchQueryBalance<T>(ApiRequestModel<QueryBalanceReq> apiRequestModel) async {
+  Future<Response<T>> fetchQueryBalance<T>(Uri networkUri, QueryBalanceReq queryBalanceReq) async {
     try {
       final Response<T> response = await _httpClientManager.get<T>(
-        networkUri: apiRequestModel.networkUri,
-        path: '/api/kira/balances/${apiRequestModel.requestData.address}',
-        queryParameters: apiRequestModel.requestData.toJson(),
-        apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: apiRequestModel.forceRequestBool),
+        networkUri: networkUri,
+        path: '/api/kira/balances/${queryBalanceReq.address}',
+        queryParameters: queryBalanceReq.toJson(),
       );
       return response;
-    } on DioException catch (dioException) {
-      AppLogger().log(message: 'Cannot fetch fetchQueryBalance() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
-      throw DioConnectException(dioException: dioException);
+    } on DioError catch (dioError) {
+      AppLogger().log(message: 'RemoteApiKiraRepository: Cannot fetch fetchQueryBalance() for URI $networkUri: ${dioError.message}');
+      throw DioConnectException(dioError: dioError);
     }
   }
 
   @override
-  Future<Response<T>> fetchQueryDelegations<T>(ApiRequestModel<QueryDelegationsReq> apiRequestModel) async {
+  Future<Response<T>> fetchQueryExecutionFee<T>(Uri networkUri, QueryExecutionFeeRequest queryExecutionFeeRequest) async {
     try {
       final Response<T> response = await _httpClientManager.get<T>(
-        networkUri: apiRequestModel.networkUri,
-        path: '/api/kira/delegations',
-        queryParameters: apiRequestModel.requestData.toJson(),
-        apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: apiRequestModel.forceRequestBool),
-      );
-      return response;
-    } on DioException catch (dioException) {
-      AppLogger().log(message: 'Cannot fetch fetchQueryDelegations() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
-      throw DioConnectException(dioException: dioException);
-    }
-  }
-
-  @override
-  Future<Response<T>> fetchQueryExecutionFee<T>(ApiRequestModel<QueryExecutionFeeRequest> apiRequestModel) async {
-    try {
-      final Response<T> response = await _httpClientManager.get<T>(
-        networkUri: apiRequestModel.networkUri,
+        networkUri: networkUri,
         path: '/api/kira/gov/execution_fee',
-        queryParameters: apiRequestModel.requestData.toJson(),
-        apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: apiRequestModel.forceRequestBool),
+        queryParameters: queryExecutionFeeRequest.toJson(),
       );
       return response;
-    } on DioException catch (dioException) {
-      AppLogger().log(message: 'Cannot fetch fetchQueryDelegations() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
-      throw DioConnectException(dioException: dioException);
+    } on DioError catch (dioError) {
+      AppLogger().log(message: 'RemoteApiKiraRepository: Cannot fetch fetchQueryExecutionFee for URI $networkUri: ${dioError.message}');
+      throw DioConnectException(dioError: dioError);
     }
   }
 
   @override
-  Future<Response<T>> fetchQueryIdentityRecordsByAddress<T>(ApiRequestModel<String> apiRequestModel) async {
+  Future<Response<T>> fetchQueryGovernanceProposals<T>(Uri networkUri) async {
     try {
       final Response<T> response = await _httpClientManager.get<T>(
-        networkUri: apiRequestModel.networkUri,
-        path: '/api/kira/gov/identity_records/${apiRequestModel.requestData}',
-        apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: apiRequestModel.forceRequestBool),
+        networkUri: networkUri,
+        path: '/api/kira/gov/proposals',
       );
       return response;
-    } on DioException catch (dioException) {
-      AppLogger().log(message: 'Cannot fetch fetchQueryIdentityRecordsByAddress() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
-      throw DioConnectException(dioException: dioException);
+    } on DioError catch (dioError) {
+      AppLogger().log(message: 'RemoteApiKiraRepository: Cannot fetch fetchQueryGovernanceProposals() for URI $networkUri: ${dioError.message}');
+      throw DioConnectException(dioError: dioError);
     }
   }
 
   @override
-  Future<Response<T>> fetchQueryIdentityRecordById<T>(ApiRequestModel<String> apiRequestModel) async {
+  Future<Response<T>> fetchQueryIdentityRecordsByAddress<T>(Uri networkUri, String creator) async {
     try {
       final Response<T> response = await _httpClientManager.get<T>(
-        networkUri: apiRequestModel.networkUri,
-        path: '/api/kira/gov/identity_record/${apiRequestModel.requestData}',
-        apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: apiRequestModel.forceRequestBool),
+        networkUri: networkUri,
+        path: '/api/kira/gov/identity_records/$creator',
       );
       return response;
-    } on DioException catch (dioException) {
-      AppLogger().log(message: 'Cannot fetch fetchQueryIdentityRecordById() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
-      throw DioConnectException(dioException: dioException);
+    } on DioError catch (dioError) {
+      AppLogger().log(message: 'RemoteApiKiraRepository: Cannot fetch fetchQueryIdentityRecordsByAddress() for URI $networkUri: ${dioError.message}');
+      throw DioConnectException(dioError: dioError);
     }
   }
 
   @override
-  Future<Response<T>> fetchQueryIdentityRecordVerifyRequestsByApprover<T>(
-      ApiRequestModel<QueryIdentityRecordVerifyRequestsByApproverReq> apiRequestModel) async {
+  Future<Response<T>> fetchQueryIdentityRecordVerifyRequestsByRequester<T>(Uri networkUri, QueryIdentityRecordVerifyRequestsByRequesterReq queryIdentityRecordVerifyRequestsByRequesterReq) async {
     try {
       final Response<T> response = await _httpClientManager.get<T>(
-        networkUri: apiRequestModel.networkUri,
-        path: '/api/kira/gov/identity_verify_requests_by_approver/${apiRequestModel.requestData.address}',
-        queryParameters: apiRequestModel.requestData.queryParameters,
-        apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: apiRequestModel.forceRequestBool),
+        networkUri: networkUri,
+        path: '/api/kira/gov/identity_verify_requests_by_requester/${queryIdentityRecordVerifyRequestsByRequesterReq.address}',
       );
       return response;
-    } on DioException catch (dioException) {
+    } on DioError catch (dioError) {
       AppLogger().log(
-        message: 'Cannot fetch fetchQueryIdentityRecordVerifyRequestsByApprover() for URI ${apiRequestModel.networkUri}: ${dioException.message}',
+        message: 'RemoteApiKiraRepository: Cannot fetch fetchQueryIdentityRecordVerifyRequestsByRequester() for URI $networkUri: ${dioError.message}',
       );
-      throw DioConnectException(dioException: dioException);
+      throw DioConnectException(dioError: dioError);
     }
   }
 
   @override
-  Future<Response<T>> fetchQueryIdentityRecordVerifyRequestsByRequester<T>(
-      ApiRequestModel<QueryIdentityRecordVerifyRequestsByRequesterReq> apiRequestModel) async {
+  Future<Response<T>> fetchQueryKiraTokensAliases<T>(Uri networkUri) async {
     try {
       final Response<T> response = await _httpClientManager.get<T>(
-        networkUri: apiRequestModel.networkUri,
-        path: '/api/kira/gov/identity_verify_requests_by_requester/${apiRequestModel.requestData.address}',
-        queryParameters: apiRequestModel.requestData.queryParameters,
-        apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: apiRequestModel.forceRequestBool),
-      );
-      return response;
-    } on DioException catch (dioException) {
-      AppLogger().log(
-        message: 'Cannot fetch fetchQueryIdentityRecordVerifyRequestsByRequester() for URI ${apiRequestModel.networkUri}: ${dioException.message}',
-      );
-      throw DioConnectException(dioException: dioException);
-    }
-  }
-
-  @override
-  Future<Response<T>> fetchQueryKiraTokensAliases<T>(ApiRequestModel<void> apiRequestModel) async {
-    try {
-      final Response<T> response = await _httpClientManager.get<T>(
-        networkUri: apiRequestModel.networkUri,
+        networkUri: networkUri,
         path: '/api/kira/tokens/aliases',
-        apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: apiRequestModel.forceRequestBool),
       );
       return response;
-    } on DioException catch (dioException) {
-      AppLogger().log(message: 'Cannot fetch fetchQueryKiraTokensAliases() for URI ${apiRequestModel.networkUri} ${dioException.message}');
-      throw DioConnectException(dioException: dioException);
+    } on DioError catch (dioError) {
+      AppLogger().log(message: 'RemoteApiKiraRepository: Cannot fetch fetchQueryKiraTokensAliases() for URI $networkUri ${dioError.message}');
+      throw DioConnectException(dioError: dioError);
     }
   }
 
   @override
-  Future<Response<T>> fetchQueryKiraTokensRates<T>(ApiRequestModel<void> apiRequestModel) async {
+  Future<Response<T>> fetchQueryKiraTokensRates<T>(Uri networkUri) async {
     try {
       final Response<T> response = await _httpClientManager.get<T>(
-        networkUri: apiRequestModel.networkUri,
+        networkUri: networkUri,
         path: '/api/kira/tokens/rates',
-        apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: apiRequestModel.forceRequestBool),
       );
       return response;
-    } on DioException catch (dioException) {
-      AppLogger().log(message: 'Cannot fetch fetchQueryKiraTokensRates() for URI ${apiRequestModel.networkUri} ${dioException.message}');
-      throw DioConnectException(dioException: dioException);
+    } on DioError catch (dioError) {
+      AppLogger().log(message: 'RemoteApiKiraRepository: Cannot fetch fetchQueryKiraTokensRates() for URI $networkUri ${dioError.message}');
+      throw DioConnectException(dioError: dioError);
     }
   }
 
   @override
-  Future<Response<T>> fetchQueryNetworkProperties<T>(ApiRequestModel<void> apiRequestModel) async {
+  Future<Response<T>> fetchQueryNetworkProperties<T>(Uri networkUri) async {
     try {
       final Response<T> response = await _httpClientManager.get<T>(
-        networkUri: apiRequestModel.networkUri,
+        networkUri: networkUri,
         path: '/api/kira/gov/network_properties',
-        apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: apiRequestModel.forceRequestBool),
       );
       return response;
-    } on DioException catch (dioException) {
-      AppLogger().log(message: 'Cannot fetch fetchQueryNetworkProperties() for URI ${apiRequestModel.networkUri} ${dioException.message}');
-      throw DioConnectException(dioException: dioException);
-    }
-  }
-
-  @override
-  Future<Response<T>> fetchQueryStakingPool<T>(ApiRequestModel<QueryStakingPoolReq> apiRequestModel) async {
-    try {
-      final Response<T> response = await _httpClientManager.get<T>(
-        networkUri: apiRequestModel.networkUri,
-        path: '/api/kira/staking-pool',
-        queryParameters: apiRequestModel.requestData.toJson(),
-        apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: apiRequestModel.forceRequestBool),
-      );
-      return response;
-    } on DioException catch (dioException) {
-      AppLogger().log(message: 'Cannot fetch fetchQueryStakingPool() for URI ${apiRequestModel.networkUri} ${dioException.message}');
-      throw DioConnectException(dioException: dioException);
-    }
-  }
-
-  @override
-  Future<Response<T>> fetchQueryUndelegations<T>(ApiRequestModel<QueryUndelegationsReq> apiRequestModel) async {
-    try {
-      final Response<T> response = await _httpClientManager.get<T>(
-        networkUri: apiRequestModel.networkUri,
-        path: '/api/kira/undelegations',
-        queryParameters: apiRequestModel.requestData.toJson(),
-        apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: apiRequestModel.forceRequestBool),
-      );
-      return response;
-    } on DioException catch (dioException) {
-      AppLogger().log(message: 'Cannot fetch fetchQueryUndelegations() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
-      throw DioConnectException(dioException: dioException);
+    } on DioError catch (dioError) {
+      AppLogger().log(message: 'RemoteApiKiraRepository: Cannot fetch fetchQueryNetworkProperties() for URI $networkUri ${dioError.message}');
+      throw DioConnectException(dioError: dioError);
     }
   }
 }
