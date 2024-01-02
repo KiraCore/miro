@@ -22,34 +22,27 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m0(time) => " (${time} minutes ago)";
 
-  static String m1(verificationsCount) =>
-      "Verifications: ${verificationsCount}";
-
-  static String m2(amount) => "Tip must be greater or equal ${amount}";
-
-  static String m3(separator, networkName, parsedRemainingTime) =>
+  static String m1(separator, networkName, parsedRemainingTime) =>
       "Connecting to <${networkName}>${separator} Please wait... ${parsedRemainingTime}";
 
-  static String m4(errorsCount) => "Found ${errorsCount} problems with server";
+  static String m2(errorsCount) => "Found ${errorsCount} problems with server";
 
-  static String m5(latestBlockTime) =>
+  static String m3(latestBlockTime) =>
       "The last available block on this interx was created long time ago ${latestBlockTime}. The displayed contents may be out of date.";
 
-  static String m6(seconds) => "Refresh in ${seconds} sec.";
-
-  static String m7(availableAmountText, tokenDenominationModelName) =>
+  static String m4(availableAmountText, tokenDenominationModelName) =>
       "Available: ${availableAmountText} ${tokenDenominationModelName}";
 
-  static String m8(hash) => "Transaction hash: 0x${hash}";
+  static String m5(hash) => "Transaction hash: 0x${hash}";
 
-  static String m9(amount) => "+ ${amount} more";
+  static String m6(amount) => "+ ${amount} more";
 
-  static String m10(widgetFeeTokenAmountModel) =>
+  static String m7(widgetFeeTokenAmountModel) =>
       "Transaction fee ${widgetFeeTokenAmountModel}";
 
-  static String m11(txMsgType) => "Preview for ${txMsgType} unavailable";
+  static String m8(txMsgType) => "Preview for ${txMsgType} unavailable";
 
-  static String m12(selected) => "${selected} selected";
+  static String m9(selected) => "${selected} selected";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -115,7 +108,6 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Don\'t have a wallet?"),
         "createWalletTitle":
             MessageLookupByLibrary.simpleMessage("Create a wallet"),
-        "creationDate": MessageLookupByLibrary.simpleMessage("Creation date"),
         "dashboard": MessageLookupByLibrary.simpleMessage("Dashboard"),
         "error": MessageLookupByLibrary.simpleMessage("Error"),
         "errorCannotFetchData":
@@ -129,84 +121,24 @@ class MessageLookup extends MessageLookupByLibrary {
         "errorUnknown": MessageLookupByLibrary.simpleMessage("Unknown error"),
         "governance": MessageLookupByLibrary.simpleMessage("Governance"),
         "ir": MessageLookupByLibrary.simpleMessage("Identity Registrar"),
-        "irAddCustomRecord":
-            MessageLookupByLibrary.simpleMessage("Add custom record"),
+        "irAddCustomEntry":
+            MessageLookupByLibrary.simpleMessage("Add custom entry"),
         "irAvatar": MessageLookupByLibrary.simpleMessage("Avatar"),
-        "irContact": MessageLookupByLibrary.simpleMessage("Contact"),
         "irDescription": MessageLookupByLibrary.simpleMessage("Description"),
         "irEntries": MessageLookupByLibrary.simpleMessage("Entries"),
         "irRecordAdd": MessageLookupByLibrary.simpleMessage("Add"),
-        "irRecordConfirmedVerifications": MessageLookupByLibrary.simpleMessage(
-            "Confirmed verification requests"),
         "irRecordDelete": MessageLookupByLibrary.simpleMessage("Delete"),
-        "irRecordDetails":
-            MessageLookupByLibrary.simpleMessage("Identity record details"),
         "irRecordEdit": MessageLookupByLibrary.simpleMessage("Edit"),
-        "irRecordPendingVerifications": MessageLookupByLibrary.simpleMessage(
-            "Pending verification requests"),
         "irRecordStatus": MessageLookupByLibrary.simpleMessage("Status"),
         "irRecordStatusNotVerified":
             MessageLookupByLibrary.simpleMessage("Not verified"),
         "irRecordStatusPending":
             MessageLookupByLibrary.simpleMessage("Pending"),
-        "irRecordStatusVerificationsCount": m1,
-        "irRecordVerifiersRequestVerification":
-            MessageLookupByLibrary.simpleMessage("Request verification"),
+        "irRecordStatusVerified":
+            MessageLookupByLibrary.simpleMessage("Verified"),
         "irRecordVerify": MessageLookupByLibrary.simpleMessage("Verify"),
         "irSocialMedia": MessageLookupByLibrary.simpleMessage("Social media"),
-        "irTxErrorTipMustBeGreater": m2,
-        "irTxHintKey": MessageLookupByLibrary.simpleMessage("Key"),
-        "irTxHintTip": MessageLookupByLibrary.simpleMessage("Tip"),
-        "irTxHintValue": MessageLookupByLibrary.simpleMessage("Value"),
-        "irTxHintVerifierWillGet":
-            MessageLookupByLibrary.simpleMessage("Verifier will get"),
-        "irTxTitleConfirmDeleteRecord": MessageLookupByLibrary.simpleMessage(
-            "Confirm identity record deletion"),
-        "irTxTitleConfirmVerificationRequest":
-            MessageLookupByLibrary.simpleMessage(
-                "Confirm verification request"),
-        "irTxTitleRegisterIdentityRecord":
-            MessageLookupByLibrary.simpleMessage("Register identity record"),
-        "irTxTitleRequestIdentityRecordVerification":
-            MessageLookupByLibrary.simpleMessage("Request record verification"),
         "irUsername": MessageLookupByLibrary.simpleMessage("Username"),
-        "irVerificationRequests":
-            MessageLookupByLibrary.simpleMessage("Verification Requests"),
-        "irVerificationRequestsApprove":
-            MessageLookupByLibrary.simpleMessage("Approve"),
-        "irVerificationRequestsApprovedRecord":
-            MessageLookupByLibrary.simpleMessage("Approved record"),
-        "irVerificationRequestsApprovedRecords":
-            MessageLookupByLibrary.simpleMessage("Approved records"),
-        "irVerificationRequestsConfirmApproval":
-            MessageLookupByLibrary.simpleMessage("Confirm approval"),
-        "irVerificationRequestsConfirmRejection":
-            MessageLookupByLibrary.simpleMessage("Confirm rejection"),
-        "irVerificationRequestsCreationDate":
-            MessageLookupByLibrary.simpleMessage("Creation date"),
-        "irVerificationRequestsFrom":
-            MessageLookupByLibrary.simpleMessage("From"),
-        "irVerificationRequestsListSearchRequests":
-            MessageLookupByLibrary.simpleMessage("Search requests"),
-        "irVerificationRequestsRecordToVerify":
-            MessageLookupByLibrary.simpleMessage("Record to verify"),
-        "irVerificationRequestsRecords":
-            MessageLookupByLibrary.simpleMessage("Records"),
-        "irVerificationRequestsRecordsToVerify":
-            MessageLookupByLibrary.simpleMessage("Records to verify"),
-        "irVerificationRequestsReject":
-            MessageLookupByLibrary.simpleMessage("Reject"),
-        "irVerificationRequestsRejectedRecord":
-            MessageLookupByLibrary.simpleMessage("Rejected record"),
-        "irVerificationRequestsRejectedRecords":
-            MessageLookupByLibrary.simpleMessage("Rejected records"),
-        "irVerificationRequestsTip":
-            MessageLookupByLibrary.simpleMessage("Tip"),
-        "irVerificationRequestsVerifyRecord":
-            MessageLookupByLibrary.simpleMessage("Verify record"),
-        "irVerificationRequestsVerifyRecords":
-            MessageLookupByLibrary.simpleMessage("Verify records"),
-        "irWebsite": MessageLookupByLibrary.simpleMessage("Website"),
         "keyfile": MessageLookupByLibrary.simpleMessage("Keyfile"),
         "keyfileButtonDownload":
             MessageLookupByLibrary.simpleMessage("Download"),
@@ -230,8 +162,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Sign in with Keyfile"),
         "keyfileTip": MessageLookupByLibrary.simpleMessage(
             "Keyfile is a file which contains encrypted data."),
-        "keyfileTipSecretData": MessageLookupByLibrary.simpleMessage(
-            "Keyfile is your secret data that allows you to access\nto your wallet. Always keep it safe and secure."),
+        "keyfileTipSecretData":
+            MessageLookupByLibrary.simpleMessage("Keyfile is your secret data"),
         "keyfileTitleDownload":
             MessageLookupByLibrary.simpleMessage("Download Keyfile"),
         "keyfileToDropzone": MessageLookupByLibrary.simpleMessage(
@@ -252,12 +184,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Invalid mnemonic"),
         "mnemonicErrorInvalidChecksum":
             MessageLookupByLibrary.simpleMessage("Invalid checksum"),
+        "mnemonicErrorInvalidEntropy":
+            MessageLookupByLibrary.simpleMessage("Invalid entropy"),
         "mnemonicErrorTooShort":
             MessageLookupByLibrary.simpleMessage("Mnemonic too short"),
         "mnemonicErrorUnexpected": MessageLookupByLibrary.simpleMessage(
             "Something unexpected happened"),
-        "mnemonicLoginHint": MessageLookupByLibrary.simpleMessage(
-            "Mnemonic is your secret data that allows you to access\nto your wallet. Always keep it safe and secure.\n\nAvailable shortcuts:\n- Tab or Enter: accept hint and move to the next field\n- Ctrl + V: paste mnemonic from clipboard"),
+        "mnemonicIsYourSecretData": MessageLookupByLibrary.simpleMessage(
+            "Mnemonic is your secret data"),
         "mnemonicQrReveal":
             MessageLookupByLibrary.simpleMessage("Reveal Mnemonic QR Code"),
         "mnemonicQrTip": MessageLookupByLibrary.simpleMessage(
@@ -272,8 +206,6 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Copy mnemonic"),
         "mnemonicWordsReveal":
             MessageLookupByLibrary.simpleMessage("Reveal Mnemonic Words"),
-        "mnemonicWordsSelectAmount":
-            MessageLookupByLibrary.simpleMessage("Select the amount of words"),
         "mnemonicWordsTip": MessageLookupByLibrary.simpleMessage(
             "Mnemonic (“mnemonic code”, “seed phrase”, “seed words”)\nWay of representing a large randomly-generated number as a sequence of words,\nmaking it easier for humans to store."),
         "mnemonicWordsWarning": MessageLookupByLibrary.simpleMessage(
@@ -298,7 +230,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "networkCheckedConnection":
             MessageLookupByLibrary.simpleMessage("Checked connection"),
         "networkChoose": MessageLookupByLibrary.simpleMessage("Choose network"),
-        "networkConnectingTo": m3,
+        "networkConnectingTo": m1,
         "networkConnectionCancelled":
             MessageLookupByLibrary.simpleMessage("Connection cancelled"),
         "networkConnectionEstablished":
@@ -313,7 +245,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("undefined"),
         "networkHintCustomAddress":
             MessageLookupByLibrary.simpleMessage("Custom address"),
-        "networkHowManyProblems": m4,
+        "networkHowManyProblems": m2,
         "networkList": MessageLookupByLibrary.simpleMessage("List of networks"),
         "networkNoAvailable":
             MessageLookupByLibrary.simpleMessage("No available networks"),
@@ -333,86 +265,121 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enable custom address"),
         "networkWarningIncompatible": MessageLookupByLibrary.simpleMessage(
             "The application is incompatible with this server. Some views may not work correctly."),
-        "networkWarningWhenLastBlock": m5,
+        "networkWarningWhenLastBlock": m3,
         "or": MessageLookupByLibrary.simpleMessage("or "),
         "paginatedListPageSize":
             MessageLookupByLibrary.simpleMessage("Page size"),
-        "paste": MessageLookupByLibrary.simpleMessage("Paste"),
+        "proposalStatusTypeEnactment":
+            MessageLookupByLibrary.simpleMessage("Enactment"),
+        "proposalStatusTypePassed":
+            MessageLookupByLibrary.simpleMessage("Passed"),
+        "proposalStatusTypePassedWithExecFail":
+            MessageLookupByLibrary.simpleMessage("Passed With ExecFail"),
+        "proposalStatusTypePending":
+            MessageLookupByLibrary.simpleMessage("Pending"),
+        "proposalStatusTypeQuorumNotReached":
+            MessageLookupByLibrary.simpleMessage("Quorum Not Reached"),
+        "proposalStatusTypeRejected":
+            MessageLookupByLibrary.simpleMessage("Rejected"),
+        "proposalStatusTypeRejectedWithVeto":
+            MessageLookupByLibrary.simpleMessage("Rejected With Veto"),
+        "proposalStatusTypeUnknown":
+            MessageLookupByLibrary.simpleMessage("Unknown"),
+        "proposalStatusTypeUnknownProposalException":
+            MessageLookupByLibrary.simpleMessage("Unknown Proposal Status:"),
+        "proposalTypeAssignPermissions":
+            MessageLookupByLibrary.simpleMessage("Assign Permission"),
+        "proposalTypeAssignRoleToAccount":
+            MessageLookupByLibrary.simpleMessage("Assign Role To Account"),
+        "proposalTypeBlacklistAccountPermission":
+            MessageLookupByLibrary.simpleMessage(
+                "Blacklist Account Permission"),
+        "proposalTypeBlacklistRolePermission":
+            MessageLookupByLibrary.simpleMessage("Blacklist Role Permission"),
+        "proposalTypeCreateRole":
+            MessageLookupByLibrary.simpleMessage("Create Role Proposal"),
+        "proposalTypeRemoveBlacklistedAccountPermission":
+            MessageLookupByLibrary.simpleMessage(
+                "Remove Blacklisted Account Permission"),
+        "proposalTypeRemoveBlacklistedRolePermission":
+            MessageLookupByLibrary.simpleMessage(
+                "Remove Blacklisted Role Permission"),
+        "proposalTypeRemoveWhitelistedAccountPermission":
+            MessageLookupByLibrary.simpleMessage(
+                "Remove Whitelisted Account Permission"),
+        "proposalTypeRemoveWhitelistedRolePermission":
+            MessageLookupByLibrary.simpleMessage(
+                "Remove Whitelisted Role Permission"),
+        "proposalTypeResetWholeCouncilorRank":
+            MessageLookupByLibrary.simpleMessage("Reset Whole Councilor Rank"),
+        "proposalTypeSetNetworkProperty":
+            MessageLookupByLibrary.simpleMessage("Set Network Property"),
+        "proposalTypeSetPoorNetworkMessages":
+            MessageLookupByLibrary.simpleMessage("Set Poor Network Messages"),
+        "proposalTypeSetProposalDurations":
+            MessageLookupByLibrary.simpleMessage("Set Proposal Durations"),
+        "proposalTypeSoftwareUpgrade":
+            MessageLookupByLibrary.simpleMessage("Software Upgrade"),
+        "proposalTypeUnassignRoleFromAccount":
+            MessageLookupByLibrary.simpleMessage("Unassign Role From Account"),
+        "proposalTypeUpsertDataRegistry":
+            MessageLookupByLibrary.simpleMessage("Upsert Data Registry"),
+        "proposalTypeUpsertTokenAlias":
+            MessageLookupByLibrary.simpleMessage("Upsert Token Alias"),
+        "proposalTypeWhitelistAccountPermission":
+            MessageLookupByLibrary.simpleMessage(
+                "Whitelist Account Permission"),
+        "proposalTypeWhitelistRolePermission":
+            MessageLookupByLibrary.simpleMessage("Whitelist Role Permission"),
         "proposals": MessageLookupByLibrary.simpleMessage("Proposals"),
         "proposalsActive": MessageLookupByLibrary.simpleMessage("Active"),
+        "proposalsAttendance":
+            MessageLookupByLibrary.simpleMessage("Attendance"),
+        "proposalsDescription":
+            MessageLookupByLibrary.simpleMessage("Description"),
+        "proposalsDrawerHeader":
+            MessageLookupByLibrary.simpleMessage("Detailed Data"),
+        "proposalsEnactedTime":
+            MessageLookupByLibrary.simpleMessage("Voting Enacted Time"),
         "proposalsEnacting": MessageLookupByLibrary.simpleMessage("Enacting"),
         "proposalsFinished": MessageLookupByLibrary.simpleMessage("Finished"),
+        "proposalsHintSearch":
+            MessageLookupByLibrary.simpleMessage("Search proposals"),
+        "proposalsId": MessageLookupByLibrary.simpleMessage("Id"),
+        "proposalsList":
+            MessageLookupByLibrary.simpleMessage("List of Proposals"),
+        "proposalsMetadata": MessageLookupByLibrary.simpleMessage("Metadata"),
+        "proposalsProposer": MessageLookupByLibrary.simpleMessage("Proposer"),
         "proposalsProposers": MessageLookupByLibrary.simpleMessage("Proposers"),
+        "proposalsQuorum": MessageLookupByLibrary.simpleMessage("Quorum"),
+        "proposalsStatus": MessageLookupByLibrary.simpleMessage("Status"),
         "proposalsSuccessful":
             MessageLookupByLibrary.simpleMessage("Successful"),
+        "proposalsTitle": MessageLookupByLibrary.simpleMessage("Title"),
+        "proposalsToolTip":
+            MessageLookupByLibrary.simpleMessage("View Proposal"),
+        "proposalsTransactionHash":
+            MessageLookupByLibrary.simpleMessage("Transaction Hash"),
+        "proposalsTypes": MessageLookupByLibrary.simpleMessage("Types"),
         "proposalsVoters": MessageLookupByLibrary.simpleMessage("Voters"),
-        "refresh": MessageLookupByLibrary.simpleMessage("Refresh"),
-        "refreshInSeconds": m6,
+        "proposalsVotingEndTime":
+            MessageLookupByLibrary.simpleMessage("Voting End Time"),
+        "proposalsVotingStartTime":
+            MessageLookupByLibrary.simpleMessage("Voting Start Time"),
         "sec": MessageLookupByLibrary.simpleMessage("sec."),
-        "seeAll": MessageLookupByLibrary.simpleMessage("See all"),
-        "seeMore": MessageLookupByLibrary.simpleMessage("See more"),
-        "showDetails": MessageLookupByLibrary.simpleMessage("Show Details"),
         "sortBy": MessageLookupByLibrary.simpleMessage("Sort by"),
-        "staking": MessageLookupByLibrary.simpleMessage("Staking"),
-        "stakingPool": MessageLookupByLibrary.simpleMessage("Staking Pool"),
-        "stakingPoolAvailable":
-            MessageLookupByLibrary.simpleMessage("Staking Pool available"),
-        "stakingPoolDetails":
-            MessageLookupByLibrary.simpleMessage("Staking Pool Details"),
-        "stakingPoolLabelActions":
-            MessageLookupByLibrary.simpleMessage("Actions"),
-        "stakingPoolLabelCommission":
-            MessageLookupByLibrary.simpleMessage("Commission"),
-        "stakingPoolLabelSlashed":
-            MessageLookupByLibrary.simpleMessage("Slashed"),
-        "stakingPoolLabelTokens":
-            MessageLookupByLibrary.simpleMessage("Tokens"),
-        "stakingPoolLabelVotingPower":
-            MessageLookupByLibrary.simpleMessage("Voting Power"),
-        "stakingPoolStatusDisabled":
-            MessageLookupByLibrary.simpleMessage("Disabled"),
-        "stakingPoolStatusEnabled":
-            MessageLookupByLibrary.simpleMessage("Enabled"),
-        "stakingPoolStatusWithdraw":
-            MessageLookupByLibrary.simpleMessage("Withdraw Only"),
-        "stakingToEnable":
-            MessageLookupByLibrary.simpleMessage("To enable staking "),
-        "stakingTxAmountToStake":
-            MessageLookupByLibrary.simpleMessage("Amount to stake"),
-        "stakingTxAmountToUnstake":
-            MessageLookupByLibrary.simpleMessage("Amount to unstake"),
-        "stakingTxButtonStake": MessageLookupByLibrary.simpleMessage("Stake"),
-        "stakingTxClaimRewards":
-            MessageLookupByLibrary.simpleMessage("Claim all rewards"),
-        "stakingTxClaimUnstaked":
-            MessageLookupByLibrary.simpleMessage("Claim unstaked"),
-        "stakingTxConfirmStake":
-            MessageLookupByLibrary.simpleMessage("Confirm stake"),
-        "stakingTxConfirmUnstake":
-            MessageLookupByLibrary.simpleMessage("Confirm unstake"),
-        "stakingTxStakeTokens":
-            MessageLookupByLibrary.simpleMessage("Stake tokens"),
-        "stakingTxTokensToStake":
-            MessageLookupByLibrary.simpleMessage("Tokens to stake"),
-        "stakingTxTokensToUnstake":
-            MessageLookupByLibrary.simpleMessage("Tokens to unstake"),
-        "stakingTxUnstake": MessageLookupByLibrary.simpleMessage("Unstake"),
-        "toYourAccount":
-            MessageLookupByLibrary.simpleMessage(" to your account"),
         "toastCannotLoadDashboard": MessageLookupByLibrary.simpleMessage(
             "Cannot load dashboard. Please check your connection."),
         "toastHashCopied":
             MessageLookupByLibrary.simpleMessage("Hash copied to clipboard"),
-        "toastPublicAddressCopied":
-            MessageLookupByLibrary.simpleMessage("Public address copied"),
+        "toastPublicAddressCopied": MessageLookupByLibrary.simpleMessage(
+            "Public address copied to clipboard"),
         "toastSuccessfullyCopied":
             MessageLookupByLibrary.simpleMessage("Successfully copied"),
         "tx": MessageLookupByLibrary.simpleMessage("Transactions"),
-        "txAvailableBalances": m7,
+        "txAvailableBalances": m4,
         "txButtonBackToAccount":
             MessageLookupByLibrary.simpleMessage("Back to account"),
-        "txButtonClaimAllRewards":
-            MessageLookupByLibrary.simpleMessage("Claim All Rewards"),
         "txButtonClear": MessageLookupByLibrary.simpleMessage("Clear"),
         "txButtonConfirmSend":
             MessageLookupByLibrary.simpleMessage("Confirm & send"),
@@ -421,34 +388,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Edit transaction"),
         "txButtonNext": MessageLookupByLibrary.simpleMessage("Next"),
         "txButtonSendAll": MessageLookupByLibrary.simpleMessage("Send all"),
-        "txCannotLoadBalancesTryAgain": MessageLookupByLibrary.simpleMessage(
-            "Cannot load balances, try again"),
         "txCompleted":
             MessageLookupByLibrary.simpleMessage("Transaction completed"),
         "txConfirm":
             MessageLookupByLibrary.simpleMessage("Confirm transaction"),
-        "txDateDropdownAll": MessageLookupByLibrary.simpleMessage("All"),
-        "txDateDropdownCancel": MessageLookupByLibrary.simpleMessage("Cancel"),
-        "txDateDropdownClear": MessageLookupByLibrary.simpleMessage("Clear"),
-        "txDateDropdownEndDate":
-            MessageLookupByLibrary.simpleMessage("End date"),
-        "txDateDropdownOneMonth":
-            MessageLookupByLibrary.simpleMessage("1 month"),
-        "txDateDropdownOneWeek": MessageLookupByLibrary.simpleMessage("1 week"),
-        "txDateDropdownSave": MessageLookupByLibrary.simpleMessage("Save"),
-        "txDateDropdownStartDate":
-            MessageLookupByLibrary.simpleMessage("Start date"),
-        "txDateDropdownToday": MessageLookupByLibrary.simpleMessage("Today"),
-        "txDateDropdownYesterday":
-            MessageLookupByLibrary.simpleMessage("Yesterday"),
-        "txErrorAccountNumberNotExist": MessageLookupByLibrary.simpleMessage(
-            "Cannot create transaction. Deposit tokens to your account and try again."),
         "txErrorCannotCreate": MessageLookupByLibrary.simpleMessage(
             "Cannot create transaction. Check your connection."),
         "txErrorCannotFetchDetails": MessageLookupByLibrary.simpleMessage(
             "Cannot fetch transaction details. Check your internet connection."),
-        "txErrorCannotLoadBalances": MessageLookupByLibrary.simpleMessage(
-            "Cannot load balances. Try again later."),
         "txErrorEnterValidAddress": MessageLookupByLibrary.simpleMessage(
             "Please enter a valid address"),
         "txErrorFailed":
@@ -461,35 +408,19 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("See more on Explorer"),
         "txFetchingRemoteData": MessageLookupByLibrary.simpleMessage(
             "Fetching remote data. Please wait..."),
-        "txHash": m8,
-        "txHintAmountToClaim":
-            MessageLookupByLibrary.simpleMessage("Amount to claim"),
-        "txHintClaim": MessageLookupByLibrary.simpleMessage("Claim"),
-        "txHintClaimBy": MessageLookupByLibrary.simpleMessage("Claim by"),
-        "txHintClaimTo": MessageLookupByLibrary.simpleMessage("Claim to"),
+        "txHash": m5,
         "txHintMemo": MessageLookupByLibrary.simpleMessage("Memo"),
         "txHintSendFrom": MessageLookupByLibrary.simpleMessage("Send from"),
         "txHintSendTo": MessageLookupByLibrary.simpleMessage("Send to"),
-        "txHintStakeBy": MessageLookupByLibrary.simpleMessage("Stake by"),
-        "txHintStakeOn": MessageLookupByLibrary.simpleMessage("Stake on"),
-        "txHintUnstakeBy": MessageLookupByLibrary.simpleMessage("Unstake by"),
-        "txHintUnstakeFrom":
-            MessageLookupByLibrary.simpleMessage("Unstake from"),
         "txIsBeingBroadcast": MessageLookupByLibrary.simpleMessage(
             "Your transaction is being broadcast"),
         "txListAmount": MessageLookupByLibrary.simpleMessage("Amount"),
         "txListAmountFeesOnly":
             MessageLookupByLibrary.simpleMessage("Fees only"),
         "txListAmountPlusFees": MessageLookupByLibrary.simpleMessage("+ fees"),
-        "txListAmountPlusMore": m9,
+        "txListAmountPlusMore": m6,
         "txListDate": MessageLookupByLibrary.simpleMessage("Date"),
         "txListDetails": MessageLookupByLibrary.simpleMessage("Details"),
-        "txListDirection": MessageLookupByLibrary.simpleMessage("Direction"),
-        "txListDirectionInbound":
-            MessageLookupByLibrary.simpleMessage("Inbound"),
-        "txListDirectionOutbound":
-            MessageLookupByLibrary.simpleMessage("Outbound"),
-        "txListFiltersTitle": MessageLookupByLibrary.simpleMessage("Filters"),
         "txListHash": MessageLookupByLibrary.simpleMessage("Transaction hash"),
         "txListStatus": MessageLookupByLibrary.simpleMessage("Status"),
         "txListStatusConfirmed":
@@ -498,11 +429,6 @@ class MessageLookup extends MessageLookupByLibrary {
         "txListStatusPending": MessageLookupByLibrary.simpleMessage("Pending"),
         "txMsgCancelIdentityRecordsVerifyRequest":
             MessageLookupByLibrary.simpleMessage("Cancel Verification Request"),
-        "txMsgClaimRewards":
-            MessageLookupByLibrary.simpleMessage("Claim All Rewards"),
-        "txMsgClaimUndelegation":
-            MessageLookupByLibrary.simpleMessage("Claim Unstaked"),
-        "txMsgDelegate": MessageLookupByLibrary.simpleMessage("Stake Tokens"),
         "txMsgDeleteIdentityRecords":
             MessageLookupByLibrary.simpleMessage("Delete Identity Records"),
         "txMsgHandleIdentityRecordsVerifyRequest":
@@ -517,12 +443,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "txMsgSendSendTokens": MessageLookupByLibrary.simpleMessage("Send"),
         "txMsgUndefined":
             MessageLookupByLibrary.simpleMessage("Unknown transaction type"),
-        "txMsgUndelegate":
-            MessageLookupByLibrary.simpleMessage("Unstake Tokens"),
-        "txNoticeFee": m10,
+        "txNoticeFee": m7,
         "txPleaseSelectToken":
             MessageLookupByLibrary.simpleMessage("Please select a token"),
-        "txPreviewUnavailable": m11,
+        "txPreviewUnavailable": m8,
         "txRecipientWillGet":
             MessageLookupByLibrary.simpleMessage("Recipient will get"),
         "txSearchTokens": MessageLookupByLibrary.simpleMessage("Search tokens"),
@@ -534,25 +458,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "txToken": MessageLookupByLibrary.simpleMessage("Token"),
         "txTotalAmount": MessageLookupByLibrary.simpleMessage("Total amount"),
         "txTryAgain": MessageLookupByLibrary.simpleMessage("Try again"),
-        "txUnstakedLabel": MessageLookupByLibrary.simpleMessage(
-            "This will be visible in your list of unstaked"),
-        "txUnstakedToolTip": MessageLookupByLibrary.simpleMessage(
-            "The amount will be available to claim after the unstake period has expired"),
         "txWarningDoNotCloseWindow":
             MessageLookupByLibrary.simpleMessage("Do not close this window"),
-        "txYouWillGet": MessageLookupByLibrary.simpleMessage("You will get"),
-        "unstakeTokens": MessageLookupByLibrary.simpleMessage("Unstake tokens"),
-        "unstaked": MessageLookupByLibrary.simpleMessage("Unstaked"),
-        "unstakedHintSearch":
-            MessageLookupByLibrary.simpleMessage("Search list of unstaked"),
-        "unstakedLabelLockedUntil":
-            MessageLookupByLibrary.simpleMessage("Locked until"),
-        "validator": MessageLookupByLibrary.simpleMessage("Validator"),
         "validators": MessageLookupByLibrary.simpleMessage("Validators"),
-        "validatorsAbout":
-            MessageLookupByLibrary.simpleMessage("About Validator"),
         "validatorsActive": MessageLookupByLibrary.simpleMessage("Active"),
-        "validatorsButtonFilter": m12,
+        "validatorsButtonFilter": m9,
         "validatorsDropdownAll": MessageLookupByLibrary.simpleMessage("All"),
         "validatorsHintSearch":
             MessageLookupByLibrary.simpleMessage("Search validators"),

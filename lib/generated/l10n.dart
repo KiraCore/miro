@@ -1901,6 +1901,456 @@ class S {
     );
   }
 
+  /// `List of Proposals`
+  String get proposalsList {
+    return Intl.message(
+      'List of Proposals',
+      name: 'proposalsList',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search proposals`
+  String get proposalsHintSearch {
+    return Intl.message(
+      'Search proposals',
+      name: 'proposalsHintSearch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `View Proposal`
+  String get proposalsToolTip {
+    return Intl.message(
+      'View Proposal',
+      name: 'proposalsToolTip',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Id`
+  String get proposalsId {
+    return Intl.message(
+      'Id',
+      name: 'proposalsId',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Status`
+  String get proposalsStatus {
+    return Intl.message(
+      'Status',
+      name: 'proposalsStatus',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Types`
+  String get proposalsTypes {
+    return Intl.message(
+      'Types',
+      name: 'proposalsTypes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Voting End Time`
+  String get proposalsVotingEndTime {
+    return Intl.message(
+      'Voting End Time',
+      name: 'proposalsVotingEndTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unknown`
+  String get proposalStatusTypeUnknown {
+    return Intl.message(
+      'Unknown',
+      name: 'proposalStatusTypeUnknown',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Passed`
+  String get proposalStatusTypePassed {
+    return Intl.message(
+      'Passed',
+      name: 'proposalStatusTypePassed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Rejected`
+  String get proposalStatusTypeRejected {
+    return Intl.message(
+      'Rejected',
+      name: 'proposalStatusTypeRejected',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Rejected With Veto`
+  String get proposalStatusTypeRejectedWithVeto {
+    return Intl.message(
+      'Rejected With Veto',
+      name: 'proposalStatusTypeRejectedWithVeto',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pending`
+  String get proposalStatusTypePending {
+    return Intl.message(
+      'Pending',
+      name: 'proposalStatusTypePending',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Quorum Not Reached`
+  String get proposalStatusTypeQuorumNotReached {
+    return Intl.message(
+      'Quorum Not Reached',
+      name: 'proposalStatusTypeQuorumNotReached',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enactment`
+  String get proposalStatusTypeEnactment {
+    return Intl.message(
+      'Enactment',
+      name: 'proposalStatusTypeEnactment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Passed With ExecFail`
+  String get proposalStatusTypePassedWithExecFail {
+    return Intl.message(
+      'Passed With ExecFail',
+      name: 'proposalStatusTypePassedWithExecFail',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unknown Proposal Status:`
+  String get proposalStatusTypeUnknownProposalException {
+    return Intl.message(
+      'Unknown Proposal Status:',
+      name: 'proposalStatusTypeUnknownProposalException',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Detailed Data`
+  String get proposalsDrawerHeader {
+    return Intl.message(
+      'Detailed Data',
+      name: 'proposalsDrawerHeader',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Title`
+  String get proposalsTitle {
+    return Intl.message(
+      'Title',
+      name: 'proposalsTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Description`
+  String get proposalsDescription {
+    return Intl.message(
+      'Description',
+      name: 'proposalsDescription',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Transaction Hash`
+  String get proposalsTransactionHash {
+    return Intl.message(
+      'Transaction Hash',
+      name: 'proposalsTransactionHash',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Attendance`
+  String get proposalsAttendance {
+    return Intl.message(
+      'Attendance',
+      name: 'proposalsAttendance',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Proposer`
+  String get proposalsProposer {
+    return Intl.message(
+      'Proposer',
+      name: 'proposalsProposer',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Quorum`
+  String get proposalsQuorum {
+    return Intl.message(
+      'Quorum',
+      name: 'proposalsQuorum',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Voting Start Time`
+  String get proposalsVotingStartTime {
+    return Intl.message(
+      'Voting Start Time',
+      name: 'proposalsVotingStartTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Voting Enacted Time`
+  String get proposalsEnactedTime {
+    return Intl.message(
+      'Voting Enacted Time',
+      name: 'proposalsEnactedTime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Metadata`
+  String get proposalsMetadata {
+    return Intl.message(
+      'Metadata',
+      name: 'proposalsMetadata',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Upsert Token Alias`
+  String get proposalTypeUpsertTokenAlias {
+    return Intl.message(
+      'Upsert Token Alias',
+      name: 'proposalTypeUpsertTokenAlias',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Software Upgrade`
+  String get proposalTypeSoftwareUpgrade {
+    return Intl.message(
+      'Software Upgrade',
+      name: 'proposalTypeSoftwareUpgrade',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Assign Permission`
+  String get proposalTypeAssignPermissions {
+    return Intl.message(
+      'Assign Permission',
+      name: 'proposalTypeAssignPermissions',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Upsert Data Registry`
+  String get proposalTypeUpsertDataRegistry {
+    return Intl.message(
+      'Upsert Data Registry',
+      name: 'proposalTypeUpsertDataRegistry',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Set Network Property`
+  String get proposalTypeSetNetworkProperty {
+    return Intl.message(
+      'Set Network Property',
+      name: 'proposalTypeSetNetworkProperty',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Create Role Proposal`
+  String get proposalTypeCreateRole {
+    return Intl.message(
+      'Create Role Proposal',
+      name: 'proposalTypeCreateRole',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Blacklist Role Permission`
+  String get proposalTypeBlacklistRolePermission {
+    return Intl.message(
+      'Blacklist Role Permission',
+      name: 'proposalTypeBlacklistRolePermission',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Assign Role To Account`
+  String get proposalTypeAssignRoleToAccount {
+    return Intl.message(
+      'Assign Role To Account',
+      name: 'proposalTypeAssignRoleToAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Blacklist Account Permission`
+  String get proposalTypeBlacklistAccountPermission {
+    return Intl.message(
+      'Blacklist Account Permission',
+      name: 'proposalTypeBlacklistAccountPermission',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remove Blacklisted Account Permission`
+  String get proposalTypeRemoveBlacklistedAccountPermission {
+    return Intl.message(
+      'Remove Blacklisted Account Permission',
+      name: 'proposalTypeRemoveBlacklistedAccountPermission',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remove Whitelisted Account Permission`
+  String get proposalTypeRemoveWhitelistedAccountPermission {
+    return Intl.message(
+      'Remove Whitelisted Account Permission',
+      name: 'proposalTypeRemoveWhitelistedAccountPermission',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unassign Role From Account`
+  String get proposalTypeUnassignRoleFromAccount {
+    return Intl.message(
+      'Unassign Role From Account',
+      name: 'proposalTypeUnassignRoleFromAccount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Whitelist Account Permission`
+  String get proposalTypeWhitelistAccountPermission {
+    return Intl.message(
+      'Whitelist Account Permission',
+      name: 'proposalTypeWhitelistAccountPermission',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remove Blacklisted Role Permission`
+  String get proposalTypeRemoveBlacklistedRolePermission {
+    return Intl.message(
+      'Remove Blacklisted Role Permission',
+      name: 'proposalTypeRemoveBlacklistedRolePermission',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Remove Whitelisted Role Permission`
+  String get proposalTypeRemoveWhitelistedRolePermission {
+    return Intl.message(
+      'Remove Whitelisted Role Permission',
+      name: 'proposalTypeRemoveWhitelistedRolePermission',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Whitelist Role Permission`
+  String get proposalTypeWhitelistRolePermission {
+    return Intl.message(
+      'Whitelist Role Permission',
+      name: 'proposalTypeWhitelistRolePermission',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Set Proposal Durations`
+  String get proposalTypeSetProposalDurations {
+    return Intl.message(
+      'Set Proposal Durations',
+      name: 'proposalTypeSetProposalDurations',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Set Poor Network Messages`
+  String get proposalTypeSetPoorNetworkMessages {
+    return Intl.message(
+      'Set Poor Network Messages',
+      name: 'proposalTypeSetPoorNetworkMessages',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reset Whole Councilor Rank`
+  String get proposalTypeResetWholeCouncilorRank {
+    return Intl.message(
+      'Reset Whole Councilor Rank',
+      name: 'proposalTypeResetWholeCouncilorRank',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Transactions`
   String get tx {
     return Intl.message(

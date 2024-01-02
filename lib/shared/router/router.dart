@@ -1,106 +1,106 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:miro/shared/router/guards/auth_guard.dart';
 import 'package:miro/shared/router/guards/connection_guard.dart';
+import 'package:miro/shared/router/guards/navigation_guard.dart';
 import 'package:miro/shared/router/guards/pages/loading_page_guard.dart';
-import 'package:miro/shared/router/guards/pages/network_list_page_guard.dart';
-import 'package:miro/shared/router/observers/menu_navigation_observer.dart';
-import 'package:miro/shared/router/router.gr.dart';
+import 'package:miro/views/pages/loading/loading_page/loading_page.dart';
+import 'package:miro/views/pages/loading/loading_wrapper.dart';
+import 'package:miro/views/pages/loading/network_list_page/network_list_page.dart';
+import 'package:miro/views/pages/menu/dashboard_page/dashboard_page.dart';
+import 'package:miro/views/pages/menu/menu_wrapper.dart';
+import 'package:miro/views/pages/menu/my_account_page/my_account_page.dart';
+import 'package:miro/views/pages/menu/proposals_page/proposals_page.dart';
+import 'package:miro/views/pages/menu/validators_page/validators_page.dart';
+import 'package:miro/views/pages/pages_wrapper.dart';
+import 'package:miro/views/pages/transactions/transactions_wrapper.dart';
+import 'package:miro/views/pages/transactions/tx_send/tx_send_tokens/tx_send_tokens_page.dart';
 
-@AutoRouterConfig(replaceInRouteName: 'Page,Route')
-class AppRouter extends $AppRouter {
-  static MenuNavigationObserver menuNavigationObserver = MenuNavigationObserver();
-
-  final AuthGuard authGuard = AuthGuard();
-  final ConnectionGuard connectionGuard = ConnectionGuard();
-
-  @override
-  RouteType get defaultRouteType => const RouteType.custom(transitionsBuilder: TransitionsBuilders.fadeIn);
-
-  @override
-  List<AutoRoute> get routes {
-    return <AutoRoute>[
-      AutoRoute(
-        page: LoadingWrapperRoute.page,
-        path: '/network',
+@CustomAutoRouter(replaceInRouteName: 'Page,Route', routes: <AutoRoute>[
+  CustomRoute<void>(
+    initial: true,
+    page: PagesWrapper,
+    name: 'PagesWrapperRoute',
+    path: '/',
+    guards: <Type>[ConnectionGuard],
+    children: <AutoRoute>[
+      CustomRoute<void>(
         initial: true,
+        page: LoadingWrapper,
+        name: 'LoadingWrapperRoute',
+        path: 'network',
+        transitionsBuilder: TransitionsBuilders.fadeIn,
         children: <AutoRoute>[
-          AutoRoute(
+          CustomRoute<void>(
             initial: true,
-            page: LoadingRoute.page,
-            path: 'loading',
-            guards: <AutoRouteGuard>[LoadingPageGuard()],
-          ),
-          AutoRoute(
-            page: NetworkListRoute.page,
+            page: NetworkListPage,
+            name: 'NetworkListRoute',
             path: 'list',
-            guards: <AutoRouteGuard>[NetworkListPageGuard()],
+            transitionsBuilder: TransitionsBuilders.fadeIn,
+          ),
+          CustomRoute<void>(
+            page: LoadingPage,
+            name: 'LoadingRoute',
+            path: 'loading',
+            guards: <Type>[LoadingPageGuard],
+            transitionsBuilder: TransitionsBuilders.fadeIn,
           ),
         ],
       ),
-      AutoRoute(
-        page: MenuWrapperRoute.page,
-        path: '/app',
-        guards: <AutoRouteGuard>[connectionGuard],
+      CustomRoute<void>(
+        page: MenuWrapper,
+        name: 'MenuWrapperRoute',
+        path: 'app',
+        transitionsBuilder: TransitionsBuilders.fadeIn,
+        durationInMilliseconds: 1000,
         children: <AutoRoute>[
-          AutoRoute(
-            page: DashboardRoute.page,
+          CustomRoute<void>(
+            page: DashboardPage,
+            name: 'DashboardRoute',
             path: 'dashboard',
+            guards: <Type>[NavigationGuard],
+            transitionsBuilder: TransitionsBuilders.fadeIn,
           ),
-          AutoRoute(
-            page: ValidatorsRoute.page,
+          CustomRoute<void>(
+            page: ValidatorsPage,
+            name: 'ValidatorsRoute',
             path: 'validators',
+            guards: <Type>[NavigationGuard],
+            transitionsBuilder: TransitionsBuilders.fadeIn,
           ),
-          AutoRoute(
-            page: MyAccountRoute.page,
+          CustomRoute<void>(
+            page: ProposalsPage,
+            name: 'ProposalsRoute',
+            path: 'proposals',
+            guards: <Type>[NavigationGuard],
+            transitionsBuilder: TransitionsBuilders.fadeIn,
+          ),
+          CustomRoute<void>(
+            page: MyAccountPage,
+            name: 'MyAccountRoute',
             path: 'my-account',
-            guards: <AutoRouteGuard>[authGuard],
+            guards: <Type>[AuthGuard, NavigationGuard],
+            transitionsBuilder: TransitionsBuilders.fadeIn,
           ),
         ],
       ),
-      AutoRoute(
-        page: TransactionsWrapperRoute.page,
-        path: '/transactions',
-        guards: <AutoRouteGuard>[connectionGuard, authGuard],
+      CustomRoute<void>(
+        page: TransactionsWrapper,
+        name: 'TransactionsWrapperRoute',
+        path: 'transactions',
+        guards: <Type>[AuthGuard],
+        transitionsBuilder: TransitionsBuilders.fadeIn,
         children: <AutoRoute>[
-          AutoRoute(
-            page: TxSendTokensRoute.page,
+          CustomRoute<void>(
+            page: TxSendTokensPage,
+            name: 'TxSendTokensRoute',
             path: 'tokens/send',
-          ),
-          AutoRoute(
-            page: IRTxRegisterRecordRoute.page,
-            path: 'identity-records/register',
-          ),
-          AutoRoute(
-            page: IRTxDeleteRecordRoute.page,
-            path: 'identity-records/delete',
-          ),
-          AutoRoute(
-            page: IRTxRequestVerificationRoute.page,
-            path: 'identity-records/verify',
-          ),
-          AutoRoute(
-            page: IRTxHandleVerificationRequestRoute.page,
-            path: 'identity/handle-verification-request',
-          ),
-          AutoRoute(
-            page: StakingTxDelegateRoute.page,
-            path: 'staking/stake-tokens',
-          ),
-          AutoRoute(
-            page: StakingTxUndelegateRoute.page,
-            path: 'staking/unstake-tokens',
-          ),
-          AutoRoute(
-            page: StakingTxClaimRewardsRoute.page,
-            path: 'staking/claim-rewards',
-          ),
-          AutoRoute(
-            page: StakingTxClaimUndelegationRoute.page,
-            path: 'staking/claim-unstaked',
+            guards: <Type>[AuthGuard],
+            transitionsBuilder: TransitionsBuilders.fadeIn,
           ),
         ],
       ),
-      RedirectRoute(path: '*', redirectTo: '/network'),
-    ];
-  }
-}
+    ],
+  ),
+  RedirectRoute(path: '*', redirectTo: '/'),
+])
+class $AppRouter {}
