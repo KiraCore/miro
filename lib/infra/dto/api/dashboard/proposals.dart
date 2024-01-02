@@ -32,5 +32,13 @@ class Proposals extends Equatable {
   }
 
   @override
-  List<Object?> get props => <Object>[total, active, enacting, finished, successful, proposers, voters];
+  List<Object?> get props => <Object>[
+        total,
+        active,
+        enacting,
+        finished,
+        successful,
+        proposers,
+        voters,
+      ];
 }
