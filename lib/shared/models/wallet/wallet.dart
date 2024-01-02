@@ -23,7 +23,7 @@ class Wallet extends Equatable {
 
   /// The wallet hex private key
   final Uint8List privateKey;
-  
+
   /// Blockchain network details
   final WalletDetails walletDetails;
 
@@ -60,20 +60,9 @@ class Wallet extends Equatable {
     return Wallet(
       address: WalletAddress.fromPublicKey(publicKeyBytes, bech32Hrp: walletDetails.bech32Hrp),
       privateKey: derivedNode.privateKey!,
-      walletDetails: walletDetails,
     );
   }
 
-  factory Wallet.fromKeyFileData(Map<String, dynamic> publicData, Map<String, dynamic> secretData) {
-    final WalletAddress walletAddress = WalletAddress.fromBech32(publicData['bech32Address'] as String);
-    final Uint8List privateKey = Uint8List.fromList(HEX.decode(secretData['privateKey'] as String));
-
-    return Wallet(
-      address: walletAddress,
-      privateKey: privateKey,
-    );
-  }
-  
   /// Returns the associated [publicKey] as an [ECPublicKey] instance.
   ECPublicKey get ecPublicKey {
     final ECCurve_secp256k1 secp256k1 = ECCurve_secp256k1();
@@ -81,13 +70,13 @@ class Wallet extends Equatable {
     final ECPoint? curvePoint = point * ecPrivateKey.d;
     return ECPublicKey(curvePoint, ECCurve_secp256k1());
   }
-  
+
   /// Returns the associated [privateKey] as an [ECPrivateKey] instance.
   ECPrivateKey get ecPrivateKey {
     final BigInt privateKeyInt = BigInt.parse(HEX.encode(privateKey), radix: 16);
     return ECPrivateKey(privateKeyInt, ECCurve_secp256k1());
   }
-  
+
   @override
   List<Object?> get props => <Object?>[address, privateKey, walletDetails];
 }

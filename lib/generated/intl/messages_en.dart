@@ -27,29 +27,31 @@ class MessageLookup extends MessageLookupByLibrary {
 
   static String m2(amount) => "Tip must be greater or equal ${amount}";
 
-  static String m3(separator, networkName, parsedRemainingTime) =>
+  static String m3(version) => "Keyfile version v${version}";
+
+  static String m4(separator, networkName, parsedRemainingTime) =>
       "Connecting to <${networkName}>${separator} Please wait... ${parsedRemainingTime}";
 
-  static String m4(errorsCount) => "Found ${errorsCount} problems with server";
+  static String m5(errorsCount) => "Found ${errorsCount} problems with server";
 
-  static String m5(latestBlockTime) =>
+  static String m6(latestBlockTime) =>
       "The last available block on this interx was created long time ago ${latestBlockTime}. The displayed contents may be out of date.";
 
-  static String m6(seconds) => "Refresh in ${seconds} sec.";
+  static String m7(seconds) => "Refresh in ${seconds} sec.";
 
-  static String m7(availableAmountText, tokenDenominationModelName) =>
+  static String m8(availableAmountText, tokenDenominationModelName) =>
       "Available: ${availableAmountText} ${tokenDenominationModelName}";
 
-  static String m8(hash) => "Transaction hash: 0x${hash}";
+  static String m9(hash) => "Transaction hash: 0x${hash}";
 
-  static String m9(amount) => "+ ${amount} more";
+  static String m10(amount) => "+ ${amount} more";
 
-  static String m10(widgetFeeTokenAmountModel) =>
+  static String m11(widgetFeeTokenAmountModel) =>
       "Transaction fee ${widgetFeeTokenAmountModel}";
 
-  static String m11(txMsgType) => "Preview for ${txMsgType} unavailable";
+  static String m12(txMsgType) => "Preview for ${txMsgType} unavailable";
 
-  static String m12(selected) => "${selected} selected";
+  static String m13(selected) => "${selected} selected";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
@@ -219,13 +221,17 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enter password"),
         "keyfileErrorCannotBeEmpty":
             MessageLookupByLibrary.simpleMessage("Keyfile cannot be empty"),
+        "keyfileErrorInvalid":
+            MessageLookupByLibrary.simpleMessage("Invalid Keyfile"),
         "keyfileErrorPasswordsMatch":
             MessageLookupByLibrary.simpleMessage("Passwords don\'t match"),
+        "keyfileErrorUnsupportedVersion":
+            MessageLookupByLibrary.simpleMessage("Unsupported version"),
+        "keyfileErrorWrongPassword":
+            MessageLookupByLibrary.simpleMessage("Wrong password"),
         "keyfileHintPassword": MessageLookupByLibrary.simpleMessage("Password"),
         "keyfileHintRepeatPassword":
             MessageLookupByLibrary.simpleMessage("Repeat password"),
-        "keyfileInvalid":
-            MessageLookupByLibrary.simpleMessage("Invalid Keyfile"),
         "keyfileSignIn":
             MessageLookupByLibrary.simpleMessage("Sign in with Keyfile"),
         "keyfileTip": MessageLookupByLibrary.simpleMessage(
@@ -238,10 +244,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Drop Keyfile to the dropzone"),
         "keyfileToastDownloaded":
             MessageLookupByLibrary.simpleMessage("Keyfile downloaded"),
+        "keyfileVersion": m3,
         "keyfileWarning": MessageLookupByLibrary.simpleMessage(
             "You won’t be able to download it again"),
-        "keyfileWrongPassword":
-            MessageLookupByLibrary.simpleMessage("Wrong password"),
         "kiraNetwork": MessageLookupByLibrary.simpleMessage("Kira Network"),
         "mnemonic": MessageLookupByLibrary.simpleMessage("Mnemonic"),
         "mnemonicEnter":
@@ -298,7 +303,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "networkCheckedConnection":
             MessageLookupByLibrary.simpleMessage("Checked connection"),
         "networkChoose": MessageLookupByLibrary.simpleMessage("Choose network"),
-        "networkConnectingTo": m3,
+        "networkConnectingTo": m4,
         "networkConnectionCancelled":
             MessageLookupByLibrary.simpleMessage("Connection cancelled"),
         "networkConnectionEstablished":
@@ -313,7 +318,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("undefined"),
         "networkHintCustomAddress":
             MessageLookupByLibrary.simpleMessage("Custom address"),
-        "networkHowManyProblems": m4,
+        "networkHowManyProblems": m5,
         "networkList": MessageLookupByLibrary.simpleMessage("List of networks"),
         "networkNoAvailable":
             MessageLookupByLibrary.simpleMessage("No available networks"),
@@ -333,7 +338,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enable custom address"),
         "networkWarningIncompatible": MessageLookupByLibrary.simpleMessage(
             "The application is incompatible with this server. Some views may not work correctly."),
-        "networkWarningWhenLastBlock": m5,
+        "networkWarningWhenLastBlock": m6,
         "or": MessageLookupByLibrary.simpleMessage("or "),
         "paginatedListPageSize":
             MessageLookupByLibrary.simpleMessage("Page size"),
@@ -347,7 +352,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Successful"),
         "proposalsVoters": MessageLookupByLibrary.simpleMessage("Voters"),
         "refresh": MessageLookupByLibrary.simpleMessage("Refresh"),
-        "refreshInSeconds": m6,
+        "refreshInSeconds": m7,
         "sec": MessageLookupByLibrary.simpleMessage("sec."),
         "seeAll": MessageLookupByLibrary.simpleMessage("See all"),
         "seeMore": MessageLookupByLibrary.simpleMessage("See more"),
@@ -408,7 +413,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "toastSuccessfullyCopied":
             MessageLookupByLibrary.simpleMessage("Successfully copied"),
         "tx": MessageLookupByLibrary.simpleMessage("Transactions"),
-        "txAvailableBalances": m7,
+        "txAvailableBalances": m8,
         "txButtonBackToAccount":
             MessageLookupByLibrary.simpleMessage("Back to account"),
         "txButtonClaimAllRewards":
@@ -461,7 +466,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("See more on Explorer"),
         "txFetchingRemoteData": MessageLookupByLibrary.simpleMessage(
             "Fetching remote data. Please wait..."),
-        "txHash": m8,
+        "txHash": m9,
         "txHintAmountToClaim":
             MessageLookupByLibrary.simpleMessage("Amount to claim"),
         "txHintClaim": MessageLookupByLibrary.simpleMessage("Claim"),
@@ -481,7 +486,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "txListAmountFeesOnly":
             MessageLookupByLibrary.simpleMessage("Fees only"),
         "txListAmountPlusFees": MessageLookupByLibrary.simpleMessage("+ fees"),
-        "txListAmountPlusMore": m9,
+        "txListAmountPlusMore": m10,
         "txListDate": MessageLookupByLibrary.simpleMessage("Date"),
         "txListDetails": MessageLookupByLibrary.simpleMessage("Details"),
         "txListDirection": MessageLookupByLibrary.simpleMessage("Direction"),
@@ -519,10 +524,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Unknown transaction type"),
         "txMsgUndelegate":
             MessageLookupByLibrary.simpleMessage("Unstake Tokens"),
-        "txNoticeFee": m10,
+        "txNoticeFee": m11,
         "txPleaseSelectToken":
             MessageLookupByLibrary.simpleMessage("Please select a token"),
-        "txPreviewUnavailable": m11,
+        "txPreviewUnavailable": m12,
         "txRecipientWillGet":
             MessageLookupByLibrary.simpleMessage("Recipient will get"),
         "txSearchTokens": MessageLookupByLibrary.simpleMessage("Search tokens"),
@@ -552,7 +557,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "validatorsAbout":
             MessageLookupByLibrary.simpleMessage("About Validator"),
         "validatorsActive": MessageLookupByLibrary.simpleMessage("Active"),
-        "validatorsButtonFilter": m12,
+        "validatorsButtonFilter": m13,
         "validatorsDropdownAll": MessageLookupByLibrary.simpleMessage("All"),
         "validatorsHintSearch":
             MessageLookupByLibrary.simpleMessage("Search validators"),

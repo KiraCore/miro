@@ -15,16 +15,7 @@ void main() {
   final Mnemonic actualMnemonic = Mnemonic(value: actualMnemonicString);
   final Wallet actualWallet = Wallet.derive(mnemonic: actualMnemonic);
   const WalletDetails actualWalletDetails = WalletDetails.defaultWalletDetails;
-
-  const Map<String, dynamic> actualKeyFilePublicJSON = <String, dynamic>{
-    'version': '1.0.1',
-    'bech32Address': 'kira1gdury9ednrjj8fluwj9ea5e6cu5jr9jvekl7u3',
-  };
-
-  const Map<String, dynamic> actualKeyFilePrivateJSON = <String, dynamic>{
-    'privateKey': '9e737e02d062c101729fbd1483a87642dfc430c147e9733bc0f0d86855785e3c',
-  };
-
+  
   // Expected Values of tests
   List<int> expectedPrivateKey = <int>[158, 115, 126, 2, 208, 98, 193, 1, 114, 159, 189, 20, 131, 168, 118, 66, 223, 196, 48, 193, 71, 233, 115, 59, 192, 240, 216, 104, 85, 120, 94, 60];
   List<int> expectedAddress = <int>[67, 120, 50, 23, 45, 152, 229, 35, 167, 252, 116, 139, 158, 211, 58, 199, 41, 33, 150, 76];
@@ -58,15 +49,6 @@ void main() {
     });
   });
 
-  group('Tests of factory constructor Wallet.fromKeyFileData()', () {
-    test('Should create wallet keys from derived private and public json', () async {
-      expect(
-        Wallet.fromKeyFileData(actualKeyFilePublicJSON, actualKeyFilePrivateJSON),
-        expectedWallet,
-      );
-    });
-  });
-
   group('Test of wallet class arguments and methods', () {
     test('Should create valid wallet address from given mnemonic', () async {
       expect(
@@ -81,7 +63,7 @@ void main() {
         expectedPrivateKey,
       );
     });
-    
+
     test('Should create valid bech32 address from given mnemonic', () async {
       expect(
         actualWallet.address.bech32Address,

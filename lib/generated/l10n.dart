@@ -910,11 +910,41 @@ class S {
     );
   }
 
+  /// `Invalid Keyfile`
+  String get keyfileErrorInvalid {
+    return Intl.message(
+      'Invalid Keyfile',
+      name: 'keyfileErrorInvalid',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Passwords don't match`
   String get keyfileErrorPasswordsMatch {
     return Intl.message(
       'Passwords don\'t match',
       name: 'keyfileErrorPasswordsMatch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Unsupported version`
+  String get keyfileErrorUnsupportedVersion {
+    return Intl.message(
+      'Unsupported version',
+      name: 'keyfileErrorUnsupportedVersion',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wrong password`
+  String get keyfileErrorWrongPassword {
+    return Intl.message(
+      'Wrong password',
+      name: 'keyfileErrorWrongPassword',
       desc: '',
       args: [],
     );
@@ -1020,31 +1050,21 @@ class S {
     );
   }
 
+  /// `Drop file`
+  String get keyfileDropFile {
+    return Intl.message(
+      'Drop file',
+      name: 'keyfileDropFile',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Enter password`
   String get keyfileEnterPassword {
     return Intl.message(
       'Enter password',
       name: 'keyfileEnterPassword',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Invalid Keyfile`
-  String get keyfileInvalid {
-    return Intl.message(
-      'Invalid Keyfile',
-      name: 'keyfileInvalid',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Wrong password`
-  String get keyfileWrongPassword {
-    return Intl.message(
-      'Wrong password',
-      name: 'keyfileWrongPassword',
       desc: '',
       args: [],
     );
@@ -1060,13 +1080,13 @@ class S {
     );
   }
 
-  /// `Drop file`
-  String get keyfileDropFile {
+  /// `Keyfile version v{version}`
+  String keyfileVersion(String version) {
     return Intl.message(
-      'Drop file',
-      name: 'keyfileDropFile',
+      'Keyfile version v$version',
+      name: 'keyfileVersion',
       desc: '',
-      args: [],
+      args: [version],
     );
   }
 

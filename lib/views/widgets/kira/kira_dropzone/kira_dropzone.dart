@@ -1,98 +1,98 @@
-import 'dart:html' as html;
-
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_dropzone/flutter_dropzone.dart';
-import 'package:miro/views/widgets/kira/kira_dropzone/models/dropzone_controller.dart';
-import 'package:miro/views/widgets/kira/kira_dropzone/models/dropzone_file.dart';
+import 'package:miro/blocs/widgets/kira/kira_dropzone/a_kira_dropzone_cubit.dart';
+import 'package:miro/blocs/widgets/kira/kira_dropzone/a_kira_dropzone_state.dart';
+import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/views/widgets/kira/kira_dropzone/kira_dropzone_drop_view.dart';
+import 'package:miro/views/widgets/kira/kira_dropzone/kira_dropzone_empty_view.dart';
 
-class KiraDropzone extends StatefulWidget {
-  final KiraDropzoneController controller;
-  final ValueChanged<DropzoneFile>? onPickFile;
-  final ValueChanged<String?>? onError;
-  final VoidCallback? onHover;
-  final VoidCallback? onLeave;
+class KiraDropzone<T extends AKiraDropzoneState> extends StatefulWidget {
+  final double width;
+  final double height;
+  final String emptyLabel;
+  final AKiraDropzoneCubit<T> kiraDropzoneCubit;
+  final Widget Function(AKiraDropzoneState kiraDropzoneState, String? errorMessage) filePreviewBuilder;
+  final String? errorMessage;
 
   const KiraDropzone({
-    required this.controller,
-    this.onPickFile,
-    this.onError,
-    this.onHover,
-    this.onLeave,
+    required this.width,
+    required this.height,
+    required this.emptyLabel,
+    required this.kiraDropzoneCubit,
+    required this.filePreviewBuilder,
+    this.errorMessage,
     Key? key,
   }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _KiraDropzone();
+  State<StatefulWidget> createState() => _KiraDropzone<T>();
 }
 
-class _KiraDropzone extends State<KiraDropzone> {
-  late DropzoneViewController dropzoneViewController;
-
-  @override
-  void initState() {
-    super.initState();
-    _initController();
-  }
+class _KiraDropzone<T extends AKiraDropzoneState> extends State<KiraDropzone<T>> {
+  bool hoverBool = false;
 
   @override
   Widget build(BuildContext context) {
-    return DropzoneView(
-      operation: DragOperation.all,
-      cursor: CursorType.pointer,
-      onCreated: (DropzoneViewController controller) => dropzoneViewController = controller,
-      onError: widget.onError,
-      onHover: widget.onHover,
-      onDrop: _onDropzoneDrop,
-      onLeave: widget.onLeave,
-    );
-  }
+    return BlocBuilder<AKiraDropzoneCubit<T>, T>(
+      builder: (BuildContext context, T kiraDropzoneState) {
+        late Widget dropzonePreview;
 
-  void _initController() {
-    widget.controller.initController(
-      pickFile: _pickFileManual,
-    );
-  }
+        if (hoverBool) {
+          dropzonePreview = const KiraDropzoneDropView();
+        } else if (kiraDropzoneState.hasFile) {
+          dropzonePreview = widget.filePreviewBuilder(kiraDropzoneState, widget.errorMessage);
+        } else {
+          dropzonePreview = KiraDropzoneEmptyView<T>(
+            emptyLabel: widget.emptyLabel,
+            kiraDropzoneCubit: widget.kiraDropzoneCubit,
+          );
+        }
 
-  Future<DropzoneFile?> _pickFileManual() async {
-    FilePickerResult? uploadResult = await FilePicker.platform.pickFiles(allowMultiple: false);
-    if (uploadResult != null) {
-      PlatformFile platformFile = uploadResult.files.single;
-      if (platformFile.bytes == null) {
-        return null;
-      }
-      DropzoneFile file = DropzoneFile(
-        name: platformFile.name,
-        size: platformFile.size,
-        extension: platformFile.extension,
-        content: String.fromCharCodes(platformFile.bytes!),
-      );
-      _setFile(file);
-      return file;
-    }
-    return null;
-  }
-
-  void _onDropzoneDrop(dynamic uploadedFile) {
-    if (uploadedFile is html.File) {
-      final html.FileReader reader = html.FileReader()..readAsText(uploadedFile);
-      reader.onLoadEnd.listen((html.ProgressEvent event) {
-        String result = reader.result.toString();
-        DropzoneFile file = DropzoneFile(
-          name: uploadedFile.name,
-          size: uploadedFile.size,
-          extension: uploadedFile.name.split('.').last,
-          content: result,
+        return Container(
+          width: widget.width,
+          height: widget.height,
+          decoration: BoxDecoration(
+            border: Border.all(
+              width: 1,
+              color: widget.errorMessage != null ? DesignColors.redStatus1 : DesignColors.white1,
+            ),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Stack(
+            children: <Widget>[
+              Positioned.fill(
+                child: DropzoneView(
+                  operation: DragOperation.all,
+                  cursor: CursorType.grab,
+                  onHover: () => _setHoverState(status: true),
+                  onDrop: _listenFileDrop,
+                  onLeave: () => _setHoverState(status: false),
+                ),
+              ),
+              Positioned.fill(
+                child: InkWell(
+                  onTap: widget.kiraDropzoneCubit.uploadFileManually,
+                  child: Padding(
+                    padding: const EdgeInsets.all(10),
+                    child: dropzonePreview,
+                  ),
+                ),
+              ),
+            ],
+          ),
         );
-        _setFile(file);
-      });
-    }
+      },
+    );
   }
 
-  void _setFile(DropzoneFile file) {
-    widget.controller.currentFile = file;
-    if (widget.onPickFile != null) {
-      widget.onPickFile!(file);
-    }
+  void _listenFileDrop(dynamic file) {
+    widget.kiraDropzoneCubit.uploadFileViaHtml(file);
+    _setHoverState(status: false);
+  }
+  
+  void _setHoverState({required bool status}) {
+    hoverBool = status;
+    setState(() {});
   }
 }
