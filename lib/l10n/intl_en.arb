@@ -134,7 +134,10 @@
   "keyfile": "Keyfile",
   "keyfileButtonDownload": "Download",
   "keyfileErrorCannotBeEmpty": "Keyfile cannot be empty",
+  "keyfileErrorInvalid": "Invalid Keyfile",
   "keyfileErrorPasswordsMatch": "Passwords don't match",
+  "keyfileErrorUnsupportedVersion": "Unsupported version",
+  "keyfileErrorWrongPassword": "Wrong password",
   "keyfileHintPassword": "Password",
   "keyfileHintRepeatPassword": "Repeat password",
   "keyfileTip": "Keyfile is a file which contains encrypted data.",
@@ -145,11 +148,17 @@
   "keyfileSignIn": "Sign in with Keyfile",
   "keyfileToDropzone": "Drop Keyfile to the dropzone",
   "keyfileDropHere": "Please drop Keyfile here",
-  "keyfileEnterPassword": "Enter password",
-  "keyfileInvalid": "Invalid Keyfile",
-  "keyfileWrongPassword": "Wrong password",
-  "keyfileCreatePassword": "Create password for keyfile",
   "keyfileDropFile": "Drop file",
+  "keyfileEnterPassword": "Enter password",
+  "keyfileCreatePassword": "Create password for keyfile",
+  "keyfileVersion": "Keyfile version {version}",
+  "@keyfileVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
 
   "mnemonic": "Mnemonic",
   "mnemonicErrorUnexpected": "Something unexpected happened",

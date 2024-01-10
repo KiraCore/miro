@@ -57,7 +57,7 @@ class Wallet extends Equatable {
     );
   }
 
-  factory Wallet.fromKeyFileData(Map<String, dynamic> publicData, Map<String, dynamic> secretData) {
+  factory Wallet.fromKeyfileData(Map<String, dynamic> publicData, Map<String, dynamic> secretData) {
     final WalletAddress walletAddress = WalletAddress.fromBech32(publicData['bech32Address'] as String);
     final Uint8List privateKey = Uint8List.fromList(HEX.decode(secretData['privateKey'] as String));
 
