@@ -5,6 +5,7 @@ import 'package:miro/blocs/generic/identity_registrar/identity_registrar_cubit.d
 import 'package:miro/blocs/generic/identity_registrar/states/identity_registrar_loading_state.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
+import 'package:miro/views/layout/scaffold/backdrop/backdrop.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
 import 'package:miro/views/pages/drawer/account_drawer_page/account_drawer_page.dart';
 import 'package:miro/views/widgets/kira/kira_identity_avatar.dart';
@@ -34,11 +35,17 @@ class MyAccountButtonMobile extends StatelessWidget {
         return MouseRegion(
           cursor: SystemMouseCursors.click,
           child: GestureDetector(
-            onTap: () => KiraScaffold.of(context).navigateEndDrawerRoute(AccountDrawerPage()),
+            onTap: () => _handleNavigation(context),
             child: buttonWidget,
           ),
         );
       },
     );
+  }
+
+  Future<void> _handleNavigation(BuildContext context) async {
+    KiraScaffold.of(context).navigateEndDrawerRoute(AccountDrawerPage());
+    await Future<void>.delayed(const Duration(milliseconds: 500));
+    Backdrop.of(context).collapse();
   }
 }
