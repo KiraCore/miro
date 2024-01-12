@@ -114,7 +114,7 @@ class _StakingMsgUndelegateFormState extends State<StakingMsgUndelegateForm> {
   void _handleTokenAmountChanged(TokenFormState tokenFormState) {
     widget.stakingMsgUndelegateFormModel.balanceModel = tokenFormState.balanceModel;
     widget.stakingMsgUndelegateFormModel.tokenDenominationModel = tokenFormState.tokenDenominationModel;
-    bool tokenAmountModelEmpty = tokenFormState.tokenAmountModel == null || tokenFormState.tokenAmountModel?.getAmountInLowestDenomination() == Decimal.zero;
+    bool tokenAmountModelEmpty = tokenFormState.tokenAmountModel == null || tokenFormState.tokenAmountModel?.getAmountInDefaultDenomination() == Decimal.zero;
     if (tokenAmountModelEmpty) {
       widget.stakingMsgUndelegateFormModel.tokenAmountModels = null;
     } else {
@@ -126,7 +126,7 @@ class _StakingMsgUndelegateFormState extends State<StakingMsgUndelegateForm> {
     String stakedTokenName = tokenFormState.tokenAmountModel!.tokenAliasModel.name;
     String basicTokenName = stakedTokenName.substring(stakedTokenName.indexOf('/') + 1);
     TokenAmountModel basicTokenAmountModel = TokenAmountModel(
-      lowestDenominationAmount: tokenFormState.tokenAmountModel!.getAmountInLowestDenomination(),
+      defaultDenominationAmount: tokenFormState.tokenAmountModel!.getAmountInDefaultDenomination(),
       tokenAliasModel: TokenAliasModel.local(basicTokenName),
     );
     widget.stakingMsgUndelegateFormModel.tokenAmountModels = <TokenAmountModel>[basicTokenAmountModel];

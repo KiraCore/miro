@@ -31,7 +31,7 @@ class MsgSendModel extends ATxMsgModel {
       fromWalletAddress: WalletAddress.fromBech32(msgSend.fromAddress),
       toWalletAddress: WalletAddress.fromBech32(msgSend.toAddress),
       tokenAmountModel: TokenAmountModel(
-        lowestDenominationAmount: Decimal.parse(msgSend.amount.first.amount),
+        defaultDenominationAmount: Decimal.parse(msgSend.amount.first.amount),
         tokenAliasModel: TokenAliasModel.local(msgSend.amount.first.denom),
       ),
     );
@@ -44,8 +44,8 @@ class MsgSendModel extends ATxMsgModel {
       toAddress: toWalletAddress.bech32Address,
       amount: <Coin>[
         Coin(
-          denom: tokenAmountModel.tokenAliasModel.lowestTokenDenominationModel.name,
-          amount: tokenAmountModel.getAmountInLowestDenomination().toString(),
+          denom: tokenAmountModel.tokenAliasModel.defaultTokenDenominationModel.name,
+          amount: tokenAmountModel.getAmountInDefaultDenomination().toString(),
         ),
       ],
     );

@@ -68,7 +68,7 @@ class _StakingMsgDelegateFormPreviewState extends State<StakingMsgDelegateFormPr
         const SizedBox(height: 28),
         TxInputPreview(
           label: S.of(context).stakingTxTokensToStake,
-          value: '${tokenAmountModel.getAmountInDefaultDenomination()} ${tokenAmountModel.tokenAliasModel.defaultTokenDenominationModel.name}',
+          value: _netAmountText,
           icon: TokenAvatar(
             iconUrl: tokenAmountModel.tokenAliasModel.icon,
             size: 45,

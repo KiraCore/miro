@@ -10,7 +10,7 @@ class BalancesFilterOptions {
 
   static FilterOption<BalanceModel> filterBySmallValues = FilterOption<BalanceModel>(
     id: 'small',
-    filterComparator: (BalanceModel a) => a.tokenAmountModel.getAmountInDefaultDenomination() > _smallValueLimit,
+    filterComparator: (BalanceModel a) => a.tokenAmountModel.getAmountInNetworkDenomination() > _smallValueLimit,
     filterMode: FilterMode.and,
   );
 
@@ -22,7 +22,7 @@ class BalancesFilterOptions {
 
   static FilterOption<BalanceModel> filterByDerivedTokens = FilterOption<BalanceModel>(
     id: 'undelegate',
-    filterComparator: (BalanceModel a) => a.tokenAmountModel.tokenAliasModel.lowestTokenDenominationModel.name.contains('/'),
+    filterComparator: (BalanceModel a) => a.tokenAmountModel.tokenAliasModel.defaultTokenDenominationModel.name.contains('/'),
     filterMode: FilterMode.and,
   );
 
@@ -30,13 +30,13 @@ class BalancesFilterOptions {
     String pattern = searchText.toLowerCase();
 
     return (BalanceModel item) {
+      bool amountNetworkMatch = item.tokenAmountModel.getAmountInNetworkDenomination().toString().contains(pattern);
       bool amountDefaultMatch = item.tokenAmountModel.getAmountInDefaultDenomination().toString().contains(pattern);
-      bool amountLowestMatch = item.tokenAmountModel.getAmountInLowestDenomination().toString().contains(pattern);
-      bool amountMatch = amountDefaultMatch || amountLowestMatch;
+      bool amountMatch = amountNetworkMatch || amountDefaultMatch;
 
+      bool denomNetworkMatch = item.tokenAmountModel.tokenAliasModel.networkTokenDenominationModel.name.toLowerCase().contains(pattern);
       bool denomDefaultMatch = item.tokenAmountModel.tokenAliasModel.defaultTokenDenominationModel.name.toLowerCase().contains(pattern);
-      bool denomLowestMatch = item.tokenAmountModel.tokenAliasModel.lowestTokenDenominationModel.name.toLowerCase().contains(pattern);
-      bool denomMatch = denomDefaultMatch || denomLowestMatch;
+      bool denomMatch = denomNetworkMatch || denomDefaultMatch;
 
       bool nameMatch = item.tokenAmountModel.tokenAliasModel.name.toLowerCase().contains(pattern);
       return amountMatch || denomMatch || nameMatch;

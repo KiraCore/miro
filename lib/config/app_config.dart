@@ -46,8 +46,8 @@ class AppConfig {
       rpcBrowserUrlController: RpcBrowserUrlController(),
       defaultFeeTokenAliasModel: const TokenAliasModel(
         name: 'Kira',
-        lowestTokenDenominationModel: TokenDenominationModel(name: 'ukex', decimals: 0),
-        defaultTokenDenominationModel: TokenDenominationModel(name: 'KEX', decimals: 6),
+        defaultTokenDenominationModel: TokenDenominationModel(name: 'ukex', decimals: 0),
+        networkTokenDenominationModel: TokenDenominationModel(name: 'KEX', decimals: 6),
       ),
       defaultRefreshIntervalSeconds: 60,
       defaultNetworkUnknownModel: NetworkUnknownModel(

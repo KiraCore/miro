@@ -60,7 +60,7 @@ Future<void> main() async {
           totalDelegators: 1,
           votingPower: <TokenAmountModel>[
             TokenAmountModel(
-              lowestDenominationAmount: Decimal.fromInt(100),
+              defaultDenominationAmount: Decimal.fromInt(100),
               tokenAliasModel: TokenAliasModel.local('ukex'),
             ),
           ],

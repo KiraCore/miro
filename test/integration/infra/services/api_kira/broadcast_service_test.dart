@@ -54,7 +54,7 @@ Future<void> main() async {
   // @formatter:on
 
   final TokenAmountModel feeTokenAmountModel = TokenAmountModel(
-    lowestDenominationAmount: Decimal.fromInt(200),
+    defaultDenominationAmount: Decimal.fromInt(200),
     tokenAliasModel: TokenAliasModel.local('ukex'),
   );
 
@@ -118,7 +118,7 @@ Future<void> main() async {
         txMsgModel: MsgSendModel(
           toWalletAddress: recipientWallet.address,
           fromWalletAddress: senderWallet.address,
-          tokenAmountModel: TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(200), tokenAliasModel: TokenAliasModel.local('ukex')),
+          tokenAmountModel: TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(200), tokenAliasModel: TokenAliasModel.local('ukex')),
         ),
       );
 
@@ -158,7 +158,7 @@ Future<void> main() async {
         txMsgModel: IRMsgRequestVerificationModel.single(
           recordId: BigInt.from(964),
           tipTokenAmountModel: TokenAmountModel(
-            lowestDenominationAmount: Decimal.fromInt(200),
+            defaultDenominationAmount: Decimal.fromInt(200),
             tokenAliasModel: TokenAliasModel.local('ukex'),
           ),
           verifierWalletAddress: recipientWallet.address,
@@ -237,7 +237,7 @@ Future<void> main() async {
           delegatorWalletAddress: senderWallet.address,
           valoperWalletAddress: WalletAddress.fromBech32('kiravaloper1c6slygj2tx7hzm0mn4qeflqpvngj73c2cw7fh7'),
           tokenAmountModel: TokenAmountModel(
-            lowestDenominationAmount: Decimal.fromInt(100),
+            defaultDenominationAmount: Decimal.fromInt(100),
             tokenAliasModel: TokenAliasModel.local('ukex'),
           ),
         ),
@@ -258,7 +258,7 @@ Future<void> main() async {
         txMsgModel: StakingMsgUndelegateModel.single(
           delegatorWalletAddress: senderWallet.address,
           valoperWalletAddress: WalletAddress.fromBech32('kiravaloper1c6slygj2tx7hzm0mn4qeflqpvngj73c2cw7fh7'),
-          tokenAmountModel: TokenAmountModel(lowestDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TokenAliasModel.local('ukex')),
+          tokenAmountModel: TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TokenAliasModel.local('ukex')),
         ),
       );
 

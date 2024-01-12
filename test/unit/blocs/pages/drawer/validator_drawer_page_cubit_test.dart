@@ -51,7 +51,7 @@ void main() {
             TokenAliasModel.local('ukex'),
             TokenAliasModel.local('xeth'),
           ],
-          votingPower: <TokenAmountModel>[TokenAmountModel(lowestDenominationAmount: Decimal.parse('100'), tokenAliasModel: TokenAliasModel.local('ukex'))],
+          votingPower: <TokenAmountModel>[TokenAmountModel(defaultDenominationAmount: Decimal.parse('100'), tokenAliasModel: TokenAliasModel.local('ukex'))],
           totalDelegators: 1,
         ),
       );

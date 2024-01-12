@@ -32,7 +32,7 @@ class BalancesListController implements IListController<BalanceModel> {
       );
 
       return balancesPageData.listItems.where((BalanceModel balanceModel) {
-        return favouriteBalances.contains(balanceModel.tokenAmountModel.tokenAliasModel.lowestTokenDenominationModel.name);
+        return favouriteBalances.contains(balanceModel.tokenAmountModel.tokenAliasModel.defaultTokenDenominationModel.name);
       }).toList();
     }
     return List<BalanceModel>.empty(growable: true);

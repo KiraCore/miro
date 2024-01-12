@@ -42,7 +42,7 @@ class BalanceListItemDesktopTitle extends StatelessWidget {
         SizedBox(width: sectionsSpace),
         Expanded(
           child: Text(
-            balanceModel.tokenAmountModel.tokenAliasModel.defaultTokenDenominationModel.name,
+            balanceModel.tokenAmountModel.tokenAliasModel.networkTokenDenominationModel.name,
             style: textTheme.bodyLarge!.copyWith(
               color: DesignColors.white2,
             ),
@@ -52,7 +52,7 @@ class BalanceListItemDesktopTitle extends StatelessWidget {
         Expanded(
           flex: 2,
           child: Text(
-            balanceModel.tokenAmountModel.getAmountInDefaultDenomination().toString(),
+            balanceModel.tokenAmountModel.getAmountInNetworkDenomination().toString(),
             style: textTheme.titleMedium!.copyWith(
               color: DesignColors.white1,
             ),

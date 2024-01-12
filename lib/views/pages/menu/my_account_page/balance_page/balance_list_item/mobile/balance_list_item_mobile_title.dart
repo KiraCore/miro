@@ -36,7 +36,7 @@ class BalanceListItemMobileTitle extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              balanceModel.tokenAmountModel.tokenAliasModel.defaultTokenDenominationModel.name,
+              balanceModel.tokenAmountModel.tokenAliasModel.networkTokenDenominationModel.name,
               style: textTheme.bodyLarge!.copyWith(
                 color: DesignColors.white1,
               ),
@@ -44,7 +44,7 @@ class BalanceListItemMobileTitle extends StatelessWidget {
             const SizedBox(width: 10),
             Expanded(
               child: Text(
-                balanceModel.tokenAmountModel.getAmountInDefaultDenomination().toString(),
+                balanceModel.tokenAmountModel.getAmountInNetworkDenomination().toString(),
                 style: textTheme.bodyLarge!.copyWith(
                   color: DesignColors.white1,
                 ),

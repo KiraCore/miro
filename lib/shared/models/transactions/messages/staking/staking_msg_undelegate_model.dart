@@ -37,7 +37,7 @@ class StakingMsgUndelegateModel extends ATxMsgModel {
       valoperWalletAddress: WalletAddress.fromBech32(msgUndelegate.valoperAddress),
       tokenAmountModels: msgUndelegate.amounts
           .map((Coin coin) => TokenAmountModel(
-                lowestDenominationAmount: Decimal.parse(coin.amount),
+                defaultDenominationAmount: Decimal.parse(coin.amount),
                 tokenAliasModel: TokenAliasModel.local(coin.denom),
               ))
           .toList(),
@@ -51,8 +51,8 @@ class StakingMsgUndelegateModel extends ATxMsgModel {
       valoperAddress: valoperWalletAddress.bech32Address,
       amounts: tokenAmountModels.map((TokenAmountModel tokenAmountModel) {
         return Coin(
-          denom: tokenAmountModel.tokenAliasModel.lowestTokenDenominationModel.name,
-          amount: tokenAmountModel.getAmountInLowestDenomination().toString(),
+          denom: tokenAmountModel.tokenAliasModel.defaultTokenDenominationModel.name,
+          amount: tokenAmountModel.getAmountInDefaultDenomination().toString(),
         );
       }).toList(),
     );

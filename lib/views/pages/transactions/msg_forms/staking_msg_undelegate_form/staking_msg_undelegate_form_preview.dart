@@ -86,7 +86,7 @@ class _StakingMsgUndelegateFormPreviewState extends State<StakingMsgUndelegateFo
               child: TxInputPreview(
                 label: S.of(context).txUnstakedLabel,
                 labelColor: DesignColors.yellowStatus1,
-                value: '${tokenAmountModel.getAmountInDefaultDenomination()} ${tokenAmountModel.tokenAliasModel.defaultTokenDenominationModel.name}',
+                value: '${tokenAmountModel.getAmountInNetworkDenomination()} ${tokenAmountModel.tokenAliasModel.networkTokenDenominationModel.name}',
                 large: true,
               ),
             ),

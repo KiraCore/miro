@@ -28,7 +28,7 @@ void main() {
     dateTime: DateTime(2020, 1, 1),
     requesterIrUserProfileModel: irUserProfileModel1,
     records: <String, String>{'flower': 'rose'},
-    tipTokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.kexTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(500)),
+    tipTokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.kexTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(500)),
   );
 
   final IRInboundVerificationRequestModel irInboundVerificationRequestModel2 = IRInboundVerificationRequestModel(
@@ -36,7 +36,7 @@ void main() {
     dateTime: DateTime(2021, 1, 1),
     requesterIrUserProfileModel: irUserProfileModel2,
     records: <String, String>{'username': 'miroman123'},
-    tipTokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.kexTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(10000)),
+    tipTokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.kexTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(10000)),
   );
 
   final IRInboundVerificationRequestModel irInboundVerificationRequestModel3 = IRInboundVerificationRequestModel(
@@ -44,7 +44,7 @@ void main() {
     dateTime: DateTime(2022, 1, 1),
     requesterIrUserProfileModel: irUserProfileModel1,
     records: <String, String>{'id': '4', 'favourite_color': 'green'},
-    tipTokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.kexTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(100)),
+    tipTokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.kexTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(100)),
   );
 
   final IRInboundVerificationRequestModel irInboundVerificationRequestModel4 = IRInboundVerificationRequestModel(
@@ -52,7 +52,7 @@ void main() {
     dateTime: DateTime(2023, 1, 1),
     requesterIrUserProfileModel: irUserProfileModel2,
     records: <String, String>{'favourite_color': 'blue'},
-    tipTokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.kexTokenAliasModel, lowestDenominationAmount: Decimal.fromInt(400)),
+    tipTokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.kexTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(400)),
   );
 
   final List<IRInboundVerificationRequestModel> irInboundVerificationRequestModelList = <IRInboundVerificationRequestModel>[

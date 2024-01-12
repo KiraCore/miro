@@ -48,7 +48,7 @@ class TxListItemModel extends AListItem with EquatableMixin {
       txMsgModels: txMsgModels,
       prefixedTokenAmounts: txMsgModels.expand((ATxMsgModel txMsgModel) => txMsgModel.getPrefixedTokenAmounts(txDirectionType)).toList(),
       fees: transaction.fee
-          .map((Coin fee) => TokenAmountModel(lowestDenominationAmount: Decimal.parse(fee.amount), tokenAliasModel: TokenAliasModel.local(fee.denom)))
+          .map((Coin fee) => TokenAmountModel(defaultDenominationAmount: Decimal.parse(fee.amount), tokenAliasModel: TokenAliasModel.local(fee.denom)))
           .toList(),
     );
   }

@@ -7,7 +7,7 @@ class StakingFilterOptions {
     String pattern = searchText.toLowerCase();
 
     return (ValidatorStakingModel item) {
-      bool tokenMatchBool = item.tokens.map((TokenAliasModel e) => e.lowestTokenDenominationModel.name).join(' ').toLowerCase().contains(pattern);
+      bool tokenMatchBool = item.tokens.map((TokenAliasModel e) => e.defaultTokenDenominationModel.name).join(' ').toLowerCase().contains(pattern);
       bool addressMatchBool = item.validatorSimplifiedModel.walletAddress.bech32Address.toLowerCase().contains(pattern);
       bool usernameMatchBool = item.validatorSimplifiedModel.moniker?.toLowerCase().contains(pattern) ?? false;
       bool websiteMatchBool = item.validatorSimplifiedModel.website?.toLowerCase().contains(pattern) ?? false;

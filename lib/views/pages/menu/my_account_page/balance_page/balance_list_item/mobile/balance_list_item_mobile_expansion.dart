@@ -25,7 +25,7 @@ class BalanceListItemMobileExpansion extends StatelessWidget {
           PrefixedWidget(
             prefix: S.of(context).balancesDenomination,
             child: Text(
-              tokenAmountModel.tokenAliasModel.lowestTokenDenominationModel.name,
+              tokenAmountModel.tokenAliasModel.defaultTokenDenominationModel.name,
               style: textTheme.titleMedium!.copyWith(
                 color: DesignColors.white1,
               ),

@@ -12,39 +12,28 @@ void main() {
   group('Tests of TokenAmountModel', () {
     // Arrange
     TokenAmountModel actualTokenAmountModel = TokenAmountModel(
-      lowestDenominationAmount: Decimal.fromInt(500),
+      defaultDenominationAmount: Decimal.fromInt(500),
       tokenAliasModel: TestUtils.ethTokenAliasModel,
     );
-
-    test('Should return amount in lowest denomination', () {
-      // Act
-      String actualLowestDenominationAmount = actualTokenAmountModel.getAmountInLowestDenomination().toString();
-
-      // Assert
-      String expectedLowestDenominationAmount = '500';
-
-      expect(actualLowestDenominationAmount, expectedLowestDenominationAmount);
-    });
 
     test('Should return amount in default denomination', () {
       // Act
       String actualDefaultDenominationAmount = actualTokenAmountModel.getAmountInDefaultDenomination().toString();
 
       // Assert
-      String expectedDefaultDenominationAmount = '0.0000000000000005';
+      String expectedDefaultDenominationAmount = '500';
 
       expect(actualDefaultDenominationAmount, expectedDefaultDenominationAmount);
     });
 
-    test('Should return amount in selected (lowest) denomination', () {
+    test('Should return amount in network denomination', () {
       // Act
-      TokenDenominationModel lowestTokenDenominationModel = actualTokenAmountModel.tokenAliasModel.lowestTokenDenominationModel;
-      String actualLowestDenominationAmount = actualTokenAmountModel.getAmountInDenomination(lowestTokenDenominationModel).toString();
+      String actualNetworkDenominationAmount = actualTokenAmountModel.getAmountInNetworkDenomination().toString();
 
       // Assert
-      String expectedLowestDenominationAmount = '500';
+      String expectedNetworkDenominationAmount = '0.0000000000000005';
 
-      expect(actualLowestDenominationAmount, expectedLowestDenominationAmount);
+      expect(actualNetworkDenominationAmount, expectedNetworkDenominationAmount);
     });
 
     test('Should return amount in selected (default) denomination', () {
@@ -53,9 +42,20 @@ void main() {
       String actualDefaultDenominationAmount = actualTokenAmountModel.getAmountInDenomination(defaultTokenDenominationModel).toString();
 
       // Assert
-      String expectedDefaultDenominationAmount = '0.0000000000000005';
+      String expectedDefaultDenominationAmount = '500';
 
       expect(actualDefaultDenominationAmount, expectedDefaultDenominationAmount);
+    });
+
+    test('Should return amount in selected (network) denomination', () {
+      // Act
+      TokenDenominationModel networkTokenDenominationModel = actualTokenAmountModel.tokenAliasModel.networkTokenDenominationModel;
+      String actualNetworkDenominationAmount = actualTokenAmountModel.getAmountInDenomination(networkTokenDenominationModel).toString();
+
+      // Assert
+      String expectedNetworkDenominationAmount = '0.0000000000000005';
+
+      expect(actualNetworkDenominationAmount, expectedNetworkDenominationAmount);
     });
   });
 
@@ -66,7 +66,7 @@ void main() {
 
       // Assert
       TokenAmountModel expectedTokenAmountModel = TokenAmountModel(
-        lowestDenominationAmount: Decimal.fromInt(500),
+        defaultDenominationAmount: Decimal.fromInt(500),
         tokenAliasModel: TokenAliasModel.local('ukex'),
       );
 
@@ -79,7 +79,7 @@ void main() {
 
       // Assert
       TokenAmountModel expectedTokenAmountModel = TokenAmountModel(
-        lowestDenominationAmount: Decimal.fromInt(500),
+        defaultDenominationAmount: Decimal.fromInt(500),
         tokenAliasModel: TokenAliasModel.local('v1/ukex'),
       );
 
@@ -90,21 +90,11 @@ void main() {
   group('Tests of TokenAmountModel containing TokenAliasModel created from local() constructor', () {
     // Arrange
     TokenAmountModel actualTokenAmountModel = TokenAmountModel(
-      lowestDenominationAmount: Decimal.fromInt(500),
+      defaultDenominationAmount: Decimal.fromInt(500),
       tokenAliasModel: TokenAliasModel.local('samolean'),
     );
 
-    test('Should return amount in lowest denomination', () {
-      // Act
-      String actualLowestDenominationAmount = actualTokenAmountModel.getAmountInLowestDenomination().toString();
-
-      // Assert
-      String expectedLowestDenominationAmount = '500';
-
-      expect(actualLowestDenominationAmount, expectedLowestDenominationAmount);
-    });
-
-    test('Should return amount in default denomination (in this case lowest denomination should be equal default)', () {
+    test('Should return amount in default denomination', () {
       // Act
       String actualDefaultDenominationAmount = actualTokenAmountModel.getAmountInDefaultDenomination().toString();
 
@@ -114,18 +104,17 @@ void main() {
       expect(actualDefaultDenominationAmount, expectedDefaultDenominationAmount);
     });
 
-    test('Should return amount in selected (lowest) denomination', () {
+    test('Should return amount in network denomination (in this case default denomination should be equal network)', () {
       // Act
-      TokenDenominationModel lowestTokenDenominationModel = actualTokenAmountModel.tokenAliasModel.lowestTokenDenominationModel;
-      String actualLowestDenominationAmount = actualTokenAmountModel.getAmountInDenomination(lowestTokenDenominationModel).toString();
+      String actualNetworkDenominationAmount = actualTokenAmountModel.getAmountInNetworkDenomination().toString();
 
       // Assert
-      String expectedLowestDenominationAmount = '500';
+      String expectedNetworkDenominationAmount = '500';
 
-      expect(actualLowestDenominationAmount, expectedLowestDenominationAmount);
+      expect(actualNetworkDenominationAmount, expectedNetworkDenominationAmount);
     });
 
-    test('Should return amount in selected (default) denomination (in this case lowest denomination should be equal default)', () {
+    test('Should return amount in selected (default) denomination', () {
       // Act
       TokenDenominationModel defaultTokenDenominationModel = actualTokenAmountModel.tokenAliasModel.defaultTokenDenominationModel;
       String actualDefaultDenominationAmount = actualTokenAmountModel.getAmountInDenomination(defaultTokenDenominationModel).toString();
@@ -134,45 +123,45 @@ void main() {
       String expectedDefaultDenominationAmount = '500';
 
       expect(actualDefaultDenominationAmount, expectedDefaultDenominationAmount);
+    });
+
+    test('Should return amount in selected (network) denomination (in this case default denomination should be equal network)', () {
+      // Act
+      TokenDenominationModel networkTokenDenominationModel = actualTokenAmountModel.tokenAliasModel.networkTokenDenominationModel;
+      String actualNetworkDenominationAmount = actualTokenAmountModel.getAmountInDenomination(networkTokenDenominationModel).toString();
+
+      // Assert
+      String expectedNetworkDenominationAmount = '500';
+
+      expect(actualNetworkDenominationAmount, expectedNetworkDenominationAmount);
     });
   });
 
   group('Tests of TokenAmountModel containing TokenAliasModel created from fromDto() constructor', () {
     // Arrange
     TokenAmountModel actualTokenAmountModel = TokenAmountModel(
-      lowestDenominationAmount: Decimal.fromInt(500),
+      defaultDenominationAmount: Decimal.fromInt(500),
       tokenAliasModel: TestUtils.kexTokenAliasModel,
     );
-
-    test('Should return amount in lowest denomination', () {
-      // Act
-      String actualLowestDenominationAmount = actualTokenAmountModel.getAmountInLowestDenomination().toString();
-
-      // Assert
-      String expectedLowestDenominationAmount = '500';
-
-      expect(actualLowestDenominationAmount, expectedLowestDenominationAmount);
-    });
 
     test('Should return amount in default denomination', () {
       // Act
       String actualDefaultDenominationAmount = actualTokenAmountModel.getAmountInDefaultDenomination().toString();
 
       // Assert
-      String expectedLowestDenominationAmount = '0.0005';
+      String expectedDefaultDenominationAmount = '500';
 
-      expect(actualDefaultDenominationAmount, expectedLowestDenominationAmount);
+      expect(actualDefaultDenominationAmount, expectedDefaultDenominationAmount);
     });
 
-    test('Should return amount in selected (lowest) denomination', () {
+    test('Should return amount in network denomination', () {
       // Act
-      TokenDenominationModel lowestTokenDenominationModel = actualTokenAmountModel.tokenAliasModel.lowestTokenDenominationModel;
-      String actualLowestDenominationAmount = actualTokenAmountModel.getAmountInDenomination(lowestTokenDenominationModel).toString();
+      String actualNetworkDenominationAmount = actualTokenAmountModel.getAmountInNetworkDenomination().toString();
 
       // Assert
-      String expectedLowestDenominationAmount = '500';
+      String expectedNetworkDenominationAmount = '0.0005';
 
-      expect(actualLowestDenominationAmount, expectedLowestDenominationAmount);
+      expect(actualNetworkDenominationAmount, expectedNetworkDenominationAmount);
     });
 
     test('Should return amount in selected (default) denomination', () {
@@ -181,106 +170,52 @@ void main() {
       String actualDefaultDenominationAmount = actualTokenAmountModel.getAmountInDenomination(defaultTokenDenominationModel).toString();
 
       // Assert
-      String expectedDefaultDenominationAmount = '0.0005';
+      String expectedDefaultDenominationAmount = '500';
 
       expect(actualDefaultDenominationAmount, expectedDefaultDenominationAmount);
+    });
+
+    test('Should return amount in selected (network) denomination', () {
+      // Act
+      TokenDenominationModel networkTokenDenominationModel = actualTokenAmountModel.tokenAliasModel.networkTokenDenominationModel;
+      String actualNetworkDenominationAmount = actualTokenAmountModel.getAmountInDenomination(networkTokenDenominationModel).toString();
+
+      // Assert
+      String expectedNetworkDenominationAmount = '0.0005';
+
+      expect(actualNetworkDenominationAmount, expectedNetworkDenominationAmount);
     });
   });
 
   group('Tests of TokenAmountModel working with very small values', () {
     // Arrange
     TokenAmountModel actualTokenAmountModel = TokenAmountModel(
-      lowestDenominationAmount: Decimal.fromInt(4),
+      defaultDenominationAmount: Decimal.fromInt(4),
       tokenAliasModel: const TokenAliasModel(
         name: 'test',
-        lowestTokenDenominationModel: TokenDenominationModel(name: 'min', decimals: 0),
-        defaultTokenDenominationModel: TokenDenominationModel(name: 'max', decimals: 50),
+        defaultTokenDenominationModel: TokenDenominationModel(name: 'min', decimals: 0),
+        networkTokenDenominationModel: TokenDenominationModel(name: 'max', decimals: 50),
       ),
     );
-
-    test('Should return amount in lowest denomination', () {
-      // Act
-      String actualLowestDenominationAmount = actualTokenAmountModel.getAmountInLowestDenomination().toString();
-
-      // Assert
-      String expectedLowestDenominationAmount = '4';
-
-      expect(actualLowestDenominationAmount, expectedLowestDenominationAmount);
-    });
 
     test('Should return amount in default denomination', () {
       // Act
       String actualDefaultDenominationAmount = actualTokenAmountModel.getAmountInDefaultDenomination().toString();
 
       // Assert
-      String expectedLowestDenominationAmount = '0.00000000000000000000000000000000000000000000000004';
-
-      expect(actualDefaultDenominationAmount, expectedLowestDenominationAmount);
-    });
-
-    test('Should return amount in selected (lowest) denomination', () {
-      // Act
-      TokenDenominationModel lowestTokenDenominationModel = actualTokenAmountModel.tokenAliasModel.lowestTokenDenominationModel;
-      String actualLowestDenominationAmount = actualTokenAmountModel.getAmountInDenomination(lowestTokenDenominationModel).toString();
-
-      // Assert
-      String expectedLowestDenominationAmount = '4';
-
-      expect(actualLowestDenominationAmount, expectedLowestDenominationAmount);
-    });
-
-    test('Should return amount in selected (default) denomination', () {
-      // Act
-      TokenDenominationModel defaultTokenDenominationModel = actualTokenAmountModel.tokenAliasModel.defaultTokenDenominationModel;
-      String actualDefaultDenominationAmount = actualTokenAmountModel.getAmountInDenomination(defaultTokenDenominationModel).toString();
-
-      // Assert
-      String expectedDefaultDenominationAmount = '0.00000000000000000000000000000000000000000000000004';
+      String expectedDefaultDenominationAmount = '4';
 
       expect(actualDefaultDenominationAmount, expectedDefaultDenominationAmount);
     });
-  });
 
-  group('Tests of TokenAmountModel working with very big values', () {
-    // Arrange
-    TokenAmountModel actualTokenAmountModel = TokenAmountModel(
-      lowestDenominationAmount: Decimal.parse('400000000000000000000000000000000000000000000000000'),
-      tokenAliasModel: const TokenAliasModel(
-        name: 'test',
-        lowestTokenDenominationModel: TokenDenominationModel(name: 'min', decimals: 0),
-        defaultTokenDenominationModel: TokenDenominationModel(name: 'max', decimals: 50),
-      ),
-    );
-
-    test('Should return amount in lowest denomination', () {
+    test('Should return amount in network denomination', () {
       // Act
-      String actualLowestDenominationAmount = actualTokenAmountModel.getAmountInLowestDenomination().toString();
+      String actualNetworkDenominationAmount = actualTokenAmountModel.getAmountInNetworkDenomination().toString();
 
       // Assert
-      String expectedLowestDenominationAmount = '400000000000000000000000000000000000000000000000000';
+      String expectedNetworkDenominationAmount = '0.00000000000000000000000000000000000000000000000004';
 
-      expect(actualLowestDenominationAmount, expectedLowestDenominationAmount);
-    });
-
-    test('Should return amount in default denomination', () {
-      // Act
-      String actualDefaultDenominationAmount = actualTokenAmountModel.getAmountInDefaultDenomination().toString();
-
-      // Assert
-      String expectedLowestDenominationAmount = '4';
-
-      expect(actualDefaultDenominationAmount, expectedLowestDenominationAmount);
-    });
-
-    test('Should return amount in selected (lowest) denomination', () {
-      // Act
-      TokenDenominationModel lowestTokenDenominationModel = actualTokenAmountModel.tokenAliasModel.lowestTokenDenominationModel;
-      String actualLowestDenominationAmount = actualTokenAmountModel.getAmountInDenomination(lowestTokenDenominationModel).toString();
-
-      // Assert
-      String expectedLowestDenominationAmount = '400000000000000000000000000000000000000000000000000';
-
-      expect(actualLowestDenominationAmount, expectedLowestDenominationAmount);
+      expect(actualNetworkDenominationAmount, expectedNetworkDenominationAmount);
     });
 
     test('Should return amount in selected (default) denomination', () {
@@ -293,63 +228,128 @@ void main() {
 
       expect(actualDefaultDenominationAmount, expectedDefaultDenominationAmount);
     });
+
+    test('Should return amount in selected (network) denomination', () {
+      // Act
+      TokenDenominationModel networkTokenDenominationModel = actualTokenAmountModel.tokenAliasModel.networkTokenDenominationModel;
+      String actualNetworkDenominationAmount = actualTokenAmountModel.getAmountInDenomination(networkTokenDenominationModel).toString();
+
+      // Assert
+      String expectedNetworkDenominationAmount = '0.00000000000000000000000000000000000000000000000004';
+
+      expect(actualNetworkDenominationAmount, expectedNetworkDenominationAmount);
+    });
+  });
+
+  group('Tests of TokenAmountModel working with very big values', () {
+    // Arrange
+    TokenAmountModel actualTokenAmountModel = TokenAmountModel(
+      defaultDenominationAmount: Decimal.parse('400000000000000000000000000000000000000000000000000'),
+      tokenAliasModel: const TokenAliasModel(
+        name: 'test',
+        defaultTokenDenominationModel: TokenDenominationModel(name: 'min', decimals: 0),
+        networkTokenDenominationModel: TokenDenominationModel(name: 'max', decimals: 50),
+      ),
+    );
+
+    test('Should return amount in default denomination', () {
+      // Act
+      String actualDefaultDenominationAmount = actualTokenAmountModel.getAmountInDefaultDenomination().toString();
+
+      // Assert
+      String expectedDefaultDenominationAmount = '400000000000000000000000000000000000000000000000000';
+
+      expect(actualDefaultDenominationAmount, expectedDefaultDenominationAmount);
+    });
+
+    test('Should return amount in network denomination', () {
+      // Act
+      String actualNetworkDenominationAmount = actualTokenAmountModel.getAmountInNetworkDenomination().toString();
+
+      // Assert
+      String expectedNetworkDenominationAmount = '4';
+
+      expect(actualNetworkDenominationAmount, expectedNetworkDenominationAmount);
+    });
+
+    test('Should return amount in selected (default) denomination', () {
+      // Act
+      TokenDenominationModel defaultTokenDenominationModel = actualTokenAmountModel.tokenAliasModel.defaultTokenDenominationModel;
+      String actualDefaultDenominationAmount = actualTokenAmountModel.getAmountInDenomination(defaultTokenDenominationModel).toString();
+
+      // Assert
+      String expectedDefaultDenominationAmount = '400000000000000000000000000000000000000000000000000';
+
+      expect(actualDefaultDenominationAmount, expectedDefaultDenominationAmount);
+    });
+
+    test('Should return amount in selected (network) denomination', () {
+      // Act
+      TokenDenominationModel networkTokenDenominationModel = actualTokenAmountModel.tokenAliasModel.networkTokenDenominationModel;
+      String actualNetworkDenominationAmount = actualTokenAmountModel.getAmountInDenomination(networkTokenDenominationModel).toString();
+
+      // Assert
+      String expectedNetworkDenominationAmount = '4';
+
+      expect(actualNetworkDenominationAmount, expectedNetworkDenominationAmount);
+    });
   });
 
   group('Tests of TokenAmountModel.setAmount() method', () {
     // Arrange
     TokenAmountModel actualTokenAmountModel = TokenAmountModel(
-      lowestDenominationAmount: Decimal.fromInt(500),
+      defaultDenominationAmount: Decimal.fromInt(500),
       tokenAliasModel: TestUtils.ethTokenAliasModel,
     );
 
     test('Should update actualTokenAmount to 1000', () {
       // Act
       actualTokenAmountModel.setAmount(Decimal.fromInt(1000));
-      String actualLowestTokenAmount = actualTokenAmountModel.getAmountInLowestDenomination().toString();
+      String actualDefaultTokenAmount = actualTokenAmountModel.getAmountInDefaultDenomination().toString();
 
       // Assert
-      String expectedLowestTokenAmount = '1000';
+      String expectedDefaultTokenAmount = '1000';
 
-      expect(actualLowestTokenAmount, expectedLowestTokenAmount);
+      expect(actualDefaultTokenAmount, expectedDefaultTokenAmount);
     });
 
     test('Should update actualTokenAmount to 100000000000000000000000', () {
       // Act
       actualTokenAmountModel.setAmount(Decimal.parse('100000000000000000000000'));
-      String actualLowestTokenAmount = actualTokenAmountModel.getAmountInLowestDenomination().toString();
+      String actualDefaultTokenAmount = actualTokenAmountModel.getAmountInDefaultDenomination().toString();
 
       // Assert
-      String expectedLowestTokenAmount = '100000000000000000000000';
+      String expectedDefaultTokenAmount = '100000000000000000000000';
 
-      expect(actualLowestTokenAmount, expectedLowestTokenAmount);
+      expect(actualDefaultTokenAmount, expectedDefaultTokenAmount);
     });
 
-    test('Should calculate "1000" to lowest denomination and set it as actual amount', () {
+    test('Should calculate "1000" to default denomination and set it as actual amount', () {
       // Arrange
-      TokenDenominationModel defaultTokenDenominationModel = actualTokenAmountModel.tokenAliasModel.defaultTokenDenominationModel;
+      TokenDenominationModel defaultTokenDenominationModel = actualTokenAmountModel.tokenAliasModel.networkTokenDenominationModel;
 
       // Act
       actualTokenAmountModel.setAmount(Decimal.parse('1000'), tokenDenominationModel: defaultTokenDenominationModel);
-      String actualLowestTokenAmount = actualTokenAmountModel.getAmountInLowestDenomination().toString();
+      String actualDefaultTokenAmount = actualTokenAmountModel.getAmountInDefaultDenomination().toString();
 
       // Assert
-      String expectedLowestTokenAmount = '1000000000000000000000';
+      String expectedDefaultTokenAmount = '1000000000000000000000';
 
-      expect(actualLowestTokenAmount, expectedLowestTokenAmount);
+      expect(actualDefaultTokenAmount, expectedDefaultTokenAmount);
     });
 
-    test('Should calculate "2" to lowest denomination and set it as actual amount', () {
+    test('Should calculate "2" to default denomination and set it as actual amount', () {
       // Arrange
-      TokenDenominationModel defaultTokenDenominationModel = actualTokenAmountModel.tokenAliasModel.defaultTokenDenominationModel;
+      TokenDenominationModel defaultTokenDenominationModel = actualTokenAmountModel.tokenAliasModel.networkTokenDenominationModel;
 
       // Act
       actualTokenAmountModel.setAmount(Decimal.parse('2'), tokenDenominationModel: defaultTokenDenominationModel);
-      String actualLowestTokenAmount = actualTokenAmountModel.getAmountInLowestDenomination().toString();
+      String actualDefaultTokenAmount = actualTokenAmountModel.getAmountInDefaultDenomination().toString();
 
       // Assert
-      String expectedLowestTokenAmount = '2000000000000000000';
+      String expectedDefaultTokenAmount = '2000000000000000000';
 
-      expect(actualLowestTokenAmount, expectedLowestTokenAmount);
+      expect(actualDefaultTokenAmount, expectedDefaultTokenAmount);
     });
   });
 
@@ -357,11 +357,11 @@ void main() {
     test('Should [add] TokenAmountModels if [aliases EQUAL] ', () {
       // Arrange
       TokenAmountModel actualFirstTokenAmountModel = TokenAmountModel(
-        lowestDenominationAmount: Decimal.fromInt(500),
+        defaultDenominationAmount: Decimal.fromInt(500),
         tokenAliasModel: TestUtils.ethTokenAliasModel,
       );
       TokenAmountModel actualSecondTokenAmountModel = TokenAmountModel(
-        lowestDenominationAmount: Decimal.fromInt(600),
+        defaultDenominationAmount: Decimal.fromInt(600),
         tokenAliasModel: TestUtils.ethTokenAliasModel,
       );
 
@@ -370,7 +370,7 @@ void main() {
 
       // Assert
       TokenAmountModel expectedResultTokenAmountModel = TokenAmountModel(
-        lowestDenominationAmount: Decimal.fromInt(1100),
+        defaultDenominationAmount: Decimal.fromInt(1100),
         tokenAliasModel: TestUtils.ethTokenAliasModel,
       );
 
@@ -380,11 +380,11 @@ void main() {
     test('Should [ignore adding] TokenAmountModels if [aliases DIFFERENT] ', () {
       // Arrange
       TokenAmountModel actualFirstTokenAmountModel = TokenAmountModel(
-        lowestDenominationAmount: Decimal.fromInt(500),
+        defaultDenominationAmount: Decimal.fromInt(500),
         tokenAliasModel: TestUtils.ethTokenAliasModel,
       );
       TokenAmountModel actualSecondTokenAmountModel = TokenAmountModel(
-        lowestDenominationAmount: Decimal.fromInt(600),
+        defaultDenominationAmount: Decimal.fromInt(600),
         tokenAliasModel: TestUtils.kexTokenAliasModel,
       );
 
@@ -393,7 +393,7 @@ void main() {
 
       // Assert
       TokenAmountModel expectedResultTokenAmountModel = TokenAmountModel(
-        lowestDenominationAmount: Decimal.fromInt(500),
+        defaultDenominationAmount: Decimal.fromInt(500),
         tokenAliasModel: TestUtils.ethTokenAliasModel,
       );
 
@@ -405,11 +405,11 @@ void main() {
     test('Should [subtract] TokenAmountModels if [aliases EQUAL] ', () {
       // Arrange
       TokenAmountModel actualFirstTokenAmountModel = TokenAmountModel(
-        lowestDenominationAmount: Decimal.fromInt(500),
+        defaultDenominationAmount: Decimal.fromInt(500),
         tokenAliasModel: TestUtils.ethTokenAliasModel,
       );
       TokenAmountModel actualSecondTokenAmountModel = TokenAmountModel(
-        lowestDenominationAmount: Decimal.fromInt(400),
+        defaultDenominationAmount: Decimal.fromInt(400),
         tokenAliasModel: TestUtils.ethTokenAliasModel,
       );
 
@@ -418,7 +418,7 @@ void main() {
 
       // Assert
       TokenAmountModel expectedResultTokenAmountModel = TokenAmountModel(
-        lowestDenominationAmount: Decimal.fromInt(100),
+        defaultDenominationAmount: Decimal.fromInt(100),
         tokenAliasModel: TestUtils.ethTokenAliasModel,
       );
 
@@ -428,11 +428,11 @@ void main() {
     test('Should [ignore subtracting] TokenAmountModels if [aliases DIFFERENT] ', () {
       // Arrange
       TokenAmountModel actualFirstTokenAmountModel = TokenAmountModel(
-        lowestDenominationAmount: Decimal.fromInt(500),
+        defaultDenominationAmount: Decimal.fromInt(500),
         tokenAliasModel: TestUtils.ethTokenAliasModel,
       );
       TokenAmountModel actualSecondTokenAmountModel = TokenAmountModel(
-        lowestDenominationAmount: Decimal.fromInt(600),
+        defaultDenominationAmount: Decimal.fromInt(600),
         tokenAliasModel: TestUtils.kexTokenAliasModel,
       );
 
@@ -441,7 +441,7 @@ void main() {
 
       // Assert
       TokenAmountModel expectedResultTokenAmountModel = TokenAmountModel(
-        lowestDenominationAmount: Decimal.fromInt(500),
+        defaultDenominationAmount: Decimal.fromInt(500),
         tokenAliasModel: TestUtils.ethTokenAliasModel,
       );
 
@@ -451,11 +451,11 @@ void main() {
     test('Should [return 0] if result of subtraction is negative ', () {
       // Arrange
       TokenAmountModel actualFirstTokenAmountModel = TokenAmountModel(
-        lowestDenominationAmount: Decimal.fromInt(500),
+        defaultDenominationAmount: Decimal.fromInt(500),
         tokenAliasModel: TestUtils.ethTokenAliasModel,
       );
       TokenAmountModel actualSecondTokenAmountModel = TokenAmountModel(
-        lowestDenominationAmount: Decimal.fromInt(600),
+        defaultDenominationAmount: Decimal.fromInt(600),
         tokenAliasModel: TestUtils.ethTokenAliasModel,
       );
 
@@ -464,7 +464,7 @@ void main() {
 
       // Assert
       TokenAmountModel expectedResultTokenAmountModel = TokenAmountModel(
-        lowestDenominationAmount: Decimal.fromInt(0),
+        defaultDenominationAmount: Decimal.fromInt(0),
         tokenAliasModel: TestUtils.ethTokenAliasModel,
       );
 
@@ -476,7 +476,7 @@ void main() {
     test('Should throw ArgumentError for setAmount() method if amount is less than zero', () {
       // Arrange
       TokenAmountModel actualTokenAmountModel = TokenAmountModel(
-        lowestDenominationAmount: Decimal.fromInt(500),
+        defaultDenominationAmount: Decimal.fromInt(500),
         tokenAliasModel: TestUtils.ethTokenAliasModel,
       );
 
@@ -490,14 +490,14 @@ void main() {
     test('Should set -1 as amount if TokenAmountModel constructor has amount less than zero', () {
       // Act
       TokenAmountModel actualTokenAmountModel = TokenAmountModel(
-        lowestDenominationAmount: Decimal.fromInt(-5000),
+        defaultDenominationAmount: Decimal.fromInt(-5000),
         tokenAliasModel: TestUtils.ethTokenAliasModel,
       );
-      String actualLowestDenominationAmount = actualTokenAmountModel.getAmountInLowestDenomination().toString();
+      String actualDefaultDenominationAmount = actualTokenAmountModel.getAmountInDefaultDenomination().toString();
 
       // Assert
-      String expectedLowestDenominationAmount = '-1';
-      expect(actualLowestDenominationAmount, expectedLowestDenominationAmount);
+      String expectedDefaultDenominationAmount = '-1';
+      expect(actualDefaultDenominationAmount, expectedDefaultDenominationAmount);
     });
   });
 }

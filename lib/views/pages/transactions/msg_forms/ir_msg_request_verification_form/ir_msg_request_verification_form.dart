@@ -112,7 +112,7 @@ class _IRMsgRequestVerificationForm extends State<IRMsgRequestVerificationForm> 
   }
 
   String? _validateTipAmount(TokenAmountModel? tokenAmountModel) {
-    if (tokenAmountModel!.getAmountInLowestDenomination() < widget.minTipTokenAmountModel.getAmountInLowestDenomination()) {
+    if (tokenAmountModel!.getAmountInDefaultDenomination() < widget.minTipTokenAmountModel.getAmountInDefaultDenomination()) {
       return S.of(context).irTxErrorTipMustBeGreater(widget.minTipTokenAmountModel.toString());
     } else {
       return null;

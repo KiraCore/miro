@@ -9,12 +9,12 @@ import 'package:miro/test/utils/test_utils.dart';
 // fvm flutter test test/unit/shared/models/tokens/prefixed_token_amount_model_test.dart --platform chrome --null-assertions
 void main() {
   TokenAmountModel actualTokenAmountModel = TokenAmountModel(
-    lowestDenominationAmount: Decimal.fromInt(1000),
+    defaultDenominationAmount: Decimal.fromInt(1000),
     tokenAliasModel: TestUtils.kexTokenAliasModel,
   );
 
   group('Tests of PrefixedTokenAmountModel.getAmountAsString()', () {
-    test('Should return [amount in lowest denomination] with ["+" prefix]', () {
+    test('Should return [amount in default denomination] with ["+" prefix]', () {
       // Arrange
       PrefixedTokenAmountModel prefixedTokenAmountModel = PrefixedTokenAmountModel(
         tokenAmountModel: actualTokenAmountModel,
@@ -30,7 +30,7 @@ void main() {
       expect(actualAmountAsString, expectedAmountAsString);
     });
 
-    test('Should return [amount in lowest denomination] with ["-" prefix]', () {
+    test('Should return [amount in default denomination] with ["-" prefix]', () {
       // Arrange
       PrefixedTokenAmountModel prefixedTokenAmountModel = PrefixedTokenAmountModel(
         tokenAmountModel: actualTokenAmountModel,
