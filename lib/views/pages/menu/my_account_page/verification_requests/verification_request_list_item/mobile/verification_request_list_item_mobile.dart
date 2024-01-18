@@ -9,10 +9,14 @@ import 'package:miro/views/widgets/generic/account/account_tile.dart';
 import 'package:miro/views/widgets/generic/prefixed_widget.dart';
 
 class VerificationRequestListItemMobile extends StatelessWidget {
+  final VoidCallback onApproveButtonPressed;
+  final VoidCallback onRejectButtonPressed;
   final VoidCallback onShowDrawerPressed;
   final IRInboundVerificationRequestModel irInboundVerificationRequestModel;
 
   const VerificationRequestListItemMobile({
+    required this.onApproveButtonPressed,
+    required this.onRejectButtonPressed,
     required this.onShowDrawerPressed,
     required this.irInboundVerificationRequestModel,
     Key? key,
@@ -81,6 +85,28 @@ class VerificationRequestListItemMobile extends StatelessWidget {
             height: 40,
             title: S.of(context).showDetails,
             onPressed: onShowDrawerPressed,
+          ),
+          const SizedBox(height: 14),
+          Row(
+            children: <Widget>[
+              Expanded(
+                child: KiraOutlinedButton(
+                  height: 40,
+                  onPressed: onApproveButtonPressed,
+                  title: S.of(context).irVerificationRequestsApprove,
+                  textColor: DesignColors.greenStatus1,
+                ),
+              ),
+              const SizedBox(width: 14),
+              Expanded(
+                child: KiraOutlinedButton(
+                  height: 40,
+                  onPressed: onRejectButtonPressed,
+                  title: S.of(context).irVerificationRequestsReject,
+                  textColor: DesignColors.redStatus1,
+                ),
+              ),
+            ],
           ),
         ],
       ),

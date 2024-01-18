@@ -92,7 +92,7 @@ class _StakingListItemMobile extends State<StakingListItemMobile> {
               StakingDrawerPage(validatorStakingModel: widget.validatorStakingModel),
             ),
           ),
-          const SizedBox(height: 18),
+          const SizedBox(height: 14),
           SizedBox(
             height: 40,
             child: Row(
@@ -103,7 +103,7 @@ class _StakingListItemMobile extends State<StakingListItemMobile> {
                     onPressed: _handleStakeButtonPressed,
                   ),
                 ),
-                const SizedBox(width: 12),
+                const SizedBox(width: 14),
                 Expanded(
                   child: KiraOutlinedButton(
                     title: S.of(context).stakingTxUnstake,

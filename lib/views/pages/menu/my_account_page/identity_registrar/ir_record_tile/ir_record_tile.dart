@@ -87,7 +87,7 @@ class _IdentityRecordTile extends State<IRRecordTile> {
       children: <PageRouteInfo>[
         IRTxRegisterRecordRoute(
           irRecordModel: widget.irRecordModel,
-          irKeyEditableBool: widget.irRecordModel?.key.isNotEmpty == true,
+          irKeyEditableBool: false,
           irValueMaxLength: widget.irRecordFieldConfigModel.valueMaxLength,
         )
       ],

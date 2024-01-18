@@ -94,6 +94,7 @@
   "irRecordStatusPending": "Pending",
 
   "irVerificationRequests": "Verification Requests",
+  "irVerificationRequestsActions": "Actions",
   "irVerificationRequestsVerifyRecord": "Verify record",
   "irVerificationRequestsVerifyRecords": "Verify records",
   "irVerificationRequestsCreationDate": "Creation date",
@@ -298,6 +299,7 @@
   "txHintMemo": "Memo",
   "txHintUnstakeFrom": "Unstake from",
   "txHintUnstakeBy": "Unstake by",
+  "txHintVerifyBy": "Verify by",
   "txNoticeFee": "Transaction fee {widgetFeeTokenAmountModel}",
   "@txNoticeFee": {
     "placeholders": {

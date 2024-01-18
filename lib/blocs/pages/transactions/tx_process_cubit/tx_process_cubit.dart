@@ -60,15 +60,21 @@ class TxProcessCubit<T extends AMsgFormModel> extends Cubit<ATxProcessState> {
       );
       if (formEnabledBool) {
         emit(txProcessLoadedState);
-      } else {
+        return;
+      }
+
+      SignedTxModel signedTxModel = await _buildSignedTransaction(feeTokenAmountModel);
+      if (isClosed == false) {
         emit(TxProcessConfirmState(
           txProcessLoadedState: txProcessLoadedState,
-          signedTxModel: await _buildSignedTransaction(feeTokenAmountModel),
+          signedTxModel: signedTxModel,
         ));
       }
     } catch (e) {
-      AppLogger().log(message: 'Failed to load transaction fee: $e');
-      emit(const TxProcessErrorState());
+      if (isClosed == false) {
+        AppLogger().log(message: 'Failed to load transaction fee: $e');
+        emit(const TxProcessErrorState());
+      }
     }
   }
 

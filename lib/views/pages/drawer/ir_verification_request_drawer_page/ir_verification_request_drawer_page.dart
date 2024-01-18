@@ -10,8 +10,8 @@ import 'package:miro/shared/models/identity_registrar/ir_user_profile_model.dart
 import 'package:miro/shared/router/kira_router.dart';
 import 'package:miro/shared/router/router.gr.dart';
 import 'package:miro/views/layout/drawer/drawer_subtitle.dart';
-import 'package:miro/views/widgets/buttons/kira_elevated_button.dart';
-import 'package:miro/views/widgets/generic/account/account_tile.dart';
+import 'package:miro/views/widgets/buttons/kira_outlined_button.dart';
+import 'package:miro/views/widgets/generic/account_tile_copy_wrapper.dart';
 import 'package:miro/views/widgets/generic/expandable_text.dart';
 import 'package:miro/views/widgets/generic/prefixed_widget.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_value.dart';
@@ -44,15 +44,8 @@ class _IRVerificationRequestDrawerPage extends State<IRVerificationRequestDrawer
               ? S.of(context).irVerificationRequestsVerifyRecords
               : S.of(context).irVerificationRequestsVerifyRecord,
         ),
-        const SizedBox(height: 32),
-        AccountTile(
-          size: 52,
-          avatarUrl: requesterIrUserProfileModel.avatarUrl,
-          username: requesterIrUserProfileModel.username,
-          walletAddress: requesterIrUserProfileModel.walletAddress,
-          usernameTextStyle: textTheme.bodyLarge!.copyWith(color: DesignColors.white1),
-          addressTextStyle: textTheme.bodyMedium!.copyWith(color: DesignColors.white2),
-        ),
+        const SizedBox(height: 24),
+        AccountTileCopyWrapper.fromIRUserProfileModel(requesterIrUserProfileModel),
         const SizedBox(height: 8),
         const Divider(color: DesignColors.grey2),
         const SizedBox(height: 16),
@@ -70,6 +63,28 @@ class _IRVerificationRequestDrawerPage extends State<IRVerificationRequestDrawer
             widget.irInboundVerificationRequestModel.tipTokenAmountModel.toString(),
             style: textTheme.bodyMedium!.copyWith(color: DesignColors.white1),
           ),
+        ),
+        const SizedBox(height: 16),
+        Row(
+          children: <Widget>[
+            Expanded(
+              child: KiraOutlinedButton(
+                height: 40,
+                onPressed: _pressApproveButton,
+                title: S.of(context).irVerificationRequestsApprove,
+                textColor: DesignColors.greenStatus1,
+              ),
+            ),
+            const SizedBox(width: 16),
+            Expanded(
+              child: KiraOutlinedButton(
+                height: 40,
+                onPressed: _pressRejectButton,
+                title: S.of(context).irVerificationRequestsReject,
+                textColor: DesignColors.redStatus1,
+              ),
+            ),
+          ],
         ),
         const SizedBox(height: 16),
         PrefixedWidget(
@@ -128,29 +143,6 @@ class _IRVerificationRequestDrawerPage extends State<IRVerificationRequestDrawer
                   ),
                 ),
               const SizedBox(height: 16),
-              Row(
-                children: <Widget>[
-                  Expanded(
-                    child: KiraElevatedButton(
-                      height: 40,
-                      onPressed: _pressApproveButton,
-                      icon: const Icon(Icons.check, size: 20, color: DesignColors.greenStatus1),
-                      title: S.of(context).irVerificationRequestsApprove,
-                      foregroundColor: DesignColors.greenStatus1,
-                    ),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: KiraElevatedButton(
-                      height: 40,
-                      onPressed: _pressRejectButton,
-                      icon: const Icon(Icons.close, size: 20, color: DesignColors.redStatus1),
-                      title: S.of(context).irVerificationRequestsReject,
-                      foregroundColor: DesignColors.redStatus1,
-                    ),
-                  ),
-                ],
-              )
             ],
           ),
         ),

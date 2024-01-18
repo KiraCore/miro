@@ -75,7 +75,7 @@ class IRRecordTileMobile extends StatelessWidget {
               onPressed: onShowDrawerPressed,
             ),
           ],
-          const SizedBox(height: 16),
+          const SizedBox(height: 14),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
@@ -83,24 +83,24 @@ class IRRecordTileMobile extends StatelessWidget {
                 Expanded(
                   child: KiraOutlinedButton(
                     height: 40,
+                    title: S.of(context).irRecordVerify,
+                    onPressed: onVerifyPressed,
+                  ),
+                ),
+                const SizedBox(width: 14),
+                Expanded(
+                  child: KiraOutlinedButton(
+                    height: 40,
                     title: S.of(context).irRecordEdit,
                     onPressed: onEditPressed,
                   ),
                 ),
-                const SizedBox(width: 15),
+                const SizedBox(width: 14),
                 Expanded(
                   child: KiraOutlinedButton(
                     height: 40,
                     title: S.of(context).irRecordDelete,
                     onPressed: onDeletePressed,
-                  ),
-                ),
-                const SizedBox(width: 15),
-                Expanded(
-                  child: KiraOutlinedButton(
-                    height: 40,
-                    title: S.of(context).irRecordVerify,
-                    onPressed: onVerifyPressed,
                   ),
                 ),
               ] else if (loadingBool == false)

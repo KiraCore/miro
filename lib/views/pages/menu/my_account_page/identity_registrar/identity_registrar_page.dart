@@ -15,7 +15,7 @@ import 'package:miro/shared/models/identity_registrar/ir_record_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/shared/router/kira_router.dart';
 import 'package:miro/shared/router/router.gr.dart';
-import 'package:miro/views/pages/menu/my_account_page/identity_registrar/ir_custom_entry_button.dart';
+import 'package:miro/views/pages/menu/my_account_page/identity_registrar/ir_custom_record_button.dart';
 import 'package:miro/views/pages/menu/my_account_page/identity_registrar/ir_record_tile/desktop/ir_record_tile_desktop_layout.dart';
 import 'package:miro/views/pages/menu/my_account_page/identity_registrar/ir_record_tile/ir_record_tile.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
@@ -128,7 +128,7 @@ class _IdentityRegistrarPage extends State<IdentityRegistrarPage> {
                         ),
                       );
                     }).toList(),
-                    IRCustomEntryButton(onTap: () => _pressCustomEntryButton(identityRegistrarCubit)),
+                    IRCustomRecordButton(onTap: () => _pressCustomRecordButton(identityRegistrarCubit)),
                   ],
                 ),
               ),
@@ -139,12 +139,12 @@ class _IdentityRegistrarPage extends State<IdentityRegistrarPage> {
     );
   }
 
-  Future<void> _pressCustomEntryButton(IdentityRegistrarCubit identityRegistrarCubit) async {
+  Future<void> _pressCustomRecordButton(IdentityRegistrarCubit identityRegistrarCubit) async {
     await KiraRouter.of(context).push<void>(TransactionsWrapperRoute(
       children: <PageRouteInfo>[
         IRTxRegisterRecordRoute(irRecordModel: null, irKeyEditableBool: true),
       ],
     ));
-    await identityRegistrarCubit.refresh();
+    await identityRegistrarCubit.refresh(forceRequestBool: true);
   }
 }

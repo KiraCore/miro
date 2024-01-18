@@ -35,7 +35,7 @@ class AppConfig {
       defaultApiCacheMaxAge: const Duration(seconds: 60),
       outdatedBlockDuration: const Duration(minutes: 5),
       loadingPageTimerDuration: const Duration(seconds: 4),
-      supportedInterxVersions: <String>['v0.4.46'],
+      supportedInterxVersions: <String>['v0.4.46', 'v0.4.48'],
       rpcBrowserUrlController: RpcBrowserUrlController(),
       defaultRefreshIntervalSeconds: 60,
     );

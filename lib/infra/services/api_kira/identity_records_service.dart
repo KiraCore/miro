@@ -49,7 +49,7 @@ class IdentityRecordsService implements _IIdentityRecordsService {
       requestData: walletAddress.bech32Address,
       forceRequestBool: forceRequestBool,
     ));
-    List<PendingVerification> pendingVerifications = await _getAllPendingVerificationsByRequester(walletAddress);
+    List<PendingVerification> pendingVerifications = await _getAllPendingVerificationsByRequester(walletAddress, forceRequestBool: forceRequestBool);
 
     try {
       QueryIdentityRecordsByAddressResp queryIdentityRecordsByAddressResp = QueryIdentityRecordsByAddressResp.fromJson(response.data as Map<String, dynamic>);

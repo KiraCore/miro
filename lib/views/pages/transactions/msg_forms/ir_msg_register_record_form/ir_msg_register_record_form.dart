@@ -7,7 +7,6 @@ import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/shared/utils/string_utils.dart';
 import 'package:miro/views/pages/transactions/msg_forms/ir_msg_register_record_form/ir_key_text_input_formatter.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_value.dart';
-import 'package:miro/views/widgets/transactions/memo_text_field/memo_text_field.dart';
 import 'package:miro/views/widgets/transactions/tx_input_wrapper.dart';
 import 'package:miro/views/widgets/transactions/tx_text_field.dart';
 import 'package:miro/views/widgets/transactions/wallet_address_text_field.dart';
@@ -90,19 +89,8 @@ class _IRMsgRegisterRecordForm extends State<IRMsgRegisterRecordForm> {
             ),
           ),
           const SizedBox(height: 14),
-          if (widget.irValueMaxLength != null)
-            MemoTextField(
-              label: S.of(context).irTxHintValue,
-              onChanged: _handleValueChanged,
-              memoTextEditingController: identityValueTextEditingController,
-              maxLength: widget.irValueMaxLength!,
-              inputFormatters: <TextInputFormatter>[
-                FilteringTextInputFormatter.allow(StringUtils.irUsernameRegExp),
-              ],
-            )
-          else
-            TxInputWrapper(
-              boxConstraints: BoxConstraints(
+          TxInputWrapper(
+            boxConstraints: BoxConstraints(
                 minHeight: 60,
                 maxHeight: const ResponsiveValue<double>(largeScreen: 200, smallScreen: 125).get(context),
               ),
@@ -116,12 +104,6 @@ class _IRMsgRegisterRecordForm extends State<IRMsgRegisterRecordForm> {
                 onChanged: _handleValueChanged,
               ),
             ),
-          const SizedBox(height: 19),
-          MemoTextField(
-            label: S.of(context).txHintMemo,
-            onChanged: _handleMemoChanged,
-            memoTextEditingController: memoTextEditingController,
-          ),
         ],
       ),
     );
@@ -150,9 +132,5 @@ class _IRMsgRegisterRecordForm extends State<IRMsgRegisterRecordForm> {
 
   void _handleValueChanged(String value) {
     widget.irMsgRegisterRecordFormModel.identityValue = value;
-  }
-
-  void _handleMemoChanged(String memo) {
-    widget.irMsgRegisterRecordFormModel.memo = memo;
   }
 }
