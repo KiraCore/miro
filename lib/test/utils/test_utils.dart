@@ -50,10 +50,10 @@ class TestUtils {
   );
 
   static final NetworkUnknownModel healthyNetworkUnknownModel = NetworkUnknownModel(
-      connectionStatusType: ConnectionStatusType.disconnected,
-      uri: Uri.parse('https://healthy.kira.network'),
-      name: 'healthy-mainnet',
-      lastRefreshDateTime: defaultLastRefreshDateTime,
+    connectionStatusType: ConnectionStatusType.disconnected,
+    uri: Uri.parse('https://healthy.kira.network'),
+    name: 'healthy-mainnet',
+    lastRefreshDateTime: defaultLastRefreshDateTime,
   );
 
   static final NetworkUnknownModel unhealthyNetworkUnknownModel = NetworkUnknownModel(
@@ -109,6 +109,13 @@ class TestUtils {
       bech32AddressPrefix: 'kira',
       defaultTokenAliasModel: TokenAliasModel.local('ukex'),
     ),
+    lastRefreshDateTime: defaultLastRefreshDateTime,
+  );
+
+  static final NetworkOfflineModel initialNetworkOfflineModel = NetworkOfflineModel(
+    connectionStatusType: ConnectionStatusType.disconnected,
+    name: 'offline-mainnet',
+    uri: Uri.parse('https://offline.kira.network'),
     lastRefreshDateTime: defaultLastRefreshDateTime,
   );
 

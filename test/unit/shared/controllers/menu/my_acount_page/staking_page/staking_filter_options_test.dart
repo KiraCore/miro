@@ -6,10 +6,15 @@ import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/validators/staking_pool_status.dart';
 import 'package:miro/shared/models/validators/validator_simplified_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/test/mock_locator.dart';
+import 'package:miro/test/utils/test_utils.dart';
 
 // To run this test type in console:
 // fvm flutter test test/unit/shared/controllers/menu/my_acount_page/staking_page/staking_filter_options_test.dart --platform chrome --null-assertions
-void main() {
+Future<void> main() async {
+  await initMockLocator();
+  await TestUtils.setupNetworkModel(networkUri: Uri.parse('https://healthy.kira.network/'));
+
   final ValidatorSimplifiedModel validatorSimplifiedModel1 = ValidatorSimplifiedModel(
     walletAddress: WalletAddress.fromBech32('kira1ymx5gpvswq0cmj6zkdxwa233sdgq2k5zzfge8w'),
     moniker: 'GENESIS VALIDATOR',

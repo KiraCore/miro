@@ -6,14 +6,15 @@ import 'package:miro/infra/services/api_kira/query_delegations_service.dart';
 import 'package:miro/infra/services/cache/favourites_cache_service.dart';
 import 'package:miro/shared/models/delegations/validator_staking_model.dart';
 import 'package:miro/shared/models/list/pagination_details_model.dart';
+import 'package:miro/shared/models/wallet/wallet_address.dart';
 
 class StakingListController implements IListController<ValidatorStakingModel> {
   final FavouritesCacheService _favouritesCacheService = FavouritesCacheService(domainName: 'staking');
   final QueryDelegationsService _queryDelegationsService = globalLocator<QueryDelegationsService>();
-  final String delegatorAddress;
+  final WalletAddress walletAddress;
 
   StakingListController({
-    required this.delegatorAddress,
+    required this.walletAddress,
   });
 
   @override
@@ -30,7 +31,7 @@ class StakingListController implements IListController<ValidatorStakingModel> {
   Future<PageData<ValidatorStakingModel>> getPageData(PaginationDetailsModel paginationDetailsModel, {bool forceRequestBool = false}) async {
     PageData<ValidatorStakingModel> stakingPageData = await _queryDelegationsService.getValidatorStakingModelList(
       QueryDelegationsReq(
-        delegatorAddress: delegatorAddress,
+        delegatorAddress: walletAddress.bech32Address,
         offset: paginationDetailsModel.offset,
         limit: paginationDetailsModel.limit,
       ),

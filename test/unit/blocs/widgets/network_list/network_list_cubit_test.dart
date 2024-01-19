@@ -58,7 +58,7 @@ Future<void> main() async {
       expectedNetworkListState = NetworkListLoadedState(networkStatusModelList: <ANetworkStatusModel>[
         TestUtils.networkUnhealthyModel,
         TestUtils.networkHealthyModel,
-        TestUtils.networkOfflineModel,
+        TestUtils.initialNetworkOfflineModel,
       ]);
 
       TestUtils.printInfo('Should return NetworkListLoadedState containing ANetworkStatusModels list with disconnected status');
@@ -77,7 +77,7 @@ Future<void> main() async {
       expectedNetworkListState = NetworkListLoadedState(networkStatusModelList: <ANetworkStatusModel>[
         TestUtils.networkUnhealthyModel,
         TestUtils.networkHealthyModel.copyWith(connectionStatusType: ConnectionStatusType.connected),
-        TestUtils.networkOfflineModel,
+        TestUtils.initialNetworkOfflineModel,
       ]);
 
       TestUtils.printInfo(

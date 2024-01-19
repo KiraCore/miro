@@ -30,7 +30,6 @@ import 'package:miro/shared/models/transactions/tx_remote_info_model.dart';
 import 'package:miro/shared/models/transactions/unsigned_tx_model.dart';
 import 'package:miro/shared/models/wallet/mnemonic.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/shared/utils/network_utils.dart';
 import 'package:miro/shared/utils/transactions/tx_utils.dart';
 import 'package:miro/test/utils/test_utils.dart';
@@ -235,7 +234,7 @@ Future<void> main() async {
         feeTokenAmountModel: feeTokenAmountModel,
         txMsgModel: StakingMsgDelegateModel.single(
           delegatorWalletAddress: senderWallet.address,
-          valoperWalletAddress: WalletAddress.fromBech32('kiravaloper1c6slygj2tx7hzm0mn4qeflqpvngj73c2cw7fh7'),
+          valkey: 'kiravaloper1c6slygj2tx7hzm0mn4qeflqpvngj73c2cw7fh7',
           tokenAmountModel: TokenAmountModel(
             defaultDenominationAmount: Decimal.fromInt(100),
             tokenAliasModel: TokenAliasModel.local('ukex'),
@@ -257,7 +256,7 @@ Future<void> main() async {
         feeTokenAmountModel: feeTokenAmountModel,
         txMsgModel: StakingMsgUndelegateModel.single(
           delegatorWalletAddress: senderWallet.address,
-          valoperWalletAddress: WalletAddress.fromBech32('kiravaloper1c6slygj2tx7hzm0mn4qeflqpvngj73c2cw7fh7'),
+          valkey: 'kiravaloper1c6slygj2tx7hzm0mn4qeflqpvngj73c2cw7fh7',
           tokenAmountModel: TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TokenAliasModel.local('ukex')),
         ),
       );

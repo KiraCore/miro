@@ -5,7 +5,6 @@ import 'package:equatable/equatable.dart';
 import 'package:hex/hex.dart';
 import 'package:miro/shared/models/wallet/mnemonic.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
-import 'package:miro/shared/models/wallet/wallet_details.dart';
 import 'package:miro/shared/utils/cryptography/secp256k1.dart';
 import 'package:pointycastle/export.dart';
 
@@ -23,14 +22,10 @@ class Wallet extends Equatable {
 
   /// The wallet hex private key
   final Uint8List privateKey;
-  
-  /// Blockchain network details
-  final WalletDetails walletDetails;
 
   const Wallet({
     required this.address,
     required this.privateKey,
-    this.walletDetails = WalletDetails.defaultWalletDetails,
   });
 
   /// ** HEAVY OPERATION **
@@ -41,7 +36,6 @@ class Wallet extends Equatable {
   factory Wallet.derive({
     required Mnemonic mnemonic,
     String lastDerivationPathSegment = '0',
-    WalletDetails walletDetails = WalletDetails.defaultWalletDetails,
   }) {
     final int lastDerivationPathSegmentCheck = int.tryParse(lastDerivationPathSegment) ?? -1;
     if (lastDerivationPathSegmentCheck < 0) {
@@ -58,9 +52,8 @@ class Wallet extends Equatable {
     final Uint8List publicKeyBytes = Secp256k1.privateKeyBytesToPublic(derivedNode.privateKey!);
 
     return Wallet(
-      address: WalletAddress.fromPublicKey(publicKeyBytes, bech32Hrp: walletDetails.bech32Hrp),
+      address: WalletAddress.fromPublicKey(publicKeyBytes),
       privateKey: derivedNode.privateKey!,
-      walletDetails: walletDetails,
     );
   }
 
@@ -73,7 +66,7 @@ class Wallet extends Equatable {
       privateKey: privateKey,
     );
   }
-  
+
   /// Returns the associated [publicKey] as an [ECPublicKey] instance.
   ECPublicKey get ecPublicKey {
     final ECCurve_secp256k1 secp256k1 = ECCurve_secp256k1();
@@ -81,13 +74,13 @@ class Wallet extends Equatable {
     final ECPoint? curvePoint = point * ecPrivateKey.d;
     return ECPublicKey(curvePoint, ECCurve_secp256k1());
   }
-  
+
   /// Returns the associated [privateKey] as an [ECPrivateKey] instance.
   ECPrivateKey get ecPrivateKey {
     final BigInt privateKeyInt = BigInt.parse(HEX.encode(privateKey), radix: 16);
     return ECPrivateKey(privateKeyInt, ECCurve_secp256k1());
   }
-  
+
   @override
-  List<Object?> get props => <Object?>[address, privateKey, walletDetails];
+  List<Object?> get props => <Object?>[address, privateKey];
 }

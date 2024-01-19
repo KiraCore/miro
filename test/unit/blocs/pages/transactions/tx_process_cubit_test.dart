@@ -25,8 +25,9 @@ import 'package:miro/test/utils/test_utils.dart';
 
 // To run this test type in console:
 // fvm flutter test test/unit/blocs/pages/transactions/tx_process_cubit_test.dart --platform chrome --null-assertions
-void main() {
-  initMockLocator();
+Future<void> main() async {
+  await initMockLocator();
+  await TestUtils.setupNetworkModel(networkUri: Uri.parse('https://healthy.kira.network/'));
 
   AuthCubit actualAuthCubit = globalLocator<AuthCubit>();
   SignedTxModel signedTxModel = SignedTxModel(
@@ -75,7 +76,6 @@ void main() {
 
       // Act
       await actualAuthCubit.signIn(TestUtils.wallet);
-      await TestUtils.setupNetworkModel(networkUri: Uri.parse('https://healthy.kira.network/'));
       await actualTxProcessCubit.init();
 
       // Assert

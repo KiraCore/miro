@@ -27,6 +27,7 @@ class ValidatorStakingModel extends AListItem {
         walletAddress: WalletAddress.fromBech32(delegation.validatorInfo.address),
         moniker: delegation.validatorInfo.moniker,
         logo: delegation.validatorInfo.logo,
+        valkey: delegation.validatorInfo.valkey,
       ),
     );
   }

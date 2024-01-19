@@ -21,6 +21,7 @@ import 'mock_data/mock_msg_form_model.dart';
 // fvm flutter test test/unit/blocs/pages/transactions/tx_form_builder_cubit_test.dart --platform chrome --null-assertions
 Future<void> main() async {
   await initMockLocator();
+  await TestUtils.setupNetworkModel(networkUri: Uri.parse('https://healthy.kira.network/'));
 
   AuthCubit authCubit = globalLocator<AuthCubit>();
 
@@ -128,7 +129,7 @@ Future<void> main() async {
       // Assert
       TestUtils.printInfo('Should [throw Exception] if [ALL required fields EMPTY] (UnsignedTxModel cannot be built)');
       expect(
-            () => actualTxFormBuilderCubit.buildUnsignedTx(),
+        () => actualTxFormBuilderCubit.buildUnsignedTx(),
         throwsA(isA<Exception>()),
       );
 

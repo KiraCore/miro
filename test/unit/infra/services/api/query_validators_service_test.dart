@@ -49,7 +49,7 @@ Future<void> main() async {
             stakingPoolStatus: StakingPoolStatus.enabled,
             validatorStatus: ValidatorStatus.active,
             walletAddress: WalletAddress.fromBech32('kira1fffuhtsuc6qskp4tsy5ptjssshynacj462ptdy'),
-            valoperWalletAddress: WalletAddress.fromBech32('kiravaloper1fffuhtsuc6qskp4tsy5ptjssshynacj4fvag4g'),
+            valkey: 'kiravaloper1fffuhtsuc6qskp4tsy5ptjssshynacj4fvag4g',
           ),
           ValidatorModel(
             top: 2,
@@ -59,7 +59,7 @@ Future<void> main() async {
             stakingPoolStatus: StakingPoolStatus.withdraw,
             validatorStatus: ValidatorStatus.active,
             walletAddress: WalletAddress.fromBech32('kira1gfqq3kqn7tuhnpph4487d57c00dkptt3hefgkk'),
-            valoperWalletAddress: WalletAddress.fromBech32('kiravaloper1gfqq3kqn7tuhnpph4487d57c00dkptt3yl4tw6'),
+            valkey: 'kiravaloper1gfqq3kqn7tuhnpph4487d57c00dkptt3yl4tw6',
           ),
           ValidatorModel(
             top: 3,
@@ -69,7 +69,7 @@ Future<void> main() async {
             stakingPoolStatus: StakingPoolStatus.disabled,
             validatorStatus: ValidatorStatus.active,
             walletAddress: WalletAddress.fromBech32('kira13hrpqkv53t82n2e72kfr3kuvvvr3565p234g3g'),
-            valoperWalletAddress: WalletAddress.fromBech32('kiravaloper13hrpqkv53t82n2e72kfr3kuvvvr3565pehftfy'),
+            valkey: 'kiravaloper13hrpqkv53t82n2e72kfr3kuvvvr3565pehftfy',
           ),
         ],
       );
@@ -123,7 +123,7 @@ Future<void> main() async {
           top: 44,
           uptime: 98,
           walletAddress: WalletAddress.fromBech32('kira1vxvugjt7u0lpzgkpv5hr7qwu2v4rx64d597s3l'),
-          valoperWalletAddress: WalletAddress.fromBech32('kiravaloper1vxvugjt7u0lpzgkpv5hr7qwu2v4rx64d8rznfn'),
+          valkey: 'kiravaloper1vxvugjt7u0lpzgkpv5hr7qwu2v4rx64d8rznfn',
           moniker: 'medium',
           streak: '1167583',
           validatorStatus: ValidatorStatus.active,

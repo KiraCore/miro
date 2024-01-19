@@ -6,11 +6,15 @@ import 'package:miro/shared/models/identity_registrar/ir_inbound_verification_re
 import 'package:miro/shared/models/identity_registrar/ir_user_profile_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
 // To run this test type in console:
 // fvm flutter test test/unit/shared/controllers/menu/my_acount_page/verification_requests_page/verification_requests_filter_options_test.dart --platform chrome --null-assertions
-void main() {
+Future<void> main() async {
+  await initMockLocator();
+  await TestUtils.setupNetworkModel(networkUri: Uri.parse('https://healthy.kira.network/'));
+
   final IRUserProfileModel irUserProfileModel1 = IRUserProfileModel(
     walletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
     username: 'somnitear',

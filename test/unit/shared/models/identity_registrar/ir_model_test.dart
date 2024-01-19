@@ -2,8 +2,15 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/shared/models/identity_registrar/ir_model.dart';
 import 'package:miro/shared/models/identity_registrar/ir_record_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/test/mock_locator.dart';
+import 'package:miro/test/utils/test_utils.dart';
 
-void main() {
+// To run this test type in console:
+// fvm flutter test test/unit/shared/models/identity_registrar/ir_model_test.dart --platform chrome --null-assertions
+Future<void> main() async {
+  await initMockLocator();
+  await TestUtils.setupNetworkModel(networkUri: Uri.parse('https://healthy.kira.network/'));
+
   group('Tests of IRModel.isEmpty()', () {
     test('Should return [true] if all records are empty', () {
       // Arrange
