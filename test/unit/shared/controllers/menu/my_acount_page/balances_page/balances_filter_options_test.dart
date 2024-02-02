@@ -9,8 +9,10 @@ import 'package:miro/test/utils/test_utils.dart';
 
 // To run this test type in console:
 // fvm flutter test test/unit/shared/controllers/menu/my_acount_page/balances_page/balances_filter_options_test.dart --platform chrome --null-assertions
-void main() {
-  initMockLocator();
+Future<void> main() async {
+  await initMockLocator();
+  await TestUtils.setupNetworkModel(networkUri: Uri.parse('https://healthy.kira.network/'));
+
   // @formatter:off
   List<BalanceModel> balanceModelsList = <BalanceModel>[
     BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.kexTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(2000000))),

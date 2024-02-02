@@ -1,7 +1,7 @@
 import 'package:decimal/decimal.dart';
+import 'package:miro/blocs/generic/network_module/network_module_bloc.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/filters/models/filter_mode.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/filters/models/filter_option.dart';
-import 'package:miro/config/app_config.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
 
@@ -16,7 +16,7 @@ class BalancesFilterOptions {
 
   static FilterOption<BalanceModel> filterByDefaultToken = FilterOption<BalanceModel>(
     id: 'defaultToken',
-    filterComparator: (BalanceModel a) => a.tokenAmountModel.tokenAliasModel == globalLocator<AppConfig>().defaultFeeTokenAliasModel,
+    filterComparator: (BalanceModel a) => a.tokenAmountModel.tokenAliasModel == globalLocator<NetworkModuleBloc>().tokenDefaultDenomModel!.defaultTokenAliasModel,
     filterMode: FilterMode.and,
   );
 

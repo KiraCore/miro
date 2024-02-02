@@ -4,20 +4,23 @@ import 'package:miro/config/locator.dart';
 import 'package:miro/shared/models/network/data/block_time_model.dart';
 import 'package:miro/shared/models/network/data/interx_warning_type.dart';
 import 'package:miro/shared/models/network/data/network_info_model.dart';
+import 'package:miro/shared/models/tokens/token_default_denom_model.dart';
 
 class InterxWarningModel extends Equatable {
   final List<InterxWarningType> interxWarningTypes;
 
   const InterxWarningModel(this.interxWarningTypes);
 
-  factory InterxWarningModel.fromNetworkInfoModel(NetworkInfoModel networkInfoModel) {
+  factory InterxWarningModel.selectWarningType(NetworkInfoModel networkInfoModel, TokenDefaultDenomModel? tokenDefaultDenomModel) {
     AppConfig appConfig = globalLocator<AppConfig>();
-    bool versionOutdated = appConfig.isInterxVersionOutdated(networkInfoModel.interxVersion);
-    bool blockTimeOutdated = BlockTimeModel(networkInfoModel.latestBlockTime).isOutdated();
+    bool missingTokenDefaultDenomModelBool = tokenDefaultDenomModel == null;
+    bool versionOutdatedBool = appConfig.isInterxVersionOutdated(networkInfoModel.interxVersion);
+    bool blockTimeOutdatedBool = BlockTimeModel(networkInfoModel.latestBlockTime).isOutdated();
 
     List<InterxWarningType> interxWarningTypes = <InterxWarningType>[
-      if (versionOutdated) InterxWarningType.versionOutdated,
-      if (blockTimeOutdated) InterxWarningType.blockTimeOutdated
+      if (missingTokenDefaultDenomModelBool) InterxWarningType.missingDefaultTokenDenomModel,
+      if (versionOutdatedBool) InterxWarningType.versionOutdated,
+      if (blockTimeOutdatedBool) InterxWarningType.blockTimeOutdated
     ];
 
     return InterxWarningModel(interxWarningTypes);

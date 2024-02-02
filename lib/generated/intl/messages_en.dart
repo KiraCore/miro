@@ -333,6 +333,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Enable custom address"),
         "networkWarningIncompatible": MessageLookupByLibrary.simpleMessage(
             "The application is incompatible with this server. Some views may not work correctly."),
+        "networkWarningMissingInfo": MessageLookupByLibrary.simpleMessage(
+            "Connecting a wallet unavailable due to missing essential data from network."),
         "networkWarningWhenLastBlock": m5,
         "or": MessageLookupByLibrary.simpleMessage("or "),
         "paginatedListPageSize":

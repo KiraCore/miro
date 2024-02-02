@@ -3,12 +3,14 @@ import 'package:miro/infra/dto/api/query_interx_status/query_interx_status_resp.
 import 'package:miro/infra/dto/api/query_validators/response/status.dart';
 import 'package:miro/infra/services/api/query_interx_status_service.dart';
 import 'package:miro/infra/services/api/query_validators_service.dart';
+import 'package:miro/infra/services/api_kira/query_kira_tokens_aliases_service.dart';
 import 'package:miro/shared/models/network/data/connection_status_type.dart';
 import 'package:miro/shared/models/network/data/network_info_model.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
 import 'package:miro/shared/models/network/status/network_offline_model.dart';
 import 'package:miro/shared/models/network/status/network_unknown_model.dart';
 import 'package:miro/shared/models/network/status/online/a_network_online_model.dart';
+import 'package:miro/shared/models/tokens/token_default_denom_model.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';
 
 abstract class _INetworkModuleService {
@@ -17,14 +19,17 @@ abstract class _INetworkModuleService {
 
 class NetworkModuleService implements _INetworkModuleService {
   final QueryInterxStatusService _queryInterxStatusService = globalLocator<QueryInterxStatusService>();
+  final QueryKiraTokensAliasesService _queryKiraTokensAliasesService = globalLocator<QueryKiraTokensAliasesService>();
   final QueryValidatorsService _queryValidatorsService = globalLocator<QueryValidatorsService>();
 
   @override
   Future<ANetworkStatusModel> getNetworkStatusModel(NetworkUnknownModel networkUnknownModel, {NetworkUnknownModel? previousNetworkUnknownModel}) async {
     try {
       NetworkInfoModel networkInfoModel = await _getNetworkInfoModel(networkUnknownModel);
+      TokenDefaultDenomModel? tokenDefaultDenomModel = await _getTokenDefaultDenomModel(networkUnknownModel);
       return ANetworkOnlineModel.build(
         networkInfoModel: networkInfoModel,
+        tokenDefaultDenomModel: tokenDefaultDenomModel,
         connectionStatusType: ConnectionStatusType.disconnected,
         uri: networkUnknownModel.uri,
         name: networkUnknownModel.name,
@@ -43,6 +48,16 @@ class NetworkModuleService implements _INetworkModuleService {
         );
       }
     }
+  }
+
+  Future<TokenDefaultDenomModel?> _getTokenDefaultDenomModel(NetworkUnknownModel networkUnknownModel) async {
+    TokenDefaultDenomModel? tokenDefaultDenomModel;
+    try {
+      tokenDefaultDenomModel = await _queryKiraTokensAliasesService.getTokenDefaultDenomModel(networkUnknownModel.uri, forceRequestBool: true);
+    } catch (e) {
+      AppLogger().log(message: 'NetworkModuleService: Cannot fetch getTokenDefaultDenomModel() for URI ${networkUnknownModel.uri} $e');
+    }
+    return tokenDefaultDenomModel;
   }
 
   Future<NetworkInfoModel> _getNetworkInfoModel(NetworkUnknownModel networkUnknownModel) async {

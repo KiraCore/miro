@@ -5,13 +5,16 @@ import 'package:miro/shared/models/network/data/network_info_model.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
 import 'package:miro/shared/models/network/status/online/network_healthy_model.dart';
 import 'package:miro/shared/models/network/status/online/network_unhealthy_model.dart';
+import 'package:miro/shared/models/tokens/token_default_denom_model.dart';
 
 abstract class ANetworkOnlineModel extends ANetworkStatusModel {
+  final TokenDefaultDenomModel? tokenDefaultDenomModel;
   final NetworkInfoModel networkInfoModel;
 
   const ANetworkOnlineModel({
-    required Color statusColor,
+    required this.tokenDefaultDenomModel,
     required this.networkInfoModel,
+    required Color statusColor,
     required ConnectionStatusType connectionStatusType,
     required Uri uri,
     String? name,
@@ -23,25 +26,28 @@ abstract class ANetworkOnlineModel extends ANetworkStatusModel {
         );
 
   static ANetworkOnlineModel build({
-    required NetworkInfoModel networkInfoModel,
     required ConnectionStatusType connectionStatusType,
+    required TokenDefaultDenomModel? tokenDefaultDenomModel,
+    required NetworkInfoModel networkInfoModel,
     required Uri uri,
     required String name,
   }) {
-    InterxWarningModel interxWarningModel = InterxWarningModel.fromNetworkInfoModel(networkInfoModel);
+    InterxWarningModel interxWarningModel = InterxWarningModel.selectWarningType(networkInfoModel, tokenDefaultDenomModel);
 
     if (interxWarningModel.hasErrors) {
       return NetworkUnhealthyModel(
         interxWarningModel: interxWarningModel,
-        networkInfoModel: networkInfoModel,
         connectionStatusType: connectionStatusType,
+        tokenDefaultDenomModel: tokenDefaultDenomModel,
+        networkInfoModel: networkInfoModel,
         uri: uri,
         name: name,
       );
     } else {
       return NetworkHealthyModel(
-        networkInfoModel: networkInfoModel,
         connectionStatusType: connectionStatusType,
+        tokenDefaultDenomModel: tokenDefaultDenomModel,
+        networkInfoModel: networkInfoModel,
         uri: uri,
         name: name,
       );

@@ -3,20 +3,23 @@ import 'package:miro/shared/models/network/data/connection_status_type.dart';
 import 'package:miro/shared/models/network/data/interx_warning_model.dart';
 import 'package:miro/shared/models/network/data/network_info_model.dart';
 import 'package:miro/shared/models/network/status/online/a_network_online_model.dart';
+import 'package:miro/shared/models/tokens/token_default_denom_model.dart';
 
 class NetworkUnhealthyModel extends ANetworkOnlineModel {
   final InterxWarningModel interxWarningModel;
 
   const NetworkUnhealthyModel({
     required this.interxWarningModel,
-    required NetworkInfoModel networkInfoModel,
     required ConnectionStatusType connectionStatusType,
+    required TokenDefaultDenomModel? tokenDefaultDenomModel,
+    required NetworkInfoModel networkInfoModel,
     required Uri uri,
     String? name,
   }) : super(
           statusColor: DesignColors.yellowStatus1,
-          networkInfoModel: networkInfoModel,
           connectionStatusType: connectionStatusType,
+          tokenDefaultDenomModel: tokenDefaultDenomModel,
+          networkInfoModel: networkInfoModel,
           uri: uri,
           name: name,
         );
@@ -25,13 +28,14 @@ class NetworkUnhealthyModel extends ANetworkOnlineModel {
   NetworkUnhealthyModel copyWith({required ConnectionStatusType connectionStatusType}) {
     return NetworkUnhealthyModel(
       interxWarningModel: interxWarningModel,
-      networkInfoModel: networkInfoModel,
       connectionStatusType: connectionStatusType,
+      tokenDefaultDenomModel: tokenDefaultDenomModel,
+      networkInfoModel: networkInfoModel,
       uri: uri,
       name: name,
     );
   }
 
   @override
-  List<Object?> get props => <Object?>[runtimeType, interxWarningModel, networkInfoModel, connectionStatusType, uri.hashCode, name];
+  List<Object?> get props => <Object?>[runtimeType, interxWarningModel, connectionStatusType, tokenDefaultDenomModel, networkInfoModel, uri.hashCode, name];
 }

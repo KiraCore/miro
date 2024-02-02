@@ -172,6 +172,7 @@
   "networkErrorAddressEmpty": "Field can't be empty",
   "networkErrorAddressInvalid": "Invalid network address",
   "networkHintCustomAddress": "Custom address",
+  "networkWarningMissingInfo": "Connecting a wallet unavailable due to missing essential data from network.",
   "networkWarningIncompatible": "The application is incompatible with this server. Some views may not work correctly.",
   "networkWarningWhenLastBlock": "The last available block on this interx was created long time ago {latestBlockTime}. The displayed contents may be out of date.",
   "@networkWarningWhenLastBlock": {
