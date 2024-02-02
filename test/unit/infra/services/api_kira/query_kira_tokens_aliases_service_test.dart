@@ -3,6 +3,7 @@ import 'package:miro/config/locator.dart';
 import 'package:miro/infra/exceptions/dio_connect_exception.dart';
 import 'package:miro/infra/exceptions/dio_parse_exception.dart';
 import 'package:miro/infra/services/api_kira/query_kira_tokens_aliases_service.dart';
+import 'package:miro/shared/models/network/network_defaults_model.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/utils/network_utils.dart';
 import 'package:miro/test/mock_locator.dart';
@@ -24,10 +25,10 @@ Future<void> main() async {
 
       // Act
       List<TokenAliasModel> actualTokenAliasModelList = await queryKiraTokensAliasesService.getTokenAliasModels();
-
+      
       // Assert
       List<TokenAliasModel> expectedTokenAliasModelList = <TokenAliasModel>[
-        TokenAliasModel.local('ukex'),
+        TestUtils.kexTokenAliasModel,
       ];
 
       expect(actualTokenAliasModelList, expectedTokenAliasModelList);
@@ -53,6 +54,49 @@ Future<void> main() async {
       // Assert
       expect(
         queryKiraTokensAliasesService.getTokenAliasModels,
+        throwsA(isA<DioConnectException>()),
+      );
+    });
+  });
+
+  group('Tests of QueryKiraTokensAliasesService.getNetworkDefaultsModel() method', () {
+    test('Should return [NetworkDefaultsModel] if [server HEALTHY] and [response data VALID]', () async {
+      // Arrange
+      Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://healthy.kira.network/');
+      await TestUtils.setupNetworkModel(networkUri: networkUri);
+
+      // Act
+      NetworkDefaultsModel actualNetworkDefaultsModel = await queryKiraTokensAliasesService.getNetworkDefaultsModel(networkUri);
+
+      // Assert
+      NetworkDefaultsModel expectedNetworkDefaultsModel = NetworkDefaultsModel(
+        defaultAddressPrefix: 'kira',
+        defaultTokenAliasModel: TestUtils.kexTokenAliasModel,
+      );
+
+      expect(actualNetworkDefaultsModel, expectedNetworkDefaultsModel);
+    });
+
+    test('Should throw [DioParseException] if [server HEALTHY] and [response data INVALID]', () async {
+      // Arrange
+      Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://invalid.kira.network/');
+      await TestUtils.setupNetworkModel(networkUri: networkUri);
+
+      // Assert
+      expect(
+        queryKiraTokensAliasesService.getNetworkDefaultsModel(networkUri),
+        throwsA(isA<DioParseException>()),
+      );
+    });
+
+    test('Should throw [DioConnectException] if [server OFFLINE]', () async {
+      // Arrange
+      Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://offline.kira.network/');
+      await TestUtils.setupNetworkModel(networkUri: networkUri);
+
+      // Assert
+      expect(
+        queryKiraTokensAliasesService.getNetworkDefaultsModel(networkUri),
         throwsA(isA<DioConnectException>()),
       );
     });

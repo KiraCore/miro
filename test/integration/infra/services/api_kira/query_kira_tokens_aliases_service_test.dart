@@ -3,6 +3,7 @@ import 'package:miro/config/locator.dart';
 import 'package:miro/infra/exceptions/dio_connect_exception.dart';
 import 'package:miro/infra/exceptions/dio_parse_exception.dart';
 import 'package:miro/infra/services/api_kira/query_kira_tokens_aliases_service.dart';
+import 'package:miro/shared/models/network/network_defaults_model.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/utils/network_utils.dart';
 import 'package:miro/test/utils/test_utils.dart';
@@ -32,6 +33,25 @@ Future<void> main() async {
             'query_kira_tokens_aliases_service_test.dart: Cannot fetch [List<TokenAliasModel>] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
         TestUtils.printError('query_kira_tokens_aliases_service_test.dart: Cannot parse [List<TokenAliasModel>] for URI $networkUri: ${e}');
+      } catch (e) {
+        TestUtils.printError('query_kira_tokens_aliases_service_test.dart: Unknown error for URI $networkUri: ${e}');
+      }
+    });
+  });
+
+  group('Tests of QueryKiraTokensAliasesService.getNetworkDefaultsModel() method', () {
+    test('Should return [NetworkDefaultsModel]', () async {
+      TestUtils.printInfo('Data request');
+      try {
+        NetworkDefaultsModel actualNetworkDefaultsModel = await actualQueryKiraTokensAliasesService.getNetworkDefaultsModel(networkUri);
+
+        TestUtils.printInfo('Data return');
+        print(actualNetworkDefaultsModel);
+        print('');
+      } on DioConnectException catch (e) {
+        TestUtils.printError('query_kira_tokens_aliases_service_test.dart: Cannot fetch [NetworkDefaultsModel] for URI $networkUri: ${e.dioException.message}');
+      } on DioParseException catch (e) {
+        TestUtils.printError('query_kira_tokens_aliases_service_test.dart: Cannot parse [NetworkDefaultsModel] for URI $networkUri: ${e}');
       } catch (e) {
         TestUtils.printError('query_kira_tokens_aliases_service_test.dart: Unknown error for URI $networkUri: ${e}');
       }

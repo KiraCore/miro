@@ -272,7 +272,9 @@ class MockApiKiraRepository implements IApiKiraRepository {
   @override
   Future<Response<T>> fetchQueryKiraTokensAliases<T>(ApiRequestModel<void> apiRequestModel) async {
     Uri networkUri = apiRequestModel.networkUri;
-    bool responseExistsBool = workingEndpoints.contains(networkUri.host);
+    // 'dynamic.kira.network' handling needs to be included to properly test NetworkModuleBloc
+    // NetworkModuleBloc uses 'dynamic.kira.network' in tests and implicitly depends on this method
+    bool responseExistsBool = workingEndpoints.contains(networkUri.host) || networkUri.host == 'dynamic.kira.network';
     if (responseExistsBool) {
       late T response;
       switch (networkUri.host) {

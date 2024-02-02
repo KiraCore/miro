@@ -7,6 +7,7 @@ import 'package:miro/shared/models/network/data/connection_status_type.dart';
 import 'package:miro/shared/models/network/data/interx_warning_model.dart';
 import 'package:miro/shared/models/network/data/interx_warning_type.dart';
 import 'package:miro/shared/models/network/data/network_info_model.dart';
+import 'package:miro/shared/models/network/network_defaults_model.dart';
 import 'package:miro/shared/models/network/status/network_offline_model.dart';
 import 'package:miro/shared/models/network/status/network_unknown_model.dart';
 import 'package:miro/shared/models/network/status/online/network_healthy_model.dart';
@@ -76,6 +77,10 @@ class TestUtils {
       activeValidators: 319,
       totalValidators: 475,
     ),
+    networkDefaultsModel: NetworkDefaultsModel(
+      defaultAddressPrefix: 'kira',
+      defaultTokenAliasModel: TokenAliasModel.local('ukex'),
+    ),
   );
 
   static final NetworkUnhealthyModel networkUnhealthyModel = NetworkUnhealthyModel(
@@ -91,6 +96,10 @@ class TestUtils {
       interxVersion: 'v0.7.0.4',
       latestBlockHeight: 108843,
       latestBlockTime: DateTime.parse('2021-11-04 12:42:54.395Z'),
+    ),
+    networkDefaultsModel: NetworkDefaultsModel(
+      defaultAddressPrefix: 'kira',
+      defaultTokenAliasModel: TokenAliasModel.local('ukex'),
     ),
   );
 
@@ -111,6 +120,10 @@ class TestUtils {
       activeValidators: 319,
       totalValidators: 475,
     ),
+    networkDefaultsModel: NetworkDefaultsModel(
+      defaultAddressPrefix: 'kira',
+      defaultTokenAliasModel: TokenAliasModel.local('ukex'),
+    ),
   );
 
   static final NetworkUnhealthyModel customNetworkUnhealthyModel = NetworkUnhealthyModel(
@@ -123,6 +136,10 @@ class TestUtils {
       latestBlockTime: DateTime.parse('2021-11-04T12:42:54.394946399Z'),
       activeValidators: 319,
       totalValidators: 475,
+    ),
+    networkDefaultsModel: NetworkDefaultsModel(
+      defaultAddressPrefix: 'kira',
+      defaultTokenAliasModel: TokenAliasModel.local('ukex'),
     ),
     interxWarningModel: const InterxWarningModel(<InterxWarningType>[
       InterxWarningType.versionOutdated,
@@ -155,6 +172,10 @@ class TestUtils {
         interxVersion: 'test',
         latestBlockHeight: 0,
         latestBlockTime: DateTime.now(),
+      ),
+      networkDefaultsModel: NetworkDefaultsModel(
+        defaultAddressPrefix: 'kira',
+        defaultTokenAliasModel: TokenAliasModel.local('ukex'),
       ),
     );
 

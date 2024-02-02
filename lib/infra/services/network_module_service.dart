@@ -3,8 +3,10 @@ import 'package:miro/infra/dto/api/query_interx_status/query_interx_status_resp.
 import 'package:miro/infra/dto/api/query_validators/response/status.dart';
 import 'package:miro/infra/services/api/query_interx_status_service.dart';
 import 'package:miro/infra/services/api/query_validators_service.dart';
+import 'package:miro/infra/services/api_kira/query_kira_tokens_aliases_service.dart';
 import 'package:miro/shared/models/network/data/connection_status_type.dart';
 import 'package:miro/shared/models/network/data/network_info_model.dart';
+import 'package:miro/shared/models/network/network_defaults_model.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
 import 'package:miro/shared/models/network/status/network_offline_model.dart';
 import 'package:miro/shared/models/network/status/network_unknown_model.dart';
@@ -17,14 +19,17 @@ abstract class _INetworkModuleService {
 
 class NetworkModuleService implements _INetworkModuleService {
   final QueryInterxStatusService _queryInterxStatusService = globalLocator<QueryInterxStatusService>();
+  final QueryKiraTokensAliasesService _queryKiraTokensAliasesService = globalLocator<QueryKiraTokensAliasesService>();
   final QueryValidatorsService _queryValidatorsService = globalLocator<QueryValidatorsService>();
 
   @override
   Future<ANetworkStatusModel> getNetworkStatusModel(NetworkUnknownModel networkUnknownModel, {NetworkUnknownModel? previousNetworkUnknownModel}) async {
     try {
       NetworkInfoModel networkInfoModel = await _getNetworkInfoModel(networkUnknownModel);
+      NetworkDefaultsModel networkDefaultsModel = await _getNetworkDefaultsModel(networkUnknownModel);
       return ANetworkOnlineModel.build(
         networkInfoModel: networkInfoModel,
+        networkDefaultsModel: networkDefaultsModel,
         connectionStatusType: ConnectionStatusType.disconnected,
         uri: networkUnknownModel.uri,
         name: networkUnknownModel.name,
@@ -42,6 +47,14 @@ class NetworkModuleService implements _INetworkModuleService {
           connectionStatusType: ConnectionStatusType.disconnected,
         );
       }
+    }
+  }
+
+  Future<NetworkDefaultsModel> _getNetworkDefaultsModel(NetworkUnknownModel networkUnknownModel) async {
+    if (networkUnknownModel.networkDefaultsModel != null) {
+      return networkUnknownModel.networkDefaultsModel!;
+    } else {
+      return _queryKiraTokensAliasesService.getNetworkDefaultsModel(networkUnknownModel.uri, forceRequestBool: true);
     }
   }
 

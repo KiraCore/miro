@@ -6,6 +6,7 @@ import 'package:miro/infra/dto/api_kira/query_delegations/request/query_delegati
 import 'package:miro/infra/dto/api_kira/query_execution_fee/request/query_execution_fee_request.dart';
 import 'package:miro/infra/dto/api_kira/query_identity_record_verify_requests/request/query_identity_record_verify_requests_by_approver_req.dart';
 import 'package:miro/infra/dto/api_kira/query_identity_record_verify_requests/request/query_identity_record_verify_requests_by_requester_req.dart';
+import 'package:miro/infra/dto/api_kira/query_kira_tokens_aliases/request/query_kira_tokens_aliases_req.dart';
 import 'package:miro/infra/dto/api_kira/query_staking_pool/request/query_staking_pool_req.dart';
 import 'package:miro/infra/dto/api_kira/query_undelegations/request/query_undelegations_req.dart';
 import 'package:miro/infra/exceptions/dio_connect_exception.dart';
@@ -33,7 +34,7 @@ abstract class IApiKiraRepository {
 
   Future<Response<T>> fetchQueryIdentityRecordVerifyRequestsByRequester<T>(ApiRequestModel<QueryIdentityRecordVerifyRequestsByRequesterReq> apiRequestModel);
 
-  Future<Response<T>> fetchQueryKiraTokensAliases<T>(ApiRequestModel<void> apiRequestModel);
+  Future<Response<T>> fetchQueryKiraTokensAliases<T>(ApiRequestModel<QueryKiraTokensAliasesReq> apiRequestModel);
 
   Future<Response<T>> fetchQueryKiraTokensRates<T>(ApiRequestModel<void> apiRequestModel);
 
@@ -195,11 +196,12 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
   }
 
   @override
-  Future<Response<T>> fetchQueryKiraTokensAliases<T>(ApiRequestModel<void> apiRequestModel) async {
+  Future<Response<T>> fetchQueryKiraTokensAliases<T>(ApiRequestModel<QueryKiraTokensAliasesReq> apiRequestModel) async {
     try {
       final Response<T> response = await _httpClientManager.get<T>(
         networkUri: apiRequestModel.networkUri,
         path: '/api/kira/tokens/aliases',
+        queryParameters: apiRequestModel.requestData.queryParameters,
         apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: apiRequestModel.forceRequestBool),
       );
       return response;
