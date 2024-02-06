@@ -41,6 +41,13 @@ class TokenAmountModel {
     );
   }
 
+  Decimal getAmount(String value) {
+    RegExp regExpPattern = RegExp(r'(\d+)([a-zA-Z0-9/]+)');
+    RegExpMatch regExpMatch = regExpPattern.firstMatch(value)!;
+
+    return Decimal.parse(regExpMatch.group(1)!);
+  }
+
   TokenAmountModel copy() {
     return TokenAmountModel(
       defaultDenominationAmount: _defaultDenominationAmount,

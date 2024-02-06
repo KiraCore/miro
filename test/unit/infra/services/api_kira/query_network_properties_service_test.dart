@@ -6,7 +6,6 @@ import 'package:miro/infra/exceptions/dio_parse_exception.dart';
 import 'package:miro/infra/services/api_kira/query_network_properties_service.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
-import 'package:miro/shared/models/tokens/token_denomination_model.dart';
 import 'package:miro/shared/utils/network_utils.dart';
 import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
@@ -18,11 +17,7 @@ Future<void> main() async {
 
   final QueryNetworkPropertiesService queryNetworkPropertiesService = globalLocator<QueryNetworkPropertiesService>();
 
-  const TokenAliasModel defaultFeeTokenAliasModel = TokenAliasModel(
-    name: 'Kira',
-    defaultTokenDenominationModel: TokenDenominationModel(name: 'ukex', decimals: 0),
-    networkTokenDenominationModel: TokenDenominationModel(name: 'KEX', decimals: 6),
-  );
+  TokenAliasModel defaultFeeTokenAliasModel = TestUtils.kexTokenAliasModel;
 
   group('Tests of QueryNetworkPropertiesService.getTxFee() method', () {
     test('Should return [TokenAmountModel] if [server HEALTHY] and [response data VALID]', () async {

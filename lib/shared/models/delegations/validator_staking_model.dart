@@ -32,6 +32,32 @@ class ValidatorStakingModel extends AListItem {
     );
   }
 
+  ValidatorStakingModel copyWith({
+    List<TokenAliasModel>? tokens,
+  }) {
+    return ValidatorStakingModel(
+      commission: commission,
+      tokens: tokens ?? this.tokens,
+      stakingPoolStatus: stakingPoolStatus,
+      validatorSimplifiedModel: validatorSimplifiedModel,
+    );
+  }
+
+  ValidatorStakingModel fillTokenAliases(List<TokenAliasModel> tokenAliasModels) {
+    List<TokenAliasModel> filledTokenAliases = tokens.map((TokenAliasModel e) {
+      return tokenAliasModels.firstWhere(
+        (TokenAliasModel tokenAliasModel) => tokenAliasModel.defaultTokenDenominationModel.name == e.defaultTokenDenominationModel.name,
+        orElse: () => e,
+      );
+    }).toList();
+
+    return copyWith(tokens: filledTokenAliases);
+  }
+
+  List<String> get defaultDenomNames => tokens.map((TokenAliasModel e) => e.defaultTokenDenominationModel.name).toList();
+
+  List<String> get networkDenomNames => tokens.map((TokenAliasModel e) => e.networkTokenDenominationModel.name).toList();
+
   @override
   String get cacheId => validatorSimplifiedModel.walletAddress.bech32Address;
 
@@ -40,6 +66,4 @@ class ValidatorStakingModel extends AListItem {
 
   @override
   set favourite(bool value) => false;
-
-  List<String> get tokenNames => tokens.map((TokenAliasModel e) => e.name).toList();
 }

@@ -15,6 +15,7 @@ import 'package:miro/infra/dto/interx_headers.dart';
 import 'package:miro/infra/exceptions/dio_parse_exception.dart';
 import 'package:miro/infra/models/api_request_model.dart';
 import 'package:miro/infra/repositories/api/api_kira_repository.dart';
+import 'package:miro/infra/services/api_kira/query_kira_tokens_aliases_service.dart';
 import 'package:miro/shared/models/identity_registrar/ir_inbound_verification_request_model.dart';
 import 'package:miro/shared/models/identity_registrar/ir_model.dart';
 import 'package:miro/shared/models/identity_registrar/ir_record_model.dart';
@@ -22,6 +23,7 @@ import 'package:miro/shared/models/identity_registrar/ir_record_verification_req
 import 'package:miro/shared/models/identity_registrar/ir_user_profile_model.dart';
 import 'package:miro/shared/models/identity_registrar/ir_verification_request_status.dart';
 import 'package:miro/shared/models/network/block_time_wrapper_model.dart';
+import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';
@@ -39,6 +41,7 @@ abstract class _IIdentityRecordsService {
 class IdentityRecordsService implements _IIdentityRecordsService {
   final AppConfig _appConfig = globalLocator<AppConfig>();
   final IApiKiraRepository _apiKiraRepository = globalLocator<IApiKiraRepository>();
+  final QueryKiraTokensAliasesService _queryKiraTokensAliasesService = globalLocator<QueryKiraTokensAliasesService>();
 
   @override
   Future<BlockTimeWrapperModel<IRModel>> getIdentityRecordsByAddress(WalletAddress walletAddress, {bool forceRequestBool = false}) async {
@@ -90,28 +93,8 @@ class IdentityRecordsService implements _IIdentityRecordsService {
       throw DioParseException(response: response, error: e);
     }
 
-    List<IRInboundVerificationRequestModel> irInboundVerificationRequestModels = List<IRInboundVerificationRequestModel>.empty(growable: true);
-    List<WalletAddress> requesterAddressList = queryIdentityRecordVerifyRequestsByApproverResp.verifyRecords
-        .map((VerifyRecord verifyRecord) => verifyRecord.address)
-        .toSet()
-        .map(WalletAddress.fromBech32)
-        .toList();
-
-    Map<WalletAddress, IRUserProfileModel> irUserProfileModelsMap = await _getUserProfilesByAddresses(requesterAddressList);
-
-    for (VerifyRecord verifyRecord in queryIdentityRecordVerifyRequestsByApproverResp.verifyRecords) {
-      Map<String, String> records = await _getRecordKeyValuePairsById(verifyRecord.recordIds);
-      WalletAddress requesterWalletAddress = WalletAddress.fromBech32(verifyRecord.address);
-
-      IRInboundVerificationRequestModel irInboundVerificationRequestModel = IRInboundVerificationRequestModel(
-        id: verifyRecord.id,
-        tipTokenAmountModel: TokenAmountModel.fromString(verifyRecord.tip),
-        dateTime: verifyRecord.lastRecordEditDate,
-        requesterIrUserProfileModel: irUserProfileModelsMap[requesterWalletAddress]!,
-        records: records,
-      );
-      irInboundVerificationRequestModels.add(irInboundVerificationRequestModel);
-    }
+    List<IRInboundVerificationRequestModel> irInboundVerificationRequestModels =
+        await _buildIRInboundVerificationRequestModels(queryIdentityRecordVerifyRequestsByApproverResp);
 
     InterxHeaders interxHeaders = InterxHeaders.fromHeaders(response.headers);
 
@@ -220,5 +203,45 @@ class IdentityRecordsService implements _IIdentityRecordsService {
       }
     }
     return records;
+  }
+
+  Future<List<IRInboundVerificationRequestModel>> _buildIRInboundVerificationRequestModels(
+      QueryIdentityRecordVerifyRequestsByApproverResp queryIdentityRecordVerifyRequestsByApproverResp) async {
+    List<IRInboundVerificationRequestModel> rawIrInboundVerificationRequestModels = List<IRInboundVerificationRequestModel>.empty(growable: true);
+
+    List<WalletAddress> requesterAddressList = _getRequesterAddressList(queryIdentityRecordVerifyRequestsByApproverResp.verifyRecords);
+
+    Map<WalletAddress, IRUserProfileModel> irUserProfileModelsMap = await _getUserProfilesByAddresses(requesterAddressList);
+
+    for (VerifyRecord verifyRecord in queryIdentityRecordVerifyRequestsByApproverResp.verifyRecords) {
+      Map<String, String> records = await _getRecordKeyValuePairsById(verifyRecord.recordIds);
+      WalletAddress requesterWalletAddress = WalletAddress.fromBech32(verifyRecord.address);
+
+      IRInboundVerificationRequestModel irInboundVerificationRequestModel = IRInboundVerificationRequestModel(
+        id: verifyRecord.id,
+        tipTokenAmountModel: TokenAmountModel.fromString(verifyRecord.tip),
+        dateTime: verifyRecord.lastRecordEditDate,
+        requesterIrUserProfileModel: irUserProfileModelsMap[requesterWalletAddress]!,
+        records: records,
+      );
+      rawIrInboundVerificationRequestModels.add(irInboundVerificationRequestModel);
+    }
+
+    List<IRInboundVerificationRequestModel> irInboundVerificationRequestModels = await _updateAliases(rawIrInboundVerificationRequestModels);
+
+    return irInboundVerificationRequestModels;
+  }
+
+  List<WalletAddress> _getRequesterAddressList(List<VerifyRecord> verifyRecords) {
+    return verifyRecords.map((VerifyRecord verifyRecord) => verifyRecord.address).toSet().map(WalletAddress.fromBech32).toList();
+  }
+
+  Future<List<IRInboundVerificationRequestModel>> _updateAliases(List<IRInboundVerificationRequestModel> rawIrInboundVerificationRequestModels) async {
+    List<String> involvedTokenNames = rawIrInboundVerificationRequestModels.map((IRInboundVerificationRequestModel e) => e.defaultDenomName).toList();
+    List<TokenAliasModel> involvedTokenAliases = await _queryKiraTokensAliasesService.getAliasesByTokenNames(involvedTokenNames);
+
+    List<IRInboundVerificationRequestModel> filledIrInboundVerificationRequestModel =
+        rawIrInboundVerificationRequestModels.map((IRInboundVerificationRequestModel e) => e.fillTokenAliases(involvedTokenAliases)).toList();
+    return filledIrInboundVerificationRequestModel;
   }
 }

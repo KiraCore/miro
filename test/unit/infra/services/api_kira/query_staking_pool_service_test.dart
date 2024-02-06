@@ -36,14 +36,14 @@ Future<void> main() async {
         votingPower: <TokenAmountModel>[
           TokenAmountModel(
             defaultDenominationAmount: Decimal.fromInt(100),
-            tokenAliasModel: TokenAliasModel.local('ukex'),
+            tokenAliasModel: TestUtils.kexTokenAliasModel,
           ),
         ],
         commission: '10%',
         tokens: <TokenAliasModel>[
           TokenAliasModel.local('frozen'),
           TokenAliasModel.local('ubtc'),
-          TokenAliasModel.local('ukex'),
+          TestUtils.kexTokenAliasModel,
           TokenAliasModel.local('xeth'),
         ],
       );

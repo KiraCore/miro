@@ -10,7 +10,6 @@ import 'package:miro/blocs/pages/transactions/tx_process_cubit/states/tx_process
 import 'package:miro/blocs/pages/transactions/tx_process_cubit/tx_process_cubit.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/shared/models/network/network_properties_model.dart';
-import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/transactions/form_models/msg_send_form_model.dart';
 import 'package:miro/shared/models/transactions/messages/msg_send_model.dart';
@@ -36,14 +35,14 @@ Future<void> main() async {
       memo: 'Test transaction',
       feeTokenAmountModel: TokenAmountModel(
         defaultDenominationAmount: Decimal.fromInt(100),
-        tokenAliasModel: TokenAliasModel.local('ukex'),
+        tokenAliasModel: TestUtils.kexTokenAliasModel,
       ),
       txMsgModel: MsgSendModel(
         fromWalletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
         toWalletAddress: WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
         tokenAmountModel: TokenAmountModel(
           defaultDenominationAmount: Decimal.fromInt(100),
-          tokenAliasModel: TokenAliasModel.local('ukex'),
+          tokenAliasModel: TestUtils.kexTokenAliasModel,
         ),
       ),
     ),
@@ -82,16 +81,16 @@ Future<void> main() async {
       expectedTxProcessState = TxProcessLoadedState(
         feeTokenAmountModel: TokenAmountModel(
           defaultDenominationAmount: Decimal.fromInt(100),
-          tokenAliasModel: TokenAliasModel.local('ukex'),
+          tokenAliasModel: TestUtils.kexTokenAliasModel,
         ),
         networkPropertiesModel: NetworkPropertiesModel(
           minTxFee: TokenAmountModel(
             defaultDenominationAmount: Decimal.fromInt(100),
-            tokenAliasModel: TokenAliasModel.local('ukex'),
+            tokenAliasModel: TestUtils.kexTokenAliasModel,
           ),
           minIdentityApprovalTip: TokenAmountModel(
             defaultDenominationAmount: Decimal.fromInt(200),
-            tokenAliasModel: TokenAliasModel.local('ukex'),
+            tokenAliasModel: TestUtils.kexTokenAliasModel,
           ),
         ),
       );
@@ -107,7 +106,7 @@ Future<void> main() async {
         senderWalletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
         tokenAmountModel: TokenAmountModel(
           defaultDenominationAmount: Decimal.fromInt(100),
-          tokenAliasModel: TokenAliasModel.local('ukex'),
+          tokenAliasModel: TestUtils.kexTokenAliasModel,
         ),
       )..memo = 'Test transaction';
 
@@ -134,16 +133,16 @@ Future<void> main() async {
         txProcessLoadedState: TxProcessLoadedState(
           feeTokenAmountModel: TokenAmountModel(
             defaultDenominationAmount: Decimal.fromInt(100),
-            tokenAliasModel: TokenAliasModel.local('ukex'),
+            tokenAliasModel: TestUtils.kexTokenAliasModel,
           ),
           networkPropertiesModel: NetworkPropertiesModel(
             minTxFee: TokenAmountModel(
               defaultDenominationAmount: Decimal.fromInt(100),
-              tokenAliasModel: TokenAliasModel.local('ukex'),
+              tokenAliasModel: TestUtils.kexTokenAliasModel,
             ),
             minIdentityApprovalTip: TokenAmountModel(
               defaultDenominationAmount: Decimal.fromInt(200),
-              tokenAliasModel: TokenAliasModel.local('ukex'),
+              tokenAliasModel: TestUtils.kexTokenAliasModel,
             ),
           ),
         ),
@@ -204,16 +203,16 @@ Future<void> main() async {
       expectedTxProcessLoadedState = TxProcessLoadedState(
         feeTokenAmountModel: TokenAmountModel(
           defaultDenominationAmount: Decimal.fromInt(100),
-          tokenAliasModel: TokenAliasModel.local('ukex'),
+          tokenAliasModel: TestUtils.kexTokenAliasModel,
         ),
         networkPropertiesModel: NetworkPropertiesModel(
           minTxFee: TokenAmountModel(
             defaultDenominationAmount: Decimal.fromInt(100),
-            tokenAliasModel: TokenAliasModel.local('ukex'),
+            tokenAliasModel: TestUtils.kexTokenAliasModel,
           ),
           minIdentityApprovalTip: TokenAmountModel(
             defaultDenominationAmount: Decimal.fromInt(200),
-            tokenAliasModel: TokenAliasModel.local('ukex'),
+            tokenAliasModel: TestUtils.kexTokenAliasModel,
           ),
         ),
       );

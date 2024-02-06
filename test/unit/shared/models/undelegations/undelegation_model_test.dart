@@ -5,6 +5,7 @@ import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/undelegations/undelegation_model.dart';
 import 'package:miro/shared/models/validators/validator_simplified_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/test/utils/test_utils.dart';
 
 // To run this test type in console:
 // fvm flutter test test/unit/shared/models/staking/undelegation_model_test.dart --platform chrome --null-assertions
@@ -18,13 +19,13 @@ void main() {
   List<TokenAmountModel> actualTokenAmountModelList = <TokenAmountModel>[
     TokenAmountModel(
       defaultDenominationAmount: Decimal.parse('123'),
-      tokenAliasModel: TokenAliasModel.local('ukex'),
-    ),
+      tokenAliasModel: TestUtils.kexTokenAliasModel,
+    )
   ];
 
   DateTime currentTime = DateTime(2023, 12, 14, 10);
 
-  group('Tests of UndelegationModel.isClaimingBlocked', () {
+  group('Tests of UndelegationModel.isClaimingBlocked()', () {
     test('Should [return FALSE] if expiration time is [one hour before currentTime] (14 Dec 2023, 9:00)', () {
       // Arrange
       UndelegationModel actualUndelegationModel = UndelegationModel(
@@ -71,6 +72,37 @@ void main() {
 
       // Assert
       expect(actualClaimingBlockedBool, true);
+    });
+  });
+
+  group('Tests of UndelegationModel.fillTokenAliases()', () {
+    test('Should [UndelegationModel] with filled token aliases in [tokens]', () {
+      // Arrange
+      List<TokenAmountModel> actualRawTokenAmountModelList = <TokenAmountModel>[
+        TokenAmountModel(
+          defaultDenominationAmount: Decimal.parse('123'),
+          tokenAliasModel: TokenAliasModel.local('ukex'),
+        ),
+      ];
+
+      UndelegationModel actualRawUndelegationModel = UndelegationModel(
+        id: 1,
+        lockedUntil: DateTime(2023, 12, 14, 9),
+        validatorSimplifiedModel: actualValidatorSimplifiedModel,
+        tokens: actualRawTokenAmountModelList,
+      );
+
+      // Act
+      UndelegationModel actualUndelegationModel = actualRawUndelegationModel.fillTokenAliases(TestUtils.tokenAliasModelList);
+
+      // Assert
+      UndelegationModel expectedUndelegationModel = UndelegationModel(
+        id: 1,
+        lockedUntil: DateTime(2023, 12, 14, 9),
+        validatorSimplifiedModel: actualValidatorSimplifiedModel,
+        tokens: actualTokenAmountModelList,
+      );
+      expect(actualUndelegationModel, expectedUndelegationModel);
     });
   });
 }

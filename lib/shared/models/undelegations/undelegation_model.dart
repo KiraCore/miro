@@ -40,6 +40,34 @@ class UndelegationModel extends AListItem {
     );
   }
 
+  UndelegationModel copyWith({
+    List<TokenAmountModel>? tokens,
+  }) {
+    return UndelegationModel(
+      id: id,
+      lockedUntil: lockedUntil,
+      validatorSimplifiedModel: validatorSimplifiedModel,
+      tokens: tokens ?? this.tokens,
+    );
+  }
+
+  UndelegationModel fillTokenAliases(List<TokenAliasModel> tokenAliasModels) {
+    List<TokenAmountModel> filledTokenAmountModels = tokens.map((TokenAmountModel e) {
+      return e.copyWith(
+        tokenAliasModel: tokenAliasModels.firstWhere(
+          (TokenAliasModel tokenAliasModel) => tokenAliasModel.defaultTokenDenominationModel.name == e.tokenAliasModel.defaultTokenDenominationModel.name,
+          orElse: () => e.tokenAliasModel,
+        ),
+      );
+    }).toList();
+
+    return copyWith(tokens: filledTokenAmountModels);
+  }
+
+  List<String> get denomNames {
+    return tokens.map((TokenAmountModel e) => e.tokenAliasModel.defaultTokenDenominationModel.name).toList();
+  }
+
   @override
   String get cacheId => id.toString();
 

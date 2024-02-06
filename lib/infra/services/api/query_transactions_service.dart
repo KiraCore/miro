@@ -8,6 +8,8 @@ import 'package:miro/infra/dto/interx_headers.dart';
 import 'package:miro/infra/exceptions/dio_parse_exception.dart';
 import 'package:miro/infra/models/api_request_model.dart';
 import 'package:miro/infra/repositories/api/api_repository.dart';
+import 'package:miro/infra/services/api_kira/query_kira_tokens_aliases_service.dart';
+import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/transactions/list/tx_list_item_model.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';
 import 'package:miro/shared/utils/logger/log_level.dart';
@@ -18,6 +20,7 @@ abstract class _IQueryTransactionsService {
 
 class QueryTransactionsService implements _IQueryTransactionsService {
   final IApiRepository _apiRepository = globalLocator<IApiRepository>();
+  final QueryKiraTokensAliasesService _queryKiraTokensAliasesService = globalLocator<QueryKiraTokensAliasesService>();
 
   @override
   Future<PageData<TxListItemModel>> getTransactionList(QueryTransactionsReq queryTransactionsReq, {bool forceRequestBool = false}) async {
@@ -31,7 +34,7 @@ class QueryTransactionsService implements _IQueryTransactionsService {
 
     try {
       QueryTransactionsResp queryTransactionsResp = QueryTransactionsResp.fromJson(response.data as Map<String, dynamic>);
-      List<TxListItemModel> txListItemModelList = queryTransactionsResp.transactions.map(TxListItemModel.fromDto).toList();
+      List<TxListItemModel> txListItemModelList = await _buildTxListItemModels(queryTransactionsResp);
 
       InterxHeaders interxHeaders = InterxHeaders.fromHeaders(response.headers);
 
@@ -45,5 +48,15 @@ class QueryTransactionsService implements _IQueryTransactionsService {
       AppLogger().log(message: 'QueryTransactionsService: Cannot parse getTransactionList() for URI $networkUri ${e}', logLevel: LogLevel.error);
       throw DioParseException(response: response, error: e);
     }
+  }
+
+  Future<List<TxListItemModel>> _buildTxListItemModels(QueryTransactionsResp queryTransactionsResp) async {
+    List<TxListItemModel> rawTxListItemModelList = queryTransactionsResp.transactions.map(TxListItemModel.fromDto).toList();
+
+    List<String> involvedTokenNames = rawTxListItemModelList.expand((TxListItemModel txListItemModel) => txListItemModel.defaultDenomNames).toList();
+    List<TokenAliasModel> involvedTokenAliases = await _queryKiraTokensAliasesService.getAliasesByTokenNames(involvedTokenNames);
+
+    List<TxListItemModel> filledTxListItemModelList = rawTxListItemModelList.map((TxListItemModel e) => e.fillTokenAliases(involvedTokenAliases)).toList();
+    return filledTxListItemModelList;
   }
 }

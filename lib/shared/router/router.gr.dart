@@ -189,6 +189,7 @@ abstract class $AppRouter extends _i18.RootStackRouter {
         routeData: routeData,
         child: _i14.StakingTxUndelegatePage(
           validatorSimplifiedModel: args.validatorSimplifiedModel,
+          stakeableTokens: args.stakeableTokens,
           key: args.key,
         ),
       );
@@ -649,12 +650,14 @@ class StakingTxUndelegateRoute
     extends _i18.PageRouteInfo<StakingTxUndelegateRouteArgs> {
   StakingTxUndelegateRoute({
     required _i28.ValidatorSimplifiedModel validatorSimplifiedModel,
+    required List<_i27.TokenAliasModel> stakeableTokens,
     _i20.Key? key,
     List<_i18.PageRouteInfo>? children,
   }) : super(
           StakingTxUndelegateRoute.name,
           args: StakingTxUndelegateRouteArgs(
             validatorSimplifiedModel: validatorSimplifiedModel,
+            stakeableTokens: stakeableTokens,
             key: key,
           ),
           initialChildren: children,
@@ -669,16 +672,19 @@ class StakingTxUndelegateRoute
 class StakingTxUndelegateRouteArgs {
   const StakingTxUndelegateRouteArgs({
     required this.validatorSimplifiedModel,
+    required this.stakeableTokens,
     this.key,
   });
 
   final _i28.ValidatorSimplifiedModel validatorSimplifiedModel;
 
+  final List<_i27.TokenAliasModel> stakeableTokens;
+
   final _i20.Key? key;
 
   @override
   String toString() {
-    return 'StakingTxUndelegateRouteArgs{validatorSimplifiedModel: $validatorSimplifiedModel, key: $key}';
+    return 'StakingTxUndelegateRouteArgs{validatorSimplifiedModel: $validatorSimplifiedModel, stakeableTokens: $stakeableTokens, key: $key}';
   }
 }
 

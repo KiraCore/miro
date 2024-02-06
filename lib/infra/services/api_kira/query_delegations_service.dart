@@ -8,7 +8,9 @@ import 'package:miro/infra/dto/interx_headers.dart';
 import 'package:miro/infra/exceptions/dio_parse_exception.dart';
 import 'package:miro/infra/models/api_request_model.dart';
 import 'package:miro/infra/repositories/api/api_kira_repository.dart';
+import 'package:miro/infra/services/api_kira/query_kira_tokens_aliases_service.dart';
 import 'package:miro/shared/models/delegations/validator_staking_model.dart';
+import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';
 import 'package:miro/shared/utils/logger/log_level.dart';
 
@@ -18,6 +20,7 @@ abstract class _IQueryDelegationsService {
 
 class QueryDelegationsService implements _IQueryDelegationsService {
   final IApiKiraRepository _apiKiraRepository = globalLocator<IApiKiraRepository>();
+  final QueryKiraTokensAliasesService _queryKiraTokensAliasesService = globalLocator<QueryKiraTokensAliasesService>();
 
   @override
   Future<PageData<ValidatorStakingModel>> getValidatorStakingModelList(QueryDelegationsReq queryDelegationsReq, {bool forceRequestBool = false}) async {
@@ -30,7 +33,7 @@ class QueryDelegationsService implements _IQueryDelegationsService {
 
     try {
       QueryDelegationsResp queryDelegationsResp = QueryDelegationsResp.fromJson(response.data as Map<String, dynamic>);
-      List<ValidatorStakingModel> stakingModelList = queryDelegationsResp.delegations.map(ValidatorStakingModel.fromDto).toList();
+      List<ValidatorStakingModel> stakingModelList = await _buildValidatorStakingModels(queryDelegationsResp);
 
       InterxHeaders interxHeaders = InterxHeaders.fromHeaders(response.headers);
 
@@ -44,5 +47,16 @@ class QueryDelegationsService implements _IQueryDelegationsService {
       AppLogger().log(message: 'QueryDelegationsService: Cannot parse getValidatorStakingModelList() for URI $networkUri ${e}', logLevel: LogLevel.error);
       throw DioParseException(response: response, error: e);
     }
+  }
+
+  Future<List<ValidatorStakingModel>> _buildValidatorStakingModels(QueryDelegationsResp queryDelegationsResp) async {
+    List<ValidatorStakingModel> rawStakingModelList = queryDelegationsResp.delegations.map(ValidatorStakingModel.fromDto).toList();
+
+    List<String> involvedTokenNames = rawStakingModelList.expand((ValidatorStakingModel validatorStakingModel) => validatorStakingModel.defaultDenomNames).toList();
+    List<TokenAliasModel> involvedTokenAliases = await _queryKiraTokensAliasesService.getAliasesByTokenNames(involvedTokenNames);
+
+    List<ValidatorStakingModel> filledStakingModelList =
+        rawStakingModelList.map((ValidatorStakingModel e) => e.fillTokenAliases(involvedTokenAliases)).toList();
+    return filledStakingModelList;
   }
 }

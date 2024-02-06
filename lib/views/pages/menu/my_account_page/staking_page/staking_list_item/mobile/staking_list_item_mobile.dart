@@ -78,7 +78,7 @@ class _StakingListItemMobile extends State<StakingListItemMobile> {
                   prefix: S.of(context).stakingPoolLabelTokens,
                   child: TextColumn<TokenAliasModel>(
                     itemList: widget.validatorStakingModel.tokens,
-                    displayItemAsString: (TokenAliasModel tokenAliasModel) => '${tokenAliasModel.name} ',
+                    displayItemAsString: (TokenAliasModel tokenAliasModel) => '${tokenAliasModel.networkTokenDenominationModel.name} ',
                   ),
                 ),
               ),
@@ -137,6 +137,7 @@ class _StakingListItemMobile extends State<StakingListItemMobile> {
         children: <PageRouteInfo>[
           StakingTxUndelegateRoute(
             validatorSimplifiedModel: widget.validatorStakingModel.validatorSimplifiedModel,
+            stakeableTokens: widget.validatorStakingModel.tokens,
           ),
         ],
       ),

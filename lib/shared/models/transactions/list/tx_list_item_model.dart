@@ -11,6 +11,7 @@ import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/transactions/list/tx_direction_type.dart';
 import 'package:miro/shared/models/transactions/list/tx_status_type.dart';
 import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
+import 'package:miro/shared/models/transactions/messages/msg_send_model.dart';
 import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
 import 'package:miro/shared/utils/custom_date_utils.dart';
 import 'package:miro/shared/utils/enum_utils.dart';
@@ -53,6 +54,66 @@ class TxListItemModel extends AListItem with EquatableMixin {
     );
   }
 
+  TxListItemModel copyWith({
+    List<TokenAmountModel>? fees,
+    List<PrefixedTokenAmountModel>? prefixedTokenAmounts,
+    List<ATxMsgModel>? txMsgModels,
+  }) {
+    return TxListItemModel(
+        hash: hash,
+        time: time,
+        txDirectionType: txDirectionType,
+        txStatusType: txStatusType,
+        fees: fees ?? this.fees,
+        prefixedTokenAmounts: prefixedTokenAmounts ?? this.prefixedTokenAmounts,
+        txMsgModels: txMsgModels ?? this.txMsgModels);
+  }
+
+  TxListItemModel fillTokenAliases(List<TokenAliasModel> tokenAliasModels) {
+    List<PrefixedTokenAmountModel> filledPrefixedTokenAmounts = prefixedTokenAmounts.map((PrefixedTokenAmountModel e) {
+      return e.copyWith(
+        tokenAmountModel: e.tokenAmountModel.copyWith(
+          tokenAliasModel: tokenAliasModels.firstWhere(
+            (TokenAliasModel tokenAliasModel) =>
+                tokenAliasModel.defaultTokenDenominationModel.name == e.tokenAmountModel.tokenAliasModel.defaultTokenDenominationModel.name,
+            orElse: () => e.tokenAmountModel.tokenAliasModel,
+          ),
+        ),
+      );
+    }).toList();
+
+    List<TokenAmountModel> filledFees = fees.map((TokenAmountModel e) {
+      return e.copyWith(
+        tokenAliasModel: tokenAliasModels.firstWhere(
+          (TokenAliasModel tokenAliasModel) => tokenAliasModel.defaultTokenDenominationModel.name == e.tokenAliasModel.defaultTokenDenominationModel.name,
+          orElse: () => e.tokenAliasModel,
+        ),
+      );
+    }).toList();
+
+    List<ATxMsgModel> filledTxMsgModels = txMsgModels.map((ATxMsgModel e) {
+      if (e is MsgSendModel) {
+        return e.copyWith(
+          tokenAmountModel: e.tokenAmountModel.copyWith(
+            tokenAliasModel: tokenAliasModels.firstWhere(
+              (TokenAliasModel tokenAliasModel) =>
+                  tokenAliasModel.defaultTokenDenominationModel.name == e.tokenAmountModel.tokenAliasModel.defaultTokenDenominationModel.name,
+              orElse: () => e.tokenAmountModel.tokenAliasModel,
+            ),
+          ),
+        );
+      } else {
+        return e;
+      }
+    }).toList();
+
+    return copyWith(
+      prefixedTokenAmounts: filledPrefixedTokenAmounts,
+      fees: filledFees,
+      txMsgModels: filledTxMsgModels,
+    );
+  }
+
   bool get isOutbound {
     return txDirectionType == TxDirectionType.outbound;
   }
@@ -75,6 +136,19 @@ class TxListItemModel extends AListItem with EquatableMixin {
     } else {
       return txMsgModels.first.txMsgType;
     }
+  }
+
+  List<String> get defaultDenomNames {
+    List<TokenAliasModel> feeAliases = fees.map((TokenAmountModel e) => e.tokenAliasModel).toList();
+    List<TokenAliasModel> txAliases = prefixedTokenAmounts.map((PrefixedTokenAmountModel e) => e.tokenAmountModel.tokenAliasModel).toList();
+    List<MsgSendModel> msgSendModels = txMsgModels.whereType<MsgSendModel>().toList();
+    List<TokenAliasModel> msgSendModelAliases = msgSendModels.map((MsgSendModel e) => e.tokenAmountModel.tokenAliasModel).toList();
+
+    return <String>[
+      ...feeAliases.map((TokenAliasModel e) => e.defaultTokenDenominationModel.name),
+      ...txAliases.map((TokenAliasModel e) => e.defaultTokenDenominationModel.name),
+      ...msgSendModelAliases.map((TokenAliasModel e) => e.defaultTokenDenominationModel.name),
+    ];
   }
 
   String getTitle(BuildContext context) {

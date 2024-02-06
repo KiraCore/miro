@@ -32,6 +32,48 @@ class StakingPoolModel extends Equatable {
     );
   }
 
+  StakingPoolModel copyWith({
+    List<TokenAmountModel>? votingPower,
+    List<TokenAliasModel>? tokens,
+  }) {
+    return StakingPoolModel(
+      totalDelegators: totalDelegators,
+      slashed: slashed,
+      votingPower: votingPower ?? this.votingPower,
+      commission: commission,
+      tokens: tokens ?? this.tokens,
+    );
+  }
+
+  StakingPoolModel fillTokenAliases(List<TokenAliasModel> tokenAliasModels) {
+    List<TokenAmountModel> filledVotingPower = votingPower.map((TokenAmountModel e) {
+      return e.copyWith(
+        tokenAliasModel: tokenAliasModels.firstWhere(
+          (TokenAliasModel tokenAliasModel) => tokenAliasModel.defaultTokenDenominationModel.name == e.tokenAliasModel.defaultTokenDenominationModel.name,
+          orElse: () => e.tokenAliasModel,
+        ),
+      );
+    }).toList();
+
+    List<TokenAliasModel> filledTokenAliases = tokens.map((TokenAliasModel e) {
+      return tokenAliasModels.firstWhere(
+        (TokenAliasModel tokenAliasModel) => tokenAliasModel.defaultTokenDenominationModel.name == e.defaultTokenDenominationModel.name,
+        orElse: () => e,
+      );
+    }).toList();
+
+    return copyWith(votingPower: filledVotingPower, tokens: filledTokenAliases);
+  }
+
+  List<String> get defaultDenomNames {
+    List<TokenAliasModel> votingPowerAliases = votingPower.map((TokenAmountModel e) => e.tokenAliasModel).toList();
+
+    return <String>[
+      ...votingPowerAliases.map((TokenAliasModel e) => e.defaultTokenDenominationModel.name),
+      ...tokens.map((TokenAliasModel e) => e.defaultTokenDenominationModel.name),
+    ];
+  }
+
   @override
   List<Object?> get props => <Object?>[totalDelegators, slashed, votingPower, commission, tokens];
 }

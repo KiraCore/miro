@@ -48,10 +48,10 @@ void main() {
           tokens: <TokenAliasModel>[
             TokenAliasModel.local('frozen'),
             TokenAliasModel.local('ubtc'),
-            TokenAliasModel.local('ukex'),
+            TestUtils.kexTokenAliasModel,
             TokenAliasModel.local('xeth'),
           ],
-          votingPower: <TokenAmountModel>[TokenAmountModel(defaultDenominationAmount: Decimal.parse('100'), tokenAliasModel: TokenAliasModel.local('ukex'))],
+          votingPower: <TokenAmountModel>[TokenAmountModel(defaultDenominationAmount: Decimal.parse('100'), tokenAliasModel: TestUtils.kexTokenAliasModel)],
           totalDelegators: 1,
         ),
       );

@@ -1,6 +1,7 @@
 import 'package:decimal/decimal.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/shared/models/tokens/prefixed_token_amount_model.dart';
+import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_status_type.dart';
 import 'package:miro/shared/models/transactions/list/tx_direction_type.dart';
@@ -255,6 +256,68 @@ void main() {
 
       // Assert
       expect(actualTxListItemModel.isMultiTransaction, true);
+    });
+  });
+
+  group('Tests of TxListItemModel.fillTokenAliases()', () {
+    test('Should [UndelegationModel] with filled token aliases in [fees], [prefixedTokenAmounts] and [txMsgModels]', () {
+      // Arrange
+      TxListItemModel actualRawTxListItemModel = TxListItemModel(
+        hash: '0x3BD165E428985C8FE60A93A9AF0B502F6735F54892FE27425465FAAA04B42BDA',
+        time: DateTime.parse('2023-01-30 16:48:28.000'),
+        txDirectionType: TxDirectionType.outbound,
+        txStatusType: TxStatusType.confirmed,
+        fees: <TokenAmountModel>[
+          TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TokenAliasModel.local('ukex')),
+        ],
+        prefixedTokenAmounts: <PrefixedTokenAmountModel>[
+          PrefixedTokenAmountModel(
+            tokenAmountPrefixType: TokenAmountPrefixType.subtract,
+            tokenAmountModel: TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TokenAliasModel.local('ukex')),
+          ),
+        ],
+        txMsgModels: <ATxMsgModel>[
+          MsgSendModel(
+              fromWalletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
+              toWalletAddress: WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
+              tokenAmountModel: TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TokenAliasModel.local('ukex'))),
+          MsgSendModel(
+              fromWalletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
+              toWalletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
+              tokenAmountModel: TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TokenAliasModel.local('ukex'))),
+        ],
+      );
+
+      // Act
+      TxListItemModel actualTxListItemModel = actualRawTxListItemModel.fillTokenAliases(TestUtils.tokenAliasModelList);
+
+      // Assert
+      TxListItemModel expectedTxListItemModel = TxListItemModel(
+        hash: '0x3BD165E428985C8FE60A93A9AF0B502F6735F54892FE27425465FAAA04B42BDA',
+        time: DateTime.parse('2023-01-30 16:48:28.000'),
+        txDirectionType: TxDirectionType.outbound,
+        txStatusType: TxStatusType.confirmed,
+        fees: <TokenAmountModel>[
+          TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel),
+        ],
+        prefixedTokenAmounts: <PrefixedTokenAmountModel>[
+          PrefixedTokenAmountModel(
+            tokenAmountPrefixType: TokenAmountPrefixType.subtract,
+            tokenAmountModel: TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel),
+          ),
+        ],
+        txMsgModels: <ATxMsgModel>[
+          MsgSendModel(
+              fromWalletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
+              toWalletAddress: WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
+              tokenAmountModel: TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel)),
+          MsgSendModel(
+              fromWalletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
+              toWalletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
+              tokenAmountModel: TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel)),
+        ],
+      );
+      expect(actualTxListItemModel, expectedTxListItemModel);
     });
   });
 }

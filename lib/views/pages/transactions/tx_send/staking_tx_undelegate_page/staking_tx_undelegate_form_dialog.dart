@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miro/generated/l10n.dart';
+import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/transactions/form_models/staking_msg_undelegate_form_model.dart';
 import 'package:miro/shared/models/transactions/signed_transaction_model.dart';
@@ -13,12 +14,14 @@ class StakingTxUndelegateFormDialog extends StatefulWidget {
   final ValueChanged<SignedTxModel> onTxFormCompleted;
   final StakingMsgUndelegateFormModel stakingMsgUndelegateFormModel;
   final ValidatorSimplifiedModel validatorSimplifiedModel;
+  final List<TokenAliasModel> stakeableTokens;
 
   const StakingTxUndelegateFormDialog({
     required this.feeTokenAmountModel,
     required this.onTxFormCompleted,
     required this.stakingMsgUndelegateFormModel,
     required this.validatorSimplifiedModel,
+    required this.stakeableTokens,
     Key? key,
   }) : super(key: key);
 
@@ -46,6 +49,7 @@ class _StakingTxUndelegateFormDialog extends State<StakingTxUndelegateFormDialog
             stakingMsgUndelegateFormModel: widget.stakingMsgUndelegateFormModel,
             feeTokenAmountModel: widget.feeTokenAmountModel,
             validatorSimplifiedModel: widget.validatorSimplifiedModel,
+            stakeableTokens: widget.stakeableTokens,
           ),
           const SizedBox(height: 30),
           TxSendFormFooter(

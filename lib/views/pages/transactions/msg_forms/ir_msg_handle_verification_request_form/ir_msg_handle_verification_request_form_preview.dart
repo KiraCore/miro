@@ -41,7 +41,7 @@ class _IRMsgHandleVerificationRequestFormPreview extends State<IRMsgHandleVerifi
   late final IRInboundVerificationRequestModel irInboundVerificationRequestModel =
       widget.irMsgHandleVerificationRequestFormModel.irInboundVerificationRequestModel;
   late final TokenAliasModel tokenAliasModel = irInboundVerificationRequestModel.tipTokenAmountModel.tokenAliasModel;
-  late TokenDenominationModel selectedTokenDenominationModel = tokenAliasModel.networkTokenDenominationModel;
+  late TokenDenominationModel selectedTokenDenominationModel = tokenAliasModel.defaultTokenDenominationModel;
 
   @override
   Widget build(BuildContext context) {

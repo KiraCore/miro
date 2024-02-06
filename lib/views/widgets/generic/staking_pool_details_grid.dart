@@ -77,7 +77,7 @@ class StakingPoolDetailsGrid extends StatelessWidget {
                   loadingBool: loadingBool,
                   child: TextColumn<TokenAliasModel>(
                     itemList: stakingPoolModel?.tokens,
-                    displayItemAsString: (TokenAliasModel item) => item.name,
+                    displayItemAsString: (TokenAliasModel item) => item.networkTokenDenominationModel.name,
                   ),
                 ),
               ],

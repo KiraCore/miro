@@ -21,12 +21,14 @@ class StakingMsgUndelegateForm extends StatefulWidget {
   final StakingMsgUndelegateFormModel stakingMsgUndelegateFormModel;
   final TokenAmountModel feeTokenAmountModel;
   final ValidatorSimplifiedModel validatorSimplifiedModel;
+  final List<TokenAliasModel> stakeableTokens;
 
   const StakingMsgUndelegateForm({
     required this.formKey,
     required this.stakingMsgUndelegateFormModel,
     required this.feeTokenAmountModel,
     required this.validatorSimplifiedModel,
+    required this.stakeableTokens,
     Key? key,
   }) : super(key: key);
 
@@ -122,11 +124,11 @@ class _StakingMsgUndelegateFormState extends State<StakingMsgUndelegateForm> {
   }
 
   void _updateTokenAmountModels(TokenFormState tokenFormState) {
-    String stakedTokenName = tokenFormState.tokenAmountModel!.tokenAliasModel.name;
-    String basicTokenName = stakedTokenName.substring(stakedTokenName.indexOf('/') + 1);
+    String tokenDerivedName = tokenFormState.tokenAmountModel!.tokenAliasModel.name;
     TokenAmountModel basicTokenAmountModel = TokenAmountModel(
       defaultDenominationAmount: tokenFormState.tokenAmountModel!.getAmountInDefaultDenomination(),
-      tokenAliasModel: TokenAliasModel.local(basicTokenName),
+      tokenAliasModel: widget.stakeableTokens.firstWhere((TokenAliasModel e) => tokenDerivedName.contains(e.defaultTokenDenominationModel.name),
+          orElse: () => TokenAliasModel.local(tokenDerivedName)),
     );
     widget.stakingMsgUndelegateFormModel.tokenAmountModels = <TokenAmountModel>[basicTokenAmountModel];
   }

@@ -49,6 +49,13 @@ class TestUtils {
     defaultTokenDenominationModel: TokenDenominationModel(name: 'v1/ukex', decimals: 0),
   );
 
+  static List<TokenAliasModel> tokenAliasModelList = <TokenAliasModel>[
+    btcTokenAliasModel,
+    ethTokenAliasModel,
+    kexTokenAliasModel,
+    derivedKexTokenAliasModel,
+  ];
+
   static final NetworkUnknownModel healthyNetworkUnknownModel = NetworkUnknownModel(
     connectionStatusType: ConnectionStatusType.disconnected,
     uri: Uri.parse('https://healthy.kira.network'),
@@ -88,7 +95,7 @@ class TestUtils {
     tokenDefaultDenomModel: TokenDefaultDenomModel(
       valuesFromNetworkExistBool: true,
       bech32AddressPrefix: 'kira',
-      defaultTokenAliasModel: TokenAliasModel.local('ukex'),
+      defaultTokenAliasModel: kexTokenAliasModel,
     ),
     lastRefreshDateTime: defaultLastRefreshDateTime,
   );
@@ -110,7 +117,7 @@ class TestUtils {
     tokenDefaultDenomModel: TokenDefaultDenomModel(
       valuesFromNetworkExistBool: true,
       bech32AddressPrefix: 'kira',
-      defaultTokenAliasModel: TokenAliasModel.local('ukex'),
+      defaultTokenAliasModel: kexTokenAliasModel,
     ),
     lastRefreshDateTime: defaultLastRefreshDateTime,
   );
@@ -145,7 +152,7 @@ class TestUtils {
     tokenDefaultDenomModel: TokenDefaultDenomModel(
       valuesFromNetworkExistBool: true,
       bech32AddressPrefix: 'kira',
-      defaultTokenAliasModel: TokenAliasModel.local('ukex'),
+      defaultTokenAliasModel: kexTokenAliasModel,
     ),
     lastRefreshDateTime: defaultLastRefreshDateTime,
   );
@@ -164,7 +171,7 @@ class TestUtils {
     tokenDefaultDenomModel: TokenDefaultDenomModel(
       valuesFromNetworkExistBool: true,
       bech32AddressPrefix: 'kira',
-      defaultTokenAliasModel: TokenAliasModel.local('ukex'),
+      defaultTokenAliasModel: kexTokenAliasModel,
     ),
     interxWarningModel: const InterxWarningModel(<InterxWarningType>[
       InterxWarningType.versionOutdated,
@@ -211,7 +218,7 @@ class TestUtils {
       tokenDefaultDenomModel: TokenDefaultDenomModel(
         valuesFromNetworkExistBool: true,
         bech32AddressPrefix: 'kira',
-        defaultTokenAliasModel: TokenAliasModel.local('ukex'),
+        defaultTokenAliasModel: kexTokenAliasModel,
       ),
       lastRefreshDateTime: defaultLastRefreshDateTime,
     );

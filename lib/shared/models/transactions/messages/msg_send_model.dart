@@ -94,6 +94,14 @@ class MsgSendModel extends ATxMsgModel {
     }
   }
 
+  MsgSendModel copyWith({TokenAmountModel? tokenAmountModel}) {
+    return MsgSendModel(
+      fromWalletAddress: fromWalletAddress,
+      toWalletAddress: toWalletAddress,
+      tokenAmountModel: tokenAmountModel ?? this.tokenAmountModel,
+    );
+  }
+
   @override
   List<Object?> get props => <Object>[fromWalletAddress, toWalletAddress, tokenAmountModel];
 }

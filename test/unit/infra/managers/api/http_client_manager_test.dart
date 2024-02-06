@@ -212,6 +212,46 @@ Future<void> main() async {
         globalLocator<ICacheManager>().deleteAll(boxName: 'api_cache');
       });
     });
+
+    group('Tests of HttpClientManager behaviour when [cache DISABLED]', () {
+      test('Should [return SERVER response] if [cache DISABLED]', () async {
+        // Act
+        Response<dynamic> actualResponse = await httpClientManager.get<dynamic>(
+          networkUri: actualBaseUri,
+          path: '/success',
+          apiCacheConfigModel: ApiCacheConfigModel(
+            apiCacheMaxAge: const Duration(seconds: 3),
+            cacheEnabledBool: false,
+          ),
+        );
+        String? actualDataSourceHeader = actualResponse.headers.value('data_source');
+
+        // Assert
+        expect(actualResponse.data, expectedGETResponseData);
+        expect(actualDataSourceHeader, 'api');
+      });
+
+      test('Should [return same SERVER response] again if [cache DISABLED]', () async {
+        // Act
+        Response<dynamic> actualResponse = await httpClientManager.get<dynamic>(
+          networkUri: actualBaseUri,
+          path: '/success',
+          apiCacheConfigModel: ApiCacheConfigModel(
+            apiCacheMaxAge: const Duration(seconds: 3),
+            cacheEnabledBool: false,
+          ),
+        );
+        String? actualDataSourceHeader = actualResponse.headers.value('data_source');
+
+        // Assert
+        expect(actualResponse.data, expectedGETResponseData);
+        expect(actualDataSourceHeader, 'api');
+      });
+
+      tearDownAll(() {
+        globalLocator<ICacheManager>().deleteAll(boxName: 'api_cache');
+      });
+    });
   });
 
   group('Tests of HttpClientManager.post()', () {
@@ -374,6 +414,48 @@ Future<void> main() async {
           ),
           throwsA(isA<DioException>()),
         );
+      });
+
+      tearDownAll(() {
+        globalLocator<ICacheManager>().deleteAll(boxName: 'api_cache');
+      });
+    });
+
+    group('Tests of HttpClientManager behaviour when [cache DISABLED]', () {
+      test('Should [return SERVER response] if [cache DISABLED]', () async {
+        // Act
+        Response<dynamic> actualResponse = await httpClientManager.post<Map<String, dynamic>>(
+          networkUri: actualBaseUri,
+          path: '/success',
+          apiCacheConfigModel: ApiCacheConfigModel(
+            apiCacheMaxAge: const Duration(seconds: 3),
+            cacheEnabledBool: false,
+          ),
+          body: <String, dynamic>{},
+        );
+        String? actualDataSourceHeader = actualResponse.headers.value('data_source');
+
+        // Assert
+        expect(actualResponse.data, expectedPOSTResponseData);
+        expect(actualDataSourceHeader, 'api');
+      });
+
+      test('Should [return same SERVER response] again if [cache DISABLED]', () async {
+        // Act
+        Response<dynamic> actualResponse = await httpClientManager.post<Map<String, dynamic>>(
+          networkUri: actualBaseUri,
+          path: '/success',
+          apiCacheConfigModel: ApiCacheConfigModel(
+            apiCacheMaxAge: const Duration(seconds: 3),
+            cacheEnabledBool: false,
+          ),
+          body: <String, dynamic>{},
+        );
+        String? actualDataSourceHeader = actualResponse.headers.value('data_source');
+
+        // Assert
+        expect(actualResponse.data, expectedPOSTResponseData);
+        expect(actualDataSourceHeader, 'api');
       });
 
       tearDownAll(() {

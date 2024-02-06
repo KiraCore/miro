@@ -5,6 +5,7 @@ import 'package:miro/blocs/pages/transactions/tx_process_cubit/states/tx_process
 import 'package:miro/blocs/pages/transactions/tx_process_cubit/states/tx_process_loaded_state.dart';
 import 'package:miro/blocs/pages/transactions/tx_process_cubit/tx_process_cubit.dart';
 import 'package:miro/config/locator.dart';
+import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/transactions/form_models/staking_msg_undelegate_form_model.dart';
 import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
 import 'package:miro/shared/models/validators/validator_simplified_model.dart';
@@ -15,9 +16,11 @@ import 'package:miro/views/widgets/transactions/send/tx_process_wrapper.dart';
 @RoutePage()
 class StakingTxUndelegatePage extends StatefulWidget {
   final ValidatorSimplifiedModel validatorSimplifiedModel;
+  final List<TokenAliasModel> stakeableTokens;
 
   const StakingTxUndelegatePage({
     required this.validatorSimplifiedModel,
+    required this.stakeableTokens,
     Key? key,
   }) : super(key: key);
 
@@ -51,6 +54,7 @@ class _StakingTxUndelegatePage extends State<StakingTxUndelegatePage> {
           feeTokenAmountModel: txProcessLoadedState.feeTokenAmountModel,
           onTxFormCompleted: txProcessCubit.submitTransactionForm,
           validatorSimplifiedModel: widget.validatorSimplifiedModel,
+          stakeableTokens: widget.stakeableTokens,
         );
       },
       txFormPreviewWidgetBuilder: (TxProcessConfirmState txProcessConfirmState) {

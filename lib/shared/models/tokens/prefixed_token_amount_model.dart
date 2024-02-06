@@ -11,6 +11,13 @@ class PrefixedTokenAmountModel extends Equatable {
     required this.tokenAmountPrefixType,
   });
 
+  PrefixedTokenAmountModel copyWith({TokenAmountModel? tokenAmountModel}) {
+    return PrefixedTokenAmountModel(
+      tokenAmountModel: tokenAmountModel ?? this.tokenAmountModel,
+      tokenAmountPrefixType: tokenAmountPrefixType,
+    );
+  }
+
   String getAmountAsString() {
     return '${getPrefix()}${tokenAmountModel.getAmountInDefaultDenomination()}';
   }

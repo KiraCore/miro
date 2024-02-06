@@ -41,4 +41,25 @@ Future<void> main() async {
       }
     });
   });
+
+  group('Tests of QueryBalanceService.getBalancesByTokenNames() method', () {
+    test('Should return [List<BalanceModel>] for specific account', () async {
+      String actualAccountAddress = 'kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx';
+
+      TestUtils.printInfo('Data request');
+      try {
+        List<BalanceModel> actualBalanceList = await actualQueryBalanceService.getBalancesByTokenNames(actualAccountAddress, <String>['ukex']);
+
+        TestUtils.printInfo('Data return');
+        print(actualBalanceList);
+        print('');
+      } on DioConnectException catch (e) {
+        TestUtils.printError('query_balance_service_test.dart: Cannot fetch [PageData<BalanceModel>] for URI $networkUri: ${e.dioException.message}');
+      } on DioParseException catch (e) {
+        TestUtils.printError('query_balance_service_test.dart: Cannot parse [PageData<BalanceModel>] for URI $networkUri: ${e}');
+      } catch (e) {
+        TestUtils.printError('query_balance_service_test.dart: Unknown error for URI $networkUri: ${e}');
+      }
+    });
+  });
 }

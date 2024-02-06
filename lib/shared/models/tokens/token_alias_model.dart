@@ -47,5 +47,5 @@ class TokenAliasModel extends Equatable {
   }
 
   @override
-  List<Object?> get props => <Object>[defaultTokenDenominationModel];
+  List<Object?> get props => <Object>[defaultTokenDenominationModel, networkTokenDenominationModel];
 }

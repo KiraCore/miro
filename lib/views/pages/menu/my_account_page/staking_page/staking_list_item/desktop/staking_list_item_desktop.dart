@@ -66,7 +66,7 @@ class _StakingListItemDesktop extends State<StakingListItemDesktop> {
         children: <Widget>[
           Expanded(
             child: Text(
-              widget.validatorStakingModel.tokenNames.join(' '),
+              widget.validatorStakingModel.networkDenomNames.join(' '),
               overflow: TextOverflow.ellipsis,
               style: textTheme.bodyMedium!.copyWith(
                 color: DesignColors.white1,
@@ -118,6 +118,7 @@ class _StakingListItemDesktop extends State<StakingListItemDesktop> {
         children: <PageRouteInfo>[
           StakingTxUndelegateRoute(
             validatorSimplifiedModel: widget.validatorStakingModel.validatorSimplifiedModel,
+            stakeableTokens: widget.validatorStakingModel.tokens,
           ),
         ],
       ),

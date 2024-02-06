@@ -8,6 +8,8 @@ import 'package:miro/infra/dto/interx_headers.dart';
 import 'package:miro/infra/exceptions/dio_parse_exception.dart';
 import 'package:miro/infra/models/api_request_model.dart';
 import 'package:miro/infra/repositories/api/api_kira_repository.dart';
+import 'package:miro/infra/services/api_kira/query_kira_tokens_aliases_service.dart';
+import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/undelegations/undelegation_model.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';
 import 'package:miro/shared/utils/logger/log_level.dart';
@@ -18,6 +20,7 @@ abstract class _IQueryUndelegationsService {
 
 class QueryUndelegationsService implements _IQueryUndelegationsService {
   final IApiKiraRepository _apiKiraRepository = globalLocator<IApiKiraRepository>();
+  final QueryKiraTokensAliasesService _queryKiraTokensAliasesService = globalLocator<QueryKiraTokensAliasesService>();
 
   @override
   Future<PageData<UndelegationModel>> getUndelegationModelList(QueryUndelegationsReq queryUndelegationsReq, {bool forceRequestBool = false}) async {
@@ -30,13 +33,13 @@ class QueryUndelegationsService implements _IQueryUndelegationsService {
 
     try {
       QueryUndelegationsResp queryUndelegationsResp = QueryUndelegationsResp.fromJson(response.data as Map<String, dynamic>);
-      List<UndelegationModel> stakingModelList = queryUndelegationsResp.undelegations.map(UndelegationModel.fromDto).toList();
+      List<UndelegationModel> undelegationModelList = await _buildUndelegationModels(queryUndelegationsResp);
 
       InterxHeaders interxHeaders = InterxHeaders.fromHeaders(response.headers);
 
       return PageData<UndelegationModel>(
-        listItems: stakingModelList,
-        lastPageBool: stakingModelList.length < queryUndelegationsReq.limit!,
+        listItems: undelegationModelList,
+        lastPageBool: undelegationModelList.length < queryUndelegationsReq.limit!,
         blockDateTime: interxHeaders.blockDateTime,
         cacheExpirationDateTime: interxHeaders.cacheExpirationDateTime,
       );
@@ -44,5 +47,17 @@ class QueryUndelegationsService implements _IQueryUndelegationsService {
       AppLogger().log(message: 'QueryUndelegationsService: Cannot parse getUndelegationModelList() for URI $networkUri ${e}', logLevel: LogLevel.error);
       throw DioParseException(response: response, error: e);
     }
+  }
+
+  Future<List<UndelegationModel>> _buildUndelegationModels(QueryUndelegationsResp queryUndelegationsResp) async {
+    List<UndelegationModel> rawUndelegationModelList = queryUndelegationsResp.undelegations.map(UndelegationModel.fromDto).toList();
+
+    List<String> involvedTokenNames = rawUndelegationModelList.expand((UndelegationModel undelegationModel) => undelegationModel.denomNames).toList();
+    List<TokenAliasModel> involvedTokenAliases = await _queryKiraTokensAliasesService.getAliasesByTokenNames(involvedTokenNames);
+
+    List<UndelegationModel> filledUndelegationModelList =
+        rawUndelegationModelList.map((UndelegationModel e) => e.fillTokenAliases(involvedTokenAliases)).toList();
+
+    return filledUndelegationModelList;
   }
 }
