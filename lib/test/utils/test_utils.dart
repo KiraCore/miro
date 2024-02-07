@@ -24,6 +24,8 @@ class TestUtils {
   static final Wallet wallet = Wallet.derive(mnemonic: mnemonic);
   // @formatter:on
 
+  static DateTime defaultLastRefreshDateTime = DateTime(2024, 3, 14, 14, 17);
+
   static TokenAliasModel btcTokenAliasModel = const TokenAliasModel(
     name: 'Bitcoin',
     defaultTokenDenominationModel: TokenDenominationModel(name: 'satoshi', decimals: 0),
@@ -48,21 +50,24 @@ class TestUtils {
   );
 
   static final NetworkUnknownModel healthyNetworkUnknownModel = NetworkUnknownModel(
-    connectionStatusType: ConnectionStatusType.disconnected,
-    uri: Uri.parse('https://healthy.kira.network'),
-    name: 'healthy-mainnet',
+      connectionStatusType: ConnectionStatusType.disconnected,
+      uri: Uri.parse('https://healthy.kira.network'),
+      name: 'healthy-mainnet',
+      lastRefreshDateTime: defaultLastRefreshDateTime,
   );
 
   static final NetworkUnknownModel unhealthyNetworkUnknownModel = NetworkUnknownModel(
     connectionStatusType: ConnectionStatusType.disconnected,
     uri: Uri.parse('https://unhealthy.kira.network'),
     name: 'unhealthy-mainnet',
+    lastRefreshDateTime: defaultLastRefreshDateTime,
   );
 
   static final NetworkUnknownModel offlineNetworkUnknownModel = NetworkUnknownModel(
     connectionStatusType: ConnectionStatusType.disconnected,
     uri: Uri.parse('https://offline.kira.network'),
     name: 'offline-mainnet',
+    lastRefreshDateTime: defaultLastRefreshDateTime,
   );
 
   static final NetworkHealthyModel networkHealthyModel = NetworkHealthyModel(
@@ -78,9 +83,11 @@ class TestUtils {
       totalValidators: 475,
     ),
     tokenDefaultDenomModel: TokenDefaultDenomModel(
+      valuesFromNetworkExistBool: true,
       bech32AddressPrefix: 'kira',
       defaultTokenAliasModel: TokenAliasModel.local('ukex'),
     ),
+    lastRefreshDateTime: defaultLastRefreshDateTime,
   );
 
   static final NetworkUnhealthyModel networkUnhealthyModel = NetworkUnhealthyModel(
@@ -98,15 +105,18 @@ class TestUtils {
       latestBlockTime: DateTime.parse('2021-11-04 12:42:54.395Z'),
     ),
     tokenDefaultDenomModel: TokenDefaultDenomModel(
+      valuesFromNetworkExistBool: true,
       bech32AddressPrefix: 'kira',
       defaultTokenAliasModel: TokenAliasModel.local('ukex'),
     ),
+    lastRefreshDateTime: defaultLastRefreshDateTime,
   );
 
   static final NetworkOfflineModel networkOfflineModel = NetworkOfflineModel(
     connectionStatusType: ConnectionStatusType.disconnected,
     name: 'offline-mainnet',
     uri: Uri.parse('https://offline.kira.network'),
+    lastRefreshDateTime: defaultLastRefreshDateTime,
   );
 
   static final NetworkHealthyModel customNetworkHealthyModel = NetworkHealthyModel(
@@ -121,9 +131,11 @@ class TestUtils {
       totalValidators: 475,
     ),
     tokenDefaultDenomModel: TokenDefaultDenomModel(
+      valuesFromNetworkExistBool: true,
       bech32AddressPrefix: 'kira',
       defaultTokenAliasModel: TokenAliasModel.local('ukex'),
     ),
+    lastRefreshDateTime: defaultLastRefreshDateTime,
   );
 
   static final NetworkUnhealthyModel customNetworkUnhealthyModel = NetworkUnhealthyModel(
@@ -138,6 +150,7 @@ class TestUtils {
       totalValidators: 475,
     ),
     tokenDefaultDenomModel: TokenDefaultDenomModel(
+      valuesFromNetworkExistBool: true,
       bech32AddressPrefix: 'kira',
       defaultTokenAliasModel: TokenAliasModel.local('ukex'),
     ),
@@ -145,6 +158,7 @@ class TestUtils {
       InterxWarningType.versionOutdated,
       InterxWarningType.blockTimeOutdated,
     ]),
+    lastRefreshDateTime: defaultLastRefreshDateTime,
   );
 
   static Future<void> initIntegrationTest() async {
@@ -174,9 +188,11 @@ class TestUtils {
         latestBlockTime: DateTime.now(),
       ),
       tokenDefaultDenomModel: TokenDefaultDenomModel(
+        valuesFromNetworkExistBool: true,
         bech32AddressPrefix: 'kira',
         defaultTokenAliasModel: TokenAliasModel.local('ukex'),
       ),
+      lastRefreshDateTime: defaultLastRefreshDateTime,
     );
 
     globalLocator<NetworkModuleBloc>().add(NetworkModuleConnectEvent(mockNetworkHealthyModel));

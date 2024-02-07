@@ -249,15 +249,15 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
       });
       _setupPagesCacheFromList(allListItems);
     } catch (_) {
-      AppLogger().log(message: 'Cannot fetch all list data for ${listController.runtimeType}');
-      pageReloadController.hasErrors = true;
-      showLoadingOverlay.value = false;
-      emit(ListErrorState());
-      return;
-    }
-
-    if (isClosed == false) {
-      showLoadingOverlay.value = false;
+      if (isClosed == false) {
+        AppLogger().log(message: 'Cannot fetch all list data for ${listController.runtimeType}');
+        pageReloadController.hasErrors = true;
+        emit(ListErrorState());
+      }
+    } finally {
+      if (isClosed == false) {
+        showLoadingOverlay.value = false;
+      }
     }
   }
 

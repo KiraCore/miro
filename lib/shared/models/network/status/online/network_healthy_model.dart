@@ -7,30 +7,33 @@ import 'package:miro/shared/models/tokens/token_default_denom_model.dart';
 class NetworkHealthyModel extends ANetworkOnlineModel {
   const NetworkHealthyModel({
     required ConnectionStatusType connectionStatusType,
-    required TokenDefaultDenomModel? tokenDefaultDenomModel,
+    required DateTime lastRefreshDateTime,
     required NetworkInfoModel networkInfoModel,
+    required TokenDefaultDenomModel tokenDefaultDenomModel,
     required Uri uri,
     String? name,
   }) : super(
-          statusColor: DesignColors.greenStatus1,
           connectionStatusType: connectionStatusType,
-          tokenDefaultDenomModel: tokenDefaultDenomModel,
+          lastRefreshDateTime: lastRefreshDateTime,
           networkInfoModel: networkInfoModel,
+          tokenDefaultDenomModel: tokenDefaultDenomModel,
           uri: uri,
           name: name,
+          statusColor: DesignColors.greenStatus1,
         );
 
   @override
-  NetworkHealthyModel copyWith({required ConnectionStatusType connectionStatusType}) {
+  NetworkHealthyModel copyWith({required ConnectionStatusType connectionStatusType, DateTime? lastRefreshDateTime}) {
     return NetworkHealthyModel(
       connectionStatusType: connectionStatusType,
-      tokenDefaultDenomModel: tokenDefaultDenomModel,
+      lastRefreshDateTime: lastRefreshDateTime ?? this.lastRefreshDateTime!,
       networkInfoModel: networkInfoModel,
+      tokenDefaultDenomModel: tokenDefaultDenomModel,
       uri: uri,
       name: name,
     );
   }
 
   @override
-  List<Object?> get props => <Object?>[runtimeType, connectionStatusType, tokenDefaultDenomModel, networkInfoModel, uri.hashCode, name];
+  List<Object?> get props => <Object?>[runtimeType, connectionStatusType, networkInfoModel, tokenDefaultDenomModel, uri.hashCode, name];
 }

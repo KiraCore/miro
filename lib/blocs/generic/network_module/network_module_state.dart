@@ -14,11 +14,17 @@ class NetworkModuleState extends Equatable {
 
   NetworkModuleState.disconnected() : networkStatusModel = NetworkEmptyModel(connectionStatusType: ConnectionStatusType.disconnected);
 
+  NetworkModuleState.refreshing(ANetworkStatusModel networkStatusModel)
+      : networkStatusModel = networkStatusModel.copyWith(connectionStatusType: ConnectionStatusType.refreshing, lastRefreshDateTime: DateTime.now());
+
   bool get isConnecting => networkStatusModel.connectionStatusType == ConnectionStatusType.connecting;
 
-  bool get isConnected => networkStatusModel.connectionStatusType == ConnectionStatusType.connected;
+  bool get isConnected =>
+      networkStatusModel.connectionStatusType == ConnectionStatusType.connected || networkStatusModel.connectionStatusType == ConnectionStatusType.refreshing;
 
   bool get isDisconnected => networkStatusModel.connectionStatusType == ConnectionStatusType.disconnected;
+
+  bool get isRefreshing => networkStatusModel.connectionStatusType == ConnectionStatusType.refreshing;
 
   Uri get networkUri => networkStatusModel.uri;
 

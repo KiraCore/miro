@@ -1,12 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:miro/blocs/widgets/buttons/timed_refresh_button/timed_refresh_button_state.dart';
+import 'package:miro/blocs/widgets/buttons/time_counter/time_counter_state.dart';
 
-class TimedRefreshButtonCubit extends Cubit<TimedRefreshButtonState> {
+class TimeCounterCubit extends Cubit<TimeCounterState> {
   Timer? timer;
 
-  TimedRefreshButtonCubit() : super(const TimedRefreshButtonState(remainingUnlockTime: Duration.zero));
+  TimeCounterCubit() : super(const TimeCounterState(remainingUnlockTime: Duration.zero));
 
   @override
   Future<void> close() {
@@ -17,7 +17,7 @@ class TimedRefreshButtonCubit extends Cubit<TimedRefreshButtonState> {
   void startCounting(DateTime expirationTime) {
     timer?.cancel();
     Duration remainingUnlockTime = _calculateRemainingUnlockTime(expirationTime);
-    emit(TimedRefreshButtonState(remainingUnlockTime: remainingUnlockTime));
+    emit(TimeCounterState(remainingUnlockTime: remainingUnlockTime));
     timer = Timer.periodic(const Duration(seconds: 1), _handleTimerTick);
   }
 
@@ -28,10 +28,10 @@ class TimedRefreshButtonCubit extends Cubit<TimedRefreshButtonState> {
 
   void _handleTimerTick(Timer timer) {
     if (state.remainingUnlockTime.inSeconds > 0) {
-      emit(TimedRefreshButtonState(remainingUnlockTime: state.remainingUnlockTime - const Duration(seconds: 1)));
+      emit(TimeCounterState(remainingUnlockTime: state.remainingUnlockTime - const Duration(seconds: 1)));
     } else {
       timer.cancel();
-      emit(const TimedRefreshButtonState(remainingUnlockTime: Duration.zero));
+      emit(const TimeCounterState(remainingUnlockTime: Duration.zero));
     }
   }
 }

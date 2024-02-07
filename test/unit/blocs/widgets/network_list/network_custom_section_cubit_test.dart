@@ -15,11 +15,13 @@ Future<void> main() async {
   final NetworkOfflineModel uriTypoNetworkOfflineModel = NetworkOfflineModel(
     connectionStatusType: ConnectionStatusType.disconnected,
     uri: Uri.parse('https://offline.kira.networktypo'),
+    lastRefreshDateTime: TestUtils.defaultLastRefreshDateTime,
   );
 
   final NetworkOfflineModel wrongParamsCustomNetworkOfflineModel = NetworkOfflineModel(
     connectionStatusType: ConnectionStatusType.disconnected,
     uri: Uri.parse('https://offline.kira.network/wrong?params=0'),
+    lastRefreshDateTime: TestUtils.defaultLastRefreshDateTime,
   );
 
   group('Tests of NetworkCustomSectionCubit process', () {

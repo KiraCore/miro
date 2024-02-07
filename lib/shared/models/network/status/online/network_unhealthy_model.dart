@@ -11,31 +11,34 @@ class NetworkUnhealthyModel extends ANetworkOnlineModel {
   const NetworkUnhealthyModel({
     required this.interxWarningModel,
     required ConnectionStatusType connectionStatusType,
-    required TokenDefaultDenomModel? tokenDefaultDenomModel,
+    required DateTime lastRefreshDateTime,
     required NetworkInfoModel networkInfoModel,
+    required TokenDefaultDenomModel tokenDefaultDenomModel,
     required Uri uri,
     String? name,
   }) : super(
-          statusColor: DesignColors.yellowStatus1,
           connectionStatusType: connectionStatusType,
-          tokenDefaultDenomModel: tokenDefaultDenomModel,
+          lastRefreshDateTime: lastRefreshDateTime,
           networkInfoModel: networkInfoModel,
+          tokenDefaultDenomModel: tokenDefaultDenomModel,
           uri: uri,
           name: name,
+          statusColor: DesignColors.yellowStatus1,
         );
 
   @override
-  NetworkUnhealthyModel copyWith({required ConnectionStatusType connectionStatusType}) {
+  NetworkUnhealthyModel copyWith({required ConnectionStatusType connectionStatusType, DateTime? lastRefreshDateTime}) {
     return NetworkUnhealthyModel(
       interxWarningModel: interxWarningModel,
       connectionStatusType: connectionStatusType,
-      tokenDefaultDenomModel: tokenDefaultDenomModel,
+      lastRefreshDateTime: lastRefreshDateTime ?? this.lastRefreshDateTime!,
       networkInfoModel: networkInfoModel,
+      tokenDefaultDenomModel: tokenDefaultDenomModel,
       uri: uri,
       name: name,
     );
   }
 
   @override
-  List<Object?> get props => <Object?>[runtimeType, interxWarningModel, connectionStatusType, tokenDefaultDenomModel, networkInfoModel, uri.hashCode, name];
+  List<Object?> get props => <Object?>[runtimeType, interxWarningModel, connectionStatusType, networkInfoModel, tokenDefaultDenomModel, uri.hashCode, name];
 }

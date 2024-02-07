@@ -33,7 +33,8 @@ class KiraOutlinedButton extends StatelessWidget {
     return Opacity(
       opacity: disabled ? 0.3 : 1,
       child: MouseStateListener(
-        onTap: onPressed,
+        disabled: disabled,
+        onTap: disabled ? null : onPressed,
         childBuilder: (Set<MaterialState> states) {
           return Container(
             decoration: BoxDecoration(
@@ -68,14 +69,14 @@ class KiraOutlinedButton extends StatelessWidget {
   }
 
   Color _getBorderColor(Set<MaterialState> states) {
-    if (states.contains(MaterialState.hovered)) {
+    if (states.contains(MaterialState.hovered) && disabled == false) {
       return DesignColors.white1;
     }
     return borderColor ?? DesignColors.greyOutline;
   }
 
   Color _getBackgroundColor(Set<MaterialState> states) {
-    if (states.contains(MaterialState.hovered)) {
+    if (states.contains(MaterialState.hovered) && disabled == false) {
       return DesignColors.greyHover1;
     }
     return Colors.transparent;

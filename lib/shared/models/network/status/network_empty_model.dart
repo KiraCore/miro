@@ -6,18 +6,18 @@ class NetworkEmptyModel extends ANetworkStatusModel {
   NetworkEmptyModel({
     required ConnectionStatusType connectionStatusType,
   }) : super(
-          statusColor: DesignColors.redStatus1,
           connectionStatusType: connectionStatusType,
           uri: Uri(),
+          statusColor: DesignColors.redStatus1,
         );
 
   @override
-  NetworkEmptyModel copyWith({required ConnectionStatusType connectionStatusType}) {
+  NetworkEmptyModel copyWith({required ConnectionStatusType connectionStatusType, DateTime? lastRefreshDateTime}) {
     return NetworkEmptyModel(
       connectionStatusType: connectionStatusType,
     );
   }
 
   @override
-  List<Object?> get props => <Object>[runtimeType, connectionStatusType, uri.hashCode, name];
+  List<Object?> get props => <Object?>[runtimeType, connectionStatusType, uri.hashCode, name];
 }

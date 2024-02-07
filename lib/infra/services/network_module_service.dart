@@ -24,10 +24,13 @@ class NetworkModuleService implements _INetworkModuleService {
 
   @override
   Future<ANetworkStatusModel> getNetworkStatusModel(NetworkUnknownModel networkUnknownModel, {NetworkUnknownModel? previousNetworkUnknownModel}) async {
+    DateTime lastRefreshDateTime = networkUnknownModel.lastRefreshDateTime ?? DateTime.now();
     try {
       NetworkInfoModel networkInfoModel = await _getNetworkInfoModel(networkUnknownModel);
-      TokenDefaultDenomModel? tokenDefaultDenomModel = await _getTokenDefaultDenomModel(networkUnknownModel);
+      TokenDefaultDenomModel tokenDefaultDenomModel =
+          await _queryKiraTokensAliasesService.getTokenDefaultDenomModel(networkUnknownModel.uri, forceRequestBool: true);
       return ANetworkOnlineModel.build(
+        lastRefreshDateTime: lastRefreshDateTime,
         networkInfoModel: networkInfoModel,
         tokenDefaultDenomModel: tokenDefaultDenomModel,
         connectionStatusType: ConnectionStatusType.disconnected,
@@ -45,19 +48,10 @@ class NetworkModuleService implements _INetworkModuleService {
         return NetworkOfflineModel.fromNetworkStatusModel(
           networkStatusModel: previousNetworkUnknownModel ?? networkUnknownModel,
           connectionStatusType: ConnectionStatusType.disconnected,
+          lastRefreshDateTime: lastRefreshDateTime,
         );
       }
     }
-  }
-
-  Future<TokenDefaultDenomModel?> _getTokenDefaultDenomModel(NetworkUnknownModel networkUnknownModel) async {
-    TokenDefaultDenomModel? tokenDefaultDenomModel;
-    try {
-      tokenDefaultDenomModel = await _queryKiraTokensAliasesService.getTokenDefaultDenomModel(networkUnknownModel.uri, forceRequestBool: true);
-    } catch (e) {
-      AppLogger().log(message: 'NetworkModuleService: Cannot fetch getTokenDefaultDenomModel() for URI ${networkUnknownModel.uri} $e');
-    }
-    return tokenDefaultDenomModel;
   }
 
   Future<NetworkInfoModel> _getNetworkInfoModel(NetworkUnknownModel networkUnknownModel) async {

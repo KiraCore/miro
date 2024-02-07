@@ -310,6 +310,26 @@ class S {
     );
   }
 
+  /// `Change network`
+  String get connectWalletButtonChangeNetwork {
+    return Intl.message(
+      'Change network',
+      name: 'connectWalletButtonChangeNetwork',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Refresh network`
+  String get connectWalletButtonRefreshNetwork {
+    return Intl.message(
+      'Refresh network',
+      name: 'connectWalletButtonRefreshNetwork',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Choose one of the following options:`
   String get connectWalletOptions {
     return Intl.message(
@@ -325,6 +345,46 @@ class S {
     return Intl.message(
       'Connecting into account...',
       name: 'connectWalletConnecting',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Refreshed`
+  String get connectWalletRefreshed {
+    return Intl.message(
+      'Refreshed',
+      name: 'connectWalletRefreshed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Refreshing`
+  String get connectWalletRefreshing {
+    return Intl.message(
+      'Refreshing',
+      name: 'connectWalletRefreshing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Next refresh in {seconds} sec.`
+  String connectWalletRefreshInfo(int seconds) {
+    return Intl.message(
+      'Next refresh in $seconds sec.',
+      name: 'connectWalletRefreshInfo',
+      desc: '',
+      args: [seconds],
+    );
+  }
+
+  /// `We are missing essential info to connect the wallet. Try refreshing or changing the network.`
+  String get connectWalletWarning {
+    return Intl.message(
+      'We are missing essential info to connect the wallet. Try refreshing or changing the network.',
+      name: 'connectWalletWarning',
       desc: '',
       args: [],
     );

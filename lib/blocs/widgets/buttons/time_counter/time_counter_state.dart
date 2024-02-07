@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
 
-class TimedRefreshButtonState extends Equatable {
+class TimeCounterState extends Equatable {
   final Duration remainingUnlockTime;
 
-  const TimedRefreshButtonState({
+  const TimeCounterState({
     required this.remainingUnlockTime,
   });
 
