@@ -64,11 +64,12 @@ class HttpClientManager {
 
   Dio _buildHttpClient(Uri uri, ApiCacheConfigModel apiCacheConfigModel) {
     String uriAsString = uri.toString();
-    bool proxyActiveBool = NetworkUtils.shouldUseProxy(
-      serverUri: uri,
-      proxyServerUri: _appConfig.proxyServerUri,
-      appUri: const BrowserUrlController().uri,
-    );
+    bool proxyActiveBool = true;
+    // NetworkUtils.shouldUseProxy(
+    //   serverUri: uri,
+    //   proxyServerUri: _appConfig.proxyServerUri,
+    //   appUri: const BrowserUrlController().uri,
+    // );
     Dio httpClientDio;
     if (customDio != null) {
       httpClientDio = customDio!;
