@@ -12,6 +12,7 @@ class BalanceListItemMobile extends StatelessWidget {
   final ValueChanged<bool> favouritePressedCallback;
   final ValueNotifier<bool> hoverNotifier;
   final VoidCallback onSendButtonPressed;
+  final bool sendButtonActiveBool;
 
   const BalanceListItemMobile({
     required this.balanceModel,
@@ -19,6 +20,7 @@ class BalanceListItemMobile extends StatelessWidget {
     required this.favouritePressedCallback,
     required this.hoverNotifier,
     required this.onSendButtonPressed,
+    required this.sendButtonActiveBool,
     Key? key,
   }) : super(key: key);
 
@@ -51,7 +53,8 @@ class BalanceListItemMobile extends StatelessWidget {
           child: KiraOutlinedButton(
             height: 40,
             width: double.infinity,
-            onPressed: onSendButtonPressed,
+            disabled: sendButtonActiveBool == false,
+            onPressed: sendButtonActiveBool ? onSendButtonPressed : null,
             title: S.of(context).balancesSend,
           ),
         ),

@@ -1,3 +1,5 @@
+import 'package:decimal/decimal.dart';
+import 'package:miro/blocs/generic/network_module/network_module_bloc.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/controllers/i_list_controller.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/models/page_data.dart';
 import 'package:miro/config/locator.dart';
@@ -6,6 +8,8 @@ import 'package:miro/infra/services/api_kira/query_balance_service.dart';
 import 'package:miro/infra/services/cache/favourites_cache_service.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
 import 'package:miro/shared/models/list/pagination_details_model.dart';
+import 'package:miro/shared/models/tokens/token_alias_model.dart';
+import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 
 class BalancesListController implements IListController<BalanceModel> {
@@ -45,6 +49,25 @@ class BalancesListController implements IListController<BalanceModel> {
       QueryBalanceReq(address: walletAddress.bech32Address, limit: paginationDetailsModel.limit, offset: paginationDetailsModel.offset),
       forceRequestBool: forceRequestBool,
     );
-    return balancesPageData;
+
+    if (balancesPageData.listItems.isEmpty) {
+      Set<String> favouriteBalances = favouriteCacheService.getAll();
+      TokenAliasModel defaultTokenAliasModel = globalLocator<NetworkModuleBloc>().tokenDefaultDenomModel.defaultTokenAliasModel!;
+
+      BalanceModel defaultBalanceModel = BalanceModel(
+        tokenAmountModel: TokenAmountModel(
+          tokenAliasModel: defaultTokenAliasModel,
+          defaultDenominationAmount: Decimal.fromInt(0),
+        ),
+        favourite: favouriteBalances.contains(defaultTokenAliasModel.defaultTokenDenominationModel.name),
+      );
+
+      return balancesPageData.copyWith(
+        listItems: <BalanceModel>[defaultBalanceModel],
+        lastPageBool: true,
+      );
+    } else {
+      return balancesPageData;
+    }
   }
 }
