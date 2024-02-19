@@ -30,8 +30,7 @@ class MenuWrapper extends StatelessWidget {
           icon: AppIcons.shield,
         ),
         NavItemModel(
-          pageRouteInfo: null,
-          disabled: true,
+          pageRouteInfo: const TransactionsSearchRoute(),
           name: S.of(context).tx,
           icon: AppIcons.transactions,
         ),
