@@ -1,3 +1,4 @@
+import 'package:miro/infra/dto/api/query_transaction_result/response/msg.dart';
 import 'package:miro/infra/dto/api/query_transactions/response/transaction.dart';
 import 'package:miro/infra/dto/api_kira/query_execution_fee/response/fee.dart';
 
@@ -35,7 +36,7 @@ class QueryTransactionResultResp {
       blockHeight: json['block_height'] as int,
       blockTimestamp: json['block_timestamp'] as int,
       confirmation: json['confirmation'] as int,
-      msgs: (json['msgs'] as List<dynamic>).map((msg) => Msg.fromJson(msg)).toList(),
+      msgs: (json['msgs'] as List<dynamic>? ?? <dynamic>[]).map((dynamic e) => Msg.fromJson(e as Map<String, dynamic>)).toList(),
       transactions: (json['transactions'] as List<dynamic>? ?? <dynamic>[]).map((dynamic e) => Transaction.fromJson(e as Map<String, dynamic>)).toList(),
       fees: (json['fees'] as List<dynamic>? ?? <dynamic>[]).map((dynamic e) => Fee.fromJson(e as Map<String, dynamic>)).toList(),
       gasWanted: json['gas_wanted'] as int,
