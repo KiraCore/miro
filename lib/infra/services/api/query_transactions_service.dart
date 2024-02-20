@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:miro/blocs/generic/network_module/network_module_bloc.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/models/page_data.dart';
 import 'package:miro/config/locator.dart';
+import 'package:miro/infra/dto/api/query_transaction_result/request/query_transaction_result_req.dart';
 import 'package:miro/infra/dto/api/query_transactions/request/query_transactions_req.dart';
 import 'package:miro/infra/dto/api/query_transactions/response/query_transactions_resp.dart';
 import 'package:miro/infra/dto/interx_headers.dart';
@@ -14,6 +15,8 @@ import 'package:miro/shared/utils/logger/log_level.dart';
 
 abstract class _IQueryTransactionsService {
   Future<PageData<TxListItemModel>> getTransactionList(QueryTransactionsReq queryTransactionsReq);
+
+  Future<TxResultModel> getTransactionResultModel(QueryTransactionResultReq queryTransactionResultReq);
 }
 
 class QueryTransactionsService implements _IQueryTransactionsService {

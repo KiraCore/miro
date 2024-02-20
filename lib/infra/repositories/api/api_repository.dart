@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:miro/infra/dto/api/query_transaction_result/request/query_transaction_result_req.dart';
 import 'package:miro/infra/dto/api/query_transactions/request/query_transactions_req.dart';
 import 'package:miro/infra/dto/api/query_validators/request/query_validators_req.dart';
 import 'package:miro/infra/exceptions/dio_connect_exception.dart';
@@ -13,6 +14,8 @@ abstract class IApiRepository {
   Future<Response<T>> fetchQueryInterxStatus<T>(ApiRequestModel<void> apiRequestModel);
 
   Future<Response<T>> fetchQueryTransactions<T>(ApiRequestModel<QueryTransactionsReq> apiRequestModel);
+
+  Future<Response<T>> fetchQueryTransactionResult<T>(ApiRequestModel<QueryTransactionResultReq> apiRequestModel);
 
   Future<Response<T>> fetchQueryValidators<T>(ApiRequestModel<QueryValidatorsReq> apiRequestModel);
 }
@@ -57,6 +60,21 @@ class RemoteApiRepository implements IApiRepository {
         networkUri: apiRequestModel.networkUri,
         path: '/api/transactions',
         queryParameters: apiRequestModel.requestData.toJson(),
+        apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: apiRequestModel.forceRequestBool),
+      );
+      return response;
+    } on DioException catch (dioException) {
+      AppLogger().log(message: 'Cannot fetch fetchQueryTransactions() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
+      throw DioConnectException(dioException: dioException);
+    }
+  }
+
+  @override
+  Future<Response<T>> fetchQueryTransactionResult<T>(ApiRequestModel<QueryTransactionResultReq> apiRequestModel) async {
+    try {
+      final Response<T> response = await _httpClientManager.get<T>(
+        networkUri: apiRequestModel.networkUri,
+        path: '/api/transactions/${apiRequestModel.requestData.txHash}',
         apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: apiRequestModel.forceRequestBool),
       );
       return response;
