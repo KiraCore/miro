@@ -6,7 +6,7 @@ import 'package:miro/infra/dto/api_kira/query_kira_tokens_aliases/response/query
 import 'package:miro/infra/exceptions/dio_parse_exception.dart';
 import 'package:miro/infra/models/api_request_model.dart';
 import 'package:miro/infra/repositories/api/api_kira_repository.dart';
-import 'package:miro/shared/models/network/network_defaults_model.dart';
+import 'package:miro/shared/models/network/token_default_denom_model.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';
 import 'package:miro/shared/utils/logger/log_level.dart';
@@ -14,7 +14,7 @@ import 'package:miro/shared/utils/logger/log_level.dart';
 abstract class _IQueryKiraTokensAliasesService {
   Future<List<TokenAliasModel>> getTokenAliasModels();
 
-  Future<NetworkDefaultsModel> getNetworkDefaultsModel(Uri networkUri);
+  Future<TokenDefaultDenomModel> getTokenDefaultDenomModel(Uri networkUri);
 }
 
 class QueryKiraTokensAliasesService implements _IQueryKiraTokensAliasesService {
@@ -38,13 +38,13 @@ class QueryKiraTokensAliasesService implements _IQueryKiraTokensAliasesService {
   }
 
   @override
-  Future<NetworkDefaultsModel> getNetworkDefaultsModel(Uri networkUri, {bool forceRequestBool = false}) async {
-    NetworkDefaultsModel initialNetworkDefaultsModel = await _getNetworkDefaults(networkUri);
+  Future<TokenDefaultDenomModel> getTokenDefaultDenomModel(Uri networkUri, {bool forceRequestBool = false}) async {
+    TokenDefaultDenomModel initialTokenDefaultDenomModel = await _getTokenDefaultDenom(networkUri);
     try {
-      TokenAliasModel defaultTokenAliasModel = await _getAliasByTokenName(initialNetworkDefaultsModel.defaultTokenAliasModel.name, networkUri: networkUri);
-      return NetworkDefaultsModel(defaultAddressPrefix: initialNetworkDefaultsModel.defaultAddressPrefix, defaultTokenAliasModel: defaultTokenAliasModel);
+      TokenAliasModel defaultTokenAliasModel = await _getAliasByTokenName(initialTokenDefaultDenomModel.defaultTokenAliasModel.name, networkUri: networkUri);
+      return TokenDefaultDenomModel(publicAddressPrefix: initialTokenDefaultDenomModel.publicAddressPrefix, defaultTokenAliasModel: defaultTokenAliasModel);
     } catch (e) {
-      return initialNetworkDefaultsModel;
+      return initialTokenDefaultDenomModel;
     }
   }
 
@@ -65,7 +65,7 @@ class QueryKiraTokensAliasesService implements _IQueryKiraTokensAliasesService {
     }
   }
 
-  Future<NetworkDefaultsModel> _getNetworkDefaults(Uri networkUri) async {
+  Future<TokenDefaultDenomModel> _getTokenDefaultDenom(Uri networkUri) async {
     Response<dynamic> response = await _apiKiraRepository.fetchQueryKiraTokensAliases<dynamic>(ApiRequestModel<QueryKiraTokensAliasesReq>(
       networkUri: networkUri,
       requestData: const QueryKiraTokensAliasesReq(
@@ -76,9 +76,9 @@ class QueryKiraTokensAliasesService implements _IQueryKiraTokensAliasesService {
 
     try {
       QueryKiraTokensAliasesResp queryKiraTokensAliasesResp = QueryKiraTokensAliasesResp.fromJson(response.data as Map<String, dynamic>);
-      return NetworkDefaultsModel.fromDto(queryKiraTokensAliasesResp);
+      return TokenDefaultDenomModel.fromDto(queryKiraTokensAliasesResp);
     } catch (e) {
-      AppLogger().log(message: 'QueryKiraTokensAliasesService: Cannot parse getNetworkDefaults() for URI $networkUri ${e}', logLevel: LogLevel.error);
+      AppLogger().log(message: 'QueryKiraTokensAliasesService: Cannot parse getTokenDefaultDenom() for URI $networkUri ${e}', logLevel: LogLevel.error);
       throw DioParseException(response: response, error: e);
     }
   }

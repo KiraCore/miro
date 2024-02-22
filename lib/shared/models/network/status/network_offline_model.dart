@@ -1,19 +1,19 @@
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/shared/models/network/data/connection_status_type.dart';
-import 'package:miro/shared/models/network/network_defaults_model.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
+import 'package:miro/shared/models/network/token_default_denom_model.dart';
 
 class NetworkOfflineModel extends ANetworkStatusModel {
   const NetworkOfflineModel({
     required ConnectionStatusType connectionStatusType,
     required Uri uri,
-    NetworkDefaultsModel? networkDefaultsModel,
+    TokenDefaultDenomModel? tokenDefaultDenomModel,
     String? name,
   }) : super(
           statusColor: DesignColors.redStatus1,
           connectionStatusType: connectionStatusType,
           uri: uri,
-          networkDefaultsModel: networkDefaultsModel,
+          tokenDefaultDenomModel: tokenDefaultDenomModel,
           name: name,
         );
 
@@ -24,7 +24,7 @@ class NetworkOfflineModel extends ANetworkStatusModel {
     return NetworkOfflineModel(
       connectionStatusType: connectionStatusType,
       uri: networkStatusModel.uri,
-      networkDefaultsModel: networkStatusModel.networkDefaultsModel,
+      tokenDefaultDenomModel: networkStatusModel.tokenDefaultDenomModel,
       name: networkStatusModel.name,
     );
   }
@@ -34,11 +34,11 @@ class NetworkOfflineModel extends ANetworkStatusModel {
     return NetworkOfflineModel(
       connectionStatusType: connectionStatusType,
       uri: uri ?? this.uri,
-      networkDefaultsModel: networkDefaultsModel,
+      tokenDefaultDenomModel: tokenDefaultDenomModel,
       name: name,
     );
   }
 
   @override
-  List<Object?> get props => <Object?>[runtimeType, connectionStatusType, uri.hashCode, networkDefaultsModel, name];
+  List<Object?> get props => <Object?>[runtimeType, connectionStatusType, uri.hashCode, tokenDefaultDenomModel, name];
 }

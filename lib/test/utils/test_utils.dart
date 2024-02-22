@@ -7,11 +7,11 @@ import 'package:miro/shared/models/network/data/connection_status_type.dart';
 import 'package:miro/shared/models/network/data/interx_warning_model.dart';
 import 'package:miro/shared/models/network/data/interx_warning_type.dart';
 import 'package:miro/shared/models/network/data/network_info_model.dart';
-import 'package:miro/shared/models/network/network_defaults_model.dart';
 import 'package:miro/shared/models/network/status/network_offline_model.dart';
 import 'package:miro/shared/models/network/status/network_unknown_model.dart';
 import 'package:miro/shared/models/network/status/online/network_healthy_model.dart';
 import 'package:miro/shared/models/network/status/online/network_unhealthy_model.dart';
+import 'package:miro/shared/models/network/token_default_denom_model.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_denomination_model.dart';
 import 'package:miro/shared/models/wallet/mnemonic.dart';
@@ -77,8 +77,8 @@ class TestUtils {
       activeValidators: 319,
       totalValidators: 475,
     ),
-    networkDefaultsModel: NetworkDefaultsModel(
-      defaultAddressPrefix: 'kira',
+    tokenDefaultDenomModel: TokenDefaultDenomModel(
+      publicAddressPrefix: 'kira',
       defaultTokenAliasModel: TokenAliasModel.local('ukex'),
     ),
   );
@@ -97,8 +97,8 @@ class TestUtils {
       latestBlockHeight: 108843,
       latestBlockTime: DateTime.parse('2021-11-04 12:42:54.395Z'),
     ),
-    networkDefaultsModel: NetworkDefaultsModel(
-      defaultAddressPrefix: 'kira',
+    tokenDefaultDenomModel: TokenDefaultDenomModel(
+      publicAddressPrefix: 'kira',
       defaultTokenAliasModel: TokenAliasModel.local('ukex'),
     ),
   );
@@ -120,8 +120,8 @@ class TestUtils {
       activeValidators: 319,
       totalValidators: 475,
     ),
-    networkDefaultsModel: NetworkDefaultsModel(
-      defaultAddressPrefix: 'kira',
+    tokenDefaultDenomModel: TokenDefaultDenomModel(
+      publicAddressPrefix: 'kira',
       defaultTokenAliasModel: TokenAliasModel.local('ukex'),
     ),
   );
@@ -137,8 +137,8 @@ class TestUtils {
       activeValidators: 319,
       totalValidators: 475,
     ),
-    networkDefaultsModel: NetworkDefaultsModel(
-      defaultAddressPrefix: 'kira',
+    tokenDefaultDenomModel: TokenDefaultDenomModel(
+      publicAddressPrefix: 'kira',
       defaultTokenAliasModel: TokenAliasModel.local('ukex'),
     ),
     interxWarningModel: const InterxWarningModel(<InterxWarningType>[
@@ -173,8 +173,8 @@ class TestUtils {
         latestBlockHeight: 0,
         latestBlockTime: DateTime.now(),
       ),
-      networkDefaultsModel: NetworkDefaultsModel(
-        defaultAddressPrefix: 'kira',
+      tokenDefaultDenomModel: TokenDefaultDenomModel(
+        publicAddressPrefix: 'kira',
         defaultTokenAliasModel: TokenAliasModel.local('ukex'),
       ),
     );

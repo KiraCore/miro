@@ -24,7 +24,7 @@ class NetworkModuleState extends Equatable {
   Uri get networkUri => networkStatusModel.uri;
 
   String get defaultBech32Prefix {
-    String? defaultAddressPrefix = networkStatusModel.networkDefaultsModel?.defaultAddressPrefix;
+    String? defaultAddressPrefix = networkStatusModel.tokenDefaultDenomModel?.publicAddressPrefix;
     if (defaultAddressPrefix == null) {
       throw StateError('Network is not connected or does not have required info, hence no default address prefix is available');
     }
@@ -32,7 +32,7 @@ class NetworkModuleState extends Equatable {
   }
 
   TokenAliasModel get defaultTokenAliasModel {
-    TokenAliasModel? defaultTokenAliasModel = networkStatusModel.networkDefaultsModel?.defaultTokenAliasModel;
+    TokenAliasModel? defaultTokenAliasModel = networkStatusModel.tokenDefaultDenomModel?.defaultTokenAliasModel;
     if (defaultTokenAliasModel == null) {
       throw StateError('Network is not connected or does not have required info, hence no default token is available');
     }

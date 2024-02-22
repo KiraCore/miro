@@ -3,7 +3,7 @@ import 'package:miro/config/locator.dart';
 import 'package:miro/infra/exceptions/dio_connect_exception.dart';
 import 'package:miro/infra/exceptions/dio_parse_exception.dart';
 import 'package:miro/infra/services/api_kira/query_kira_tokens_aliases_service.dart';
-import 'package:miro/shared/models/network/network_defaults_model.dart';
+import 'package:miro/shared/models/network/token_default_denom_model.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/utils/network_utils.dart';
 import 'package:miro/test/mock_locator.dart';
@@ -59,22 +59,22 @@ Future<void> main() async {
     });
   });
 
-  group('Tests of QueryKiraTokensAliasesService.getNetworkDefaultsModel() method', () {
-    test('Should return [NetworkDefaultsModel] if [server HEALTHY] and [response data VALID]', () async {
+  group('Tests of QueryKiraTokensAliasesService.getTokenDefaultDenomModel() method', () {
+    test('Should return [TokenDefaultDenomModel] if [server HEALTHY] and [response data VALID]', () async {
       // Arrange
       Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://healthy.kira.network/');
       await TestUtils.setupNetworkModel(networkUri: networkUri);
 
       // Act
-      NetworkDefaultsModel actualNetworkDefaultsModel = await queryKiraTokensAliasesService.getNetworkDefaultsModel(networkUri);
+      TokenDefaultDenomModel actualTokenDefaultDenomModel = await queryKiraTokensAliasesService.getTokenDefaultDenomModel(networkUri);
 
       // Assert
-      NetworkDefaultsModel expectedNetworkDefaultsModel = NetworkDefaultsModel(
-        defaultAddressPrefix: 'kira',
+      TokenDefaultDenomModel expectedTokenDefaultDenom = TokenDefaultDenomModel(
+        publicAddressPrefix: 'kira',
         defaultTokenAliasModel: TestUtils.kexTokenAliasModel,
       );
 
-      expect(actualNetworkDefaultsModel, expectedNetworkDefaultsModel);
+      expect(actualTokenDefaultDenomModel, expectedTokenDefaultDenom);
     });
 
     test('Should throw [DioParseException] if [server HEALTHY] and [response data INVALID]', () async {
@@ -84,7 +84,7 @@ Future<void> main() async {
 
       // Assert
       expect(
-        queryKiraTokensAliasesService.getNetworkDefaultsModel(networkUri),
+        queryKiraTokensAliasesService.getTokenDefaultDenomModel(networkUri),
         throwsA(isA<DioParseException>()),
       );
     });
@@ -96,7 +96,7 @@ Future<void> main() async {
 
       // Assert
       expect(
-        queryKiraTokensAliasesService.getNetworkDefaultsModel(networkUri),
+        queryKiraTokensAliasesService.getTokenDefaultDenomModel(networkUri),
         throwsA(isA<DioConnectException>()),
       );
     });

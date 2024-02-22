@@ -6,11 +6,11 @@ import 'package:miro/infra/services/api/query_validators_service.dart';
 import 'package:miro/infra/services/api_kira/query_kira_tokens_aliases_service.dart';
 import 'package:miro/shared/models/network/data/connection_status_type.dart';
 import 'package:miro/shared/models/network/data/network_info_model.dart';
-import 'package:miro/shared/models/network/network_defaults_model.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
 import 'package:miro/shared/models/network/status/network_offline_model.dart';
 import 'package:miro/shared/models/network/status/network_unknown_model.dart';
 import 'package:miro/shared/models/network/status/online/a_network_online_model.dart';
+import 'package:miro/shared/models/network/token_default_denom_model.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';
 
 abstract class _INetworkModuleService {
@@ -26,10 +26,10 @@ class NetworkModuleService implements _INetworkModuleService {
   Future<ANetworkStatusModel> getNetworkStatusModel(NetworkUnknownModel networkUnknownModel, {NetworkUnknownModel? previousNetworkUnknownModel}) async {
     try {
       NetworkInfoModel networkInfoModel = await _getNetworkInfoModel(networkUnknownModel);
-      NetworkDefaultsModel networkDefaultsModel = await _getNetworkDefaultsModel(networkUnknownModel);
+      TokenDefaultDenomModel tokenDefaultDenomModel = await _getTokenDefaultDenomModel(networkUnknownModel);
       return ANetworkOnlineModel.build(
         networkInfoModel: networkInfoModel,
-        networkDefaultsModel: networkDefaultsModel,
+        tokenDefaultDenomModel: tokenDefaultDenomModel,
         connectionStatusType: ConnectionStatusType.disconnected,
         uri: networkUnknownModel.uri,
         name: networkUnknownModel.name,
@@ -50,11 +50,11 @@ class NetworkModuleService implements _INetworkModuleService {
     }
   }
 
-  Future<NetworkDefaultsModel> _getNetworkDefaultsModel(NetworkUnknownModel networkUnknownModel) async {
-    if (networkUnknownModel.networkDefaultsModel != null) {
-      return networkUnknownModel.networkDefaultsModel!;
+  Future<TokenDefaultDenomModel> _getTokenDefaultDenomModel(NetworkUnknownModel networkUnknownModel) async {
+    if (networkUnknownModel.tokenDefaultDenomModel != null) {
+      return networkUnknownModel.tokenDefaultDenomModel!;
     } else {
-      return _queryKiraTokensAliasesService.getNetworkDefaultsModel(networkUnknownModel.uri, forceRequestBool: true);
+      return _queryKiraTokensAliasesService.getTokenDefaultDenomModel(networkUnknownModel.uri, forceRequestBool: true);
     }
   }
 
