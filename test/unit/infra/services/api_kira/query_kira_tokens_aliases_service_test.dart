@@ -70,7 +70,7 @@ Future<void> main() async {
 
       // Assert
       TokenDefaultDenomModel expectedTokenDefaultDenom = TokenDefaultDenomModel(
-        publicAddressPrefix: 'kira',
+        bech32AddressPrefix: 'kira',
         defaultTokenAliasModel: TestUtils.kexTokenAliasModel,
       );
 

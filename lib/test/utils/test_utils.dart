@@ -78,7 +78,7 @@ class TestUtils {
       totalValidators: 475,
     ),
     tokenDefaultDenomModel: TokenDefaultDenomModel(
-      publicAddressPrefix: 'kira',
+      bech32AddressPrefix: 'kira',
       defaultTokenAliasModel: TokenAliasModel.local('ukex'),
     ),
   );
@@ -98,7 +98,7 @@ class TestUtils {
       latestBlockTime: DateTime.parse('2021-11-04 12:42:54.395Z'),
     ),
     tokenDefaultDenomModel: TokenDefaultDenomModel(
-      publicAddressPrefix: 'kira',
+      bech32AddressPrefix: 'kira',
       defaultTokenAliasModel: TokenAliasModel.local('ukex'),
     ),
   );
@@ -121,7 +121,7 @@ class TestUtils {
       totalValidators: 475,
     ),
     tokenDefaultDenomModel: TokenDefaultDenomModel(
-      publicAddressPrefix: 'kira',
+      bech32AddressPrefix: 'kira',
       defaultTokenAliasModel: TokenAliasModel.local('ukex'),
     ),
   );
@@ -138,7 +138,7 @@ class TestUtils {
       totalValidators: 475,
     ),
     tokenDefaultDenomModel: TokenDefaultDenomModel(
-      publicAddressPrefix: 'kira',
+      bech32AddressPrefix: 'kira',
       defaultTokenAliasModel: TokenAliasModel.local('ukex'),
     ),
     interxWarningModel: const InterxWarningModel(<InterxWarningType>[
@@ -174,7 +174,7 @@ class TestUtils {
         latestBlockTime: DateTime.now(),
       ),
       tokenDefaultDenomModel: TokenDefaultDenomModel(
-        publicAddressPrefix: 'kira',
+        bech32AddressPrefix: 'kira',
         defaultTokenAliasModel: TokenAliasModel.local('ukex'),
       ),
     );

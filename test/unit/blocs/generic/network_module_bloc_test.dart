@@ -210,7 +210,7 @@ Future<void> main() async {
           latestBlockTime: DateTime.now(),
         ),
         tokenDefaultDenomModel: TokenDefaultDenomModel(
-          publicAddressPrefix: 'kira',
+          bech32AddressPrefix: 'kira',
           defaultTokenAliasModel: TestUtils.kexTokenAliasModel,
         ),
       );
@@ -225,7 +225,7 @@ Future<void> main() async {
           latestBlockTime: DateTime.parse('2021-11-04T12:42:54.394946399Z'),
         ),
         tokenDefaultDenomModel: TokenDefaultDenomModel(
-          publicAddressPrefix: 'kira',
+          bech32AddressPrefix: 'kira',
           defaultTokenAliasModel: TestUtils.kexTokenAliasModel,
         ),
         interxWarningModel: const InterxWarningModel(<InterxWarningType>[
@@ -238,7 +238,7 @@ Future<void> main() async {
         connectionStatusType: ConnectionStatusType.disconnected,
         uri: Uri.parse('http://dynamic.kira.network'),
         tokenDefaultDenomModel: TokenDefaultDenomModel(
-          publicAddressPrefix: 'kira',
+          bech32AddressPrefix: 'kira',
           defaultTokenAliasModel: TestUtils.kexTokenAliasModel,
         ),
       );

@@ -42,7 +42,7 @@ class QueryKiraTokensAliasesService implements _IQueryKiraTokensAliasesService {
     TokenDefaultDenomModel initialTokenDefaultDenomModel = await _getTokenDefaultDenom(networkUri);
     try {
       TokenAliasModel defaultTokenAliasModel = await _getAliasByTokenName(initialTokenDefaultDenomModel.defaultTokenAliasModel.name, networkUri: networkUri);
-      return TokenDefaultDenomModel(publicAddressPrefix: initialTokenDefaultDenomModel.publicAddressPrefix, defaultTokenAliasModel: defaultTokenAliasModel);
+      return TokenDefaultDenomModel(bech32AddressPrefix: initialTokenDefaultDenomModel.bech32AddressPrefix, defaultTokenAliasModel: defaultTokenAliasModel);
     } catch (e) {
       return initialTokenDefaultDenomModel;
     }
