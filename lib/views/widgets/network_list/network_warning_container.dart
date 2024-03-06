@@ -18,6 +18,7 @@ class NetworkWarningContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
     Map<InterxWarningType, String> interxWarningMessages = <InterxWarningType, String>{
+      InterxWarningType.missingDefaultTokenDenomModel: S.of(context).networkWarningMissingInfo,
       InterxWarningType.blockTimeOutdated: S.of(context).networkWarningWhenLastBlock(latestBlockTime),
       InterxWarningType.versionOutdated: S.of(context).networkWarningIncompatible,
     };

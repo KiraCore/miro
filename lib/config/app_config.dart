@@ -1,8 +1,6 @@
 import 'package:miro/shared/controllers/browser/rpc_browser_url_controller.dart';
 import 'package:miro/shared/models/network/data/connection_status_type.dart';
 import 'package:miro/shared/models/network/status/network_unknown_model.dart';
-import 'package:miro/shared/models/tokens/token_alias_model.dart';
-import 'package:miro/shared/models/tokens/token_denomination_model.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';
 import 'package:miro/shared/utils/logger/log_level.dart';
 import 'package:miro/shared/utils/network_utils.dart';
@@ -14,7 +12,6 @@ class AppConfig {
   final Duration loadingPageTimerDuration;
   final List<String> supportedInterxVersions;
   final RpcBrowserUrlController rpcBrowserUrlController;
-  final TokenAliasModel defaultFeeTokenAliasModel;
 
   final int _defaultRefreshIntervalSeconds;
   final NetworkUnknownModel _defaultNetworkUnknownModel;
@@ -30,7 +27,6 @@ class AppConfig {
     required this.loadingPageTimerDuration,
     required this.supportedInterxVersions,
     required this.rpcBrowserUrlController,
-    required this.defaultFeeTokenAliasModel,
     required int defaultRefreshIntervalSeconds,
     required NetworkUnknownModel defaultNetworkUnknownModel,
   })  : _defaultRefreshIntervalSeconds = defaultRefreshIntervalSeconds,
@@ -42,13 +38,8 @@ class AppConfig {
       defaultApiCacheMaxAge: const Duration(seconds: 60),
       outdatedBlockDuration: const Duration(minutes: 5),
       loadingPageTimerDuration: const Duration(seconds: 4),
-      supportedInterxVersions: <String>['v0.4.41'],
+      supportedInterxVersions: <String>['v0.4.46'],
       rpcBrowserUrlController: RpcBrowserUrlController(),
-      defaultFeeTokenAliasModel: const TokenAliasModel(
-        name: 'Kira',
-        defaultTokenDenominationModel: TokenDenominationModel(name: 'ukex', decimals: 0),
-        networkTokenDenominationModel: TokenDenominationModel(name: 'KEX', decimals: 6),
-      ),
       defaultRefreshIntervalSeconds: 60,
       defaultNetworkUnknownModel: NetworkUnknownModel(
         connectionStatusType: ConnectionStatusType.disconnected,

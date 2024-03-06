@@ -1,6 +1,5 @@
 import 'package:decimal/decimal.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:miro/config/app_config.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/exceptions/dio_connect_exception.dart';
 import 'package:miro/infra/exceptions/dio_parse_exception.dart';
@@ -16,8 +15,6 @@ Future<void> main() async {
   await initMockLocator();
 
   final QueryExecutionFeeService queryExecutionFeeService = globalLocator<QueryExecutionFeeService>();
-  final AppConfig appConfig = globalLocator<AppConfig>();
-
   const String messageType = 'send';
 
   group('Tests of QueryExecutionFeeService.getExecutionFeeForMessage() method', () {
@@ -32,7 +29,7 @@ Future<void> main() async {
       // Assert
       TokenAmountModel expectedTokenAmountModel = TokenAmountModel(
         defaultDenominationAmount: Decimal.parse('100'),
-        tokenAliasModel: appConfig.defaultFeeTokenAliasModel,
+        tokenAliasModel: TestUtils.kexTokenAliasModel,
       );
 
       expect(actualTokenAmountModel, expectedTokenAmountModel);

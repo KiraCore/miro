@@ -4,7 +4,6 @@ import 'package:miro/blocs/generic/auth/auth_cubit.dart';
 import 'package:miro/blocs/pages/transactions/tx_process_cubit/states/tx_process_confirm_state.dart';
 import 'package:miro/blocs/pages/transactions/tx_process_cubit/states/tx_process_loaded_state.dart';
 import 'package:miro/blocs/pages/transactions/tx_process_cubit/tx_process_cubit.dart';
-import 'package:miro/config/app_config.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
@@ -38,7 +37,6 @@ class _StakingTxDelegatePage extends State<StakingTxDelegatePage> {
     msgFormModel: StakingMsgDelegateFormModel(
       delegatorWalletAddress: authCubit.state?.address,
       valoperWalletAddress: WalletAddress(addressBytes: widget.validatorSimplifiedModel.walletAddress.addressBytes, bech32Hrp: 'kiravaloper'),
-      tokenAliasModel: globalLocator<AppConfig>().defaultFeeTokenAliasModel,
     ),
   );
 

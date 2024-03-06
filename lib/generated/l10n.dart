@@ -1390,6 +1390,16 @@ class S {
     );
   }
 
+  /// `Connecting a wallet unavailable due to missing essential data from network.`
+  String get networkWarningMissingInfo {
+    return Intl.message(
+      'Connecting a wallet unavailable due to missing essential data from network.',
+      name: 'networkWarningMissingInfo',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `The application is incompatible with this server. Some views may not work correctly.`
   String get networkWarningIncompatible {
     return Intl.message(

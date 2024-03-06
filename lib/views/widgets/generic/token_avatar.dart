@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:miro/config/app_config.dart';
@@ -27,6 +28,30 @@ class TokenAvatar extends StatelessWidget {
           proxyServerUri: proxyServerUri,
           appUri: const BrowserUrlController().uri,
         );
+    String networkUri = proxyActiveBool ? '${proxyServerUri}/${iconUrl.toString()}' : iconUrl ?? '';
+    bool svgBool = networkUri.endsWith('.svg');
+
+    Widget placeholderWidget = Padding(
+      padding: EdgeInsets.all(size - size * 0.75),
+      child: Image.asset(Assets.assetsLogoSignet),
+    );
+
+    Widget imageWidget;
+    if (iconUrl == null || iconUrl!.isEmpty) {
+      imageWidget = placeholderWidget;
+    }
+    if (svgBool) {
+      imageWidget = SvgPicture.network(
+        networkUri,
+        placeholderBuilder: (_) => placeholderWidget,
+      );
+    } else {
+      imageWidget = CachedNetworkImage(
+        imageUrl: networkUri,
+        errorWidget: (_, __, ___) => placeholderWidget,
+      );
+    }
+
     return Container(
       width: size,
       height: size,
@@ -38,18 +63,7 @@ class TokenAvatar extends StatelessWidget {
       child: CircleAvatar(
         backgroundColor: DesignColors.background,
         radius: size / 2,
-        child: iconUrl == null || iconUrl!.isEmpty
-            ? Padding(
-                padding: EdgeInsets.all(size - size * 0.75),
-                child: Image.asset(Assets.assetsLogoSignet),
-              )
-            : SvgPicture.network(
-                proxyActiveBool ? '${proxyServerUri}/${iconUrl.toString()}' : iconUrl!,
-                semanticsLabel: 'Token avatar',
-                placeholderBuilder: (BuildContext context) => const CircularProgressIndicator(
-                  color: DesignColors.accent,
-                ),
-              ),
+        child: imageWidget,
       ),
     );
   }
