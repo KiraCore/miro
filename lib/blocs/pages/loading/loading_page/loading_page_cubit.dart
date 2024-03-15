@@ -41,7 +41,6 @@ class LoadingPageCubit extends Cubit<ALoadingPageState> {
 
   void cancelConnection() {
     _networkModuleBloc.add(NetworkModuleDisconnectEvent());
-    emit(LoadingPageDisconnectedState());
   }
 
   Future<void> _init() async {
