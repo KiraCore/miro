@@ -51,7 +51,7 @@ class NetworkCustomSectionCubit extends Cubit<NetworkCustomSectionState> {
     }
   }
 
-  Future<void> updateNetworks(ANetworkStatusModel? connectedNetworkStatusModel) async {
+  Future<void> updateNetworks([ANetworkStatusModel? connectedNetworkStatusModel]) async {
     bool customNetworkBool = _isNetworkCustom(connectedNetworkStatusModel);
     bool differentNetworkBool = NetworkUtils.compareUrisByUrn(connectedNetworkStatusModel?.uri, state.connectedNetworkStatusModel?.uri) == false;
     bool checkedNetworkBool = NetworkUtils.compareUrisByUrn(connectedNetworkStatusModel?.uri, state.checkedNetworkStatusModel?.uri);

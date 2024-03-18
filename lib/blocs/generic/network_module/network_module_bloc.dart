@@ -107,6 +107,8 @@ class NetworkModuleBloc extends Bloc<ANetworkModuleEvent, NetworkModuleState> {
       await _networkCustomSectionCubit.updateNetworks(networkStatusModel);
       emit(NetworkModuleState.connected(networkStatusModel));
       _refreshTokenDefaultDenomModel(networkStatusModel);
+    } else {
+      await _networkCustomSectionCubit.updateNetworks();
     }
   }
 
