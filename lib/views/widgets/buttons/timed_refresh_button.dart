@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:miro/blocs/widgets/buttons/timed_refresh_button/timed_refresh_button_cubit.dart';
-import 'package:miro/blocs/widgets/buttons/timed_refresh_button/timed_refresh_button_state.dart';
+import 'package:miro/blocs/widgets/buttons/time_counter/time_counter_cubit.dart';
+import 'package:miro/blocs/widgets/buttons/time_counter/time_counter_state.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 
@@ -22,13 +22,13 @@ class TimedRefreshButton extends StatefulWidget {
 }
 
 class _TimedRefreshButton extends State<TimedRefreshButton> {
-  final TimedRefreshButtonCubit timedRefreshButtonCubit = TimedRefreshButtonCubit();
+  final TimeCounterCubit timeCounterCubit = TimeCounterCubit();
 
   @override
   void initState() {
     super.initState();
     if (widget.expirationDateTime != null) {
-      timedRefreshButtonCubit.startCounting(widget.expirationDateTime!);
+      timeCounterCubit.startCounting(widget.expirationDateTime!);
     }
   }
 
@@ -36,13 +36,13 @@ class _TimedRefreshButton extends State<TimedRefreshButton> {
   void didUpdateWidget(covariant TimedRefreshButton oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.expirationDateTime != null) {
-      timedRefreshButtonCubit.startCounting(widget.expirationDateTime!);
+      timeCounterCubit.startCounting(widget.expirationDateTime!);
     }
   }
 
   @override
   void dispose() {
-    timedRefreshButtonCubit.close();
+    timeCounterCubit.close();
     super.dispose();
   }
 
@@ -50,10 +50,10 @@ class _TimedRefreshButton extends State<TimedRefreshButton> {
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
 
-    return BlocBuilder<TimedRefreshButtonCubit, TimedRefreshButtonState>(
-      bloc: timedRefreshButtonCubit,
-      builder: (BuildContext context, TimedRefreshButtonState timedRefreshButtonState) {
-        bool unlockedBool = timedRefreshButtonState.isUnlocked;
+    return BlocBuilder<TimeCounterCubit, TimeCounterState>(
+      bloc: timeCounterCubit,
+      builder: (BuildContext context, TimeCounterState timeCounterState) {
+        bool unlockedBool = timeCounterState.isUnlocked;
         bool activeBool = unlockedBool && widget.disabledBool == false;
 
         return Row(
@@ -69,7 +69,7 @@ class _TimedRefreshButton extends State<TimedRefreshButton> {
               label: Text(
                 unlockedBool || widget.disabledBool
                     ? S.of(context).refresh
-                    : S.of(context).refreshInSeconds(timedRefreshButtonState.remainingUnlockTime.inSeconds),
+                    : S.of(context).refreshInSeconds(timeCounterState.remainingUnlockTime.inSeconds),
                 style: textTheme.bodySmall!.copyWith(
                   color: activeBool ? DesignColors.white1 : DesignColors.grey1,
                 ),

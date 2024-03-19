@@ -29,6 +29,7 @@ import 'package:miro/infra/services/api_kira/query_network_properties_service.da
 import 'package:miro/infra/services/api_kira/query_staking_pool_service.dart';
 import 'package:miro/infra/services/api_kira/query_undelegations_service.dart';
 import 'package:miro/infra/services/network_module_service.dart';
+import 'package:miro/shared/controllers/global_nav/global_nav_controller.dart';
 import 'package:miro/test/mock_api_kira_repository.dart';
 import 'package:miro/test/mock_api_repository.dart';
 import 'package:miro/test/mock_app_config.dart';
@@ -79,6 +80,7 @@ void _initControllers() {
   globalLocator
     ..registerLazySingleton<AuthCubit>(AuthCubit.new)
     ..registerLazySingleton<DrawerCubit>(DrawerCubit.new)
+    ..registerLazySingleton<GlobalNavController>(GlobalNavController.new)
     ..registerLazySingleton<IdentityRegistrarCubit>(IdentityRegistrarCubit.new)
     ..registerLazySingleton<NavMenuCubit>(NavMenuCubit.new)
     ..registerLazySingleton<NetworkCustomSectionCubit>(NetworkCustomSectionCubit.new)

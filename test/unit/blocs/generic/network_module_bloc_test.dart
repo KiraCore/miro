@@ -198,6 +198,7 @@ Future<void> main() async {
       NetworkUnknownModel dynamicNetworkUnknownModel = NetworkUnknownModel(
         connectionStatusType: ConnectionStatusType.disconnected,
         uri: Uri.parse('http://dynamic.kira.network'),
+        lastRefreshDateTime: TestUtils.defaultLastRefreshDateTime,
       );
 
       NetworkHealthyModel dynamicNetworkHealthyModel = NetworkHealthyModel(
@@ -210,9 +211,11 @@ Future<void> main() async {
           latestBlockTime: DateTime.now(),
         ),
         tokenDefaultDenomModel: TokenDefaultDenomModel(
+          valuesFromNetworkExistBool: true,
           bech32AddressPrefix: 'kira',
           defaultTokenAliasModel: TestUtils.kexTokenAliasModel,
         ),
+        lastRefreshDateTime: TestUtils.defaultLastRefreshDateTime,
       );
 
       NetworkUnhealthyModel dynamicNetworkUnhealthyModel = NetworkUnhealthyModel(
@@ -225,6 +228,7 @@ Future<void> main() async {
           latestBlockTime: DateTime.parse('2021-11-04T12:42:54.394946399Z'),
         ),
         tokenDefaultDenomModel: TokenDefaultDenomModel(
+          valuesFromNetworkExistBool: true,
           bech32AddressPrefix: 'kira',
           defaultTokenAliasModel: TestUtils.kexTokenAliasModel,
         ),
@@ -232,11 +236,13 @@ Future<void> main() async {
           InterxWarningType.versionOutdated,
           InterxWarningType.blockTimeOutdated,
         ]),
+        lastRefreshDateTime: TestUtils.defaultLastRefreshDateTime,
       );
 
       NetworkOfflineModel dynamicNetworkOfflineModel = NetworkOfflineModel(
         connectionStatusType: ConnectionStatusType.disconnected,
         uri: Uri.parse('http://dynamic.kira.network'),
+        lastRefreshDateTime: TestUtils.defaultLastRefreshDateTime,
       );
 
       rpcBrowserUrlController.setRpcAddress(dynamicNetworkUnknownModel);

@@ -37,8 +37,21 @@
 
   "connectWallet": "Connect a Wallet",
   "connectWalletButtonSignIn": "Sign in",
+  "connectWalletButtonChangeNetwork": "Change network",
+  "connectWalletButtonRefreshNetwork": "Refresh network",
   "connectWalletOptions": "Choose one of the following options:",
   "connectWalletConnecting": "Connecting into account...",
+  "connectWalletRefreshed": "Refreshed",
+  "connectWalletRefreshing": "Refreshing",
+  "connectWalletRefreshInfo": "Next refresh in {seconds} sec.",
+  "@connectWalletRefreshInfo": {
+    "placeholders": {
+      "seconds": {
+        "type": "int"
+      }
+    }
+  },
+  "connectWalletWarning": "We are missing essential info to connect the wallet. Try refreshing or changing the network.",
 
   "createWalletTitle": "Create a wallet",
   "createWalletButton": "Create new wallet",

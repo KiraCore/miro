@@ -14,7 +14,6 @@ class AppConfig {
   final RpcBrowserUrlController rpcBrowserUrlController;
 
   final int _defaultRefreshIntervalSeconds;
-  final NetworkUnknownModel _defaultNetworkUnknownModel;
 
   late Uri? proxyServerUri;
   late Duration _refreshInterval;
@@ -28,9 +27,7 @@ class AppConfig {
     required this.supportedInterxVersions,
     required this.rpcBrowserUrlController,
     required int defaultRefreshIntervalSeconds,
-    required NetworkUnknownModel defaultNetworkUnknownModel,
-  })  : _defaultRefreshIntervalSeconds = defaultRefreshIntervalSeconds,
-        _defaultNetworkUnknownModel = defaultNetworkUnknownModel;
+  }) : _defaultRefreshIntervalSeconds = defaultRefreshIntervalSeconds;
 
   factory AppConfig.buildDefaultConfig() {
     return AppConfig(
@@ -41,12 +38,10 @@ class AppConfig {
       supportedInterxVersions: <String>['v0.4.46'],
       rpcBrowserUrlController: RpcBrowserUrlController(),
       defaultRefreshIntervalSeconds: 60,
-      defaultNetworkUnknownModel: NetworkUnknownModel(
-        connectionStatusType: ConnectionStatusType.disconnected,
-        uri: Uri.parse('https://testnet-rpc.kira.network'),
-      ),
     );
   }
+
+  int get defaultRefreshIntervalSeconds => _defaultRefreshIntervalSeconds;
 
   Duration get refreshInterval => _refreshInterval;
 
@@ -116,7 +111,13 @@ class AppConfig {
     }
 
     if (_networkList.isEmpty) {
-      _networkList.add(_defaultNetworkUnknownModel);
+      _networkList.add(
+        NetworkUnknownModel(
+          connectionStatusType: ConnectionStatusType.disconnected,
+          uri: Uri.parse('https://testnet-rpc.kira.network'),
+          lastRefreshDateTime: DateTime.now(),
+        ),
+      );
     }
   }
 
@@ -126,7 +127,8 @@ class AppConfig {
       return null;
     }
     Uri uri = NetworkUtils.parseUrlToInterxUri(networkAddress);
-    NetworkUnknownModel urlNetworkUnknownModel = NetworkUnknownModel(uri: uri, connectionStatusType: ConnectionStatusType.disconnected);
+    NetworkUnknownModel urlNetworkUnknownModel =
+        NetworkUnknownModel(uri: uri, connectionStatusType: ConnectionStatusType.disconnected, lastRefreshDateTime: DateTime.now());
     urlNetworkUnknownModel = findNetworkModelInConfig(urlNetworkUnknownModel);
     return urlNetworkUnknownModel;
   }

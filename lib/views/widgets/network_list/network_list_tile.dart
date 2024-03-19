@@ -103,6 +103,7 @@ class _NetworkListTile extends State<NetworkListTile> {
   Color _selectBorderColor(ANetworkStatusModel networkStatusModel) {
     switch (networkStatusModel.connectionStatusType) {
       case ConnectionStatusType.connected:
+      case ConnectionStatusType.refreshing:
         return networkStatusModel.statusColor;
       default:
         return outlineColor;

@@ -11,9 +11,9 @@ class InterxWarningModel extends Equatable {
 
   const InterxWarningModel(this.interxWarningTypes);
 
-  factory InterxWarningModel.selectWarningType(NetworkInfoModel networkInfoModel, TokenDefaultDenomModel? tokenDefaultDenomModel) {
+  factory InterxWarningModel.selectWarningType(NetworkInfoModel networkInfoModel, TokenDefaultDenomModel tokenDefaultDenomModel) {
     AppConfig appConfig = globalLocator<AppConfig>();
-    bool missingTokenDefaultDenomModelBool = tokenDefaultDenomModel == null;
+    bool missingTokenDefaultDenomModelBool = tokenDefaultDenomModel.valuesFromNetworkExistBool == false;
     bool versionOutdatedBool = appConfig.isInterxVersionOutdated(networkInfoModel.interxVersion);
     bool blockTimeOutdatedBool = BlockTimeModel(networkInfoModel.latestBlockTime).isOutdated();
 

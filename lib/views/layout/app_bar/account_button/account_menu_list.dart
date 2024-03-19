@@ -51,6 +51,5 @@ class AccountMenuList extends StatelessWidget {
       onItemTap!();
     }
     authCubit.signOut();
-    KiraRouter.of(context).navigate(const DashboardRoute());
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/shared/controllers/browser/rpc_browser_url_controller.dart';
 import 'package:miro/shared/models/network/data/connection_status_type.dart';
 import 'package:miro/shared/models/network/status/network_unknown_model.dart';
+import 'package:miro/test/utils/test_utils.dart';
 
 import 'mock_data/mock_browser_url_controller.dart';
 
@@ -106,6 +107,7 @@ Future<void> main() async {
       NetworkUnknownModel networkUnknownModel = NetworkUnknownModel(
         connectionStatusType: ConnectionStatusType.disconnected,
         uri: Uri.parse('https://testnet-rpc.kira.network'),
+        lastRefreshDateTime: TestUtils.defaultLastRefreshDateTime,
       );
 
       // Act
@@ -131,6 +133,7 @@ Future<void> main() async {
       NetworkUnknownModel networkUnknownModel = NetworkUnknownModel(
         connectionStatusType: ConnectionStatusType.disconnected,
         uri: Uri.parse('https://testnet-rpc.kira.network'),
+        lastRefreshDateTime: TestUtils.defaultLastRefreshDateTime,
       );
       Map<String, dynamic> previouslyExistedQueryParams = <String, dynamic>{
         'account': '0x123',

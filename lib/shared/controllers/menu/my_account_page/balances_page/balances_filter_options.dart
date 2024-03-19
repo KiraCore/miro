@@ -16,7 +16,8 @@ class BalancesFilterOptions {
 
   static FilterOption<BalanceModel> filterByDefaultToken = FilterOption<BalanceModel>(
     id: 'defaultToken',
-    filterComparator: (BalanceModel a) => a.tokenAmountModel.tokenAliasModel == globalLocator<NetworkModuleBloc>().tokenDefaultDenomModel!.defaultTokenAliasModel,
+    filterComparator: (BalanceModel a) =>
+        a.tokenAmountModel.tokenAliasModel == globalLocator<NetworkModuleBloc>().tokenDefaultDenomModel.defaultTokenAliasModel!,
     filterMode: FilterMode.and,
   );
 

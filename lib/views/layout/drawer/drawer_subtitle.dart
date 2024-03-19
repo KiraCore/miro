@@ -6,11 +6,13 @@ class DrawerTitle extends StatelessWidget {
   final String title;
   final String? subtitle;
   final String? tooltipMessage;
+  final Color? subtitleColor;
 
   const DrawerTitle({
     required this.title,
     this.subtitle,
     this.tooltipMessage,
+    this.subtitleColor = DesignColors.accent,
     Key? key,
   }) : super(key: key);
 
@@ -40,7 +42,7 @@ class DrawerTitle extends StatelessWidget {
               Text(
                 subtitle!,
                 style: textTheme.bodyLarge!.copyWith(
-                  color: DesignColors.accent,
+                  color: subtitleColor,
                 ),
               ),
               if (tooltipMessage != null) KiraToolTip(message: tooltipMessage!)

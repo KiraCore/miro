@@ -19,7 +19,8 @@ class NetworkCustomSectionCubit extends Cubit<NetworkCustomSectionState> {
   NetworkCustomSectionCubit() : super(NetworkCustomSectionState());
 
   Future<void> checkConnection(Uri uri) async {
-    NetworkUnknownModel networkUnknownModel = NetworkUnknownModel(uri: uri, connectionStatusType: ConnectionStatusType.disconnected);
+    NetworkUnknownModel networkUnknownModel =
+        NetworkUnknownModel(uri: uri, connectionStatusType: ConnectionStatusType.disconnected, lastRefreshDateTime: DateTime.now());
     bool networkCustomBool = _isNetworkCustom(networkUnknownModel);
 
     if (networkCustomBool == false || state.containsUriWithEqualUrn(uri)) {
@@ -36,8 +37,16 @@ class NetworkCustomSectionCubit extends Cubit<NetworkCustomSectionState> {
     String stateId = StringUtils.generateUuid();
     _activeStateId = stateId;
 
-    ANetworkStatusModel? newCheckedNetworkStatusModel = await _refreshCustomNetwork(state.checkedNetworkStatusModel);
-    ANetworkStatusModel? newLastConnectedNetworkStatusModel = await _refreshCustomNetwork(state.lastConnectedNetworkStatusModel);
+    ANetworkStatusModel? newCheckedNetworkStatusModel;
+    ANetworkStatusModel? newLastConnectedNetworkStatusModel;
+
+    if (state.checkedNetworkStatusModel?.connectionStatusType != ConnectionStatusType.refreshing) {
+      newCheckedNetworkStatusModel = await _refreshCustomNetwork(state.checkedNetworkStatusModel);
+    }
+
+    if (state.lastConnectedNetworkStatusModel?.connectionStatusType != ConnectionStatusType.refreshing) {
+      newLastConnectedNetworkStatusModel = await _refreshCustomNetwork(state.lastConnectedNetworkStatusModel);
+    }
 
     bool stateIdEqualBool = stateId == _activeStateId;
     if (stateIdEqualBool) {

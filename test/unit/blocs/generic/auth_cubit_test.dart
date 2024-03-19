@@ -1,6 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/blocs/generic/auth/auth_cubit.dart';
+import 'package:miro/config/locator.dart';
+import 'package:miro/shared/controllers/global_nav/global_nav_controller.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
+import 'package:miro/shared/router/router.dart';
 import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
@@ -13,6 +16,8 @@ Future<void> main() async {
     test('Should return states assigned to specific actions', () async {
       // Arrange
       final AuthCubit actualAuthCubit = AuthCubit();
+      final AppRouter appRouter = AppRouter();
+      globalLocator<GlobalNavController>().setRouter(appRouter);
 
       // Assert
       Wallet? expectedWallet;

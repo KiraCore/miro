@@ -8,27 +8,30 @@ import 'package:miro/shared/models/network/status/online/network_unhealthy_model
 import 'package:miro/shared/models/tokens/token_default_denom_model.dart';
 
 abstract class ANetworkOnlineModel extends ANetworkStatusModel {
-  final TokenDefaultDenomModel? tokenDefaultDenomModel;
   final NetworkInfoModel networkInfoModel;
+  final TokenDefaultDenomModel tokenDefaultDenomModel;
 
   const ANetworkOnlineModel({
-    required this.tokenDefaultDenomModel,
     required this.networkInfoModel,
+    required this.tokenDefaultDenomModel,
     required Color statusColor,
     required ConnectionStatusType connectionStatusType,
+    required DateTime lastRefreshDateTime,
     required Uri uri,
     String? name,
   }) : super(
           statusColor: statusColor,
           connectionStatusType: connectionStatusType,
+          lastRefreshDateTime: lastRefreshDateTime,
           uri: uri,
           name: name,
         );
 
   static ANetworkOnlineModel build({
-    required ConnectionStatusType connectionStatusType,
-    required TokenDefaultDenomModel? tokenDefaultDenomModel,
     required NetworkInfoModel networkInfoModel,
+    required TokenDefaultDenomModel tokenDefaultDenomModel,
+    required ConnectionStatusType connectionStatusType,
+    required DateTime lastRefreshDateTime,
     required Uri uri,
     required String name,
   }) {
@@ -36,18 +39,20 @@ abstract class ANetworkOnlineModel extends ANetworkStatusModel {
 
     if (interxWarningModel.hasErrors) {
       return NetworkUnhealthyModel(
-        interxWarningModel: interxWarningModel,
-        connectionStatusType: connectionStatusType,
-        tokenDefaultDenomModel: tokenDefaultDenomModel,
         networkInfoModel: networkInfoModel,
+        tokenDefaultDenomModel: tokenDefaultDenomModel,
+        connectionStatusType: connectionStatusType,
+        lastRefreshDateTime: lastRefreshDateTime,
         uri: uri,
         name: name,
+        interxWarningModel: interxWarningModel,
       );
     } else {
       return NetworkHealthyModel(
-        connectionStatusType: connectionStatusType,
-        tokenDefaultDenomModel: tokenDefaultDenomModel,
         networkInfoModel: networkInfoModel,
+        tokenDefaultDenomModel: tokenDefaultDenomModel,
+        connectionStatusType: connectionStatusType,
+        lastRefreshDateTime: lastRefreshDateTime,
         uri: uri,
         name: name,
       );
@@ -55,5 +60,5 @@ abstract class ANetworkOnlineModel extends ANetworkStatusModel {
   }
 
   @override
-  ANetworkOnlineModel copyWith({required ConnectionStatusType connectionStatusType});
+  ANetworkOnlineModel copyWith({required ConnectionStatusType connectionStatusType, DateTime? lastRefreshDateTime});
 }

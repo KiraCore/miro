@@ -91,6 +91,7 @@ Future<void> main() async {
     NetworkUnknownModel defaultNetworkUnknownModel = NetworkUnknownModel(
       connectionStatusType: ConnectionStatusType.disconnected,
       uri: Uri.parse('https://testnet-rpc.kira.network'),
+      lastRefreshDateTime: TestUtils.defaultLastRefreshDateTime,
     );
 
     test('Should return network list from config ', () {
@@ -152,7 +153,11 @@ Future<void> main() async {
 
       // Assert
       List<NetworkUnknownModel> expectedNetworkUnknownModelList = <NetworkUnknownModel>[
-        NetworkUnknownModel(uri: Uri.parse('https://healthy.kira.network'), connectionStatusType: ConnectionStatusType.disconnected),
+        NetworkUnknownModel(
+          uri: Uri.parse('https://healthy.kira.network'),
+          connectionStatusType: ConnectionStatusType.disconnected,
+          lastRefreshDateTime: TestUtils.defaultLastRefreshDateTime,
+        ),
         TestUtils.offlineNetworkUnknownModel,
       ];
 
@@ -261,6 +266,7 @@ Future<void> main() async {
       NetworkUnknownModel networkUnknownModel = NetworkUnknownModel(
         connectionStatusType: ConnectionStatusType.disconnected,
         uri: Uri.parse('https://not.exist.kira.network'),
+        lastRefreshDateTime: TestUtils.defaultLastRefreshDateTime,
       );
 
       // Act
@@ -278,6 +284,7 @@ Future<void> main() async {
       NetworkUnknownModel networkUnknownModel = NetworkUnknownModel(
         connectionStatusType: ConnectionStatusType.disconnected,
         uri: Uri.parse('https://unhealthy.kira.network'),
+        lastRefreshDateTime: TestUtils.defaultLastRefreshDateTime,
       );
 
       // Act

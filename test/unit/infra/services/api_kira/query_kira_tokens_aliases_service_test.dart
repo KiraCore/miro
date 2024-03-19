@@ -70,6 +70,7 @@ Future<void> main() async {
 
       // Assert
       TokenDefaultDenomModel expectedTokenDefaultDenom = TokenDefaultDenomModel(
+        valuesFromNetworkExistBool: true,
         bech32AddressPrefix: 'kira',
         defaultTokenAliasModel: TestUtils.kexTokenAliasModel,
       );
@@ -77,16 +78,18 @@ Future<void> main() async {
       expect(actualTokenDefaultDenomModel, expectedTokenDefaultDenom);
     });
 
-    test('Should throw [DioParseException] if [server HEALTHY] and [response data INVALID]', () async {
+    test('Should return [TokenDefaultDenomModel.empty()] if [server HEALTHY] and [response data INVALID]', () async {
       // Arrange
       Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://invalid.kira.network/');
       await TestUtils.setupNetworkModel(networkUri: networkUri);
 
+      // Act
+      TokenDefaultDenomModel actualTokenDefaultDenomModel = await queryKiraTokensAliasesService.getTokenDefaultDenomModel(networkUri);
+
       // Assert
-      expect(
-        queryKiraTokensAliasesService.getTokenDefaultDenomModel(networkUri),
-        throwsA(isA<DioParseException>()),
-      );
+      TokenDefaultDenomModel expectedTokenDefaultDenom = TokenDefaultDenomModel.empty();
+
+      expect(actualTokenDefaultDenomModel, expectedTokenDefaultDenom);
     });
 
     test('Should throw [DioConnectException] if [server OFFLINE]', () async {

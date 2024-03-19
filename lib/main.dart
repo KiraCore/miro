@@ -11,6 +11,7 @@ import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/theme_config.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/infra/managers/cache/i_cache_manager.dart';
+import 'package:miro/shared/controllers/global_nav/global_nav_controller.dart';
 import 'package:miro/shared/router/router.dart';
 import 'package:miro/shared/utils/assets_manager.dart';
 
@@ -26,6 +27,8 @@ Future<void> main() async {
 
   globalLocator<NetworkModuleBloc>().add(NetworkModuleInitEvent());
   globalLocator<NetworkListCubit>().initNetworkStatusModelList();
+
+  // TODO(Marcin): remove unnecessary IdentityRegistrarCubit initialization
   await globalLocator<IdentityRegistrarCubit>().refresh();
 
   runApp(const CoreApp());
@@ -43,6 +46,7 @@ class _CoreApp extends State<CoreApp> {
 
   @override
   void initState() {
+    globalLocator<GlobalNavController>().setRouter(appRouter);
     super.initState();
   }
 

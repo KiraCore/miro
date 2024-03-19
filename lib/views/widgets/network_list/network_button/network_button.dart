@@ -27,7 +27,8 @@ class NetworkButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
-    bool networkConnected = networkStatusModel.connectionStatusType == ConnectionStatusType.connected;
+    bool networkConnected =
+        networkStatusModel.connectionStatusType == ConnectionStatusType.connected || networkStatusModel.connectionStatusType == ConnectionStatusType.refreshing;
     bool networkConnecting = networkStatusModel.connectionStatusType == ConnectionStatusType.connecting;
     bool networkOnline = networkStatusModel is ANetworkOnlineModel;
     bool networkUnknown = networkStatusModel is NetworkUnknownModel;
@@ -89,7 +90,8 @@ class NetworkButton extends StatelessWidget {
 
   void _handleConnectToNetworkPressed() {
     ANetworkStatusModel networkStatusModelToConnect = networkStatusModel;
-    bool networkConnectedBool = networkStatusModelToConnect.connectionStatusType == ConnectionStatusType.connected;
+    bool networkConnectedBool = networkStatusModelToConnect.connectionStatusType == ConnectionStatusType.connected ||
+        networkStatusModelToConnect.connectionStatusType == ConnectionStatusType.refreshing;
     if (networkStatusModelToConnect is ANetworkOnlineModel) {
       if (networkConnectedBool == false) {
         globalLocator<NetworkModuleBloc>().add(NetworkModuleConnectEvent(networkStatusModelToConnect));

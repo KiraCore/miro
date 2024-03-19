@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:miro/blocs/generic/auth/auth_cubit.dart';
 import 'package:miro/blocs/generic/network_module/a_network_module_event.dart';
 import 'package:miro/blocs/generic/network_module/events/network_module_auto_connect_event.dart';
 import 'package:miro/blocs/generic/network_module/events/network_module_connect_event.dart';
@@ -14,6 +15,7 @@ import 'package:miro/config/app_config.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/services/network_module_service.dart';
 import 'package:miro/shared/controllers/browser/rpc_browser_url_controller.dart';
+import 'package:miro/shared/models/network/data/connection_status_type.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
 import 'package:miro/shared/models/network/status/network_empty_model.dart';
 import 'package:miro/shared/models/network/status/network_unknown_model.dart';
@@ -31,8 +33,7 @@ class NetworkModuleBloc extends Bloc<ANetworkModuleEvent, NetworkModuleState> {
   final RpcBrowserUrlController _rpcBrowserUrlController = RpcBrowserUrlController();
 
   late Timer _timer;
-  bool _refreshingBool = false;
-  TokenDefaultDenomModel? tokenDefaultDenomModel;
+  TokenDefaultDenomModel tokenDefaultDenomModel = TokenDefaultDenomModel.empty();
 
   NetworkModuleBloc() : super(NetworkModuleState.disconnected()) {
     on<NetworkModuleInitEvent>(_mapInitEventToState);
@@ -63,14 +64,10 @@ class NetworkModuleBloc extends Bloc<ANetworkModuleEvent, NetworkModuleState> {
   }
 
   Future<void> _mapRefreshEventToState(NetworkModuleRefreshEvent networkModuleRefreshEvent, Emitter<NetworkModuleState> emit) async {
-    if (_refreshingBool) {
-      return;
-    }
-    _refreshingBool = true;
-
-    if (state.networkStatusModel is NetworkEmptyModel) {
+    if (state.networkStatusModel is NetworkEmptyModel || state.isRefreshing) {
       _updateNetworkStatusModelList();
     } else {
+      emit(NetworkModuleState.refreshing(state.networkStatusModel));
       NetworkUnknownModel networkUnknownModel = NetworkUnknownModel.fromNetworkStatusModel(state.networkStatusModel);
       ANetworkStatusModel networkStatusModel = await _networkModuleService.getNetworkStatusModel(networkUnknownModel);
 
@@ -82,12 +79,11 @@ class NetworkModuleBloc extends Bloc<ANetworkModuleEvent, NetworkModuleState> {
         await _networkCustomSectionCubit.updateNetworks(networkStatusModel);
         emit(NetworkModuleState.connected(networkStatusModel));
         _refreshTokenDefaultDenomModel(networkStatusModel);
+        await _checkIfSignOutNeeded();
       }
     }
 
     await _networkCustomSectionCubit.refreshNetworks();
-
-    _refreshingBool = false;
   }
 
   Future<void> _mapAutoConnectEventToState(NetworkModuleAutoConnectEvent networkModuleAutoConnectEvent, Emitter<NetworkModuleState> emit) async {
@@ -118,6 +114,7 @@ class NetworkModuleBloc extends Bloc<ANetworkModuleEvent, NetworkModuleState> {
     await _networkCustomSectionCubit.updateNetworks(networkOnlineModel);
     emit(NetworkModuleState.connected(networkOnlineModel));
     _switchTokenDefaultDenomModel(networkOnlineModel);
+    await _checkIfSignOutNeeded();
   }
 
   Future<void> _mapDisconnectEventToState(
@@ -129,11 +126,33 @@ class NetworkModuleBloc extends Bloc<ANetworkModuleEvent, NetworkModuleState> {
     emit(NetworkModuleState.disconnected());
   }
 
+  Future<void> _checkIfSignOutNeeded() async {
+    AuthCubit authCubit = globalLocator<AuthCubit>();
+    bool signedInBool = authCubit.state != null;
+    if (tokenDefaultDenomModel.valuesFromNetworkExistBool == false && signedInBool) {
+      await authCubit.signOut();
+    }
+  }
+
+  void _refreshTokenDefaultDenomModel(ANetworkStatusModel networkStatusModel) {
+    bool networkOnlineBool = networkStatusModel is ANetworkOnlineModel;
+    bool emptyTokenDefaultDenomModelBool = tokenDefaultDenomModel.valuesFromNetworkExistBool == false;
+    if (networkOnlineBool && emptyTokenDefaultDenomModelBool) {
+      tokenDefaultDenomModel = tokenDefaultDenomModel.copyWith(networkStatusModel.tokenDefaultDenomModel);
+    }
+  }
+
+  void _switchTokenDefaultDenomModel(ANetworkStatusModel networkStatusModel) {
+    if (networkStatusModel is ANetworkOnlineModel) {
+      tokenDefaultDenomModel = tokenDefaultDenomModel.copyWith(networkStatusModel.tokenDefaultDenomModel);
+    }
+  }
+
   void _updateNetworkStatusModelList({NetworkUnknownModel? ignoreNetworkUnknownModel}) {
     List<ANetworkStatusModel> networkStatusModelList = _networkListCubit.networkStatusModelList;
     for (ANetworkStatusModel networkStatusModel in networkStatusModelList) {
       bool networkNotIgnoredBool = networkStatusModel.uri != ignoreNetworkUnknownModel?.uri;
-      if (networkNotIgnoredBool) {
+      if (networkNotIgnoredBool && networkStatusModel.connectionStatusType != ConnectionStatusType.refreshing) {
         _updateNetworkStatusModel(networkUnknownModel: NetworkUnknownModel.fromNetworkStatusModel(networkStatusModel));
       }
     }
@@ -142,17 +161,5 @@ class NetworkModuleBloc extends Bloc<ANetworkModuleEvent, NetworkModuleState> {
   Future<void> _updateNetworkStatusModel({required NetworkUnknownModel networkUnknownModel}) async {
     ANetworkStatusModel networkStatusModel = await _networkModuleService.getNetworkStatusModel(networkUnknownModel);
     _networkListCubit.setNetworkStatusModel(networkStatusModel: networkStatusModel);
-  }
-
-  void _refreshTokenDefaultDenomModel(ANetworkStatusModel networkStatusModel) {
-    if (networkStatusModel is ANetworkOnlineModel) {
-      tokenDefaultDenomModel ??= networkStatusModel.tokenDefaultDenomModel;
-    }
-  }
-
-  void _switchTokenDefaultDenomModel(ANetworkStatusModel networkStatusModel) {
-    if (networkStatusModel is ANetworkOnlineModel) {
-      tokenDefaultDenomModel = networkStatusModel.tokenDefaultDenomModel;
-    }
   }
 }
