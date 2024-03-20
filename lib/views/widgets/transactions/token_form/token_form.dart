@@ -10,13 +10,13 @@ import 'package:miro/shared/models/balances/balance_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/tokens/token_denomination_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/views/widgets/generic/loading_container.dart';
 import 'package:miro/views/widgets/generic/responsive/column_row_spacer.dart';
 import 'package:miro/views/widgets/generic/responsive/column_row_swapper.dart';
 import 'package:miro/views/widgets/transactions/token_form/token_amount_text_field/token_amount_text_field.dart';
 import 'package:miro/views/widgets/transactions/token_form/token_available_amount.dart';
 import 'package:miro/views/widgets/transactions/token_form/token_denomination_list.dart';
 import 'package:miro/views/widgets/transactions/token_form/token_dropdown/token_dropdown.dart';
-import 'package:shimmer/shimmer.dart';
 
 typedef ValidateCallback = String? Function(TokenAmountModel?);
 
@@ -82,17 +82,10 @@ class _TokenForm extends State<TokenForm> {
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
-    Widget shimmerWidget = Shimmer.fromColors(
-      baseColor: DesignColors.grey3,
-      highlightColor: DesignColors.grey2,
-      child: Container(
-        height: 80,
-        decoration: BoxDecoration(
-          color: DesignColors.grey2,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        constraints: const BoxConstraints(minWidth: 100),
-      ),
+    Widget shimmerWidget = const LoadingContainer(
+      height: 80,
+      circularBorderRadius: 8,
+      boxConstraints: BoxConstraints(minWidth: 100),
     );
 
     return BlocProvider<TokenFormCubit>.value(

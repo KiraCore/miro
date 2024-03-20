@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/views/widgets/generic/account/account_tile_layout.dart';
+import 'package:miro/views/widgets/generic/loading_container.dart';
 import 'package:miro/views/widgets/kira/kira_identity_avatar.dart';
-import 'package:shimmer/shimmer.dart';
 
 class AccountTile extends StatefulWidget {
   final WalletAddress walletAddress;
@@ -43,29 +43,15 @@ class _AccountTile extends State<AccountTile> {
           loadingBool: true,
           size: widget.size,
         ),
-        usernameWidget: Shimmer.fromColors(
-          baseColor: DesignColors.grey3,
-          highlightColor: DesignColors.grey2,
-          child: Container(
-            width: 150,
-            height: (widget.usernameTextStyle ?? textTheme.bodyMedium)?.fontSize,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(5)),
-              color: DesignColors.grey2,
-            ),
-          ),
+        usernameWidget: LoadingContainer(
+          height: (widget.usernameTextStyle ?? textTheme.bodyMedium)?.fontSize,
+          width: 150,
+          circularBorderRadius: 5,
         ),
-        addressWidget: Shimmer.fromColors(
-          baseColor: DesignColors.grey3,
-          highlightColor: DesignColors.grey2,
-          child: Container(
-            width: 200,
-            height: (widget.addressTextStyle ?? textTheme.bodySmall)?.fontSize,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(5)),
-              color: DesignColors.grey2,
-            ),
-          ),
+        addressWidget: LoadingContainer(
+          height: (widget.addressTextStyle ?? textTheme.bodySmall)?.fontSize,
+          width: 200,
+          circularBorderRadius: 5,
         ),
       );
     }

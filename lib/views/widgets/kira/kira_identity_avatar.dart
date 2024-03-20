@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/views/widgets/generic/jdenticon_gravatar.dart';
+import 'package:miro/views/widgets/generic/loading_container.dart';
 import 'package:miro/views/widgets/generic/url_avatar_widget.dart';
-import 'package:shimmer/shimmer.dart';
 
 class KiraIdentityAvatar extends StatefulWidget {
   final double size;
@@ -29,14 +29,9 @@ class _KiraIdentityAvatarState extends State<KiraIdentityAvatar> {
   Widget build(BuildContext context) {
     if (widget.loadingBool) {
       return ClipOval(
-        child: Shimmer.fromColors(
-          baseColor: DesignColors.grey3,
-          highlightColor: DesignColors.grey2,
-          child: Container(
-            width: widget.size,
-            height: widget.size,
-            color: DesignColors.grey2,
-          ),
+        child: LoadingContainer(
+          height: widget.size,
+          width: widget.size,
         ),
       );
     } else if (widget.address == null) {

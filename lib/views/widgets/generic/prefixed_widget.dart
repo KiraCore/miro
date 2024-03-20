@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
-import 'package:shimmer/shimmer.dart';
+import 'package:miro/views/widgets/generic/loading_container.dart';
 
 class PrefixedWidget extends StatelessWidget {
   final String prefix;
@@ -47,17 +47,10 @@ class PrefixedWidget extends StatelessWidget {
               ),
               const SizedBox(height: 4),
               if (loadingBool)
-                Shimmer.fromColors(
-                  baseColor: DesignColors.grey3,
-                  highlightColor: DesignColors.grey2,
-                  child: Container(
-                    width: width,
-                    height: height,
-                    decoration: const BoxDecoration(
-                      color: DesignColors.grey2,
-                      borderRadius: BorderRadius.all(Radius.circular(5)),
-                    ),
-                  ),
+                LoadingContainer(
+                  height: height,
+                  width: width,
+                  circularBorderRadius: 5,
                 )
               else if (child == null)
                 Text(
