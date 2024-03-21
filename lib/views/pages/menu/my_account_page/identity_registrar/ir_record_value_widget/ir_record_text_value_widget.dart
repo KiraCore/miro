@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/views/widgets/generic/expandable_text.dart';
+import 'package:miro/views/widgets/generic/loading_container.dart';
 import 'package:miro/views/widgets/generic/prefixed_widget.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_value.dart';
-import 'package:shimmer/shimmer.dart';
 
 class IRRecordTextValueWidget extends StatefulWidget {
   final bool loadingBool;
@@ -32,17 +32,10 @@ class _IRRecordTextValueWidget extends State<IRRecordTextValueWidget> {
     late Widget child;
 
     if (widget.loadingBool) {
-      child = Shimmer.fromColors(
-        baseColor: DesignColors.grey3,
-        highlightColor: DesignColors.grey2,
-        child: Container(
-          width: 80,
-          height: 20,
-          decoration: const BoxDecoration(
-            color: DesignColors.grey2,
-            borderRadius: BorderRadius.all(Radius.circular(5)),
-          ),
-        ),
+      child = const LoadingContainer(
+        height: 20,
+        width: 80,
+        circularBorderRadius: 5,
       );
     } else if (widget.expandableBool == false) {
       child = Text(

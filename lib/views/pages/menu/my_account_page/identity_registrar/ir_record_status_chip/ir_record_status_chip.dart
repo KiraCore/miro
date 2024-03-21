@@ -5,7 +5,7 @@ import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/identity_registrar/ir_record_model.dart';
 import 'package:miro/shared/models/identity_registrar/ir_record_status.dart';
 import 'package:miro/views/pages/menu/my_account_page/identity_registrar/ir_record_status_chip/ir_record_status_chip_model.dart';
-import 'package:shimmer/shimmer.dart';
+import 'package:miro/views/widgets/generic/loading_container.dart';
 
 class IRRecordStatusChip extends StatelessWidget {
   final bool loadingBool;
@@ -22,17 +22,10 @@ class IRRecordStatusChip extends StatelessWidget {
     TextTheme textTheme = Theme.of(context).textTheme;
 
     if (loadingBool) {
-      return Shimmer.fromColors(
-        baseColor: DesignColors.grey3,
-        highlightColor: DesignColors.grey2,
-        child: Container(
-          width: 80,
-          height: 20,
-          decoration: const BoxDecoration(
-            color: DesignColors.grey2,
-            borderRadius: BorderRadius.all(Radius.circular(5)),
-          ),
-        ),
+      return const LoadingContainer(
+        height: 20,
+        width: 80,
+        circularBorderRadius: 5,
       );
     }
 

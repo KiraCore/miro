@@ -5,10 +5,10 @@ import 'package:miro/shared/models/identity_registrar/ir_model.dart';
 import 'package:miro/views/widgets/generic/account/account_tile_layout.dart';
 import 'package:miro/views/widgets/generic/copy_wrapper/copy_button.dart';
 import 'package:miro/views/widgets/generic/copy_wrapper/copy_wrapper.dart';
+import 'package:miro/views/widgets/generic/loading_container.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_value.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 import 'package:miro/views/widgets/kira/kira_identity_avatar.dart';
-import 'package:shimmer/shimmer.dart';
 
 class AccountHeader extends StatelessWidget {
   final IRModel? irModel;
@@ -36,29 +36,15 @@ class AccountHeader extends StatelessWidget {
           loadingBool: true,
           size: avatarSize,
         ),
-        usernameWidget: Shimmer.fromColors(
-          baseColor: DesignColors.grey3,
-          highlightColor: DesignColors.grey2,
-          child: Container(
-            width: 150,
-            height: textTheme.bodyLarge?.fontSize,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(5)),
-              color: DesignColors.grey2,
-            ),
-          ),
+        usernameWidget: LoadingContainer(
+          height: textTheme.bodyLarge?.fontSize,
+          width: 150,
+          circularBorderRadius: 5,
         ),
-        addressWidget: Shimmer.fromColors(
-          baseColor: DesignColors.grey3,
-          highlightColor: DesignColors.grey2,
-          child: Container(
-            width: 200,
-            height: textTheme.bodyMedium?.fontSize,
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.all(Radius.circular(5)),
-              color: DesignColors.grey2,
-            ),
-          ),
+        addressWidget: LoadingContainer(
+          height: textTheme.bodyMedium?.fontSize,
+          width: 200,
+          circularBorderRadius: 5,
         ),
       );
     } else {

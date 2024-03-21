@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:miro/config/theme/design_colors.dart';
-import 'package:shimmer/shimmer.dart';
+import 'package:miro/views/widgets/generic/loading_container.dart';
 
 class IRRecordVerificationsListShimmer extends StatelessWidget {
-
   const IRRecordVerificationsListShimmer({Key? key}) : super(key: key);
 
   @override
@@ -13,43 +11,24 @@ class IRRecordVerificationsListShimmer extends StatelessWidget {
       physics: const NeverScrollableScrollPhysics(),
       itemCount: 5,
       itemBuilder: (BuildContext context, int index) {
-        return ListTile(
+        return const ListTile(
           dense: false,
           contentPadding: EdgeInsets.zero,
           leading: ClipOval(
-            child: Shimmer.fromColors(
-              baseColor: DesignColors.grey3,
-              highlightColor: DesignColors.grey2,
-              child: Container(
-                width: 30,
-                height: 30,
-                color: DesignColors.grey2,
-              ),
+            child: LoadingContainer(
+              height: 30,
+              width: 30,
             ),
           ),
-          title: Shimmer.fromColors(
-            baseColor: DesignColors.grey3,
-            highlightColor: DesignColors.grey2,
-            child: Container(
-              width: 100,
-              height: 16,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(5)),
-                color: DesignColors.grey2,
-              ),
-            ),
+          title: LoadingContainer(
+            height: 16,
+            width: 100,
+            circularBorderRadius: 5,
           ),
-          trailing: Shimmer.fromColors(
-            baseColor: DesignColors.grey3,
-            highlightColor: DesignColors.grey2,
-            child: Container(
-              width: 100,
-              height: 16,
-              decoration: const BoxDecoration(
-                borderRadius: BorderRadius.all(Radius.circular(5)),
-                color: DesignColors.grey2,
-              ),
-            ),
+          trailing: LoadingContainer(
+            height: 16,
+            width: 100,
+            circularBorderRadius: 5,
           ),
         );
       },
