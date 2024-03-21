@@ -1,19 +1,21 @@
-class QueryFaucetReq {
-  final String? address;
+import 'package:equatable/equatable.dart';
 
-  QueryFaucetReq({
-    required this.address,
+class QueryFaucetReq extends Equatable {
+  final String claimAddress;
+  final String token;
+
+  const QueryFaucetReq({
+    required this.claimAddress,
+    required this.token,
   });
 
-  factory QueryFaucetReq.fromJson(Map<String, String> json) {
-    return QueryFaucetReq(
-      address: json['address'],
-    );
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
+      'claim': claimAddress,
+      'token': token,
+    };
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['address'] = address;
-    return data;
-  }
+  @override
+  List<Object?> get props => <Object>[claimAddress, token];
 }

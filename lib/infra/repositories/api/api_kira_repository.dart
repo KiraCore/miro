@@ -4,6 +4,7 @@ import 'package:miro/infra/dto/api_kira/query_account/request/query_account_req.
 import 'package:miro/infra/dto/api_kira/query_balance/request/query_balance_req.dart';
 import 'package:miro/infra/dto/api_kira/query_delegations/request/query_delegations_req.dart';
 import 'package:miro/infra/dto/api_kira/query_execution_fee/request/query_execution_fee_request.dart';
+import 'package:miro/infra/dto/api_kira/query_faucet/request/query_faucet_info_req.dart';
 import 'package:miro/infra/dto/api_kira/query_identity_record_verify_requests/request/query_identity_record_verify_requests_by_approver_req.dart';
 import 'package:miro/infra/dto/api_kira/query_identity_record_verify_requests/request/query_identity_record_verify_requests_by_requester_req.dart';
 import 'package:miro/infra/dto/api_kira/query_kira_tokens_aliases/request/query_kira_tokens_aliases_req.dart';
@@ -25,6 +26,8 @@ abstract class IApiKiraRepository {
   Future<Response<T>> fetchQueryDelegations<T>(ApiRequestModel<QueryDelegationsReq> apiRequestModel);
 
   Future<Response<T>> fetchQueryExecutionFee<T>(ApiRequestModel<QueryExecutionFeeRequest> apiRequestModel);
+
+  Future<Response<T>> fetchQueryFaucet<T>(ApiRequestModel<QueryFaucetInfoReq> apiRequestModel);
 
   Future<Response<T>> fetchQueryIdentityRecordsByAddress<T>(ApiRequestModel<String> apiRequestModel);
 
@@ -123,6 +126,22 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
       return response;
     } on DioException catch (dioException) {
       AppLogger().log(message: 'Cannot fetch fetchQueryDelegations() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
+      throw DioConnectException(dioException: dioException);
+    }
+  }
+
+  @override
+  Future<Response<T>> fetchQueryFaucet<T>(ApiRequestModel<QueryFaucetInfoReq> apiRequestModel) async {
+    try {
+      final Response<T> response = await _httpClientManager.get<T>(
+        networkUri: apiRequestModel.networkUri,
+        path: '/api/kira/faucet',
+        queryParameters: apiRequestModel.requestData.toJson(),
+        apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: apiRequestModel.forceRequestBool),
+      );
+      return response;
+    } on DioException catch (dioException) {
+      AppLogger().log(message: 'Cannot fetch fetchQueryFaucet() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
       throw DioConnectException(dioException: dioException);
     }
   }

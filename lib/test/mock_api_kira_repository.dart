@@ -4,6 +4,7 @@ import 'package:miro/infra/dto/api_kira/query_account/request/query_account_req.
 import 'package:miro/infra/dto/api_kira/query_balance/request/query_balance_req.dart';
 import 'package:miro/infra/dto/api_kira/query_delegations/request/query_delegations_req.dart';
 import 'package:miro/infra/dto/api_kira/query_execution_fee/request/query_execution_fee_request.dart';
+import 'package:miro/infra/dto/api_kira/query_faucet/request/query_faucet_info_req.dart';
 import 'package:miro/infra/dto/api_kira/query_identity_record_verify_requests/request/query_identity_record_verify_requests_by_approver_req.dart';
 import 'package:miro/infra/dto/api_kira/query_identity_record_verify_requests/request/query_identity_record_verify_requests_by_requester_req.dart';
 import 'package:miro/infra/dto/api_kira/query_staking_pool/request/query_staking_pool_req.dart';
@@ -159,6 +160,30 @@ class MockApiKiraRepository implements IApiKiraRepository {
           Map<String, dynamic> defaultResponse = MockApiKiraGovExecutionFee.defaultResponse;
           defaultResponse['transaction_type'] = apiRequestModel.requestData.message;
           response = defaultResponse as T;
+      }
+      return Response<T>(
+        statusCode: 200,
+        data: response,
+        headers: MockHeaders.defaultHeaders,
+        requestOptions: RequestOptions(path: ''),
+      );
+    } else {
+      throw DioConnectException(dioException: DioException(requestOptions: RequestOptions(path: networkUri.host)));
+    }
+  }
+
+  @override
+  Future<Response<T>> fetchQueryFaucet<T>(ApiRequestModel<QueryFaucetInfoReq> apiRequestModel) async {
+    Uri networkUri = apiRequestModel.networkUri;
+    bool responseExistsBool = workingEndpoints.contains(networkUri.host);
+    if (responseExistsBool) {
+      late T response;
+      switch (networkUri.host) {
+        case 'invalid.kira.network':
+          response = <String, dynamic>{'invalid': 'response'} as T;
+          break;
+        default:
+          response = MockApiKiraIdentityRecords.defaultResponse as T;
       }
       return Response<T>(
         statusCode: 200,
