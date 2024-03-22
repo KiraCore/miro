@@ -37,21 +37,22 @@ class TokenFormCubit extends Cubit<TokenFormState> {
   TokenFormCubit.fromFirstBalance({
     required TokenAmountModel feeTokenAmountModel,
     required WalletAddress? walletAddress,
+    bool? derivedTokensBool,
     FilterOption<BalanceModel>? initialFilterOption,
   }) : super(TokenFormState.fromFirstBalance(
           feeTokenAmountModel: feeTokenAmountModel,
           walletAddress: walletAddress,
           loadingBool: true,
         )) {
-    init(filterOption: initialFilterOption);
+    init(derivedTokensBool: derivedTokensBool, filterOption: initialFilterOption);
   }
 
-  void init({FilterOption<BalanceModel>? filterOption}) {
+  void init({bool? derivedTokensBool, FilterOption<BalanceModel>? filterOption}) {
     bool balanceExistsBool = state.balanceModel != null;
     if (balanceExistsBool) {
       _updateTextFieldValue();
     } else {
-      _initWithFirstBalance(filterOption);
+      _initWithFirstBalance(derivedTokensBool, filterOption);
     }
   }
 
@@ -102,12 +103,13 @@ class TokenFormCubit extends Cubit<TokenFormState> {
     _updateTextFieldValue();
   }
 
-  Future<void> _initWithFirstBalance(FilterOption<BalanceModel>? filterOption) async {
+  Future<void> _initWithFirstBalance(bool? derivedTokensBool, FilterOption<BalanceModel>? filterOption) async {
     try {
       PageData<BalanceModel> balanceModelData = await queryBalanceService.getBalanceModelList(QueryBalanceReq(
         address: state.walletAddress!.bech32Address,
         offset: 0,
         limit: 500,
+        derived: derivedTokensBool,
       ));
       List<BalanceModel> balanceModelList = balanceModelData.listItems;
 

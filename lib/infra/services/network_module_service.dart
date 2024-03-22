@@ -49,6 +49,7 @@ class NetworkModuleService implements _INetworkModuleService {
           networkStatusModel: previousNetworkUnknownModel ?? networkUnknownModel,
           connectionStatusType: ConnectionStatusType.disconnected,
           lastRefreshDateTime: lastRefreshDateTime,
+          tokenDefaultDenomModel: networkUnknownModel.tokenDefaultDenomModel,
         );
       }
     }

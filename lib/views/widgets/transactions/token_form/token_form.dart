@@ -26,6 +26,7 @@ class TokenForm extends StatefulWidget {
   final TokenAmountModel feeTokenAmountModel;
   final WalletAddress? walletAddress;
   final bool selectableBool;
+  final bool? derivedTokensBool;
   final BalanceModel? defaultBalanceModel;
   final FilterOption<BalanceModel>? initialFilterOption;
   final TokenAmountModel? defaultTokenAmountModel;
@@ -38,6 +39,7 @@ class TokenForm extends StatefulWidget {
     required this.feeTokenAmountModel,
     required this.walletAddress,
     this.selectableBool = true,
+    this.derivedTokensBool,
     this.defaultBalanceModel,
     this.initialFilterOption,
     this.defaultTokenAmountModel,
@@ -67,6 +69,7 @@ class _TokenForm extends State<TokenForm> {
     } else {
       tokenFormCubit = TokenFormCubit.fromFirstBalance(
         feeTokenAmountModel: widget.feeTokenAmountModel,
+        derivedTokensBool: widget.derivedTokensBool,
         initialFilterOption: widget.initialFilterOption,
         walletAddress: widget.walletAddress,
       );
@@ -123,6 +126,7 @@ class _TokenForm extends State<TokenForm> {
                         ),
                         const ColumnRowSpacer(size: 16),
                         TokenDropdown(
+                          derivedTokensBool: widget.derivedTokensBool,
                           disabledBool: widget.selectableBool == false,
                           defaultBalanceModel: tokenFormState.balanceModel,
                           initialFilterOption: widget.initialFilterOption,

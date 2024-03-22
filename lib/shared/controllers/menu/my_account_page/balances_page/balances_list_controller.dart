@@ -16,9 +16,11 @@ class BalancesListController implements IListController<BalanceModel> {
   final FavouritesCacheService favouriteCacheService = FavouritesCacheService(domainName: 'balances');
   final QueryBalanceService queryBalanceService = globalLocator<QueryBalanceService>();
   final WalletAddress walletAddress;
+  final bool? derivedTokens;
 
   BalancesListController({
     required this.walletAddress,
+    this.derivedTokens,
   });
 
   @override
@@ -28,31 +30,29 @@ class BalancesListController implements IListController<BalanceModel> {
 
   @override
   Future<List<BalanceModel>> getFavouritesData({bool forceRequestBool = false}) async {
-    Set<String> favouriteBalances = favouriteCacheService.getAll();
-    if (favouriteBalances.isNotEmpty) {
-      // TODO(dominik): implement request Balances by name
-      PageData<BalanceModel> balancesPageData = await queryBalanceService.getBalanceModelList(
-        QueryBalanceReq(address: walletAddress.bech32Address, offset: 0, limit: 500),
-        forceRequestBool: forceRequestBool,
-      );
-
-      return balancesPageData.listItems.where((BalanceModel balanceModel) {
-        return favouriteBalances.contains(balanceModel.tokenAmountModel.tokenAliasModel.defaultTokenDenominationModel.name);
-      }).toList();
-    }
-    return List<BalanceModel>.empty(growable: true);
+    List<String> favouriteBalances = favouriteCacheService.getAll().toList();
+    List<BalanceModel> balanceModelList = await queryBalanceService.getBalancesByTokenNames(walletAddress.bech32Address, favouriteBalances);
+    return balanceModelList;
   }
 
   @override
   Future<PageData<BalanceModel>> getPageData(PaginationDetailsModel paginationDetailsModel, {bool forceRequestBool = false}) async {
+    List<String> favouriteBalances = favouriteCacheService.getAll().toList();
+
     PageData<BalanceModel> balancesPageData = await queryBalanceService.getBalanceModelList(
-      QueryBalanceReq(address: walletAddress.bech32Address, limit: paginationDetailsModel.limit, offset: paginationDetailsModel.offset),
+      QueryBalanceReq(
+          address: walletAddress.bech32Address,
+          limit: paginationDetailsModel.limit,
+          offset: paginationDetailsModel.offset,
+          exclude: favouriteBalances,
+          derived: derivedTokens,
+      ),
       forceRequestBool: forceRequestBool,
     );
 
     if (balancesPageData.listItems.isEmpty) {
       Set<String> favouriteBalances = favouriteCacheService.getAll();
-      TokenAliasModel defaultTokenAliasModel = globalLocator<NetworkModuleBloc>().tokenDefaultDenomModel.defaultTokenAliasModel!;
+      TokenAliasModel defaultTokenAliasModel = globalLocator<NetworkModuleBloc>().state.defaultTokenAliasModel!;
 
       BalanceModel defaultBalanceModel = BalanceModel(
         tokenAmountModel: TokenAmountModel(

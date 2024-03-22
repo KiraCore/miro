@@ -17,13 +17,8 @@ class BalancesFilterOptions {
   static FilterOption<BalanceModel> filterByDefaultToken = FilterOption<BalanceModel>(
     id: 'defaultToken',
     filterComparator: (BalanceModel a) =>
-        a.tokenAmountModel.tokenAliasModel == globalLocator<NetworkModuleBloc>().tokenDefaultDenomModel.defaultTokenAliasModel!,
-    filterMode: FilterMode.and,
-  );
-
-  static FilterOption<BalanceModel> filterByDerivedTokens = FilterOption<BalanceModel>(
-    id: 'undelegate',
-    filterComparator: (BalanceModel a) => a.tokenAmountModel.tokenAliasModel.defaultTokenDenominationModel.name.contains('/'),
+        a.tokenAmountModel.tokenAliasModel.defaultTokenDenominationModel ==
+        globalLocator<NetworkModuleBloc>().state.defaultTokenAliasModel!.defaultTokenDenominationModel,
     filterMode: FilterMode.and,
   );
 

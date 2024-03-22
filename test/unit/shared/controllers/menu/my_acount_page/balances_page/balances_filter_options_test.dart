@@ -73,25 +73,6 @@ Future<void> main() async {
     });
   });
 
-  group('Tests of BalancesFilterOptions.filterByDerivedTokens()', () {
-    test('Should return [List of BalanceModel] with derived token', () {
-      // Arrange
-      FilterComparator<BalanceModel> filterComparator = BalancesFilterOptions.filterByDerivedTokens.filterComparator;
-
-      // Act
-      List<BalanceModel> actualBalancesList = balanceModelsList.where(filterComparator).toList();
-
-      // Assert
-      // @formatter:off
-      List<BalanceModel> expectedBalancesList = <BalanceModel>[
-        BalanceModel(tokenAmountModel: TokenAmountModel(tokenAliasModel: TestUtils.derivedKexTokenAliasModel, defaultDenominationAmount: Decimal.fromInt(10000))),
-      ];
-      // @formatter:on
-
-      expect(actualBalancesList, expectedBalancesList);
-    });
-  });
-
   group('Tests of BalancesFilterOptions.search()', () {
     test('Should return [List of BalanceModel] with balances containing "10"', () {
       // Arrange

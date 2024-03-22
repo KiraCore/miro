@@ -4,6 +4,7 @@ import 'package:miro/config/locator.dart';
 import 'package:miro/shared/controllers/browser/rpc_browser_url_controller.dart';
 import 'package:miro/shared/models/network/data/connection_status_type.dart';
 import 'package:miro/shared/models/network/status/network_unknown_model.dart';
+import 'package:miro/shared/models/tokens/token_default_denom_model.dart';
 import 'package:miro/test/mock_app_config.dart';
 import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
@@ -92,6 +93,7 @@ Future<void> main() async {
       connectionStatusType: ConnectionStatusType.disconnected,
       uri: Uri.parse('https://testnet-rpc.kira.network'),
       lastRefreshDateTime: TestUtils.defaultLastRefreshDateTime,
+      tokenDefaultDenomModel: TokenDefaultDenomModel.empty(),
     );
 
     test('Should return network list from config ', () {
@@ -157,6 +159,7 @@ Future<void> main() async {
           uri: Uri.parse('https://healthy.kira.network'),
           connectionStatusType: ConnectionStatusType.disconnected,
           lastRefreshDateTime: TestUtils.defaultLastRefreshDateTime,
+          tokenDefaultDenomModel: TokenDefaultDenomModel.empty(),
         ),
         TestUtils.offlineNetworkUnknownModel,
       ];
@@ -267,6 +270,7 @@ Future<void> main() async {
         connectionStatusType: ConnectionStatusType.disconnected,
         uri: Uri.parse('https://not.exist.kira.network'),
         lastRefreshDateTime: TestUtils.defaultLastRefreshDateTime,
+        tokenDefaultDenomModel: TokenDefaultDenomModel.empty(),
       );
 
       // Act
@@ -285,6 +289,7 @@ Future<void> main() async {
         connectionStatusType: ConnectionStatusType.disconnected,
         uri: Uri.parse('https://unhealthy.kira.network'),
         lastRefreshDateTime: TestUtils.defaultLastRefreshDateTime,
+        tokenDefaultDenomModel: TokenDefaultDenomModel.empty(),
       );
 
       // Act

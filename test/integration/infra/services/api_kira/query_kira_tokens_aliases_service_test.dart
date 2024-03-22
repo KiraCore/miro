@@ -21,9 +21,11 @@ Future<void> main() async {
 
   group('Tests of QueryKiraTokensAliasesService.getTokenAliases() method', () {
     test('Should return [List of TokenAliasModel]', () async {
+      List<String> actualRequestTokens = <String>['ukex', 'abcd', 'poly-ai', 'bitalgo', 'bitmax-token'];
+
       TestUtils.printInfo('Data request');
       try {
-        List<TokenAliasModel> actualTokenAliasModelList = await actualQueryKiraTokensAliasesService.getTokenAliasModels();
+        List<TokenAliasModel> actualTokenAliasModelList = await actualQueryKiraTokensAliasesService.getAliasesByTokenNames(actualRequestTokens);
 
         TestUtils.printInfo('Data return');
         print(actualTokenAliasModelList);

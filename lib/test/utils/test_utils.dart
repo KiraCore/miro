@@ -54,6 +54,7 @@ class TestUtils {
     uri: Uri.parse('https://healthy.kira.network'),
     name: 'healthy-mainnet',
     lastRefreshDateTime: defaultLastRefreshDateTime,
+    tokenDefaultDenomModel: TokenDefaultDenomModel.empty(),
   );
 
   static final NetworkUnknownModel unhealthyNetworkUnknownModel = NetworkUnknownModel(
@@ -61,6 +62,7 @@ class TestUtils {
     uri: Uri.parse('https://unhealthy.kira.network'),
     name: 'unhealthy-mainnet',
     lastRefreshDateTime: defaultLastRefreshDateTime,
+    tokenDefaultDenomModel: TokenDefaultDenomModel.empty(),
   );
 
   static final NetworkUnknownModel offlineNetworkUnknownModel = NetworkUnknownModel(
@@ -68,6 +70,7 @@ class TestUtils {
     uri: Uri.parse('https://offline.kira.network'),
     name: 'offline-mainnet',
     lastRefreshDateTime: defaultLastRefreshDateTime,
+    tokenDefaultDenomModel: TokenDefaultDenomModel.empty(),
   );
 
   static final NetworkHealthyModel networkHealthyModel = NetworkHealthyModel(
@@ -117,6 +120,7 @@ class TestUtils {
     name: 'offline-mainnet',
     uri: Uri.parse('https://offline.kira.network'),
     lastRefreshDateTime: defaultLastRefreshDateTime,
+    tokenDefaultDenomModel: TokenDefaultDenomModel.empty(),
   );
 
   static final NetworkOfflineModel networkOfflineModel = NetworkOfflineModel(
@@ -124,6 +128,7 @@ class TestUtils {
     name: 'offline-mainnet',
     uri: Uri.parse('https://offline.kira.network'),
     lastRefreshDateTime: defaultLastRefreshDateTime,
+    tokenDefaultDenomModel: TokenDefaultDenomModel.empty(),
   );
 
   static final NetworkHealthyModel customNetworkHealthyModel = NetworkHealthyModel(

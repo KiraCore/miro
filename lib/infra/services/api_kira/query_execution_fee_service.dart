@@ -31,7 +31,7 @@ class QueryExecutionFeeService implements _IQueryExecutionFeeService {
       QueryExecutionFeeResponse queryExecutionFeeResponse = QueryExecutionFeeResponse.fromJson(response.data as Map<String, dynamic>);
       TokenAmountModel feeTokenAmountModel = TokenAmountModel(
         defaultDenominationAmount: Decimal.parse(queryExecutionFeeResponse.fee.executionFee),
-        tokenAliasModel: globalLocator<NetworkModuleBloc>().tokenDefaultDenomModel.defaultTokenAliasModel!,
+        tokenAliasModel: globalLocator<NetworkModuleBloc>().state.defaultTokenAliasModel!,
       );
       return feeTokenAmountModel;
     } catch (_) {

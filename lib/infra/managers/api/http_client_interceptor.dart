@@ -18,6 +18,13 @@ class HttpClientInterceptor extends Interceptor {
     AppLogger().logApiRequest(options);
     DateTime currentTime = apiCacheConfigModel.cacheStartTime ?? DateTime.now();
 
+    if (apiCacheConfigModel.cacheEnabledBool == false) {
+      AppLogger().logApiInterceptor(options, 'SERVER | Cache disabled. Fetch from server.');
+
+      // Fetch [Response] from server and call [onResponse] if server responds with a (2XX) status code or [onError] if not
+      return handler.next(options);
+    }
+
     if (apiCacheConfigModel.forceRequestBool) {
       AppLogger().logApiInterceptor(options, 'SERVER | Forced request. Fetch from server.');
 
@@ -55,10 +62,12 @@ class HttpClientInterceptor extends Interceptor {
 
   @override
   Future<void> onResponse(Response<dynamic> response, ResponseInterceptorHandler handler) async {
-    ApiCacheResponseModel apiCacheResponseModel = await apiCacheManager.saveResponse(response, apiCacheConfigModel);
-    response.headers
-      ..set(InterxHeaders.cacheExpirationTimeHeaderKey, apiCacheResponseModel.cacheExpirationDateTime.toString())
-      ..set(InterxHeaders.dataSourceHeaderKey, InterxHeaders.dataSourceApiHeaderValue);
+    if (apiCacheConfigModel.cacheEnabledBool) {
+      ApiCacheResponseModel apiCacheResponseModel = await apiCacheManager.saveResponse(response, apiCacheConfigModel);
+      response.headers.set(InterxHeaders.cacheExpirationTimeHeaderKey, apiCacheResponseModel.cacheExpirationDateTime.toString());
+    }
+    response.headers.set(InterxHeaders.dataSourceHeaderKey, InterxHeaders.dataSourceApiHeaderValue);
+
     return handler.next(response);
   }
 

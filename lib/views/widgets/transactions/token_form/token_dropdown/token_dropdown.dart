@@ -13,12 +13,14 @@ import 'package:miro/views/widgets/transactions/tx_input_wrapper.dart';
 
 class TokenDropdown extends StatefulWidget {
   final bool disabledBool;
+  final bool? derivedTokensBool;
   final BalanceModel? defaultBalanceModel;
   final FilterOption<BalanceModel>? initialFilterOption;
   final WalletAddress? walletAddress;
 
   const TokenDropdown({
     this.disabledBool = false,
+    this.derivedTokensBool,
     this.defaultBalanceModel,
     this.initialFilterOption,
     this.walletAddress,
@@ -74,6 +76,7 @@ class _TokenDropdown extends State<TokenDropdown> {
         maxHeight: MediaQuery.of(context).size.height * 0.7,
       ),
       child: TokenDropdownList(
+        derivedTokensBool: widget.derivedTokensBool,
         initialTokenAliasModel: widget.defaultBalanceModel?.tokenAmountModel.tokenAliasModel,
         initialFilterOption: widget.initialFilterOption,
         onBalanceModelSelected: _handleBalanceModelChanged,

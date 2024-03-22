@@ -202,7 +202,9 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
         networkUri: apiRequestModel.networkUri,
         path: '/api/kira/tokens/aliases',
         queryParameters: apiRequestModel.requestData.queryParameters,
-        apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: apiRequestModel.forceRequestBool),
+        apiCacheConfigModel: ApiCacheConfigModel(
+          cacheEnabledBool: false,
+        ),
       );
       return response;
     } on DioException catch (dioException) {
