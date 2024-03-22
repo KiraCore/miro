@@ -63,7 +63,7 @@ class _IRMsgRequestVerificationForm extends State<IRMsgRequestVerificationForm> 
           ),
           const SizedBox(height: 14),
           WalletAddressTextField(
-            label: S.of(context).txHintSendTo,
+            label: S.of(context).txHintVerifyBy,
             onChanged: _handleVerifierAddressChanged,
             defaultWalletAddress: widget.irMsgRequestVerificationFormModel.verifierWalletAddress,
           ),

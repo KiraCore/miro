@@ -62,13 +62,13 @@ class _VerificationRequestsPage extends State<VerificationRequestsPage> {
         ),
       ),
       child: VerificationRequestListItemDesktopLayout(
-        height: 53,
-        infoButtonWidget: const SizedBox(),
-        requesterAddressWidget: Text(S.of(context).irVerificationRequestsFrom, style: textTheme.bodySmall!.copyWith(color: DesignColors.white1)),
-        dateWidget: Text(S.of(context).irVerificationRequestsCreationDate, style: textTheme.bodySmall!.copyWith(color: DesignColors.white1)),
-        keysWidget: Text(S.of(context).irVerificationRequestsRecords, style: textTheme.bodySmall!.copyWith(color: DesignColors.white1)),
-        tipWidget: Text(S.of(context).irVerificationRequestsTip, style: textTheme.bodySmall!.copyWith(color: DesignColors.white1)),
-      ),
+          height: 53,
+          infoButtonWidget: const SizedBox(),
+          requesterAddressWidget: Text(S.of(context).irVerificationRequestsFrom, style: textTheme.bodySmall!.copyWith(color: DesignColors.white1)),
+          dateWidget: Text(S.of(context).irVerificationRequestsCreationDate, style: textTheme.bodySmall!.copyWith(color: DesignColors.white1)),
+          keysWidget: Text(S.of(context).irVerificationRequestsRecords, style: textTheme.bodySmall!.copyWith(color: DesignColors.white1)),
+          tipWidget: Text(S.of(context).irVerificationRequestsTip, style: textTheme.bodySmall!.copyWith(color: DesignColors.white1)),
+          actionsWidget: Text(S.of(context).irVerificationRequestsActions, style: textTheme.bodySmall!.copyWith(color: DesignColors.white1))),
     );
 
     return SliverInfinityList<IRInboundVerificationRequestModel>(

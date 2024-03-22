@@ -4,10 +4,10 @@ import 'package:miro/generated/l10n.dart';
 import 'package:miro/views/widgets/buttons/kira_text_button.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_value.dart';
 
-class IRCustomEntryButton extends StatelessWidget {
+class IRCustomRecordButton extends StatelessWidget {
   final VoidCallback onTap;
 
-  const IRCustomEntryButton({
+  const IRCustomRecordButton({
     required this.onTap,
     Key? key,
   }) : super(key: key);

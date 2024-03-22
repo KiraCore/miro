@@ -10,6 +10,7 @@ class KiraOutlinedButton extends StatelessWidget {
   final bool disabled;
   final bool uppercaseBool;
   final Color? borderColor;
+  final Color? textColor;
   final Widget? leading;
   final Widget? trailing;
 
@@ -21,6 +22,7 @@ class KiraOutlinedButton extends StatelessWidget {
     this.disabled = false,
     this.uppercaseBool = true,
     this.borderColor,
+    this.textColor,
     this.leading,
     this.trailing,
     Key? key,
@@ -56,7 +58,7 @@ class KiraOutlinedButton extends StatelessWidget {
                   uppercaseBool ? title.toUpperCase() : title,
                   textAlign: TextAlign.center,
                   style: textTheme.labelLarge!.copyWith(
-                    color: DesignColors.white1,
+                    color: _getTextColor(states),
                   ),
                 ),
                 if (trailing != null) ...<Widget>[const SizedBox(width: 4), trailing!],
@@ -72,7 +74,14 @@ class KiraOutlinedButton extends StatelessWidget {
     if (states.contains(MaterialState.hovered) && disabled == false) {
       return DesignColors.white1;
     }
-    return borderColor ?? DesignColors.greyOutline;
+    return borderColor ?? textColor?.withOpacity(0.5) ?? DesignColors.greyOutline;
+  }
+
+  Color _getTextColor(Set<MaterialState> states) {
+    if (states.contains(MaterialState.hovered)) {
+      return DesignColors.white1;
+    }
+    return textColor ?? DesignColors.white1;
   }
 
   Color _getBackgroundColor(Set<MaterialState> states) {

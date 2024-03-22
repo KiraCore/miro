@@ -48,11 +48,6 @@ class _IRMsgRegisterRecordFormPreview extends State<IRMsgRegisterRecordFormPrevi
           label: S.of(context).irTxHintValue,
           value: iRMsgRegisterRecordsModel.irEntryModels.first.info,
         ),
-        const SizedBox(height: 28),
-        TxInputPreview(
-          label: S.of(context).txHintMemo,
-          value: widget.txLocalInfoModel.memo,
-        ),
         const SizedBox(height: 15),
         const Divider(color: DesignColors.grey2),
         const SizedBox(height: 15),

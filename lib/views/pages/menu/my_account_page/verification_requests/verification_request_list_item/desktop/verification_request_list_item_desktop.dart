@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/identity_registrar/ir_inbound_verification_request_model.dart';
 import 'package:miro/shared/models/identity_registrar/ir_user_profile_model.dart';
 import 'package:miro/views/pages/menu/my_account_page/verification_requests/verification_request_list_item/desktop/verification_request_list_item_desktop_layout.dart';
+import 'package:miro/views/widgets/buttons/kira_outlined_button.dart';
 import 'package:miro/views/widgets/generic/account/account_tile.dart';
 
 class VerificationRequestListItemDesktop extends StatelessWidget {
+  final VoidCallback onApproveButtonPressed;
+  final VoidCallback onRejectButtonPressed;
   final VoidCallback onShowDrawerPressed;
   final IRInboundVerificationRequestModel irInboundVerificationRequestModel;
 
   const VerificationRequestListItemDesktop({
+    required this.onApproveButtonPressed,
+    required this.onRejectButtonPressed,
     required this.onShowDrawerPressed,
     required this.irInboundVerificationRequestModel,
     Key? key,
@@ -51,6 +57,31 @@ class VerificationRequestListItemDesktop extends StatelessWidget {
       tipWidget: Text(
         irInboundVerificationRequestModel.tipTokenAmountModel.toString(),
         style: textTheme.bodyMedium!.copyWith(color: DesignColors.white2),
+      ),
+      actionsWidget: SizedBox(
+        height: 40,
+        child: Row(
+          children: <Widget>[
+            Expanded(
+              child: KiraOutlinedButton(
+                height: 40,
+                onPressed: onApproveButtonPressed,
+                title: S.of(context).irVerificationRequestsApprove,
+                textColor: DesignColors.greenStatus1,
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: KiraOutlinedButton(
+                height: 40,
+                onPressed: onRejectButtonPressed,
+                title: S.of(context).irVerificationRequestsReject,
+                textColor: DesignColors.redStatus1,
+              ),
+            ),
+            const SizedBox(width: 12),
+          ],
+        ),
       ),
     );
   }

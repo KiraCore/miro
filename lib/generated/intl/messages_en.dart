@@ -185,6 +185,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "irUsername": MessageLookupByLibrary.simpleMessage("Username"),
         "irVerificationRequests":
             MessageLookupByLibrary.simpleMessage("Verification Requests"),
+        "irVerificationRequestsActions": MessageLookupByLibrary.simpleMessage("Actions"),
         "irVerificationRequestsApprove":
             MessageLookupByLibrary.simpleMessage("Approve"),
         "irVerificationRequestsApprovedRecord":
@@ -490,6 +491,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "txHintUnstakeBy": MessageLookupByLibrary.simpleMessage("Unstake by"),
         "txHintUnstakeFrom":
             MessageLookupByLibrary.simpleMessage("Unstake from"),
+        "txHintVerifyBy": MessageLookupByLibrary.simpleMessage("Verify by"),
         "txIsBeingBroadcast": MessageLookupByLibrary.simpleMessage(
             "Your transaction is being broadcast"),
         "txListAmount": MessageLookupByLibrary.simpleMessage("Amount"),

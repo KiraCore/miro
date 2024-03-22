@@ -6,6 +6,7 @@ class VerificationRequestListItemDesktopLayout extends StatelessWidget {
   final Widget dateWidget;
   final Widget keysWidget;
   final Widget tipWidget;
+  final Widget actionsWidget;
   final double? height;
 
   const VerificationRequestListItemDesktopLayout({
@@ -14,6 +15,7 @@ class VerificationRequestListItemDesktopLayout extends StatelessWidget {
     required this.dateWidget,
     required this.keysWidget,
     required this.tipWidget,
+    required this.actionsWidget,
     this.height,
     Key? key,
   }) : super(key: key);
@@ -40,6 +42,8 @@ class VerificationRequestListItemDesktopLayout extends StatelessWidget {
           Expanded(flex: 3, child: keysWidget),
           const Spacer(flex: 1),
           Expanded(flex: 3, child: tipWidget),
+          const Spacer(flex: 1),
+          Expanded(flex: 6, child: actionsWidget),
         ],
       ),
     );
