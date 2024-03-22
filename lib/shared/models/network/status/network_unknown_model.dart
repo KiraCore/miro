@@ -1,17 +1,20 @@
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/shared/models/network/data/connection_status_type.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
+import 'package:miro/shared/models/tokens/token_default_denom_model.dart';
 import 'package:miro/shared/utils/network_utils.dart';
 
 class NetworkUnknownModel extends ANetworkStatusModel {
   const NetworkUnknownModel({
     required ConnectionStatusType connectionStatusType,
     required DateTime? lastRefreshDateTime,
+    required TokenDefaultDenomModel tokenDefaultDenomModel,
     required Uri uri,
     String? name,
   }) : super(
           connectionStatusType: connectionStatusType,
           lastRefreshDateTime: lastRefreshDateTime,
+          tokenDefaultDenomModel: tokenDefaultDenomModel,
           uri: uri,
           name: name,
           statusColor: DesignColors.grey1,
@@ -21,6 +24,7 @@ class NetworkUnknownModel extends ANetworkStatusModel {
     return NetworkUnknownModel(
       connectionStatusType: ConnectionStatusType.disconnected,
       lastRefreshDateTime: DateTime.now(),
+      tokenDefaultDenomModel: TokenDefaultDenomModel.empty(),
       uri: NetworkUtils.parseUrlToInterxUri(json['address'] as String),
       name: json['name'] as String?,
     );
@@ -30,6 +34,7 @@ class NetworkUnknownModel extends ANetworkStatusModel {
     return NetworkUnknownModel(
       connectionStatusType: networkStatusModel.connectionStatusType,
       lastRefreshDateTime: DateTime.now(),
+      tokenDefaultDenomModel: networkStatusModel.tokenDefaultDenomModel,
       uri: networkStatusModel.uri,
       name: networkStatusModel.name,
     );
@@ -40,6 +45,7 @@ class NetworkUnknownModel extends ANetworkStatusModel {
     return NetworkUnknownModel(
       connectionStatusType: connectionStatusType ?? this.connectionStatusType,
       lastRefreshDateTime: lastRefreshDateTime,
+      tokenDefaultDenomModel: tokenDefaultDenomModel,
       uri: uri ?? this.uri,
       name: name,
     );
@@ -49,6 +55,7 @@ class NetworkUnknownModel extends ANetworkStatusModel {
     return NetworkUnknownModel(
       connectionStatusType: connectionStatusType,
       lastRefreshDateTime: lastRefreshDateTime,
+      tokenDefaultDenomModel: tokenDefaultDenomModel,
       uri: uri.replace(scheme: 'http'),
       name: name,
     );

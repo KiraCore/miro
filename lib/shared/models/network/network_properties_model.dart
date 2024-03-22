@@ -16,7 +16,7 @@ class NetworkPropertiesModel extends Equatable {
   });
 
   factory NetworkPropertiesModel.fromDto(Properties properties) {
-    final TokenAliasModel defaultTokenAliasModel = globalLocator<NetworkModuleBloc>().tokenDefaultDenomModel.defaultTokenAliasModel!;
+    final TokenAliasModel defaultTokenAliasModel = globalLocator<NetworkModuleBloc>().state.defaultTokenAliasModel!;
 
     return NetworkPropertiesModel(
       minTxFee: TokenAmountModel(

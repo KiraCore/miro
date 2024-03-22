@@ -9,20 +9,20 @@ import 'package:miro/shared/models/tokens/token_default_denom_model.dart';
 
 abstract class ANetworkOnlineModel extends ANetworkStatusModel {
   final NetworkInfoModel networkInfoModel;
-  final TokenDefaultDenomModel tokenDefaultDenomModel;
 
   const ANetworkOnlineModel({
     required this.networkInfoModel,
-    required this.tokenDefaultDenomModel,
     required Color statusColor,
     required ConnectionStatusType connectionStatusType,
     required DateTime lastRefreshDateTime,
+    required TokenDefaultDenomModel tokenDefaultDenomModel,
     required Uri uri,
     String? name,
   }) : super(
           statusColor: statusColor,
           connectionStatusType: connectionStatusType,
           lastRefreshDateTime: lastRefreshDateTime,
+          tokenDefaultDenomModel: tokenDefaultDenomModel,
           uri: uri,
           name: name,
         );

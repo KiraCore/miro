@@ -11,9 +11,13 @@ import 'package:miro/blocs/pages/transactions/tx_broadcast/states/tx_broadcast_l
 import 'package:miro/blocs/pages/transactions/tx_broadcast/tx_broadcast_cubit.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api_kira/broadcast/response/broadcast_resp.dart';
+import 'package:miro/shared/models/network/data/connection_status_type.dart';
 import 'package:miro/shared/models/network/error_explorer_model.dart';
+import 'package:miro/shared/models/network/status/network_offline_model.dart';
+import 'package:miro/shared/models/network/status/network_unknown_model.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
+import 'package:miro/shared/models/tokens/token_default_denom_model.dart';
 import 'package:miro/shared/models/transactions/broadcast_resp_model.dart';
 import 'package:miro/shared/models/transactions/messages/msg_send_model.dart';
 import 'package:miro/shared/models/transactions/signature_model.dart';
@@ -97,7 +101,7 @@ Future<void> main() async {
       expect(actualTxBroadcastCubit.state, expectedTxBroadcastState);
     });
 
-    test('Should emit certain states when network is offline while broadcasting', () async {
+    test('Should emit certain states when network lost connection while broadcasting', () async {
       // Arrange
       NetworkModuleBloc actualNetworkModuleBloc = globalLocator<NetworkModuleBloc>();
       TxBroadcastCubit actualTxBroadcastCubit = TxBroadcastCubit();
@@ -110,12 +114,37 @@ Future<void> main() async {
 
       // ************************************************************************************************
 
+      // Arrange
+      NetworkUnknownModel networkOfflineUnknownModel = NetworkUnknownModel(
+        connectionStatusType: ConnectionStatusType.disconnected,
+        uri: Uri.parse('https://offline.kira.network'),
+        name: 'offline-mainnet',
+        lastRefreshDateTime: TestUtils.defaultLastRefreshDateTime,
+        tokenDefaultDenomModel: TokenDefaultDenomModel(
+          valuesFromNetworkExistBool: true,
+          bech32AddressPrefix: 'kira',
+          defaultTokenAliasModel: TestUtils.kexTokenAliasModel,
+        ),
+      );
+
+      NetworkOfflineModel networkOfflineModel = NetworkOfflineModel(
+        connectionStatusType: ConnectionStatusType.disconnected,
+        name: 'offline-mainnet',
+        uri: Uri.parse('https://offline.kira.network'),
+        lastRefreshDateTime: TestUtils.defaultLastRefreshDateTime,
+        tokenDefaultDenomModel: TokenDefaultDenomModel(
+          valuesFromNetworkExistBool: true,
+          bech32AddressPrefix: 'kira',
+          defaultTokenAliasModel: TestUtils.kexTokenAliasModel,
+        ),
+      );
+
       // Act
-      actualNetworkModuleBloc.add(NetworkModuleAutoConnectEvent(TestUtils.offlineNetworkUnknownModel));
+      actualNetworkModuleBloc.add(NetworkModuleAutoConnectEvent(networkOfflineUnknownModel));
       await Future<void>.delayed(const Duration(milliseconds: 500));
 
       // Assert
-      NetworkModuleState expectedNetworkModuleState = NetworkModuleState.connected(TestUtils.networkOfflineModel);
+      NetworkModuleState expectedNetworkModuleState = NetworkModuleState.connected(networkOfflineModel);
 
       TestUtils.printInfo('Should return NetworkModuleState.connected with NetworkOfflineModel');
       expect(actualNetworkModuleBloc.state, expectedNetworkModuleState);

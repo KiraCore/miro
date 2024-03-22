@@ -10,6 +10,7 @@ import 'package:miro/config/locator.dart';
 import 'package:miro/infra/managers/cache/api_cache_manager.dart';
 import 'package:miro/infra/managers/cache/i_cache_manager.dart';
 import 'package:miro/infra/managers/cache/impl/memory_cache_manager.dart';
+import 'package:miro/infra/memory/token_aliases_memory.dart';
 import 'package:miro/infra/repositories/api/api_kira_repository.dart';
 import 'package:miro/infra/repositories/api/api_repository.dart';
 import 'package:miro/infra/repositories/cache/api_cache_repository.dart';
@@ -38,7 +39,8 @@ import 'package:miro/test/mocks/mock_network_list_config_json.dart';
 Future<void> initMockLocator() async {
   globalLocator
     ..registerLazySingleton<AppConfig>(MockAppConfig.buildDefaultConfig)
-    ..registerLazySingleton<ICacheManager>(MemoryCacheManager.new);
+    ..registerLazySingleton<ICacheManager>(MemoryCacheManager.new)
+    ..registerLazySingleton<TokenAliasesMemory>(TokenAliasesMemory.new);
 
   _initRepositories();
   _initServices();

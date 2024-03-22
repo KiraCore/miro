@@ -10,6 +10,7 @@ import 'package:miro/config/app_config.dart';
 import 'package:miro/infra/managers/cache/api_cache_manager.dart';
 import 'package:miro/infra/managers/cache/i_cache_manager.dart';
 import 'package:miro/infra/managers/cache/impl/auto_cache_manager.dart';
+import 'package:miro/infra/memory/token_aliases_memory.dart';
 import 'package:miro/infra/repositories/api/api_kira_repository.dart';
 import 'package:miro/infra/repositories/api/api_repository.dart';
 import 'package:miro/infra/repositories/cache/api_cache_repository.dart';
@@ -36,7 +37,8 @@ final GetIt globalLocator = GetIt.I;
 Future<void> initLocator() async {
   globalLocator
     ..registerLazySingleton<AppConfig>(AppConfig.buildDefaultConfig)
-    ..registerLazySingleton<ICacheManager>(AutoCacheManager.new);
+    ..registerLazySingleton<ICacheManager>(AutoCacheManager.new)
+    ..registerLazySingleton<TokenAliasesMemory>(TokenAliasesMemory.new);
 
   _initRepositories();
   _initServices();

@@ -7,6 +7,7 @@ import 'package:miro/infra/services/network_module_service.dart';
 import 'package:miro/shared/models/network/data/connection_status_type.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
 import 'package:miro/shared/models/network/status/network_unknown_model.dart';
+import 'package:miro/shared/models/tokens/token_default_denom_model.dart';
 import 'package:miro/shared/utils/network_utils.dart';
 import 'package:miro/shared/utils/string_utils.dart';
 
@@ -19,8 +20,12 @@ class NetworkCustomSectionCubit extends Cubit<NetworkCustomSectionState> {
   NetworkCustomSectionCubit() : super(NetworkCustomSectionState());
 
   Future<void> checkConnection(Uri uri) async {
-    NetworkUnknownModel networkUnknownModel =
-        NetworkUnknownModel(uri: uri, connectionStatusType: ConnectionStatusType.disconnected, lastRefreshDateTime: DateTime.now());
+    NetworkUnknownModel networkUnknownModel = NetworkUnknownModel(
+      uri: uri,
+      connectionStatusType: ConnectionStatusType.disconnected,
+      lastRefreshDateTime: DateTime.now(),
+      tokenDefaultDenomModel: TokenDefaultDenomModel.empty(),
+    );
     bool networkCustomBool = _isNetworkCustom(networkUnknownModel);
 
     if (networkCustomBool == false || state.containsUriWithEqualUrn(uri)) {

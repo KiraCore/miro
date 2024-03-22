@@ -199,6 +199,7 @@ Future<void> main() async {
         connectionStatusType: ConnectionStatusType.disconnected,
         uri: Uri.parse('http://dynamic.kira.network'),
         lastRefreshDateTime: TestUtils.defaultLastRefreshDateTime,
+        tokenDefaultDenomModel: TokenDefaultDenomModel.empty(),
       );
 
       NetworkHealthyModel dynamicNetworkHealthyModel = NetworkHealthyModel(
@@ -243,6 +244,7 @@ Future<void> main() async {
         connectionStatusType: ConnectionStatusType.disconnected,
         uri: Uri.parse('http://dynamic.kira.network'),
         lastRefreshDateTime: TestUtils.defaultLastRefreshDateTime,
+        tokenDefaultDenomModel: TokenDefaultDenomModel.empty(),
       );
 
       rpcBrowserUrlController.setRpcAddress(dynamicNetworkUnknownModel);

@@ -5,7 +5,6 @@ import 'package:miro/blocs/generic/auth/auth_cubit.dart';
 import 'package:miro/blocs/widgets/transactions/token_form/token_form_state.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/generated/l10n.dart';
-import 'package:miro/shared/controllers/menu/my_account_page/balances_page/balances_filter_options.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/transactions/form_models/staking_msg_undelegate_form_model.dart';
@@ -82,7 +81,7 @@ class _StakingMsgUndelegateFormState extends State<StakingMsgUndelegateForm> {
                     feeTokenAmountModel: widget.feeTokenAmountModel,
                     onChanged: _handleTokenAmountChanged,
                     label: S.of(context).stakingTxAmountToUnstake,
-                    initialFilterOption: BalancesFilterOptions.filterByDerivedTokens,
+                    derivedTokensBool: true,
                     defaultBalanceModel: widget.stakingMsgUndelegateFormModel.balanceModel,
                     defaultTokenAmountModel: widget.stakingMsgUndelegateFormModel.tokenAmountModels?.first,
                     defaultTokenDenominationModel: widget.stakingMsgUndelegateFormModel.tokenDenominationModel,

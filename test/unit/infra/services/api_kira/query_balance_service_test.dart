@@ -22,36 +22,29 @@ Future<void> main() async {
   final QueryBalanceService queryBalanceService = globalLocator<QueryBalanceService>();
   const String actualAddress = 'kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx';
 
-  PageData<BalanceModel> expectedBalancesPageData = PageData<BalanceModel>(
-    lastPageBool: true,
-    blockDateTime: DateTime.parse('2022-08-26 22:08:27.607Z'),
-    cacheExpirationDateTime: DateTime.parse('2022-08-26 22:08:27.607Z'),
-    listItems: <BalanceModel>[
-      BalanceModel(
-        tokenAmountModel: TokenAmountModel(
-          defaultDenominationAmount: Decimal.parse('9878'),
-          tokenAliasModel: TokenAliasModel.local('lol'),
-        ),
-      ),
-      BalanceModel(
-        tokenAmountModel: TokenAmountModel(
-          defaultDenominationAmount: Decimal.parse('90000000000000000000000000'),
-          tokenAliasModel: TokenAliasModel.local('samolean'),
-        ),
-      ),
-      BalanceModel(
-        tokenAmountModel: TokenAmountModel(
-          defaultDenominationAmount: Decimal.parse('199779999999631'),
-          tokenAliasModel: TokenAliasModel.local('test'),
-        ),
-      ),
-      BalanceModel(
-        tokenAmountModel: TokenAmountModel(
-          defaultDenominationAmount: Decimal.parse('856916'),
-          tokenAliasModel: TokenAliasModel.local('ukex'),
-        ),
-      ),
-    ],
+  BalanceModel balanceModel1 = BalanceModel(
+    tokenAmountModel: TokenAmountModel(
+      defaultDenominationAmount: Decimal.parse('9878'),
+      tokenAliasModel: TokenAliasModel.local('lol'),
+    ),
+  );
+  BalanceModel balanceModel2 = BalanceModel(
+    tokenAmountModel: TokenAmountModel(
+      defaultDenominationAmount: Decimal.parse('90000000000000000000000000'),
+      tokenAliasModel: TokenAliasModel.local('samolean'),
+    ),
+  );
+  BalanceModel balanceModel3 = BalanceModel(
+    tokenAmountModel: TokenAmountModel(
+      defaultDenominationAmount: Decimal.parse('199779999999631'),
+      tokenAliasModel: TokenAliasModel.local('test'),
+    ),
+  );
+  BalanceModel balanceModel4 = BalanceModel(
+    tokenAmountModel: TokenAmountModel(
+      defaultDenominationAmount: Decimal.parse('856916'),
+      tokenAliasModel: TokenAliasModel.local('ukex'),
+    ),
   );
 
   group('Tests of QueryBalanceService.getBalanceModelList() method', () {
@@ -66,6 +59,18 @@ Future<void> main() async {
       PageData<BalanceModel> actualBalancesPageData = await queryBalanceService.getBalanceModelList(actualQueryBalanceReq);
 
       // Assert
+      PageData<BalanceModel> expectedBalancesPageData = PageData<BalanceModel>(
+        lastPageBool: true,
+        blockDateTime: DateTime.parse('2022-08-26 22:08:27.607Z'),
+        cacheExpirationDateTime: DateTime.parse('2022-08-26 22:08:27.607Z'),
+        listItems: <BalanceModel>[
+          balanceModel1,
+          balanceModel2,
+          balanceModel3,
+          balanceModel4,
+        ],
+      );
+
       expect(actualBalancesPageData, expectedBalancesPageData);
     });
 
@@ -93,6 +98,66 @@ Future<void> main() async {
       // Assert
       expect(
         () => queryBalanceService.getBalanceModelList(actualQueryBalanceReq),
+        throwsA(isA<DioConnectException>()),
+      );
+    });
+  });
+
+  group('Tests of QueryBalanceService.getBalancesByTokenNames() method', () {
+    test('Should return [List of TokenAliasModel] if [server HEALTHY] and [response data VALID]', () async {
+      // Arrange
+      Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://healthy.kira.network/');
+      await TestUtils.setupNetworkModel(networkUri: networkUri);
+
+      // Act
+      List<BalanceModel> actualBalanceModelList = await queryBalanceService.getBalancesByTokenNames(actualAddress, <String>[
+        'lol',
+        'samolean',
+        'test',
+        'ukex',
+      ]);
+
+      // Assert
+      List<BalanceModel> expectedBalanceModelList = <BalanceModel>[
+        balanceModel1,
+        balanceModel2,
+        balanceModel3,
+        balanceModel4,
+      ];
+
+      expect(actualBalanceModelList, expectedBalanceModelList);
+    });
+
+    test('Should throw [DioParseException] if [server HEALTHY] and [response data INVALID]', () async {
+      // Arrange
+      Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://invalid.kira.network/');
+      await TestUtils.setupNetworkModel(networkUri: networkUri);
+
+      // Assert
+      expect(
+        queryBalanceService.getBalancesByTokenNames(actualAddress, <String>[
+          'lol',
+          'samolean',
+          'test',
+          'ukex',
+        ]),
+        throwsA(isA<DioParseException>()),
+      );
+    });
+
+    test('Should throw [DioConnectException] if [server OFFLINE]', () async {
+      // Arrange
+      Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://offline.kira.network/');
+      await TestUtils.setupNetworkModel(networkUri: networkUri);
+
+      // Assert
+      expect(
+        queryBalanceService.getBalancesByTokenNames(actualAddress, <String>[
+          'lol',
+          'samolean',
+          'test',
+          'ukex',
+        ]),
         throwsA(isA<DioConnectException>()),
       );
     });

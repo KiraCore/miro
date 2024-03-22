@@ -44,7 +44,7 @@ class WalletAddress extends Equatable {
 
   /// Returns the associated [address] as a Bech32 string.
   String get bech32Address {
-    String bech32Hrp = _bech32Hrp ?? globalLocator<NetworkModuleBloc>().tokenDefaultDenomModel.bech32AddressPrefix!;
+    String bech32Hrp = _bech32Hrp ?? globalLocator<NetworkModuleBloc>().state.bech32AddressPrefix!;
     return Bech32.encode(bech32Hrp, addressBytes);
   }
 

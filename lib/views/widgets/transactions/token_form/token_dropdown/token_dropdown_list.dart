@@ -17,12 +17,14 @@ import 'package:miro/views/widgets/transactions/token_form/token_dropdown/token_
 class TokenDropdownList extends StatefulWidget {
   final TokenAliasModel? initialTokenAliasModel;
   final ValueChanged<BalanceModel> onBalanceModelSelected;
+  final bool? derivedTokensBool;
   final FilterOption<BalanceModel>? initialFilterOption;
   final WalletAddress? walletAddress;
 
   const TokenDropdownList({
     required this.initialTokenAliasModel,
     required this.onBalanceModelSelected,
+    this.derivedTokensBool,
     this.initialFilterOption,
     this.walletAddress,
     Key? key,
@@ -40,7 +42,10 @@ class _TokenDropdownList extends State<TokenDropdownList> {
     searchComparator: BalancesFilterOptions.search,
   );
 
-  late final BalancesListController balancesListController = BalancesListController(walletAddress: widget.walletAddress!);
+  late final BalancesListController balancesListController = BalancesListController(
+    walletAddress: widget.walletAddress!,
+    derivedTokens: widget.derivedTokensBool,
+  );
   late final FavouritesBloc<BalanceModel> favouritesBloc = FavouritesBloc<BalanceModel>(
     listController: balancesListController,
   );

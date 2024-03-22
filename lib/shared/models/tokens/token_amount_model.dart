@@ -32,6 +32,15 @@ class TokenAmountModel {
     );
   }
 
+  TokenAmountModel copyWith({
+    TokenAliasModel? tokenAliasModel,
+  }) {
+    return TokenAmountModel(
+      defaultDenominationAmount: _defaultDenominationAmount,
+      tokenAliasModel: tokenAliasModel ?? this.tokenAliasModel,
+    );
+  }
+
   TokenAmountModel copy() {
     return TokenAmountModel(
       defaultDenominationAmount: _defaultDenominationAmount,

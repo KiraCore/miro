@@ -3,6 +3,7 @@ import 'package:miro/blocs/widgets/network_list/network_custom_section/network_c
 import 'package:miro/blocs/widgets/network_list/network_custom_section/network_custom_section_state.dart';
 import 'package:miro/shared/models/network/data/connection_status_type.dart';
 import 'package:miro/shared/models/network/status/network_offline_model.dart';
+import 'package:miro/shared/models/tokens/token_default_denom_model.dart';
 import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
@@ -16,12 +17,14 @@ Future<void> main() async {
     connectionStatusType: ConnectionStatusType.disconnected,
     uri: Uri.parse('https://offline.kira.networktypo'),
     lastRefreshDateTime: TestUtils.defaultLastRefreshDateTime,
+    tokenDefaultDenomModel: TokenDefaultDenomModel.empty(),
   );
 
   final NetworkOfflineModel wrongParamsCustomNetworkOfflineModel = NetworkOfflineModel(
     connectionStatusType: ConnectionStatusType.disconnected,
     uri: Uri.parse('https://offline.kira.network/wrong?params=0'),
     lastRefreshDateTime: TestUtils.defaultLastRefreshDateTime,
+    tokenDefaultDenomModel: TokenDefaultDenomModel.empty(),
   );
 
   group('Tests of NetworkCustomSectionCubit process', () {

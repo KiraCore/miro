@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:miro/shared/models/network/data/connection_status_type.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
 import 'package:miro/shared/models/network/status/network_empty_model.dart';
+import 'package:miro/shared/models/tokens/token_alias_model.dart';
 
 class NetworkModuleState extends Equatable {
   final ANetworkStatusModel networkStatusModel; // NetworkEmptyModel
@@ -25,6 +26,12 @@ class NetworkModuleState extends Equatable {
   bool get isDisconnected => networkStatusModel.connectionStatusType == ConnectionStatusType.disconnected;
 
   bool get isRefreshing => networkStatusModel.connectionStatusType == ConnectionStatusType.refreshing;
+
+  bool get valuesFromNetworkExistBool => networkStatusModel.tokenDefaultDenomModel.valuesFromNetworkExistBool;
+
+  String? get bech32AddressPrefix => networkStatusModel.tokenDefaultDenomModel.bech32AddressPrefix;
+
+  TokenAliasModel? get defaultTokenAliasModel => networkStatusModel.tokenDefaultDenomModel.defaultTokenAliasModel;
 
   Uri get networkUri => networkStatusModel.uri;
 

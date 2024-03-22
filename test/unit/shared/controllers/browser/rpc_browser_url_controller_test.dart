@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/shared/controllers/browser/rpc_browser_url_controller.dart';
 import 'package:miro/shared/models/network/data/connection_status_type.dart';
 import 'package:miro/shared/models/network/status/network_unknown_model.dart';
+import 'package:miro/shared/models/tokens/token_default_denom_model.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
 import 'mock_data/mock_browser_url_controller.dart';
@@ -108,12 +109,13 @@ Future<void> main() async {
         connectionStatusType: ConnectionStatusType.disconnected,
         uri: Uri.parse('https://testnet-rpc.kira.network'),
         lastRefreshDateTime: TestUtils.defaultLastRefreshDateTime,
+        tokenDefaultDenomModel: TokenDefaultDenomModel.empty(),
       );
 
       // Act
       actualRpcBrowserUrlController.setRpcAddress(networkUnknownModel);
       Map<String, dynamic> actualQueryParameters = actualRpcBrowserUrlController.browserUrlController.extractQueryParameters();
-      
+
       // Assert
       String expectedNetworkAddress = 'https://testnet-rpc.kira.network';
 
@@ -134,6 +136,7 @@ Future<void> main() async {
         connectionStatusType: ConnectionStatusType.disconnected,
         uri: Uri.parse('https://testnet-rpc.kira.network'),
         lastRefreshDateTime: TestUtils.defaultLastRefreshDateTime,
+        tokenDefaultDenomModel: TokenDefaultDenomModel.empty(),
       );
       Map<String, dynamic> previouslyExistedQueryParams = <String, dynamic>{
         'account': '0x123',
@@ -205,7 +208,7 @@ Future<void> main() async {
       // Act
       actualRpcBrowserUrlController.removeRpcAddress();
       Map<String, dynamic> actualQueryParameters = actualRpcBrowserUrlController.browserUrlController.extractQueryParameters();
-      
+
       // Assert
       expect(
         actualQueryParameters['rpc'],

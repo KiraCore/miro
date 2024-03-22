@@ -12,8 +12,12 @@ import 'package:miro/infra/exceptions/dio_parse_exception.dart';
 import 'package:miro/infra/exceptions/tx_broadcast_exception.dart';
 import 'package:miro/infra/services/api_kira/broadcast_service.dart';
 import 'package:miro/infra/services/api_kira/query_account_service.dart';
+import 'package:miro/shared/models/network/data/connection_status_type.dart';
+import 'package:miro/shared/models/network/status/network_offline_model.dart';
+import 'package:miro/shared/models/network/status/network_unknown_model.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
+import 'package:miro/shared/models/tokens/token_default_denom_model.dart';
 import 'package:miro/shared/models/transactions/messages/identity_registrar/ir_msg_cancel_verification_request_model.dart';
 import 'package:miro/shared/models/transactions/messages/identity_registrar/ir_msg_delete_records_model.dart';
 import 'package:miro/shared/models/transactions/messages/identity_registrar/ir_msg_handle_verification_request_model.dart';
@@ -966,16 +970,40 @@ Future<void> main() async {
       );
     });
 
-    test('Should throw [DioConnectException] if [server OFFLINE]', () async {
+    test('Should throw [DioConnectException] if [server OFFLINE] (lost connection)', () async {
       // Arrange
       NetworkModuleBloc networkModuleBloc = globalLocator<NetworkModuleBloc>();
 
+      NetworkUnknownModel networkOfflineUnknownModel = NetworkUnknownModel(
+        connectionStatusType: ConnectionStatusType.disconnected,
+        uri: Uri.parse('https://offline.kira.network'),
+        name: 'offline-mainnet',
+        lastRefreshDateTime: TestUtils.defaultLastRefreshDateTime,
+        tokenDefaultDenomModel: TokenDefaultDenomModel(
+          valuesFromNetworkExistBool: true,
+          bech32AddressPrefix: 'kira',
+          defaultTokenAliasModel: TestUtils.kexTokenAliasModel,
+        ),
+      );
+
+      NetworkOfflineModel networkOfflineModel = NetworkOfflineModel(
+        connectionStatusType: ConnectionStatusType.disconnected,
+        name: 'offline-mainnet',
+        uri: Uri.parse('https://offline.kira.network'),
+        lastRefreshDateTime: TestUtils.defaultLastRefreshDateTime,
+        tokenDefaultDenomModel: TokenDefaultDenomModel(
+          valuesFromNetworkExistBool: true,
+          bech32AddressPrefix: 'kira',
+          defaultTokenAliasModel: TestUtils.kexTokenAliasModel,
+        ),
+      );
+
       // Act
-      networkModuleBloc.add(NetworkModuleAutoConnectEvent(TestUtils.offlineNetworkUnknownModel));
+      networkModuleBloc.add(NetworkModuleAutoConnectEvent(networkOfflineUnknownModel));
       await Future<void>.delayed(const Duration(milliseconds: 500));
 
       // Assert
-      NetworkModuleState expectedNetworkModuleState = NetworkModuleState.connected(TestUtils.networkOfflineModel);
+      NetworkModuleState expectedNetworkModuleState = NetworkModuleState.connected(networkOfflineModel);
 
       TestUtils.printInfo('Should return [NetworkModuleState.connected with NetworkOfflineModel]');
       expect(networkModuleBloc.state, expectedNetworkModuleState);

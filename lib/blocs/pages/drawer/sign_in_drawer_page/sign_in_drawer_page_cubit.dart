@@ -7,7 +7,6 @@ import 'package:miro/blocs/generic/network_module/network_module_state.dart';
 import 'package:miro/blocs/pages/drawer/sign_in_drawer_page/sign_in_drawer_page_state.dart';
 import 'package:miro/config/app_config.dart';
 import 'package:miro/config/locator.dart';
-import 'package:miro/shared/models/tokens/token_default_denom_model.dart';
 
 class SignInDrawerPageCubit extends Cubit<SignInDrawerPageState> {
   final int refreshIntervalSeconds = globalLocator<AppConfig>().defaultRefreshIntervalSeconds;
@@ -31,8 +30,7 @@ class SignInDrawerPageCubit extends Cubit<SignInDrawerPageState> {
   }
 
   void _refreshDrawer([NetworkModuleState? networkModuleState]) {
-    TokenDefaultDenomModel tokenDefaultDenomModel = _networkModuleBloc.tokenDefaultDenomModel;
-    bool disabledBool = tokenDefaultDenomModel.valuesFromNetworkExistBool == false;
+    bool disabledBool = _networkModuleBloc.state.valuesFromNetworkExistBool == false;
     DateTime expirationDateTime = _calculateExpirationDateTime();
     if (_networkModuleBloc.state.isRefreshing) {
       emit(state.copyWith(disabledBool: disabledBool, refreshingBool: true, refreshUnlockingDateTime: expirationDateTime));
