@@ -10,8 +10,9 @@ import 'package:miro/test/utils/test_utils.dart';
 
 // To run this test type in console:
 // fvm flutter test test/unit/blocs/pages/drawer/create_wallet_drawer_page_cubit_test.dart --platform chrome --null-assertions
-void main() {
-  initMockLocator();
+Future<void> main() async {
+  await initMockLocator();
+  await TestUtils.setupNetworkModel(networkUri: Uri.parse('https://healthy.kira.network/'));
 
   group('Tests of [CreateWalletDrawerPageCubit] process', () {
     test('Should return [ACreateWalletDrawerPageState] consistent with current action', () async {

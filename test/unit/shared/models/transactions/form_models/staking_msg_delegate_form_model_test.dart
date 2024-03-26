@@ -7,9 +7,9 @@ import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
 import 'package:miro/shared/models/transactions/messages/staking/staking_msg_delegate_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 
-void main() {
+Future<void> main() async {
   WalletAddress actualDelegatorWalletAddress = WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx');
-  WalletAddress actualValoperWalletAddress = WalletAddress.fromBech32('kiravaloper1c6slygj2tx7hzm0mn4qeflqpvngj73c2cw7fh7');
+  String actualValkey = 'kiravaloper1c6slygj2tx7hzm0mn4qeflqpvngj73c2cw7fh7';
   List<TokenAmountModel> actualTokenAmountModels = <TokenAmountModel>[
     TokenAmountModel(
       defaultDenominationAmount: Decimal.fromInt(100),
@@ -22,7 +22,7 @@ void main() {
       // Arrange
       StakingMsgDelegateFormModel actualStakingMsgDelegateFormModel = StakingMsgDelegateFormModel(
         delegatorWalletAddress: actualDelegatorWalletAddress,
-        valoperWalletAddress: actualValoperWalletAddress,
+        valkey: actualValkey,
         tokenAmountModels: actualTokenAmountModels,
       );
 
@@ -32,7 +32,7 @@ void main() {
       // Assert
       StakingMsgDelegateModel expectedStakingMsgDelegateModel = StakingMsgDelegateModel(
         delegatorWalletAddress: actualDelegatorWalletAddress,
-        valoperWalletAddress: actualValoperWalletAddress,
+        valkey: actualValkey,
         tokenAmountModels: actualTokenAmountModels,
       );
 
@@ -43,7 +43,7 @@ void main() {
       // Arrange
       StakingMsgDelegateFormModel actualStakingMsgDelegateFormModel = StakingMsgDelegateFormModel(
         delegatorWalletAddress: actualDelegatorWalletAddress,
-        valoperWalletAddress: actualValoperWalletAddress,
+        valkey: actualValkey,
         tokenAmountModels: <TokenAmountModel>[
           TokenAmountModel(
             defaultDenominationAmount: Decimal.fromInt(0),
@@ -54,7 +54,7 @@ void main() {
 
       // Assert
       expect(
-            () => actualStakingMsgDelegateFormModel.buildTxMsgModel(),
+        () => actualStakingMsgDelegateFormModel.buildTxMsgModel(),
         throwsA(isA<Exception>()),
       );
     });
@@ -63,28 +63,28 @@ void main() {
       // Arrange
       StakingMsgDelegateFormModel actualStakingMsgDelegateFormModel = StakingMsgDelegateFormModel(
         delegatorWalletAddress: null,
-        valoperWalletAddress: actualValoperWalletAddress,
+        valkey: actualValkey,
         tokenAmountModels: actualTokenAmountModels,
       );
 
       // Assert
       expect(
-            () => actualStakingMsgDelegateFormModel.buildTxMsgModel(),
+        () => actualStakingMsgDelegateFormModel.buildTxMsgModel(),
         throwsA(isA<Exception>()),
       );
     });
 
-    test('Should [throw Exception] if at least one of required form fields is empty (valoperWalletAddress)', () {
+    test('Should [throw Exception] if at least one of required form fields is empty (valkey)', () {
       // Arrange
       StakingMsgDelegateFormModel actualStakingMsgDelegateFormModel = StakingMsgDelegateFormModel(
         delegatorWalletAddress: actualDelegatorWalletAddress,
-        valoperWalletAddress: null,
+        valkey: null,
         tokenAmountModels: actualTokenAmountModels,
       );
 
       // Assert
       expect(
-            () => actualStakingMsgDelegateFormModel.buildTxMsgModel(),
+        () => actualStakingMsgDelegateFormModel.buildTxMsgModel(),
         throwsA(isA<Exception>()),
       );
     });
@@ -93,13 +93,13 @@ void main() {
       // Arrange
       StakingMsgDelegateFormModel actualStakingMsgDelegateFormModel = StakingMsgDelegateFormModel(
         delegatorWalletAddress: actualDelegatorWalletAddress,
-        valoperWalletAddress: actualValoperWalletAddress,
+        valkey: actualValkey,
         tokenAmountModels: null,
       );
 
       // Assert
       expect(
-            () => actualStakingMsgDelegateFormModel.buildTxMsgModel(),
+        () => actualStakingMsgDelegateFormModel.buildTxMsgModel(),
         throwsA(isA<Exception>()),
       );
     });
@@ -110,7 +110,7 @@ void main() {
       // Arrange
       StakingMsgDelegateFormModel actualStakingMsgDelegateFormModel = StakingMsgDelegateFormModel(
         delegatorWalletAddress: actualDelegatorWalletAddress,
-        valoperWalletAddress: actualValoperWalletAddress,
+        valkey: actualValkey,
         tokenAmountModels: actualTokenAmountModels,
       );
 
@@ -125,7 +125,7 @@ void main() {
       // Arrange
       StakingMsgDelegateFormModel actualStakingMsgDelegateFormModel = StakingMsgDelegateFormModel(
         delegatorWalletAddress: actualDelegatorWalletAddress,
-        valoperWalletAddress: actualValoperWalletAddress,
+        valkey: actualValkey,
         tokenAmountModels: <TokenAmountModel>[
           TokenAmountModel(
             defaultDenominationAmount: Decimal.fromInt(0),
@@ -145,7 +145,7 @@ void main() {
       // Arrange
       StakingMsgDelegateFormModel actualStakingMsgDelegateFormModel = StakingMsgDelegateFormModel(
         delegatorWalletAddress: null,
-        valoperWalletAddress: actualValoperWalletAddress,
+        valkey: actualValkey,
         tokenAmountModels: actualTokenAmountModels,
       );
 
@@ -156,11 +156,11 @@ void main() {
       expect(actualBuildAvailableBool, false);
     });
 
-    test('Should [return FALSE] if at least one of required form fields is empty (valoperWalletAddress)', () {
+    test('Should [return FALSE] if at least one of required form fields is empty (valkey)', () {
       // Arrange
       StakingMsgDelegateFormModel actualStakingMsgDelegateFormModel = StakingMsgDelegateFormModel(
         delegatorWalletAddress: actualDelegatorWalletAddress,
-        valoperWalletAddress: null,
+        valkey: null,
         tokenAmountModels: actualTokenAmountModels,
       );
 
@@ -175,7 +175,7 @@ void main() {
       // Arrange
       StakingMsgDelegateFormModel actualStakingMsgDelegateFormModel = StakingMsgDelegateFormModel(
         delegatorWalletAddress: actualDelegatorWalletAddress,
-        valoperWalletAddress: actualValoperWalletAddress,
+        valkey: actualValkey,
         tokenAmountModels: null,
       );
 

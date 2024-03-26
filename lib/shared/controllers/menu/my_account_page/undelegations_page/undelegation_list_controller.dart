@@ -11,10 +11,10 @@ import 'package:miro/shared/models/wallet/wallet_address.dart';
 class UndelegationListController implements IListController<UndelegationModel> {
   final FavouritesCacheService _favouritesCacheService = FavouritesCacheService(domainName: 'undelegations');
   final QueryUndelegationsService _queryUndelegationsService = globalLocator<QueryUndelegationsService>();
-  final WalletAddress undelegatorWalletAddress;
+  final WalletAddress walletAddress;
 
   UndelegationListController({
-    required this.undelegatorWalletAddress,
+    required this.walletAddress,
   });
 
   @override
@@ -31,7 +31,7 @@ class UndelegationListController implements IListController<UndelegationModel> {
   Future<PageData<UndelegationModel>> getPageData(PaginationDetailsModel paginationDetailsModel, {bool forceRequestBool = false}) async {
     PageData<UndelegationModel> undelegationPageData = await _queryUndelegationsService.getUndelegationModelList(
       QueryUndelegationsReq(
-        undelegatorAddress: undelegatorWalletAddress.bech32Address,
+        undelegatorAddress: walletAddress.bech32Address,
         offset: paginationDetailsModel.offset,
         limit: paginationDetailsModel.limit,
       ),

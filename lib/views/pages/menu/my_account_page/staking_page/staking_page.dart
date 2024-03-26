@@ -63,7 +63,7 @@ class _StakingPage extends State<StakingPage> {
         validatorStakingModel: validatorStakingModel,
         scrollController: scrollController,
       ),
-      listController: StakingListController(delegatorAddress: widget.walletAddress.bech32Address),
+      listController: StakingListController(walletAddress: widget.walletAddress),
       scrollController: scrollController,
       singlePageSize: listHeight ~/ StakingListItemDesktop.height + 5,
       hasBackgroundBool: ResponsiveWidget.isLargeScreen(context),

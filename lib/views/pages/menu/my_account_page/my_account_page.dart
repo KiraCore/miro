@@ -75,8 +75,8 @@ class _MyAccountPage extends State<MyAccountPage> with SingleTickerProviderState
                   SliverTabBarView(
                     tabController: tabController,
                     children: <Widget>[
-                      BalancePage(address: wallet.address.bech32Address, parentScrollController: scrollController),
-                      TransactionsPage(address: wallet.address.bech32Address, parentScrollController: scrollController),
+                      BalancePage(walletAddress: wallet.address, parentScrollController: scrollController),
+                      TransactionsPage(walletAddress: wallet.address, parentScrollController: scrollController),
                       IdentityRegistrarPage(walletAddress: wallet.address),
                       VerificationRequestsPage(walletAddress: wallet.address, parentScrollController: scrollController),
                       StakingPage(walletAddress: wallet.address),

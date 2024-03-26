@@ -11,10 +11,10 @@ class ValidatorModel extends AListItem {
   final int uptime;
   final String moniker;
   final String streak;
+  final String valkey;
   final StakingPoolStatus stakingPoolStatus;
   final ValidatorStatus validatorStatus;
   final WalletAddress walletAddress;
-  final WalletAddress valoperWalletAddress;
   final String? contact;
   final String? description;
   final String? logo;
@@ -27,10 +27,10 @@ class ValidatorModel extends AListItem {
     required this.uptime,
     required this.moniker,
     required this.streak,
+    required this.valkey,
     required this.stakingPoolStatus,
     required this.validatorStatus,
     required this.walletAddress,
-    required this.valoperWalletAddress,
     this.contact,
     this.description,
     this.logo,
@@ -50,8 +50,8 @@ class ValidatorModel extends AListItem {
       streak: validator.streak,
       stakingPoolStatus: StakingPoolStatus.fromString(validator.stakingPoolStatus),
       validatorStatus: validatorStatus,
-      walletAddress: WalletAddress.fromBech32(validator.address),
-      valoperWalletAddress: WalletAddress.fromBech32(validator.valkey),
+      walletAddress: WalletAddress.fromBech32ValidatorsPage(validator.address),
+      valkey: validator.valkey,
       contact: validator.contact,
       description: validator.description,
       logo: validator.logo,
@@ -74,6 +74,7 @@ class ValidatorModel extends AListItem {
         moniker: moniker,
         logo: logo,
         website: website,
+        valkey: valkey,
       );
 
   static int _calcUptime(Validator validator) {
@@ -89,6 +90,6 @@ class ValidatorModel extends AListItem {
 
   @override
   String toString() {
-    return 'ValidatorModel{top: $top, uptime: $uptime, moniker: $moniker, streak: $streak, stakingPool: $stakingPoolStatus, validatorStatus: $validatorStatus, walletAddress: $walletAddress, valoperWalletAddress: $valoperWalletAddress, contact: $contact, description: $description, logo: $logo, social: $social, website: $website, favourite: $isFavourite}';
+    return 'ValidatorModel{top: $top, uptime: $uptime, moniker: $moniker, streak: $streak, valkey: $valkey, stakingPool: $stakingPoolStatus, validatorStatus: $validatorStatus, walletAddress: $walletAddress, contact: $contact, description: $description, logo: $logo, social: $social, website: $website, favourite: $isFavourite}';
   }
 }

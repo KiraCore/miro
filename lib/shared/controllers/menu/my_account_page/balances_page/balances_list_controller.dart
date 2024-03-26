@@ -6,14 +6,15 @@ import 'package:miro/infra/services/api_kira/query_balance_service.dart';
 import 'package:miro/infra/services/cache/favourites_cache_service.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
 import 'package:miro/shared/models/list/pagination_details_model.dart';
+import 'package:miro/shared/models/wallet/wallet_address.dart';
 
 class BalancesListController implements IListController<BalanceModel> {
   final FavouritesCacheService favouriteCacheService = FavouritesCacheService(domainName: 'balances');
   final QueryBalanceService queryBalanceService = globalLocator<QueryBalanceService>();
-  final String address;
+  final WalletAddress walletAddress;
 
   BalancesListController({
-    required this.address,
+    required this.walletAddress,
   });
 
   @override
@@ -27,7 +28,7 @@ class BalancesListController implements IListController<BalanceModel> {
     if (favouriteBalances.isNotEmpty) {
       // TODO(dominik): implement request Balances by name
       PageData<BalanceModel> balancesPageData = await queryBalanceService.getBalanceModelList(
-        QueryBalanceReq(address: address, offset: 0, limit: 500),
+        QueryBalanceReq(address: walletAddress.bech32Address, offset: 0, limit: 500),
         forceRequestBool: forceRequestBool,
       );
 
@@ -41,7 +42,7 @@ class BalancesListController implements IListController<BalanceModel> {
   @override
   Future<PageData<BalanceModel>> getPageData(PaginationDetailsModel paginationDetailsModel, {bool forceRequestBool = false}) async {
     PageData<BalanceModel> balancesPageData = await queryBalanceService.getBalanceModelList(
-      QueryBalanceReq(address: address, limit: paginationDetailsModel.limit, offset: paginationDetailsModel.offset),
+      QueryBalanceReq(address: walletAddress.bech32Address, limit: paginationDetailsModel.limit, offset: paginationDetailsModel.offset),
       forceRequestBool: forceRequestBool,
     );
     return balancesPageData;

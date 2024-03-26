@@ -14,27 +14,27 @@ import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 
 class StakingMsgUndelegateModel extends ATxMsgModel {
+  final String valkey;
   final WalletAddress delegatorWalletAddress;
-  final WalletAddress valoperWalletAddress;
   final List<TokenAmountModel> tokenAmountModels;
 
   const StakingMsgUndelegateModel({
+    required this.valkey,
     required this.delegatorWalletAddress,
-    required this.valoperWalletAddress,
     required this.tokenAmountModels,
   }) : super(txMsgType: TxMsgType.msgUndelegate);
 
   StakingMsgUndelegateModel.single({
+    required this.valkey,
     required this.delegatorWalletAddress,
-    required this.valoperWalletAddress,
     required TokenAmountModel tokenAmountModel,
   })  : tokenAmountModels = <TokenAmountModel>[tokenAmountModel],
         super(txMsgType: TxMsgType.msgUndelegate);
 
   factory StakingMsgUndelegateModel.fromMsgDto(MsgUndelegate msgUndelegate) {
     return StakingMsgUndelegateModel(
+      valkey: msgUndelegate.valoperAddress,
       delegatorWalletAddress: WalletAddress.fromBech32(msgUndelegate.delegatorAddress),
-      valoperWalletAddress: WalletAddress.fromBech32(msgUndelegate.valoperAddress),
       tokenAmountModels: msgUndelegate.amounts
           .map((Coin coin) => TokenAmountModel(
                 defaultDenominationAmount: Decimal.parse(coin.amount),
@@ -48,7 +48,7 @@ class StakingMsgUndelegateModel extends ATxMsgModel {
   ATxMsg toMsgDto() {
     return MsgUndelegate(
       delegatorAddress: delegatorWalletAddress.bech32Address,
-      valoperAddress: valoperWalletAddress.bech32Address,
+      valoperAddress: valkey,
       amounts: tokenAmountModels.map((TokenAmountModel tokenAmountModel) {
         return Coin(
           denom: tokenAmountModel.tokenAliasModel.defaultTokenDenominationModel.name,
@@ -72,7 +72,7 @@ class StakingMsgUndelegateModel extends ATxMsgModel {
 
   @override
   String? getSubtitle(TxDirectionType txDirectionType) {
-    return valoperWalletAddress.bech32Address;
+    return valkey;
   }
 
   @override
@@ -81,5 +81,5 @@ class StakingMsgUndelegateModel extends ATxMsgModel {
   }
 
   @override
-  List<Object?> get props => <Object>[delegatorWalletAddress, valoperWalletAddress, tokenAmountModels];
+  List<Object?> get props => <Object>[delegatorWalletAddress, valkey, tokenAmountModels];
 }

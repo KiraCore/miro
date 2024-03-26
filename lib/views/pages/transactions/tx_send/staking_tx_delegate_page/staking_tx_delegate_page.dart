@@ -10,7 +10,6 @@ import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/transactions/form_models/staking_msg_delegate_form_model.dart';
 import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
 import 'package:miro/shared/models/validators/validator_simplified_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/views/pages/transactions/tx_send/staking_tx_delegate_page/staking_tx_delegate_confirm_dialog.dart';
 import 'package:miro/views/pages/transactions/tx_send/staking_tx_delegate_page/staking_tx_delegate_form_dialog.dart';
 import 'package:miro/views/widgets/transactions/send/tx_process_wrapper.dart';
@@ -36,7 +35,7 @@ class _StakingTxDelegatePage extends State<StakingTxDelegatePage> {
     txMsgType: TxMsgType.msgDelegate,
     msgFormModel: StakingMsgDelegateFormModel(
       delegatorWalletAddress: authCubit.state?.address,
-      valoperWalletAddress: WalletAddress(addressBytes: widget.validatorSimplifiedModel.walletAddress.addressBytes, bech32Hrp: 'kiravaloper'),
+      valkey: widget.validatorSimplifiedModel.valkey,
     ),
   );
 

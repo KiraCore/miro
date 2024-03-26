@@ -29,6 +29,7 @@ class UndelegationModel extends AListItem {
         walletAddress: WalletAddress.fromBech32(undelegation.validatorInfo.address),
         moniker: undelegation.validatorInfo.moniker,
         logo: undelegation.validatorInfo.logo,
+        valkey: undelegation.validatorInfo.valkey,
       ),
       tokens: undelegation.tokens
           .map((Coin e) => TokenAmountModel(

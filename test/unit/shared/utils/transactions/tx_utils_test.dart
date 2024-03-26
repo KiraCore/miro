@@ -11,11 +11,15 @@ import 'package:miro/shared/models/transactions/tx_remote_info_model.dart';
 import 'package:miro/shared/models/transactions/unsigned_tx_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/shared/utils/transactions/tx_utils.dart';
+import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
 // To run this test type in console:
 // fvm flutter test test/unit/shared/utils/transactions/tx_utils_test.dart --platform chrome --null-assertions
 Future<void> main() async {
+  await initMockLocator();
+  await TestUtils.setupNetworkModel(networkUri: Uri.parse('https://healthy.kira.network/'));
+
   group('Tests of TxUtils.buildAmountString() method', () {
     // Arrange
     TokenDenominationModel ukex = const TokenDenominationModel(name: 'ukex', decimals: 0);

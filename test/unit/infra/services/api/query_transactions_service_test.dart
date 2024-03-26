@@ -193,7 +193,7 @@ Future<void> main() async {
         txMsgModels: <ATxMsgModel>[
           StakingMsgDelegateModel(
             delegatorWalletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
-            valoperWalletAddress: WalletAddress.fromBech32('kiravaloper1c6slygj2tx7hzm0mn4qeflqpvngj73c2cw7fh7'),
+            valkey: 'kiravaloper1c6slygj2tx7hzm0mn4qeflqpvngj73c2cw7fh7',
             tokenAmountModels: <TokenAmountModel>[
               TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TokenAliasModel.local('ukex'))
             ],
@@ -218,7 +218,7 @@ Future<void> main() async {
         txMsgModels: <ATxMsgModel>[
           StakingMsgUndelegateModel(
             delegatorWalletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
-            valoperWalletAddress: WalletAddress.fromBech32('kiravaloper1c6slygj2tx7hzm0mn4qeflqpvngj73c2cw7fh7'),
+            valkey: 'kiravaloper1c6slygj2tx7hzm0mn4qeflqpvngj73c2cw7fh7',
             tokenAmountModels: <TokenAmountModel>[
               TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TokenAliasModel.local('ukex'))
             ],

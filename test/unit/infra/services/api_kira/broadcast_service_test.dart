@@ -1,7 +1,7 @@
 import 'package:decimal/decimal.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:miro/blocs/generic/network_module/events/network_module_auto_connect_event.dart';
 import 'package:miro/blocs/generic/network_module/events/network_module_connect_event.dart';
-import 'package:miro/blocs/generic/network_module/events/network_module_disconnect_event.dart';
 import 'package:miro/blocs/generic/network_module/network_module_bloc.dart';
 import 'package:miro/blocs/generic/network_module/network_module_state.dart';
 import 'package:miro/config/locator.dart';
@@ -32,7 +32,6 @@ import 'package:miro/shared/models/transactions/tx_remote_info_model.dart';
 import 'package:miro/shared/models/transactions/unsigned_tx_model.dart';
 import 'package:miro/shared/models/wallet/mnemonic.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/shared/utils/network_utils.dart';
 import 'package:miro/shared/utils/transactions/tx_utils.dart';
 import 'package:miro/test/mock_locator.dart';
@@ -602,8 +601,8 @@ Future<void> main() async {
         memo: 'Test of MsgDelegate message',
         feeTokenAmountModel: feeTokenAmountModel,
         txMsgModel: StakingMsgDelegateModel.single(
+          valkey: 'kiravaloper1c6slygj2tx7hzm0mn4qeflqpvngj73c2cw7fh7',
           delegatorWalletAddress: senderWallet.address,
-          valoperWalletAddress: WalletAddress.fromBech32('kiravaloper1c6slygj2tx7hzm0mn4qeflqpvngj73c2cw7fh7'),
           tokenAmountModel: TokenAmountModel(
             defaultDenominationAmount: Decimal.fromInt(100),
             tokenAliasModel: TokenAliasModel.local('ukex'),
@@ -693,8 +692,8 @@ Future<void> main() async {
         memo: 'Test of MsgUndelegate message',
         feeTokenAmountModel: feeTokenAmountModel,
         txMsgModel: StakingMsgUndelegateModel.single(
+          valkey: 'kiravaloper1c6slygj2tx7hzm0mn4qeflqpvngj73c2cw7fh7',
           delegatorWalletAddress: senderWallet.address,
-          valoperWalletAddress: WalletAddress.fromBech32('kiravaloper1c6slygj2tx7hzm0mn4qeflqpvngj73c2cw7fh7'),
           tokenAmountModel: TokenAmountModel(
             defaultDenominationAmount: Decimal.fromInt(100),
             tokenAliasModel: TokenAliasModel.local('ukex'),
@@ -972,13 +971,13 @@ Future<void> main() async {
       NetworkModuleBloc networkModuleBloc = globalLocator<NetworkModuleBloc>();
 
       // Act
-      networkModuleBloc.add(NetworkModuleDisconnectEvent());
+      networkModuleBloc.add(NetworkModuleAutoConnectEvent(TestUtils.offlineNetworkUnknownModel));
       await Future<void>.delayed(const Duration(milliseconds: 500));
 
       // Assert
-      NetworkModuleState expectedNetworkModuleState = NetworkModuleState.disconnected();
+      NetworkModuleState expectedNetworkModuleState = NetworkModuleState.connected(TestUtils.networkOfflineModel);
 
-      TestUtils.printInfo('Should return [NetworkModuleState.disconnected()]');
+      TestUtils.printInfo('Should return [NetworkModuleState.connected with NetworkOfflineModel]');
       expect(networkModuleBloc.state, expectedNetworkModuleState);
 
       // ****************************************************************************************

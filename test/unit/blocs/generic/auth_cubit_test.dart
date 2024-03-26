@@ -11,6 +11,7 @@ import 'package:miro/test/utils/test_utils.dart';
 // fvm flutter test test/unit/blocs/generic/auth_cubit_test.dart --platform chrome --null-assertions
 Future<void> main() async {
   await initMockLocator();
+  await TestUtils.setupNetworkModel(networkUri: Uri.parse('https://healthy.kira.network/'));
 
   group('Tests of [AuthCubit] process', () {
     test('Should return states assigned to specific actions', () async {

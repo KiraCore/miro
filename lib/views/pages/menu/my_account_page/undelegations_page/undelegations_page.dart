@@ -64,7 +64,7 @@ class _UndelegationsPageState extends State<UndelegationsPage> {
         undelegationModel: undelegationModel,
       ),
       scrollController: widget.parentScrollController,
-      listController: UndelegationListController(undelegatorWalletAddress: widget.walletAddress),
+      listController: UndelegationListController(walletAddress: widget.walletAddress),
       singlePageSize: listHeight ~/ UndelegationListItemDesktop.height + 5,
       hasBackgroundBool: ResponsiveWidget.isLargeScreen(context),
       listHeaderWidget: ResponsiveWidget.isLargeScreen(context) ? listHeaderWidget : null,

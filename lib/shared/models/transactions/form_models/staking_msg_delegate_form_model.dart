@@ -10,8 +10,8 @@ import 'package:miro/shared/models/wallet/wallet_address.dart';
 
 class StakingMsgDelegateFormModel extends AMsgFormModel {
   // Form fields
+  String? _valkey;
   WalletAddress? _delegatorWalletAddress;
-  WalletAddress? _valoperWalletAddress;
   List<TokenAmountModel>? _tokenAmountModels;
 
   // Values required to be saved to allow editing transaction
@@ -20,18 +20,18 @@ class StakingMsgDelegateFormModel extends AMsgFormModel {
   TokenDenominationModel? tokenDenominationModel;
 
   StakingMsgDelegateFormModel({
+    String? valkey,
     WalletAddress? delegatorWalletAddress,
-    WalletAddress? valoperWalletAddress,
     List<TokenAmountModel>? tokenAmountModels,
     this.balanceModel,
     this.tokenAliasModel,
     this.tokenDenominationModel,
-  })  : _delegatorWalletAddress = delegatorWalletAddress,
-        _valoperWalletAddress = valoperWalletAddress,
+  })  : _valkey = valkey,
+        _delegatorWalletAddress = delegatorWalletAddress,
         _tokenAmountModels = tokenAmountModels;
 
   /// Method [buildTxMsgModel] throws [Exception] if at least one of the fields:
-  /// [_delegatorWalletAddress], [_valoperWalletAddress] or [_tokenAmountModels]
+  /// [_valkey], [_delegatorWalletAddress] or [_tokenAmountModels]
   /// is not filled (equal null) or [_tokenAmountModels] is empty List.
   ///
   @override
@@ -41,8 +41,8 @@ class StakingMsgDelegateFormModel extends AMsgFormModel {
       throw Exception('Cannot build StakingMsgDelegateModel. Form is not valid');
     }
     return StakingMsgDelegateModel(
+      valkey: _valkey!,
       delegatorWalletAddress: _delegatorWalletAddress!,
-      valoperWalletAddress: _valoperWalletAddress!,
       tokenAmountModels: _tokenAmountModels!,
     );
   }
@@ -50,7 +50,7 @@ class StakingMsgDelegateFormModel extends AMsgFormModel {
   @override
   bool canBuildTxMsg() {
     bool amountZeroBool = tokenAmountModels?.length == 1 && tokenAmountModels?.first.getAmountInDefaultDenomination() == Decimal.zero;
-    bool fieldsFilledBool = _delegatorWalletAddress != null && _valoperWalletAddress != null && tokenAmountModels != null && amountZeroBool == false;
+    bool fieldsFilledBool = _delegatorWalletAddress != null && _valkey != null && tokenAmountModels != null && amountZeroBool == false;
     return fieldsFilledBool;
   }
 
@@ -61,10 +61,10 @@ class StakingMsgDelegateFormModel extends AMsgFormModel {
     notifyListeners();
   }
 
-  WalletAddress? get valoperWalletAddress => _valoperWalletAddress;
+  String? get valkey => _valkey;
 
-  set valoperWalletAddress(WalletAddress? validatorWalletAddress) {
-    _valoperWalletAddress = validatorWalletAddress;
+  set valoperWalletAddress(String? valkey) {
+    _valkey = valkey;
     notifyListeners();
   }
 

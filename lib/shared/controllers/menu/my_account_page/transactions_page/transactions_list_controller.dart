@@ -9,11 +9,12 @@ import 'package:miro/shared/models/transactions/list/tx_direction_type.dart';
 import 'package:miro/shared/models/transactions/list/tx_list_item_model.dart';
 import 'package:miro/shared/models/transactions/list/tx_sort_type.dart';
 import 'package:miro/shared/models/transactions/list/tx_status_type.dart';
+import 'package:miro/shared/models/wallet/wallet_address.dart';
 
 class TransactionsListController implements IListController<TxListItemModel> {
   final FavouritesCacheService favouriteCacheService = FavouritesCacheService(domainName: 'transactions');
   final QueryTransactionsService queryTransactionsService = globalLocator<QueryTransactionsService>();
-  final String address;
+  final WalletAddress walletAddress;
 
   List<TxDirectionType>? directionFilters;
   List<TxStatusType>? statusFilters;
@@ -21,7 +22,7 @@ class TransactionsListController implements IListController<TxListItemModel> {
   DateTime? endDateTime;
 
   TransactionsListController({
-    required this.address,
+    required this.walletAddress,
   });
 
   @override
@@ -38,7 +39,7 @@ class TransactionsListController implements IListController<TxListItemModel> {
   Future<PageData<TxListItemModel>> getPageData(PaginationDetailsModel paginationDetailsModel, {bool forceRequestBool = false}) async {
     PageData<TxListItemModel> transactionsPageData = await queryTransactionsService.getTransactionList(
       QueryTransactionsReq(
-        address: address,
+        address: walletAddress.bech32Address,
         limit: paginationDetailsModel.limit,
         offset: paginationDetailsModel.offset,
         sort: TxSortType.dateDESC,
@@ -47,7 +48,7 @@ class TransactionsListController implements IListController<TxListItemModel> {
         status: statusFilters,
         direction: directionFilters,
       ),
-        forceRequestBool: forceRequestBool,
+      forceRequestBool: forceRequestBool,
     );
     return transactionsPageData;
   }

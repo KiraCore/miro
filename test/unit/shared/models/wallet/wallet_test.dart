@@ -4,17 +4,21 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/shared/models/wallet/mnemonic.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
-import 'package:miro/shared/models/wallet/wallet_details.dart';
+import 'package:miro/test/mock_locator.dart';
+import 'package:miro/test/utils/test_utils.dart';
 
-void main() {
+// To run this test type in console:
+// fvm flutter test test/unit/shared/models/wallet/wallet_test.dart --platform chrome --null-assertions
+Future<void> main() async {
+  await initMockLocator();
+  await TestUtils.setupNetworkModel(networkUri: Uri.parse('https://healthy.kira.network/'));
+
   // @formatter:off
-
   // Actual Values for tests
   const String actualMnemonicString =
       'equal success expand debris crash despair awake bachelor athlete discover drop tilt reveal give oven polar party exact sign chalk hurdle move tilt chronic';
   final Mnemonic actualMnemonic = Mnemonic(value: actualMnemonicString);
   final Wallet actualWallet = Wallet.derive(mnemonic: actualMnemonic);
-  const WalletDetails actualWalletDetails = WalletDetails.defaultWalletDetails;
 
   const Map<String, dynamic> actualKeyFilePublicJSON = <String, dynamic>{
     'version': '1.0.1',
@@ -33,7 +37,7 @@ void main() {
 
   Wallet expectedWallet = Wallet(
     privateKey: Uint8List.fromList(expectedPrivateKey),
-    address: WalletAddress(addressBytes: Uint8List.fromList(expectedAddress), bech32Hrp: actualWalletDetails.bech32Hrp),
+    address: WalletAddress(addressBytes: Uint8List.fromList(expectedAddress)),
   );
   // @formatter:on
 
@@ -81,7 +85,7 @@ void main() {
         expectedPrivateKey,
       );
     });
-    
+
     test('Should create valid bech32 address from given mnemonic', () async {
       expect(
         actualWallet.address.bech32Address,

@@ -40,7 +40,7 @@ class _TokenDropdownList extends State<TokenDropdownList> {
     searchComparator: BalancesFilterOptions.search,
   );
 
-  late final BalancesListController balancesListController = BalancesListController(address: widget.walletAddress?.bech32Address ?? '');
+  late final BalancesListController balancesListController = BalancesListController(walletAddress: widget.walletAddress!);
   late final FavouritesBloc<BalanceModel> favouritesBloc = FavouritesBloc<BalanceModel>(
     listController: balancesListController,
   );

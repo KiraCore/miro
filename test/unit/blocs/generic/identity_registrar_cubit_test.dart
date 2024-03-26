@@ -3,9 +3,6 @@ import 'package:miro/blocs/generic/identity_registrar/a_identity_registrar_state
 import 'package:miro/blocs/generic/identity_registrar/identity_registrar_cubit.dart';
 import 'package:miro/blocs/generic/identity_registrar/states/identity_registrar_loaded_state.dart';
 import 'package:miro/blocs/generic/identity_registrar/states/identity_registrar_loading_state.dart';
-import 'package:miro/blocs/generic/network_module/events/network_module_connect_event.dart';
-import 'package:miro/blocs/generic/network_module/network_module_bloc.dart';
-import 'package:miro/config/locator.dart';
 import 'package:miro/shared/models/identity_registrar/ir_model.dart';
 import 'package:miro/shared/models/identity_registrar/ir_record_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
@@ -34,27 +31,13 @@ void main() {
       // ************************************************************************************************
 
       // Act
-      await actualIdentityRegistrarCubit.refresh();
+      await TestUtils.setupNetworkModel(networkUri: Uri.parse('https://healthy.kira.network/'));
       actualIdentityRegistrarState = actualIdentityRegistrarCubit.state;
 
       // Assert
       expectedIdentityRegistrarState = const IdentityRegistrarLoadingState();
 
-      TestUtils.printInfo('Should return [IdentityRegistrarLoadingState] if [WalletAddress NOT exists] and [network DISCONNECTED]');
-      expect(actualIdentityRegistrarState, expectedIdentityRegistrarState);
-
-      // ************************************************************************************************
-
-      // Act
-      await actualIdentityRegistrarCubit.setWalletAddress(TestUtils.wallet.address);
-      actualIdentityRegistrarState = actualIdentityRegistrarCubit.state;
-
-      // Assert
-      expectedIdentityRegistrarState = IdentityRegistrarLoadedState(
-        irModel: IRModel.empty(walletAddress: TestUtils.wallet.address),
-      );
-
-      TestUtils.printInfo('Should return [IdentityRegistrarLoadedState] with [EMPTY IRModel] if [WalletAddress exists] but [network DISCONNECTED]');
+      TestUtils.printInfo('Should return [IdentityRegistrarLoadingState] if [WalletAddress NOT exists] and [network CONNECTED]');
       expect(actualIdentityRegistrarState, expectedIdentityRegistrarState);
 
       // ************************************************************************************************
@@ -65,15 +48,14 @@ void main() {
 
       // Assert
       TestUtils.printInfo(
-          'Should return [IdentityRegistrarLoadedState] with [EMPTY IRModel] if [WalletAddress exists] but [network DISCONNECTED] and [IdentityRegistrarCubit refreshed]');
+          'Should return [IdentityRegistrarLoadingState] if [WalletAddress NOT exists] and [network CONNECTED] and [IdentityRegistrarCubit refreshed]');
       expect(actualIdentityRegistrarState, expectedIdentityRegistrarState);
 
       // ************************************************************************************************
 
       // Act
-      globalLocator<NetworkModuleBloc>().add(NetworkModuleConnectEvent(TestUtils.networkHealthyModel));
+      await actualIdentityRegistrarCubit.setWalletAddress(TestUtils.wallet.address);
       await Future<void>.delayed(const Duration(milliseconds: 100));
-      await actualIdentityRegistrarCubit.refresh();
       actualIdentityRegistrarState = actualIdentityRegistrarCubit.state;
 
       // Assert
@@ -116,14 +98,44 @@ void main() {
       TestUtils.printInfo('Should return [IdentityRegistrarLoadedState] with [FILLED IRModel] if [WalletAddress exists] and [network CONNECTED]');
       expect(actualIdentityRegistrarState, expectedIdentityRegistrarState);
 
+      // ************************************************************************************************
+
       // Act
       await actualIdentityRegistrarCubit.setWalletAddress(null);
+      await Future<void>.delayed(const Duration(milliseconds: 500));
+
       actualIdentityRegistrarState = actualIdentityRegistrarCubit.state;
 
       // Assert
       expectedIdentityRegistrarState = const IdentityRegistrarLoadingState();
 
-      TestUtils.printInfo('Should return [IdentityRegistrarLoadingState] if [WalletAddress NOT exists] and [network CONNECTED]');
+      TestUtils.printInfo('Should return [IdentityRegistrarLoadingState] if [WalletAddress NOT exists]');
+      expect(actualIdentityRegistrarState, expectedIdentityRegistrarState);
+
+      // ************************************************************************************************
+
+      // Act
+      await TestUtils.setupNetworkModel(networkUri: Uri.parse('https://offline.kira.network'));
+      actualIdentityRegistrarState = actualIdentityRegistrarCubit.state;
+
+      // Assert
+      expectedIdentityRegistrarState = const IdentityRegistrarLoadingState();
+
+      TestUtils.printInfo('Should return [IdentityRegistrarLoadingState] if [WalletAddress NOT exists] and [network DISCONNECTED]');
+      expect(actualIdentityRegistrarState, expectedIdentityRegistrarState);
+
+      // ************************************************************************************************
+
+      // Act
+      await actualIdentityRegistrarCubit.setWalletAddress(TestUtils.wallet.address);
+      actualIdentityRegistrarState = actualIdentityRegistrarCubit.state;
+
+      // Assert
+      expectedIdentityRegistrarState = IdentityRegistrarLoadedState(
+        irModel: IRModel.empty(walletAddress: TestUtils.wallet.address),
+      );
+
+      TestUtils.printInfo('Should return [IdentityRegistrarLoadedState] with [EMPTY IRModel] if [WalletAddress exists] but [network DISCONNECTED]');
       expect(actualIdentityRegistrarState, expectedIdentityRegistrarState);
 
       // ************************************************************************************************
@@ -134,7 +146,7 @@ void main() {
 
       // Assert
       TestUtils.printInfo(
-          'Should return [IdentityRegistrarLoadingState] if [WalletAddress NOT exists] and [network CONNECTED] and [IdentityRegistrarCubit refreshed]');
+          'Should return [IdentityRegistrarLoadedState] with [EMPTY IRModel] if [WalletAddress exists] but [network DISCONNECTED] and [IdentityRegistrarCubit refreshed]');
       expect(actualIdentityRegistrarState, expectedIdentityRegistrarState);
     });
   });
