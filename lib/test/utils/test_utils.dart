@@ -168,6 +168,15 @@ class TestUtils {
     lastRefreshDateTime: defaultLastRefreshDateTime,
   );
 
+  static Object? catchException(Function() function) {
+    try {
+      function();
+      return null;
+    } catch (e) {
+      return e;
+    }
+  }
+
   static Future<void> initIntegrationTest() async {
     await initLocator();
     await globalLocator<ICacheManager>().init();

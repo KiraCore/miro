@@ -20,12 +20,12 @@ Future<void> main() async {
   final Mnemonic actualMnemonic = Mnemonic(value: actualMnemonicString);
   final Wallet actualWallet = Wallet.derive(mnemonic: actualMnemonic);
 
-  const Map<String, dynamic> actualKeyFilePublicJSON = <String, dynamic>{
-    'version': '1.0.1',
+  const Map<String, dynamic> actualKeyfilePublicJSON = <String, dynamic>{
+    'version': '2.0.0',
     'bech32Address': 'kira1gdury9ednrjj8fluwj9ea5e6cu5jr9jvekl7u3',
   };
 
-  const Map<String, dynamic> actualKeyFilePrivateJSON = <String, dynamic>{
+  const Map<String, dynamic> actualKeyfilePrivateJSON = <String, dynamic>{
     'privateKey': '9e737e02d062c101729fbd1483a87642dfc430c147e9733bc0f0d86855785e3c',
   };
 
@@ -62,10 +62,10 @@ Future<void> main() async {
     });
   });
 
-  group('Tests of factory constructor Wallet.fromKeyFileData()', () {
+  group('Tests of factory constructor Wallet.fromKeyfileData()', () {
     test('Should create wallet keys from derived private and public json', () async {
       expect(
-        Wallet.fromKeyFileData(actualKeyFilePublicJSON, actualKeyFilePrivateJSON),
+        Wallet.fromKeyfileData(actualKeyfilePublicJSON, actualKeyfilePrivateJSON),
         expectedWallet,
       );
     });
