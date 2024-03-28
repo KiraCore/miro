@@ -11,6 +11,7 @@ class BalanceListItemDesktopTitle extends StatelessWidget {
   final ValueChanged<bool> favouritePressedCallback;
   final ValueNotifier<bool> hoverNotifier;
   final VoidCallback onSendButtonPressed;
+  final bool sendButtonActiveBool;
 
   const BalanceListItemDesktopTitle({
     required this.sectionsSpace,
@@ -18,6 +19,7 @@ class BalanceListItemDesktopTitle extends StatelessWidget {
     required this.favouritePressedCallback,
     required this.hoverNotifier,
     required this.onSendButtonPressed,
+    required this.sendButtonActiveBool,
     Key? key,
   }) : super(key: key);
 
@@ -62,7 +64,8 @@ class BalanceListItemDesktopTitle extends StatelessWidget {
         KiraOutlinedButton(
           height: 40,
           width: 70,
-          onPressed: onSendButtonPressed,
+          disabled: sendButtonActiveBool == false,
+          onPressed: sendButtonActiveBool ? onSendButtonPressed : null,
           title: S.of(context).balancesSend,
         ),
       ],

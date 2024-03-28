@@ -19,6 +19,20 @@ class PageData<T> extends Equatable {
         cacheExpirationDateTime = null,
         lastPageBool = false;
 
+  PageData<T> copyWith({
+    List<T>? listItems,
+    bool? lastPageBool,
+    DateTime? blockDateTime,
+    DateTime? cacheExpirationDateTime,
+  }) {
+    return PageData<T>(
+      listItems: listItems ?? this.listItems,
+      lastPageBool: lastPageBool ?? this.lastPageBool,
+      blockDateTime: blockDateTime ?? this.blockDateTime,
+      cacheExpirationDateTime: cacheExpirationDateTime ?? this.cacheExpirationDateTime,
+    );
+  }
+
   @override
   List<Object?> get props => <Object?>[listItems, lastPageBool, blockDateTime, cacheExpirationDateTime];
 }

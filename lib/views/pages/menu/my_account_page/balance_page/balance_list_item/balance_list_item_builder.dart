@@ -18,10 +18,12 @@ import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 class BalanceListItemBuilder extends StatefulWidget {
   final BalanceModel balanceModel;
   final ScrollController scrollController;
+  final bool sendButtonActiveBool;
 
   const BalanceListItemBuilder({
     required this.balanceModel,
     required this.scrollController,
+    required this.sendButtonActiveBool,
     Key? key,
   }) : super(key: key);
 
@@ -52,6 +54,7 @@ class _BalanceListItemBuilder extends State<BalanceListItemBuilder> {
           favouritePressedCallback: _onFavouriteButtonPressed,
           onSendButtonPressed: _handleSendButtonPressed,
           hoverNotifier: hoverNotifier,
+          sendButtonActiveBool: widget.sendButtonActiveBool,
         ),
         mediumScreen: BalanceListItemMobile(
           balanceModel: widget.balanceModel,
@@ -59,6 +62,7 @@ class _BalanceListItemBuilder extends State<BalanceListItemBuilder> {
           favouritePressedCallback: _onFavouriteButtonPressed,
           hoverNotifier: hoverNotifier,
           onSendButtonPressed: _handleSendButtonPressed,
+          sendButtonActiveBool: widget.sendButtonActiveBool,
         ),
       ),
     );

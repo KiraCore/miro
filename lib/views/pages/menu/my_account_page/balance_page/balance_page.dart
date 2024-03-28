@@ -1,3 +1,4 @@
+import 'package:decimal/decimal.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/favourites/favourites_bloc.dart';
@@ -57,6 +58,7 @@ class _BalancePage extends State<BalancePage> {
 
     return SliverInfinityList<BalanceModel>(
       itemBuilder: (BalanceModel balanceModel) => BalanceListItemBuilder(
+        sendButtonActiveBool: balanceModel.tokenAmountModel.getAmountInDefaultDenomination() != Decimal.zero,
         key: Key('${balanceModel.hashCode}'),
         balanceModel: balanceModel,
         scrollController: widget.parentScrollController,

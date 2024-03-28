@@ -105,11 +105,17 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
       return listItems;
     }
     SortOption<T> activeSortOption = sortBloc!.state.activeSortOption;
-    List<T> favouritesList = favouritesBloc?.favouritesList ?? <T>[];
-    Set<T> uniqueListItems = <T>{
-      ...activeSortOption.sort(filterList(favouritesList.toSet().toList())),
-      ...activeSortOption.sort(listItems),
-    };
+    List<T> favouritesList = favouritesBloc?.favouritesList.toSet().toList() ?? <T>[];
+    List<T> sortedList = activeSortOption.sort(listItems);
+
+    Set<T> uniqueListItems = activeSortOption.sort(filterList(favouritesList)).toSet();
+
+    for (T item in sortedList) {
+      if (uniqueListItems.contains(item) == false) {
+        uniqueListItems.add(item);
+      }
+    }
+
     return uniqueListItems.toList();
   }
 

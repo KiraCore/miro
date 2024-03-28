@@ -11,6 +11,7 @@ class BalanceListItemDesktop extends StatelessWidget {
   final ValueNotifier<bool> hoverNotifier;
   final VoidCallback onSendButtonPressed;
   final double sectionsSpace;
+  final bool sendButtonActiveBool;
 
   const BalanceListItemDesktop({
     required this.balanceModel,
@@ -18,6 +19,7 @@ class BalanceListItemDesktop extends StatelessWidget {
     required this.favouritePressedCallback,
     required this.hoverNotifier,
     required this.onSendButtonPressed,
+    required this.sendButtonActiveBool,
     this.sectionsSpace = 15,
     Key? key,
   }) : super(key: key);
@@ -38,6 +40,7 @@ class BalanceListItemDesktop extends StatelessWidget {
         hoverNotifier: hoverNotifier,
         favouritePressedCallback: favouritePressedCallback,
         onSendButtonPressed: onSendButtonPressed,
+        sendButtonActiveBool: sendButtonActiveBool,
         sectionsSpace: sectionsSpace,
       ),
       children: <Widget>[
