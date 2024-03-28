@@ -194,6 +194,11 @@ dependencies:
       url: https://github.com/CandyLabsIT/just_the_tooltip.git
       ref: dp-bugfix/target-information
 
+  cryptography_utils:
+    git:
+      url: git@github.com:snggle/cryptography_utils.git
+      ref: dp-feature/public-address-encoders
+
 dev_dependencies:
   # AutoRoute is a declarative routing solution, where everything needed for navigation is automatically generated for you.
   # https://pub.dev/packages/auto_route_generator

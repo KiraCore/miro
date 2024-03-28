@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:bip32/bip32.dart' as bip32;
+import 'package:cryptography_utils/cryptography_utils.dart' as crypto_utils;
 import 'package:equatable/equatable.dart';
 import 'package:hex/hex.dart';
 import 'package:miro/shared/models/wallet/mnemonic.dart';
@@ -27,6 +28,14 @@ class Wallet extends Equatable {
     required this.address,
     required this.privateKey,
   });
+
+  factory Wallet.fromLegacyHDWallet(crypto_utils.LegacyHDWallet legacyHDWallet) {
+    return Wallet(
+      address: WalletAddress.fromBech32(legacyHDWallet.address),
+      // Or use [Secp256k1PrivateKey / ECPrivateKey] instead of [Uint8List privateKey]
+      privateKey: legacyHDWallet.privateKey.bytes,
+    );
+  }
 
   /// ** HEAVY OPERATION **
   /// Derives the private key from the given [mnemonic] using the specified [walletDetails].

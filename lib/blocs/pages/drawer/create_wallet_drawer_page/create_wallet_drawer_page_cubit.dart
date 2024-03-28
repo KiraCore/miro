@@ -1,3 +1,4 @@
+import 'package:cryptography_utils/cryptography_utils.dart' as crypto_utils;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/generic/auth/auth_cubit.dart';
@@ -23,8 +24,16 @@ class CreateWalletDrawerPageCubit extends Cubit<ACreateWalletDrawerPageState> {
   Future<void> generateNewAddress() async {
     emit(CreateWalletDrawerPageLoadingState());
     await Future<void>.delayed(const Duration(milliseconds: 500));
-    Mnemonic mnemonic = Mnemonic.random();
-    Wallet wallet = Wallet.derive(mnemonic: mnemonic);
+    crypto_utils.Mnemonic cryptoUtilsMnemonic = crypto_utils.Mnemonic.generate(mnemonicSize: crypto_utils.MnemonicSize.words24);
+
+    crypto_utils.LegacyHDWallet legacyHDWallet = await crypto_utils.LegacyHDWallet.fromMnemonic(
+      mnemonic: cryptoUtilsMnemonic,
+      walletConfig: crypto_utils.Bip44WalletsConfig.kira,
+      derivationPathString: "m/44'/118'/0'/0/0",
+    );
+
+    Mnemonic mnemonic = Mnemonic.fromArray(array: cryptoUtilsMnemonic.mnemonicList);
+    Wallet wallet = Wallet.fromLegacyHDWallet(legacyHDWallet);
 
     emit(CreateWalletDrawerPageLoadedState(mnemonic: mnemonic, wallet: wallet));
   }
