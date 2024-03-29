@@ -7,6 +7,7 @@ import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/events/list_upda
 import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/models/a_list_item.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/models/page_data.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/states/list_loaded_state.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/states/list_loading_state.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/favourites/favourites_bloc.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/filters/filters_bloc.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/infinity_list/events/infinity_list_reached_bottom_event.dart';
@@ -58,6 +59,9 @@ class InfinityListBloc<T extends AListItem> extends AListBloc<T> {
       end: (lastPageIndex + 1) * singlePageSize,
     );
 
+    // Loading state was added only to ensure loading state is always emitted.
+    // In BLoC, if next state is recognized as the same as previous state, it will not be emitted.
+    emit(ListLoadingState());
     emit(ListLoadedState<T>(
       listItems: visibleListItems,
       lastPage: currentPageData.lastPageBool,
