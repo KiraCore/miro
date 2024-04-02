@@ -1,4 +1,4 @@
-import 'dart:async';
+ import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -149,7 +149,7 @@ abstract class AListBloc<T extends AListItem> extends Bloc<AListEvent, AListStat
     currentPageData = PageData<T>.initial();
     lastPageIndex = 0;
 
-    await favouritesBloc?.initFavourites();
+    await favouritesBloc?.initFavourites(forceRequestBool: true);
 
     bool filtersEnabledBool = filtersBloc?.state is FiltersActiveState<T>;
     bool sortEnabledBool = sortBloc != null;
