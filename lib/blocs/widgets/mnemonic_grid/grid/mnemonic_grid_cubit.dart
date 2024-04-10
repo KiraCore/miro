@@ -1,8 +1,8 @@
+import 'package:cryptography_utils/cryptography_utils.dart' as crypto_utils;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/widgets/mnemonic_grid/grid/mnemonic_grid_state.dart';
 import 'package:miro/blocs/widgets/mnemonic_grid/text_field/mnemonic_text_field_cubit.dart';
-import 'package:miro/shared/models/wallet/mnemonic.dart';
 import 'package:miro/shared/utils/cryptography/bip39/bip39_extension.dart';
 import 'package:miro/shared/utils/cryptography/bip39/mnemonic_validation_result.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';
@@ -29,11 +29,17 @@ class MnemonicGridCubit extends Cubit<MnemonicGridState> {
     emit(MnemonicGridState.loaded(mnemonicTextFieldCubitList: mnemonicTextFieldCubitList));
   }
 
-  Mnemonic? buildMnemonicObject() {
+  crypto_utils.Mnemonic? buildMnemonicObject() {
+    String mnemonicPhrase = mnemonicPhraseList.join(' ');
+    if (mnemonicPhrase[mnemonicPhrase.length - 1] == ' ') {
+      mnemonicPhrase = mnemonicPhrase.substring(0, mnemonicPhrase.length - 1);
+    }
+
     try {
-      return Mnemonic.fromArray(array: mnemonicPhraseList);
+      // return Mnemonic.fromArray(array: mnemonicPhraseList);
+      return crypto_utils.Mnemonic.fromMnemonicPhrase(mnemonicPhrase);
     } catch (e) {
-      AppLogger().log(message: 'Cannot create [Mnemonic] from given mnemonic phrase');
+      AppLogger().log(message: 'Cannot create [Mnemonic] from given mnemonic phrase. Reason: $e \nMnemonic Phrase: $mnemonicPhrase');
       return null;
     }
   }

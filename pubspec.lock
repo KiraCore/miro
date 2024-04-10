@@ -333,11 +333,11 @@ packages:
     dependency: "direct main"
     description:
       path: "."
-      ref: "dp-feature/public-address-encoders"
-      resolved-ref: b108be3dce1dbbe49d2a2451ecbb196e5f9e4862
+      ref: "dp-refactor/mnemonic-validation"
+      resolved-ref: "324030657509ebb88215d208bdddebfd0f2a20f3"
       url: "git@github.com:snggle/cryptography_utils.git"
     source: git
-    version: "0.0.6"
+    version: "0.0.7"
   dart_style:
     dependency: transitive
     description:

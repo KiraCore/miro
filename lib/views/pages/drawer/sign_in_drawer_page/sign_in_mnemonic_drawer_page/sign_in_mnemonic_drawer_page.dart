@@ -1,10 +1,10 @@
+import 'package:cryptography_utils/cryptography_utils.dart' as crypto_utils;
 import 'package:flutter/material.dart';
 import 'package:miro/blocs/generic/auth/auth_cubit.dart';
 import 'package:miro/blocs/widgets/mnemonic_grid/grid/mnemonic_grid_cubit.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
-import 'package:miro/shared/models/wallet/mnemonic.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/shared/utils/cryptography/bip39/mnemonic_validation_result.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';
@@ -117,14 +117,21 @@ class _SignInMnemonicDrawerPage extends State<SignInMnemonicDrawerPage> {
   // WARNING: This method is very heavy and can freeze the UI
   // TODO(dominik): Move to web workers / separate thread when available
   Future<Wallet?> _generateWallet() async {
-    Mnemonic? mnemonic = mnemonicGridCubit.buildMnemonicObject();
+    // Mnemonic? mnemonic = mnemonicGridCubit.buildMnemonicObject();
+    crypto_utils.Mnemonic? mnemonic = mnemonicGridCubit.buildMnemonicObject();
     if (mnemonic == null) {
       return null;
     }
     // Complete all UI operations before heavy Wallet deriving
     await Future<void>.delayed(const Duration(milliseconds: 500));
     try {
-      return Wallet.derive(mnemonic: mnemonic);
+      // return Wallet.derive(mnemonic: mnemonic);
+      crypto_utils.LegacyHDWallet legacyHDWallet = await crypto_utils.LegacyHDWallet.fromMnemonic(
+        mnemonic: mnemonic,
+        walletConfig: crypto_utils.Bip44WalletsConfig.kira,
+        derivationPathString: "m/44'/118'/0'/0/0",
+      );
+      return Wallet.fromLegacyHDWallet(legacyHDWallet);
     } catch (e) {
       AppLogger().log(message: 'Cannot generate wallet', logLevel: LogLevel.fatal);
       return null;
