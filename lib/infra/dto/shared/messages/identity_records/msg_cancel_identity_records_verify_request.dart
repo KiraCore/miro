@@ -1,3 +1,7 @@
+import 'dart:typed_data';
+
+import 'package:codec_utils/codec_utils.dart';
+import 'package:cryptography_utils/cryptography_utils.dart';
 import 'package:miro/infra/dto/shared/messages/a_tx_msg.dart';
 
 /// Proposal message to edit an identity record
@@ -5,30 +9,36 @@ import 'package:miro/infra/dto/shared/messages/a_tx_msg.dart';
 /// https://github.com/KiraCore/sekai/blob/master/proto/kira/gov/identity_registrar.proto
 class MsgCancelIdentityRecordsVerifyRequest extends ATxMsg {
   /// The address of requester
-  final String executor;
+  final CosmosAccAddress executor;
 
   /// The id of verification request
   final BigInt verifyRequestId;
 
-  const MsgCancelIdentityRecordsVerifyRequest({
+  MsgCancelIdentityRecordsVerifyRequest({
     required this.executor,
     required this.verifyRequestId,
-  }) : super(
-          messageType: '/kira.gov.MsgCancelIdentityRecordsVerifyRequest',
-          signatureMessageType: 'kiraHub/MsgCancelIdentityRecordsVerifyRequest',
-        );
+  }) : super(typeUrl: '/kira.gov.MsgCancelIdentityRecordsVerifyRequest');
 
-  factory MsgCancelIdentityRecordsVerifyRequest.fromJson(Map<String, dynamic> json) {
+  factory MsgCancelIdentityRecordsVerifyRequest.fromData(Map<String, dynamic> data) {
     return MsgCancelIdentityRecordsVerifyRequest(
-      executor: json['executor'] as String,
-      verifyRequestId: BigInt.from(json['verify_request_id'] as num),
+      executor: CosmosAccAddress(data['executor'] as String),
+      verifyRequestId: BigInt.from(data['verify_request_id'] as num),
     );
   }
 
   @override
-  Map<String, dynamic> toJson() {
+  Uint8List toProtoBytes() {
+    return ProtobufEncoder.encode(<int, AProtobufField>{
+      1: executor,
+      2: ProtobufInt64(verifyRequestId),
+    });
+  }
+
+  @override
+  Map<String, dynamic> toProtoJson() {
     return <String, dynamic>{
-      'executor': executor,
+      '@type': typeUrl,
+      'executor': executor.value,
       'verify_request_id': verifyRequestId.toString(),
     };
   }

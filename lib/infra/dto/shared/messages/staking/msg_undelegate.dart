@@ -1,34 +1,44 @@
-import 'package:miro/infra/dto/shared/coin.dart';
+import 'dart:typed_data';
+
+import 'package:codec_utils/codec_utils.dart';
+import 'package:cryptography_utils/cryptography_utils.dart';
 import 'package:miro/infra/dto/shared/messages/a_tx_msg.dart';
 
 class MsgUndelegate extends ATxMsg {
   final String delegatorAddress;
   final String valoperAddress;
-  final List<Coin> amounts;
+  final List<CosmosCoin> amounts;
 
-  const MsgUndelegate({
+  MsgUndelegate({
     required this.delegatorAddress,
     required this.valoperAddress,
     required this.amounts,
-  }) : super(
-          messageType: '/kira.multistaking.MsgUndelegate',
-          signatureMessageType: 'kiraHub/MsgUndelegate',
-        );
+  }) : super(typeUrl: '/kira.multistaking.MsgUndelegate');
 
-  factory MsgUndelegate.fromJson(Map<String, dynamic> json) {
+  factory MsgUndelegate.fromData(Map<String, dynamic> data) {
     return MsgUndelegate(
-      delegatorAddress: json['delegator_address'] as String,
-      valoperAddress: json['validator_address'] as String,
-      amounts: (json['amounts'] as List<dynamic>).map((dynamic e) => Coin.fromJson(e as Map<String, dynamic>)).toList(),
+      delegatorAddress: data['delegator_address'] as String,
+      valoperAddress: data['validator_address'] as String,
+      amounts: (data['amounts'] as List<dynamic>).map((dynamic e) => CosmosCoin.fromProtoJson(e as Map<String, dynamic>)).toList(),
     );
   }
 
   @override
-  Map<String, dynamic> toJson() {
+  Uint8List toProtoBytes() {
+    return ProtobufEncoder.encode(<int, AProtobufField>{
+      1: ProtobufString(delegatorAddress),
+      2: ProtobufString(valoperAddress),
+      3: ProtobufList(amounts),
+    });
+  }
+
+  @override
+  Map<String, dynamic> toProtoJson() {
     return <String, dynamic>{
+      '@type': typeUrl,
       'delegator_address': delegatorAddress,
       'validator_address': valoperAddress,
-      'amounts': amounts.map((Coin coin) => coin.toJson()).toList(),
+      'amounts': amounts.map((CosmosCoin cosmosCoin) => cosmosCoin.toProtoJson()).toList(),
     };
   }
 

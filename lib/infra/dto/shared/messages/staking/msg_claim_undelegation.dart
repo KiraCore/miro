@@ -1,29 +1,38 @@
+import 'dart:typed_data';
+
+import 'package:codec_utils/codec_utils.dart';
 import 'package:miro/infra/dto/shared/messages/a_tx_msg.dart';
 
 class MsgClaimUndelegation extends ATxMsg {
   final String sender;
-  final String undelegationId;
+  final BigInt undelegationId;
 
-  const MsgClaimUndelegation({
+  MsgClaimUndelegation({
     required this.sender,
     required this.undelegationId,
-  }) : super(
-          messageType: '/kira.multistaking.MsgClaimUndelegation',
-          signatureMessageType: 'kiraHub/MsgClaimUndelegation',
-        );
+  }) : super(typeUrl: '/kira.multistaking.MsgClaimUndelegation');
 
-  factory MsgClaimUndelegation.fromJson(Map<String, dynamic> json) {
+  factory MsgClaimUndelegation.fromData(Map<String, dynamic> data) {
     return MsgClaimUndelegation(
-      sender: json['sender'] as String,
-      undelegationId: (json['undelegation_id'] as int).toString(),
+      sender: data['sender'] as String,
+      undelegationId: BigInt.from(data['undelegation_id'] as int),
     );
   }
 
   @override
-  Map<String, dynamic> toJson() {
+  Uint8List toProtoBytes() {
+    return ProtobufEncoder.encode(<int, AProtobufField>{
+      1: ProtobufString(sender),
+      2: ProtobufInt64(undelegationId),
+    });
+  }
+
+  @override
+  Map<String, dynamic> toProtoJson() {
     return <String, dynamic>{
+      '@type': typeUrl,
       'sender': sender,
-      'undelegation_id': undelegationId,
+      'undelegation_id': undelegationId.toString(),
     };
   }
 

@@ -43,8 +43,8 @@ class IRMsgRequestVerificationFormModel extends AMsgFormModel {
       walletAddress: _requesterWalletAddress!,
       verifierWalletAddress: _verifierWalletAddress!,
       tipTokenAmountModel: _tipTokenAmountModel!,
-      recordIds: <BigInt>[
-        BigInt.parse(_irRecordModel.id),
+      recordIds: <int>[
+        int.parse(_irRecordModel.id),
       ],
     );
   }

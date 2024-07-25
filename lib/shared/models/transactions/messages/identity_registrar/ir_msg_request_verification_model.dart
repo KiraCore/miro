@@ -1,7 +1,7 @@
+import 'package:cryptography_utils/cryptography_utils.dart';
 import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
 import 'package:miro/generated/l10n.dart';
-import 'package:miro/infra/dto/shared/coin.dart';
 import 'package:miro/infra/dto/shared/messages/identity_records/msg_request_identity_records_verify.dart';
 import 'package:miro/shared/models/tokens/prefixed_token_amount_model.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
@@ -13,7 +13,7 @@ import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 
 class IRMsgRequestVerificationModel extends ATxMsgModel {
-  final List<BigInt> recordIds;
+  final List<int> recordIds;
   final TokenAmountModel tipTokenAmountModel;
   final WalletAddress verifierWalletAddress;
   final WalletAddress walletAddress;
@@ -26,32 +26,35 @@ class IRMsgRequestVerificationModel extends ATxMsgModel {
   }) : super(txMsgType: TxMsgType.msgRequestIdentityRecordsVerify);
 
   IRMsgRequestVerificationModel.single({
-    required BigInt recordId,
+    required int recordId,
     required this.tipTokenAmountModel,
     required this.verifierWalletAddress,
     required this.walletAddress,
-  })  : recordIds = <BigInt>[recordId],
+  })  : recordIds = <int>[recordId],
         super(txMsgType: TxMsgType.msgRequestIdentityRecordsVerify);
 
   factory IRMsgRequestVerificationModel.fromDto(MsgRequestIdentityRecordsVerify msgRequestIdentityRecordsVerify) {
     return IRMsgRequestVerificationModel(
       recordIds: msgRequestIdentityRecordsVerify.recordIds,
       tipTokenAmountModel: TokenAmountModel(
-        defaultDenominationAmount: Decimal.parse(msgRequestIdentityRecordsVerify.tip.amount),
+        defaultDenominationAmount: Decimal.fromBigInt(msgRequestIdentityRecordsVerify.tip.amount),
         tokenAliasModel: TokenAliasModel.local(msgRequestIdentityRecordsVerify.tip.denom),
       ),
-      verifierWalletAddress: WalletAddress.fromBech32(msgRequestIdentityRecordsVerify.verifier),
-      walletAddress: WalletAddress.fromBech32(msgRequestIdentityRecordsVerify.address),
+      verifierWalletAddress: WalletAddress.fromBech32(msgRequestIdentityRecordsVerify.verifier.value),
+      walletAddress: WalletAddress.fromBech32(msgRequestIdentityRecordsVerify.address.value),
     );
   }
 
   @override
   MsgRequestIdentityRecordsVerify toMsgDto() {
     return MsgRequestIdentityRecordsVerify(
-      address: walletAddress.bech32Address,
+      address: CosmosAccAddress(walletAddress.bech32Address),
+      verifier: CosmosAccAddress(verifierWalletAddress.bech32Address),
       recordIds: recordIds,
-      tip: Coin.fromTokenAmountModel(tipTokenAmountModel),
-      verifier: verifierWalletAddress.bech32Address,
+      tip: CosmosCoin(
+        denom: tipTokenAmountModel.tokenAliasModel.defaultTokenDenominationModel.name,
+        amount: tipTokenAmountModel.getAmountInDefaultDenomination().toBigInt(),
+      ),
     );
   }
 

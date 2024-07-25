@@ -1,3 +1,4 @@
+import 'package:cryptography_utils/cryptography_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/infra/dto/shared/messages/identity_records/register/msg_register_identity_records.dart';
@@ -26,14 +27,14 @@ class IRMsgRegisterRecordsModel extends ATxMsgModel {
   factory IRMsgRegisterRecordsModel.fromDto(MsgRegisterIdentityRecords msgRegisterIdentityRecords) {
     return IRMsgRegisterRecordsModel(
       irEntryModels: msgRegisterIdentityRecords.infos.map(IREntryModel.fromDto).toList(),
-      walletAddress: WalletAddress.fromBech32(msgRegisterIdentityRecords.address),
+      walletAddress: WalletAddress.fromBech32(msgRegisterIdentityRecords.address.value),
     );
   }
 
   @override
   MsgRegisterIdentityRecords toMsgDto() {
     return MsgRegisterIdentityRecords(
-      address: walletAddress.bech32Address,
+      address: CosmosAccAddress(walletAddress.bech32Address),
       infos: irEntryModels.map((IREntryModel irEntryModel) => irEntryModel.toDto()).toList(),
     );
   }

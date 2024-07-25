@@ -20,7 +20,7 @@ class StakingMsgClaimUndelegationModel extends ATxMsgModel {
   factory StakingMsgClaimUndelegationModel.fromMsgDto(MsgClaimUndelegation msgClaimUndelegation) {
     return StakingMsgClaimUndelegationModel(
       senderWalletAddress: WalletAddress.fromBech32(msgClaimUndelegation.sender),
-      undelegationId: msgClaimUndelegation.undelegationId,
+      undelegationId: msgClaimUndelegation.undelegationId.toString(),
     );
   }
 
@@ -28,7 +28,7 @@ class StakingMsgClaimUndelegationModel extends ATxMsgModel {
   ATxMsg toMsgDto() {
     return MsgClaimUndelegation(
       sender: senderWalletAddress.bech32Address,
-      undelegationId: undelegationId,
+      undelegationId: BigInt.parse(undelegationId),
     );
   }
 
