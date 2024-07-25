@@ -125,7 +125,7 @@ Future<void> main() async {
         ],
         txMsgModels: <ATxMsgModel>[
           IRMsgRequestVerificationModel(
-            recordIds: <BigInt>[BigInt.from(2)],
+            recordIds: const <int>[2],
             tipTokenAmountModel: TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(200), tokenAliasModel: TokenAliasModel.local('ukex')),
             verifierWalletAddress: WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
             walletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),

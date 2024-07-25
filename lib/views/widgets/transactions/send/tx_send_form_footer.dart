@@ -14,7 +14,6 @@ import 'package:miro/shared/models/transactions/signed_transaction_model.dart';
 import 'package:miro/shared/models/transactions/unsigned_tx_model.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';
-import 'package:miro/shared/utils/transactions/tx_utils.dart';
 import 'package:miro/views/widgets/transactions/send/tx_send_form_completing_indicator.dart';
 import 'package:miro/views/widgets/transactions/send/tx_send_form_next_button.dart';
 
@@ -113,7 +112,7 @@ class _TxSendFormFooter extends State<TxSendFormFooter> {
     if (wallet == null) {
       throw Exception('Wallet cannot be null when signing transaction');
     }
-    SignedTxModel signedTxModel = TxUtils.sign(unsignedTxModel: unsignedTxModel, wallet: wallet);
+    SignedTxModel signedTxModel = unsignedTxModel.sign(wallet);
     await Future<void>.delayed(const Duration(milliseconds: 100));
     return signedTxModel;
   }

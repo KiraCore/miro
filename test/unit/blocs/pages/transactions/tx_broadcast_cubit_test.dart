@@ -1,3 +1,6 @@
+import 'dart:convert';
+
+import 'package:cryptography_utils/cryptography_utils.dart';
 import 'package:decimal/decimal.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/blocs/generic/network_module/events/network_module_auto_connect_event.dart';
@@ -11,12 +14,12 @@ import 'package:miro/blocs/pages/transactions/tx_broadcast/states/tx_broadcast_l
 import 'package:miro/blocs/pages/transactions/tx_broadcast/tx_broadcast_cubit.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api_kira/broadcast/response/broadcast_resp.dart';
+import 'package:miro/infra/dto/shared/messages/msg_send.dart';
 import 'package:miro/shared/models/network/error_explorer_model.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/transactions/broadcast_resp_model.dart';
 import 'package:miro/shared/models/transactions/messages/msg_send_model.dart';
-import 'package:miro/shared/models/transactions/signature_model.dart';
 import 'package:miro/shared/models/transactions/signed_transaction_model.dart';
 import 'package:miro/shared/models/transactions/tx_local_info_model.dart';
 import 'package:miro/shared/models/transactions/tx_remote_info_model.dart';
@@ -31,7 +34,6 @@ Future<void> main() async {
   await initMockLocator();
 
   SignedTxModel signedTxModel = SignedTxModel(
-    publicKeyCompressed: 'AlLas8CJ6lm5yZJ8h0U5Qu9nzVvgvskgHuURPB3jvUx8',
     txLocalInfoModel: TxLocalInfoModel(
       memo: 'Test transaction',
       feeTokenAmountModel: TokenAmountModel(
@@ -52,8 +54,40 @@ Future<void> main() async {
       chainId: 'testnet',
       sequence: '0',
     ),
-    signatureModel: const SignatureModel(
-      signature: 'hd+WiCdVaMcTDshpEsgkn6VOWdXAOV7QKUZEIxMRhLYzSD8bK7RQcn9jl/2I2TLa4QBoCuAStXwOircabaVQzg==',
+    signedCosmosTx: CosmosTx.signed(
+      body: CosmosTxBody(
+        messages: <ProtobufAny>[
+          MsgSend(
+            fromAddress: 'kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx',
+            toAddress: 'kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl',
+            amount: <CosmosCoin>[
+              CosmosCoin(denom: 'ukex', amount: BigInt.from(100)),
+            ],
+          ),
+        ],
+        memo: 'Test transaction',
+      ),
+      authInfo: CosmosAuthInfo(
+        signerInfos: <CosmosSignerInfo>[
+          CosmosSignerInfo(
+            publicKey: CosmosSimplePublicKey(base64Decode('AlLas8CJ6lm5yZJ8h0U5Qu9nzVvgvskgHuURPB3jvUx8')),
+            modeInfo: CosmosModeInfo.single(CosmosSignMode.signModeDirect),
+            sequence: 0,
+          ),
+        ],
+        fee: CosmosFee(
+          gasLimit: BigInt.from(200000),
+          amount: <CosmosCoin>[
+            CosmosCoin(denom: 'ukex', amount: BigInt.from(100)),
+          ],
+        ),
+      ),
+      signatures: <CosmosSignature>[
+        CosmosSignature(
+          s: BigInt.parse('29891932639696445785621460296478741769669531437362733111307189554313331920903'),
+          r: BigInt.parse('105119573348349584760845537497362350123555688438276125868382281816491465425317'),
+        ),
+      ],
     ),
   );
 

@@ -126,7 +126,7 @@ void main() {
 
       // Assert
       IRMsgRequestVerificationModel expectedIrMsgRequestVerificationModel = IRMsgRequestVerificationModel(
-        recordIds: <BigInt>[BigInt.from(3)],
+        recordIds: const <int>[3],
         tipTokenAmountModel: actualTipTokenAmountModel,
         walletAddress: actualRequesterWalletAddress,
         verifierWalletAddress: actualVerifierWalletAddress,

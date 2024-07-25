@@ -1,3 +1,4 @@
+import 'package:cryptography_utils/cryptography_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/infra/dto/shared/messages/identity_records/msg_handle_identity_records_verify_request.dart';
@@ -22,7 +23,7 @@ class IRMsgHandleVerificationRequestModel extends ATxMsgModel {
     return IRMsgHandleVerificationRequestModel(
       approvalStatusBool: msgHandleIdentityRecordsVerifyRequest.yes,
       verifyRequestId: msgHandleIdentityRecordsVerifyRequest.verifyRequestId.toString(),
-      walletAddress: WalletAddress.fromBech32(msgHandleIdentityRecordsVerifyRequest.verifier),
+      walletAddress: WalletAddress.fromBech32(msgHandleIdentityRecordsVerifyRequest.verifier.value),
     );
   }
 
@@ -30,7 +31,7 @@ class IRMsgHandleVerificationRequestModel extends ATxMsgModel {
   MsgHandleIdentityRecordsVerifyRequest toMsgDto() {
     return MsgHandleIdentityRecordsVerifyRequest(
       verifyRequestId: int.parse(verifyRequestId),
-      verifier: walletAddress.bech32Address,
+      verifier: CosmosAccAddress(walletAddress.bech32Address),
       yes: approvalStatusBool,
     );
   }

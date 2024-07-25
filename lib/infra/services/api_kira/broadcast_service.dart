@@ -2,7 +2,6 @@ import 'package:dio/dio.dart';
 import 'package:miro/blocs/generic/network_module/network_module_bloc.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api_kira/broadcast/request/broadcast_req.dart';
-import 'package:miro/infra/dto/api_kira/broadcast/request/transaction/tx.dart';
 import 'package:miro/infra/dto/api_kira/broadcast/response/broadcast_resp.dart';
 import 'package:miro/infra/exceptions/dio_parse_exception.dart';
 import 'package:miro/infra/exceptions/tx_broadcast_exception.dart';
@@ -24,7 +23,7 @@ class BroadcastService implements _IBroadcastService {
     Uri networkUri = globalLocator<NetworkModuleBloc>().state.networkUri;
     Response<dynamic> response = await _apiKiraRepository.broadcast<dynamic>(ApiRequestModel<BroadcastReq>(
       networkUri: networkUri,
-      requestData: BroadcastReq(tx: Tx.fromSignedTxModel(signedTransactionModel)),
+      requestData: BroadcastReq(tx: signedTransactionModel.signedCosmosTx),
     ));
 
     late BroadcastRespModel broadcastRespModel;

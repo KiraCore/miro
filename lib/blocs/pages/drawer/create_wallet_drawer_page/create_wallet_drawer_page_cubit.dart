@@ -24,7 +24,7 @@ class CreateWalletDrawerPageCubit extends Cubit<ACreateWalletDrawerPageState> {
     emit(CreateWalletDrawerPageLoadingState());
     await Future<void>.delayed(const Duration(milliseconds: 500));
     Mnemonic mnemonic = Mnemonic.random();
-    Wallet wallet = Wallet.derive(mnemonic: mnemonic);
+    Wallet wallet = await Wallet.derive(mnemonic: mnemonic);
 
     emit(CreateWalletDrawerPageLoadedState(mnemonic: mnemonic, wallet: wallet));
   }

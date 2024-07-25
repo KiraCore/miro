@@ -1,4 +1,4 @@
-import 'package:equatable/equatable.dart';
+import 'package:cryptography_utils/cryptography_utils.dart';
 import 'package:miro/infra/dto/shared/messages/identity_records/msg_cancel_identity_records_verify_request.dart';
 import 'package:miro/infra/dto/shared/messages/identity_records/msg_delete_identity_records.dart';
 import 'package:miro/infra/dto/shared/messages/identity_records/msg_handle_identity_records_verify_request.dart';
@@ -18,58 +18,37 @@ import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
 /// - Broadcast (as a transaction message used in request)
 /// Represents Msg interface from Kira SDK
 /// https://github.com/KiraCore/sekai/blob/master/types/Msg.go
-abstract class ATxMsg extends Equatable {
-  final String _messageType;
-  final String _signatureMessageType;
-
+abstract class ATxMsg extends ProtobufAny {
   const ATxMsg({
-    required String messageType,
-    required String signatureMessageType,
-  })  : _messageType = messageType,
-        _signatureMessageType = signatureMessageType;
+    required super.typeUrl,
+  });
 
   static ATxMsg buildFromJson(Map<String, dynamic> json) {
     TxMsgType txMsgType = InterxMsgTypes.getType(json['type'] as String);
 
     switch (txMsgType) {
       case TxMsgType.msgCancelIdentityRecordsVerifyRequest:
-        return MsgCancelIdentityRecordsVerifyRequest.fromJson(json);
+        return MsgCancelIdentityRecordsVerifyRequest.fromData(json);
       case TxMsgType.msgClaimRewards:
-        return MsgClaimRewards.fromJson(json);
+        return MsgClaimRewards.fromData(json);
       case TxMsgType.msgClaimUndelegation:
-        return MsgClaimUndelegation.fromJson(json);
+        return MsgClaimUndelegation.fromData(json);
       case TxMsgType.msgDelegate:
-        return MsgDelegate.fromJson(json);
+        return MsgDelegate.fromData(json);
       case TxMsgType.msgDeleteIdentityRecords:
-        return MsgDeleteIdentityRecords.fromJson(json);
+        return MsgDeleteIdentityRecords.fromData(json);
       case TxMsgType.msgHandleIdentityRecordsVerifyRequest:
-        return MsgHandleIdentityRecordsVerifyRequest.fromJson(json);
+        return MsgHandleIdentityRecordsVerifyRequest.fromData(json);
       case TxMsgType.msgRegisterIdentityRecords:
-        return MsgRegisterIdentityRecords.fromJson(json);
+        return MsgRegisterIdentityRecords.fromData(json);
       case TxMsgType.msgRequestIdentityRecordsVerify:
-        return MsgRequestIdentityRecordsVerify.fromJson(json);
+        return MsgRequestIdentityRecordsVerify.fromData(json);
       case TxMsgType.msgSend:
-        return MsgSend.fromJson(json);
+        return MsgSend.fromData(json);
       case TxMsgType.msgUndelegate:
-        return MsgUndelegate.fromJson(json);
+        return MsgUndelegate.fromData(json);
       default:
         return const MsgUndefined();
     }
-  }
-
-  Map<String, dynamic> toJson();
-
-  Map<String, dynamic> toJsonWithType() {
-    return <String, dynamic>{
-      '@type': _messageType,
-      ...toJson(),
-    };
-  }
-
-  Map<String, dynamic> toSignatureJson() {
-    return <String, dynamic>{
-      'type': _signatureMessageType,
-      'value': toJson(),
-    };
   }
 }

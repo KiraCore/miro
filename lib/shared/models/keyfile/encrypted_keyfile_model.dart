@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 
+import 'package:cryptography_utils/cryptography_utils.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hex/hex.dart';
 import 'package:miro/shared/entity/keyfile/keyfile_entity.dart';
@@ -51,7 +52,7 @@ class EncryptedKeyfileModel extends Equatable {
       keyfileSecretDataModel: KeyfileSecretDataModel(
         wallet: Wallet(
           address: WalletAddress.fromPublicKey(publicKey),
-          privateKey: Uint8List.fromList(HEX.decode(keyfileSecretDataEntity.privateKey)),
+          ecPrivateKey: ECPrivateKey.fromBytes(HEX.decode(keyfileSecretDataEntity.privateKey), CurvePoints.generatorSecp256k1),
         ),
       ),
     );

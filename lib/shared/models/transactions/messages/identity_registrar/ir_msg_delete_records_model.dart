@@ -1,3 +1,4 @@
+import 'package:cryptography_utils/cryptography_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/infra/dto/shared/messages/identity_records/msg_delete_identity_records.dart';
@@ -25,7 +26,7 @@ class IRMsgDeleteRecordsModel extends ATxMsgModel {
   factory IRMsgDeleteRecordsModel.fromDto(MsgDeleteIdentityRecords msgDeleteIdentityRecords) {
     return IRMsgDeleteRecordsModel(
       keys: msgDeleteIdentityRecords.keys,
-      walletAddress: WalletAddress.fromBech32(msgDeleteIdentityRecords.address),
+      walletAddress: WalletAddress.fromBech32(msgDeleteIdentityRecords.address.value),
     );
   }
 
@@ -33,7 +34,7 @@ class IRMsgDeleteRecordsModel extends ATxMsgModel {
   MsgDeleteIdentityRecords toMsgDto() {
     return MsgDeleteIdentityRecords(
       keys: keys,
-      address: walletAddress.bech32Address,
+      address: CosmosAccAddress(walletAddress.bech32Address),
     );
   }
 

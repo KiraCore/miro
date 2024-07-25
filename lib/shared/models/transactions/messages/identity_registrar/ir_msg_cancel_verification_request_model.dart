@@ -1,3 +1,4 @@
+import 'package:cryptography_utils/cryptography_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/infra/dto/shared/messages/identity_records/msg_cancel_identity_records_verify_request.dart';
@@ -19,14 +20,14 @@ class IRMsgCancelVerificationRequestModel extends ATxMsgModel {
   factory IRMsgCancelVerificationRequestModel.fromDto(MsgCancelIdentityRecordsVerifyRequest msgCancelIdentityRecordsVerifyRequest) {
     return IRMsgCancelVerificationRequestModel(
       verifyRequestId: msgCancelIdentityRecordsVerifyRequest.verifyRequestId,
-      walletAddress: WalletAddress.fromBech32(msgCancelIdentityRecordsVerifyRequest.executor),
+      walletAddress: WalletAddress.fromBech32(msgCancelIdentityRecordsVerifyRequest.executor.value),
     );
   }
 
   @override
   MsgCancelIdentityRecordsVerifyRequest toMsgDto() {
     return MsgCancelIdentityRecordsVerifyRequest(
-      executor: walletAddress.bech32Address,
+      executor: CosmosAccAddress(walletAddress.bech32Address),
       verifyRequestId: verifyRequestId,
     );
   }

@@ -1,4 +1,6 @@
-import 'package:miro/infra/dto/shared/coin.dart';
+import 'dart:typed_data';
+
+import 'package:cryptography_utils/cryptography_utils.dart';
 import 'package:miro/infra/dto/shared/messages/a_tx_msg.dart';
 
 /// Proposal message to request an identity record verification from a specific verifier
@@ -6,46 +8,54 @@ import 'package:miro/infra/dto/shared/messages/a_tx_msg.dart';
 /// https://github.com/KiraCore/sekai/blob/master/proto/kira/gov/identity_registrar.proto
 class MsgRequestIdentityRecordsVerify extends ATxMsg {
   /// The address of requester
-  final String address;
-
-  /// The id of records to be verified
-  final List<BigInt> recordIds;
-
-  /// The amount of coins to be given up-on accepting the request
-  final Coin tip;
+  final CosmosAccAddress address;
 
   /// The address of verifier
-  final String verifier;
+  final CosmosAccAddress verifier;
 
-  const MsgRequestIdentityRecordsVerify({
+  /// The id of records to be verified
+  final List<int> recordIds;
+
+  /// The amount of coins to be given up-on accepting the request
+  final CosmosCoin tip;
+
+  MsgRequestIdentityRecordsVerify({
     required this.address,
+    required this.verifier,
     required this.recordIds,
     required this.tip,
-    required this.verifier,
-  }) : super(
-          messageType: '/kira.gov.MsgRequestIdentityRecordsVerify',
-          signatureMessageType: 'kiraHub/MsgRequestIdentityRecordsVerify',
-        );
+  }) : super(typeUrl: '/kira.gov.MsgRequestIdentityRecordsVerify');
 
-  factory MsgRequestIdentityRecordsVerify.fromJson(Map<String, dynamic> json) {
+  factory MsgRequestIdentityRecordsVerify.fromData(Map<String, dynamic> data) {
     return MsgRequestIdentityRecordsVerify(
-      address: json['address'] as String,
-      recordIds: (json['record_ids'] as List<dynamic>).map((dynamic e) => BigInt.from(e as num)).toList(),
-      tip: Coin.fromJson(json['tip'] as Map<String, dynamic>),
-      verifier: json['verifier'] as String,
+      address: CosmosAccAddress(data['address'] as String),
+      verifier: CosmosAccAddress(data['verifier'] as String),
+      recordIds: (data['record_ids'] as List<dynamic>).map((dynamic e) => e as int).toList(),
+      tip: CosmosCoin.fromProtoJson(data['tip'] as Map<String, dynamic>),
     );
   }
 
   @override
-  Map<String, dynamic> toJson() {
+  Uint8List toProtoBytes() {
+    return Uint8List.fromList(<int>[
+      ...ProtobufEncoder.encode(1, address.bytes),
+      ...ProtobufEncoder.encode(2, verifier.bytes),
+      ...ProtobufEncoder.encode(3, recordIds),
+      ...ProtobufEncoder.encode(4, tip),
+    ]);
+  }
+
+  @override
+  Map<String, dynamic> toProtoJson() {
     return <String, dynamic>{
-      'address': address,
-      'record_ids': recordIds.map((BigInt recordId) => recordId.toString()).toList(),
-      'tip': tip.toJson(),
-      'verifier': verifier,
+      '@type': typeUrl,
+      'address': address.value,
+      'verifier': verifier.value,
+      'record_ids': recordIds,
+      'tip': tip.toProtoJson(),
     };
   }
 
   @override
-  List<Object?> get props => <Object?>[address, recordIds, tip, verifier];
+  List<Object?> get props => <Object?>[address, verifier, recordIds, tip];
 }

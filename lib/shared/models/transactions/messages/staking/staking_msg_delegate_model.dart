@@ -1,7 +1,7 @@
+import 'package:cryptography_utils/cryptography_utils.dart';
 import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
 import 'package:miro/generated/l10n.dart';
-import 'package:miro/infra/dto/shared/coin.dart';
 import 'package:miro/infra/dto/shared/messages/a_tx_msg.dart';
 import 'package:miro/infra/dto/shared/messages/staking/msg_delegate.dart';
 import 'package:miro/shared/models/tokens/prefixed_token_amount_model.dart';
@@ -36,8 +36,8 @@ class StakingMsgDelegateModel extends ATxMsgModel {
       valkey: msgDelegate.valoperAddress,
       delegatorWalletAddress: WalletAddress.fromBech32(msgDelegate.delegatorAddress),
       tokenAmountModels: msgDelegate.amounts
-          .map((Coin coin) => TokenAmountModel(
-                defaultDenominationAmount: Decimal.parse(coin.amount),
+          .map((CosmosCoin coin) => TokenAmountModel(
+                defaultDenominationAmount: Decimal.fromBigInt(coin.amount),
                 tokenAliasModel: TokenAliasModel.local(coin.denom),
               ))
           .toList(),
@@ -50,9 +50,9 @@ class StakingMsgDelegateModel extends ATxMsgModel {
       delegatorAddress: delegatorWalletAddress.bech32Address,
       valoperAddress: valkey,
       amounts: tokenAmountModels.map((TokenAmountModel tokenAmountModel) {
-        return Coin(
+        return CosmosCoin(
           denom: tokenAmountModel.tokenAliasModel.defaultTokenDenominationModel.name,
-          amount: tokenAmountModel.getAmountInDefaultDenomination().toString(),
+          amount: tokenAmountModel.getAmountInDefaultDenomination().toBigInt(),
         );
       }).toList(),
     );

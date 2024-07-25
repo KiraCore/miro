@@ -20,7 +20,6 @@ import 'package:miro/shared/models/transactions/signed_transaction_model.dart';
 import 'package:miro/shared/models/transactions/unsigned_tx_model.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';
-import 'package:miro/shared/utils/transactions/tx_utils.dart';
 
 class TxProcessCubit<T extends AMsgFormModel> extends Cubit<ATxProcessState> {
   final AuthCubit authCubit = globalLocator<AuthCubit>();
@@ -128,8 +127,6 @@ class TxProcessCubit<T extends AMsgFormModel> extends Cubit<ATxProcessState> {
     if (wallet == null) {
       throw Exception('Wallet cannot be null when signing transaction');
     }
-    SignedTxModel signedTxModel = TxUtils.sign(unsignedTxModel: unsignedTxModel, wallet: wallet);
-    await Future<void>.delayed(const Duration(milliseconds: 100));
-    return signedTxModel;
+    return unsignedTxModel.sign(wallet);
   }
 }
