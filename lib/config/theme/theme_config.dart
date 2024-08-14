@@ -3,7 +3,7 @@ import 'package:miro/config/theme/design_colors.dart';
 
 class ThemeConfig {
   static ThemeData buildTheme({required bool isSmallScreen}) {
-    final ThemeData themeData = ThemeData.dark();
+    final ThemeData themeData = ThemeData.dark(useMaterial3: false);
 
     return themeData.copyWith(
       colorScheme: const ColorScheme.dark(background: DesignColors.background),

@@ -54,8 +54,9 @@ class _Backdrop extends State<Backdrop> with SingleTickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    return WillPopScope(
-      onWillPop: () => _handleTryPop(context),
+    return PopScope(
+      canPop: _isExpanded,
+      onPopInvoked: (_) => _handlePopInvoked(context),
       child: Column(
         children: <Widget>[
           AnimatedBuilder(
@@ -89,12 +90,10 @@ class _Backdrop extends State<Backdrop> with SingleTickerProviderStateMixin {
     }
   }
 
-  Future<bool> _handleTryPop(BuildContext context) async {
+  Future<void> _handlePopInvoked(BuildContext context) async {
     if (_isExpanded) {
       collapse();
-      return false;
     }
-    return true;
   }
 
   bool get _isCollapsed => _collapsedAnimationStatusList.contains(animationController.status);

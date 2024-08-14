@@ -16,7 +16,7 @@ class KiraTabBar extends StatelessWidget {
     TextTheme textTheme = Theme.of(context).textTheme;
 
     return Theme(
-      data: ThemeData().copyWith(
+      data: ThemeData(useMaterial3: false).copyWith(
         splashColor: Colors.transparent,
         highlightColor: Colors.transparent,
         splashFactory: NoSplash.splashFactory,

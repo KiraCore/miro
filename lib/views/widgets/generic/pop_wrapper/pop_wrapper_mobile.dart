@@ -72,7 +72,7 @@ class _PopWrapperMobile extends State<PopWrapperMobile> {
           ),
           backgroundColor: themeData.scaffoldBackgroundColor,
           child: Container(
-            constraints: const BoxConstraints(maxWidth: 200),
+            constraints: const BoxConstraints(maxWidth: 310),
             decoration: BoxDecoration(
               color: widget.backgroundColor,
               borderRadius: BorderRadius.circular(8),

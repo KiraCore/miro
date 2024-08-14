@@ -33,7 +33,7 @@ import 'package:miro/shared/controllers/global_nav/global_nav_controller.dart';
 
 final GetIt globalLocator = GetIt.I;
 
-Future<void> initLocator() async {
+void initLocator() {
   globalLocator
     ..registerLazySingleton<AppConfig>(AppConfig.buildDefaultConfig)
     ..registerLazySingleton<ICacheManager>(AutoCacheManager.new);

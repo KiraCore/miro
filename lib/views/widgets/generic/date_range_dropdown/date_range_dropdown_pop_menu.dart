@@ -66,7 +66,7 @@ class _DateRangeDropdownPopMenu extends State<DateRangeDropdownPopMenu> {
 
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 16),
-      width: 250,
+      width: 310,
       height: 440,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

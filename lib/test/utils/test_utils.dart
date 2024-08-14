@@ -178,7 +178,7 @@ class TestUtils {
   }
 
   static Future<void> initIntegrationTest() async {
-    await initLocator();
+    initLocator();
     await globalLocator<ICacheManager>().init();
     globalLocator<AppConfig>().init(MockNetworkListConfigJson.defaultNetworkListConfig);
   }
