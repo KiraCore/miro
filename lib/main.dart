@@ -19,7 +19,7 @@ Future<void> main() async {
   // disable default context menu
   window.document.onContextMenu.listen((MouseEvent mouseEvent) => mouseEvent.preventDefault());
 
-  await initLocator();
+  initLocator();
   await globalLocator<ICacheManager>().init();
 
   Map<String, dynamic> configJson = await AssetsManager().getAsMap('assets/network_list_config.json');

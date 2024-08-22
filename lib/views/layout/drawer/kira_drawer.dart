@@ -27,8 +27,8 @@ class _KiraDrawer extends State<KiraDrawer> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => _handleDrawerShadowTap(context),
-      child: WillPopScope(
-        onWillPop: _onWillPop,
+      child: PopScope(
+        onPopInvoked: (_) => _handlePopInvoked(),
         child: SizedBox(
           width: widget.width,
           height: MediaQuery.of(context).size.height,
@@ -72,14 +72,13 @@ class _KiraDrawer extends State<KiraDrawer> {
     }
   }
 
-  Future<bool> _onWillPop() async {
+  Future<void> _handlePopInvoked() async {
     bool canPop = drawerCubit.canPop;
     if (canPop) {
       _handleDrawerPop();
     } else {
       _handleDrawerClose();
     }
-    return Future<bool>.value(canPop);
   }
 
   void _handleDrawerPop() {
