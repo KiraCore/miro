@@ -19,11 +19,7 @@ class KiraAppBarDesktop extends StatelessWidget {
       height: height,
       width: double.infinity,
       color: DesignColors.black,
-      padding: ResponsiveValue<EdgeInsets>(
-        largeScreen: EdgeInsets.symmetric(horizontal: AppSizes.defaultDesktopPageMargin.left),
-        mediumScreen: EdgeInsets.symmetric(horizontal: AppSizes.defaultMobilePageMargin.left),
-        smallScreen: EdgeInsets.symmetric(horizontal: AppSizes.defaultMobilePageMargin.left),
-      ).get(context),
+      padding: EdgeInsets.symmetric(horizontal: AppSizes.defaultMobilePageMargin.left),
       child: Row(
         children: <Widget>[
           const Spacer(),

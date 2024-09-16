@@ -53,10 +53,11 @@ class _PopWrapperState extends State<PopWrapper> {
       backgroundColor: DesignColors.black,
     );
 
+    return desktopWidget;
     return ResponsiveWidget(
       largeScreen: desktopWidget,
-      mediumScreen: mobileWidget,
-      smallScreen: mobileWidget,
+      mediumScreen: desktopWidget,
+      smallScreen: desktopWidget,
     );
   }
 }

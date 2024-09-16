@@ -38,7 +38,9 @@ class _PopWrapperDesktop extends State<PopWrapperDesktop> {
 
   @override
   void dispose() {
+    widget.popWrapperController.isTooltipVisibleNotifier.value = false;
     widget.popWrapperController.isTooltipVisibleNotifier.removeListener(_onPopupVisibleChanged);
+
     super.dispose();
   }
 
@@ -48,12 +50,20 @@ class _PopWrapperDesktop extends State<PopWrapperDesktop> {
       isModal: true,
       controller: widget.justTheController,
       triggerMode: TooltipTriggerMode.manual,
-      onShow: () => widget.popWrapperController.isTooltipVisibleNotifier.value = true,
-      onDismiss: () => widget.popWrapperController.isTooltipVisibleNotifier.value = false,
+      onShow: () {
+        if (mounted) {
+          widget.popWrapperController.isTooltipVisibleNotifier.value = true;
+        }
+      },
+      onDismiss: () {
+        if (mounted) {
+          widget.popWrapperController.isTooltipVisibleNotifier.value = false;
+        }
+      },
       tailLength: 0,
       backgroundColor: Colors.transparent,
       content: Container(
-        key: _popupKey,
+        // key: _popupKey,
         margin: const EdgeInsets.only(top: 8),
         decoration: BoxDecoration(
           color: Theme.of(context).scaffoldBackgroundColor,

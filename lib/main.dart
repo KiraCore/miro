@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:html';
 
 import 'package:flutter/material.dart';
@@ -14,24 +15,33 @@ import 'package:miro/infra/managers/cache/i_cache_manager.dart';
 import 'package:miro/shared/controllers/global_nav/global_nav_controller.dart';
 import 'package:miro/shared/router/router.dart';
 import 'package:miro/shared/utils/assets_manager.dart';
+import 'package:miro/shared/utils/logger/app_logger.dart';
+import 'package:miro/shared/utils/logger/log_level.dart';
 
-Future<void> main() async {
-  // disable default context menu
-  window.document.onContextMenu.listen((MouseEvent mouseEvent) => mouseEvent.preventDefault());
+void main() {
+  runZonedGuarded<Future<void>>(
+    () async {
+      // disable default context menu
+      window.document.onContextMenu.listen((MouseEvent mouseEvent) => mouseEvent.preventDefault());
 
-  initLocator();
-  await globalLocator<ICacheManager>().init();
+      initLocator();
+      await globalLocator<ICacheManager>().init();
 
-  Map<String, dynamic> configJson = await AssetsManager().getAsMap('assets/network_list_config.json');
-  globalLocator<AppConfig>().init(configJson);
+      Map<String, dynamic> configJson = await AssetsManager().getAsMap('assets/network_list_config.json');
+      globalLocator<AppConfig>().init(configJson);
 
-  globalLocator<NetworkModuleBloc>().add(NetworkModuleInitEvent());
-  globalLocator<NetworkListCubit>().initNetworkStatusModelList();
+      globalLocator<NetworkModuleBloc>().add(NetworkModuleInitEvent());
+      globalLocator<NetworkListCubit>().initNetworkStatusModelList();
 
-  // TODO(Marcin): remove unnecessary IdentityRegistrarCubit initialization
-  await globalLocator<IdentityRegistrarCubit>().refresh();
+      // TODO(Marcin): remove unnecessary IdentityRegistrarCubit initialization
+      await globalLocator<IdentityRegistrarCubit>().refresh();
 
-  runApp(const CoreApp());
+      runApp(const CoreApp());
+    },
+    (final Object error, final StackTrace stackTrace) {
+      AppLogger().log(message: 'global error: $error,\nstackTrace: $stackTrace', logLevel: LogLevel.error);
+    },
+  );
 }
 
 class CoreApp extends StatefulWidget {

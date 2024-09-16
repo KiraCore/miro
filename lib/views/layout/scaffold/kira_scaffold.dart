@@ -61,11 +61,12 @@ class _KiraScaffold extends State<KiraScaffold> {
       body: GestureDetector(
         onTap: () => _handleActionLayoutFocus(context),
         child: KiraBackground(
-          child: ResponsiveWidget(
-            largeScreen: kiraScaffoldDesktop,
-            mediumScreen: kiraScaffoldDesktop,
-            smallScreen: kiraScaffoldMobile,
-          ),
+          child: kiraScaffoldDesktop,
+          // ResponsiveWidget(
+          //   largeScreen: kiraScaffoldDesktop,
+          //   mediumScreen: kiraScaffoldDesktop,
+          //   smallScreen: kiraScaffoldDesktop,
+          // ),
         ),
       ),
     );
