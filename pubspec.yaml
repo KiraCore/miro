@@ -169,6 +169,9 @@ dependencies:
       url: https://github.com/CandyLabsIT/just_the_tooltip.git
       ref: dp-bugfix/target-information
 
+  flutter_web3: ^2.1.9
+  provider: ^6.1.2
+
 dev_dependencies:
   # AutoRoute is a declarative routing solution, where everything needed for navigation is automatically generated for you.
   # https://pub.dev/packages/auto_route_generator

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/generic/identity_registrar/a_identity_registrar_state.dart';
 import 'package:miro/blocs/generic/identity_registrar/identity_registrar_cubit.dart';
 import 'package:miro/blocs/generic/identity_registrar/states/identity_registrar_loading_state.dart';
+import 'package:miro/blocs/pages/metamask/metamask_integration_provider.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/shared/models/identity_registrar/ir_model.dart';
@@ -11,6 +12,7 @@ import 'package:miro/views/layout/app_bar/account_button/account_pop_menu.dart';
 import 'package:miro/views/widgets/generic/account/account_tile.dart';
 import 'package:miro/views/widgets/generic/pop_wrapper/pop_wrapper.dart';
 import 'package:miro/views/widgets/generic/pop_wrapper/pop_wrapper_controller.dart';
+import 'package:provider/provider.dart';
 
 class MyAccountButtonDesktop extends StatefulWidget {
   final Size size;
@@ -39,9 +41,12 @@ class _MyAccountButtonDesktop extends State<MyAccountButtonDesktop> {
       child: PopWrapper(
         popWrapperController: popWrapperController,
         popupBuilder: () {
-          return AccountPopMenu(
-            popWrapperController: popWrapperController,
-            width: widget.size.width - widget.size.width * 0.25,
+          return ChangeNotifierProvider<MetaMaskProvider>.value(
+            value: context.read<MetaMaskProvider>(),
+            child: AccountPopMenu(
+              popWrapperController: popWrapperController,
+              width: widget.size.width,
+            ),
           );
         },
         buttonBuilder: () {

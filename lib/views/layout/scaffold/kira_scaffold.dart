@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:miro/blocs/layout/drawer/drawer_cubit.dart';
+import 'package:miro/blocs/pages/metamask/metamask_integration_provider.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/views/layout/nav_menu/model/nav_item_model.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold_desktop.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold_mobile.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 import 'package:miro/views/widgets/kira/kira_background.dart';
+import 'package:provider/provider.dart';
 
 class KiraScaffold extends StatefulWidget {
   final Widget body;
@@ -51,23 +53,28 @@ class _KiraScaffold extends State<KiraScaffold> {
       child: widget.body,
     );
 
-    return Scaffold(
-      key: scaffoldKey,
-      drawerScrimColor: widget.drawerScrimColor,
-      drawerEdgeDragWidth: 0,
-      drawerEnableOpenDragGesture: false,
-      endDrawerEnableOpenDragGesture: false,
-      endDrawer: widget.endDrawer,
-      body: GestureDetector(
-        onTap: () => _handleActionLayoutFocus(context),
-        child: KiraBackground(
-          child: ResponsiveWidget(
-            largeScreen: kiraScaffoldDesktop,
-            mediumScreen: kiraScaffoldDesktop,
-            smallScreen: kiraScaffoldMobile,
+    return ChangeNotifierProvider<MetaMaskProvider>(
+      create: (BuildContext context) => MetaMaskProvider()..init(),
+      builder: (BuildContext context, Widget? child) {
+        return Scaffold(
+          key: scaffoldKey,
+          drawerScrimColor: widget.drawerScrimColor,
+          drawerEdgeDragWidth: 0,
+          drawerEnableOpenDragGesture: false,
+          endDrawerEnableOpenDragGesture: false,
+          endDrawer: widget.endDrawer,
+          body: GestureDetector(
+            onTap: () => _handleActionLayoutFocus(context),
+            child: KiraBackground(
+              child: ResponsiveWidget(
+                largeScreen: kiraScaffoldDesktop,
+                mediumScreen: kiraScaffoldDesktop,
+                smallScreen: kiraScaffoldMobile,
+              ),
+            ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
