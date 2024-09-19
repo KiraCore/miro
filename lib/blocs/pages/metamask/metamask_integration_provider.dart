@@ -2,21 +2,23 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter_web3/flutter_web3.dart';
 
 class MetaMaskProvider extends ChangeNotifier {
-  String? currentAddress;
+  List<String> currentAddresses = <String>[];
 
   int? currentChain;
 
   bool get isEnabled => ethereum != null;
 
-  bool get isConnected => isEnabled && currentAddress != null;
+  bool get isConnected => isEnabled && mainAddress != null;
+
+  String? get mainAddress => currentAddresses.isNotEmpty ? currentAddresses.first : null;
+
+  Web3Provider? get _provider => ethereum == null ? null : Web3Provider.fromEthereum(ethereum!);
 
   Future<void> connect() async {
     if (isEnabled) {
       final List<String> accounts = await ethereum!.requestAccount();
-      print(accounts);
-      if (accounts.isNotEmpty) {
-        currentAddress = accounts.first;
-      }
+      currentAddresses = accounts.toList();
+      debugPrint('currentAddresses: $currentAddresses');
 
       currentChain = await ethereum!.getChainId();
 
@@ -24,39 +26,25 @@ class MetaMaskProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> pay() async {
+  Future<void> pay({required String to, required int amount}) async {
     if (isConnected) {
-      await ethereum!.request(
-        'eth_sendTransaction',
-        <Map<String, String>>[
-          <String, String>{
-            'to': '0xb83DF76e62980BDb0E324FC9Ce3e7bAF6309E7b5',
-            // TODO(mykyta): parse kira's net
-            'from': currentAddress!,
-            'gas': '0x76c0',
-            'value': '0x8ac7230489e80000',
-            'data': '0x',
-            'gasPrice': '0x4a817c800',
-          },
-        ],
-      );
+      await _provider!.getSigner().sendTransaction(
+            TransactionRequest(
+              from: '0xb83DF76e62980BDb0E324FC9Ce3e7bAF6309E7b5', //mainAddress!,
+              to: to,
+              value: BigInt.from(0),
+            ),
+          );
     }
   }
 
   void clear() {
-    currentAddress = null;
+    currentAddresses.clear();
     currentChain = null;
-    notifyListeners();
   }
 
   void init() {
     if (isEnabled) {
-      ethereum!.onMessage((String type, dynamic data) {
-        print('onMessage');
-        print(type);
-        print(data);
-      });
-
       ethereum!.removeAllListeners('accountsChanged');
       ethereum!.removeAllListeners('chainChanged');
 
@@ -66,18 +54,17 @@ class MetaMaskProvider extends ChangeNotifier {
   }
 
   void _onAccountsChanged(List<String> accounts) {
-    clear();
+    debugPrint('accountsChanged: $accounts');
   }
 
   void _onChainChanged(int chain) {
-    // TODO(Mykyta): .
+    debugPrint('chainChanged: $chain');
   }
 
   @override
   void dispose() {
     ethereum?.removeAllListeners();
-    currentAddress = null;
-    currentChain = null;
+    clear();
     super.dispose();
   }
 }

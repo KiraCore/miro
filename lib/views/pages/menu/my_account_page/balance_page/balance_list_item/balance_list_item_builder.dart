@@ -90,6 +90,7 @@ class _BalanceListItemBuilder extends State<BalanceListItemBuilder> {
   Future<void> _handleSendButtonPressed() async {
     await KiraRouter.of(context).push<void>(TransactionsWrapperRoute(
       children: <PageRouteInfo>[
+        // TODO(Mykyta): .
         TxSendTokensRoute(defaultBalanceModel: widget.balanceModel),
       ],
     ));

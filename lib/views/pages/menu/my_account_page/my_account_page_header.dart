@@ -52,7 +52,7 @@ class MyAccountPageHeader extends StatelessWidget {
             Consumer<MetaMaskProvider>(
               builder: (BuildContext context, MetaMaskProvider provider, Widget? child) {
                 return SizedBoxExpanded(
-                  width: 137,
+                  width: 118,
                   expandOn: const <ScreenSize>[
                     ScreenSize.mobile,
                     ScreenSize.tablet,
@@ -110,7 +110,7 @@ class MyAccountPageHeader extends StatelessWidget {
             ),
             const SizedBox(width: 12),
             SizedBoxExpanded(
-              width: 118,
+              width: 137,
               expandOn: const <ScreenSize>[
                 ScreenSize.mobile,
                 ScreenSize.tablet,
@@ -136,6 +136,9 @@ class MyAccountPageHeader extends StatelessWidget {
   }
 
   void _payWithMetamask(BuildContext context) {
-    context.read<MetaMaskProvider>().pay();
+    context.read<MetaMaskProvider>().pay(
+          to: '0xb83DF76e62980BDb0E324FC9Ce3e7bAF6309E7b5',
+          amount: 1000000000000000000,
+        );
   }
 }

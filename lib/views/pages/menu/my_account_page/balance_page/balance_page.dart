@@ -37,7 +37,8 @@ class _BalancePage extends State<BalancePage> {
     searchComparator: BalancesFilterOptions.search,
   );
 
-  late final BalancesListController balancesListController = BalancesListController(walletAddress: widget.walletAddress);
+  late final BalancesListController balancesListController =
+      BalancesListController(walletAddress: widget.walletAddress);
   late final FavouritesBloc<BalanceModel> favouritesBloc = FavouritesBloc<BalanceModel>(
     listController: balancesListController,
   );
@@ -53,6 +54,7 @@ class _BalancePage extends State<BalancePage> {
 
   @override
   Widget build(BuildContext context) {
+    // TODO(Mykyta): send from specific address MetaMask
     double listHeight = MediaQuery.of(context).size.height - 470;
     double itemSize = const ResponsiveValue<double>(largeScreen: 70, smallScreen: 180).get(context);
 

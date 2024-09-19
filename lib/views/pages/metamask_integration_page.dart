@@ -35,7 +35,9 @@ class _MetamaskIntegrationPageState extends State<MetamaskIntegrationPage> {
                           const Text('Click the button...'),
                           const SizedBox(height: 8),
                           CupertinoButton(
-                            onPressed: () => context.read<MetaMaskProvider>().connect(), //call metamask on click
+                            onPressed: () async {
+                              await context.read<MetaMaskProvider>().connect();
+                            }, //call metamask on click
                             color: Colors.white,
                             padding: EdgeInsets.zero,
                             child: Row(
@@ -59,10 +61,32 @@ class _MetamaskIntegrationPageState extends State<MetamaskIntegrationPage> {
                       shaderCallback: (Rect bounds) => const LinearGradient(
                         colors: <Color>[Colors.purple, Colors.blue, Colors.red],
                       ).createShader(bounds),
-                      child: Text(
-                        text,
-                        textAlign: TextAlign.center,
-                        style: Theme.of(context).textTheme.headline5,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            text,
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context).textTheme.headline5,
+                          ),
+                          const SizedBox(height: 8),
+                          CupertinoButton(
+                            onPressed: () async {
+                              await context.read<MetaMaskProvider>().pay(
+                                    to: '0xb83DF76e62980BDb0E324FC9Ce3e7bAF6309E7b5',
+                                    amount: 1000000000000000000,
+                                  );
+                            }, //call metamask on click
+                            color: Colors.white,
+                            padding: EdgeInsets.zero,
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                Text('Pay from ${context.read<MetaMaskProvider>().mainAddress}'),
+                              ],
+                            ),
+                          ),
+                        ],
                       ),
                     );
                   },
