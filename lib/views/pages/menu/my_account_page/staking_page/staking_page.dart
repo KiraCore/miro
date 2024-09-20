@@ -5,7 +5,7 @@ import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/controllers/menu/my_account_page/staking_page/staking_filter_options.dart';
 import 'package:miro/shared/controllers/menu/my_account_page/staking_page/staking_list_controller.dart';
 import 'package:miro/shared/models/delegations/validator_staking_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/views/pages/menu/my_account_page/staking_page/staking_list_item/desktop/staking_list_item_desktop.dart';
 import 'package:miro/views/pages/menu/my_account_page/staking_page/staking_list_item/desktop/staking_list_item_desktop_layout.dart';
 import 'package:miro/views/pages/menu/my_account_page/staking_page/staking_list_item/staking_list_item_builder.dart';
@@ -14,7 +14,7 @@ import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 import 'package:miro/views/widgets/kira/kira_list/infinity_list/sliver_infinity_list/sliver_infinity_list.dart';
 
 class StakingPage extends StatefulWidget {
-  final WalletAddress walletAddress;
+  final AWalletAddress walletAddress;
 
   const StakingPage({
     required this.walletAddress,

@@ -11,11 +11,11 @@ import 'package:miro/shared/models/tokens/token_amount_status_type.dart';
 import 'package:miro/shared/models/transactions/list/tx_direction_type.dart';
 import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
 import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 
 class StakingMsgUndelegateModel extends ATxMsgModel {
   final String valkey;
-  final WalletAddress delegatorWalletAddress;
+  final AWalletAddress delegatorWalletAddress;
   final List<TokenAmountModel> tokenAmountModels;
 
   const StakingMsgUndelegateModel({
@@ -34,7 +34,7 @@ class StakingMsgUndelegateModel extends ATxMsgModel {
   factory StakingMsgUndelegateModel.fromMsgDto(MsgUndelegate msgUndelegate) {
     return StakingMsgUndelegateModel(
       valkey: msgUndelegate.valoperAddress,
-      delegatorWalletAddress: WalletAddress.fromBech32(msgUndelegate.delegatorAddress),
+      delegatorWalletAddress: AWalletAddress.fromAddress(msgUndelegate.delegatorAddress),
       tokenAmountModels: msgUndelegate.amounts
           .map((CosmosCoin coin) => TokenAmountModel(
                 defaultDenominationAmount: Decimal.fromBigInt(coin.amount),
@@ -47,7 +47,7 @@ class StakingMsgUndelegateModel extends ATxMsgModel {
   @override
   ATxMsg toMsgDto() {
     return MsgUndelegate(
-      delegatorAddress: delegatorWalletAddress.bech32Address,
+      delegatorAddress: delegatorWalletAddress.address,
       valoperAddress: valkey,
       amounts: tokenAmountModels.map((TokenAmountModel tokenAmountModel) {
         return CosmosCoin(

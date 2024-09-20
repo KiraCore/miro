@@ -2,16 +2,16 @@ import 'package:miro/shared/models/identity_registrar/ir_record_model.dart';
 import 'package:miro/shared/models/transactions/form_models/a_msg_form_model.dart';
 import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
 import 'package:miro/shared/models/transactions/messages/identity_registrar/ir_msg_delete_records_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 
 class IRMsgDeleteRecordsFormModel extends AMsgFormModel {
   // Form fields
   List<IRRecordModel>? _irRecordModels;
-  WalletAddress? _walletAddress;
+  AWalletAddress? _walletAddress;
 
   IRMsgDeleteRecordsFormModel({
     List<IRRecordModel>? irRecordModels,
-    WalletAddress? walletAddress,
+    AWalletAddress? walletAddress,
   })  : _irRecordModels = irRecordModels,
         _walletAddress = walletAddress;
 
@@ -43,9 +43,9 @@ class IRMsgDeleteRecordsFormModel extends AMsgFormModel {
     notifyListeners();
   }
 
-  WalletAddress? get walletAddress => _walletAddress;
+  AWalletAddress? get walletAddress => _walletAddress;
 
-  set walletAddress(WalletAddress? walletAddress) {
+  set walletAddress(AWalletAddress? walletAddress) {
     _walletAddress = walletAddress;
     notifyListeners();
   }

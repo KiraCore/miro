@@ -3,7 +3,7 @@ import 'package:miro/infra/dto/api/query_validators/response/validator.dart';
 import 'package:miro/shared/models/validators/staking_pool_status.dart';
 import 'package:miro/shared/models/validators/validator_simplified_model.dart';
 import 'package:miro/shared/models/validators/validator_status.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/shared/utils/enum_utils.dart';
 
 class ValidatorModel extends AListItem {
@@ -14,7 +14,7 @@ class ValidatorModel extends AListItem {
   final String valkey;
   final StakingPoolStatus stakingPoolStatus;
   final ValidatorStatus validatorStatus;
-  final WalletAddress walletAddress;
+  final AWalletAddress walletAddress;
   final String? contact;
   final String? description;
   final String? logo;
@@ -50,7 +50,7 @@ class ValidatorModel extends AListItem {
       streak: validator.streak,
       stakingPoolStatus: StakingPoolStatus.fromString(validator.stakingPoolStatus),
       validatorStatus: validatorStatus,
-      walletAddress: WalletAddress.fromBech32ValidatorsPage(validator.address),
+      walletAddress: AWalletAddress.fromValidatorAddress(validator.address),
       valkey: validator.valkey,
       contact: validator.contact,
       description: validator.description,
@@ -61,7 +61,7 @@ class ValidatorModel extends AListItem {
   }
 
   @override
-  String get cacheId => walletAddress.bech32Address;
+  String get cacheId => walletAddress.address;
 
   @override
   bool get isFavourite => _favourite;

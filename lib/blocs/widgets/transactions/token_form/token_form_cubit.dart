@@ -10,7 +10,7 @@ import 'package:miro/shared/models/balances/balance_model.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/tokens/token_denomination_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/shared/utils/transactions/tx_utils.dart';
 
 class TokenFormCubit extends Cubit<TokenFormState> {
@@ -21,7 +21,7 @@ class TokenFormCubit extends Cubit<TokenFormState> {
   TokenFormCubit.fromBalance({
     required TokenAmountModel feeTokenAmountModel,
     required BalanceModel balanceModel,
-    required WalletAddress? walletAddress,
+    required AWalletAddress? walletAddress,
     TokenAmountModel? tokenAmountModel,
     TokenDenominationModel? tokenDenominationModel,
   }) : super(TokenFormState.fromBalance(
@@ -36,7 +36,7 @@ class TokenFormCubit extends Cubit<TokenFormState> {
 
   TokenFormCubit.fromFirstBalance({
     required TokenAmountModel feeTokenAmountModel,
-    required WalletAddress? walletAddress,
+    required AWalletAddress? walletAddress,
     FilterOption<BalanceModel>? initialFilterOption,
   }) : super(TokenFormState.fromFirstBalance(
           feeTokenAmountModel: feeTokenAmountModel,
@@ -105,7 +105,7 @@ class TokenFormCubit extends Cubit<TokenFormState> {
   Future<void> _initWithFirstBalance(FilterOption<BalanceModel>? filterOption) async {
     try {
       PageData<BalanceModel> balanceModelData = await queryBalanceService.getBalanceModelList(QueryBalanceReq(
-        address: state.walletAddress!.bech32Address,
+        address: state.walletAddress!.address,
         offset: 0,
         limit: 500,
       ));

@@ -3,10 +3,10 @@ import 'package:miro/shared/models/identity_registrar/ir_record_model.dart';
 import 'package:miro/shared/models/transactions/form_models/ir_msg_delete_records_form_model.dart';
 import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
 import 'package:miro/shared/models/transactions/messages/identity_registrar/ir_msg_delete_records_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 
 void main() {
-  WalletAddress actualSenderAddress = WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx');
+  AWalletAddress actualSenderAddress = AWalletAddress.fromAddress('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx');
 
   group('Tests of IRMsgDeleteRecordsFormModel.canBuildTxMsg()', () {
     test('Should [return TRUE] if all required form fields are filled', () {
@@ -17,8 +17,8 @@ void main() {
             id: '0',
             key: 'key1',
             value: 'value',
-            verifiersAddresses: <WalletAddress>[],
-            pendingVerifiersAddresses: <WalletAddress>[],
+            verifiersAddresses: <AWalletAddress>[],
+            pendingVerifiersAddresses: <AWalletAddress>[],
           ),
         ],
         walletAddress: actualSenderAddress,
@@ -49,7 +49,7 @@ void main() {
       // Arrange
       IRMsgDeleteRecordsFormModel actualIRMsgDeleteRecordsFormModel = IRMsgDeleteRecordsFormModel(
         irRecordModels: <IRRecordModel>[
-          const IRRecordModel(id: '0', key: 'key1', value: 'value', verifiersAddresses: <WalletAddress>[], pendingVerifiersAddresses: <WalletAddress>[]),
+          const IRRecordModel(id: '0', key: 'key1', value: 'value', verifiersAddresses: <AWalletAddress>[], pendingVerifiersAddresses: <AWalletAddress>[]),
         ],
         walletAddress: null,
       );
@@ -67,7 +67,7 @@ void main() {
       // Arrange
       IRMsgDeleteRecordsFormModel actualIRMsgDeleteRecordsFormModel = IRMsgDeleteRecordsFormModel(
         irRecordModels: <IRRecordModel>[
-          const IRRecordModel(id: '0', key: 'key1', value: 'value', verifiersAddresses: <WalletAddress>[], pendingVerifiersAddresses: <WalletAddress>[]),
+          const IRRecordModel(id: '0', key: 'key1', value: 'value', verifiersAddresses: <AWalletAddress>[], pendingVerifiersAddresses: <AWalletAddress>[]),
         ],
         walletAddress: actualSenderAddress,
       );
@@ -102,7 +102,7 @@ void main() {
       // Arrange
       IRMsgDeleteRecordsFormModel actualIRMsgDeleteRecordsFormModel = IRMsgDeleteRecordsFormModel(
         irRecordModels: <IRRecordModel>[
-          const IRRecordModel(id: '0', key: 'key1', value: 'value', verifiersAddresses: <WalletAddress>[], pendingVerifiersAddresses: <WalletAddress>[]),
+          const IRRecordModel(id: '0', key: 'key1', value: 'value', verifiersAddresses: <AWalletAddress>[], pendingVerifiersAddresses: <AWalletAddress>[]),
         ],
         walletAddress: null,
       );

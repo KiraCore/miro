@@ -6,10 +6,10 @@ import 'package:miro/shared/models/tokens/prefixed_token_amount_model.dart';
 import 'package:miro/shared/models/transactions/list/tx_direction_type.dart';
 import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
 import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 
 class StakingMsgClaimRewardsModel extends ATxMsgModel {
-  final WalletAddress senderWalletAddress;
+  final AWalletAddress senderWalletAddress;
 
   const StakingMsgClaimRewardsModel({
     required this.senderWalletAddress,
@@ -17,14 +17,14 @@ class StakingMsgClaimRewardsModel extends ATxMsgModel {
 
   factory StakingMsgClaimRewardsModel.fromMsgDto(MsgClaimRewards msgClaimRewards) {
     return StakingMsgClaimRewardsModel(
-      senderWalletAddress: WalletAddress.fromBech32(msgClaimRewards.sender),
+      senderWalletAddress: AWalletAddress.fromAddress(msgClaimRewards.sender),
     );
   }
 
   @override
   ATxMsg toMsgDto() {
     return MsgClaimRewards(
-      sender: senderWalletAddress.bech32Address,
+      sender: senderWalletAddress.address,
     );
   }
 
@@ -40,7 +40,7 @@ class StakingMsgClaimRewardsModel extends ATxMsgModel {
 
   @override
   String? getSubtitle(TxDirectionType txDirectionType) {
-    return senderWalletAddress.bech32Address;
+    return senderWalletAddress.address;
   }
 
   @override

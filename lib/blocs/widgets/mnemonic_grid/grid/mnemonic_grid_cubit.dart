@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/widgets/mnemonic_grid/grid/mnemonic_grid_state.dart';
 import 'package:miro/blocs/widgets/mnemonic_grid/text_field/mnemonic_text_field_cubit.dart';
-import 'package:miro/shared/models/wallet/mnemonic.dart';
+import 'package:miro/shared/models/wallet/mnemonic/mnemonic.dart';
 import 'package:miro/shared/utils/cryptography/bip39/bip39_extension.dart';
 import 'package:miro/shared/utils/cryptography/bip39/mnemonic_validation_result.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';

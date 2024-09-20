@@ -6,14 +6,14 @@ import 'package:miro/shared/models/tokens/token_denomination_model.dart';
 import 'package:miro/shared/models/transactions/form_models/a_msg_form_model.dart';
 import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
 import 'package:miro/shared/models/transactions/messages/identity_registrar/ir_msg_request_verification_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 
 class IRMsgRequestVerificationFormModel extends AMsgFormModel {
   // Form fields
   final IRRecordModel _irRecordModel;
   TokenAmountModel? _tipTokenAmountModel;
-  WalletAddress? _requesterWalletAddress;
-  WalletAddress? _verifierWalletAddress;
+  AWalletAddress? _requesterWalletAddress;
+  AWalletAddress? _verifierWalletAddress;
 
   // Values required to be saved to allow editing transaction
   BalanceModel? balanceModel;
@@ -22,8 +22,8 @@ class IRMsgRequestVerificationFormModel extends AMsgFormModel {
   IRMsgRequestVerificationFormModel({
     required IRRecordModel irRecordModel,
     TokenAmountModel? tipTokenAmountModel,
-    WalletAddress? requesterWalletAddress,
-    WalletAddress? verifierWalletAddress,
+    AWalletAddress? requesterWalletAddress,
+    AWalletAddress? verifierWalletAddress,
     this.balanceModel,
   })  : _irRecordModel = irRecordModel,
         _tipTokenAmountModel = tipTokenAmountModel,
@@ -65,16 +65,16 @@ class IRMsgRequestVerificationFormModel extends AMsgFormModel {
     notifyListeners();
   }
 
-  WalletAddress? get requesterWalletAddress => _requesterWalletAddress;
+  AWalletAddress? get requesterWalletAddress => _requesterWalletAddress;
 
-  set requesterWalletAddress(WalletAddress? requesterWalletAddress) {
+  set requesterWalletAddress(AWalletAddress? requesterWalletAddress) {
     _requesterWalletAddress = requesterWalletAddress;
     notifyListeners();
   }
 
-  WalletAddress? get verifierWalletAddress => _verifierWalletAddress;
+  AWalletAddress? get verifierWalletAddress => _verifierWalletAddress;
 
-  set verifierWalletAddress(WalletAddress? verifierWalletAddress) {
+  set verifierWalletAddress(AWalletAddress? verifierWalletAddress) {
     _verifierWalletAddress = verifierWalletAddress;
     notifyListeners();
   }

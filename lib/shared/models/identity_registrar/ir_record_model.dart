@@ -1,15 +1,15 @@
 import 'package:equatable/equatable.dart';
 import 'package:miro/infra/dto/api_kira/query_identity_records/response/record.dart';
 import 'package:miro/shared/models/identity_registrar/ir_record_status.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/shared/utils/string_utils.dart';
 
 class IRRecordModel extends Equatable {
   final String id;
   final String key;
   final String? value;
-  final List<WalletAddress> verifiersAddresses;
-  final List<WalletAddress> pendingVerifiersAddresses;
+  final List<AWalletAddress> verifiersAddresses;
+  final List<AWalletAddress> pendingVerifiersAddresses;
   final DateTime? dateTime;
 
   const IRRecordModel({
@@ -25,16 +25,16 @@ class IRRecordModel extends Equatable {
     required this.key,
   })  : id = '0',
         value = null,
-        verifiersAddresses = const <WalletAddress>[],
-        pendingVerifiersAddresses = const <WalletAddress>[],
+        verifiersAddresses = const <AWalletAddress>[],
+        pendingVerifiersAddresses = const <AWalletAddress>[],
         dateTime = null;
 
-  factory IRRecordModel.fromDto(Record record, List<WalletAddress> pendingVerifiersAddresses) {
+  factory IRRecordModel.fromDto(Record record, List<AWalletAddress> pendingVerifiersAddresses) {
     return IRRecordModel(
       id: record.id,
       key: record.key,
       value: StringUtils.parseUnicodeToString(record.value),
-      verifiersAddresses: record.verifiers.map(WalletAddress.fromBech32).toList(),
+      verifiersAddresses: record.verifiers.map(AWalletAddress.fromAddress).toList(),
       pendingVerifiersAddresses: pendingVerifiersAddresses,
       dateTime: record.date,
     );

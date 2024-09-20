@@ -66,7 +66,7 @@ class TxFormBuilderCubit extends Cubit<ATxFormBuilderState> {
   Future<TxRemoteInfoModel> _downloadTxRemoteInfo() async {
     assert(_authCubit.isSignedIn, 'Wallet public address must be provided to use this method');
     try {
-      TxRemoteInfoModel txRemoteInfoModel = await _queryAccountService.getTxRemoteInfo(_authCubit.state!.address.bech32Address);
+      TxRemoteInfoModel txRemoteInfoModel = await _queryAccountService.getTxRemoteInfo(_authCubit.state!.address.address);
       return txRemoteInfoModel;
     } on DioException catch (e) {
       throw Exception('Cannot download TxRemoteInfoModel: ${e.message}');

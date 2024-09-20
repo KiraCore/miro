@@ -27,7 +27,7 @@ class MyAccountButtonMobile extends StatelessWidget {
       builder: (BuildContext context, AIdentityRegistrarState identityRegistrarState) {
         Widget buttonWidget = KiraIdentityAvatar(
           loadingBool: identityRegistrarState is IdentityRegistrarLoadingState,
-          address: wallet.address.bech32Address,
+          address: wallet.address.address,
           avatarUrl: identityRegistrarState.irModel?.avatarIRRecordModel.value,
           size: size.height,
         );

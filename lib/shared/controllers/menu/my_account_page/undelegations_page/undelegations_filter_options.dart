@@ -8,7 +8,7 @@ class UndelegationsFilterOptions {
     String pattern = searchText.toLowerCase();
 
     return (UndelegationModel item) {
-      bool addressMatchBool = item.validatorSimplifiedModel.walletAddress.bech32Address.toLowerCase().contains(pattern);
+      bool addressMatchBool = item.validatorSimplifiedModel.walletAddress.address.toLowerCase().contains(pattern);
       bool usernameMatchBool = item.validatorSimplifiedModel.moniker?.toLowerCase().contains(pattern) ?? false;
       bool tokensMatchBool = item.tokens.map((TokenAmountModel e) => e.toString()).join(' ').toLowerCase().contains(pattern);
       bool shortDateMatchBool = DateFormat('d MMM y, HH:mm').format(item.lockedUntil.toLocal()).toLowerCase().contains(pattern);

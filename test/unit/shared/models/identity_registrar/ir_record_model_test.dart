@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/shared/models/identity_registrar/ir_record_model.dart';
 import 'package:miro/shared/models/identity_registrar/ir_record_status.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 
 void main() {
   group('Tests of IRRecordModel.isEmpty()', () {
@@ -22,8 +22,8 @@ void main() {
         id: '3',
         key: 'username',
         value: '',
-        verifiersAddresses: <WalletAddress>[],
-        pendingVerifiersAddresses: <WalletAddress>[],
+        verifiersAddresses: <AWalletAddress>[],
+        pendingVerifiersAddresses: <AWalletAddress>[],
         dateTime: null,
       );
 
@@ -40,8 +40,8 @@ void main() {
         id: '3',
         key: 'username',
         value: 'foobar',
-        verifiersAddresses: <WalletAddress>[],
-        pendingVerifiersAddresses: <WalletAddress>[],
+        verifiersAddresses: <AWalletAddress>[],
+        pendingVerifiersAddresses: <AWalletAddress>[],
         dateTime: null,
       );
 
@@ -60,10 +60,10 @@ void main() {
         id: '3',
         key: 'username',
         value: 'foobar',
-        verifiersAddresses: <WalletAddress>[
-          WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
+        verifiersAddresses: <AWalletAddress>[
+          AWalletAddress.fromAddress('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
         ],
-        pendingVerifiersAddresses: const <WalletAddress>[],
+        pendingVerifiersAddresses: const <AWalletAddress>[],
         dateTime: null,
       );
 
@@ -81,9 +81,9 @@ void main() {
         id: '3',
         key: 'username',
         value: 'foobar',
-        verifiersAddresses: const <WalletAddress>[],
-        pendingVerifiersAddresses: <WalletAddress>[
-          WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
+        verifiersAddresses: const <AWalletAddress>[],
+        pendingVerifiersAddresses: <AWalletAddress>[
+          AWalletAddress.fromAddress('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
         ],
         dateTime: null,
       );
@@ -102,8 +102,8 @@ void main() {
         id: '3',
         key: 'username',
         value: 'foobar',
-        verifiersAddresses: <WalletAddress>[],
-        pendingVerifiersAddresses: <WalletAddress>[],
+        verifiersAddresses: <AWalletAddress>[],
+        pendingVerifiersAddresses: <AWalletAddress>[],
         dateTime: null,
       );
 

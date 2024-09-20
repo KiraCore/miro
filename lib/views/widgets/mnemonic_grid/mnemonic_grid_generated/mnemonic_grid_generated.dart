@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:miro/shared/models/wallet/mnemonic.dart';
+import 'package:miro/shared/models/wallet/mnemonic/mnemonic.dart';
 import 'package:miro/views/widgets/mnemonic_grid/mnemonic_grid_generated/mnemonic_grid_generated_list_item.dart';
 
 class MnemonicGridGenerated extends StatelessWidget {

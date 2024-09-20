@@ -3,7 +3,7 @@ import 'package:miro/shared/models/balances/balance_model.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/tokens/token_denomination_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 
 class TokenFormState extends Equatable {
   final TokenAmountModel feeTokenAmountModel;
@@ -12,7 +12,7 @@ class TokenFormState extends Equatable {
   final BalanceModel? balanceModel;
   final TokenAmountModel? tokenAmountModel;
   final TokenDenominationModel? tokenDenominationModel;
-  final WalletAddress? walletAddress;
+  final AWalletAddress? walletAddress;
 
   const TokenFormState._({
     required this.feeTokenAmountModel,
@@ -27,7 +27,7 @@ class TokenFormState extends Equatable {
   factory TokenFormState.fromBalance({
     required BalanceModel balanceModel,
     required TokenAmountModel feeTokenAmountModel,
-    required WalletAddress? walletAddress,
+    required AWalletAddress? walletAddress,
     bool loadingBool = false,
     TokenAmountModel? tokenAmountModel,
     TokenDenominationModel? tokenDenominationModel,
@@ -46,7 +46,7 @@ class TokenFormState extends Equatable {
 
   factory TokenFormState.fromFirstBalance({
     required TokenAmountModel feeTokenAmountModel,
-    required WalletAddress? walletAddress,
+    required AWalletAddress? walletAddress,
     bool loadingBool = false,
   }) {
     return TokenFormState._(
@@ -64,7 +64,7 @@ class TokenFormState extends Equatable {
     TokenDenominationModel? tokenDenominationModel,
     TokenAliasModel? tokenAliasModel,
     TokenAmountModel? tokenAmountModel,
-    WalletAddress? walletAddress,
+    AWalletAddress? walletAddress,
   }) {
     return TokenFormState._(
       feeTokenAmountModel: feeTokenAmountModel ?? this.feeTokenAmountModel,

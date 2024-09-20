@@ -10,7 +10,7 @@ import 'package:miro/shared/controllers/menu/my_account_page/balances_page/balan
 import 'package:miro/shared/controllers/menu/my_account_page/balances_page/balances_sort_options.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/views/widgets/kira/kira_list/infinity_list/popup_infinity_list/popup_infinity_list.dart';
 import 'package:miro/views/widgets/transactions/token_form/token_dropdown/token_dropdown_list_item.dart';
 
@@ -18,7 +18,7 @@ class TokenDropdownList extends StatefulWidget {
   final TokenAliasModel? initialTokenAliasModel;
   final ValueChanged<BalanceModel> onBalanceModelSelected;
   final FilterOption<BalanceModel>? initialFilterOption;
-  final WalletAddress? walletAddress;
+  final AWalletAddress? walletAddress;
 
   const TokenDropdownList({
     required this.initialTokenAliasModel,

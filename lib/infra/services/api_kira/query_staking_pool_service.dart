@@ -7,19 +7,19 @@ import 'package:miro/infra/exceptions/dio_parse_exception.dart';
 import 'package:miro/infra/models/api_request_model.dart';
 import 'package:miro/infra/repositories/api/api_kira_repository.dart';
 import 'package:miro/shared/models/staking_pool/staking_pool_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';
 import 'package:miro/shared/utils/logger/log_level.dart';
 
 abstract class _IQueryStakingPoolService {
-  Future<StakingPoolModel> getStakingPoolModel(WalletAddress validatorWalletAddress);
+  Future<StakingPoolModel> getStakingPoolModel(AWalletAddress validatorWalletAddress);
 }
 
 class QueryStakingPoolService implements _IQueryStakingPoolService {
   final IApiKiraRepository _apiKiraRepository = globalLocator<IApiKiraRepository>();
 
   @override
-  Future<StakingPoolModel> getStakingPoolModel(WalletAddress validatorWalletAddress) async {
+  Future<StakingPoolModel> getStakingPoolModel(AWalletAddress validatorWalletAddress) async {
     Uri networkUri = globalLocator<NetworkModuleBloc>().state.networkUri;
     Response<dynamic> response = await _apiKiraRepository.fetchQueryStakingPool<dynamic>(ApiRequestModel<QueryStakingPoolReq>(
       networkUri: networkUri,

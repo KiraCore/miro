@@ -9,12 +9,12 @@ import 'package:miro/shared/models/transactions/list/tx_direction_type.dart';
 import 'package:miro/shared/models/transactions/list/tx_list_item_model.dart';
 import 'package:miro/shared/models/transactions/list/tx_sort_type.dart';
 import 'package:miro/shared/models/transactions/list/tx_status_type.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 
 class TransactionsListController implements IListController<TxListItemModel> {
   final FavouritesCacheService favouriteCacheService = FavouritesCacheService(domainName: 'transactions');
   final QueryTransactionsService queryTransactionsService = globalLocator<QueryTransactionsService>();
-  final WalletAddress walletAddress;
+  final AWalletAddress walletAddress;
 
   List<TxDirectionType>? directionFilters;
   List<TxStatusType>? statusFilters;
@@ -39,7 +39,7 @@ class TransactionsListController implements IListController<TxListItemModel> {
   Future<PageData<TxListItemModel>> getPageData(PaginationDetailsModel paginationDetailsModel, {bool forceRequestBool = false}) async {
     PageData<TxListItemModel> transactionsPageData = await queryTransactionsService.getTransactionList(
       QueryTransactionsReq(
-        address: walletAddress.bech32Address,
+        address: walletAddress.address,
         limit: paginationDetailsModel.limit,
         offset: paginationDetailsModel.offset,
         sort: TxSortType.dateDESC,

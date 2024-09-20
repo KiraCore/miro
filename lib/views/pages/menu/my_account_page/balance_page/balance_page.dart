@@ -8,14 +8,14 @@ import 'package:miro/shared/controllers/menu/my_account_page/balances_page/balan
 import 'package:miro/shared/controllers/menu/my_account_page/balances_page/balances_list_controller.dart';
 import 'package:miro/shared/controllers/menu/my_account_page/balances_page/balances_sort_options.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_list_item/balance_list_item_builder.dart';
 import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_list_title/balance_list_title.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_value.dart';
 import 'package:miro/views/widgets/kira/kira_list/infinity_list/sliver_infinity_list/sliver_infinity_list.dart';
 
 class BalancePage extends StatefulWidget {
-  final WalletAddress walletAddress;
+  final AWalletAddress walletAddress;
   final ScrollController parentScrollController;
 
   const BalancePage({

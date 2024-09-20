@@ -4,7 +4,7 @@ import 'package:miro/infra/exceptions/dio_connect_exception.dart';
 import 'package:miro/infra/exceptions/dio_parse_exception.dart';
 import 'package:miro/infra/services/api_kira/query_staking_pool_service.dart';
 import 'package:miro/shared/models/staking_pool/staking_pool_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/shared/utils/network_utils.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
@@ -21,7 +21,7 @@ Future<void> main() async {
 
   group('Tests of QueryStakingPoolService.getStakingPoolModel() method', () {
     test('Should return [StakingPoolModel]', () async {
-      WalletAddress actualValidatorWalletAddress = WalletAddress.fromBech32('kira1c6slygj2tx7hzm0mn4qeflqpvngj73c2tgz20j');
+      AWalletAddress actualValidatorWalletAddress = AWalletAddress.fromAddress('kira1c6slygj2tx7hzm0mn4qeflqpvngj73c2tgz20j');
 
       TestUtils.printInfo('Data request');
       try {
