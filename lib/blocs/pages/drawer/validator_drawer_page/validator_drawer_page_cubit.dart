@@ -6,7 +6,7 @@ import 'package:miro/blocs/pages/drawer/validator_drawer_page/states/validator_d
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/services/api_kira/query_staking_pool_service.dart';
 import 'package:miro/shared/models/staking_pool/staking_pool_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 
 class ValidatorDrawerPageCubit extends Cubit<AValidatorDrawerPageState> {
   final QueryStakingPoolService _queryStakingPoolService = globalLocator<QueryStakingPoolService>();
@@ -16,7 +16,7 @@ class ValidatorDrawerPageCubit extends Cubit<AValidatorDrawerPageState> {
   Future<void> init(String validatorAddress) async {
     try {
       emit(const ValidatorDrawerPageLoadingState());
-      StakingPoolModel stakingPoolModel = await _queryStakingPoolService.getStakingPoolModel(WalletAddress.fromBech32(validatorAddress));
+      StakingPoolModel stakingPoolModel = await _queryStakingPoolService.getStakingPoolModel(AWalletAddress.fromAddress(validatorAddress));
       emit(ValidatorDrawerPageLoadedState(stakingPoolModel: stakingPoolModel));
     } catch (e) {
       emit(const ValidatorDrawerPageErrorState());

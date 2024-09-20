@@ -4,7 +4,7 @@ import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/controllers/menu/my_account_page/balances_page/balances_filter_options.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/transactions/form_models/ir_msg_request_verification_form_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/views/widgets/transactions/memo_text_field/memo_text_field.dart';
 import 'package:miro/views/widgets/transactions/token_form/token_form.dart';
 import 'package:miro/views/widgets/transactions/wallet_address_text_field.dart';
@@ -97,11 +97,11 @@ class _IRMsgRequestVerificationForm extends State<IRMsgRequestVerificationForm> 
     memoTextEditingController.text = widget.irMsgRequestVerificationFormModel.memo;
   }
 
-  void _handleRequesterAddressChanged(WalletAddress? walletAddress) {
+  void _handleRequesterAddressChanged(AWalletAddress? walletAddress) {
     widget.irMsgRequestVerificationFormModel.requesterWalletAddress = walletAddress;
   }
 
-  void _handleVerifierAddressChanged(WalletAddress? walletAddress) {
+  void _handleVerifierAddressChanged(AWalletAddress? walletAddress) {
     widget.irMsgRequestVerificationFormModel.verifierWalletAddress = walletAddress;
   }
 

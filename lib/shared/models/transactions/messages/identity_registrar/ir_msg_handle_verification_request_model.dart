@@ -6,12 +6,12 @@ import 'package:miro/shared/models/tokens/prefixed_token_amount_model.dart';
 import 'package:miro/shared/models/transactions/list/tx_direction_type.dart';
 import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
 import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 
 class IRMsgHandleVerificationRequestModel extends ATxMsgModel {
   final bool approvalStatusBool;
   final String verifyRequestId;
-  final WalletAddress walletAddress;
+  final AWalletAddress walletAddress;
 
   const IRMsgHandleVerificationRequestModel({
     required this.approvalStatusBool,
@@ -23,7 +23,7 @@ class IRMsgHandleVerificationRequestModel extends ATxMsgModel {
     return IRMsgHandleVerificationRequestModel(
       approvalStatusBool: msgHandleIdentityRecordsVerifyRequest.yes,
       verifyRequestId: msgHandleIdentityRecordsVerifyRequest.verifyRequestId.toString(),
-      walletAddress: WalletAddress.fromBech32(msgHandleIdentityRecordsVerifyRequest.verifier.value),
+      walletAddress: AWalletAddress.fromAddress(msgHandleIdentityRecordsVerifyRequest.verifier.value),
     );
   }
 
@@ -31,7 +31,7 @@ class IRMsgHandleVerificationRequestModel extends ATxMsgModel {
   MsgHandleIdentityRecordsVerifyRequest toMsgDto() {
     return MsgHandleIdentityRecordsVerifyRequest(
       verifyRequestId: int.parse(verifyRequestId),
-      verifier: CosmosAccAddress(walletAddress.bech32Address),
+      verifier: CosmosAccAddress(walletAddress.address),
       yes: approvalStatusBool,
     );
   }

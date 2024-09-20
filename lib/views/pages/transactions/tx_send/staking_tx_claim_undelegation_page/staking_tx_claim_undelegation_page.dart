@@ -7,7 +7,7 @@ import 'package:miro/config/locator.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/transactions/form_models/staking_msg_claim_undelegation_form_model.dart';
 import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/views/pages/transactions/tx_send/staking_tx_claim_undelegation_page/staking_tx_claim_undelegation_confirm_dialog.dart';
 import 'package:miro/views/widgets/transactions/send/tx_process_wrapper.dart';
 
@@ -15,7 +15,7 @@ import 'package:miro/views/widgets/transactions/send/tx_process_wrapper.dart';
 class StakingTxClaimUndelegationPage extends StatefulWidget {
   final int undelegationId;
   final TokenAmountModel tokenAmountModel;
-  final WalletAddress validatorWalletAddress;
+  final AWalletAddress validatorWalletAddress;
 
   const StakingTxClaimUndelegationPage({
     required this.undelegationId,

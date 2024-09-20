@@ -35,9 +35,9 @@ class _StakingMsgClaimRewardsFormPreview extends State<StakingMsgClaimRewardsFor
       children: <Widget>[
         TxInputPreview(
           label: S.of(context).txHintClaimTo,
-          value: stakingMsgClaimRewardsModel.senderWalletAddress.bech32Address,
+          value: stakingMsgClaimRewardsModel.senderWalletAddress.address,
           icon: KiraIdentityAvatar(
-            address: stakingMsgClaimRewardsModel.senderWalletAddress.bech32Address,
+            address: stakingMsgClaimRewardsModel.senderWalletAddress.address,
             size: 45,
           ),
         ),

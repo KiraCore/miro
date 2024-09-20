@@ -7,7 +7,7 @@ class VerificationRequestsFilterOptions {
 
     return (IRInboundVerificationRequestModel item) {
       bool tipMatch = item.tipTokenAmountModel.toString().toLowerCase().contains(pattern);
-      bool addressMatch = item.requesterIrUserProfileModel.walletAddress.bech32Address.toLowerCase().contains(pattern);
+      bool addressMatch = item.requesterIrUserProfileModel.walletAddress.address.toLowerCase().contains(pattern);
       bool usernameMatch = item.requesterIrUserProfileModel.username?.toLowerCase().contains(pattern) ?? false;
       bool keyMatch = item.records.keys.join(' ').toLowerCase().contains(pattern);
       bool valueMatch = item.records.values.join(' ').toLowerCase().contains(pattern);

@@ -19,9 +19,9 @@ class UnsignedTxModel extends Equatable {
   });
 
   SignedTxModel sign(Wallet wallet) {
-    CosmosSigner cosmosSigner = CosmosSigner(wallet.ecPrivateKey);
+    CosmosSigner cosmosSigner = CosmosSigner(wallet.ecPrivateKey!);
 
-    CosmosAuthInfo cosmosAuthInfo = _getCosmosAuthInfo(wallet.ecPrivateKey.ecPublicKey.compressed);
+    CosmosAuthInfo cosmosAuthInfo = _getCosmosAuthInfo(wallet.ecPrivateKey!.ecPublicKey.compressed);
     CosmosTxBody cosmosTxBody = _getCosmosTxBody();
 
     CosmosSignDoc cosmosSignDoc = CosmosSignDoc(

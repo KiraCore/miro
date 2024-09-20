@@ -9,7 +9,7 @@ import 'package:miro/shared/models/delegations/validator_staking_model.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/validators/staking_pool_status.dart';
 import 'package:miro/shared/models/validators/validator_simplified_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/shared/utils/network_utils.dart';
 import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
@@ -48,7 +48,7 @@ Future<void> main() async {
               TokenAliasModel.local('xeth'),
             ],
             validatorSimplifiedModel: ValidatorSimplifiedModel(
-              walletAddress: WalletAddress.fromBech32('kira1ymx5gpvswq0cmj6zkdxwa233sdgq2k5zzfge8w'),
+              walletAddress: AWalletAddress.fromAddress('kira1ymx5gpvswq0cmj6zkdxwa233sdgq2k5zzfge8w'),
               moniker: 'GENESIS VALIDATOR',
               logo: 'https://avatars.githubusercontent.com/u/114292385?s=200',
             ),

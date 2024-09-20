@@ -7,7 +7,7 @@ import 'package:miro/shared/exceptions/keyfile_exception/keyfile_exception_type.
 import 'package:miro/shared/models/generic/file_model.dart';
 import 'package:miro/shared/models/keyfile/decrypted_keyfile_model.dart';
 import 'package:miro/shared/models/keyfile/keyfile_secret_data_model.dart';
-import 'package:miro/shared/models/wallet/mnemonic.dart';
+import 'package:miro/shared/models/wallet/mnemonic/mnemonic.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';

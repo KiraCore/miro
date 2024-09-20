@@ -11,7 +11,7 @@ import 'package:miro/infra/services/api/query_validators_service.dart';
 import 'package:miro/shared/models/validators/staking_pool_status.dart';
 import 'package:miro/shared/models/validators/validator_model.dart';
 import 'package:miro/shared/models/validators/validator_status.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/shared/utils/network_utils.dart';
 import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
@@ -48,7 +48,7 @@ Future<void> main() async {
             streak: '1303599',
             stakingPoolStatus: StakingPoolStatus.enabled,
             validatorStatus: ValidatorStatus.active,
-            walletAddress: WalletAddress.fromBech32('kira1fffuhtsuc6qskp4tsy5ptjssshynacj462ptdy'),
+            walletAddress: AWalletAddress.fromAddress('kira1fffuhtsuc6qskp4tsy5ptjssshynacj462ptdy'),
             valkey: 'kiravaloper1fffuhtsuc6qskp4tsy5ptjssshynacj4fvag4g',
           ),
           ValidatorModel(
@@ -58,7 +58,7 @@ Future<void> main() async {
             streak: '1303553',
             stakingPoolStatus: StakingPoolStatus.withdraw,
             validatorStatus: ValidatorStatus.active,
-            walletAddress: WalletAddress.fromBech32('kira1gfqq3kqn7tuhnpph4487d57c00dkptt3hefgkk'),
+            walletAddress: AWalletAddress.fromAddress('kira1gfqq3kqn7tuhnpph4487d57c00dkptt3hefgkk'),
             valkey: 'kiravaloper1gfqq3kqn7tuhnpph4487d57c00dkptt3yl4tw6',
           ),
           ValidatorModel(
@@ -68,7 +68,7 @@ Future<void> main() async {
             streak: '1303545',
             stakingPoolStatus: StakingPoolStatus.disabled,
             validatorStatus: ValidatorStatus.active,
-            walletAddress: WalletAddress.fromBech32('kira13hrpqkv53t82n2e72kfr3kuvvvr3565p234g3g'),
+            walletAddress: AWalletAddress.fromAddress('kira13hrpqkv53t82n2e72kfr3kuvvvr3565p234g3g'),
             valkey: 'kiravaloper13hrpqkv53t82n2e72kfr3kuvvvr3565pehftfy',
           ),
         ],
@@ -122,7 +122,7 @@ Future<void> main() async {
         ValidatorModel(
           top: 44,
           uptime: 98,
-          walletAddress: WalletAddress.fromBech32('kira1vxvugjt7u0lpzgkpv5hr7qwu2v4rx64d597s3l'),
+          walletAddress: AWalletAddress.fromAddress('kira1vxvugjt7u0lpzgkpv5hr7qwu2v4rx64d597s3l'),
           valkey: 'kiravaloper1vxvugjt7u0lpzgkpv5hr7qwu2v4rx64d8rznfn',
           moniker: 'medium',
           streak: '1167583',

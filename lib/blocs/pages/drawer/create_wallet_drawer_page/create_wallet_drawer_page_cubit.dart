@@ -5,7 +5,7 @@ import 'package:miro/blocs/pages/drawer/create_wallet_drawer_page/a_create_walle
 import 'package:miro/blocs/pages/drawer/create_wallet_drawer_page/states/create_wallet_drawer_page_loaded_state.dart';
 import 'package:miro/blocs/pages/drawer/create_wallet_drawer_page/states/create_wallet_drawer_page_loading_state.dart';
 import 'package:miro/config/locator.dart';
-import 'package:miro/shared/models/wallet/mnemonic.dart';
+import 'package:miro/shared/models/wallet/mnemonic/mnemonic.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 
 class CreateWalletDrawerPageCubit extends Cubit<ACreateWalletDrawerPageState> {

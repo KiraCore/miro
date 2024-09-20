@@ -32,9 +32,9 @@ class _IRMsgRegisterRecordFormPreview extends State<IRMsgRegisterRecordFormPrevi
       children: <Widget>[
         TxInputPreview(
           label: S.of(context).txHintSendFrom,
-          value: iRMsgRegisterRecordsModel.walletAddress.bech32Address,
+          value: iRMsgRegisterRecordsModel.walletAddress.address,
           icon: KiraIdentityAvatar(
-            address: iRMsgRegisterRecordsModel.walletAddress.bech32Address,
+            address: iRMsgRegisterRecordsModel.walletAddress.address,
             size: 45,
           ),
         ),

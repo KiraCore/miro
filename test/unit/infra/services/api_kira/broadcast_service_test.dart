@@ -43,7 +43,7 @@ import 'package:miro/shared/models/transactions/signed_transaction_model.dart';
 import 'package:miro/shared/models/transactions/tx_local_info_model.dart';
 import 'package:miro/shared/models/transactions/tx_remote_info_model.dart';
 import 'package:miro/shared/models/transactions/unsigned_tx_model.dart';
-import 'package:miro/shared/models/wallet/mnemonic.dart' as miro;
+import 'package:miro/shared/models/wallet/mnemonic/mnemonic.dart' as miro;
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/shared/utils/network_utils.dart';
 import 'package:miro/test/mock_locator.dart';
@@ -97,7 +97,7 @@ Future<void> main() async {
 
   Future<UnsignedTxModel> buildUnsignedTxModel(TxLocalInfoModel actualTxLocalInfoModel, Wallet wallet) async {
     // Act
-    TxRemoteInfoModel actualTxRemoteInfoModel = await queryAccountService.getTxRemoteInfo(wallet.address.bech32Address);
+    TxRemoteInfoModel actualTxRemoteInfoModel = await queryAccountService.getTxRemoteInfo(wallet.address.address);
 
     // Assert
     TestUtils.printInfo('Should [return TxRemoteInfoModel] containing address details from INTERX');

@@ -6,11 +6,11 @@ import 'package:miro/shared/models/tokens/prefixed_token_amount_model.dart';
 import 'package:miro/shared/models/transactions/list/tx_direction_type.dart';
 import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
 import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 
 class IRMsgDeleteRecordsModel extends ATxMsgModel {
   final List<String> keys;
-  final WalletAddress walletAddress;
+  final AWalletAddress walletAddress;
 
   const IRMsgDeleteRecordsModel({
     required this.keys,
@@ -26,7 +26,7 @@ class IRMsgDeleteRecordsModel extends ATxMsgModel {
   factory IRMsgDeleteRecordsModel.fromDto(MsgDeleteIdentityRecords msgDeleteIdentityRecords) {
     return IRMsgDeleteRecordsModel(
       keys: msgDeleteIdentityRecords.keys,
-      walletAddress: WalletAddress.fromBech32(msgDeleteIdentityRecords.address.value),
+      walletAddress: AWalletAddress.fromAddress(msgDeleteIdentityRecords.address.value),
     );
   }
 
@@ -34,7 +34,7 @@ class IRMsgDeleteRecordsModel extends ATxMsgModel {
   MsgDeleteIdentityRecords toMsgDto() {
     return MsgDeleteIdentityRecords(
       keys: keys,
-      address: CosmosAccAddress(walletAddress.bech32Address),
+      address: CosmosAccAddress(walletAddress.address),
     );
   }
 

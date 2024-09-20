@@ -6,12 +6,12 @@ import 'package:miro/infra/services/api_kira/identity_records_service.dart';
 import 'package:miro/infra/services/cache/favourites_cache_service.dart';
 import 'package:miro/shared/models/identity_registrar/ir_inbound_verification_request_model.dart';
 import 'package:miro/shared/models/list/pagination_details_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 
 class VerificationRequestsListController implements IListController<IRInboundVerificationRequestModel> {
   final FavouritesCacheService favouriteCacheService = FavouritesCacheService(domainName: 'ir_inbound_verifications');
   final IdentityRecordsService identityRecordsService = globalLocator<IdentityRecordsService>();
-  final WalletAddress walletAddress;
+  final AWalletAddress walletAddress;
 
   VerificationRequestsListController({
     required this.walletAddress,
@@ -31,7 +31,7 @@ class VerificationRequestsListController implements IListController<IRInboundVer
   Future<PageData<IRInboundVerificationRequestModel>> getPageData(PaginationDetailsModel paginationDetailsModel, {bool forceRequestBool = false}) async {
     PageData<IRInboundVerificationRequestModel> irVerificationRequestModelList = await identityRecordsService.getInboundVerificationRequests(
       QueryIdentityRecordVerifyRequestsByApproverReq(
-        address: walletAddress.bech32Address,
+        address: walletAddress.address,
         limit: paginationDetailsModel.limit,
         offset: paginationDetailsModel.offset,
       ),

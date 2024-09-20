@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/widgets/mnemonic_grid/grid/mnemonic_grid_cubit.dart';
 import 'package:miro/blocs/widgets/mnemonic_grid/hint/mnemonic_hint_cubit.dart';
 import 'package:miro/blocs/widgets/mnemonic_grid/text_field/mnemonic_text_field_state.dart';
-import 'package:miro/shared/models/wallet/mnemonic_text_field_status.dart';
+import 'package:miro/shared/models/wallet/mnemonic/mnemonic_text_field_status.dart';
 import 'package:miro/shared/utils/cryptography/bip39/bip39_extension.dart';
 
 class MnemonicTextFieldCubit extends Cubit<MnemonicTextFieldState> {

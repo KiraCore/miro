@@ -23,12 +23,12 @@ import 'package:miro/shared/models/identity_registrar/ir_user_profile_model.dart
 import 'package:miro/shared/models/identity_registrar/ir_verification_request_status.dart';
 import 'package:miro/shared/models/network/block_time_wrapper_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';
 import 'package:miro/shared/utils/logger/log_level.dart';
 
 abstract class _IIdentityRecordsService {
-  Future<BlockTimeWrapperModel<IRModel>> getIdentityRecordsByAddress(WalletAddress walletAddress);
+  Future<BlockTimeWrapperModel<IRModel>> getIdentityRecordsByAddress(AWalletAddress walletAddress);
 
   Future<PageData<IRInboundVerificationRequestModel>> getInboundVerificationRequests(
       QueryIdentityRecordVerifyRequestsByApproverReq queryIdentityRecordVerifyRequestsByApproverReq);
@@ -41,12 +41,12 @@ class IdentityRecordsService implements _IIdentityRecordsService {
   final IApiKiraRepository _apiKiraRepository = globalLocator<IApiKiraRepository>();
 
   @override
-  Future<BlockTimeWrapperModel<IRModel>> getIdentityRecordsByAddress(WalletAddress walletAddress, {bool forceRequestBool = false}) async {
+  Future<BlockTimeWrapperModel<IRModel>> getIdentityRecordsByAddress(AWalletAddress walletAddress, {bool forceRequestBool = false}) async {
     Uri networkUri = globalLocator<NetworkModuleBloc>().state.networkUri;
 
     Response<dynamic> response = await _apiKiraRepository.fetchQueryIdentityRecordsByAddress<dynamic>(ApiRequestModel<String>(
       networkUri: networkUri,
-      requestData: walletAddress.bech32Address,
+      requestData: walletAddress.address,
       forceRequestBool: forceRequestBool,
     ));
     List<PendingVerification> pendingVerifications = await _getAllPendingVerificationsByRequester(walletAddress, forceRequestBool: forceRequestBool);
@@ -91,17 +91,17 @@ class IdentityRecordsService implements _IIdentityRecordsService {
     }
 
     List<IRInboundVerificationRequestModel> irInboundVerificationRequestModels = List<IRInboundVerificationRequestModel>.empty(growable: true);
-    List<WalletAddress> requesterAddressList = queryIdentityRecordVerifyRequestsByApproverResp.verifyRecords
+    List<AWalletAddress> requesterAddressList = queryIdentityRecordVerifyRequestsByApproverResp.verifyRecords
         .map((VerifyRecord verifyRecord) => verifyRecord.address)
         .toSet()
-        .map(WalletAddress.fromBech32)
+        .map(AWalletAddress.fromAddress)
         .toList();
 
-    Map<WalletAddress, IRUserProfileModel> irUserProfileModelsMap = await _getUserProfilesByAddresses(requesterAddressList);
+    Map<AWalletAddress, IRUserProfileModel> irUserProfileModelsMap = await _getUserProfilesByAddresses(requesterAddressList);
 
     for (VerifyRecord verifyRecord in queryIdentityRecordVerifyRequestsByApproverResp.verifyRecords) {
       Map<String, String> records = await _getRecordKeyValuePairsById(verifyRecord.recordIds);
-      WalletAddress requesterWalletAddress = WalletAddress.fromBech32(verifyRecord.address);
+      AWalletAddress requesterWalletAddress = AWalletAddress.fromAddress(verifyRecord.address);
 
       IRInboundVerificationRequestModel irInboundVerificationRequestModel = IRInboundVerificationRequestModel(
         id: verifyRecord.id,
@@ -125,18 +125,18 @@ class IdentityRecordsService implements _IIdentityRecordsService {
 
   @override
   Future<List<IRRecordVerificationRequestModel>> getOutboundRecordVerificationRequests(IRRecordModel irRecordModel) async {
-    List<WalletAddress> allWalletAddresses = <WalletAddress>{
+    List<AWalletAddress> allWalletAddresses = <AWalletAddress>{
       ...irRecordModel.verifiersAddresses,
       ...irRecordModel.pendingVerifiersAddresses,
     }.toList();
-    Map<WalletAddress, IRUserProfileModel> irUserProfileModelsMap = await _getUserProfilesByAddresses(allWalletAddresses);
+    Map<AWalletAddress, IRUserProfileModel> irUserProfileModelsMap = await _getUserProfilesByAddresses(allWalletAddresses);
 
     List<IRRecordVerificationRequestModel> irRecordVerificationRequestModels = <IRRecordVerificationRequestModel>[
-      ...irRecordModel.verifiersAddresses.map((WalletAddress walletAddress) => IRRecordVerificationRequestModel(
+      ...irRecordModel.verifiersAddresses.map((AWalletAddress walletAddress) => IRRecordVerificationRequestModel(
             verifierIrUserProfileModel: irUserProfileModelsMap[walletAddress]!,
             irVerificationRequestStatus: IRVerificationRequestStatus.confirmed,
           )),
-      ...irRecordModel.pendingVerifiersAddresses.map((WalletAddress walletAddress) => IRRecordVerificationRequestModel(
+      ...irRecordModel.pendingVerifiersAddresses.map((AWalletAddress walletAddress) => IRRecordVerificationRequestModel(
             verifierIrUserProfileModel: irUserProfileModelsMap[walletAddress]!,
             irVerificationRequestStatus: IRVerificationRequestStatus.pending,
           )),
@@ -145,7 +145,7 @@ class IdentityRecordsService implements _IIdentityRecordsService {
     return irRecordVerificationRequestModels;
   }
 
-  Future<List<PendingVerification>> _getAllPendingVerificationsByRequester(WalletAddress requesterWalletAddress, {bool forceRequestBool = false}) async {
+  Future<List<PendingVerification>> _getAllPendingVerificationsByRequester(AWalletAddress requesterWalletAddress, {bool forceRequestBool = false}) async {
     Uri networkUri = globalLocator<NetworkModuleBloc>().state.networkUri;
     List<PendingVerification> allPendingVerifications = List<PendingVerification>.empty(growable: true);
 
@@ -157,7 +157,7 @@ class IdentityRecordsService implements _IIdentityRecordsService {
         ApiRequestModel<QueryIdentityRecordVerifyRequestsByRequesterReq>(
           networkUri: networkUri,
           requestData: QueryIdentityRecordVerifyRequestsByRequesterReq(
-            address: requesterWalletAddress.bech32Address,
+            address: requesterWalletAddress.address,
             offset: index * pageSize,
             limit: pageSize,
           ),
@@ -187,13 +187,13 @@ class IdentityRecordsService implements _IIdentityRecordsService {
     return allPendingVerifications;
   }
 
-  Future<Map<WalletAddress, IRUserProfileModel>> _getUserProfilesByAddresses(List<WalletAddress> walletAddressList) async {
-    Map<WalletAddress, IRUserProfileModel> irUserProfileModelsMap = Map<WalletAddress, IRUserProfileModel>.fromEntries(
+  Future<Map<AWalletAddress, IRUserProfileModel>> _getUserProfilesByAddresses(List<AWalletAddress> walletAddressList) async {
+    Map<AWalletAddress, IRUserProfileModel> irUserProfileModelsMap = Map<AWalletAddress, IRUserProfileModel>.fromEntries(
       await Future.wait(
-        walletAddressList.map((WalletAddress walletAddress) async {
+        walletAddressList.map((AWalletAddress walletAddress) async {
           BlockTimeWrapperModel<IRModel> wrappedIrModel = await getIdentityRecordsByAddress(walletAddress);
           IRUserProfileModel irUserProfileModel = IRUserProfileModel.fromIrModel(wrappedIrModel.model);
-          return MapEntry<WalletAddress, IRUserProfileModel>(wrappedIrModel.model.walletAddress, irUserProfileModel);
+          return MapEntry<AWalletAddress, IRUserProfileModel>(wrappedIrModel.model.walletAddress, irUserProfileModel);
         }),
       ),
     );

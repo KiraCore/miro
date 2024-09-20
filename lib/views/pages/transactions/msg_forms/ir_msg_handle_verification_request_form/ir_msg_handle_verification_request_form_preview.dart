@@ -55,18 +55,18 @@ class _IRMsgHandleVerificationRequestFormPreview extends State<IRMsgHandleVerifi
       children: <Widget>[
         TxInputPreview(
           label: S.of(context).txHintSendFrom,
-          value: irMsgHandleVerificationRequestModel.walletAddress.bech32Address,
+          value: irMsgHandleVerificationRequestModel.walletAddress.address,
           icon: KiraIdentityAvatar(
-            address: irMsgHandleVerificationRequestModel.walletAddress.bech32Address,
+            address: irMsgHandleVerificationRequestModel.walletAddress.address,
             size: 45,
           ),
         ),
         const SizedBox(height: 28),
         TxInputPreview(
           label: S.of(context).txHintSendTo,
-          value: requesterIrUserProfileModel.walletAddress.bech32Address,
+          value: requesterIrUserProfileModel.walletAddress.address,
           icon: KiraIdentityAvatar(
-            address: requesterIrUserProfileModel.walletAddress.bech32Address,
+            address: requesterIrUserProfileModel.walletAddress.address,
             size: 45,
           ),
         ),

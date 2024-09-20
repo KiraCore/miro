@@ -6,12 +6,12 @@ import 'package:miro/infra/services/api_kira/query_undelegations_service.dart';
 import 'package:miro/infra/services/cache/favourites_cache_service.dart';
 import 'package:miro/shared/models/list/pagination_details_model.dart';
 import 'package:miro/shared/models/undelegations/undelegation_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 
 class UndelegationListController implements IListController<UndelegationModel> {
   final FavouritesCacheService _favouritesCacheService = FavouritesCacheService(domainName: 'undelegations');
   final QueryUndelegationsService _queryUndelegationsService = globalLocator<QueryUndelegationsService>();
-  final WalletAddress walletAddress;
+  final AWalletAddress walletAddress;
 
   UndelegationListController({
     required this.walletAddress,
@@ -31,7 +31,7 @@ class UndelegationListController implements IListController<UndelegationModel> {
   Future<PageData<UndelegationModel>> getPageData(PaginationDetailsModel paginationDetailsModel, {bool forceRequestBool = false}) async {
     PageData<UndelegationModel> undelegationPageData = await _queryUndelegationsService.getUndelegationModelList(
       QueryUndelegationsReq(
-        undelegatorAddress: walletAddress.bech32Address,
+        undelegatorAddress: walletAddress.address,
         offset: paginationDetailsModel.offset,
         limit: paginationDetailsModel.limit,
       ),

@@ -49,7 +49,7 @@ class AccountHeader extends StatelessWidget {
       );
     } else {
       Widget addressWidget = Text(
-        irModel!.walletAddress.bech32Address,
+        irModel!.walletAddress.address,
         softWrap: true,
         style: textTheme.bodyMedium!.copyWith(color: DesignColors.grey1),
       );
@@ -63,12 +63,12 @@ class AccountHeader extends StatelessWidget {
               addressVisibleBool: true,
               gapSize: gapSize,
               avatarWidget: KiraIdentityAvatar(
-                address: irModel!.walletAddress.bech32Address,
+                address: irModel!.walletAddress.address,
                 avatarUrl: irModel!.avatarIRRecordModel.value,
                 size: avatarSize,
               ),
               usernameWidget: Text(
-                irModel!.usernameIRRecordModel.value ?? irModel!.walletAddress.buildBech32AddressShort(delimiter: '...'),
+                irModel!.usernameIRRecordModel.value ?? irModel!.walletAddress.buildShortAddress(delimiter: '...'),
                 overflow: TextOverflow.ellipsis,
                 style: ResponsiveValue<TextStyle>(
                   largeScreen: textTheme.displayMedium!.copyWith(color: DesignColors.white1),
@@ -77,7 +77,7 @@ class AccountHeader extends StatelessWidget {
               ),
               addressWidget: ResponsiveWidget.isLargeScreen(context)
                   ? CopyWrapper(
-                      value: irModel!.walletAddress.bech32Address,
+                      value: irModel!.walletAddress.address,
                       notificationText: S.of(context).toastSuccessfullyCopied,
                       child: addressWidget,
                     )
@@ -87,7 +87,7 @@ class AccountHeader extends StatelessWidget {
           SizedBox(width: gapSize),
           if (ResponsiveWidget.isLargeScreen(context) == false)
             CopyButton(
-              value: irModel!.walletAddress.bech32Address,
+              value: irModel!.walletAddress.address,
               notificationText: S.of(context).toastPublicAddressCopied,
               size: 20,
             ),

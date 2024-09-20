@@ -10,7 +10,7 @@ import 'package:miro/shared/models/identity_registrar/ir_model.dart';
 import 'package:miro/shared/models/identity_registrar/ir_record_model.dart';
 import 'package:miro/shared/models/identity_registrar/ir_record_verification_request_model.dart';
 import 'package:miro/shared/models/network/block_time_wrapper_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/shared/utils/network_utils.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
@@ -24,7 +24,7 @@ Future<void> main() async {
   await TestUtils.setupNetworkModel(networkUri: networkUri);
 
   final IdentityRecordsService actualIdentityRecordsService = globalLocator<IdentityRecordsService>();
-  final WalletAddress actualWalletAddress = WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx');
+  final AWalletAddress actualWalletAddress = AWalletAddress.fromAddress('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx');
 
   group('Tests of IdentityRecordsService.getIdentityRecordsByAddress() method [GET in HTTP]', () {
     test('Should return [IRModel] with all identity records assigned to selected address', () async {
@@ -52,7 +52,7 @@ Future<void> main() async {
       try {
         PageData<IRInboundVerificationRequestModel> actualVerificationRequestsPageData = await actualIdentityRecordsService.getInboundVerificationRequests(
           QueryIdentityRecordVerifyRequestsByApproverReq(
-            address: actualWalletAddress.bech32Address,
+            address: actualWalletAddress.address,
             offset: 0,
             limit: 10,
           ),

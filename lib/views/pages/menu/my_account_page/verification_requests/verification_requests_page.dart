@@ -7,7 +7,7 @@ import 'package:miro/shared/controllers/menu/my_account_page/verification_reques
 import 'package:miro/shared/controllers/menu/my_account_page/verification_requests_list_controller/verification_requests_list_controller.dart';
 import 'package:miro/shared/controllers/menu/my_account_page/verification_requests_list_controller/verification_requests_sort_options.dart';
 import 'package:miro/shared/models/identity_registrar/ir_inbound_verification_request_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/views/pages/menu/my_account_page/verification_requests/verification_request_list_item/desktop/verification_request_list_item_desktop_layout.dart';
 import 'package:miro/views/pages/menu/my_account_page/verification_requests/verification_request_list_item/verification_request_list_item_builder.dart';
 import 'package:miro/views/pages/menu/my_account_page/verification_requests/verification_requests_list_title/verification_requests_list_title.dart';
@@ -16,7 +16,7 @@ import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 import 'package:miro/views/widgets/kira/kira_list/infinity_list/sliver_infinity_list/sliver_infinity_list.dart';
 
 class VerificationRequestsPage extends StatefulWidget {
-  final WalletAddress walletAddress;
+  final AWalletAddress walletAddress;
   final ScrollController parentScrollController;
 
   const VerificationRequestsPage({

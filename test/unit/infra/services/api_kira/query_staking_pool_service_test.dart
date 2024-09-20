@@ -7,7 +7,7 @@ import 'package:miro/infra/services/api_kira/query_staking_pool_service.dart';
 import 'package:miro/shared/models/staking_pool/staking_pool_model.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/shared/utils/network_utils.dart';
 import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
@@ -24,7 +24,7 @@ Future<void> main() async {
       Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://healthy.kira.network/');
       await TestUtils.setupNetworkModel(networkUri: networkUri);
 
-      WalletAddress actualValidatorWalletAddress = WalletAddress.fromBech32('kira1c6slygj2tx7hzm0mn4qeflqpvngj73c2tgz20j');
+      AWalletAddress actualValidatorWalletAddress = AWalletAddress.fromAddress('kira1c6slygj2tx7hzm0mn4qeflqpvngj73c2tgz20j');
 
       // Act
       StakingPoolModel actualStakingPoolModel = await actualQueryStakingPoolService.getStakingPoolModel(actualValidatorWalletAddress);
@@ -56,7 +56,7 @@ Future<void> main() async {
       Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://invalid.kira.network/');
       await TestUtils.setupNetworkModel(networkUri: networkUri);
 
-      WalletAddress actualValidatorWalletAddress = WalletAddress.fromBech32('kira1c6slygj2tx7hzm0mn4qeflqpvngj73c2tgz20j');
+      AWalletAddress actualValidatorWalletAddress = AWalletAddress.fromAddress('kira1c6slygj2tx7hzm0mn4qeflqpvngj73c2tgz20j');
 
       // Assert
       expect(
@@ -70,7 +70,7 @@ Future<void> main() async {
       Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://offline.kira.network/');
       await TestUtils.setupNetworkModel(networkUri: networkUri);
 
-      WalletAddress actualValidatorWalletAddress = WalletAddress.fromBech32('kira1c6slygj2tx7hzm0mn4qeflqpvngj73c2tgz20j');
+      AWalletAddress actualValidatorWalletAddress = AWalletAddress.fromAddress('kira1c6slygj2tx7hzm0mn4qeflqpvngj73c2tgz20j');
 
       // Assert
       expect(

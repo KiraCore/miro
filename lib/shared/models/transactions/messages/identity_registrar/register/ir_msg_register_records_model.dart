@@ -7,11 +7,11 @@ import 'package:miro/shared/models/transactions/list/tx_direction_type.dart';
 import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
 import 'package:miro/shared/models/transactions/messages/identity_registrar/register/ir_entry_model.dart';
 import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 
 class IRMsgRegisterRecordsModel extends ATxMsgModel {
   final List<IREntryModel> irEntryModels;
-  final WalletAddress walletAddress;
+  final AWalletAddress walletAddress;
 
   const IRMsgRegisterRecordsModel({
     required this.irEntryModels,
@@ -27,14 +27,14 @@ class IRMsgRegisterRecordsModel extends ATxMsgModel {
   factory IRMsgRegisterRecordsModel.fromDto(MsgRegisterIdentityRecords msgRegisterIdentityRecords) {
     return IRMsgRegisterRecordsModel(
       irEntryModels: msgRegisterIdentityRecords.infos.map(IREntryModel.fromDto).toList(),
-      walletAddress: WalletAddress.fromBech32(msgRegisterIdentityRecords.address.value),
+      walletAddress: AWalletAddress.fromAddress(msgRegisterIdentityRecords.address.value),
     );
   }
 
   @override
   MsgRegisterIdentityRecords toMsgDto() {
     return MsgRegisterIdentityRecords(
-      address: CosmosAccAddress(walletAddress.bech32Address),
+      address: CosmosAccAddress(walletAddress.address),
       infos: irEntryModels.map((IREntryModel irEntryModel) => irEntryModel.toDto()).toList(),
     );
   }

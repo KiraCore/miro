@@ -8,7 +8,7 @@ import 'package:miro/shared/models/tokens/token_denomination_model.dart';
 import 'package:miro/shared/models/transactions/form_models/staking_msg_undelegate_form_model.dart';
 import 'package:miro/shared/models/transactions/messages/staking/staking_msg_undelegate_model.dart';
 import 'package:miro/shared/models/transactions/tx_local_info_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/shared/utils/transactions/tx_utils.dart';
 import 'package:miro/views/widgets/generic/token_avatar.dart';
 import 'package:miro/views/widgets/kira/kira_identity_avatar.dart';
@@ -20,7 +20,7 @@ class StakingMsgUndelegateFormPreview extends StatefulWidget {
   final String moniker;
   final StakingMsgUndelegateFormModel stakingMsgUndelegateFormModel;
   final TxLocalInfoModel txLocalInfoModel;
-  final WalletAddress validatorWalletAddress;
+  final AWalletAddress validatorWalletAddress;
 
   StakingMsgUndelegateFormPreview({
     required this.moniker,
@@ -51,9 +51,9 @@ class _StakingMsgUndelegateFormPreviewState extends State<StakingMsgUndelegateFo
       children: <Widget>[
         TxInputPreview(
           label: S.of(context).txHintUnstakeBy,
-          value: msgUndelegateModel.delegatorWalletAddress.bech32Address,
+          value: msgUndelegateModel.delegatorWalletAddress.address,
           icon: KiraIdentityAvatar(
-            address: msgUndelegateModel.delegatorWalletAddress.bech32Address,
+            address: msgUndelegateModel.delegatorWalletAddress.address,
             size: 45,
           ),
         ),
@@ -62,7 +62,7 @@ class _StakingMsgUndelegateFormPreviewState extends State<StakingMsgUndelegateFo
           label: S.of(context).txHintUnstakeFrom,
           value: widget.moniker,
           icon: KiraIdentityAvatar(
-            address: widget.validatorWalletAddress.bech32Address,
+            address: widget.validatorWalletAddress.address,
             size: 45,
           ),
         ),

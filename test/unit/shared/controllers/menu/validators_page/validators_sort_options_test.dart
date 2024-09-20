@@ -3,7 +3,7 @@ import 'package:miro/shared/controllers/menu/validators_page/validators_sort_opt
 import 'package:miro/shared/models/validators/staking_pool_status.dart';
 import 'package:miro/shared/models/validators/validator_model.dart';
 import 'package:miro/shared/models/validators/validator_status.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
@@ -13,14 +13,14 @@ Future<void> main() async {
   await initMockLocator();
   await TestUtils.setupNetworkModel(networkUri: Uri.parse('https://healthy.kira.network/'));
 
-  WalletAddress walletAddress1 = WalletAddress.fromBech32('kira1fffuhtsuc6qskp4tsy5ptjssshynacj462ptdy');
-  WalletAddress walletAddress2 = WalletAddress.fromBech32('kira1gfqq3kqn7tuhnpph4487d57c00dkptt3hefgkk');
-  WalletAddress walletAddress3 = WalletAddress.fromBech32('kira13hrpqkv53t82n2e72kfr3kuvvvr3565p234g3g');
-  WalletAddress walletAddress4 = WalletAddress.fromBech32('kira1ydv40l75gy83x6lgy3gq08nn5ylxmf2ffs7g97');
-  WalletAddress walletAddress5 = WalletAddress.fromBech32('kira154a6j42c8dtafrnpcxhf6rnemkqh3ehvgrvh6n');
-  WalletAddress walletAddress6 = WalletAddress.fromBech32('kira14pkvvmxx6g7gay7cxl65zseazs0zjhh2vzuu4g');
-  WalletAddress walletAddress7 = WalletAddress.fromBech32('kira19l6sa78vw6sr85ktujy9nps9kq7j3pnmeppkqp');
-  WalletAddress walletAddress8 = WalletAddress.fromBech32('kira1zcptq6kkzp7dcu6a5r9hqd84g8xtrdx3mvnv8s');
+  AWalletAddress walletAddress1 = AWalletAddress.fromAddress('kira1fffuhtsuc6qskp4tsy5ptjssshynacj462ptdy');
+  AWalletAddress walletAddress2 = AWalletAddress.fromAddress('kira1gfqq3kqn7tuhnpph4487d57c00dkptt3hefgkk');
+  AWalletAddress walletAddress3 = AWalletAddress.fromAddress('kira13hrpqkv53t82n2e72kfr3kuvvvr3565p234g3g');
+  AWalletAddress walletAddress4 = AWalletAddress.fromAddress('kira1ydv40l75gy83x6lgy3gq08nn5ylxmf2ffs7g97');
+  AWalletAddress walletAddress5 = AWalletAddress.fromAddress('kira154a6j42c8dtafrnpcxhf6rnemkqh3ehvgrvh6n');
+  AWalletAddress walletAddress6 = AWalletAddress.fromAddress('kira14pkvvmxx6g7gay7cxl65zseazs0zjhh2vzuu4g');
+  AWalletAddress walletAddress7 = AWalletAddress.fromAddress('kira19l6sa78vw6sr85ktujy9nps9kq7j3pnmeppkqp');
+  AWalletAddress walletAddress8 = AWalletAddress.fromAddress('kira1zcptq6kkzp7dcu6a5r9hqd84g8xtrdx3mvnv8s');
 
   String valkey1 = 'kiravaloper1fffuhtsuc6qskp4tsy5ptjssshynacj4fvag4g';
   String valkey2 = 'kiravaloper1gfqq3kqn7tuhnpph4487d57c00dkptt3yl4tw6';

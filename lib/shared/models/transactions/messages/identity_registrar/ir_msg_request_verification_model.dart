@@ -10,13 +10,13 @@ import 'package:miro/shared/models/tokens/token_amount_status_type.dart';
 import 'package:miro/shared/models/transactions/list/tx_direction_type.dart';
 import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
 import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 
 class IRMsgRequestVerificationModel extends ATxMsgModel {
   final List<int> recordIds;
   final TokenAmountModel tipTokenAmountModel;
-  final WalletAddress verifierWalletAddress;
-  final WalletAddress walletAddress;
+  final AWalletAddress verifierWalletAddress;
+  final AWalletAddress walletAddress;
 
   const IRMsgRequestVerificationModel({
     required this.recordIds,
@@ -40,16 +40,16 @@ class IRMsgRequestVerificationModel extends ATxMsgModel {
         defaultDenominationAmount: Decimal.fromBigInt(msgRequestIdentityRecordsVerify.tip.amount),
         tokenAliasModel: TokenAliasModel.local(msgRequestIdentityRecordsVerify.tip.denom),
       ),
-      verifierWalletAddress: WalletAddress.fromBech32(msgRequestIdentityRecordsVerify.verifier.value),
-      walletAddress: WalletAddress.fromBech32(msgRequestIdentityRecordsVerify.address.value),
+      verifierWalletAddress: AWalletAddress.fromAddress(msgRequestIdentityRecordsVerify.verifier.value),
+      walletAddress: AWalletAddress.fromAddress(msgRequestIdentityRecordsVerify.address.value),
     );
   }
 
   @override
   MsgRequestIdentityRecordsVerify toMsgDto() {
     return MsgRequestIdentityRecordsVerify(
-      address: CosmosAccAddress(walletAddress.bech32Address),
-      verifier: CosmosAccAddress(verifierWalletAddress.bech32Address),
+      address: CosmosAccAddress(walletAddress.address),
+      verifier: CosmosAccAddress(verifierWalletAddress.address),
       recordIds: recordIds,
       tip: CosmosCoin(
         denom: tipTokenAmountModel.tokenAliasModel.defaultTokenDenominationModel.name,
@@ -74,7 +74,7 @@ class IRMsgRequestVerificationModel extends ATxMsgModel {
   }
 
   @override
-  String getSubtitle(TxDirectionType txDirectionType) => verifierWalletAddress.bech32Address;
+  String getSubtitle(TxDirectionType txDirectionType) => verifierWalletAddress.address;
 
   @override
   String getTitle(BuildContext context, TxDirectionType txDirectionType) => S.of(context).txMsgRequestIdentityRecordsVerify;

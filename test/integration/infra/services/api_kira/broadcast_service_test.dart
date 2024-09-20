@@ -27,7 +27,7 @@ import 'package:miro/shared/models/transactions/signed_transaction_model.dart';
 import 'package:miro/shared/models/transactions/tx_local_info_model.dart';
 import 'package:miro/shared/models/transactions/tx_remote_info_model.dart';
 import 'package:miro/shared/models/transactions/unsigned_tx_model.dart';
-import 'package:miro/shared/models/wallet/mnemonic.dart' as miro;
+import 'package:miro/shared/models/wallet/mnemonic/mnemonic.dart' as miro;
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/shared/utils/network_utils.dart';
 import 'package:miro/test/utils/test_utils.dart';
@@ -60,7 +60,7 @@ Future<void> main() async {
 
   Future<SignedTxModel> signTx(TxLocalInfoModel actualTxLocalInfoModel, Wallet wallet) async {
     try {
-      final TxRemoteInfoModel txRemoteInfoModel = await queryAccountService.getTxRemoteInfo(wallet.address.bech32Address);
+      final TxRemoteInfoModel txRemoteInfoModel = await queryAccountService.getTxRemoteInfo(wallet.address.address);
       final UnsignedTxModel actualUnsignedTxModel = UnsignedTxModel(
         txLocalInfoModel: actualTxLocalInfoModel,
         txRemoteInfoModel: txRemoteInfoModel,

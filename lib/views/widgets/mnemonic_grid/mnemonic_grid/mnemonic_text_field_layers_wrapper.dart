@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:miro/blocs/widgets/mnemonic_grid/text_field/mnemonic_text_field_cubit.dart';
 import 'package:miro/config/theme/design_colors.dart';
-import 'package:miro/shared/models/wallet/mnemonic_text_field_status.dart';
+import 'package:miro/shared/models/wallet/mnemonic/mnemonic_text_field_status.dart';
 import 'package:miro/views/widgets/mnemonic_grid/mnemonic_grid/mnemonic_text_field_actions/mnemonic_text_field_actions.dart';
 import 'package:miro/views/widgets/mnemonic_grid/mnemonic_grid/mnemonic_text_field_layer.dart';
 

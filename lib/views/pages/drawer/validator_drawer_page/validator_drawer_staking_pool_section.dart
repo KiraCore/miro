@@ -37,7 +37,7 @@ class _ValidatorDrawerStakingPoolSectionState extends State<ValidatorDrawerStaki
 
   @override
   void initState() {
-    validatorDrawerPageCubit.init(widget.validatorModel.walletAddress.bech32Address);
+    validatorDrawerPageCubit.init(widget.validatorModel.walletAddress.address);
     super.initState();
   }
 

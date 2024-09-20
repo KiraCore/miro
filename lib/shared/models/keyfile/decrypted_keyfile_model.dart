@@ -20,7 +20,7 @@ class DecryptedKeyfileModel extends Equatable {
   });
 
   String buildFileContent(String password) {
-    ECPrivateKey ecPrivateKey = keyfileSecretDataModel.wallet.ecPrivateKey;
+    ECPrivateKey ecPrivateKey = keyfileSecretDataModel.wallet.ecPrivateKey!;
     KeyfileSecretDataEntity keyfileSecretDataEntity = KeyfileSecretDataEntity(
       privateKey: HEX.encode(ecPrivateKey.bytes),
     );
@@ -40,7 +40,7 @@ class DecryptedKeyfileModel extends Equatable {
 
   String get fileName {
     Wallet wallet = keyfileSecretDataModel.wallet;
-    return 'keyfile_${wallet.address.buildBech32AddressShort(delimiter: '_')}.json';
+    return 'keyfile_${wallet.address.buildShortAddress(delimiter: '_')}.json';
   }
 
   @override

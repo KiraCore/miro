@@ -9,7 +9,7 @@ import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/tokens/token_denomination_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/views/widgets/generic/loading_container.dart';
 import 'package:miro/views/widgets/generic/responsive/column_row_spacer.dart';
 import 'package:miro/views/widgets/generic/responsive/column_row_swapper.dart';
@@ -24,7 +24,7 @@ class TokenForm extends StatefulWidget {
   final String label;
   final ValueChanged<TokenFormState> onChanged;
   final TokenAmountModel feeTokenAmountModel;
-  final WalletAddress? walletAddress;
+  final AWalletAddress? walletAddress;
   final bool selectableBool;
   final BalanceModel? defaultBalanceModel;
   final FilterOption<BalanceModel>? initialFilterOption;

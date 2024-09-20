@@ -6,7 +6,7 @@ import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/undelegations/undelegation_model.dart';
 import 'package:miro/shared/models/validators/validator_simplified_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
@@ -17,13 +17,13 @@ Future<void> main() async {
   await TestUtils.setupNetworkModel(networkUri: Uri.parse('https://healthy.kira.network/'));
 
   final ValidatorSimplifiedModel validatorSimplifiedModel1 = ValidatorSimplifiedModel(
-    walletAddress: WalletAddress.fromBech32('kira1ymx5gpvswq0cmj6zkdxwa233sdgq2k5zzfge8w'),
+    walletAddress: AWalletAddress.fromAddress('kira1ymx5gpvswq0cmj6zkdxwa233sdgq2k5zzfge8w'),
     moniker: 'GENESIS VALIDATOR',
     website: 'https://www.wp.pl/',
   );
 
   final ValidatorSimplifiedModel validatorSimplifiedModel2 = ValidatorSimplifiedModel(
-    walletAddress: WalletAddress.fromBech32('kira1qffxre9m4dakekdqlsz9pez95crytqj6q8h457'),
+    walletAddress: AWalletAddress.fromAddress('kira1qffxre9m4dakekdqlsz9pez95crytqj6q8h457'),
     moniker: 'EXODUS VALIDATOR',
     website: 'https://www.wp.pl/',
   );

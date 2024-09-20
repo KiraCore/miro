@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 
 class QueryStakingPoolReq extends Equatable {
-  final WalletAddress? validatorWalletAddress;
+  final AWalletAddress? validatorWalletAddress;
 
   const QueryStakingPoolReq({
     this.validatorWalletAddress,
@@ -10,7 +10,7 @@ class QueryStakingPoolReq extends Equatable {
 
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
-      'validatorAddress': validatorWalletAddress?.bech32Address,
+      'validatorAddress': validatorWalletAddress?.address,
     };
   }
 

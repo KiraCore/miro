@@ -6,14 +6,14 @@ import 'package:miro/blocs/pages/drawer/staking_drawer_page/states/staking_drawe
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/services/api_kira/query_staking_pool_service.dart';
 import 'package:miro/shared/models/staking_pool/staking_pool_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 
 class StakingDrawerPageCubit extends Cubit<AStakingDrawerPageState> {
   final QueryStakingPoolService _queryStakingPoolService = globalLocator<QueryStakingPoolService>();
 
   StakingDrawerPageCubit() : super(const StakingDrawerPageLoadingState());
 
-  Future<void> init(WalletAddress validatorWalletAddress) async {
+  Future<void> init(AWalletAddress validatorWalletAddress) async {
     emit(const StakingDrawerPageLoadingState());
     try {
       StakingPoolModel stakingPoolModel = await _queryStakingPoolService.getStakingPoolModel(validatorWalletAddress);

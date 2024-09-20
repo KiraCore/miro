@@ -8,7 +8,7 @@ import 'package:miro/blocs/pages/drawer/staking_drawer_page/states/staking_drawe
 import 'package:miro/shared/models/staking_pool/staking_pool_model.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
@@ -34,7 +34,7 @@ Future<void> main() async {
       // ****************************************************************************************
 
       // Arrange
-      WalletAddress validatorWalletAddress = WalletAddress.fromBech32('kira1fffuhtsuc6qskp4tsy5ptjssshynacj462ptdy');
+      AWalletAddress validatorWalletAddress = AWalletAddress.fromAddress('kira1fffuhtsuc6qskp4tsy5ptjssshynacj462ptdy');
 
       // Act
       await actualStakingDrawerPageCubit.init(validatorWalletAddress);

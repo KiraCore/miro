@@ -23,7 +23,7 @@ import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
 import 'package:miro/shared/models/transactions/signed_transaction_model.dart';
 import 'package:miro/shared/models/transactions/tx_local_info_model.dart';
 import 'package:miro/shared/models/transactions/tx_remote_info_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
@@ -42,8 +42,8 @@ Future<void> main() async {
         tokenAliasModel: TokenAliasModel.local('ukex'),
       ),
       txMsgModel: MsgSendModel(
-        fromWalletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
-        toWalletAddress: WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
+        fromWalletAddress: AWalletAddress.fromAddress('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
+        toWalletAddress: AWalletAddress.fromAddress('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
         tokenAmountModel: TokenAmountModel(
           defaultDenominationAmount: Decimal.fromInt(100),
           tokenAliasModel: TokenAliasModel.local('ukex'),
@@ -138,8 +138,8 @@ Future<void> main() async {
     test('Should return [TxProcessConfirmState] if [formEnabledBool] param is equal [false]', () async {
       // Arrange
       MsgSendFormModel actualMsgSendFormModel = MsgSendFormModel(
-        recipientWalletAddress: WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
-        senderWalletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
+        recipientWalletAddress: AWalletAddress.fromAddress('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
+        senderWalletAddress: AWalletAddress.fromAddress('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
         tokenAmountModel: TokenAmountModel(
           defaultDenominationAmount: Decimal.fromInt(100),
           tokenAliasModel: TokenAliasModel.local('ukex'),

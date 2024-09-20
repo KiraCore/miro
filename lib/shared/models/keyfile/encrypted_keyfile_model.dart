@@ -10,8 +10,8 @@ import 'package:miro/shared/exceptions/keyfile_exception/keyfile_exception.dart'
 import 'package:miro/shared/exceptions/keyfile_exception/keyfile_exception_type.dart';
 import 'package:miro/shared/models/keyfile/decrypted_keyfile_model.dart';
 import 'package:miro/shared/models/keyfile/keyfile_secret_data_model.dart';
+import 'package:miro/shared/models/wallet/address/cosmos_wallet_address.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/shared/utils/cryptography/aes256.dart';
 
 class EncryptedKeyfileModel extends Equatable {
@@ -51,7 +51,7 @@ class EncryptedKeyfileModel extends Equatable {
       version: version,
       keyfileSecretDataModel: KeyfileSecretDataModel(
         wallet: Wallet(
-          address: WalletAddress.fromPublicKey(publicKey),
+          address: CosmosWalletAddress.fromPublicKey(publicKey),
           ecPrivateKey: ECPrivateKey.fromBytes(HEX.decode(keyfileSecretDataEntity.privateKey), CurvePoints.generatorSecp256k1),
         ),
       ),

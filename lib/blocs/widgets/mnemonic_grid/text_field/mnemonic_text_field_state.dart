@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:miro/shared/models/wallet/mnemonic_text_field_status.dart';
+import 'package:miro/shared/models/wallet/mnemonic/mnemonic_text_field_status.dart';
 
 class MnemonicTextFieldState extends Equatable {
   final String mnemonicText;

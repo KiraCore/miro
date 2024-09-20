@@ -5,12 +5,12 @@ import 'package:miro/shared/models/tokens/token_denomination_model.dart';
 import 'package:miro/shared/models/transactions/form_models/a_msg_form_model.dart';
 import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
 import 'package:miro/shared/models/transactions/messages/msg_send_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 
 class MsgSendFormModel extends AMsgFormModel {
   // Form fields
-  WalletAddress? _recipientWalletAddress;
-  WalletAddress? _senderWalletAddress;
+  AWalletAddress? _recipientWalletAddress;
+  AWalletAddress? _senderWalletAddress;
   TokenAmountModel? _tokenAmountModel;
 
   // Values required to be saved to allow editing transaction
@@ -18,8 +18,8 @@ class MsgSendFormModel extends AMsgFormModel {
   TokenDenominationModel? tokenDenominationModel;
 
   MsgSendFormModel({
-    WalletAddress? recipientWalletAddress,
-    WalletAddress? senderWalletAddress,
+    AWalletAddress? recipientWalletAddress,
+    AWalletAddress? senderWalletAddress,
     TokenAmountModel? tokenAmountModel,
     this.balanceModel,
     this.tokenDenominationModel,
@@ -54,16 +54,16 @@ class MsgSendFormModel extends AMsgFormModel {
     }
   }
 
-  WalletAddress? get recipientWalletAddress => _recipientWalletAddress;
+  AWalletAddress? get recipientWalletAddress => _recipientWalletAddress;
 
-  set recipientWalletAddress(WalletAddress? recipientWalletAddress) {
+  set recipientWalletAddress(AWalletAddress? recipientWalletAddress) {
     _recipientWalletAddress = recipientWalletAddress;
     notifyListeners();
   }
 
-  WalletAddress? get senderWalletAddress => _senderWalletAddress;
+  AWalletAddress? get senderWalletAddress => _senderWalletAddress;
 
-  set senderWalletAddress(WalletAddress? senderWalletAddress) {
+  set senderWalletAddress(AWalletAddress? senderWalletAddress) {
     _senderWalletAddress = senderWalletAddress;
     notifyListeners();
   }

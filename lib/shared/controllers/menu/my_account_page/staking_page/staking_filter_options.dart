@@ -8,7 +8,7 @@ class StakingFilterOptions {
 
     return (ValidatorStakingModel item) {
       bool tokenMatchBool = item.tokens.map((TokenAliasModel e) => e.defaultTokenDenominationModel.name).join(' ').toLowerCase().contains(pattern);
-      bool addressMatchBool = item.validatorSimplifiedModel.walletAddress.bech32Address.toLowerCase().contains(pattern);
+      bool addressMatchBool = item.validatorSimplifiedModel.walletAddress.address.toLowerCase().contains(pattern);
       bool usernameMatchBool = item.validatorSimplifiedModel.moniker?.toLowerCase().contains(pattern) ?? false;
       bool websiteMatchBool = item.validatorSimplifiedModel.website?.toLowerCase().contains(pattern) ?? false;
       bool statusMatchBool = item.stakingPoolStatus.name.toLowerCase().contains(pattern);

@@ -3,7 +3,7 @@ import 'package:miro/infra/dto/api_kira/query_delegations/response/delegation.da
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/validators/staking_pool_status.dart';
 import 'package:miro/shared/models/validators/validator_simplified_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 
 class ValidatorStakingModel extends AListItem {
   final String commission;
@@ -24,7 +24,7 @@ class ValidatorStakingModel extends AListItem {
       stakingPoolStatus: StakingPoolStatus.fromString(delegation.poolInfo.status),
       tokens: delegation.poolInfo.tokens.map(TokenAliasModel.local).toList(),
       validatorSimplifiedModel: ValidatorSimplifiedModel(
-        walletAddress: WalletAddress.fromBech32(delegation.validatorInfo.address),
+        walletAddress: AWalletAddress.fromAddress(delegation.validatorInfo.address),
         moniker: delegation.validatorInfo.moniker,
         logo: delegation.validatorInfo.logo,
         valkey: delegation.validatorInfo.valkey,
@@ -33,7 +33,7 @@ class ValidatorStakingModel extends AListItem {
   }
 
   @override
-  String get cacheId => validatorSimplifiedModel.walletAddress.bech32Address;
+  String get cacheId => validatorSimplifiedModel.walletAddress.address;
 
   @override
   bool get isFavourite => false;

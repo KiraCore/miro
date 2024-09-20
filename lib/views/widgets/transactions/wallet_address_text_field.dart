@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/views/widgets/kira/kira_identity_avatar.dart';
 import 'package:miro/views/widgets/transactions/tx_input_wrapper.dart';
 import 'package:miro/views/widgets/transactions/tx_text_field.dart';
 
 class WalletAddressTextField extends StatefulWidget {
   final String label;
-  final ValueChanged<WalletAddress?> onChanged;
+  final ValueChanged<AWalletAddress?> onChanged;
   final bool disabledBool;
-  final WalletAddress? defaultWalletAddress;
+  final AWalletAddress? defaultWalletAddress;
 
   const WalletAddressTextField({
     required this.label,
@@ -25,9 +25,9 @@ class WalletAddressTextField extends StatefulWidget {
 }
 
 class _WalletAddressTextField extends State<WalletAddressTextField> {
-  final GlobalKey<FormFieldState<WalletAddress>> formFieldKey = GlobalKey<FormFieldState<WalletAddress>>();
+  final GlobalKey<FormFieldState<AWalletAddress>> formFieldKey = GlobalKey<FormFieldState<AWalletAddress>>();
   final TextEditingController textEditingController = TextEditingController();
-  final ValueNotifier<WalletAddress?> walletAddressNotifier = ValueNotifier<WalletAddress?>(null);
+  final ValueNotifier<AWalletAddress?> walletAddressNotifier = ValueNotifier<AWalletAddress?>(null);
 
   @override
   void initState() {
@@ -47,10 +47,10 @@ class _WalletAddressTextField extends State<WalletAddressTextField> {
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
 
-    return FormField<WalletAddress>(
+    return FormField<AWalletAddress>(
       key: formFieldKey,
       validator: (_) => _validateAddress(),
-      builder: (FormFieldState<WalletAddress> field) {
+      builder: (FormFieldState<AWalletAddress> field) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -59,11 +59,11 @@ class _WalletAddressTextField extends State<WalletAddressTextField> {
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  ValueListenableBuilder<WalletAddress?>(
+                  ValueListenableBuilder<AWalletAddress?>(
                     valueListenable: walletAddressNotifier,
-                    builder: (_, WalletAddress? walletAddress, __) {
+                    builder: (_, AWalletAddress? walletAddress, __) {
                       return KiraIdentityAvatar(
-                        address: walletAddressNotifier.value?.bech32Address,
+                        address: walletAddressNotifier.value?.address,
                         size: 45,
                       );
                     },
@@ -101,12 +101,12 @@ class _WalletAddressTextField extends State<WalletAddressTextField> {
   void _assignDefaultValues() {
     if (widget.defaultWalletAddress != null) {
       walletAddressNotifier.value = widget.defaultWalletAddress;
-      textEditingController.text = widget.defaultWalletAddress!.bech32Address;
+      textEditingController.text = widget.defaultWalletAddress!.address;
     }
   }
 
   void _handleTextFieldChanged(String value) {
-    WalletAddress? walletAddress = _tryCreateWalletAddress(value);
+    AWalletAddress? walletAddress = _tryCreateWalletAddress(value);
     walletAddressNotifier.value = walletAddress;
 
     if (value.isEmpty) {
@@ -119,19 +119,19 @@ class _WalletAddressTextField extends State<WalletAddressTextField> {
 
   String? _validateAddress() {
     String addressText = textEditingController.text;
-    WalletAddress? walletAddress = _tryCreateWalletAddress(addressText);
+    AWalletAddress? walletAddress = _tryCreateWalletAddress(addressText);
     if (walletAddress == null) {
       return S.of(context).txErrorEnterValidAddress;
     }
     return null;
   }
 
-  WalletAddress? _tryCreateWalletAddress(String? address) {
+  AWalletAddress? _tryCreateWalletAddress(String? address) {
     if (address == null) {
       return null;
     }
     try {
-      return WalletAddress.fromBech32(address);
+      return AWalletAddress.fromAddress(address);
     } catch (e) {
       return null;
     }

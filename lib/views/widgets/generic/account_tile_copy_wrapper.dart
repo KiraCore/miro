@@ -3,13 +3,13 @@ import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/identity_registrar/ir_user_profile_model.dart';
 import 'package:miro/shared/models/validators/validator_simplified_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/views/widgets/generic/account/account_tile.dart';
 import 'package:miro/views/widgets/generic/copy_wrapper/copy_button.dart';
 import 'package:miro/views/widgets/kira/kira_tooltip.dart';
 
 class AccountTileCopyWrapper extends StatelessWidget {
-  final WalletAddress walletAddress;
+  final AWalletAddress walletAddress;
   final String? moniker;
   final String? logo;
 
@@ -52,13 +52,13 @@ class AccountTileCopyWrapper extends StatelessWidget {
           ),
           const SizedBox(width: 8),
           CopyButton(
-            value: walletAddress.bech32Address,
+            value: walletAddress.address,
             notificationText: S.of(context).toastPublicAddressCopied,
             size: 20,
           ),
           const SizedBox(width: 6),
           KiraToolTip(
-            message: walletAddress.bech32Address,
+            message: walletAddress.address,
             child: const Icon(
               Icons.info_outline,
               color: DesignColors.white2,

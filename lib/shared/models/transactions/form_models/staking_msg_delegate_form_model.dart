@@ -6,12 +6,12 @@ import 'package:miro/shared/models/tokens/token_denomination_model.dart';
 import 'package:miro/shared/models/transactions/form_models/a_msg_form_model.dart';
 import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
 import 'package:miro/shared/models/transactions/messages/staking/staking_msg_delegate_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 
 class StakingMsgDelegateFormModel extends AMsgFormModel {
   // Form fields
   String? _valkey;
-  WalletAddress? _delegatorWalletAddress;
+  AWalletAddress? _delegatorWalletAddress;
   List<TokenAmountModel>? _tokenAmountModels;
 
   // Values required to be saved to allow editing transaction
@@ -21,7 +21,7 @@ class StakingMsgDelegateFormModel extends AMsgFormModel {
 
   StakingMsgDelegateFormModel({
     String? valkey,
-    WalletAddress? delegatorWalletAddress,
+    AWalletAddress? delegatorWalletAddress,
     List<TokenAmountModel>? tokenAmountModels,
     this.balanceModel,
     this.tokenAliasModel,
@@ -54,9 +54,9 @@ class StakingMsgDelegateFormModel extends AMsgFormModel {
     return fieldsFilledBool;
   }
 
-  WalletAddress? get delegatorWalletAddress => _delegatorWalletAddress;
+  AWalletAddress? get delegatorWalletAddress => _delegatorWalletAddress;
 
-  set delegatorWalletAddress(WalletAddress? delegatorWalletAddress) {
+  set delegatorWalletAddress(AWalletAddress? delegatorWalletAddress) {
     _delegatorWalletAddress = delegatorWalletAddress;
     notifyListeners();
   }

@@ -8,7 +8,7 @@ import 'package:miro/shared/models/tokens/token_denomination_model.dart';
 import 'package:miro/shared/models/transactions/form_models/staking_msg_delegate_form_model.dart';
 import 'package:miro/shared/models/transactions/messages/staking/staking_msg_delegate_model.dart';
 import 'package:miro/shared/models/transactions/tx_local_info_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/shared/utils/transactions/tx_utils.dart';
 import 'package:miro/views/widgets/generic/token_avatar.dart';
 import 'package:miro/views/widgets/kira/kira_identity_avatar.dart';
@@ -19,7 +19,7 @@ class StakingMsgDelegateFormPreview extends StatefulWidget {
   final String moniker;
   final StakingMsgDelegateFormModel stakingMsgDelegateFormModel;
   final TxLocalInfoModel txLocalInfoModel;
-  final WalletAddress validatorWalletAddress;
+  final AWalletAddress validatorWalletAddress;
 
   StakingMsgDelegateFormPreview({
     required this.moniker,
@@ -50,9 +50,9 @@ class _StakingMsgDelegateFormPreviewState extends State<StakingMsgDelegateFormPr
       children: <Widget>[
         TxInputPreview(
           label: S.of(context).txHintStakeBy,
-          value: msgDelegateModel.delegatorWalletAddress.bech32Address,
+          value: msgDelegateModel.delegatorWalletAddress.address,
           icon: KiraIdentityAvatar(
-            address: msgDelegateModel.delegatorWalletAddress.bech32Address,
+            address: msgDelegateModel.delegatorWalletAddress.address,
             size: 45,
           ),
         ),
@@ -61,7 +61,7 @@ class _StakingMsgDelegateFormPreviewState extends State<StakingMsgDelegateFormPr
           label: S.of(context).txHintStakeOn,
           value: widget.moniker,
           icon: KiraIdentityAvatar(
-            address: widget.validatorWalletAddress.bech32Address,
+            address: widget.validatorWalletAddress.address,
             size: 45,
           ),
         ),

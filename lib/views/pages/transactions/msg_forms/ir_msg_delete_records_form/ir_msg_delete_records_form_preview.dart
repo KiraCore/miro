@@ -36,9 +36,9 @@ class _IRMsgDeleteRecordsFormPreview extends State<IRMsgDeleteRecordsFormPreview
       children: <Widget>[
         TxInputPreview(
           label: S.of(context).txHintSendFrom,
-          value: irMsgDeleteRecordsModel.walletAddress.bech32Address,
+          value: irMsgDeleteRecordsModel.walletAddress.address,
           icon: KiraIdentityAvatar(
-            address: irMsgDeleteRecordsModel.walletAddress.bech32Address,
+            address: irMsgDeleteRecordsModel.walletAddress.address,
             size: 45,
           ),
         ),

@@ -14,12 +14,12 @@ import 'package:miro/infra/services/api_kira/query_kira_tokens_aliases_service.d
 import 'package:miro/shared/models/balances/balance_model.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';
 import 'package:miro/shared/utils/logger/log_level.dart';
 
 abstract class _IQueryBalanceService {
-  Future<BalanceModel> getBalanceByToken(WalletAddress walletAddress, TokenAliasModel tokenAliasModel);
+  Future<BalanceModel> getBalanceByToken(AWalletAddress walletAddress, TokenAliasModel tokenAliasModel);
 
   Future<PageData<BalanceModel>> getBalanceModelList(QueryBalanceReq queryBalanceReq);
 }
@@ -28,10 +28,10 @@ class QueryBalanceService implements _IQueryBalanceService {
   final IApiKiraRepository _apiKiraRepository = globalLocator<IApiKiraRepository>();
 
   @override
-  Future<BalanceModel> getBalanceByToken(WalletAddress walletAddress, TokenAliasModel tokenAliasModel) async {
+  Future<BalanceModel> getBalanceByToken(AWalletAddress walletAddress, TokenAliasModel tokenAliasModel) async {
     // TODO(dominik): Temporary solution, should be replaced with a proper query to INTERX
     PageData<BalanceModel> allBalancesPageData = await getBalanceModelList(QueryBalanceReq(
-      address: walletAddress.bech32Address,
+      address: walletAddress.address,
       offset: 0,
       limit: 500,
     ));

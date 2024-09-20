@@ -12,7 +12,7 @@ import 'package:miro/shared/models/identity_registrar/ir_model.dart';
 import 'package:miro/shared/models/identity_registrar/ir_record_field_config_model.dart';
 import 'package:miro/shared/models/identity_registrar/ir_record_field_type.dart';
 import 'package:miro/shared/models/identity_registrar/ir_record_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/shared/router/kira_router.dart';
 import 'package:miro/shared/router/router.gr.dart';
 import 'package:miro/views/pages/menu/my_account_page/identity_registrar/ir_custom_record_button.dart';
@@ -22,7 +22,7 @@ import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 import 'package:miro/views/widgets/kira/kira_list/components/last_block_time_widget.dart';
 
 class IdentityRegistrarPage extends StatefulWidget {
-  final WalletAddress walletAddress;
+  final AWalletAddress walletAddress;
 
   const IdentityRegistrarPage({
     required this.walletAddress,

@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/transactions/form_models/ir_msg_register_record_form_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/shared/utils/string_utils.dart';
 import 'package:miro/views/pages/transactions/msg_forms/ir_msg_register_record_form/ir_key_text_input_formatter.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_value.dart';
@@ -19,7 +19,7 @@ class IRMsgRegisterRecordForm extends StatefulWidget {
   final int? irValueMaxLength;
   final String? initialIdentityKey;
   final String? initialIdentityValue;
-  final WalletAddress? initialWalletAddress;
+  final AWalletAddress? initialWalletAddress;
 
   const IRMsgRegisterRecordForm({
     required this.irKeyEditableBool,
@@ -122,7 +122,7 @@ class _IRMsgRegisterRecordForm extends State<IRMsgRegisterRecordForm> {
     }
   }
 
-  void _handleSenderAddressChanged(WalletAddress? walletAddress) {
+  void _handleSenderAddressChanged(AWalletAddress? walletAddress) {
     widget.irMsgRegisterRecordFormModel.senderWalletAddress = walletAddress;
   }
 

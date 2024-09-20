@@ -65,7 +65,7 @@ class _CreateWalletDrawerPage extends State<CreateWalletDrawerPage> {
 
         if (walletCreatedBool) {
           disabledBool = false;
-          addressTextValue = createWalletDrawerPageState.wallet.address.bech32Address;
+          addressTextValue = createWalletDrawerPageState.wallet.address.address;
         }
 
         return Column(
@@ -200,7 +200,7 @@ class _CreateWalletDrawerPage extends State<CreateWalletDrawerPage> {
   void _pressCopyPublicAddressButton() {
     bool walletCreatedBool = createWalletDrawerPageCubit.state is CreateWalletDrawerPageLoadedState;
     if (walletCreatedBool) {
-      String walletAddress = (createWalletDrawerPageCubit.state as CreateWalletDrawerPageLoadedState).wallet.address.bech32Address;
+      String walletAddress = (createWalletDrawerPageCubit.state as CreateWalletDrawerPageLoadedState).wallet.address.address;
       Clipboard.setData(ClipboardData(text: walletAddress));
       KiraToast.of(context).show(message: S.of(context).toastPublicAddressCopied, type: ToastType.success);
     } else {

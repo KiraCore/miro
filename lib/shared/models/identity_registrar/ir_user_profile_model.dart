@@ -1,9 +1,9 @@
 import 'package:equatable/equatable.dart';
 import 'package:miro/shared/models/identity_registrar/ir_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 
 class IRUserProfileModel extends Equatable {
-  final WalletAddress walletAddress;
+  final AWalletAddress walletAddress;
   final String? avatarUrl;
   final String? username;
 

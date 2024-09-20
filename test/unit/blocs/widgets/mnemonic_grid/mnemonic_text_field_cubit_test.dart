@@ -2,7 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/blocs/widgets/mnemonic_grid/grid/mnemonic_grid_cubit.dart';
 import 'package:miro/blocs/widgets/mnemonic_grid/text_field/mnemonic_text_field_cubit.dart';
 import 'package:miro/blocs/widgets/mnemonic_grid/text_field/mnemonic_text_field_state.dart';
-import 'package:miro/shared/models/wallet/mnemonic_text_field_status.dart';
+import 'package:miro/shared/models/wallet/mnemonic/mnemonic_text_field_status.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
 // To run this test type in console:

@@ -1,15 +1,15 @@
 import 'package:miro/shared/models/transactions/form_models/a_msg_form_model.dart';
 import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
 import 'package:miro/shared/models/transactions/messages/staking/staking_msg_claim_undelegation_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 
 class StakingMsgClaimUndelegationFormModel extends AMsgFormModel {
 // Form fields
-  WalletAddress? _senderWalletAddress;
+  AWalletAddress? _senderWalletAddress;
   String? _undelegationId;
 
   StakingMsgClaimUndelegationFormModel({
-    WalletAddress? senderWalletAddress,
+    AWalletAddress? senderWalletAddress,
     String? undelegationId,
   })  : _senderWalletAddress = senderWalletAddress,
         _undelegationId = undelegationId;
@@ -34,9 +34,9 @@ class StakingMsgClaimUndelegationFormModel extends AMsgFormModel {
     return fieldsFilledBool;
   }
 
-  WalletAddress? get senderWalletAddress => _senderWalletAddress;
+  AWalletAddress? get senderWalletAddress => _senderWalletAddress;
 
-  set senderWalletAddress(WalletAddress? senderWalletAddress) {
+  set senderWalletAddress(AWalletAddress? senderWalletAddress) {
     _senderWalletAddress = senderWalletAddress;
     notifyListeners();
   }

@@ -1,7 +1,7 @@
 import 'package:clipboard/clipboard.dart';
 import 'package:flutter/material.dart';
 import 'package:miro/generated/l10n.dart';
-import 'package:miro/shared/models/wallet/mnemonic.dart';
+import 'package:miro/shared/models/wallet/mnemonic/mnemonic.dart';
 import 'package:miro/views/widgets/kira/kira_toast/kira_toast.dart';
 import 'package:miro/views/widgets/kira/kira_toast/toast_type.dart';
 import 'package:miro/views/widgets/mnemonic_grid/mnemonic_grid_generated/mnemonic_grid_generated.dart';

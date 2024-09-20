@@ -1,8 +1,8 @@
 import 'package:equatable/equatable.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 
 class ValidatorSimplifiedModel extends Equatable {
-  final WalletAddress walletAddress;
+  final AWalletAddress walletAddress;
   final String? logo;
   final String? moniker;
   final String? valkey;

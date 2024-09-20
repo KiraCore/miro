@@ -2,19 +2,19 @@ import 'package:miro/shared/models/identity_registrar/ir_inbound_verification_re
 import 'package:miro/shared/models/transactions/form_models/a_msg_form_model.dart';
 import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
 import 'package:miro/shared/models/transactions/messages/identity_registrar/ir_msg_handle_verification_request_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 
 class IRMsgHandleVerificationRequestFormModel extends AMsgFormModel {
   final IRInboundVerificationRequestModel irInboundVerificationRequestModel;
 
   // Form fields
   bool? _approvalStatusBool;
-  WalletAddress? _walletAddress;
+  AWalletAddress? _walletAddress;
 
   IRMsgHandleVerificationRequestFormModel({
     required this.irInboundVerificationRequestModel,
     bool? approvalStatusBool,
-    WalletAddress? walletAddress,
+    AWalletAddress? walletAddress,
   })  : _approvalStatusBool = approvalStatusBool,
         _walletAddress = walletAddress;
 
@@ -46,9 +46,9 @@ class IRMsgHandleVerificationRequestFormModel extends AMsgFormModel {
     notifyListeners();
   }
 
-  WalletAddress? get walletAddress => _walletAddress;
+  AWalletAddress? get walletAddress => _walletAddress;
 
-  set walletAddress(WalletAddress? walletAddress) {
+  set walletAddress(AWalletAddress? walletAddress) {
     _walletAddress = walletAddress;
     notifyListeners();
   }

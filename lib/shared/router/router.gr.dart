@@ -24,7 +24,7 @@ import 'package:miro/shared/models/tokens/token_alias_model.dart' as _i27;
 import 'package:miro/shared/models/tokens/token_amount_model.dart' as _i25;
 import 'package:miro/shared/models/validators/validator_simplified_model.dart'
     as _i28;
-import 'package:miro/shared/models/wallet/wallet_address.dart' as _i26;
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart' as _i26;
 import 'package:miro/views/pages/loading/loading_page/loading_page.dart' as _i6;
 import 'package:miro/views/pages/loading/loading_wrapper.dart' as _i7;
 import 'package:miro/views/pages/loading/network_list_page/network_list_page.dart'
@@ -557,7 +557,7 @@ class StakingTxClaimUndelegationRoute
   StakingTxClaimUndelegationRoute({
     required int undelegationId,
     required _i25.TokenAmountModel tokenAmountModel,
-    required _i26.WalletAddress validatorWalletAddress,
+    required _i26.AWalletAddress validatorWalletAddress,
     _i22.Key? key,
     List<_i18.PageRouteInfo>? children,
   }) : super(
@@ -589,7 +589,7 @@ class StakingTxClaimUndelegationRouteArgs {
 
   final _i25.TokenAmountModel tokenAmountModel;
 
-  final _i26.WalletAddress validatorWalletAddress;
+  final _i26.AWalletAddress validatorWalletAddress;
 
   final _i22.Key? key;
 

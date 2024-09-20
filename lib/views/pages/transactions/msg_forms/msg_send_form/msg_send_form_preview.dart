@@ -45,18 +45,18 @@ class _MsgSendFormPreview extends State<MsgSendFormPreview> {
       children: <Widget>[
         TxInputPreview(
           label: S.of(context).txHintSendFrom,
-          value: msgSendModel.fromWalletAddress.bech32Address,
+          value: msgSendModel.fromWalletAddress.address,
           icon: KiraIdentityAvatar(
-            address: msgSendModel.fromWalletAddress.bech32Address,
+            address: msgSendModel.fromWalletAddress.address,
             size: 45,
           ),
         ),
         const SizedBox(height: 28),
         TxInputPreview(
           label: S.of(context).txHintSendTo,
-          value: msgSendModel.toWalletAddress.bech32Address,
+          value: msgSendModel.toWalletAddress.address,
           icon: KiraIdentityAvatar(
-            address: msgSendModel.toWalletAddress.bech32Address,
+            address: msgSendModel.toWalletAddress.address,
             size: 45,
           ),
         ),

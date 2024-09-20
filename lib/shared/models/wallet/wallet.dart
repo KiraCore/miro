@@ -1,7 +1,8 @@
 import 'package:cryptography_utils/cryptography_utils.dart';
 import 'package:equatable/equatable.dart';
-import 'package:miro/shared/models/wallet/mnemonic.dart' as miro;
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/cosmos_wallet_address.dart';
+import 'package:miro/shared/models/wallet/mnemonic/mnemonic.dart' as miro;
 
 /// Represents a wallet which contains the hex private key, the hex public key and the hex address.
 /// In order to create one properly, the [Wallet.derive] method should always be used.
@@ -12,7 +13,7 @@ class Wallet extends Equatable {
   /// * https://river.com/learn/terms/d/derivation-path/
   static const String baseDerivationPath = "m/44'/118'/0'/0";
 
-  final WalletAddress address;
+  final AWalletAddress address;
   final ECPrivateKey ecPrivateKey;
 
   const Wallet({
@@ -36,7 +37,7 @@ class Wallet extends Equatable {
     );
 
     return Wallet(
-      address: WalletAddress.fromPublicKey(legacyHDWallet.publicKey.compressed),
+      address: CosmosWalletAddress.fromPublicKey(legacyHDWallet.publicKey.compressed),
       ecPrivateKey: (legacyHDWallet.privateKey as Secp256k1PrivateKey).ecPrivateKey,
     );
   }

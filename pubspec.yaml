@@ -1,7 +1,7 @@
 name: miro
 description: KIRA blockchain explorer
 publish_to: 'none'
-version: 1.29.1
+version: 1.30.0
 
 environment:
   sdk: "3.2.6"

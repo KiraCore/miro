@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/filters/models/filter_option.dart';
 import 'package:miro/blocs/widgets/transactions/token_form/token_form_cubit.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/views/widgets/generic/pop_wrapper/pop_wrapper.dart';
 import 'package:miro/views/widgets/generic/pop_wrapper/pop_wrapper_controller.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_value.dart';
@@ -15,7 +15,7 @@ class TokenDropdown extends StatefulWidget {
   final bool disabledBool;
   final BalanceModel? defaultBalanceModel;
   final FilterOption<BalanceModel>? initialFilterOption;
-  final WalletAddress? walletAddress;
+  final AWalletAddress? walletAddress;
 
   const TokenDropdown({
     this.disabledBool = false,

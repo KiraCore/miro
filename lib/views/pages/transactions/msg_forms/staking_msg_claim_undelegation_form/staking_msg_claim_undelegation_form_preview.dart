@@ -8,7 +8,7 @@ import 'package:miro/shared/models/tokens/token_denomination_model.dart';
 import 'package:miro/shared/models/transactions/form_models/staking_msg_claim_undelegation_form_model.dart';
 import 'package:miro/shared/models/transactions/messages/staking/staking_msg_claim_undelegation_model.dart';
 import 'package:miro/shared/models/transactions/tx_local_info_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/shared/utils/transactions/tx_utils.dart';
 import 'package:miro/views/widgets/kira/kira_identity_avatar.dart';
 import 'package:miro/views/widgets/transactions/tx_input_preview.dart';
@@ -17,7 +17,7 @@ class StakingMsgClaimUndelegationFormPreview extends StatefulWidget {
   final TokenAmountModel amountToClaim;
   final TxLocalInfoModel txLocalInfoModel;
   final StakingMsgClaimUndelegationFormModel stakingMsgClaimUndelegationFormModel;
-  final WalletAddress validatorWalletAddress;
+  final AWalletAddress validatorWalletAddress;
 
   StakingMsgClaimUndelegationFormPreview({
     required this.amountToClaim,
@@ -48,9 +48,9 @@ class _StakingMsgClaimUndelegationFormPreviewState extends State<StakingMsgClaim
       children: <Widget>[
         TxInputPreview(
           label: S.of(context).txHintClaimBy,
-          value: stakingMsgClaimUndelegationModel.senderWalletAddress.bech32Address,
+          value: stakingMsgClaimUndelegationModel.senderWalletAddress.address,
           icon: KiraIdentityAvatar(
-            address: stakingMsgClaimUndelegationModel.senderWalletAddress.bech32Address,
+            address: stakingMsgClaimUndelegationModel.senderWalletAddress.address,
             size: 45,
           ),
         ),

@@ -15,13 +15,13 @@ import 'package:miro/shared/models/network/status/online/network_unhealthy_model
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_default_denom_model.dart';
 import 'package:miro/shared/models/tokens/token_denomination_model.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/test/mocks/mock_network_list_config_json.dart';
 
 class TestUtils {
   static Wallet wallet = Wallet(
-    address: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
+    address: AWalletAddress.fromAddress('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
     ecPrivateKey: ECPrivateKey(
       CurvePoints.generatorSecp256k1,
       BigInt.parse('25933686250415448129536663355227060923413846494721047098076326567395973050293'),
