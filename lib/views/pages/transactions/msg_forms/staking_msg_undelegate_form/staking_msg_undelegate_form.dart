@@ -10,8 +10,8 @@ import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/transactions/form_models/staking_msg_undelegate_form_model.dart';
 import 'package:miro/shared/models/validators/validator_simplified_model.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/views/widgets/transactions/memo_text_field/memo_text_field.dart';
 import 'package:miro/views/widgets/transactions/token_form/token_form.dart';
 import 'package:miro/views/widgets/transactions/tx_validator_preview.dart';
@@ -107,7 +107,7 @@ class _StakingMsgUndelegateFormState extends State<StakingMsgUndelegateForm> {
     memoTextEditingController.text = widget.stakingMsgUndelegateFormModel.memo;
   }
 
-  void _handleDelegatorAddressChanged(WalletAddress? walletAddress) {
+  void _handleDelegatorAddressChanged(AWalletAddress? walletAddress) {
     widget.stakingMsgUndelegateFormModel.delegatorWalletAddress = walletAddress;
   }
 

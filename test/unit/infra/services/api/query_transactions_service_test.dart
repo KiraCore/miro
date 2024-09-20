@@ -25,7 +25,7 @@ import 'package:miro/shared/models/transactions/messages/staking/staking_msg_cla
 import 'package:miro/shared/models/transactions/messages/staking/staking_msg_claim_undelegation_model.dart';
 import 'package:miro/shared/models/transactions/messages/staking/staking_msg_delegate_model.dart';
 import 'package:miro/shared/models/transactions/messages/staking/staking_msg_undelegate_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/shared/utils/network_utils.dart';
 import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
@@ -60,8 +60,8 @@ Future<void> main() async {
         ],
         txMsgModels: <ATxMsgModel>[
           MsgSendModel(
-            fromWalletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
-            toWalletAddress: WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
+            fromWalletAddress: AWalletAddress.fromAddress('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
+            toWalletAddress: AWalletAddress.fromAddress('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
             tokenAmountModel: TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TokenAliasModel.local('samolean')),
           ),
         ],
@@ -83,8 +83,8 @@ Future<void> main() async {
         ],
         txMsgModels: <ATxMsgModel>[
           MsgSendModel(
-            fromWalletAddress: WalletAddress.fromBech32('kira1m82gva4kqj28ulnk02a8447uumdl26jyegsca4'),
-            toWalletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
+            fromWalletAddress: AWalletAddress.fromAddress('kira1m82gva4kqj28ulnk02a8447uumdl26jyegsca4'),
+            toWalletAddress: AWalletAddress.fromAddress('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
             tokenAmountModel: TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(20000000), tokenAliasModel: TokenAliasModel.local('test')),
           ),
         ],
@@ -104,7 +104,7 @@ Future<void> main() async {
             irEntryModels: const <IREntryModel>[
               IREntryModel(key: 'avatar', info: 'https://paganresearch.io/images/kiracore.jpg'),
             ],
-            walletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
+            walletAddress: AWalletAddress.fromAddress('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
           ),
         ],
       ),
@@ -127,8 +127,8 @@ Future<void> main() async {
           IRMsgRequestVerificationModel(
             recordIds: const <int>[2],
             tipTokenAmountModel: TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(200), tokenAliasModel: TokenAliasModel.local('ukex')),
-            verifierWalletAddress: WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
-            walletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
+            verifierWalletAddress: AWalletAddress.fromAddress('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
+            walletAddress: AWalletAddress.fromAddress('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
           ),
         ],
       ),
@@ -145,7 +145,7 @@ Future<void> main() async {
         txMsgModels: <ATxMsgModel>[
           IRMsgCancelVerificationRequestModel(
             verifyRequestId: BigInt.from(1),
-            walletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
+            walletAddress: AWalletAddress.fromAddress('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
           ),
         ],
       ),
@@ -162,7 +162,7 @@ Future<void> main() async {
         txMsgModels: <ATxMsgModel>[
           IRMsgDeleteRecordsModel(
             keys: const <String>['website'],
-            walletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
+            walletAddress: AWalletAddress.fromAddress('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
           ),
         ],
       ),
@@ -180,7 +180,7 @@ Future<void> main() async {
           IRMsgHandleVerificationRequestModel(
             approvalStatusBool: true,
             verifyRequestId: '4',
-            walletAddress: WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
+            walletAddress: AWalletAddress.fromAddress('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
           ),
         ],
       ),
@@ -192,7 +192,7 @@ Future<void> main() async {
         txStatusType: TxStatusType.confirmed,
         txMsgModels: <ATxMsgModel>[
           StakingMsgDelegateModel(
-            delegatorWalletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
+            delegatorWalletAddress: AWalletAddress.fromAddress('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
             valkey: 'kiravaloper1c6slygj2tx7hzm0mn4qeflqpvngj73c2cw7fh7',
             tokenAmountModels: <TokenAmountModel>[
               TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TokenAliasModel.local('ukex'))
@@ -217,7 +217,7 @@ Future<void> main() async {
         txStatusType: TxStatusType.confirmed,
         txMsgModels: <ATxMsgModel>[
           StakingMsgUndelegateModel(
-            delegatorWalletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
+            delegatorWalletAddress: AWalletAddress.fromAddress('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
             valkey: 'kiravaloper1c6slygj2tx7hzm0mn4qeflqpvngj73c2cw7fh7',
             tokenAmountModels: <TokenAmountModel>[
               TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TokenAliasModel.local('ukex'))
@@ -240,7 +240,7 @@ Future<void> main() async {
         time: DateTime.parse('2023-01-02 15:49:26.000Z'),
         txDirectionType: TxDirectionType.outbound,
         txStatusType: TxStatusType.confirmed,
-        txMsgModels: <ATxMsgModel>[StakingMsgClaimRewardsModel(senderWalletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'))],
+        txMsgModels: <ATxMsgModel>[StakingMsgClaimRewardsModel(senderWalletAddress: AWalletAddress.fromAddress('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'))],
         prefixedTokenAmounts: <PrefixedTokenAmountModel>[],
         fees: <TokenAmountModel>[
           TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TokenAliasModel.local('ukex')),
@@ -254,7 +254,7 @@ Future<void> main() async {
         txStatusType: TxStatusType.confirmed,
         txMsgModels: <ATxMsgModel>[
           StakingMsgClaimUndelegationModel(
-            senderWalletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
+            senderWalletAddress: AWalletAddress.fromAddress('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
             undelegationId: '1',
           ),
         ],

@@ -6,11 +6,11 @@ import 'package:miro/shared/models/tokens/prefixed_token_amount_model.dart';
 import 'package:miro/shared/models/transactions/list/tx_direction_type.dart';
 import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
 import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 
 class IRMsgCancelVerificationRequestModel extends ATxMsgModel {
   final BigInt verifyRequestId;
-  final WalletAddress walletAddress;
+  final AWalletAddress walletAddress;
 
   const IRMsgCancelVerificationRequestModel({
     required this.verifyRequestId,
@@ -20,14 +20,14 @@ class IRMsgCancelVerificationRequestModel extends ATxMsgModel {
   factory IRMsgCancelVerificationRequestModel.fromDto(MsgCancelIdentityRecordsVerifyRequest msgCancelIdentityRecordsVerifyRequest) {
     return IRMsgCancelVerificationRequestModel(
       verifyRequestId: msgCancelIdentityRecordsVerifyRequest.verifyRequestId,
-      walletAddress: WalletAddress.fromBech32(msgCancelIdentityRecordsVerifyRequest.executor.value),
+      walletAddress: AWalletAddress.fromAddress(msgCancelIdentityRecordsVerifyRequest.executor.value),
     );
   }
 
   @override
   MsgCancelIdentityRecordsVerifyRequest toMsgDto() {
     return MsgCancelIdentityRecordsVerifyRequest(
-      executor: CosmosAccAddress(walletAddress.bech32Address),
+      executor: CosmosAccAddress(walletAddress.address),
       verifyRequestId: verifyRequestId,
     );
   }

@@ -8,7 +8,7 @@ import 'package:miro/shared/models/identity_registrar/ir_record_model.dart';
 import 'package:miro/shared/models/identity_registrar/ir_record_verification_request_model.dart';
 import 'package:miro/shared/models/identity_registrar/ir_user_profile_model.dart';
 import 'package:miro/shared/models/identity_registrar/ir_verification_request_status.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
@@ -18,7 +18,7 @@ Future<void> main() async {
   await initMockLocator();
 
   final IRUserProfileModel expectedIrUserProfileModel = IRUserProfileModel(
-    walletAddress: WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
+    walletAddress: AWalletAddress.fromAddress('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
     username: 'somnitear',
     avatarUrl: 'https://avatars.githubusercontent.com/u/114292385',
   );
@@ -30,9 +30,9 @@ Future<void> main() async {
         id: '3',
         key: 'username',
         value: 'somnitear',
-        verifiersAddresses: const <WalletAddress>[],
-        pendingVerifiersAddresses: <WalletAddress>[
-          WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
+        verifiersAddresses: const <AWalletAddress>[],
+        pendingVerifiersAddresses: <AWalletAddress>[
+          AWalletAddress.fromAddress('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
         ],
       );
       IRRecordDrawerPageCubit actualIrRecordDrawerPageCubit = IRRecordDrawerPageCubit(irRecordModel: actualIrRecordModel);

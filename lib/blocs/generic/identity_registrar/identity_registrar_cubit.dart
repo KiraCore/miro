@@ -12,7 +12,7 @@ import 'package:miro/shared/controllers/page_reload/page_reload_controller.dart'
 import 'package:miro/shared/models/identity_registrar/ir_model.dart';
 import 'package:miro/shared/models/network/block_time_wrapper_model.dart';
 import 'package:miro/shared/models/network/status/a_network_status_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';
 
 class IdentityRegistrarCubit extends Cubit<AIdentityRegistrarState> {
@@ -21,7 +21,7 @@ class IdentityRegistrarCubit extends Cubit<AIdentityRegistrarState> {
   final PageReloadController pageReloadController = PageReloadController();
 
   late final StreamSubscription<NetworkModuleState?> _networkModuleStream;
-  WalletAddress? walletAddress;
+  AWalletAddress? walletAddress;
 
   IdentityRegistrarCubit() : super(const IdentityRegistrarLoadingState()) {
     _networkModuleStream = _networkModuleBloc.stream.listen(_refreshAfterNetworkUpdate);
@@ -33,7 +33,7 @@ class IdentityRegistrarCubit extends Cubit<AIdentityRegistrarState> {
     return super.close();
   }
 
-  Future<void> setWalletAddress(WalletAddress? walletAddress) async {
+  Future<void> setWalletAddress(AWalletAddress? walletAddress) async {
     this.walletAddress = walletAddress;
     if (walletAddress != null) {
       await refresh();
@@ -68,7 +68,7 @@ class IdentityRegistrarCubit extends Cubit<AIdentityRegistrarState> {
         ));
       }
     } catch (e) {
-      AppLogger().log(message: 'Cannot fetch identity records for wallet address ${walletAddress!.bech32Address}: Reason: ${e.runtimeType}');
+      AppLogger().log(message: 'Cannot fetch identity records for wallet address ${walletAddress!.address}: Reason: ${e.runtimeType}');
       if (networkChangedBool) {
         emit(IdentityRegistrarLoadedState(irModel: IRModel.empty(walletAddress: walletAddress!)));
       }

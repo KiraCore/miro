@@ -30,7 +30,7 @@ class _ValidatorDrawerPage extends State<ValidatorDrawerPage> {
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
-    String address = widget.validatorModel.walletAddress.bech32Address;
+    String address = widget.validatorModel.walletAddress.address;
 
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,

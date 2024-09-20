@@ -7,7 +7,7 @@ import 'package:miro/shared/controllers/menu/my_account_page/undelegations_page/
 import 'package:miro/shared/controllers/menu/my_account_page/undelegations_page/undelegations_filter_options.dart';
 import 'package:miro/shared/controllers/menu/my_account_page/undelegations_page/undelegations_sort_options.dart';
 import 'package:miro/shared/models/undelegations/undelegation_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/views/pages/menu/my_account_page/undelegations_page/undelegation_list_item/desktop/undelegation_list_item_desktop_layout.dart';
 import 'package:miro/views/pages/menu/my_account_page/undelegations_page/undelegation_list_item/desktop/undelegation_list_item_destkop.dart';
 import 'package:miro/views/pages/menu/my_account_page/undelegations_page/undelegation_list_item/undelegation_list_item_builder.dart';
@@ -16,7 +16,7 @@ import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 import 'package:miro/views/widgets/kira/kira_list/infinity_list/sliver_infinity_list/sliver_infinity_list.dart';
 
 class UndelegationsPage extends StatefulWidget {
-  final WalletAddress walletAddress;
+  final AWalletAddress walletAddress;
   final ScrollController parentScrollController;
 
   const UndelegationsPage({

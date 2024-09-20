@@ -21,7 +21,7 @@ class TxValidatorPreview extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           KiraIdentityAvatar(
-            address: validatorSimplifiedModel.walletAddress.bech32Address,
+            address: validatorSimplifiedModel.walletAddress.address,
             size: 45,
           ),
           const SizedBox(width: 12),

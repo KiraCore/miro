@@ -3,7 +3,7 @@ import 'package:miro/blocs/widgets/transactions/token_form/token_form_state.dart
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/transactions/form_models/msg_send_form_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/views/widgets/transactions/memo_text_field/memo_text_field.dart';
 import 'package:miro/views/widgets/transactions/token_form/token_form.dart';
 import 'package:miro/views/widgets/transactions/wallet_address_text_field.dart';
@@ -26,7 +26,7 @@ class MsgSendForm extends StatefulWidget {
 
 class _MsgSendForm extends State<MsgSendForm> {
   final TextEditingController memoTextEditingController = TextEditingController();
-  final ValueNotifier<WalletAddress?> walletAddressNotifier = ValueNotifier<WalletAddress?>(null);
+  final ValueNotifier<AWalletAddress?> walletAddressNotifier = ValueNotifier<AWalletAddress?>(null);
 
   @override
   void initState() {
@@ -63,9 +63,9 @@ class _MsgSendForm extends State<MsgSendForm> {
             defaultWalletAddress: widget.msgSendFormModel.recipientWalletAddress,
           ),
           const SizedBox(height: 14),
-          ValueListenableBuilder<WalletAddress?>(
+          ValueListenableBuilder<AWalletAddress?>(
             valueListenable: walletAddressNotifier,
-            builder: (_, WalletAddress? walletAddress, __) {
+            builder: (_, AWalletAddress? walletAddress, __) {
               return TokenForm(
                 label: S.of(context).balancesAmount,
                 feeTokenAmountModel: widget.feeTokenAmountModel,
@@ -93,12 +93,12 @@ class _MsgSendForm extends State<MsgSendForm> {
     walletAddressNotifier.value = widget.msgSendFormModel.senderWalletAddress;
   }
 
-  void _handleSenderAddressChanged(WalletAddress? walletAddress) {
+  void _handleSenderAddressChanged(AWalletAddress? walletAddress) {
     walletAddressNotifier.value = walletAddress;
     widget.msgSendFormModel.senderWalletAddress = walletAddress;
   }
 
-  void _handleRecipientAddressChanged(WalletAddress? walletAddress) {
+  void _handleRecipientAddressChanged(AWalletAddress? walletAddress) {
     widget.msgSendFormModel.recipientWalletAddress = walletAddress;
   }
 

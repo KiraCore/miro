@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:miro/shared/models/wallet/mnemonic.dart';
+import 'package:miro/shared/models/wallet/mnemonic/mnemonic.dart';
 import 'package:miro/views/widgets/kira/kira_qr_code.dart';
 
 class QrCodeTileContent extends StatelessWidget {

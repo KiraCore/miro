@@ -5,7 +5,7 @@ import 'package:miro/infra/dto/shared/coin.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/validators/validator_simplified_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/shared/utils/custom_date_utils.dart';
 
 class UndelegationModel extends AListItem {
@@ -26,7 +26,7 @@ class UndelegationModel extends AListItem {
       id: undelegation.id,
       lockedUntil: CustomDateUtils.buildDateFromSecondsSinceEpoch(int.parse(undelegation.expiry)),
       validatorSimplifiedModel: ValidatorSimplifiedModel(
-        walletAddress: WalletAddress.fromBech32(undelegation.validatorInfo.address),
+        walletAddress: AWalletAddress.fromAddress(undelegation.validatorInfo.address),
         moniker: undelegation.validatorInfo.moniker,
         logo: undelegation.validatorInfo.logo,
         valkey: undelegation.validatorInfo.valkey,

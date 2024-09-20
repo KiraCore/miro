@@ -3,7 +3,7 @@ import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/controllers/menu/my_account_page/transactions_page/transactions_list_controller.dart';
 import 'package:miro/shared/models/transactions/list/tx_list_item_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/views/pages/menu/my_account_page/transactions_page/transaction_list_item/desktop/transaction_list_item_desktop_layout.dart';
 import 'package:miro/views/pages/menu/my_account_page/transactions_page/transaction_list_item/transaction_list_item_builder.dart';
 import 'package:miro/views/pages/menu/my_account_page/transactions_page/transactions_list_title.dart';
@@ -12,7 +12,7 @@ import 'package:miro/views/widgets/kira/kira_list/sliver_paginated_list/page_siz
 import 'package:miro/views/widgets/kira/kira_list/sliver_paginated_list/sliver_paginated_list.dart';
 
 class TransactionsPage extends StatefulWidget {
-  final WalletAddress walletAddress;
+  final AWalletAddress walletAddress;
   final ScrollController parentScrollController;
 
   const TransactionsPage({

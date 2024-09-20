@@ -6,10 +6,10 @@ import 'package:miro/shared/models/tokens/prefixed_token_amount_model.dart';
 import 'package:miro/shared/models/transactions/list/tx_direction_type.dart';
 import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
 import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 
 class StakingMsgClaimUndelegationModel extends ATxMsgModel {
-  final WalletAddress senderWalletAddress;
+  final AWalletAddress senderWalletAddress;
   final String undelegationId;
 
   const StakingMsgClaimUndelegationModel({
@@ -19,7 +19,7 @@ class StakingMsgClaimUndelegationModel extends ATxMsgModel {
 
   factory StakingMsgClaimUndelegationModel.fromMsgDto(MsgClaimUndelegation msgClaimUndelegation) {
     return StakingMsgClaimUndelegationModel(
-      senderWalletAddress: WalletAddress.fromBech32(msgClaimUndelegation.sender),
+      senderWalletAddress: AWalletAddress.fromAddress(msgClaimUndelegation.sender),
       undelegationId: msgClaimUndelegation.undelegationId.toString(),
     );
   }
@@ -27,7 +27,7 @@ class StakingMsgClaimUndelegationModel extends ATxMsgModel {
   @override
   ATxMsg toMsgDto() {
     return MsgClaimUndelegation(
-      sender: senderWalletAddress.bech32Address,
+      sender: senderWalletAddress.address,
       undelegationId: BigInt.parse(undelegationId),
     );
   }
@@ -47,7 +47,7 @@ class StakingMsgClaimUndelegationModel extends ATxMsgModel {
 
   @override
   String? getSubtitle(TxDirectionType txDirectionType) {
-    return senderWalletAddress.bech32Address;
+    return senderWalletAddress.address;
   }
 
   @override

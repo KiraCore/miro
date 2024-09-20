@@ -2,18 +2,18 @@ import 'package:miro/shared/models/transactions/form_models/a_msg_form_model.dar
 import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
 import 'package:miro/shared/models/transactions/messages/identity_registrar/register/ir_entry_model.dart';
 import 'package:miro/shared/models/transactions/messages/identity_registrar/register/ir_msg_register_records_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 
 class IRMsgRegisterRecordFormModel extends AMsgFormModel {
   // Form fields
   String? _identityKey;
   String? _identityValue;
-  WalletAddress? _senderWalletAddress;
+  AWalletAddress? _senderWalletAddress;
 
   IRMsgRegisterRecordFormModel({
     String? identityKey,
     String? identityValue,
-    WalletAddress? senderWalletAddress,
+    AWalletAddress? senderWalletAddress,
   })  : _identityKey = identityKey,
         _identityValue = identityValue,
         _senderWalletAddress = senderWalletAddress;
@@ -58,9 +58,9 @@ class IRMsgRegisterRecordFormModel extends AMsgFormModel {
     notifyListeners();
   }
 
-  WalletAddress? get senderWalletAddress => _senderWalletAddress;
+  AWalletAddress? get senderWalletAddress => _senderWalletAddress;
 
-  set senderWalletAddress(WalletAddress? value) {
+  set senderWalletAddress(AWalletAddress? value) {
     _senderWalletAddress = value;
     notifyListeners();
   }

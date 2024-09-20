@@ -3,10 +3,10 @@ import 'package:miro/shared/models/transactions/form_models/ir_msg_register_reco
 import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
 import 'package:miro/shared/models/transactions/messages/identity_registrar/register/ir_entry_model.dart';
 import 'package:miro/shared/models/transactions/messages/identity_registrar/register/ir_msg_register_records_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 
 void main() {
-  WalletAddress actualSenderAddress = WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx');
+  AWalletAddress actualSenderAddress = AWalletAddress.fromAddress('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx');
 
   group('Tests of IRMsgRegisterRecordFormModel.canBuildTxMsg()', () {
     test('Should [return TRUE] if all required form fields are filled', () {

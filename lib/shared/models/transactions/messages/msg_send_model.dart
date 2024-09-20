@@ -13,11 +13,11 @@ import 'package:miro/shared/models/tokens/token_amount_status_type.dart';
 import 'package:miro/shared/models/transactions/list/tx_direction_type.dart';
 import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
 import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 
 class MsgSendModel extends ATxMsgModel {
-  final WalletAddress fromWalletAddress;
-  final WalletAddress toWalletAddress;
+  final AWalletAddress fromWalletAddress;
+  final AWalletAddress toWalletAddress;
   final TokenAmountModel tokenAmountModel;
 
   const MsgSendModel({
@@ -28,8 +28,8 @@ class MsgSendModel extends ATxMsgModel {
 
   factory MsgSendModel.fromMsgDto(MsgSend msgSend) {
     return MsgSendModel(
-      fromWalletAddress: WalletAddress.fromBech32(msgSend.fromAddress),
-      toWalletAddress: WalletAddress.fromBech32(msgSend.toAddress),
+      fromWalletAddress: AWalletAddress.fromAddress(msgSend.fromAddress),
+      toWalletAddress: AWalletAddress.fromAddress(msgSend.toAddress),
       tokenAmountModel: TokenAmountModel(
         defaultDenominationAmount: Decimal.fromBigInt(msgSend.amount.first.amount),
         tokenAliasModel: TokenAliasModel.local(msgSend.amount.first.denom),
@@ -40,8 +40,8 @@ class MsgSendModel extends ATxMsgModel {
   @override
   MsgSend toMsgDto() {
     return MsgSend(
-      fromAddress: fromWalletAddress.bech32Address,
-      toAddress: toWalletAddress.bech32Address,
+      fromAddress: fromWalletAddress.address,
+      toAddress: toWalletAddress.address,
       amount: <CosmosCoin>[
         CosmosCoin(
           denom: tokenAmountModel.tokenAliasModel.defaultTokenDenominationModel.name,
@@ -79,9 +79,9 @@ class MsgSendModel extends ATxMsgModel {
   @override
   String getSubtitle(TxDirectionType txDirectionType) {
     if (txDirectionType == TxDirectionType.outbound) {
-      return toWalletAddress.bech32Address;
+      return toWalletAddress.address;
     } else {
-      return fromWalletAddress.bech32Address;
+      return fromWalletAddress.address;
     }
   }
 
