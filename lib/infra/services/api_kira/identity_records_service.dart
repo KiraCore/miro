@@ -24,6 +24,8 @@ import 'package:miro/shared/models/identity_registrar/ir_verification_request_st
 import 'package:miro/shared/models/network/block_time_wrapper_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/cosmos_wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/ethereum_wallet_address.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';
 import 'package:miro/shared/utils/logger/log_level.dart';
 
@@ -44,18 +46,23 @@ class IdentityRecordsService implements _IIdentityRecordsService {
   Future<BlockTimeWrapperModel<IRModel>> getIdentityRecordsByAddress(AWalletAddress walletAddress, {bool forceRequestBool = false}) async {
     Uri networkUri = globalLocator<NetworkModuleBloc>().state.networkUri;
 
+    AWalletAddress address = walletAddress is EthereumWalletAddress
+        ? CosmosWalletAddress.fromBech32(
+            walletAddress.toKiraAddress(),
+          )
+        : walletAddress;
     Response<dynamic> response = await _apiKiraRepository.fetchQueryIdentityRecordsByAddress<dynamic>(ApiRequestModel<String>(
       networkUri: networkUri,
-      requestData: walletAddress.address,
+      requestData: address.address,
       forceRequestBool: forceRequestBool,
     ));
-    List<PendingVerification> pendingVerifications = await _getAllPendingVerificationsByRequester(walletAddress, forceRequestBool: forceRequestBool);
+    List<PendingVerification> pendingVerifications = await _getAllPendingVerificationsByRequester(address, forceRequestBool: forceRequestBool);
 
     try {
       QueryIdentityRecordsByAddressResp queryIdentityRecordsByAddressResp = QueryIdentityRecordsByAddressResp.fromJson(response.data as Map<String, dynamic>);
       InterxHeaders interxHeaders = InterxHeaders.fromHeaders(response.headers);
       IRModel irModel = IRModel.fromDto(
-        walletAddress: walletAddress,
+        walletAddress: address,
         records: queryIdentityRecordsByAddressResp.records,
         pendingVerifications: pendingVerifications,
       );
