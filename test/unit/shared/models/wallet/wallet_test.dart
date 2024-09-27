@@ -36,11 +36,10 @@ Future<void> main() async {
 
       expect(actualWallet, expectedWallet);
     });
-
-    test('Should throw FormatException, because lastDerivationPathSegment is not a number', () async {
+    test('Should throw AssertionError, because lastDerivationPathSegment is less than zero', () async {
       expect(
-        () => Wallet.derive(mnemonic: actualMnemonic, lastDerivationPathSegment: 'abc'),
-        throwsA(isA<FormatException>()),
+        () => Wallet.derive(mnemonic: actualMnemonic, lastDerivationPathSegment: -1),
+        throwsA(isA<AssertionError>()),
       );
     });
   });

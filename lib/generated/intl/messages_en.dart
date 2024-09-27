@@ -187,7 +187,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "irUsername": MessageLookupByLibrary.simpleMessage("Username"),
         "irVerificationRequests":
             MessageLookupByLibrary.simpleMessage("Verification Requests"),
-        "irVerificationRequestsActions": MessageLookupByLibrary.simpleMessage("Actions"),
+        "irVerificationRequestsActions":
+            MessageLookupByLibrary.simpleMessage("Actions"),
         "irVerificationRequestsApprove":
             MessageLookupByLibrary.simpleMessage("Approve"),
         "irVerificationRequestsApprovedRecord":
@@ -262,6 +263,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "keyfileWarning": MessageLookupByLibrary.simpleMessage(
             "You won’t be able to download it again"),
         "kiraNetwork": MessageLookupByLibrary.simpleMessage("Kira Network"),
+        "metamask": MessageLookupByLibrary.simpleMessage("MetaMask"),
         "mnemonic": MessageLookupByLibrary.simpleMessage("Mnemonic"),
         "mnemonicEnter":
             MessageLookupByLibrary.simpleMessage("Enter your Mnemonic"),

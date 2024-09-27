@@ -1,6 +1,8 @@
 import 'package:get_it/get_it.dart';
 import 'package:miro/blocs/generic/auth/auth_cubit.dart';
 import 'package:miro/blocs/generic/identity_registrar/identity_registrar_cubit.dart';
+import 'package:miro/blocs/generic/metamask/ethereum_provider.dart';
+import 'package:miro/blocs/generic/metamask/metamask_cubit.dart';
 import 'package:miro/blocs/generic/network_module/network_module_bloc.dart';
 import 'package:miro/blocs/layout/drawer/drawer_cubit.dart';
 import 'package:miro/blocs/layout/nav_menu/nav_menu_cubit.dart';
@@ -68,7 +70,8 @@ void _initServices() {
     ..registerLazySingleton<QueryStakingPoolService>(QueryStakingPoolService.new)
     ..registerLazySingleton<QueryTransactionsService>(QueryTransactionsService.new)
     ..registerLazySingleton<QueryUndelegationsService>(QueryUndelegationsService.new)
-    ..registerLazySingleton<QueryValidatorsService>(QueryValidatorsService.new);
+    ..registerLazySingleton<QueryValidatorsService>(QueryValidatorsService.new)
+    ..registerLazySingleton<EthereumProvider>(EthereumProvider.new);
 }
 
 void _initControllers() {
@@ -77,6 +80,7 @@ void _initControllers() {
     ..registerLazySingleton<DrawerCubit>(DrawerCubit.new)
     ..registerLazySingleton<GlobalNavController>(GlobalNavController.new)
     ..registerLazySingleton<IdentityRegistrarCubit>(IdentityRegistrarCubit.new)
+    ..registerLazySingleton<MetamaskCubit>(() => MetamaskCubit()..init())
     ..registerLazySingleton<NavMenuCubit>(NavMenuCubit.new)
     ..registerLazySingleton<NetworkCustomSectionCubit>(NetworkCustomSectionCubit.new)
     ..registerLazySingleton<NetworkListCubit>(NetworkListCubit.new)
