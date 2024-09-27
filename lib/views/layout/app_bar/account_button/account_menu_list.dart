@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miro/blocs/generic/auth/auth_cubit.dart';
+import 'package:miro/blocs/generic/metamask/metamask_cubit.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
@@ -8,7 +9,8 @@ import 'package:miro/shared/router/router.gr.dart';
 import 'package:miro/views/layout/app_bar/account_button/account_menu_list_tile.dart';
 
 class AccountMenuList extends StatelessWidget {
-  final AuthCubit authCubit = globalLocator<AuthCubit>();
+  final AuthCubit _authCubit = globalLocator<AuthCubit>();
+  final MetamaskCubit _metamaskCubit = globalLocator<MetamaskCubit>();
   final VoidCallback? onItemTap;
 
   AccountMenuList({
@@ -50,6 +52,7 @@ class AccountMenuList extends StatelessWidget {
     if (onItemTap != null) {
       onItemTap!();
     }
-    authCubit.signOut();
+    _authCubit.signOut();
+    _metamaskCubit.resetState();
   }
 }

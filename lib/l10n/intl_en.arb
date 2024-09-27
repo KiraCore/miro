@@ -160,6 +160,8 @@
     }
   },
 
+  "metamask": "MetaMask",
+
   "mnemonic": "Mnemonic",
   "mnemonicErrorUnexpected": "Something unexpected happened",
   "mnemonicErrorEnterCorrect": "You have to enter correct Mnemonic to sign in",

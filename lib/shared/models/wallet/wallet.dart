@@ -14,22 +14,22 @@ class Wallet extends Equatable {
   static const String baseDerivationPath = "m/44'/118'/0'/0";
 
   final AWalletAddress address;
-  final ECPrivateKey ecPrivateKey;
+  final ECPrivateKey? ecPrivateKey;
 
   const Wallet({
     required this.address,
-    required this.ecPrivateKey,
+    this.ecPrivateKey,
   });
 
   /// ** HEAVY OPERATION **
   /// Derives the private key from the given [mnemonic] using the specified [walletDetails].
-  /// Optionally can define a different derivation path setting [lastDerivationPathSegment].
-  ///
-  /// Throws [FormatException] if the [int.tryParse] cannot parse [lastDerivationPathSegment]
+  /// Optionally can define a different derivation path setting [lastDerivationPathSegment] (>=0).
   static Future<Wallet> derive({
     required miro.Mnemonic mnemonic,
-    String lastDerivationPathSegment = '0',
+    int lastDerivationPathSegment = 0,
   }) async {
+    assert(lastDerivationPathSegment >= 0, 'Invalid index format');
+
     LegacyHDWallet legacyHDWallet = await LegacyHDWallet.fromMnemonic(
       mnemonic: Mnemonic(mnemonic.array),
       derivationPath: LegacyDerivationPath.parse('$baseDerivationPath/$lastDerivationPathSegment'),
