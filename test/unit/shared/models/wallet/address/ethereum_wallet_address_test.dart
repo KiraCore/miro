@@ -1,21 +1,36 @@
 import 'dart:typed_data';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:miro/blocs/generic/network_module/network_module_bloc.dart';
+import 'package:miro/config/locator.dart';
+import 'package:miro/shared/models/tokens/token_default_denom_model.dart';
 import 'package:miro/shared/models/wallet/address/ethereum_wallet_address.dart';
-import 'package:miro/test/mock_locator.dart';
-import 'package:miro/test/utils/test_utils.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
+
+@GenerateNiceMocks(<MockSpec<dynamic>>[
+  MockSpec<NetworkModuleBloc>(),
+])
+import 'ethereum_wallet_address_test.mocks.dart';
 
 // To run this test type in console:
 // fvm flutter test test/unit/shared/models/wallet/address/ethereum_wallet_address_test.dart --platform chrome --null-assertions
 Future<void> main() async {
-  await initMockLocator();
-  await TestUtils.setupNetworkModel(networkUri: Uri.parse('https://healthy.kira.network/'));
+  MockNetworkModuleBloc mockNetworkModuleBloc = MockNetworkModuleBloc();
+
+  globalLocator.registerLazySingleton<NetworkModuleBloc>(() => mockNetworkModuleBloc);
+
+  when(mockNetworkModuleBloc.tokenDefaultDenomModel).thenReturn(TokenDefaultDenomModel(
+    valuesFromNetworkExistBool: true,
+    bech32AddressPrefix: 'kira',
+    defaultTokenAliasModel: null,
+  ));
 
   group('Tests of fromString() constructor', () {
-    test('Should return correct WalletAddress from given bech32 address', () {
+    test('Should return correct WalletAddress from given address', () {
       // Arrange
-      const String actualEthereumAddress = '0x437832172d98e523a7fc748b9ed33ac72921964c';
-      Uint8List actualAddressBytes = Uint8List.fromList(<int>[67, 120, 50, 23, 45, 152, 229, 35, 167, 252, 116, 139, 158, 211, 58, 199, 41, 33, 150, 76]);
+      const String actualEthereumAddress = '0xb83DF76e62980BDb0E324FC9Ce3e7bAF6309E7b5';
+      Uint8List actualAddressBytes = Uint8List.fromList(<int>[184, 61, 247, 110, 98, 152, 11, 219, 14, 50, 79, 201, 206, 62, 123, 175, 99, 9, 231, 181]);
 
       // Act
       EthereumWalletAddress actualWalletAddress = EthereumWalletAddress.fromString(actualEthereumAddress);
@@ -24,13 +39,21 @@ Future<void> main() async {
       EthereumWalletAddress expectedWalletAddress = EthereumWalletAddress(addressBytes: actualAddressBytes);
       expect(actualWalletAddress, expectedWalletAddress);
     });
+
+    test('Should throw an error due to invalid length', () {
+      // Arrange
+      const String actualEthereumAddress = '0xb83DF76e62980BDb0E324FC9Ce3e7bAF6309';
+
+      // Assert
+      throwsA(() => EthereumWalletAddress.fromString(actualEthereumAddress));
+    });
   });
 
   group('Tests of fromBech32() constructor', () {
     test('Should return correct WalletAddress from given bech32 address', () {
       // Arrange
-      const String actualBech32Address = 'kira1gdury9ednrjj8fluwj9ea5e6cu5jr9jvekl7u3';
-      const String actualEthereumAddress = '0x437832172d98e523a7fc748b9ed33ac72921964c';
+      const String actualBech32Address = 'kira1hq7lwmnznq9akr3jflyuu0nm4a3snea4za0fra';
+      const String actualEthereumAddress = '0xb83DF76e62980BDb0E324FC9Ce3e7bAF6309E7b5';
 
       // Act
       EthereumWalletAddress actualWalletAddress = EthereumWalletAddress.fromBech32(actualBech32Address);
@@ -42,15 +65,15 @@ Future<void> main() async {
   });
 
   group('Tests of toKiraAddress() function', () {
-    test('Should return correct WalletAddress from given bech32 address', () {
+    test('Should return correct WalletAddress from given address', () {
       // Arrange
-      const String actualEthereumAddress = '0x437832172d98e523a7fc748b9ed33ac72921964c';
+      const String actualEthereumAddress = '0xb83DF76e62980BDb0E324FC9Ce3e7bAF6309E7b5';
 
       // Act
       String actualBech32Address = EthereumWalletAddress.fromString(actualEthereumAddress).toKiraAddress();
 
       // Assert
-      const String expectedBech32Address = 'kira1gdury9ednrjj8fluwj9ea5e6cu5jr9jvekl7u3';
+      const String expectedBech32Address = 'kira1hq7lwmnznq9akr3jflyuu0nm4a3snea4za0fra';
       expect(actualBech32Address, expectedBech32Address);
     });
   });
@@ -58,7 +81,7 @@ Future<void> main() async {
   group('Tests of address getter', () {
     test('Should return correct bech32 address', () {
       // Arrange
-      const String actualEthereumAddress = '0x437832172d98e523a7fc748b9ed33ac72921964c';
+      const String actualEthereumAddress = '0xb83DF76e62980BDb0E324FC9Ce3e7bAF6309E7b5';
 
       // Act
       EthereumWalletAddress actualWalletAddress = EthereumWalletAddress.fromString(actualEthereumAddress);
@@ -75,7 +98,7 @@ Future<void> main() async {
   group('Tests of buildShortAddress()', () {
     test('Should return short address with underscore as delimiter', () {
       // Arrange
-      const String actualEthereumAddress = '0x437832172d98e523a7fc748b9ed33ac72921964c';
+      const String actualEthereumAddress = '0xb83DF76e62980BDb0E324FC9Ce3e7bAF6309E7b5';
 
       // Act
       EthereumWalletAddress actualWalletAddress = EthereumWalletAddress.fromString(actualEthereumAddress);
@@ -83,13 +106,13 @@ Future<void> main() async {
       // Assert
       expect(
         actualWalletAddress.buildShortAddress(delimiter: '_'),
-        '0x437832_964c',
+        '0xb83DF7_E7b5',
       );
     });
 
     test('Should return short address with three dots as delimiter', () {
       // Arrange
-      const String actualEthereumAddress = '0x437832172d98e523a7fc748b9ed33ac72921964c';
+      const String actualEthereumAddress = '0xb83DF76e62980BDb0E324FC9Ce3e7bAF6309E7b5';
 
       // Act
       EthereumWalletAddress actualWalletAddress = EthereumWalletAddress.fromString(actualEthereumAddress);
@@ -97,7 +120,7 @@ Future<void> main() async {
       // Assert
       expect(
         actualWalletAddress.buildShortAddress(delimiter: '...'),
-        '0x437832...964c',
+        '0xb83DF7...E7b5',
       );
     });
   });

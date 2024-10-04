@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/generic/auth/auth_cubit.dart';
+import 'package:miro/blocs/generic/metamask/metamask_cubit.dart';
 import 'package:miro/blocs/pages/transactions/tx_form_builder/a_tx_form_builder_state.dart';
 import 'package:miro/blocs/pages/transactions/tx_form_builder/states/tx_form_builder_downloading_state.dart';
 import 'package:miro/blocs/pages/transactions/tx_form_builder/states/tx_form_builder_error_state.dart';
@@ -10,6 +11,7 @@ import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/transactions/form_models/a_msg_form_model.dart';
+import 'package:miro/shared/models/transactions/messages/msg_send_model.dart';
 import 'package:miro/shared/models/transactions/signed_transaction_model.dart';
 import 'package:miro/shared/models/transactions/unsigned_tx_model.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
@@ -37,6 +39,7 @@ class TxSendFormFooter extends StatefulWidget {
 
 class _TxSendFormFooter extends State<TxSendFormFooter> {
   final AuthCubit authCubit = globalLocator<AuthCubit>();
+  final MetamaskCubit metamaskCubit = globalLocator<MetamaskCubit>();
   late final TxFormBuilderCubit txFormBuilderCubit = TxFormBuilderCubit(
     feeTokenAmountModel: widget.feeTokenAmountModel,
     msgFormModel: widget.msgFormModel,
@@ -99,6 +102,17 @@ class _TxSendFormFooter extends State<TxSendFormFooter> {
     }
     try {
       UnsignedTxModel unsignedTxModel = await txFormBuilderCubit.buildUnsignedTx();
+      if (metamaskCubit.isSupported && authCubit.state!.ecPrivateKey == null) {
+        // TODO(Mykyta): is there possibility that model can be not a MsgSendModel ? (`send-via-metamask` task)
+        // ignore:unused_local_variable
+        int amount = (unsignedTxModel.txLocalInfoModel.txMsgModel as MsgSendModel).tokenAmountModel.getAmountInDefaultDenomination().toBigInt().toInt();
+        // TODO(Mykyta): add error handling at `send-via-metamask` task
+        await metamaskCubit.pay(
+          to: authCubit.state!.address,
+          amount: 0,
+        );
+        return;
+      }
       SignedTxModel signedTxModel = await _signTransaction(unsignedTxModel);
       widget.onSubmit(signedTxModel);
     } catch (e) {
