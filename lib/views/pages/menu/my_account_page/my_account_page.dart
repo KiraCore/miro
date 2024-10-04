@@ -5,6 +5,7 @@ import 'package:miro/blocs/generic/auth/auth_cubit.dart';
 import 'package:miro/config/app_sizes.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/generated/l10n.dart';
+import 'package:miro/shared/models/wallet/address/cosmos_wallet_address.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_page.dart';
 import 'package:miro/views/pages/menu/my_account_page/identity_registrar/identity_registrar_page.dart';
@@ -46,6 +47,7 @@ class _MyAccountPage extends State<MyAccountPage> with SingleTickerProviderState
         if (authCubit.isSignedIn == false) {
           return const SizedBox();
         }
+        CosmosWalletAddress identityStateAddress = authCubit.identityStateAddress!;
         return CustomScrollView(
           controller: scrollController,
           slivers: <Widget>[
@@ -75,12 +77,12 @@ class _MyAccountPage extends State<MyAccountPage> with SingleTickerProviderState
                   SliverTabBarView(
                     tabController: tabController,
                     children: <Widget>[
-                      BalancePage(walletAddress: wallet.address, parentScrollController: scrollController),
-                      TransactionsPage(walletAddress: wallet.address, parentScrollController: scrollController),
-                      IdentityRegistrarPage(walletAddress: wallet.address),
-                      VerificationRequestsPage(walletAddress: wallet.address, parentScrollController: scrollController),
-                      StakingPage(walletAddress: wallet.address),
-                      UndelegationsPage(walletAddress: wallet.address, parentScrollController: scrollController),
+                      BalancePage(walletAddress: identityStateAddress, parentScrollController: scrollController),
+                      TransactionsPage(walletAddress: identityStateAddress, parentScrollController: scrollController),
+                      IdentityRegistrarPage(walletAddress: identityStateAddress),
+                      VerificationRequestsPage(walletAddress: identityStateAddress, parentScrollController: scrollController),
+                      StakingPage(walletAddress: identityStateAddress),
+                      UndelegationsPage(walletAddress: identityStateAddress, parentScrollController: scrollController),
                     ],
                   ),
                 ],
