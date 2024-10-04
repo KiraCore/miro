@@ -2,6 +2,7 @@ import 'package:cryptography_utils/cryptography_utils.dart';
 import 'package:equatable/equatable.dart';
 import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/shared/models/wallet/address/cosmos_wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/ethereum_wallet_address.dart';
 import 'package:miro/shared/models/wallet/mnemonic/mnemonic.dart' as miro;
 
 /// Represents a wallet which contains the hex private key, the hex public key and the hex address.
@@ -41,6 +42,8 @@ class Wallet extends Equatable {
       ecPrivateKey: (legacyHDWallet.privateKey as Secp256k1PrivateKey).ecPrivateKey,
     );
   }
+
+  bool get isMetamask => address is EthereumWalletAddress;
 
   @override
   List<Object?> get props => <Object?>[address, ecPrivateKey];

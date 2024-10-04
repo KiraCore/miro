@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/identity_registrar/ir_model.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/views/widgets/generic/account/account_tile_layout.dart';
 import 'package:miro/views/widgets/generic/copy_wrapper/copy_button.dart';
 import 'package:miro/views/widgets/generic/copy_wrapper/copy_wrapper.dart';
@@ -13,8 +14,12 @@ import 'package:miro/views/widgets/kira/kira_identity_avatar.dart';
 class AccountHeader extends StatelessWidget {
   final IRModel? irModel;
 
+  /// We should pass a wallet address independently of the [irModel] because it may be ETH / KIRA while [irModel] is KIRA only.
+  final AWalletAddress walletAddress;
+
   const AccountHeader({
     required this.irModel,
+    required this.walletAddress,
     Key? key,
   }) : super(key: key);
 
@@ -49,7 +54,7 @@ class AccountHeader extends StatelessWidget {
       );
     } else {
       Widget addressWidget = Text(
-        irModel!.walletAddress.address,
+        walletAddress.address,
         softWrap: true,
         style: textTheme.bodyMedium!.copyWith(color: DesignColors.grey1),
       );
@@ -63,12 +68,12 @@ class AccountHeader extends StatelessWidget {
               addressVisibleBool: true,
               gapSize: gapSize,
               avatarWidget: KiraIdentityAvatar(
-                address: irModel!.walletAddress.address,
+                address: walletAddress.address,
                 avatarUrl: irModel!.avatarIRRecordModel.value,
                 size: avatarSize,
               ),
               usernameWidget: Text(
-                irModel!.usernameIRRecordModel.value ?? irModel!.walletAddress.buildShortAddress(delimiter: '...'),
+                irModel!.usernameIRRecordModel.value ?? walletAddress.buildShortAddress(delimiter: '...'),
                 overflow: TextOverflow.ellipsis,
                 style: ResponsiveValue<TextStyle>(
                   largeScreen: textTheme.displayMedium!.copyWith(color: DesignColors.white1),
@@ -77,7 +82,7 @@ class AccountHeader extends StatelessWidget {
               ),
               addressWidget: ResponsiveWidget.isLargeScreen(context)
                   ? CopyWrapper(
-                      value: irModel!.walletAddress.address,
+                      value: walletAddress.address,
                       notificationText: S.of(context).toastSuccessfullyCopied,
                       child: addressWidget,
                     )
@@ -87,7 +92,7 @@ class AccountHeader extends StatelessWidget {
           SizedBox(width: gapSize),
           if (ResponsiveWidget.isLargeScreen(context) == false)
             CopyButton(
-              value: irModel!.walletAddress.address,
+              value: walletAddress.address,
               notificationText: S.of(context).toastPublicAddressCopied,
               size: 20,
             ),
