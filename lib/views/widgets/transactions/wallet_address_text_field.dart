@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:miro/blocs/generic/metamask/metamask_cubit.dart';
+import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
@@ -28,6 +31,10 @@ class _WalletAddressTextField extends State<WalletAddressTextField> {
   final GlobalKey<FormFieldState<AWalletAddress>> formFieldKey = GlobalKey<FormFieldState<AWalletAddress>>();
   final TextEditingController textEditingController = TextEditingController();
   final ValueNotifier<AWalletAddress?> walletAddressNotifier = ValueNotifier<AWalletAddress?>(null);
+  final MetamaskCubit metamaskCubit = globalLocator<MetamaskCubit>();
+
+  /// Text controller has ETH, [oppositeAddress] has KIRA, and vice versa.
+  final ValueNotifier<String?> oppositeAddressNotifier = ValueNotifier<String?>(null);
 
   @override
   void initState() {
@@ -40,6 +47,7 @@ class _WalletAddressTextField extends State<WalletAddressTextField> {
     formFieldKey.currentState?.dispose();
     textEditingController.dispose();
     walletAddressNotifier.dispose();
+    oppositeAddressNotifier.dispose();
     super.dispose();
   }
 
@@ -69,18 +77,32 @@ class _WalletAddressTextField extends State<WalletAddressTextField> {
                     },
                   ),
                   const SizedBox(width: 12),
-                  Expanded(
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: TxTextField(
-                        disabled: widget.disabledBool,
-                        maxLines: 1,
-                        hasErrors: field.hasError,
-                        label: widget.label,
-                        textEditingController: textEditingController,
-                        onChanged: _handleTextFieldChanged,
-                      ),
-                    ),
+                  BlocBuilder<MetamaskCubit, MetamaskState>(
+                    bloc: metamaskCubit,
+                    buildWhen: (MetamaskState previous, MetamaskState current) => previous.isConnected != current.isConnected,
+                    builder: (BuildContext context, MetamaskState state) {
+                      return Expanded(
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: TxTextField(
+                            disabled: widget.disabledBool,
+                            maxLines: 1,
+                            hasErrors: field.hasError,
+                            label: widget.label,
+                            // situationally use the error as subtitle under the text
+                            errorText: oppositeAddressNotifier.value,
+                            errorStyle: textTheme.bodyMedium!.copyWith(
+                              color: DesignColors.grey1,
+                            ),
+                            textEditingController: textEditingController,
+                            onChanged: (String value) => _handleTextFieldChanged(
+                              value,
+                              needOppositeAddressBool: state.isConnected,
+                            ),
+                          ),
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
@@ -102,12 +124,18 @@ class _WalletAddressTextField extends State<WalletAddressTextField> {
     if (widget.defaultWalletAddress != null) {
       walletAddressNotifier.value = widget.defaultWalletAddress;
       textEditingController.text = widget.defaultWalletAddress!.address;
+      if (metamaskCubit.state.isConnected) {
+        oppositeAddressNotifier.value = widget.defaultWalletAddress!.toOppositeAddressType().address;
+      }
     }
   }
 
-  void _handleTextFieldChanged(String value) {
+  void _handleTextFieldChanged(String value, {required bool needOppositeAddressBool}) {
     AWalletAddress? walletAddress = _tryCreateWalletAddress(value);
     walletAddressNotifier.value = walletAddress;
+    if (needOppositeAddressBool) {
+      oppositeAddressNotifier.value = walletAddress?.toOppositeAddressType().address;
+    }
 
     if (value.isEmpty) {
       formFieldKey.currentState?.reset();

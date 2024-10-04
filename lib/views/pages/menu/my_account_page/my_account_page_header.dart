@@ -33,7 +33,10 @@ class MyAccountPageHeader extends StatelessWidget {
           child: BlocBuilder<IdentityRegistrarCubit, AIdentityRegistrarState>(
             bloc: globalLocator<IdentityRegistrarCubit>(),
             builder: (BuildContext context, AIdentityRegistrarState identityRegistrarState) {
-              return AccountHeader(irModel: identityRegistrarState.irModel);
+              return AccountHeader(
+                irModel: identityRegistrarState.irModel,
+                walletAddress: wallet.address,
+              );
             },
           ),
         ),

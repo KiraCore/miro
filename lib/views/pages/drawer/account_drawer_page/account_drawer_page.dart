@@ -9,6 +9,7 @@ import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/views/layout/app_bar/account_button/account_menu_list.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
 import 'package:miro/views/widgets/generic/account/account_header.dart';
+import 'package:miro/views/widgets/metamask/toggle_between_wallet_address_types.dart';
 
 class AccountDrawerPage extends StatelessWidget {
   final AuthCubit authCubit = globalLocator<AuthCubit>();
@@ -29,7 +30,17 @@ class AccountDrawerPage extends StatelessWidget {
             BlocBuilder<IdentityRegistrarCubit, AIdentityRegistrarState>(
               bloc: globalLocator<IdentityRegistrarCubit>(),
               builder: (BuildContext context, AIdentityRegistrarState identityRegistrarState) {
-                return AccountHeader(irModel: identityRegistrarState.irModel);
+                return Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: AccountHeader(
+                        irModel: identityRegistrarState.irModel,
+                        walletAddress: wallet!.address,
+                      ),
+                    ),
+                    const ToggleBetweenWalletAddressTypes(padding: EdgeInsets.only(left: 16)),
+                  ],
+                );
               },
             ),
             const SizedBox(height: 8),

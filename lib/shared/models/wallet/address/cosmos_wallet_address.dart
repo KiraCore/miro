@@ -9,17 +9,13 @@ import 'package:miro/shared/utils/cryptography/bech32/bech32_pair.dart';
 import 'package:miro/shared/utils/cryptography/secp256k1.dart';
 
 class CosmosWalletAddress extends AWalletAddress {
-  /// The length of a wallet address, in bytes.
-  static const int addressByteLength = 20;
-
   final String? _bech32Hrp;
 
   /// Stores raw address bytes and allows to create bech32Address based on hrp (human readable part).
   const CosmosWalletAddress({
     required Uint8List addressBytes,
     String? bech32Hrp,
-  })  : assert(addressBytes.length == addressByteLength, 'Address should be $addressByteLength bytes length'),
-        _bech32Hrp = bech32Hrp,
+  })  : _bech32Hrp = bech32Hrp,
         super(addressBytes: addressBytes);
 
   /// Constructs a wallet address from a public key. The address is formed by
@@ -40,12 +36,20 @@ class CosmosWalletAddress extends AWalletAddress {
     return CosmosWalletAddress(addressBytes: bech32pair.data, bech32Hrp: bech32pair.hrp);
   }
 
+  factory CosmosWalletAddress.fromEthereum(String ethereumAddress, {String? bech32Hrp}) {
+    String? hrp = bech32Hrp ?? globalLocator<NetworkModuleBloc>().tokenDefaultDenomModel.bech32AddressPrefix!;
+    return CosmosWalletAddress(addressBytes: HexCodec.decode(ethereumAddress), bech32Hrp: hrp);
+  }
+
   /// Returns the associated [address] as a Bech32 string.
   @override
   String get address {
     String bech32Hrp = _bech32Hrp ?? globalLocator<NetworkModuleBloc>().tokenDefaultDenomModel.bech32AddressPrefix!;
     return Bech32.encode(bech32Hrp, addressBytes);
   }
+
+  @override
+  WalletAddressType get type => WalletAddressType.cosmos;
 
   String toEthereumAddress() {
     return HexCodec.encode(addressBytes, includePrefixBool: true);

@@ -4,6 +4,8 @@ import 'package:flutter_web3/flutter_web3.dart' hide Wallet;
 import 'package:miro/blocs/generic/auth/auth_cubit.dart';
 import 'package:miro/blocs/generic/metamask/ethereum_provider.dart';
 import 'package:miro/config/locator.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/cosmos_wallet_address.dart';
 import 'package:miro/shared/models/wallet/address/ethereum_wallet_address.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';
@@ -84,17 +86,18 @@ class MetamaskCubit extends Cubit<MetamaskState> {
   }
 
   // TODO(Mykyta): to be implemented in future task for MetaMask Pay feature with Cosmos signing
-  Future<void> pay({required String to, required int amount}) async {
+  Future<void> pay({required AWalletAddress to, required int amount}) async {
     if (isSupported == false || state.isConnected == false) {
       return;
     }
     await _switchNetworkToKira();
+    String address = to is CosmosWalletAddress ? to.toEthereumAddress() : to.address;
     try {
-      // TODO(Mykyta): remove signer and direct usage of ethereum
+      // TODO(Mykyta): remove signer and direct usage of ethereum (`send-via-metamask` task)
       await Web3Provider.fromEthereum(ethereum!).getSigner().sendTransaction(
             TransactionRequest(
               from: state.address!,
-              to: to,
+              to: address,
               value: BigInt.from(amount),
             ),
           );

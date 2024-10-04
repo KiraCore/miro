@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:miro/blocs/generic/auth/auth_cubit.dart';
+import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/controllers/menu/my_account_page/transactions_page/transactions_list_controller.dart';
 import 'package:miro/shared/models/transactions/list/tx_list_item_model.dart';
 import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
+import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/views/pages/menu/my_account_page/transactions_page/transaction_list_item/desktop/transaction_list_item_desktop_layout.dart';
 import 'package:miro/views/pages/menu/my_account_page/transactions_page/transaction_list_item/transaction_list_item_builder.dart';
 import 'package:miro/views/pages/menu/my_account_page/transactions_page/transactions_list_title.dart';
@@ -28,6 +32,7 @@ class TransactionsPage extends StatefulWidget {
 class _TransactionsPage extends State<TransactionsPage> {
   final TextEditingController searchBarTextEditingController = TextEditingController();
   late final TransactionsListController transactionsListController = TransactionsListController(walletAddress: widget.walletAddress);
+  final AuthCubit authCubit = globalLocator<AuthCubit>();
   int pageSize = 10;
 
   @override
@@ -56,21 +61,32 @@ class _TransactionsPage extends State<TransactionsPage> {
       onPageSizeChanged: (int pageSize) => setState(() => this.pageSize = pageSize),
     );
 
-    return SliverPaginatedList<TxListItemModel>(
-      desktopItemHeight: 80,
-      scrollController: widget.parentScrollController,
-      hasBackgroundBool: ResponsiveWidget.isLargeScreen(context),
-      singlePageSize: pageSize,
-      listController: transactionsListController,
-      listHeaderWidget: ResponsiveWidget.isLargeScreen(context) ? listHeaderWidget : null,
-      titleBuilder: (BuildContext context) {
-        return TransactionsListTitle(
-          transactionsListController: transactionsListController,
-          pageSizeDropdownWidget: pageSizeDropdown,
+    return BlocBuilder<AuthCubit, Wallet?>(
+      bloc: authCubit,
+      builder: (BuildContext context, Wallet? state) {
+        if (authCubit.isSignedIn == false) {
+          return const SizedBox.shrink();
+        }
+        return SliverPaginatedList<TxListItemModel>(
+          desktopItemHeight: 80,
+          scrollController: widget.parentScrollController,
+          hasBackgroundBool: ResponsiveWidget.isLargeScreen(context),
+          singlePageSize: pageSize,
+          listController: transactionsListController,
+          listHeaderWidget: ResponsiveWidget.isLargeScreen(context) ? listHeaderWidget : null,
+          titleBuilder: (BuildContext context) {
+            return TransactionsListTitle(
+              transactionsListController: transactionsListController,
+              pageSizeDropdownWidget: pageSizeDropdown,
+            );
+          },
+          itemBuilder: (TxListItemModel txListItemModel) {
+            return TransactionListItemBuilder(
+              txListItemModel: txListItemModel,
+              walletAddressType: authCubit.state!.address.type,
+            );
+          },
         );
-      },
-      itemBuilder: (TxListItemModel txListItemModel) {
-        return TransactionListItemBuilder(txListItemModel: txListItemModel);
       },
     );
   }
