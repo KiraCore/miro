@@ -75,7 +75,11 @@ class SignInDrawerPage extends StatelessWidget {
                   ),
                   if (metamaskCubit.isSupported) ...<Widget>[
                     const SizedBox(height: 16),
-                    const Divider(color: DesignColors.grey2),
+                    const Divider(
+                      color: DesignColors.grey2,
+                      indent: 20,
+                      endIndent: 20,
+                    ),
                     const SizedBox(height: 16),
                     KiraElevatedButton(
                       title: S.of(context).metamask,
@@ -83,7 +87,11 @@ class SignInDrawerPage extends StatelessWidget {
                       onPressed: metamaskCubit.connect,
                     ),
                     const SizedBox(height: 16),
-                    const Divider(color: DesignColors.grey2),
+                    const Divider(
+                      color: DesignColors.grey2,
+                      indent: 20,
+                      endIndent: 20,
+                    ),
                   ],
                   const SizedBox(height: 32),
                   Text(

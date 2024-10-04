@@ -9,5 +9,8 @@ class Assets {
   static const String assetsNetworkListConfig = 'assets/network_list_config.json';
   static const String fontsIconsFont = 'assets/fonts/IconsFont.ttf';
   static const String fontsIconsFontConfig = 'assets/fonts/icons_font_config.json';
+  static const String arrows = 'assets/icons/arrows.svg';
+  static const String ethereumLogo = 'assets/icons/ethereum_logo.svg';
+  static const String kiraLogo = 'assets/icons/kira_logo.svg';
   static const String iconsNetworkStatus = 'assets/icons/network_status.svg';
 }

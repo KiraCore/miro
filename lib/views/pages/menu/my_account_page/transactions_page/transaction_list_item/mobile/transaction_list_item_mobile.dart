@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/transactions/list/tx_list_item_model.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/views/pages/menu/my_account_page/transactions_page/transaction_list_item/tx_amount_text.dart';
 import 'package:miro/views/pages/menu/my_account_page/transactions_page/transaction_status_chip/transaction_status_chip.dart';
 import 'package:miro/views/widgets/generic/copy_wrapper/copy_button.dart';
@@ -10,9 +11,11 @@ import 'package:miro/views/widgets/generic/prefixed_widget.dart';
 
 class TransactionListItemMobile extends StatelessWidget {
   final TxListItemModel txListItemModel;
+  final WalletAddressType walletAddressType;
 
   const TransactionListItemMobile({
     required this.txListItemModel,
+    required this.walletAddressType,
     Key? key,
   }) : super(key: key);
 
@@ -51,7 +54,7 @@ class TransactionListItemMobile extends StatelessWidget {
                   prefix: txListItemModel.getTitle(context),
                   child: txListItemModel.getSubtitle(context) != null
                       ? Text(
-                          txListItemModel.getSubtitle(context)!,
+                          txListItemModel.getSubtitle(context)!.replaceAddressTypeIfExists(toType: walletAddressType),
                           overflow: TextOverflow.ellipsis,
                           style: textTheme.bodyMedium!.copyWith(
                             color: DesignColors.white2,

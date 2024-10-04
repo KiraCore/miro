@@ -29,6 +29,9 @@ class _WalletAddressTextField extends State<WalletAddressTextField> {
   final TextEditingController textEditingController = TextEditingController();
   final ValueNotifier<AWalletAddress?> walletAddressNotifier = ValueNotifier<AWalletAddress?>(null);
 
+  /// Text controller has ETH, [oppositeAddress] has KIRA, and vice versa.
+  final ValueNotifier<String?> oppositeAddressNotifier = ValueNotifier<String?>(null);
+
   @override
   void initState() {
     super.initState();
@@ -40,6 +43,7 @@ class _WalletAddressTextField extends State<WalletAddressTextField> {
     formFieldKey.currentState?.dispose();
     textEditingController.dispose();
     walletAddressNotifier.dispose();
+    oppositeAddressNotifier.dispose();
     super.dispose();
   }
 
@@ -77,6 +81,11 @@ class _WalletAddressTextField extends State<WalletAddressTextField> {
                         maxLines: 1,
                         hasErrors: field.hasError,
                         label: widget.label,
+                        // situationally use the error as subtitle under the text
+                        errorText: oppositeAddressNotifier.value,
+                        errorStyle: textTheme.bodyMedium!.copyWith(
+                          color: DesignColors.grey1,
+                        ),
                         textEditingController: textEditingController,
                         onChanged: _handleTextFieldChanged,
                       ),
@@ -102,12 +111,14 @@ class _WalletAddressTextField extends State<WalletAddressTextField> {
     if (widget.defaultWalletAddress != null) {
       walletAddressNotifier.value = widget.defaultWalletAddress;
       textEditingController.text = widget.defaultWalletAddress!.address;
+      oppositeAddressNotifier.value = widget.defaultWalletAddress!.toOppositeAddressType().address;
     }
   }
 
   void _handleTextFieldChanged(String value) {
     AWalletAddress? walletAddress = _tryCreateWalletAddress(value);
     walletAddressNotifier.value = walletAddress;
+    oppositeAddressNotifier.value = walletAddress?.toOppositeAddressType().address;
 
     if (value.isEmpty) {
       formFieldKey.currentState?.reset();

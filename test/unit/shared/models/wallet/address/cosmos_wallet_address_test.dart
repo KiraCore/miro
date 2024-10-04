@@ -1,15 +1,30 @@
 import 'dart:typed_data';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:miro/blocs/generic/network_module/network_module_bloc.dart';
+import 'package:miro/config/locator.dart';
+import 'package:miro/shared/models/tokens/token_default_denom_model.dart';
 import 'package:miro/shared/models/wallet/address/cosmos_wallet_address.dart';
-import 'package:miro/test/mock_locator.dart';
-import 'package:miro/test/utils/test_utils.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
+
+@GenerateNiceMocks(<MockSpec<dynamic>>[
+  MockSpec<NetworkModuleBloc>(),
+])
+import 'cosmos_wallet_address_test.mocks.dart';
 
 // To run this test type in console:
 // fvm flutter test test/unit/shared/models/wallet/address/cosmos_wallet_address_test.dart --platform chrome --null-assertions
 Future<void> main() async {
-  await initMockLocator();
-  await TestUtils.setupNetworkModel(networkUri: Uri.parse('https://healthy.kira.network/'));
+  MockNetworkModuleBloc mockNetworkModuleBloc = MockNetworkModuleBloc();
+
+  globalLocator.registerLazySingleton<NetworkModuleBloc>(() => mockNetworkModuleBloc);
+
+  when(mockNetworkModuleBloc.tokenDefaultDenomModel).thenReturn(TokenDefaultDenomModel(
+    valuesFromNetworkExistBool: true,
+    bech32AddressPrefix: 'kira',
+    defaultTokenAliasModel: null,
+  ));
 
   group('Tests of WalletAddress.fromPublicKey() constructor', () {
     test('Should return correct WalletAddress from given public key bytes', () {
@@ -26,6 +41,7 @@ Future<void> main() async {
       expect(actualWalletAddress, expectedWalletAddress);
     });
   });
+
   group('Tests of WalletAddress.fromBech32() constructor', () {
     test('Should return correct WalletAddress from given bech32 address', () {
       // Arrange
@@ -38,6 +54,21 @@ Future<void> main() async {
 
       // Assert
       CosmosWalletAddress expectedWalletAddress = CosmosWalletAddress(addressBytes: actualAddressBytes, bech32Hrp: hrp);
+      expect(actualWalletAddress, expectedWalletAddress);
+    });
+  });
+
+  group('Tests of WalletAddress.fromEthereum() constructor', () {
+    test('Should return correct WalletAddress from given ethereum address', () {
+      // Arrange
+      Uint8List actualAddressBytes = Uint8List.fromList(<int>[184, 61, 247, 110, 98, 152, 11, 219, 14, 50, 79, 201, 206, 62, 123, 175, 99, 9, 231, 181]);
+      const String actualEthereumAddress = '0xb83DF76e62980BDb0E324FC9Ce3e7bAF6309E7b5';
+
+      // Act
+      CosmosWalletAddress actualWalletAddress = CosmosWalletAddress.fromEthereum(actualEthereumAddress);
+
+      // Assert
+      CosmosWalletAddress expectedWalletAddress = CosmosWalletAddress(addressBytes: actualAddressBytes, bech32Hrp: 'kira');
       expect(actualWalletAddress, expectedWalletAddress);
     });
   });

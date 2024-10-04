@@ -10,6 +10,8 @@ class TxTextField extends StatefulWidget {
   final int? maxLines;
   final String? hintText;
   final String? label;
+  final String? errorText;
+  final TextStyle? errorStyle;
   final bool disabled;
   final bool hasErrors;
   final FocusNode? focusNode;
@@ -24,6 +26,8 @@ class TxTextField extends StatefulWidget {
     this.maxLines,
     this.hintText,
     this.label,
+    this.errorText,
+    this.errorStyle,
     this.disabled = false,
     this.hasErrors = false,
     this.focusNode,
@@ -68,9 +72,11 @@ class _TxTextField extends State<TxTextField> {
         hintStyle: textStyle?.copyWith(
           color: widget.hasErrors ? DesignColors.redStatus1 : DesignColors.white1,
         ),
-        errorStyle: textTheme.bodySmall!.copyWith(
-          color: DesignColors.redStatus1,
-        ),
+        errorText: widget.errorText,
+        errorStyle: widget.errorStyle ??
+            textTheme.bodySmall!.copyWith(
+              color: DesignColors.redStatus1,
+            ),
         isDense: true,
         floatingLabelBehavior: widget.hintText != null ? FloatingLabelBehavior.always : FloatingLabelBehavior.auto,
         border: InputBorder.none,

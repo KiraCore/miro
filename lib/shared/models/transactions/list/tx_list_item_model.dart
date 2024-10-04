@@ -78,11 +78,18 @@ class TxListItemModel extends AListItem with EquatableMixin {
   }
 
   String getTitle(BuildContext context) {
+    if (txMsgModels.isEmpty) {
+      // TODO(Mykyta): make something better as Error result. (Added to the `global-cleanup` task)
+      return '';
+    }
     return isMultiTransaction ? S.of(context).txMsgMulti : txMsgModels.first.getTitle(context, txDirectionType);
   }
 
   String? getSubtitle(BuildContext context) {
-    return isMultiTransaction ? null : txMsgModels.first.getSubtitle(txDirectionType);
+    if (txMsgModels.isEmpty || isMultiTransaction) {
+      return null;
+    }
+    return txMsgModels.first.getSubtitle(txDirectionType);
   }
 
   bool get isMultiTransaction {
