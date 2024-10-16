@@ -165,7 +165,7 @@ class MetamaskCubit extends Cubit<MetamaskState> {
   Future<void> _signIn({required String address, required int chainId}) async {
     try {
       Wallet wallet = Wallet(address: EthereumWalletAddress.fromString(address));
-      await _authCubit.signIn(wallet);
+      await _authCubit.signIn(wallet, option: AuthSessionOptions.ethereum);
 
       emit(MetamaskState(address: address, chainId: chainId));
     } catch (e) {

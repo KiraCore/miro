@@ -29,13 +29,15 @@ Future<void> main() async {
       // ************************************************************************************************
 
       // Act
-      await actualAuthCubit.signIn(TestUtils.wallet);
+      await actualAuthCubit.signIn(TestUtils.wallet, option: AuthSessionOptions.cosmos);
 
       // Assert
       expectedWallet = TestUtils.wallet;
 
       TestUtils.printInfo('Should return [Wallet] after sign in');
       expect(actualAuthCubit.state, expectedWallet);
+      TestUtils.printInfo('Should have cosmos session');
+      expect(actualAuthCubit.currentAuthSessionOption, AuthSessionOptions.cosmos);
 
       // ************************************************************************************************
 
@@ -47,6 +49,19 @@ Future<void> main() async {
 
       TestUtils.printInfo('Should return [null] after sign out');
       expect(actualAuthCubit.state, expectedWallet);
+
+      // ************************************************************************************************
+
+      // Act
+      await actualAuthCubit.signIn(TestUtils.wallet, option: AuthSessionOptions.ethereum);
+
+      // Assert
+      expectedWallet = TestUtils.wallet;
+
+      TestUtils.printInfo('Should return [Wallet] after sign in');
+      expect(actualAuthCubit.state, expectedWallet);
+      TestUtils.printInfo('Should have ethereum session');
+      expect(actualAuthCubit.currentAuthSessionOption, AuthSessionOptions.ethereum);
     });
   });
 }

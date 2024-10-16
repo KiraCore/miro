@@ -104,6 +104,7 @@ class _SignInKeyfileDrawerPage extends State<SignInKeyfileDrawerPage> {
               onPressed: () => _handleSignInButtonPressed(signInKeyfileDrawerPageState),
               title: S.of(context).connectWalletButtonSignIn,
             ),
+            const SizedBox(height: 32),
             const CreateWalletLinkButton(),
           ],
         );

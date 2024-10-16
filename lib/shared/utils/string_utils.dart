@@ -7,6 +7,7 @@ class StringUtils {
   static RegExp irKeyRegExp = RegExp('[a-zA-Z0-9_]');
   static RegExp irValueRegExp = RegExp(r'(\p{Alpha})|([0-9 \n\t\s!"#$%()*+,\-./<>:;=?@[\]^_{|\}~`])', unicode: true);
   static RegExp irUsernameRegExp = RegExp('[a-zA-Z0-9_ ]');
+  static RegExp hexadecimalRegExp = RegExp('[a-fA-F0-9]');
   static RegExp whitespacesRegExp = RegExp(r'\s');
 
   static String? findFirstDelimiter(String text) {

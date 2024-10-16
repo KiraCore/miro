@@ -1,3 +1,4 @@
+import 'package:codec_utils/codec_utils.dart';
 import 'package:cryptography_utils/cryptography_utils.dart';
 import 'package:equatable/equatable.dart';
 import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
@@ -22,6 +23,14 @@ class Wallet extends Equatable {
     this.ecPrivateKey,
   });
 
+  factory Wallet.fromEthereumPrivateKey(String ethPrivateKey) {
+    ECPrivateKey ecPrivateKey = ECPrivateKey.fromBytes(HexCodec.decode(ethPrivateKey), CurvePoints.generatorSecp256k1);
+    return Wallet(
+      address: EthereumWalletAddress.fromPrivateKey(ecPrivateKey),
+      ecPrivateKey: ecPrivateKey,
+    );
+  }
+
   /// ** HEAVY OPERATION **
   /// Derives the private key from the given [mnemonic] using the specified [walletDetails].
   /// Optionally can define a different derivation path setting [lastDerivationPathSegment] (>=0).
@@ -43,7 +52,7 @@ class Wallet extends Equatable {
     );
   }
 
-  bool get isMetamask => address is EthereumWalletAddress;
+  bool get isEthereum => address is EthereumWalletAddress;
 
   @override
   List<Object?> get props => <Object?>[address, ecPrivateKey];

@@ -13,6 +13,7 @@ import 'package:miro/views/pages/drawer/network_drawer_page/network_drawer_page.
 import 'package:miro/views/pages/drawer/sign_in_drawer_page/sign_in_drawer_warning_section.dart';
 import 'package:miro/views/pages/drawer/sign_in_drawer_page/sign_in_keyfile_drawer_page/sign_in_keyfile_drawer_page.dart';
 import 'package:miro/views/pages/drawer/sign_in_drawer_page/sign_in_mnemonic_drawer_page/sign_in_mnemonic_drawer_page.dart';
+import 'package:miro/views/pages/drawer/sign_in_drawer_page/sign_in_private_key_drawer_page/sign_in_private_key_drawer_page.dart';
 import 'package:miro/views/widgets/buttons/kira_elevated_button.dart';
 import 'package:miro/views/widgets/buttons/kira_outlined_button.dart';
 
@@ -75,24 +76,20 @@ class SignInDrawerPage extends StatelessWidget {
                   ),
                   if (metamaskCubit.isSupported) ...<Widget>[
                     const SizedBox(height: 16),
-                    const Divider(
-                      color: DesignColors.grey2,
-                      indent: 20,
-                      endIndent: 20,
-                    ),
-                    const SizedBox(height: 16),
                     KiraElevatedButton(
                       title: S.of(context).metamask,
                       disabled: disabledBool,
                       onPressed: metamaskCubit.connect,
                     ),
-                    const SizedBox(height: 16),
-                    const Divider(
-                      color: DesignColors.grey2,
-                      indent: 20,
-                      endIndent: 20,
-                    ),
                   ],
+                  const SizedBox(height: 16),
+                  KiraElevatedButton(
+                    title: S.of(context).signInPrivateKey,
+                    disabled: disabledBool,
+                    onPressed: () {
+                      KiraScaffold.of(context).navigateEndDrawerRoute(const SignInPrivateKeyDrawerPage());
+                    },
+                  ),
                   const SizedBox(height: 32),
                   Text(
                     S.of(context).createWalletDontHave,

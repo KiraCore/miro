@@ -34,7 +34,7 @@ abstract class AWalletAddress extends Equatable {
   /// Stores raw address bytes.
   const AWalletAddress({
     required this.addressBytes,
-  }) : assert(addressBytes.length == addressByteLength, 'Address should be $addressByteLength bytes length');
+  }) : assert(addressBytes.length == addressByteLength, 'Address should be $addressByteLength bytes length, not ${addressBytes.length}');
 
   factory AWalletAddress.fromAddress(String address) {
     if (address.substring(0, 2) == '0x') {
