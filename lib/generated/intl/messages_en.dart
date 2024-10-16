@@ -375,6 +375,13 @@ class MessageLookup extends MessageLookupByLibrary {
         "seeAll": MessageLookupByLibrary.simpleMessage("See all"),
         "seeMore": MessageLookupByLibrary.simpleMessage("See more"),
         "showDetails": MessageLookupByLibrary.simpleMessage("Show Details"),
+        "signInPrivateKey": MessageLookupByLibrary.simpleMessage("Private Key"),
+        "signInPrivateKeyFieldError":
+            MessageLookupByLibrary.simpleMessage("Invalid private key"),
+        "signInPrivateKeyFieldPlaceholder":
+            MessageLookupByLibrary.simpleMessage("Enter private key"),
+        "signInPrivateKeyTitle":
+            MessageLookupByLibrary.simpleMessage("Sign in with Private Key"),
         "sortBy": MessageLookupByLibrary.simpleMessage("Sort by"),
         "staking": MessageLookupByLibrary.simpleMessage("Staking"),
         "stakingPool": MessageLookupByLibrary.simpleMessage("Staking Pool"),

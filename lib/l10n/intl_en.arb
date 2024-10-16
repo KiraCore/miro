@@ -255,6 +255,11 @@
   "proposalsProposers": "Proposers",
   "proposalsVoters": "Voters",
 
+  "signInPrivateKey": "Private Key",
+  "signInPrivateKeyTitle": "Sign in with Private Key",
+  "signInPrivateKeyFieldPlaceholder": "Enter private key",
+  "signInPrivateKeyFieldError": "Invalid private key",
+
   "staking": "Staking",
   "stakingPool": "Staking Pool",
   "stakingPoolAvailable": "Staking Pool available",

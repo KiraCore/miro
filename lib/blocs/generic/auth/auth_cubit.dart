@@ -7,15 +7,28 @@ import 'package:miro/shared/controllers/global_nav/global_nav_controller.dart';
 import 'package:miro/shared/models/wallet/address/cosmos_wallet_address.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 
+enum AuthSessionOptions {
+  ethereum,
+  cosmos,
+}
+
 class AuthCubit extends Cubit<Wallet?> {
   final IdentityRegistrarCubit _identityRegistrarCubit;
+
+  AuthSessionOptions? _authSessionOptions;
 
   AuthCubit()
       : _identityRegistrarCubit = globalLocator<IdentityRegistrarCubit>(),
         super(null);
 
-  Future<void> signIn(Wallet wallet) async {
-    if (wallet.isMetamask) {
+  // TODO(Mykyta): move field to the State in the next PR. Won't do right now, because it'll affect a lot of pages
+  AuthSessionOptions? get currentAuthSessionOption => _authSessionOptions;
+
+  bool get isEthereumSession => currentAuthSessionOption == AuthSessionOptions.ethereum;
+
+  Future<void> signIn(Wallet wallet, {AuthSessionOptions option = AuthSessionOptions.cosmos}) async {
+    _authSessionOptions = option;
+    if (wallet.isEthereum) {
       await _identityRegistrarCubit.setWalletAddress(CosmosWalletAddress.fromEthereum(wallet.address.address));
       if (state?.address is CosmosWalletAddress) {
         emit(Wallet(
@@ -30,13 +43,14 @@ class AuthCubit extends Cubit<Wallet?> {
   }
 
   Future<void> signOut() async {
+    _authSessionOptions = null;
     emit(null);
     await _identityRegistrarCubit.setWalletAddress(null);
     globalLocator<GlobalNavController>().leaveProtectedPage();
   }
 
   void toggleWalletAddress() {
-    if (state == null) {
+    if (state == null || currentAuthSessionOption == AuthSessionOptions.cosmos) {
       return;
     }
     emit(Wallet(
@@ -50,7 +64,7 @@ class AuthCubit extends Cubit<Wallet?> {
     if (state == null) {
       return null;
     }
-    if (state!.isMetamask) {
+    if (state!.isEthereum) {
       return CosmosWalletAddress.fromEthereum(state!.address.address);
     }
     return state!.address as CosmosWalletAddress;

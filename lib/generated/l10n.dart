@@ -1771,6 +1771,46 @@ class S {
     );
   }
 
+  /// `Private Key`
+  String get signInPrivateKey {
+    return Intl.message(
+      'Private Key',
+      name: 'signInPrivateKey',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign in with Private Key`
+  String get signInPrivateKeyTitle {
+    return Intl.message(
+      'Sign in with Private Key',
+      name: 'signInPrivateKeyTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter private key`
+  String get signInPrivateKeyFieldPlaceholder {
+    return Intl.message(
+      'Enter private key',
+      name: 'signInPrivateKeyFieldPlaceholder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Invalid private key`
+  String get signInPrivateKeyFieldError {
+    return Intl.message(
+      'Invalid private key',
+      name: 'signInPrivateKeyFieldError',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Staking`
   String get staking {
     return Intl.message(

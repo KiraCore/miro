@@ -2,26 +2,40 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:codec_utils/codec_utils.dart' show HexCodec;
+import 'package:cryptography_utils/cryptography_utils.dart' hide ECPoint;
 import 'package:miro/blocs/generic/network_module/network_module_bloc.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/shared/utils/cryptography/bech32/bech32.dart';
 import 'package:miro/shared/utils/cryptography/bech32/bech32_pair.dart';
 import 'package:miro/shared/utils/cryptography/keccak256.dart';
+import 'package:pointycastle/pointycastle.dart' show ECDomainParameters, ECPoint;
 
 class EthereumWalletAddress extends AWalletAddress {
   /// The length of a wallet address, including the '0x' prefix
-  static const int addressLength = 42;
+  static const int addressLength = AWalletAddress.addressByteLength * 2 + 2;
 
   const EthereumWalletAddress({required Uint8List addressBytes}) : super(addressBytes: addressBytes);
 
   EthereumWalletAddress.fromString(String address)
-      : assert(address.length == addressLength, 'Ethereum wallet address must be $addressLength characters'),
+      : assert(address.length == addressLength, 'Ethereum wallet address must be $addressLength characters, not ${address.length}'),
         super(addressBytes: HexCodec.decode(address));
 
   factory EthereumWalletAddress.fromBech32(String bech32Address) {
     final Bech32Pair bech32pair = Bech32.decode(bech32Address);
     return EthereumWalletAddress(addressBytes: bech32pair.data);
+  }
+
+  factory EthereumWalletAddress.fromPrivateKey(ECPrivateKey privateKey) {
+    Uint8List publicKey = _getPublicKeyFromPrivateKey(privateKey.bytes);
+    // Remove the first byte (0x04) for uncompressed public key
+    publicKey = publicKey.sublist(1);
+    assert(publicKey.length == 64, 'Invalid public key length. Must be 64 bytes, not ${publicKey.length}');
+
+    Uint8List keccakHash = Keccak256.encode(publicKey);
+    // Take the last 20 bytes for the address
+    Uint8List ethereumBytes = keccakHash.sublist(keccakHash.length - 20);
+    return EthereumWalletAddress(addressBytes: ethereumBytes);
   }
 
   /// Returns the associated [address] as a Hash string.
@@ -55,5 +69,14 @@ class EthereumWalletAddress extends AWalletAddress {
       }
     }
     return checksumAddress.toString();
+  }
+
+  // TODO(Mykyta): the Secp256k1's function returns the wrong public key here -- Secp256k1.privateKeyBytesToPublic(privateKey.bytes);
+  static Uint8List _getPublicKeyFromPrivateKey(Uint8List privateKey) {
+    ECDomainParameters ecDomain = ECDomainParameters('secp256k1');
+    BigInt privateKeyNum = BigInt.parse(HexCodec.encode(privateKey), radix: 16);
+    ECPoint? ecPoint = ecDomain.G * privateKeyNum;
+    Uint8List publicKey = ecPoint!.getEncoded(false); // Uncompressed public key
+    return publicKey;
   }
 }
