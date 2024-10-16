@@ -4,6 +4,7 @@ import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/transactions/form_models/msg_send_form_model.dart';
 import 'package:miro/shared/models/transactions/signed_transaction_model.dart';
 import 'package:miro/views/pages/transactions/msg_forms/msg_send_form/msg_send_form.dart';
+import 'package:miro/views/widgets/metamask/toggle_between_wallet_address_types.dart';
 import 'package:miro/views/widgets/transactions/send/tx_send_form_footer.dart';
 import 'package:miro/views/widgets/transactions/tx_dialog.dart';
 
@@ -36,6 +37,7 @@ class _TxSendTokensFormDialog extends State<TxSendTokensFormDialog> {
   Widget build(BuildContext context) {
     return TxDialog(
       title: S.of(context).txSendTokens,
+      suffixWidget: const ToggleBetweenWalletAddressTypes(),
       child: Column(
         children: <Widget>[
           MsgSendForm(

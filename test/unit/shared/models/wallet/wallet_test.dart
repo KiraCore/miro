@@ -31,7 +31,7 @@ Future<void> main() async {
           base64Decode('nnN+AtBiwQFyn70Ug6h2Qt/EMMFH6XM7wPDYaFV4Xjw='),
           CurvePoints.generatorSecp256k1,
         ),
-        address: CosmosWalletAddress(addressBytes: base64Decode('Q3gyFy2Y5SOn/HSLntM6xykhlkw=')),
+        address: CosmosWalletAddress(addressBytes: base64Decode('Q3gyFy2Y5SOn/HSLntM6xykhlkw='), bech32Hrp: 'kira'),
       );
 
       expect(actualWallet, expectedWallet);

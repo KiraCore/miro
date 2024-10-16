@@ -181,6 +181,15 @@ class TestUtils {
     }
   }
 
+  static Future<Object?> catchAsyncException(Future<void> Function() function) async {
+    try {
+      await function();
+      return null;
+    } catch (e) {
+      return e;
+    }
+  }
+
   static Future<void> initIntegrationTest() async {
     initLocator();
     await globalLocator<ICacheManager>().init();

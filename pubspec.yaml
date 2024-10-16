@@ -175,6 +175,9 @@ dependencies:
       url: https://github.com/snggle/cryptography_utils.git
       ref: master
 
+  # Dart package containing cryptographic algorithms and primitives. Used for Ethereum Keyfile encryption.
+  cryptography: ^2.7.0
+
   # Dart package containing utility methods for data encoding and decoding.
   codec_utils:
     git:

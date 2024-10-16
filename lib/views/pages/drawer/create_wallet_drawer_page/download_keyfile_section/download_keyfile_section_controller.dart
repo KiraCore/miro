@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:miro/shared/controllers/browser/browser_controller.dart';
-import 'package:miro/shared/models/keyfile/decrypted_keyfile_model.dart';
+import 'package:miro/shared/models/keyfile/decrypted/cosmos_decrypted_keyfile_model.dart';
 import 'package:miro/shared/models/keyfile/keyfile_secret_data_model.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/views/widgets/kira/kira_text_field/kira_text_field_controller.dart';
@@ -24,13 +24,13 @@ class DownloadKeyfileSectionController {
     repeatedPasswordTextController.close();
   }
 
-  void downloadKeyfile(Wallet wallet) {
-    DecryptedKeyfileModel decryptedKeyfileModel = DecryptedKeyfileModel(
+  Future<void> downloadKeyfile(Wallet wallet) async {
+    CosmosDecryptedKeyfileModel decryptedKeyfileModel = CosmosDecryptedKeyfileModel(
       keyfileSecretDataModel: KeyfileSecretDataModel(wallet: wallet),
     );
 
     String password = passwordTextController.textEditingController.text;
-    String fileContent = decryptedKeyfileModel.buildFileContent(password);
+    String fileContent = await decryptedKeyfileModel.buildFileContent(password);
     BrowserController.downloadFile(<String>[fileContent], decryptedKeyfileModel.fileName);
   }
 

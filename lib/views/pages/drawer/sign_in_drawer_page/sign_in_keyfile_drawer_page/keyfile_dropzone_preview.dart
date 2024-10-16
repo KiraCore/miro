@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:miro/blocs/widgets/keyfile_dropzone/keyfile_dropzone_state.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
-import 'package:miro/shared/models/keyfile/encrypted_keyfile_model.dart';
+import 'package:miro/shared/models/keyfile/encrypted/a_encrypted_keyfile_model.dart';
+import 'package:miro/shared/models/keyfile/encrypted/cosmos_encrypted_keyfile_model.dart';
 
 class KeyfileDropzonePreview extends StatelessWidget {
   final KeyfileDropzoneState keyfileDropzoneState;
@@ -17,7 +18,7 @@ class KeyfileDropzonePreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
-    EncryptedKeyfileModel? encryptedKeyfileModel;
+    AEncryptedKeyfileModel? encryptedKeyfileModel;
 
     encryptedKeyfileModel = keyfileDropzoneState.encryptedKeyfileModel;
 
@@ -44,7 +45,7 @@ class KeyfileDropzonePreview extends StatelessWidget {
                   color: DesignColors.white1,
                 ),
               ),
-              if (encryptedKeyfileModel != null) ...<Widget>[
+              if (encryptedKeyfileModel is CosmosEncryptedKeyfileModel) ...<Widget>[
                 const SizedBox(height: 5),
                 Text(
                   S.of(context).keyfileVersion(encryptedKeyfileModel.version),

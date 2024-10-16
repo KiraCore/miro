@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/blocs/generic/auth/auth_cubit.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/shared/controllers/global_nav/global_nav_controller.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/shared/router/router.dart';
 import 'package:miro/test/mock_locator.dart';
@@ -36,6 +37,8 @@ Future<void> main() async {
 
       TestUtils.printInfo('Should return [Wallet] after sign in');
       expect(actualAuthCubit.state, expectedWallet);
+      TestUtils.printInfo('Should have cosmos session');
+      expect(actualAuthCubit.loggedInWithAddressType, WalletAddressType.cosmos);
 
       // ************************************************************************************************
 

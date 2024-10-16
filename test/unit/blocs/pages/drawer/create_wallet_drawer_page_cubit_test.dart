@@ -33,8 +33,8 @@ Future<void> main() async {
 
       // Assert
       TestUtils.printInfo('Should throw Exception if wallet is not created, but signIn() method is called');
-      expect(
-        () => actualCreateWalletDrawerPageCubit.signIn(),
+      await expectLater(
+        () async => actualCreateWalletDrawerPageCubit.signIn(),
         throwsA(isA<Exception>()),
       );
 
@@ -54,7 +54,7 @@ Future<void> main() async {
       // ****************************************************************************************
 
       // Act
-      actualCreateWalletDrawerPageCubit.signIn();
+      await actualCreateWalletDrawerPageCubit.signIn();
 
       // Assert
       TestUtils.printInfo('Should login into application after calling signIn() method');

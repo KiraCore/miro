@@ -45,10 +45,10 @@ class ValidatorDrawerPage extends StatelessWidget {
         const SizedBox(height: 32),
         BlocBuilder<AuthCubit, Wallet?>(
           bloc: authCubit,
-          buildWhen: (Wallet? previous, Wallet? current) => previous?.isMetamask != current?.isMetamask,
+          buildWhen: (Wallet? previous, Wallet? current) => previous?.isEthereum != current?.isEthereum,
           builder: (BuildContext context, Wallet? state) {
             AWalletAddress walletAddress = validatorModel.walletAddress;
-            if ((state?.isMetamask == true && walletAddress is CosmosWalletAddress) || (state?.isMetamask != true && walletAddress is EthereumWalletAddress)) {
+            if ((state?.isEthereum == true && walletAddress is CosmosWalletAddress) || (state?.isEthereum != true && walletAddress is EthereumWalletAddress)) {
               walletAddress = walletAddress.toOppositeAddressType();
             }
 

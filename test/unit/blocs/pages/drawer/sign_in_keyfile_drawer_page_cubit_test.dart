@@ -1,14 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:miro/blocs/generic/auth/auth_cubit.dart';
 import 'package:miro/blocs/pages/drawer/sign_in_keyfile_drawer_page/sign_in_keyfile_drawer_page_cubit.dart';
 import 'package:miro/blocs/pages/drawer/sign_in_keyfile_drawer_page/sign_in_keyfile_drawer_page_state.dart';
 import 'package:miro/blocs/widgets/keyfile_dropzone/keyfile_dropzone_cubit.dart';
 import 'package:miro/shared/exceptions/keyfile_exception/keyfile_exception_type.dart';
 import 'package:miro/shared/models/generic/file_model.dart';
-import 'package:miro/shared/models/keyfile/decrypted_keyfile_model.dart';
-import 'package:miro/shared/models/keyfile/keyfile_secret_data_model.dart';
-import 'package:miro/shared/models/wallet/mnemonic/mnemonic.dart';
-import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
@@ -35,9 +32,11 @@ Future<void> main() async {
 
   group('Tests of [SignInKeyfileDrawerPageCubit] process', () {
     // Arrange
+    AuthCubit actualAuthCubit = AuthCubit();
     KeyfileDropzoneCubit actualKeyfileDropzoneCubit = KeyfileDropzoneCubit();
     TextEditingController actualPasswordTextEditingController = TextEditingController();
     SignInKeyfileDrawerPageCubit actualSignInKeyfileDrawerPageCubit = SignInKeyfileDrawerPageCubit(
+      authCubit: actualAuthCubit,
       keyfileDropzoneCubit: actualKeyfileDropzoneCubit,
       passwordTextEditingController: actualPasswordTextEditingController,
     );
@@ -57,7 +56,6 @@ Future<void> main() async {
       // Assert
       SignInKeyfileDrawerPageState expectedSignInKeyfileDrawerPageState = const SignInKeyfileDrawerPageState(
         keyfileExceptionType: KeyfileExceptionType.invalidKeyfile,
-        decryptedKeyfileModel: null,
       );
 
       expect(actualSignInKeyfileDrawerPageCubit.state, expectedSignInKeyfileDrawerPageState);
@@ -71,7 +69,6 @@ Future<void> main() async {
       // Assert
       SignInKeyfileDrawerPageState expectedSignInKeyfileDrawerPageState = const SignInKeyfileDrawerPageState(
         keyfileExceptionType: KeyfileExceptionType.wrongPassword,
-        decryptedKeyfileModel: null,
       );
 
       expect(actualSignInKeyfileDrawerPageCubit.state, expectedSignInKeyfileDrawerPageState);
@@ -81,11 +78,11 @@ Future<void> main() async {
       // Act
       actualPasswordTextEditingController.text = '123456';
       actualSignInKeyfileDrawerPageCubit.notifyPasswordChanged();
+      await actualSignInKeyfileDrawerPageCubit.signIn();
 
       // Assert
       SignInKeyfileDrawerPageState expectedSignInKeyfileDrawerPageState = const SignInKeyfileDrawerPageState(
         keyfileExceptionType: KeyfileExceptionType.wrongPassword,
-        decryptedKeyfileModel: null,
       );
 
       expect(actualSignInKeyfileDrawerPageCubit.state, expectedSignInKeyfileDrawerPageState);
@@ -95,21 +92,10 @@ Future<void> main() async {
       // Act
       actualPasswordTextEditingController.text = '123';
       actualSignInKeyfileDrawerPageCubit.notifyPasswordChanged();
+      await actualSignInKeyfileDrawerPageCubit.signIn();
 
       // Assert
-      SignInKeyfileDrawerPageState expectedSignInKeyfileDrawerPageState = SignInKeyfileDrawerPageState(
-        decryptedKeyfileModel: DecryptedKeyfileModel(
-          version: '2.0.0',
-          keyfileSecretDataModel: KeyfileSecretDataModel(
-            wallet: await Wallet.derive(
-              mnemonic: Mnemonic(
-                value:
-                    'require point property company tongue busy bench burden caution gadget knee glance thought bulk assist month cereal report quarter tool section often require shield',
-              ),
-            ),
-          ),
-        ),
-      );
+      SignInKeyfileDrawerPageState expectedSignInKeyfileDrawerPageState = const SignInKeyfileDrawerPageState(signInSuccessBool: true);
 
       expect(actualSignInKeyfileDrawerPageCubit.state, expectedSignInKeyfileDrawerPageState);
     });

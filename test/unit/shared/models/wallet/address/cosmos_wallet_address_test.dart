@@ -37,7 +37,7 @@ Future<void> main() async {
       CosmosWalletAddress actualWalletAddress = CosmosWalletAddress.fromPublicKey(actualPublicKeyBytes);
 
       // Assert
-      CosmosWalletAddress expectedWalletAddress = CosmosWalletAddress(addressBytes: actualAddressBytes);
+      CosmosWalletAddress expectedWalletAddress = CosmosWalletAddress(addressBytes: actualAddressBytes, bech32Hrp: 'kira');
       expect(actualWalletAddress, expectedWalletAddress);
     });
   });

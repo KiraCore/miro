@@ -5,8 +5,6 @@ import 'package:miro/blocs/generic/auth/auth_cubit.dart';
 import 'package:miro/blocs/generic/metamask/ethereum_provider.dart';
 import 'package:miro/blocs/generic/metamask/metamask_cubit.dart';
 import 'package:miro/config/locator.dart';
-import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
-import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
@@ -17,11 +15,11 @@ import 'package:mockito/mockito.dart';
 import 'metamask_cubit_test.mocks.dart';
 
 // To run this test type in console:
-// fvm flutter test test/unit/blocs/generic/metamask_cubit_test.dart --platform chrome --null-assertions
+// fvm flutter test test/unit/blocs/generic/metamask/metamask_cubit_test.dart --platform chrome --null-assertions
 Future<void> main() async {
   late MockEthereumProvider mockEthereumProvider;
   late MockAuthCubit mockAuthCubit;
-  const String testAddress = '0x1234567890abcdef';
+  const String testAddress = '0xb83DF76e62980BDb0E324FC9Ce3e7bAF6309E7b5';
   const int testChainId = 1;
 
   setUp(() async {
@@ -97,7 +95,7 @@ Future<void> main() async {
           const MetamaskState(address: testAddress, chainId: testChainId),
         ],
         verify: (MetamaskCubit cubit) {
-          verify(mockAuthCubit.signIn(any)).called(1);
+          verify(mockAuthCubit.signIn(any, defaultAddressIsKiraBool: false)).called(1);
         },
       );
 
@@ -122,7 +120,7 @@ Future<void> main() async {
           const MetamaskState(address: testAddress, chainId: testChainId),
         ],
         verify: (MetamaskCubit cubit) {
-          verify(mockAuthCubit.signIn(any)).called(1);
+          verify(mockAuthCubit.signIn(any, defaultAddressIsKiraBool: false)).called(1);
         },
       );
 
@@ -157,9 +155,7 @@ Future<void> main() async {
           const MetamaskState(address: testAddress, chainId: testChainId),
         ],
         verify: (MetamaskCubit cubit) {
-          verify(mockAuthCubit.signIn(
-            Wallet(address: AWalletAddress.fromAddress(testAddress)),
-          )).called(1);
+          verify(mockAuthCubit.signIn(any, defaultAddressIsKiraBool: false)).called(1);
         },
       );
 

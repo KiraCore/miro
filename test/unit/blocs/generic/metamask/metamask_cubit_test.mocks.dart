@@ -146,6 +146,13 @@ class MockEthereumProvider extends _i1.Mock implements _i2.EthereumProvider {
 /// See the documentation for Mockito's code generation for more information.
 class MockAuthCubit extends _i1.Mock implements _i5.AuthCubit {
   @override
+  bool get isEthereumSession => (super.noSuchMethod(
+        Invocation.getter(#isEthereumSession),
+        returnValue: false,
+        returnValueForMissingStub: false,
+      ) as bool);
+
+  @override
   bool get isSignedIn => (super.noSuchMethod(
         Invocation.getter(#isSignedIn),
         returnValue: false,
@@ -167,10 +174,15 @@ class MockAuthCubit extends _i1.Mock implements _i5.AuthCubit {
       ) as bool);
 
   @override
-  _i4.Future<void> signIn(_i6.Wallet? wallet) => (super.noSuchMethod(
+  _i4.Future<void> signIn(
+    _i6.Wallet? wallet, {
+    bool? defaultAddressIsKiraBool = true,
+  }) =>
+      (super.noSuchMethod(
         Invocation.method(
           #signIn,
           [wallet],
+          {#defaultAddressIsKiraBool: defaultAddressIsKiraBool},
         ),
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),

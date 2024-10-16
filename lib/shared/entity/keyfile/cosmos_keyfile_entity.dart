@@ -1,30 +1,34 @@
-import 'package:equatable/equatable.dart';
+import 'package:miro/shared/entity/keyfile/a_keyfile_entity.dart';
 import 'package:miro/shared/exceptions/keyfile_exception/keyfile_exception.dart';
 import 'package:miro/shared/exceptions/keyfile_exception/keyfile_exception_type.dart';
+import 'package:miro/shared/utils/logger/app_logger.dart';
+import 'package:miro/shared/utils/logger/log_level.dart';
 
-class KeyfileEntity extends Equatable {
+class CosmosKeyfileEntity extends AKeyfileEntity {
   final String version;
   final String publicKey;
   final String secretData;
 
-  const KeyfileEntity({
+  const CosmosKeyfileEntity({
     required this.version,
     required this.publicKey,
     required this.secretData,
   });
 
-  factory KeyfileEntity.fromJson(Map<String, dynamic> json) {
+  factory CosmosKeyfileEntity.fromJson(Map<String, dynamic> json) {
     try {
-      return KeyfileEntity(
+      return CosmosKeyfileEntity(
         version: json['version'] as String,
         publicKey: json['public_key'] as String,
         secretData: json['secret_data'] as String,
       );
-    } catch (_) {
+    } catch (e) {
+      AppLogger().log(message: 'Error on CosmosKeyfileEntity.fromJson: $e', logLevel: LogLevel.error);
       throw const KeyfileException(KeyfileExceptionType.invalidKeyfile);
     }
   }
 
+  @override
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
       'version': version,

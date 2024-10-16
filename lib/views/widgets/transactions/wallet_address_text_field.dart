@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:miro/blocs/generic/metamask/metamask_cubit.dart';
+import 'package:miro/blocs/generic/auth/auth_cubit.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/cosmos_wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/ethereum_wallet_address.dart';
+import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/views/widgets/kira/kira_identity_avatar.dart';
 import 'package:miro/views/widgets/transactions/tx_input_wrapper.dart';
 import 'package:miro/views/widgets/transactions/tx_text_field.dart';
@@ -31,7 +34,7 @@ class _WalletAddressTextField extends State<WalletAddressTextField> {
   final GlobalKey<FormFieldState<AWalletAddress>> formFieldKey = GlobalKey<FormFieldState<AWalletAddress>>();
   final TextEditingController textEditingController = TextEditingController();
   final ValueNotifier<AWalletAddress?> walletAddressNotifier = ValueNotifier<AWalletAddress?>(null);
-  final MetamaskCubit metamaskCubit = globalLocator<MetamaskCubit>();
+  final AuthCubit authCubit = globalLocator<AuthCubit>();
 
   /// Text controller has ETH, [oppositeAddress] has KIRA, and vice versa.
   final ValueNotifier<String?> oppositeAddressNotifier = ValueNotifier<String?>(null);
@@ -67,20 +70,24 @@ class _WalletAddressTextField extends State<WalletAddressTextField> {
               builderWithFocus: (FocusNode focusNode) => Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  ValueListenableBuilder<AWalletAddress?>(
-                    valueListenable: walletAddressNotifier,
-                    builder: (_, AWalletAddress? walletAddress, __) {
-                      return KiraIdentityAvatar(
-                        address: walletAddressNotifier.value?.address,
-                        size: 45,
-                      );
-                    },
+                  KiraIdentityAvatar(
+                    address: walletAddressNotifier.value?.address,
+                    size: 45,
                   ),
                   const SizedBox(width: 12),
-                  BlocBuilder<MetamaskCubit, MetamaskState>(
-                    bloc: metamaskCubit,
-                    buildWhen: (MetamaskState previous, MetamaskState current) => previous.isConnected != current.isConnected,
-                    builder: (BuildContext context, MetamaskState state) {
+                  BlocConsumer<AuthCubit, Wallet?>(
+                    bloc: authCubit,
+                    listener: (BuildContext context, Wallet? state) {
+                      if (authCubit.isEthereumSession) {
+                        _handleTextFieldChanged(
+                          textEditingController.text,
+                          needOppositeAddressBool: true,
+                          walletAddressType: state!.address.type,
+                        );
+                      }
+                    },
+                    buildWhen: (Wallet? previous, Wallet? current) => previous?.isEthereum != current?.isEthereum,
+                    builder: (BuildContext context, Wallet? state) {
                       return Expanded(
                         child: Align(
                           alignment: Alignment.centerLeft,
@@ -98,7 +105,9 @@ class _WalletAddressTextField extends State<WalletAddressTextField> {
                             textEditingController: textEditingController,
                             onChanged: (String value) => _handleTextFieldChanged(
                               value,
-                              needOppositeAddressBool: state.isConnected,
+                              // TODO(Mykyta): make `isEthereumSession` as state prop as soon as it's ready
+                              needOppositeAddressBool: authCubit.isEthereumSession == true,
+                              walletAddressType: state!.address.type,
                             ),
                           ),
                         ),
@@ -125,18 +134,20 @@ class _WalletAddressTextField extends State<WalletAddressTextField> {
     if (widget.defaultWalletAddress != null) {
       walletAddressNotifier.value = widget.defaultWalletAddress;
       textEditingController.text = widget.defaultWalletAddress!.address;
-      if (metamaskCubit.state.isConnected) {
+      if (authCubit.isEthereumSession) {
         oppositeAddressNotifier.value = widget.defaultWalletAddress!.toOppositeAddressType().address;
       }
     }
   }
 
-  void _handleTextFieldChanged(String value, {required bool needOppositeAddressBool}) {
-    AWalletAddress? walletAddress = _tryCreateWalletAddress(value);
-    walletAddressNotifier.value = walletAddress;
+  void _handleTextFieldChanged(String value, {required bool needOppositeAddressBool, required WalletAddressType walletAddressType}) {
+    AWalletAddress? walletAddress;
     if (needOppositeAddressBool) {
-      oppositeAddressNotifier.value = walletAddress?.toOppositeAddressType().address;
+      walletAddress = _handleAddressTypeWithOpposite(neededAddressType: walletAddressType);
+    } else {
+      walletAddress = _tryCreateWalletAddress(value);
     }
+    walletAddressNotifier.value = walletAddress;
 
     if (value.isEmpty) {
       formFieldKey.currentState?.reset();
@@ -144,6 +155,26 @@ class _WalletAddressTextField extends State<WalletAddressTextField> {
       formFieldKey.currentState?.validate();
     }
     widget.onChanged.call(walletAddress);
+  }
+
+  AWalletAddress? _handleAddressTypeWithOpposite({required WalletAddressType neededAddressType}) {
+    AWalletAddress? correctAddress;
+    try {
+      switch (neededAddressType) {
+        case WalletAddressType.cosmos:
+          correctAddress = CosmosWalletAddress.fromAnyType(textEditingController.text);
+        case WalletAddressType.ethereum:
+          correctAddress = EthereumWalletAddress.fromAnyType(textEditingController.text);
+      }
+      walletAddressNotifier.value = correctAddress;
+      textEditingController.text = correctAddress.address;
+      oppositeAddressNotifier.value = correctAddress.toOppositeAddressType().address;
+    } catch (_) {
+      // NOTE: catches error on force parsing of invalid address, so address type didn't changed, or address is not correct
+      walletAddressNotifier.value = null;
+      oppositeAddressNotifier.value = null;
+    }
+    return correctAddress;
   }
 
   String? _validateAddress() {

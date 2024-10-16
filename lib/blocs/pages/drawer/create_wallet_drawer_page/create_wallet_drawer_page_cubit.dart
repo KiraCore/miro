@@ -29,9 +29,9 @@ class CreateWalletDrawerPageCubit extends Cubit<ACreateWalletDrawerPageState> {
     emit(CreateWalletDrawerPageLoadedState(mnemonic: mnemonic, wallet: wallet));
   }
 
-  void signIn() {
+  Future<void> signIn() async {
     if (state is CreateWalletDrawerPageLoadedState) {
-      authCubit.signIn((state as CreateWalletDrawerPageLoadedState).wallet);
+      await authCubit.signIn((state as CreateWalletDrawerPageLoadedState).wallet);
     } else {
       throw Exception('Wallet must me generated before sign in');
     }

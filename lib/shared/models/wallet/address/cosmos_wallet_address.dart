@@ -4,6 +4,7 @@ import 'package:codec_utils/codec_utils.dart' show HexCodec;
 import 'package:miro/blocs/generic/network_module/network_module_bloc.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/ethereum_wallet_address.dart';
 import 'package:miro/shared/utils/cryptography/bech32/bech32.dart';
 import 'package:miro/shared/utils/cryptography/bech32/bech32_pair.dart';
 import 'package:miro/shared/utils/cryptography/secp256k1.dart';
@@ -20,8 +21,9 @@ class CosmosWalletAddress extends AWalletAddress {
 
   /// Constructs a wallet address from a public key. The address is formed by
   /// the last 20 bytes of the keccak hash of the public key.
-  factory CosmosWalletAddress.fromPublicKey(Uint8List publicKey) {
-    return CosmosWalletAddress(addressBytes: Secp256k1.publicKeyToAddress(publicKey));
+  factory CosmosWalletAddress.fromPublicKey(Uint8List publicKey, {String? bech32Hrp}) {
+    String? hrp = bech32Hrp ?? globalLocator<NetworkModuleBloc>().tokenDefaultDenomModel.bech32AddressPrefix!;
+    return CosmosWalletAddress(addressBytes: Secp256k1.publicKeyToAddress(publicKey), bech32Hrp: hrp);
   }
 
   // Hrp data extracted from QueryTokenAliases
@@ -38,7 +40,15 @@ class CosmosWalletAddress extends AWalletAddress {
 
   factory CosmosWalletAddress.fromEthereum(String ethereumAddress, {String? bech32Hrp}) {
     String? hrp = bech32Hrp ?? globalLocator<NetworkModuleBloc>().tokenDefaultDenomModel.bech32AddressPrefix!;
-    return CosmosWalletAddress(addressBytes: HexCodec.decode(ethereumAddress), bech32Hrp: hrp);
+    return CosmosWalletAddress(addressBytes: EthereumWalletAddress.fromString(ethereumAddress).addressBytes, bech32Hrp: hrp);
+  }
+
+  factory CosmosWalletAddress.fromAnyType(String address) {
+    try {
+      return CosmosWalletAddress.fromEthereum(address);
+    } catch (e) {
+      return CosmosWalletAddress.fromBech32(address);
+    }
   }
 
   /// Returns the associated [address] as a Bech32 string.
