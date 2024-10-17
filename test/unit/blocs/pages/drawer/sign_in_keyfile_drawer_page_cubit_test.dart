@@ -101,11 +101,12 @@ Future<void> main() async {
         decryptedKeyfileModel: DecryptedKeyfileModel(
           version: '2.0.0',
           keyfileSecretDataModel: KeyfileSecretDataModel(
-            wallet: Wallet.derive(
-                mnemonic: Mnemonic(
-                    value:
-                        'require point property company tongue busy bench burden caution gadget knee glance thought bulk assist month cereal report quarter tool section often require shield'),
-                ),
+            wallet: await Wallet.derive(
+              mnemonic: Mnemonic(
+                value:
+                    'require point property company tongue busy bench burden caution gadget knee glance thought bulk assist month cereal report quarter tool section often require shield',
+              ),
+            ),
           ),
         ),
       );

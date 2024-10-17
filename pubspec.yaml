@@ -1,7 +1,7 @@
 name: miro
 description: KIRA blockchain explorer
 publish_to: 'none'
-version: 1.29.0
+version: 1.29.1
 
 environment:
   sdk: "3.2.6"
@@ -168,6 +168,18 @@ dependencies:
     git:
       url: https://github.com/CandyLabsIT/just_the_tooltip.git
       ref: dp-bugfix/target-information
+
+  # Dart package containing utility methods for common cryptographic and blockchain-specific operations.
+  cryptography_utils:
+    git:
+      url: https://github.com/snggle/cryptography_utils.git
+      ref: master
+
+  # Dart package containing utility methods for data encoding and decoding.
+  codec_utils:
+    git:
+      url: https://github.com/snggle/codec_utils.git
+      ref: master
 
 dev_dependencies:
   # AutoRoute is a declarative routing solution, where everything needed for navigation is automatically generated for you.

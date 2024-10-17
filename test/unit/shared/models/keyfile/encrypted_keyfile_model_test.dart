@@ -7,8 +7,6 @@ import 'package:miro/shared/exceptions/keyfile_exception/keyfile_exception_type.
 import 'package:miro/shared/models/keyfile/decrypted_keyfile_model.dart';
 import 'package:miro/shared/models/keyfile/encrypted_keyfile_model.dart';
 import 'package:miro/shared/models/keyfile/keyfile_secret_data_model.dart';
-import 'package:miro/shared/models/wallet/mnemonic.dart';
-import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
@@ -18,10 +16,6 @@ Future<void> main() async {
   await initMockLocator();
   await TestUtils.setupNetworkModel(networkUri: Uri.parse('https://healthy.kira.network/'));
   String actualPassword = '123';
-  // @formatter:off
-  Mnemonic actualMnemonic = Mnemonic(value: 'require point property company tongue busy bench burden caution gadget knee glance thought bulk assist month cereal report quarter tool section often require shield');
-  Wallet actualWallet = Wallet.derive(mnemonic: actualMnemonic);
-  // @formatter:on
 
   group('Tests of EncryptedKeyfileModel.fromEntity() factory constructor', () {
     test('Should [return EncryptedKeyfileModel] with version 2.0.0', () {
@@ -78,7 +72,7 @@ Future<void> main() async {
       // Assert
       DecryptedKeyfileModel expectedDecryptedKeyfileModel = DecryptedKeyfileModel(
         version: '2.0.0',
-        keyfileSecretDataModel: KeyfileSecretDataModel(wallet: actualWallet),
+        keyfileSecretDataModel: KeyfileSecretDataModel(wallet: TestUtils.wallet),
       );
 
       expect(actualDecryptedKeyfileModel, expectedDecryptedKeyfileModel);

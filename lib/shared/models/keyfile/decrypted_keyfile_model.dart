@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'dart:typed_data';
 
+import 'package:cryptography_utils/cryptography_utils.dart';
 import 'package:equatable/equatable.dart';
 import 'package:hex/hex.dart';
 import 'package:miro/shared/entity/keyfile/keyfile_entity.dart';
@@ -8,7 +8,6 @@ import 'package:miro/shared/entity/keyfile/keyfile_secret_data_entity.dart';
 import 'package:miro/shared/models/keyfile/keyfile_secret_data_model.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/shared/utils/cryptography/aes256.dart';
-import 'package:miro/shared/utils/cryptography/secp256k1.dart';
 
 class DecryptedKeyfileModel extends Equatable {
   static String latestKeyfileVersion = '2.0.0';
@@ -21,16 +20,15 @@ class DecryptedKeyfileModel extends Equatable {
   });
 
   String buildFileContent(String password) {
+    ECPrivateKey ecPrivateKey = keyfileSecretDataModel.wallet.ecPrivateKey;
     KeyfileSecretDataEntity keyfileSecretDataEntity = KeyfileSecretDataEntity(
-      privateKey: HEX.encode(keyfileSecretDataModel.wallet.privateKey),
+      privateKey: HEX.encode(ecPrivateKey.bytes),
     );
 
     String secretData = Aes256.encrypt(password, jsonEncode(keyfileSecretDataEntity.toJson()));
-    Uint8List publicKeyBytes = Secp256k1.privateKeyBytesToPublic(keyfileSecretDataModel.wallet.privateKey);
-
     KeyfileEntity keyfileEntity = KeyfileEntity(
       version: latestKeyfileVersion,
-      publicKey: base64Encode(publicKeyBytes),
+      publicKey: base64Encode(ecPrivateKey.ecPublicKey.compressed),
       secretData: secretData,
     );
 

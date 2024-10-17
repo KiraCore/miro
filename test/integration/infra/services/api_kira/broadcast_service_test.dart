@@ -4,7 +4,6 @@ import 'package:decimal/decimal.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api_kira/broadcast/request/broadcast_req.dart';
-import 'package:miro/infra/dto/api_kira/broadcast/request/transaction/tx.dart';
 import 'package:miro/infra/exceptions/dio_connect_exception.dart';
 import 'package:miro/infra/exceptions/dio_parse_exception.dart';
 import 'package:miro/infra/exceptions/tx_broadcast_exception.dart';
@@ -28,10 +27,9 @@ import 'package:miro/shared/models/transactions/signed_transaction_model.dart';
 import 'package:miro/shared/models/transactions/tx_local_info_model.dart';
 import 'package:miro/shared/models/transactions/tx_remote_info_model.dart';
 import 'package:miro/shared/models/transactions/unsigned_tx_model.dart';
-import 'package:miro/shared/models/wallet/mnemonic.dart';
+import 'package:miro/shared/models/wallet/mnemonic.dart' as miro;
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/shared/utils/network_utils.dart';
-import 'package:miro/shared/utils/transactions/tx_utils.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
 // To run this test type in console:
@@ -45,11 +43,11 @@ Future<void> main() async {
 
   // Set up the constants to run the tests.
   // @formatter:off
-  final Mnemonic senderMnemonic = Mnemonic(value: 'require point property company tongue busy bench burden caution gadget knee glance thought bulk assist month cereal report quarter tool section often require shield');
-  final Wallet senderWallet = Wallet.derive(mnemonic: senderMnemonic);
+  final miro.Mnemonic senderMnemonic = miro.Mnemonic(value: 'require point property company tongue busy bench burden caution gadget knee glance thought bulk assist month cereal report quarter tool section often require shield');
+  final Wallet senderWallet = await Wallet.derive(mnemonic: senderMnemonic);
 
-  final Mnemonic recipientMnemonic = Mnemonic(value:  'nature light entire memory garden ostrich bottom ensure brand fantasy curtain coast also solve cannon wealth hole quantum fantasy purchase check drift cloth ecology');
-  final Wallet recipientWallet = Wallet.derive(mnemonic: recipientMnemonic);
+  final miro.Mnemonic recipientMnemonic = miro.Mnemonic(value: 'nature light entire memory garden ostrich bottom ensure brand fantasy curtain coast also solve cannon wealth hole quantum fantasy purchase check drift cloth ecology');
+  final Wallet recipientWallet = await Wallet.derive(mnemonic: recipientMnemonic);
   // @formatter:on
 
   final TokenAmountModel feeTokenAmountModel = TokenAmountModel(
@@ -62,19 +60,13 @@ Future<void> main() async {
 
   Future<SignedTxModel> signTx(TxLocalInfoModel actualTxLocalInfoModel, Wallet wallet) async {
     try {
-      final TxRemoteInfoModel txRemoteInfoModel = await queryAccountService.getTxRemoteInfo(
-        wallet.address.bech32Address,
-      );
-
+      final TxRemoteInfoModel txRemoteInfoModel = await queryAccountService.getTxRemoteInfo(wallet.address.bech32Address);
       final UnsignedTxModel actualUnsignedTxModel = UnsignedTxModel(
         txLocalInfoModel: actualTxLocalInfoModel,
         txRemoteInfoModel: txRemoteInfoModel,
       );
 
-      final SignedTxModel actualSignedTxModel = TxUtils.sign(
-        unsignedTxModel: actualUnsignedTxModel,
-        wallet: wallet,
-      );
+      final SignedTxModel actualSignedTxModel = actualUnsignedTxModel.sign(wallet);
 
       return actualSignedTxModel;
     } on DioConnectException catch (e) {
@@ -123,7 +115,7 @@ Future<void> main() async {
 
       SignedTxModel actualSignedTxModel = await signTx(actualTxLocalInfoModel, senderWallet);
 
-      BroadcastReq actualBroadcastReq = BroadcastReq(tx: Tx.fromSignedTxModel(actualSignedTxModel));
+      BroadcastReq actualBroadcastReq = BroadcastReq(tx: actualSignedTxModel.signedCosmosTx);
       TestUtils.printInfo('Signed [MsgSend] transaction: ${json.encode(actualBroadcastReq.toJson())}');
 
       await broadcastTx(actualSignedTxModel);
@@ -144,7 +136,7 @@ Future<void> main() async {
 
       SignedTxModel actualSignedTxModel = await signTx(actualTxLocalInfoModel, senderWallet);
 
-      BroadcastReq actualBroadcastReq = BroadcastReq(tx: Tx.fromSignedTxModel(actualSignedTxModel));
+      BroadcastReq actualBroadcastReq = BroadcastReq(tx: actualSignedTxModel.signedCosmosTx);
       TestUtils.printInfo('Signed [IRMsgRegisterRecordsModel] transaction: ${json.encode(actualBroadcastReq.toJson())}');
 
       // await broadcastTx(actualSignedTxModel);
@@ -155,7 +147,7 @@ Future<void> main() async {
         memo: 'Test of MsgRequestIdentityRecordsVerify message',
         feeTokenAmountModel: feeTokenAmountModel,
         txMsgModel: IRMsgRequestVerificationModel.single(
-          recordId: BigInt.from(964),
+          recordId: 964,
           tipTokenAmountModel: TokenAmountModel(
             defaultDenominationAmount: Decimal.fromInt(200),
             tokenAliasModel: TokenAliasModel.local('ukex'),
@@ -167,7 +159,7 @@ Future<void> main() async {
 
       SignedTxModel actualSignedTxModel = await signTx(actualTxLocalInfoModel, senderWallet);
 
-      BroadcastReq actualBroadcastReq = BroadcastReq(tx: Tx.fromSignedTxModel(actualSignedTxModel));
+      BroadcastReq actualBroadcastReq = BroadcastReq(tx: actualSignedTxModel.signedCosmosTx);
       TestUtils.printInfo('Signed [IRMsgRequestVerificationModel] transaction: ${json.encode(actualBroadcastReq.toJson())}');
 
       // await broadcastTx(actualSignedTxModel);
@@ -185,7 +177,7 @@ Future<void> main() async {
 
       SignedTxModel actualSignedTxModel = await signTx(actualTxLocalInfoModel, senderWallet);
 
-      BroadcastReq actualBroadcastReq = BroadcastReq(tx: Tx.fromSignedTxModel(actualSignedTxModel));
+      BroadcastReq actualBroadcastReq = BroadcastReq(tx: actualSignedTxModel.signedCosmosTx);
       TestUtils.printInfo('Signed [IRMsgCancelVerificationRequestModel] transaction: ${json.encode(actualBroadcastReq.toJson())}');
 
       // await broadcastTx(actualSignedTxModel);
@@ -203,7 +195,7 @@ Future<void> main() async {
 
       SignedTxModel actualSignedTxModel = await signTx(actualTxLocalInfoModel, senderWallet);
 
-      BroadcastReq actualBroadcastReq = BroadcastReq(tx: Tx.fromSignedTxModel(actualSignedTxModel));
+      BroadcastReq actualBroadcastReq = BroadcastReq(tx: actualSignedTxModel.signedCosmosTx);
       TestUtils.printInfo('Signed [IRMsgDeleteRecordsModel] transaction: ${json.encode(actualBroadcastReq.toJson())}');
 
       // await broadcastTx(actualSignedTxModel);
@@ -222,7 +214,7 @@ Future<void> main() async {
 
       SignedTxModel actualSignedTxModel = await signTx(actualTxLocalInfoModel, recipientWallet);
 
-      BroadcastReq actualBroadcastReq = BroadcastReq(tx: Tx.fromSignedTxModel(actualSignedTxModel));
+      BroadcastReq actualBroadcastReq = BroadcastReq(tx: actualSignedTxModel.signedCosmosTx);
       TestUtils.printInfo('Signed [IRMsgHandleVerificationRequestModel] transaction: ${json.encode(actualBroadcastReq.toJson())}');
 
       // await broadcastTx(actualSignedTxModel);
@@ -244,7 +236,7 @@ Future<void> main() async {
 
       SignedTxModel actualSignedTxModel = await signTx(actualTxLocalInfoModel, senderWallet);
 
-      BroadcastReq actualBroadcastReq = BroadcastReq(tx: Tx.fromSignedTxModel(actualSignedTxModel));
+      BroadcastReq actualBroadcastReq = BroadcastReq(tx: actualSignedTxModel.signedCosmosTx);
       TestUtils.printInfo('Signed [MsgDelegate] transaction: ${json.encode(actualBroadcastReq.toJson())}');
 
       // await broadcastTx(actualSignedTxModel);
@@ -263,7 +255,7 @@ Future<void> main() async {
 
       SignedTxModel actualSignedTxModel = await signTx(actualTxLocalInfoModel, senderWallet);
 
-      BroadcastReq actualBroadcastReq = BroadcastReq(tx: Tx.fromSignedTxModel(actualSignedTxModel));
+      BroadcastReq actualBroadcastReq = BroadcastReq(tx: actualSignedTxModel.signedCosmosTx);
       TestUtils.printInfo('Signed [MsgUndelegate] transaction: ${json.encode(actualBroadcastReq.toJson())}');
 
       // await broadcastTx(actualSignedTxModel);
@@ -280,7 +272,7 @@ Future<void> main() async {
 
       SignedTxModel actualSignedTxModel = await signTx(actualTxLocalInfoModel, senderWallet);
 
-      BroadcastReq actualBroadcastReq = BroadcastReq(tx: Tx.fromSignedTxModel(actualSignedTxModel));
+      BroadcastReq actualBroadcastReq = BroadcastReq(tx: actualSignedTxModel.signedCosmosTx);
       TestUtils.printInfo('Signed [MsgClaimRewards] transaction: ${json.encode(actualBroadcastReq.toJson())}');
 
       // await broadcastTx(actualSignedTxModel);
@@ -298,7 +290,7 @@ Future<void> main() async {
 
       SignedTxModel actualSignedTxModel = await signTx(actualTxLocalInfoModel, senderWallet);
 
-      BroadcastReq actualBroadcastReq = BroadcastReq(tx: Tx.fromSignedTxModel(actualSignedTxModel));
+      BroadcastReq actualBroadcastReq = BroadcastReq(tx: actualSignedTxModel.signedCosmosTx);
       TestUtils.printInfo('Signed [MsgClaimUndelegation] transaction: ${json.encode(actualBroadcastReq.toJson())}');
 
       // await broadcastTx(actualSignedTxModel);

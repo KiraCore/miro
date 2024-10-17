@@ -1,10 +1,10 @@
 import 'dart:math';
 
+import 'package:cryptography_utils/cryptography_utils.dart';
 import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
 import 'package:miro/config/app_icons.dart';
 import 'package:miro/generated/l10n.dart';
-import 'package:miro/infra/dto/shared/coin.dart';
 import 'package:miro/infra/dto/shared/messages/msg_send.dart';
 import 'package:miro/shared/models/tokens/prefixed_token_amount_model.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
@@ -31,7 +31,7 @@ class MsgSendModel extends ATxMsgModel {
       fromWalletAddress: WalletAddress.fromBech32(msgSend.fromAddress),
       toWalletAddress: WalletAddress.fromBech32(msgSend.toAddress),
       tokenAmountModel: TokenAmountModel(
-        defaultDenominationAmount: Decimal.parse(msgSend.amount.first.amount),
+        defaultDenominationAmount: Decimal.fromBigInt(msgSend.amount.first.amount),
         tokenAliasModel: TokenAliasModel.local(msgSend.amount.first.denom),
       ),
     );
@@ -42,10 +42,10 @@ class MsgSendModel extends ATxMsgModel {
     return MsgSend(
       fromAddress: fromWalletAddress.bech32Address,
       toAddress: toWalletAddress.bech32Address,
-      amount: <Coin>[
-        Coin(
+      amount: <CosmosCoin>[
+        CosmosCoin(
           denom: tokenAmountModel.tokenAliasModel.defaultTokenDenominationModel.name,
-          amount: tokenAmountModel.getAmountInDefaultDenomination().toString(),
+          amount: tokenAmountModel.getAmountInDefaultDenomination().toBigInt(),
         ),
       ],
     );

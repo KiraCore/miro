@@ -1,8 +1,8 @@
+import 'package:cryptography_utils/cryptography_utils.dart';
 import 'package:equatable/equatable.dart';
-import 'package:miro/infra/dto/api_kira/broadcast/request/transaction/tx.dart';
 
 class BroadcastReq extends Equatable {
-  final Tx tx;
+  final CosmosTx tx;
   final String mode;
 
   const BroadcastReq({
@@ -12,7 +12,7 @@ class BroadcastReq extends Equatable {
 
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
-      'tx': tx.toJson(),
+      'tx': tx.toProtoJson(),
       'mode': mode,
     };
   }

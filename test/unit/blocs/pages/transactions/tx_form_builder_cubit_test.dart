@@ -10,8 +10,6 @@ import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/transactions/tx_local_info_model.dart';
 import 'package:miro/shared/models/transactions/tx_remote_info_model.dart';
 import 'package:miro/shared/models/transactions/unsigned_tx_model.dart';
-import 'package:miro/shared/models/wallet/mnemonic.dart';
-import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
@@ -25,12 +23,7 @@ Future<void> main() async {
 
   AuthCubit authCubit = globalLocator<AuthCubit>();
 
-  // @formatter:off
-  final Mnemonic senderMnemonic = Mnemonic(value: 'require point property company tongue busy bench burden caution gadget knee glance thought bulk assist month cereal report quarter tool section often require shield');
-  final Wallet senderWallet = Wallet.derive(mnemonic: senderMnemonic);
-  // @formatter:on
-
-  await authCubit.signIn(senderWallet);
+  await authCubit.signIn(TestUtils.wallet);
 
   TokenAmountModel feeTokenAmountModel = TokenAmountModel(
     defaultDenominationAmount: Decimal.parse('100'),
