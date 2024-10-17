@@ -1,9 +1,9 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:miro/shared/entity/keyfile/keyfile_entity.dart';
-import 'package:miro/shared/models/keyfile/decrypted_keyfile_model.dart';
-import 'package:miro/shared/models/keyfile/encrypted_keyfile_model.dart';
+import 'package:miro/shared/entity/keyfile/a_keyfile_entity.dart';
+import 'package:miro/shared/models/keyfile/decrypted/a_decrypted_keyfile_model.dart';
+import 'package:miro/shared/models/keyfile/encrypted/a_encrypted_keyfile_model.dart';
 import 'package:miro/shared/models/keyfile/keyfile_secret_data_model.dart';
 import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
@@ -15,24 +15,24 @@ Future<void> main() async {
   await TestUtils.setupNetworkModel(networkUri: Uri.parse('https://healthy.kira.network/'));
   String actualPassword = '123';
 
-  group('Tests of DecryptedKeyfileModel.buildFileContent() method', () {
-    test('Should [return DecryptedKeyfileModel] representing keyfile in latest version [v2.0.0]', () {
+  group('Tests of ADecryptedKeyfileModel.buildFileContent() method', () {
+    test('Should [return ADecryptedKeyfileModel] representing keyfile in latest version [v2.0.0]', () {
       // Arrange
-      DecryptedKeyfileModel actualDecryptedKeyfileModel = DecryptedKeyfileModel(
+      ADecryptedKeyfileModel actualDecryptedKeyfileModel = ADecryptedKeyfileModel(
         version: '2.0.0',
         keyfileSecretDataModel: KeyfileSecretDataModel(wallet: TestUtils.wallet),
       );
 
       // Act
       // Because of the random salt, we can't compare the whole keyfile content.
-      // So basing on generated keyfile, we can parse it back to [DecryptedKeyfileModel] and compare result
+      // So basing on generated keyfile, we can parse it back to [ADecryptedKeyfileModel] and compare result
       String actualKeyfileContent = actualDecryptedKeyfileModel.buildFileContent(actualPassword);
-      KeyfileEntity actualKeyfileEntity = KeyfileEntity.fromJson(jsonDecode(actualKeyfileContent) as Map<String, dynamic>);
-      EncryptedKeyfileModel actualEncryptedKeyfileModel = EncryptedKeyfileModel.fromEntity(actualKeyfileEntity);
+      AKeyfileEntity actualKeyfileEntity = AKeyfileEntity.fromJson(jsonDecode(actualKeyfileContent) as Map<String, dynamic>);
+      AEncryptedKeyfileModel actualEncryptedKeyfileModel = AEncryptedKeyfileModel.fromEntity(actualKeyfileEntity);
       actualDecryptedKeyfileModel = actualEncryptedKeyfileModel.decrypt(actualPassword);
 
       // Assert
-      DecryptedKeyfileModel expectedDecryptedKeyfileModel = DecryptedKeyfileModel(
+      ADecryptedKeyfileModel expectedDecryptedKeyfileModel = ADecryptedKeyfileModel(
         version: '2.0.0',
         keyfileSecretDataModel: KeyfileSecretDataModel(wallet: TestUtils.wallet),
       );
@@ -41,10 +41,10 @@ Future<void> main() async {
     });
   });
 
-  group('Tests of DecryptedKeyfileModel.fileName getter', () {
+  group('Tests of ADecryptedKeyfileModel.fileName getter', () {
     test('Should return proper file name', () {
       // Arrange
-      DecryptedKeyfileModel decryptedKeyfileModel = DecryptedKeyfileModel(
+      ADecryptedKeyfileModel decryptedKeyfileModel = ADecryptedKeyfileModel(
         version: '2.0.0',
         keyfileSecretDataModel: KeyfileSecretDataModel(wallet: TestUtils.wallet),
       );

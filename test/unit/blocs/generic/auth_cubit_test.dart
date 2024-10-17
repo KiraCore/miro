@@ -2,6 +2,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/blocs/generic/auth/auth_cubit.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/shared/controllers/global_nav/global_nav_controller.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/shared/router/router.dart';
 import 'package:miro/test/mock_locator.dart';
@@ -29,7 +30,7 @@ Future<void> main() async {
       // ************************************************************************************************
 
       // Act
-      await actualAuthCubit.signIn(TestUtils.wallet, option: AuthSessionOptions.cosmos);
+      await actualAuthCubit.signIn(TestUtils.wallet);
 
       // Assert
       expectedWallet = TestUtils.wallet;
@@ -37,7 +38,7 @@ Future<void> main() async {
       TestUtils.printInfo('Should return [Wallet] after sign in');
       expect(actualAuthCubit.state, expectedWallet);
       TestUtils.printInfo('Should have cosmos session');
-      expect(actualAuthCubit.currentAuthSessionOption, AuthSessionOptions.cosmos);
+      expect(actualAuthCubit.loggedInWithAddressType, WalletAddressType.cosmos);
 
       // ************************************************************************************************
 
@@ -49,19 +50,6 @@ Future<void> main() async {
 
       TestUtils.printInfo('Should return [null] after sign out');
       expect(actualAuthCubit.state, expectedWallet);
-
-      // ************************************************************************************************
-
-      // Act
-      await actualAuthCubit.signIn(TestUtils.wallet, option: AuthSessionOptions.ethereum);
-
-      // Assert
-      expectedWallet = TestUtils.wallet;
-
-      TestUtils.printInfo('Should return [Wallet] after sign in');
-      expect(actualAuthCubit.state, expectedWallet);
-      TestUtils.printInfo('Should have ethereum session');
-      expect(actualAuthCubit.currentAuthSessionOption, AuthSessionOptions.ethereum);
     });
   });
 }

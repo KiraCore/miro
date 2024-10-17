@@ -1,11 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:miro/shared/entity/keyfile/keyfile_entity.dart';
+import 'package:miro/shared/entity/keyfile/a_keyfile_entity.dart';
 import 'package:miro/shared/exceptions/keyfile_exception/keyfile_exception.dart';
 import 'package:miro/shared/exceptions/keyfile_exception/keyfile_exception_type.dart';
-import 'package:miro/shared/models/keyfile/decrypted_keyfile_model.dart';
-import 'package:miro/shared/models/keyfile/encrypted_keyfile_model.dart';
+import 'package:miro/shared/models/keyfile/decrypted/a_decrypted_keyfile_model.dart';
+import 'package:miro/shared/models/keyfile/encrypted/a_encrypted_keyfile_model.dart';
 import 'package:miro/shared/models/keyfile/keyfile_secret_data_model.dart';
 import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
@@ -17,8 +17,8 @@ Future<void> main() async {
   await TestUtils.setupNetworkModel(networkUri: Uri.parse('https://healthy.kira.network/'));
   String actualPassword = '123';
 
-  group('Tests of EncryptedKeyfileModel.fromEntity() factory constructor', () {
-    test('Should [return EncryptedKeyfileModel] with version 2.0.0', () {
+  group('Tests of AEncryptedKeyfileModel.fromEntity() factory constructor', () {
+    test('Should [return AEncryptedKeyfileModel] with version 2.0.0', () {
       // Arrange
       // @formatter:off
       Map<String, dynamic> actualKeyfileContent = <String, dynamic>{
@@ -29,12 +29,12 @@ Future<void> main() async {
       // @formatter:on
 
       // Act
-      KeyfileEntity actualKeyfileEntity = KeyfileEntity.fromJson(actualKeyfileContent);
-      EncryptedKeyfileModel actualEncryptedKeyfileModel = EncryptedKeyfileModel.fromEntity(actualKeyfileEntity);
+      AKeyfileEntity actualKeyfileEntity = AKeyfileEntity.fromJson(actualKeyfileContent);
+      AEncryptedKeyfileModel actualEncryptedKeyfileModel = AEncryptedKeyfileModel.fromEntity(actualKeyfileEntity);
 
       // Assert
       // @formatter:off
-      EncryptedKeyfileModel expectedEncryptedKeyfileModel = EncryptedKeyfileModel(
+      AEncryptedKeyfileModel expectedEncryptedKeyfileModel = AEncryptedKeyfileModel(
         version: '2.0.0',
         publicKey: base64Decode('AlLas8CJ6lm5yZJ8h0U5Qu9nzVvgvskgHuURPB3jvUx8'),
         encryptedSecretData: 'RDjZC9U7JTFrsk3u9D7jDf17Ih1IerFTga6ayTR3Ig6Ay5vaRtHAhm/rnmuIQBUDeyXvffcpElfsZwh4LvOwwzzLd9pzRq5CLk3LBqAT6zC/aPsNimo5uXEESeIfua5oUBbob6eyO4bMMLh2NMUhoo/2CIg=',
@@ -46,7 +46,7 @@ Future<void> main() async {
 
     test('Should [throw KeyfileException] with [KeyfileExceptionType.invalidKeyfile] if keyfile is invalid', () {
       // Act
-      Object? actualException = TestUtils.catchException(() => KeyfileEntity.fromJson(const <String, dynamic>{'invalid_key': 'invalid_value'}));
+      Object? actualException = TestUtils.catchException(() => AKeyfileEntity.fromJson(const <String, dynamic>{'invalid_key': 'invalid_value'}));
 
       // Assert
       KeyfileException expectedException = const KeyfileException(KeyfileExceptionType.invalidKeyfile);
@@ -55,11 +55,11 @@ Future<void> main() async {
     });
   });
 
-  group('Tests of EncryptedKeyfileModel.decrypt() method', () {
-    test('Should [return DecryptedKeyfileModel] with version 2.0.0', () {
+  group('Tests of AEncryptedKeyfileModel.decrypt() method', () {
+    test('Should [return ADecryptedKeyfileModel] with version 2.0.0', () {
       // Arrange
       // @formatter:off
-      EncryptedKeyfileModel actualEncryptedKeyfileModel = EncryptedKeyfileModel(
+      AEncryptedKeyfileModel actualEncryptedKeyfileModel = AEncryptedKeyfileModel(
         version: '2.0.0',
         publicKey: base64Decode('AlLas8CJ6lm5yZJ8h0U5Qu9nzVvgvskgHuURPB3jvUx8'),
         encryptedSecretData: 'RDjZC9U7JTFrsk3u9D7jDf17Ih1IerFTga6ayTR3Ig6Ay5vaRtHAhm/rnmuIQBUDeyXvffcpElfsZwh4LvOwwzzLd9pzRq5CLk3LBqAT6zC/aPsNimo5uXEESeIfua5oUBbob6eyO4bMMLh2NMUhoo/2CIg=',
@@ -67,10 +67,10 @@ Future<void> main() async {
       // @formatter:on
 
       // Act
-      DecryptedKeyfileModel actualDecryptedKeyfileModel = actualEncryptedKeyfileModel.decrypt(actualPassword);
+      ADecryptedKeyfileModel actualDecryptedKeyfileModel = actualEncryptedKeyfileModel.decrypt(actualPassword);
 
       // Assert
-      DecryptedKeyfileModel expectedDecryptedKeyfileModel = DecryptedKeyfileModel(
+      ADecryptedKeyfileModel expectedDecryptedKeyfileModel = ADecryptedKeyfileModel(
         version: '2.0.0',
         keyfileSecretDataModel: KeyfileSecretDataModel(wallet: TestUtils.wallet),
       );
@@ -81,7 +81,7 @@ Future<void> main() async {
     test('Should [throw KeyfileException] with [KeyfileExceptionType.wrongPassword] if password is invalid', () {
       // Arrange
       // @formatter:off
-      EncryptedKeyfileModel actualEncryptedKeyfileModel = EncryptedKeyfileModel(
+      AEncryptedKeyfileModel actualEncryptedKeyfileModel = AEncryptedKeyfileModel(
         version: '2.0.0',
         publicKey: base64Decode('AlLas8CJ6lm5yZJ8h0U5Qu9nzVvgvskgHuURPB3jvUx8'),
         encryptedSecretData: 'RDjZC9U7JTFrsk3u9D7jDf17Ih1IerFTga6ayTR3Ig6Ay5vaRtHAhm/rnmuIQBUDeyXvffcpElfsZwh4LvOwwzzLd9pzRq5CLk3LBqAT6zC/aPsNimo5uXEESeIfua5oUBbob6eyO4bMMLh2NMUhoo/2CIg=',

@@ -9,7 +9,7 @@ import 'package:miro/blocs/widgets/keyfile_dropzone/keyfile_dropzone_state.dart'
 import 'package:miro/config/locator.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/exceptions/keyfile_exception/keyfile_exception_type.dart';
-import 'package:miro/shared/models/keyfile/decrypted_keyfile_model.dart';
+import 'package:miro/shared/models/keyfile/decrypted/a_decrypted_keyfile_model.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';
 import 'package:miro/shared/utils/string_utils.dart';
@@ -101,6 +101,7 @@ class _SignInKeyfileDrawerPage extends State<SignInKeyfileDrawerPage> {
             ),
             const SizedBox(height: 24),
             KiraElevatedButton(
+              disabled: signInKeyfileDrawerPageState.isLoading,
               onPressed: () => _handleSignInButtonPressed(signInKeyfileDrawerPageState),
               title: S.of(context).connectWalletButtonSignIn,
             ),
@@ -142,7 +143,7 @@ class _SignInKeyfileDrawerPage extends State<SignInKeyfileDrawerPage> {
 
   void _pressSignInButton(SignInKeyfileDrawerPageState signInKeyfileDrawerPageState) {
     try {
-      DecryptedKeyfileModel decryptedKeyfileModel = signInKeyfileDrawerPageState.decryptedKeyfileModel!;
+      ADecryptedKeyfileModel decryptedKeyfileModel = signInKeyfileDrawerPageState.decryptedKeyfileModel!;
       Wallet wallet = decryptedKeyfileModel.keyfileSecretDataModel.wallet;
       authCubit.signIn(wallet);
       KiraScaffold.of(context).closeEndDrawer();

@@ -5,7 +5,7 @@ import 'package:miro/blocs/pages/drawer/sign_in_keyfile_drawer_page/sign_in_keyf
 import 'package:miro/blocs/widgets/keyfile_dropzone/keyfile_dropzone_cubit.dart';
 import 'package:miro/shared/exceptions/keyfile_exception/keyfile_exception_type.dart';
 import 'package:miro/shared/models/generic/file_model.dart';
-import 'package:miro/shared/models/keyfile/decrypted_keyfile_model.dart';
+import 'package:miro/shared/models/keyfile/decrypted/a_decrypted_keyfile_model.dart';
 import 'package:miro/shared/models/keyfile/keyfile_secret_data_model.dart';
 import 'package:miro/shared/models/wallet/mnemonic/mnemonic.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
@@ -98,7 +98,7 @@ Future<void> main() async {
 
       // Assert
       SignInKeyfileDrawerPageState expectedSignInKeyfileDrawerPageState = SignInKeyfileDrawerPageState(
-        decryptedKeyfileModel: DecryptedKeyfileModel(
+        decryptedKeyfileModel: ADecryptedKeyfileModel(
           version: '2.0.0',
           keyfileSecretDataModel: KeyfileSecretDataModel(
             wallet: await Wallet.derive(
