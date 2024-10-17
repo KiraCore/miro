@@ -5,7 +5,7 @@ import 'package:miro/blocs/widgets/keyfile_dropzone/keyfile_dropzone_cubit.dart'
 import 'package:miro/blocs/widgets/keyfile_dropzone/keyfile_dropzone_state.dart';
 import 'package:miro/shared/exceptions/keyfile_exception/keyfile_exception_type.dart';
 import 'package:miro/shared/models/generic/file_model.dart';
-import 'package:miro/shared/models/keyfile/encrypted_keyfile_model.dart';
+import 'package:miro/shared/models/keyfile/encrypted/a_encrypted_keyfile_model.dart';
 import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
@@ -41,7 +41,7 @@ Future<void> main() async {
 
       // Assert
       expectedKeyfileDropzoneState = KeyfileDropzoneState(
-        encryptedKeyfileModel: EncryptedKeyfileModel(
+        encryptedKeyfileModel: AEncryptedKeyfileModel(
           version: '2.0.0',
           publicKey: base64Decode('AlLas8CJ6lm5yZJ8h0U5Qu9nzVvgvskgHuURPB3jvUx8'),
           encryptedSecretData:

@@ -4,30 +4,26 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/generic/identity_registrar/identity_registrar_cubit.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/shared/controllers/global_nav/global_nav_controller.dart';
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/shared/models/wallet/address/cosmos_wallet_address.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
-
-enum AuthSessionOptions {
-  ethereum,
-  cosmos,
-}
 
 class AuthCubit extends Cubit<Wallet?> {
   final IdentityRegistrarCubit _identityRegistrarCubit;
 
-  AuthSessionOptions? _authSessionOptions;
+  WalletAddressType? _loggedInWithAddressType;
 
   AuthCubit()
       : _identityRegistrarCubit = globalLocator<IdentityRegistrarCubit>(),
         super(null);
 
   // TODO(Mykyta): move field to the State in the next PR. Won't do right now, because it'll affect a lot of pages
-  AuthSessionOptions? get currentAuthSessionOption => _authSessionOptions;
+  WalletAddressType? get loggedInWithAddressType => _loggedInWithAddressType;
 
-  bool get isEthereumSession => currentAuthSessionOption == AuthSessionOptions.ethereum;
+  bool get isEthereumSession => loggedInWithAddressType == WalletAddressType.ethereum;
 
-  Future<void> signIn(Wallet wallet, {AuthSessionOptions option = AuthSessionOptions.cosmos}) async {
-    _authSessionOptions = option;
+  Future<void> signIn(Wallet wallet) async {
+    _loggedInWithAddressType = wallet.address.type;
     if (wallet.isEthereum) {
       await _identityRegistrarCubit.setWalletAddress(CosmosWalletAddress.fromEthereum(wallet.address.address));
       if (state?.address is CosmosWalletAddress) {
@@ -43,14 +39,14 @@ class AuthCubit extends Cubit<Wallet?> {
   }
 
   Future<void> signOut() async {
-    _authSessionOptions = null;
+    _loggedInWithAddressType = null;
     emit(null);
     await _identityRegistrarCubit.setWalletAddress(null);
     globalLocator<GlobalNavController>().leaveProtectedPage();
   }
 
   void toggleWalletAddress() {
-    if (state == null || currentAuthSessionOption == AuthSessionOptions.cosmos) {
+    if (state == null || loggedInWithAddressType == WalletAddressType.cosmos) {
       return;
     }
     emit(Wallet(

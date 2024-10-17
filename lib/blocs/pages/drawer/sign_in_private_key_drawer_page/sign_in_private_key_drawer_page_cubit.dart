@@ -25,7 +25,7 @@ class SignInPrivateKeyDrawerPageCubit extends Cubit<ASignInPrivateKeyDrawerPageS
     try {
       Wallet wallet = Wallet.fromEthereumPrivateKey(ethereumPrivateKey);
 
-      await _authCubit.signIn(wallet, option: AuthSessionOptions.ethereum);
+      await _authCubit.signIn(wallet);
 
       emit(const SignInPrivateKeyDrawerPageSuccessState());
     } catch (e) {
