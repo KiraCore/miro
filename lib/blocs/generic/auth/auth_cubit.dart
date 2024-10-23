@@ -22,11 +22,13 @@ class AuthCubit extends Cubit<Wallet?> {
 
   bool get isEthereumSession => loggedInWithAddressType == WalletAddressType.ethereum;
 
-  Future<void> signIn(Wallet wallet) async {
+  /// If [defaultAddressIsKiraBool] is `true`, the address type of the passed [wallet] will be changed to `KIRA`.
+  /// If [defaultAddressIsKiraBool] is `false`, the address type of the passed [wallet] won't be changed.
+  Future<void> signIn(Wallet wallet, {bool defaultAddressIsKiraBool = true}) async {
     _loggedInWithAddressType = wallet.address.type;
     if (wallet.isEthereum) {
       await _identityRegistrarCubit.setWalletAddress(CosmosWalletAddress.fromEthereum(wallet.address.address));
-      if (state?.address is CosmosWalletAddress) {
+      if (defaultAddressIsKiraBool || state?.address is CosmosWalletAddress) {
         emit(Wallet(
           address: CosmosWalletAddress.fromEthereum(wallet.address.address),
         ));
