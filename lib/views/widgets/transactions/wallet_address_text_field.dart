@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:miro/blocs/generic/metamask/metamask_cubit.dart';
+import 'package:miro/blocs/generic/auth/auth_cubit.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
+import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/views/widgets/kira/kira_identity_avatar.dart';
 import 'package:miro/views/widgets/transactions/tx_input_wrapper.dart';
 import 'package:miro/views/widgets/transactions/tx_text_field.dart';
@@ -31,7 +32,7 @@ class _WalletAddressTextField extends State<WalletAddressTextField> {
   final GlobalKey<FormFieldState<AWalletAddress>> formFieldKey = GlobalKey<FormFieldState<AWalletAddress>>();
   final TextEditingController textEditingController = TextEditingController();
   final ValueNotifier<AWalletAddress?> walletAddressNotifier = ValueNotifier<AWalletAddress?>(null);
-  final MetamaskCubit metamaskCubit = globalLocator<MetamaskCubit>();
+  final AuthCubit authCubit = globalLocator<AuthCubit>();
 
   /// Text controller has ETH, [oppositeAddress] has KIRA, and vice versa.
   final ValueNotifier<String?> oppositeAddressNotifier = ValueNotifier<String?>(null);
@@ -77,10 +78,10 @@ class _WalletAddressTextField extends State<WalletAddressTextField> {
                     },
                   ),
                   const SizedBox(width: 12),
-                  BlocBuilder<MetamaskCubit, MetamaskState>(
-                    bloc: metamaskCubit,
-                    buildWhen: (MetamaskState previous, MetamaskState current) => previous.isConnected != current.isConnected,
-                    builder: (BuildContext context, MetamaskState state) {
+                  BlocBuilder<AuthCubit, Wallet?>(
+                    bloc: authCubit,
+                    buildWhen: (Wallet? previous, Wallet? current) => previous?.isEthereum != current?.isEthereum,
+                    builder: (BuildContext context, Wallet? state) {
                       return Expanded(
                         child: Align(
                           alignment: Alignment.centerLeft,
@@ -97,7 +98,8 @@ class _WalletAddressTextField extends State<WalletAddressTextField> {
                             textEditingController: textEditingController,
                             onChanged: (String value) => _handleTextFieldChanged(
                               value,
-                              needOppositeAddressBool: state.isConnected,
+                              // TODO(Mykyta): make `isEthereumSession` as state prop as soon as it's ready
+                              needOppositeAddressBool: authCubit.isEthereumSession == true,
                             ),
                           ),
                         ),
@@ -124,7 +126,7 @@ class _WalletAddressTextField extends State<WalletAddressTextField> {
     if (widget.defaultWalletAddress != null) {
       walletAddressNotifier.value = widget.defaultWalletAddress;
       textEditingController.text = widget.defaultWalletAddress!.address;
-      if (metamaskCubit.state.isConnected) {
+      if (authCubit.isEthereumSession) {
         oppositeAddressNotifier.value = widget.defaultWalletAddress!.toOppositeAddressType().address;
       }
     }
