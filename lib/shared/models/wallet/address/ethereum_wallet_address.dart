@@ -38,6 +38,14 @@ class EthereumWalletAddress extends AWalletAddress {
     return EthereumWalletAddress(addressBytes: ethereumBytes);
   }
 
+  factory EthereumWalletAddress.fromAnyType(String address) {
+    try {
+      return EthereumWalletAddress.fromBech32(address);
+    } catch (e) {
+      return EthereumWalletAddress.fromString(address);
+    }
+  }
+
   /// Returns the associated [address] as a Hash string.
   @override
   String get address => _toChecksumAddress(HexCodec.encode(addressBytes, includePrefixBool: true));
