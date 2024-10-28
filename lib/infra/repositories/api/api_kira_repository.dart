@@ -57,6 +57,16 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
         path: '/api/kira/txs',
         apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: true),
       );
+      print('response.data');
+      print(response.statusCode);
+      print('response.data');
+      print(response.data);
+      print('response.data');
+      print(response.extra);
+      print('response.data');
+      print(response.headers);
+      print('response.data');
+      print(response.statusMessage);
       return response;
     } on DioException catch (dioException) {
       AppLogger().log(message: 'Cannot fetch broadcast() for URI ${apiRequestModel.networkUri}: ${dioException.message}');

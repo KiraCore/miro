@@ -177,6 +177,8 @@ dependencies:
 
   # Dart package containing cryptographic algorithms and primitives. Used for Ethereum Keyfile encryption.
   cryptography: ^2.7.0
+  ecdsa: 0.1.2
+  elliptic: 0.3.11
 
   # Dart package containing utility methods for data encoding and decoding.
   codec_utils:

@@ -1,3 +1,5 @@
+import 'dart:convert';
+import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:codec_utils/codec_utils.dart';
@@ -22,6 +24,10 @@ class UnsignedTxModel extends Equatable {
     CosmosSigner cosmosSigner = CosmosSigner(wallet.ecPrivateKey!);
 
     CosmosAuthInfo cosmosAuthInfo = _getCosmosAuthInfo(wallet.ecPrivateKey!.ecPublicKey.compressed);
+    print(
+        'length of base signature:${base64Encode(wallet.ecPrivateKey!.ecPublicKey.compressed).length} ${base64Encode(wallet.ecPrivateKey!.ecPublicKey.compressed)}');
+    print('length of signature:${wallet.ecPrivateKey!.ecPublicKey.compressed.length} ${wallet.ecPrivateKey!.ecPublicKey.compressed}');
+    print('length of un signature:${wallet.ecPrivateKey!.ecPublicKey.uncompressed.length} ${wallet.ecPrivateKey!.ecPublicKey.uncompressed}');
     CosmosTxBody cosmosTxBody = _getCosmosTxBody();
 
     CosmosSignDoc cosmosSignDoc = CosmosSignDoc(
