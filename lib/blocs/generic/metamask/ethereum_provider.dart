@@ -174,7 +174,7 @@ class EthereumProvider {
     print('Signature (Base64): $signatureBase64');
 
     // Build the signed transaction
-    final Map<String, dynamic> signedTransaction = <String, >{
+    final Map<String, dynamic> signedTransaction = <String, dynamic>{
       'msg': transaction['msg'],
       'fee': transaction['fee'],
       'memo': transaction['memo'],
