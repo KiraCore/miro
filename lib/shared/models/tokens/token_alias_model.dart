@@ -17,21 +17,22 @@ class TokenAliasModel extends Equatable {
 
   factory TokenAliasModel.local(String name) {
     return TokenAliasModel(
-      name: name,
+      name: _removePrecisionPrefixFromDenomination(name),
       defaultTokenDenominationModel: TokenDenominationModel(name: name, decimals: 0),
+      networkTokenDenominationModel: TokenDenominationModel(name: _removePrecisionPrefixFromDenomination(name), decimals: 6),
     );
   }
 
   factory TokenAliasModel.fromDto(TokenAlias tokenAlias) {
     TokenDenominationModel networkTokenDenominationModel = TokenDenominationModel(
-      name: tokenAlias.symbol,
+      name: _removePrecisionPrefixFromDenomination(tokenAlias.symbol),
       decimals: tokenAlias.decimals,
     );
     TokenDenominationModel defaultTokenDenominationModel =
         tokenAlias.denoms.isNotEmpty ? TokenDenominationModel(name: tokenAlias.denoms.first, decimals: 0) : networkTokenDenominationModel;
 
     return TokenAliasModel(
-      name: tokenAlias.name,
+      name: _removePrecisionPrefixFromDenomination(tokenAlias.name),
       icon: tokenAlias.icon,
       networkTokenDenominationModel: networkTokenDenominationModel,
       defaultTokenDenominationModel: defaultTokenDenominationModel,
@@ -44,6 +45,22 @@ class TokenAliasModel extends Equatable {
       networkTokenDenominationModel,
     };
     return availableTokenDenominationModelSet.toList();
+  }
+
+  static String _removePrecisionPrefixFromDenomination(String name) {
+    if (name.toLowerCase().startsWith('u')) {
+      // NOTE: can be `ukex`
+      return name.substring(1).toUpperCase();
+    } else if (name.contains('/')) {
+      // NOTE: can be `v1/ukex`
+      List<String> nameParts = name.split('/');
+      String nameWithoutDenomination = nameParts.sublist(0, nameParts.length - 1).join('/');
+      String denomination = nameParts.last;
+      if (denomination.toLowerCase().startsWith('u')) {
+        return '$nameWithoutDenomination/${denomination.substring(1).toUpperCase()}';
+      }
+    }
+    return name;
   }
 
   @override
