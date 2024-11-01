@@ -1,7 +1,7 @@
 name: miro
 description: KIRA blockchain explorer
 publish_to: 'none'
-version: 1.29.1
+version: 1.30.0
 
 environment:
   sdk: "3.2.6"
@@ -206,6 +206,11 @@ dev_dependencies:
 
   flutter_test:
     sdk: flutter
+
+
+dependency_overrides:
+  #  TODO(Mykyta): a temporary fix for flutter_dropzone_platform_interface issue with wrong version. It should be fixed by package's owner, and then recheck it locally.
+  flutter_dropzone_platform_interface: 2.0.6
 
 flutter:
   uses-material-design: true

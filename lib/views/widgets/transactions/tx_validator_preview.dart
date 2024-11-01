@@ -17,7 +17,7 @@ class TxValidatorPreview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TxInputWrapper(
-      child: Row(
+      builderWithFocus: (FocusNode focusNode) => Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           KiraIdentityAvatar(
@@ -29,6 +29,7 @@ class TxValidatorPreview extends StatelessWidget {
             child: Align(
               alignment: Alignment.centerLeft,
               child: TxTextField(
+                focusNode: focusNode,
                 disabled: true,
                 maxLines: 1,
                 label: label,

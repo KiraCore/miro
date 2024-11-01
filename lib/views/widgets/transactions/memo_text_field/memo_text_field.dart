@@ -48,9 +48,10 @@ class _MemoTextField extends State<MemoTextField> {
   Widget build(BuildContext context) {
     return TxInputWrapper(
       padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 20),
-      child: Column(
+      builderWithFocus: (FocusNode focusNode) => Column(
         children: <Widget>[
           TxTextField(
+            focusNode: focusNode,
             textEditingController: widget.memoTextEditingController,
             label: widget.label,
             maxLines: widget.maxLines,
