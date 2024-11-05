@@ -3,7 +3,7 @@ import 'dart:js_util';
 import 'dart:typed_data';
 
 import 'package:codec_utils/codec_utils.dart';
-import 'package:cryptography_utils/cryptography_utils.dart' hide ECSignature, ECPrivateKey;
+import 'package:cryptography_utils/cryptography_utils.dart' hide ECSignature, ECPrivateKey, ECPoint;
 import 'package:elliptic/elliptic.dart' hide PublicKey;
 import 'package:flutter_web3/flutter_web3.dart' hide Signer;
 import 'package:miro/shared/utils/cryptography/keccak256.dart';
@@ -20,7 +20,7 @@ import 'dart:typed_data';
 // import 'package:convert/convert.dart';
 // import 'package:pointycastle/ecc/api.dart';
 import 'package:pointycastle/ecc/curves/secp256k1.dart';
-import 'package:pointycastle/ecc/ecc_fp.dart';
+// import 'package:pointycastle/ecc/ecc_fp.dart';
 import 'package:pointycastle/export.dart';
 
 // Function to generate a public key from a private key
