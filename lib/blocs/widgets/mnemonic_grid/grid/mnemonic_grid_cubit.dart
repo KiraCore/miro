@@ -45,6 +45,7 @@ class MnemonicGridCubit extends Cubit<MnemonicGridState> {
     for (int i = 0; i < mnemonicGridSize; i++) {
       bool mnemonicTextFieldExistsBool = i < previousMnemonicTextFieldCubitList.length;
       if (mnemonicTextFieldExistsBool) {
+        // TODO: remove clearing?
         MnemonicTextFieldCubit mnemonicTextFieldCubit = previousMnemonicTextFieldCubitList[i]..clear();
         mnemonicTextFieldCubitList.add(mnemonicTextFieldCubit);
       } else {
