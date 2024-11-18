@@ -10,13 +10,14 @@ import 'package:miro/views/widgets/kira/kira_list/components/filter_dropdown/fil
 import 'package:miro/views/widgets/kira/kira_list/components/filter_dropdown/filter_dropdown_wrapper.dart';
 import 'package:miro/views/widgets/kira/kira_list/components/list_pop_menu/list_pop_menu.dart';
 
-class TransactionsFilterDropdown extends StatefulWidget {
+// TODO(Mykyta): adapt it to the common component FilterDropdown
+class MyTransactionsFilterDropdown extends StatefulWidget {
   final List<dynamic> activeFilters;
   final ValueChanged<List<dynamic>> onFiltersChanged;
   final double width;
   final Widget? mobileAdditionalWidget;
 
-  const TransactionsFilterDropdown({
+  const MyTransactionsFilterDropdown({
     required this.activeFilters,
     required this.onFiltersChanged,
     this.width = 100,
@@ -25,10 +26,10 @@ class TransactionsFilterDropdown extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _TransactionsFilterDropdown();
+  State<StatefulWidget> createState() => _MyTransactionsFilterDropdown();
 }
 
-class _TransactionsFilterDropdown extends State<TransactionsFilterDropdown> {
+class _MyTransactionsFilterDropdown extends State<MyTransactionsFilterDropdown> {
   final PopWrapperController popWrapperController = PopWrapperController();
   late Set<dynamic> activeFilters = widget.activeFilters.toSet();
   bool filtersChangedBool = false;
@@ -40,7 +41,7 @@ class _TransactionsFilterDropdown extends State<TransactionsFilterDropdown> {
   }
 
   @override
-  void didUpdateWidget(covariant TransactionsFilterDropdown oldWidget) {
+  void didUpdateWidget(covariant MyTransactionsFilterDropdown oldWidget) {
     super.didUpdateWidget(oldWidget);
     activeFilters = widget.activeFilters.toSet();
     filtersChangedBool = false;

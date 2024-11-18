@@ -1,5 +1,11 @@
+import 'dart:math';
+
+import 'package:cryptography_utils/cryptography_utils.dart';
+import 'package:decimal/decimal.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:miro/config/app_icons.dart';
+import 'package:miro/generated/l10n.dart';
 import 'package:miro/infra/dto/shared/messages/a_tx_msg.dart';
 import 'package:miro/infra/dto/shared/messages/identity_records/msg_cancel_identity_records_verify_request.dart';
 import 'package:miro/infra/dto/shared/messages/identity_records/msg_delete_identity_records.dart';
@@ -7,26 +13,33 @@ import 'package:miro/infra/dto/shared/messages/identity_records/msg_handle_ident
 import 'package:miro/infra/dto/shared/messages/identity_records/msg_request_identity_records_verify.dart';
 import 'package:miro/infra/dto/shared/messages/identity_records/register/msg_register_identity_records.dart';
 import 'package:miro/infra/dto/shared/messages/msg_send.dart';
+import 'package:miro/infra/dto/shared/messages/msg_undefined.dart';
 import 'package:miro/infra/dto/shared/messages/staking/msg_claim_rewards.dart';
 import 'package:miro/infra/dto/shared/messages/staking/msg_claim_undelegation.dart';
 import 'package:miro/infra/dto/shared/messages/staking/msg_delegate.dart';
 import 'package:miro/infra/dto/shared/messages/staking/msg_undelegate.dart';
 import 'package:miro/shared/models/tokens/prefixed_token_amount_model.dart';
+import 'package:miro/shared/models/tokens/token_alias_model.dart';
+import 'package:miro/shared/models/tokens/token_amount_model.dart';
+import 'package:miro/shared/models/tokens/token_amount_status_type.dart';
 import 'package:miro/shared/models/transactions/list/tx_direction_type.dart';
-import 'package:miro/shared/models/transactions/messages/identity_registrar/ir_msg_cancel_verification_request_model.dart';
-import 'package:miro/shared/models/transactions/messages/identity_registrar/ir_msg_delete_records_model.dart';
-import 'package:miro/shared/models/transactions/messages/identity_registrar/ir_msg_handle_verification_request_model.dart';
-import 'package:miro/shared/models/transactions/messages/identity_registrar/ir_msg_request_verification_model.dart';
-import 'package:miro/shared/models/transactions/messages/identity_registrar/register/ir_msg_register_records_model.dart';
-import 'package:miro/shared/models/transactions/messages/msg_send_model.dart';
-import 'package:miro/shared/models/transactions/messages/msg_undefined_model.dart';
-import 'package:miro/shared/models/transactions/messages/staking/staking_msg_claim_rewards_model.dart';
-import 'package:miro/shared/models/transactions/messages/staking/staking_msg_claim_undelegation_model.dart';
-import 'package:miro/shared/models/transactions/messages/staking/staking_msg_delegate_model.dart';
-import 'package:miro/shared/models/transactions/messages/staking/staking_msg_undelegate_model.dart';
+import 'package:miro/shared/models/transactions/messages/identity_registrar/register/ir_entry_model.dart';
 import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
+import 'package:miro/shared/models/wallet/wallet_address.dart';
 
-abstract class ATxMsgModel extends Equatable {
+part 'msg_send_model.dart';
+part 'msg_undefined_model.dart';
+part 'identity_registrar/ir_msg_cancel_verification_request_model.dart';
+part 'identity_registrar/ir_msg_delete_records_model.dart';
+part 'identity_registrar/ir_msg_handle_verification_request_model.dart';
+part 'identity_registrar/ir_msg_request_verification_model.dart';
+part 'identity_registrar/register/ir_msg_register_records_model.dart';
+part 'staking/staking_msg_claim_rewards_model.dart';
+part 'staking/staking_msg_claim_undelegation_model.dart';
+part 'staking/staking_msg_delegate_model.dart';
+part 'staking/staking_msg_undelegate_model.dart';
+
+sealed class ATxMsgModel extends Equatable {
   final TxMsgType txMsgType;
 
   const ATxMsgModel({

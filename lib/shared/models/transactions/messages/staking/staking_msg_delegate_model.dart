@@ -1,17 +1,4 @@
-import 'package:cryptography_utils/cryptography_utils.dart';
-import 'package:decimal/decimal.dart';
-import 'package:flutter/material.dart';
-import 'package:miro/generated/l10n.dart';
-import 'package:miro/infra/dto/shared/messages/a_tx_msg.dart';
-import 'package:miro/infra/dto/shared/messages/staking/msg_delegate.dart';
-import 'package:miro/shared/models/tokens/prefixed_token_amount_model.dart';
-import 'package:miro/shared/models/tokens/token_alias_model.dart';
-import 'package:miro/shared/models/tokens/token_amount_model.dart';
-import 'package:miro/shared/models/tokens/token_amount_status_type.dart';
-import 'package:miro/shared/models/transactions/list/tx_direction_type.dart';
-import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
-import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+part of '../a_tx_msg_model.dart';
 
 class StakingMsgDelegateModel extends ATxMsgModel {
   final String valkey;
