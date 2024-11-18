@@ -9,8 +9,8 @@ import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/views/pages/menu/my_account_page/balance_page/balance_page.dart';
 import 'package:miro/views/pages/menu/my_account_page/identity_registrar/identity_registrar_page.dart';
 import 'package:miro/views/pages/menu/my_account_page/my_account_page_header.dart';
+import 'package:miro/views/pages/menu/my_account_page/my_transactions_page/my_transactions_page.dart';
 import 'package:miro/views/pages/menu/my_account_page/staking_page/staking_page.dart';
-import 'package:miro/views/pages/menu/my_account_page/transactions_page/transactions_page.dart';
 import 'package:miro/views/pages/menu/my_account_page/undelegations_page/undelegations_page.dart';
 import 'package:miro/views/pages/menu/my_account_page/verification_requests/verification_requests_page.dart';
 import 'package:miro/views/widgets/generic/sliver_tab_bar_view.dart';
@@ -76,7 +76,7 @@ class _MyAccountPage extends State<MyAccountPage> with SingleTickerProviderState
                     tabController: tabController,
                     children: <Widget>[
                       BalancePage(walletAddress: wallet.address, parentScrollController: scrollController),
-                      TransactionsPage(walletAddress: wallet.address, parentScrollController: scrollController),
+                      MyTransactionsPage(walletAddress: wallet.address, parentScrollController: scrollController),
                       IdentityRegistrarPage(walletAddress: wallet.address),
                       VerificationRequestsPage(walletAddress: wallet.address, parentScrollController: scrollController),
                       StakingPage(walletAddress: wallet.address),

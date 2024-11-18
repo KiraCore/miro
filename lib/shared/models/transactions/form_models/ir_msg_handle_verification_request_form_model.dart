@@ -1,7 +1,6 @@
 import 'package:miro/shared/models/identity_registrar/ir_inbound_verification_request_model.dart';
 import 'package:miro/shared/models/transactions/form_models/a_msg_form_model.dart';
 import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
-import 'package:miro/shared/models/transactions/messages/identity_registrar/ir_msg_handle_verification_request_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 
 class IRMsgHandleVerificationRequestFormModel extends AMsgFormModel {
