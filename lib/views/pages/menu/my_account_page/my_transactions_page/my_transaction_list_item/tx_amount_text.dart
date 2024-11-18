@@ -5,7 +5,7 @@ import 'package:miro/shared/models/tokens/prefixed_token_amount_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_status_type.dart';
 import 'package:miro/shared/models/transactions/list/tx_list_item_model.dart';
-import 'package:miro/views/pages/menu/my_account_page/transactions_page/transaction_list_item/prefixed_token_amount_text.dart';
+import 'package:miro/views/pages/menu/my_account_page/my_transactions_page/my_transaction_list_item/prefixed_token_amount_text.dart';
 import 'package:miro/views/widgets/kira/kira_tooltip.dart';
 
 class TxAmountText extends StatelessWidget {
