@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/transactions/form_models/staking_msg_claim_rewards_form_model.dart';
-import 'package:miro/shared/models/transactions/messages/staking/staking_msg_claim_rewards_model.dart';
+import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
 import 'package:miro/shared/models/transactions/tx_local_info_model.dart';
 import 'package:miro/views/widgets/kira/kira_identity_avatar.dart';
 import 'package:miro/views/widgets/transactions/tx_input_preview.dart';

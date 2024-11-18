@@ -1,6 +1,5 @@
 import 'package:miro/shared/models/transactions/form_models/a_msg_form_model.dart';
 import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
-import 'package:miro/shared/models/transactions/messages/staking/staking_msg_claim_rewards_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 
 class StakingMsgClaimRewardsFormModel extends AMsgFormModel {
