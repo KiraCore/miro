@@ -1,33 +1,33 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
-import 'package:miro/shared/controllers/menu/my_account_page/transactions_page/transactions_list_controller.dart';
+import 'package:miro/shared/controllers/menu/my_account_page/my_transactions_page/my_transactions_list_controller.dart';
 import 'package:miro/shared/models/transactions/list/tx_list_item_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
-import 'package:miro/views/pages/menu/my_account_page/transactions_page/transaction_list_item/desktop/transaction_list_item_desktop_layout.dart';
-import 'package:miro/views/pages/menu/my_account_page/transactions_page/transaction_list_item/transaction_list_item_builder.dart';
-import 'package:miro/views/pages/menu/my_account_page/transactions_page/transactions_list_title.dart';
+import 'package:miro/views/pages/menu/my_account_page/my_transactions_page/my_transaction_list_item/desktop/my_transaction_list_item_desktop_layout.dart';
+import 'package:miro/views/pages/menu/my_account_page/my_transactions_page/my_transaction_list_item/my_transaction_list_item_builder.dart';
+import 'package:miro/views/pages/menu/my_account_page/my_transactions_page/my_transactions_list_title.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 import 'package:miro/views/widgets/kira/kira_list/sliver_paginated_list/page_size_dropdown/page_size_dropdown.dart';
 import 'package:miro/views/widgets/kira/kira_list/sliver_paginated_list/sliver_paginated_list.dart';
 
-class TransactionsPage extends StatefulWidget {
+class MyTransactionsPage extends StatefulWidget {
   final WalletAddress walletAddress;
   final ScrollController parentScrollController;
 
-  const TransactionsPage({
+  const MyTransactionsPage({
     required this.walletAddress,
     required this.parentScrollController,
     Key? key,
   }) : super(key: key);
 
   @override
-  _TransactionsPage createState() => _TransactionsPage();
+  _MyTransactionsPage createState() => _MyTransactionsPage();
 }
 
-class _TransactionsPage extends State<TransactionsPage> {
+class _MyTransactionsPage extends State<MyTransactionsPage> {
   final TextEditingController searchBarTextEditingController = TextEditingController();
-  late final TransactionsListController transactionsListController = TransactionsListController(walletAddress: widget.walletAddress);
+  late final MyTransactionsListController transactionsListController = MyTransactionsListController(walletAddress: widget.walletAddress);
   int pageSize = 10;
 
   @override
@@ -41,7 +41,7 @@ class _TransactionsPage extends State<TransactionsPage> {
     TextTheme textTheme = Theme.of(context).textTheme;
     TextStyle headerTextStyle = textTheme.bodySmall!.copyWith(color: DesignColors.white1);
 
-    Widget listHeaderWidget = TransactionListItemDesktopLayout(
+    Widget listHeaderWidget = MyTransactionListItemDesktopLayout(
       height: 53,
       txWidget: Text(S.of(context).txListDetails, style: headerTextStyle),
       hashWidget: Text(S.of(context).txListHash, style: headerTextStyle),
@@ -64,13 +64,13 @@ class _TransactionsPage extends State<TransactionsPage> {
       listController: transactionsListController,
       listHeaderWidget: ResponsiveWidget.isLargeScreen(context) ? listHeaderWidget : null,
       titleBuilder: (BuildContext context) {
-        return TransactionsListTitle(
+        return MyTransactionsListTitle(
           transactionsListController: transactionsListController,
           pageSizeDropdownWidget: pageSizeDropdown,
         );
       },
       itemBuilder: (TxListItemModel txListItemModel) {
-        return TransactionListItemBuilder(txListItemModel: txListItemModel);
+        return MyTransactionListItemBuilder(txListItemModel: txListItemModel);
       },
     );
   }

@@ -2,7 +2,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/shared/models/transactions/form_models/ir_msg_register_record_form_model.dart';
 import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
 import 'package:miro/shared/models/transactions/messages/identity_registrar/register/ir_entry_model.dart';
-import 'package:miro/shared/models/transactions/messages/identity_registrar/register/ir_msg_register_records_model.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 
 void main() {

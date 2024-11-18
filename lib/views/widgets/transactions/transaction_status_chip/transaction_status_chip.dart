@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/transactions/list/tx_status_type.dart';
-import 'package:miro/views/pages/menu/my_account_page/transactions_page/transaction_status_chip/transaction_status_chip_model.dart';
+import 'package:miro/views/widgets/generic/status_chip.dart';
+import 'package:miro/views/widgets/transactions/transaction_status_chip/transaction_status_chip_model.dart';
 
 class TransactionStatusChip extends StatelessWidget {
   final TxStatusType txStatusType;
@@ -14,24 +15,11 @@ class TransactionStatusChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextTheme textTheme = Theme.of(context).textTheme;
     TransactionStatusChipModel transactionStatusChipModel = _getTransactionStatusChipModel(context);
 
     return Align(
       alignment: Alignment.centerLeft,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-        decoration: BoxDecoration(
-          color: transactionStatusChipModel.color.withAlpha(20),
-          borderRadius: BorderRadius.circular(4),
-        ),
-        child: Text(
-          transactionStatusChipModel.title,
-          style: textTheme.bodySmall!.copyWith(
-            color: transactionStatusChipModel.color,
-          ),
-        ),
-      ),
+      child: StatusChip(text: transactionStatusChipModel.title, color: transactionStatusChipModel.color),
     );
   }
 

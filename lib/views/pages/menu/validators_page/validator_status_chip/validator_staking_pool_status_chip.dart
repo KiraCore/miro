@@ -3,6 +3,7 @@ import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/validators/staking_pool_status.dart';
 import 'package:miro/views/pages/menu/validators_page/validator_status_chip/validator_status_chip_model.dart';
+import 'package:miro/views/widgets/generic/status_chip.dart';
 
 class ValidatorStakingPoolStatusChip extends StatelessWidget {
   final StakingPoolStatus stakingPoolStatus;
@@ -14,21 +15,13 @@ class ValidatorStakingPoolStatusChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextTheme textTheme = Theme.of(context).textTheme;
     ValidatorStatusChipModel validatorStatusChipModel = _assignValidatorStatusChipModel(context);
 
     return Align(
       alignment: Alignment.centerLeft,
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-        decoration: BoxDecoration(
-          color: validatorStatusChipModel.color.withAlpha(20),
-          borderRadius: BorderRadius.circular(4),
-        ),
-        child: Text(
-          validatorStatusChipModel.title,
-          style: textTheme.bodySmall!.copyWith(color: validatorStatusChipModel.color),
-        ),
+      child: StatusChip(
+        text: validatorStatusChipModel.title,
+        color: validatorStatusChipModel.color,
       ),
     );
   }
