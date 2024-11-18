@@ -11,7 +11,7 @@ import 'package:miro/shared/models/transactions/list/tx_sort_type.dart';
 import 'package:miro/shared/models/transactions/list/tx_status_type.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 
-class TransactionsListController implements IListController<TxListItemModel> {
+class MyTransactionsListController implements IListController<TxListItemModel> {
   final FavouritesCacheService favouriteCacheService = FavouritesCacheService(domainName: 'transactions');
   final QueryTransactionsService queryTransactionsService = globalLocator<QueryTransactionsService>();
   final WalletAddress walletAddress;
@@ -21,7 +21,7 @@ class TransactionsListController implements IListController<TxListItemModel> {
   DateTime? startDateTime;
   DateTime? endDateTime;
 
-  TransactionsListController({
+  MyTransactionsListController({
     required this.walletAddress,
   });
 

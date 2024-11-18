@@ -3,16 +3,16 @@ import 'package:intl/intl.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/transactions/list/tx_list_item_model.dart';
-import 'package:miro/views/pages/menu/my_account_page/transactions_page/transaction_list_item/desktop/transaction_list_item_desktop_layout.dart';
-import 'package:miro/views/pages/menu/my_account_page/transactions_page/transaction_list_item/tx_amount_text.dart';
-import 'package:miro/views/pages/menu/my_account_page/transactions_page/transaction_status_chip/transaction_status_chip.dart';
+import 'package:miro/views/pages/menu/my_account_page/my_transactions_page/my_transaction_list_item/desktop/my_transaction_list_item_desktop_layout.dart';
+import 'package:miro/views/pages/menu/my_account_page/my_transactions_page/my_transaction_list_item/tx_amount_text.dart';
+import 'package:miro/views/pages/menu/my_account_page/my_transactions_page/my_transaction_status_chip/my_transaction_status_chip.dart';
 import 'package:miro/views/widgets/generic/copy_wrapper/copy_button.dart';
 import 'package:miro/views/widgets/generic/prefixed_widget.dart';
 
-class TransactionListItemDesktop extends StatelessWidget {
+class MyTransactionListItemDesktop extends StatelessWidget {
   final TxListItemModel txListItemModel;
 
-  const TransactionListItemDesktop({
+  const MyTransactionListItemDesktop({
     required this.txListItemModel,
     Key? key,
   }) : super(key: key);
@@ -21,7 +21,7 @@ class TransactionListItemDesktop extends StatelessWidget {
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
 
-    return TransactionListItemDesktopLayout(
+    return MyTransactionListItemDesktopLayout(
       height: 80,
       txWidget: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -74,7 +74,7 @@ class TransactionListItemDesktop extends StatelessWidget {
           ),
         ],
       ),
-      statusWidget: TransactionStatusChip(txStatusType: txListItemModel.txStatusType),
+      statusWidget: MyTransactionStatusChip(txStatusType: txListItemModel.txStatusType),
       dateWidget: Text(
         DateFormat('d MMM y, HH:mm').format(txListItemModel.time.toLocal()),
         style: textTheme.bodyMedium!.copyWith(

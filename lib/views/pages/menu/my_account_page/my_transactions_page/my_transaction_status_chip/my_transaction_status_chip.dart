@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/transactions/list/tx_status_type.dart';
-import 'package:miro/views/pages/menu/my_account_page/transactions_page/transaction_status_chip/transaction_status_chip_model.dart';
+import 'package:miro/views/pages/menu/my_account_page/my_transactions_page/my_transaction_status_chip/my_transaction_status_chip_model.dart';
 
-class TransactionStatusChip extends StatelessWidget {
+class MyTransactionStatusChip extends StatelessWidget {
   final TxStatusType txStatusType;
 
-  const TransactionStatusChip({
+  const MyTransactionStatusChip({
     required this.txStatusType,
     Key? key,
   }) : super(key: key);
@@ -15,7 +15,7 @@ class TransactionStatusChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
-    TransactionStatusChipModel transactionStatusChipModel = _getTransactionStatusChipModel(context);
+    MyTransactionStatusChipModel transactionStatusChipModel = _getMyTransactionStatusChipModel(context);
 
     return Align(
       alignment: Alignment.centerLeft,
@@ -35,14 +35,14 @@ class TransactionStatusChip extends StatelessWidget {
     );
   }
 
-  TransactionStatusChipModel _getTransactionStatusChipModel(BuildContext context) {
+  MyTransactionStatusChipModel _getMyTransactionStatusChipModel(BuildContext context) {
     switch (txStatusType) {
       case TxStatusType.confirmed:
-        return TransactionStatusChipModel(color: DesignColors.greenStatus1, title: S.of(context).txListStatusConfirmed);
+        return MyTransactionStatusChipModel(color: DesignColors.greenStatus1, title: S.of(context).txListStatusConfirmed);
       case TxStatusType.pending:
-        return TransactionStatusChipModel(color: DesignColors.yellowStatus1, title: S.of(context).txListStatusPending);
+        return MyTransactionStatusChipModel(color: DesignColors.yellowStatus1, title: S.of(context).txListStatusPending);
       case TxStatusType.failed:
-        return TransactionStatusChipModel(color: DesignColors.redStatus1, title: S.of(context).txListStatusFailed);
+        return MyTransactionStatusChipModel(color: DesignColors.redStatus1, title: S.of(context).txListStatusFailed);
     }
   }
 }

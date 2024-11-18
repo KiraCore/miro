@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class TransactionListItemDesktopLayout extends StatelessWidget {
+class MyTransactionListItemDesktopLayout extends StatelessWidget {
   final double height;
   final Widget txWidget;
   final Widget hashWidget;
@@ -8,7 +8,7 @@ class TransactionListItemDesktopLayout extends StatelessWidget {
   final Widget dateWidget;
   final Widget amountWidget;
 
-  const TransactionListItemDesktopLayout({
+  const MyTransactionListItemDesktopLayout({
     required this.height,
     required this.txWidget,
     required this.hashWidget,

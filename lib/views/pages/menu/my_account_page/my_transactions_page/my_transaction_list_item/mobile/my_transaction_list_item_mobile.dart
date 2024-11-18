@@ -3,15 +3,15 @@ import 'package:intl/intl.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/transactions/list/tx_list_item_model.dart';
-import 'package:miro/views/pages/menu/my_account_page/transactions_page/transaction_list_item/tx_amount_text.dart';
-import 'package:miro/views/pages/menu/my_account_page/transactions_page/transaction_status_chip/transaction_status_chip.dart';
+import 'package:miro/views/pages/menu/my_account_page/my_transactions_page/my_transaction_list_item/tx_amount_text.dart';
+import 'package:miro/views/pages/menu/my_account_page/my_transactions_page/my_transaction_status_chip/my_transaction_status_chip.dart';
 import 'package:miro/views/widgets/generic/copy_wrapper/copy_button.dart';
 import 'package:miro/views/widgets/generic/prefixed_widget.dart';
 
-class TransactionListItemMobile extends StatelessWidget {
+class MyTransactionListItemMobile extends StatelessWidget {
   final TxListItemModel txListItemModel;
 
-  const TransactionListItemMobile({
+  const MyTransactionListItemMobile({
     required this.txListItemModel,
     Key? key,
   }) : super(key: key);
@@ -94,7 +94,7 @@ class TransactionListItemMobile extends StatelessWidget {
               Expanded(
                 child: PrefixedWidget(
                   prefix: S.of(context).txListStatus,
-                  child: TransactionStatusChip(txStatusType: txListItemModel.txStatusType),
+                  child: MyTransactionStatusChip(txStatusType: txListItemModel.txStatusType),
                 ),
               ),
             ],
