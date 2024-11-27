@@ -18,14 +18,10 @@ import 'package:miro/views/widgets/kira/kira_list/models/filter_option_model.dar
 class FilterDropdown<T extends AListItem> extends StatefulWidget {
   final String title;
   final List<FilterOptionModel<T>> filterOptionModels;
-  final double height;
-  final double width;
 
   const FilterDropdown({
     required this.title,
     required this.filterOptionModels,
-    this.height = 30,
-    this.width = 100,
     Key? key,
   }) : super(key: key);
 

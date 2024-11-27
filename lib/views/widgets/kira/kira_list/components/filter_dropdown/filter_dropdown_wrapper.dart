@@ -41,7 +41,12 @@ class FilterDropdownWrapper<T> extends StatelessWidget {
         dropdownWidget,
         if (selectedItems.isNotEmpty) ...<Widget>[
           if (ResponsiveWidget.isLargeScreen(context)) const SizedBox(height: 8) else const SizedBox(height: 14),
-          Wrap(spacing: 8, runSpacing: 8, children: filtersWidgets),
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            alignment: ResponsiveWidget.isLargeScreen(context) ? WrapAlignment.end : WrapAlignment.start,
+            children: filtersWidgets,
+          ),
         ],
       ],
     );

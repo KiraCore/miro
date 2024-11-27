@@ -47,5 +47,8 @@ class IRMsgDeleteRecordsModel extends ATxMsgModel {
   String getTitle(BuildContext context, TxDirectionType txDirectionType) => S.of(context).txMsgDeleteIdentityRecords;
 
   @override
+  WalletAddress get fromAddress => walletAddress;
+
+  @override
   List<Object?> get props => <Object>[keys, walletAddress];
 }

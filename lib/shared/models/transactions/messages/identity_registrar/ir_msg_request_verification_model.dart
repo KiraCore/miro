@@ -68,5 +68,11 @@ class IRMsgRequestVerificationModel extends ATxMsgModel {
   String getTitle(BuildContext context, TxDirectionType txDirectionType) => S.of(context).txMsgRequestIdentityRecordsVerify;
 
   @override
+  WalletAddress get fromAddress => walletAddress;
+
+  @override
+  WalletAddress get toAddress => verifierWalletAddress;
+
+  @override
   List<Object?> get props => <Object>[recordIds, tipTokenAmountModel, verifierWalletAddress, walletAddress];
 }

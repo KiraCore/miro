@@ -1,7 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
 import 'intl/messages_all.dart';
 
 // **************************************************************************
@@ -19,14 +18,17 @@ class S {
   static S? _current;
 
   static S get current {
-    assert(_current != null, 'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.');
+    assert(_current != null,
+        'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.');
     return _current!;
   }
 
   static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
-    final name = (locale.countryCode?.isEmpty ?? false) ? locale.languageCode : locale.toString();
+    final name = (locale.countryCode?.isEmpty ?? false)
+        ? locale.languageCode
+        : locale.toString();
     final localeName = Intl.canonicalizedLocale(name);
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
@@ -39,7 +41,8 @@ class S {
 
   static S of(BuildContext context) {
     final instance = S.maybeOf(context);
-    assert(instance != null, 'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?');
+    assert(instance != null,
+        'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?');
     return instance!;
   }
 
@@ -1668,7 +1671,8 @@ class S {
   }
 
   /// `Connecting to <{networkName}>{separator} Please wait... {parsedRemainingTime}`
-  String networkConnectingTo(String separator, String networkName, String parsedRemainingTime) {
+  String networkConnectingTo(
+      String separator, String networkName, String parsedRemainingTime) {
     return Intl.message(
       'Connecting to <$networkName>$separator Please wait... $parsedRemainingTime',
       name: 'networkConnectingTo',
@@ -2508,7 +2512,8 @@ class S {
   }
 
   /// `Available: {availableAmountText} {tokenDenominationModelName}`
-  String txAvailableBalances(String availableAmountText, String tokenDenominationModelName) {
+  String txAvailableBalances(
+      String availableAmountText, String tokenDenominationModelName) {
     return Intl.message(
       'Available: $availableAmountText $tokenDenominationModelName',
       name: 'txAvailableBalances',
@@ -2667,6 +2672,16 @@ class S {
     );
   }
 
+  /// `Method`
+  String get txListMethod {
+    return Intl.message(
+      'Method',
+      name: 'txListMethod',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Transaction hash`
   String get txListHash {
     return Intl.message(
@@ -2677,21 +2692,11 @@ class S {
     );
   }
 
-  /// `Status`
-  String get txListStatus {
+  /// `Block`
+  String get txListBlock {
     return Intl.message(
-      'Status',
-      name: 'txListStatus',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Direction`
-  String get txListDirection {
-    return Intl.message(
-      'Direction',
-      name: 'txListDirection',
+      'Block',
+      name: 'txListBlock',
       desc: '',
       args: [],
     );
@@ -2704,6 +2709,136 @@ class S {
       name: 'txListDate',
       desc: '',
       args: [],
+    );
+  }
+
+  /// `From`
+  String get txListFrom {
+    return Intl.message(
+      'From',
+      name: 'txListFrom',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `To`
+  String get txListTo {
+    return Intl.message(
+      'To',
+      name: 'txListTo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Txn fee`
+  String get txnListFee {
+    return Intl.message(
+      'Txn fee',
+      name: 'txnListFee',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Txn hash`
+  String get txnListHash {
+    return Intl.message(
+      'Txn hash',
+      name: 'txnListHash',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Age`
+  String get txListAge {
+    return Intl.message(
+      'Age',
+      name: 'txListAge',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `1 sec`
+  String get ageShortSecond {
+    return Intl.message(
+      '1 sec',
+      name: 'ageShortSecond',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{seconds} secs`
+  String ageShortSeconds(Object seconds) {
+    return Intl.message(
+      '$seconds secs',
+      name: 'ageShortSeconds',
+      desc: '',
+      args: [seconds],
+    );
+  }
+
+  /// `1 min`
+  String get ageShortMinute {
+    return Intl.message(
+      '1 min',
+      name: 'ageShortMinute',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{minutes} mins`
+  String ageShortMinutes(Object minutes) {
+    return Intl.message(
+      '$minutes mins',
+      name: 'ageShortMinutes',
+      desc: '',
+      args: [minutes],
+    );
+  }
+
+  /// `1 hour`
+  String get ageShortHour {
+    return Intl.message(
+      '1 hour',
+      name: 'ageShortHour',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{hours} hrs`
+  String ageShortHours(Object hours) {
+    return Intl.message(
+      '$hours hrs',
+      name: 'ageShortHours',
+      desc: '',
+      args: [hours],
+    );
+  }
+
+  /// `1 day`
+  String get ageShortDay {
+    return Intl.message(
+      '1 day',
+      name: 'ageShortDay',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{days} days`
+  String ageShortDays(Object days) {
+    return Intl.message(
+      '$days days',
+      name: 'ageShortDays',
+      desc: '',
+      args: [days],
     );
   }
 
@@ -2757,6 +2892,16 @@ class S {
     );
   }
 
+  /// `Status`
+  String get txListStatus {
+    return Intl.message(
+      'Status',
+      name: 'txListStatus',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Confirmed`
   String get txListStatusConfirmed {
     return Intl.message(
@@ -2782,6 +2927,16 @@ class S {
     return Intl.message(
       'Failed',
       name: 'txListStatusFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Direction`
+  String get txListDirection {
+    return Intl.message(
+      'Direction',
+      name: 'txListDirection',
       desc: '',
       args: [],
     );
@@ -3127,6 +3282,196 @@ class S {
     );
   }
 
+  /// `Transactions`
+  String get transactionsPageTitle {
+    return Intl.message(
+      'Transactions',
+      name: 'transactionsPageTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search transactions`
+  String get transactionsPageHintSearch {
+    return Intl.message(
+      'Search transactions',
+      name: 'transactionsPageHintSearch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Transaction details`
+  String get transactionDetailsDrawerTitle {
+    return Intl.message(
+      'Transaction details',
+      name: 'transactionDetailsDrawerTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Messages`
+  String get transactionDetailsDrawerMessages {
+    return Intl.message(
+      'Messages',
+      name: 'transactionDetailsDrawerMessages',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wallet address`
+  String get transactionDetailsDrawerWalletAddress {
+    return Intl.message(
+      'Wallet address',
+      name: 'transactionDetailsDrawerWalletAddress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delegator's wallet address`
+  String get transactionDetailsDrawerDelegatorWalletAddress {
+    return Intl.message(
+      'Delegator\'s wallet address',
+      name: 'transactionDetailsDrawerDelegatorWalletAddress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Verifier's wallet address`
+  String get transactionDetailsDrawerVerifierWalletAddress {
+    return Intl.message(
+      'Verifier\'s wallet address',
+      name: 'transactionDetailsDrawerVerifierWalletAddress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sender's wallet address`
+  String get transactionDetailsDrawerSenderWalletAddress {
+    return Intl.message(
+      'Sender\'s wallet address',
+      name: 'transactionDetailsDrawerSenderWalletAddress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Verify request ID`
+  String get transactionDetailsDrawerVerifyRequestId {
+    return Intl.message(
+      'Verify request ID',
+      name: 'transactionDetailsDrawerVerifyRequestId',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Undelegation ID`
+  String get transactionDetailsDrawerVerifyUndelegationId {
+    return Intl.message(
+      'Undelegation ID',
+      name: 'transactionDetailsDrawerVerifyUndelegationId',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tip amount`
+  String get transactionDetailsDrawerTipAmount {
+    return Intl.message(
+      'Tip amount',
+      name: 'transactionDetailsDrawerTipAmount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Amounts`
+  String get transactionDetailsDrawerAmounts {
+    return Intl.message(
+      'Amounts',
+      name: 'transactionDetailsDrawerAmounts',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Keys`
+  String get transactionDetailsDrawerKeys {
+    return Intl.message(
+      'Keys',
+      name: 'transactionDetailsDrawerKeys',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Key`
+  String get transactionDetailsDrawerKey {
+    return Intl.message(
+      'Key',
+      name: 'transactionDetailsDrawerKey',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Value`
+  String get transactionDetailsDrawerValue {
+    return Intl.message(
+      'Value',
+      name: 'transactionDetailsDrawerValue',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Validator key`
+  String get transactionDetailsDrawerValidatorKey {
+    return Intl.message(
+      'Validator key',
+      name: 'transactionDetailsDrawerValidatorKey',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Approved`
+  String get transactionDetailsDrawerApprovalStatusYes {
+    return Intl.message(
+      'Approved',
+      name: 'transactionDetailsDrawerApprovalStatusYes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Declined`
+  String get transactionDetailsDrawerApprovalStatusNo {
+    return Intl.message(
+      'Declined',
+      name: 'transactionDetailsDrawerApprovalStatusNo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Record IDs`
+  String get transactionDetailsDrawerRecordIds {
+    return Intl.message(
+      'Record IDs',
+      name: 'transactionDetailsDrawerRecordIds',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Report issues`
   String get buttonReportIssues {
     return Intl.message(
@@ -3364,6 +3709,16 @@ class S {
       name: 'refreshInSeconds',
       desc: '',
       args: [seconds],
+    );
+  }
+
+  /// `More`
+  String get more {
+    return Intl.message(
+      'More',
+      name: 'more',
+      desc: '',
+      args: [],
     );
   }
 

@@ -48,46 +48,51 @@ class _ListPopMenuState<T> extends State<ListPopMenu<T>> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: const ResponsiveValue<double?>(
-        largeScreen: 150,
-        mediumScreen: 150,
-        smallScreen: null,
-      ).get(context),
-      margin: EdgeInsets.zero,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            ListPopMenuHeader(
-              title: widget.title,
-              onClearPressed: widget.onClearPressed,
-            ),
-            const Divider(color: DesignColors.grey2),
-            ...widget.listItems.map<Widget>(
-              (T item) {
-                if (item is Widget) {
-                  return Container(
-                    width: double.infinity,
-                    padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
-                    decoration: const BoxDecoration(
-                      border: Border(
-                        bottom: BorderSide(color: DesignColors.grey2),
+    // TODO(Mykyta): during the task of general optimization check IntrinsicWidth
+    return IntrinsicWidth(
+      child: ConstrainedBox(
+        constraints: BoxConstraints(
+          minWidth: const ResponsiveValue<double?>(
+                largeScreen: 150,
+                mediumScreen: 150,
+                smallScreen: null,
+              ).get(context) ??
+              0,
+        ),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              ListPopMenuHeader(
+                title: widget.title,
+                onClearPressed: widget.onClearPressed,
+              ),
+              const Divider(color: DesignColors.grey2),
+              ...widget.listItems.map<Widget>(
+                (T item) {
+                  if (item is Widget) {
+                    return Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+                      decoration: const BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(color: DesignColors.grey2),
+                        ),
                       ),
-                    ),
-                    child: item,
+                      child: item,
+                    );
+                  }
+                  return ListPopMenuItem(
+                    title: widget.itemToString(item),
+                    onTap: () => _handleItemSelected(item),
+                    selected: selectedListItems.contains(item),
                   );
-                }
-                return ListPopMenuItem(
-                  title: widget.itemToString(item),
-                  onTap: () => _handleItemSelected(item),
-                  selected: selectedListItems.contains(item),
-                );
-              },
-            ),
-          ],
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

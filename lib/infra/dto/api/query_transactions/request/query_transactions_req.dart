@@ -10,10 +10,10 @@ class QueryTransactionsReq extends Equatable {
   /// This represents the kira account address
   final String address;
 
-  /// This represents the ending point in timestamp or date(DD/MM/YY) format
+  /// This represents the ending point
   final DateTime? dateEnd;
 
-  /// This represents the starting point in timestamp or date(DD/MM/YY) format
+  /// This represents the starting point
   final DateTime? dateStart;
 
   /// This represents direction of the transaction(outbound, inbound)

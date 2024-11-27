@@ -6,17 +6,11 @@ import 'package:miro/views/widgets/kira/kira_list/components/filter_dropdown/fil
 import 'package:miro/views/widgets/kira/kira_list/models/filter_option_model.dart';
 
 class ValidatorsFilterDropdown extends StatelessWidget {
-  final double width;
-
-  const ValidatorsFilterDropdown({
-    this.width = 100,
-    Key? key,
-  }) : super(key: key);
+  const ValidatorsFilterDropdown({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return FilterDropdown<ValidatorModel>(
-      width: width,
       title: S.of(context).validatorsTableStatus,
       filterOptionModels: <FilterOptionModel<ValidatorModel>>[
         FilterOptionModel<ValidatorModel>(
