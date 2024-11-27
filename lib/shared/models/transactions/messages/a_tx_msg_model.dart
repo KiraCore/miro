@@ -39,6 +39,24 @@ part 'staking/staking_msg_claim_undelegation_model.dart';
 part 'staking/staking_msg_delegate_model.dart';
 part 'staking/staking_msg_undelegate_model.dart';
 
+extension ATxMsgModelListExt on List<ATxMsgModel> {
+  /// Returns the total amount of the transaction. If any of the messages doesn't have an amount, returns `null`
+  TokenAmountModel? get totalAmount => map((ATxMsgModel txMsgModel) {
+        switch (txMsgModel) {
+          case MsgSendModel():
+            return txMsgModel.tokenAmountModel;
+          case IRMsgRequestVerificationModel():
+            return txMsgModel.tipTokenAmountModel;
+          case StakingMsgDelegateModel():
+            return txMsgModel.tokenAmountModels.reduce((TokenAmountModel count, TokenAmountModel m) => count + m);
+          case StakingMsgUndelegateModel():
+            return (txMsgModel as StakingMsgDelegateModel).tokenAmountModels.reduce((TokenAmountModel count, TokenAmountModel m) => count + m);
+          default:
+            return null;
+        }
+      }).reduce((TokenAmountModel? count, TokenAmountModel? m) => count == null || m == null ? null : count + m);
+}
+
 sealed class ATxMsgModel extends Equatable {
   final TxMsgType txMsgType;
 
@@ -82,4 +100,9 @@ sealed class ATxMsgModel extends Equatable {
   String? getSubtitle(TxDirectionType txDirectionType);
 
   String getTitle(BuildContext context, TxDirectionType txDirectionType);
+
+  WalletAddress? get fromAddress => null;
+  WalletAddress? get toAddress => null;
+
+  bool get hasAmount => this is MsgSendModel || this is IRMsgRequestVerificationModel || this is StakingMsgDelegateModel || this is StakingMsgUndelegateModel;
 }

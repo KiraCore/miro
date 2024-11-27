@@ -45,5 +45,8 @@ class IRMsgHandleVerificationRequestModel extends ATxMsgModel {
   String getTitle(BuildContext context, TxDirectionType txDirectionType) => S.of(context).txMsgHandleIdentityRecordsVerifyRequest;
 
   @override
+  WalletAddress get fromAddress => walletAddress;
+
+  @override
   List<Object?> get props => <Object>[approvalStatusBool, verifyRequestId, walletAddress];
 }
