@@ -187,7 +187,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "irUsername": MessageLookupByLibrary.simpleMessage("Username"),
         "irVerificationRequests":
             MessageLookupByLibrary.simpleMessage("Verification Requests"),
-        "irVerificationRequestsActions": MessageLookupByLibrary.simpleMessage("Actions"),
+        "irVerificationRequestsActions":
+            MessageLookupByLibrary.simpleMessage("Actions"),
         "irVerificationRequestsApprove":
             MessageLookupByLibrary.simpleMessage("Approve"),
         "irVerificationRequestsApprovedRecord":
@@ -297,6 +298,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Mnemonic (“mnemonic code”, “seed phrase”, “seed words”)\nWay of representing a large randomly-generated number as a sequence of words,\nmaking it easier for humans to store."),
         "mnemonicWordsWarning": MessageLookupByLibrary.simpleMessage(
             "You won’t be able to see them again"),
+        "more": MessageLookupByLibrary.simpleMessage("More"),
         "myAccount": MessageLookupByLibrary.simpleMessage("My account"),
         "myAccountSettings": MessageLookupByLibrary.simpleMessage("Settings"),
         "myAccountSignOut": MessageLookupByLibrary.simpleMessage("Sign Out"),
@@ -428,6 +430,44 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Public address copied"),
         "toastSuccessfullyCopied":
             MessageLookupByLibrary.simpleMessage("Successfully copied"),
+        "transactionDetailsDrawerAmounts":
+            MessageLookupByLibrary.simpleMessage("Amounts"),
+        "transactionDetailsDrawerApprovalStatusNo":
+            MessageLookupByLibrary.simpleMessage("Declined"),
+        "transactionDetailsDrawerApprovalStatusYes":
+            MessageLookupByLibrary.simpleMessage("Approved"),
+        "transactionDetailsDrawerDelegatorWalletAddress":
+            MessageLookupByLibrary.simpleMessage("Delegator\'s wallet address"),
+        "transactionDetailsDrawerKey":
+            MessageLookupByLibrary.simpleMessage("Key"),
+        "transactionDetailsDrawerKeys":
+            MessageLookupByLibrary.simpleMessage("Keys"),
+        "transactionDetailsDrawerMessages":
+            MessageLookupByLibrary.simpleMessage("Messages"),
+        "transactionDetailsDrawerRecordIds":
+            MessageLookupByLibrary.simpleMessage("Record IDs"),
+        "transactionDetailsDrawerSenderWalletAddress":
+            MessageLookupByLibrary.simpleMessage("Sender\'s wallet address"),
+        "transactionDetailsDrawerTipAmount":
+            MessageLookupByLibrary.simpleMessage("Tip amount"),
+        "transactionDetailsDrawerTitle":
+            MessageLookupByLibrary.simpleMessage("Transaction details"),
+        "transactionDetailsDrawerValidatorKey":
+            MessageLookupByLibrary.simpleMessage("Validator key"),
+        "transactionDetailsDrawerValue":
+            MessageLookupByLibrary.simpleMessage("Value"),
+        "transactionDetailsDrawerVerifierWalletAddress":
+            MessageLookupByLibrary.simpleMessage("Verifier\'s wallet address"),
+        "transactionDetailsDrawerVerifyRequestId":
+            MessageLookupByLibrary.simpleMessage("Verify request ID"),
+        "transactionDetailsDrawerVerifyUndelegationId":
+            MessageLookupByLibrary.simpleMessage("Undelegation ID"),
+        "transactionDetailsDrawerWalletAddress":
+            MessageLookupByLibrary.simpleMessage("Wallet address"),
+        "transactionsPageHintSearch":
+            MessageLookupByLibrary.simpleMessage("Search transactions"),
+        "transactionsPageTitle":
+            MessageLookupByLibrary.simpleMessage("Transactions"),
         "tx": MessageLookupByLibrary.simpleMessage("Transactions"),
         "txAvailableBalances": m9,
         "txButtonBackToAccount":
@@ -504,6 +544,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Fees only"),
         "txListAmountPlusFees": MessageLookupByLibrary.simpleMessage("+ fees"),
         "txListAmountPlusMore": m11,
+        "txListBlock": MessageLookupByLibrary.simpleMessage("Block"),
         "txListDate": MessageLookupByLibrary.simpleMessage("Date"),
         "txListDetails": MessageLookupByLibrary.simpleMessage("Details"),
         "txListDirection": MessageLookupByLibrary.simpleMessage("Direction"),
@@ -512,12 +553,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "txListDirectionOutbound":
             MessageLookupByLibrary.simpleMessage("Outbound"),
         "txListFiltersTitle": MessageLookupByLibrary.simpleMessage("Filters"),
+        "txListFrom": MessageLookupByLibrary.simpleMessage("From"),
         "txListHash": MessageLookupByLibrary.simpleMessage("Transaction hash"),
+        "txListMethod": MessageLookupByLibrary.simpleMessage("Method"),
         "txListStatus": MessageLookupByLibrary.simpleMessage("Status"),
         "txListStatusConfirmed":
             MessageLookupByLibrary.simpleMessage("Confirmed"),
         "txListStatusFailed": MessageLookupByLibrary.simpleMessage("Failed"),
         "txListStatusPending": MessageLookupByLibrary.simpleMessage("Pending"),
+        "txListTo": MessageLookupByLibrary.simpleMessage("To"),
         "txMsgCancelIdentityRecordsVerifyRequest":
             MessageLookupByLibrary.simpleMessage("Cancel Verification Request"),
         "txMsgClaimRewards":
@@ -563,6 +607,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "txWarningDoNotCloseWindow":
             MessageLookupByLibrary.simpleMessage("Do not close this window"),
         "txYouWillGet": MessageLookupByLibrary.simpleMessage("You will get"),
+        "txnListFee": MessageLookupByLibrary.simpleMessage("Txn fee"),
+        "txnListHash": MessageLookupByLibrary.simpleMessage("Txn hash"),
         "unstakeTokens": MessageLookupByLibrary.simpleMessage("Unstake tokens"),
         "unstaked": MessageLookupByLibrary.simpleMessage("Unstaked"),
         "unstakedHintSearch":

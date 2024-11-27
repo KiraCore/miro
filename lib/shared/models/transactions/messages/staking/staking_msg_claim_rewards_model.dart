@@ -41,5 +41,8 @@ class StakingMsgClaimRewardsModel extends ATxMsgModel {
   }
 
   @override
+  WalletAddress get fromAddress => senderWalletAddress;
+
+  @override
   List<Object?> get props => <Object>[senderWalletAddress];
 }

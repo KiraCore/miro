@@ -378,10 +378,14 @@
   "txMsgUndefined": "Unknown transaction type",
 
   "txListDetails": "Details",
+  "txListMethod": "Method",
   "txListHash": "Transaction hash",
-  "txListStatus": "Status",
-  "txListDirection": "Direction",
+  "txListBlock": "Block",
   "txListDate": "Date",
+  "txListFrom": "From",
+  "txListTo": "To",
+  "txnListFee": "Txn fee",
+  "txnListHash": "Txn hash",
 
   "txListAmount": "Amount",
   "txListAmountPlusMore": "+ {amount} more",
@@ -390,10 +394,12 @@
 
   "txListFiltersTitle": "Filters",
 
+  "txListStatus": "Status",
   "txListStatusConfirmed": "Confirmed",
   "txListStatusPending": "Pending",
   "txListStatusFailed": "Failed",
 
+  "txListDirection": "Direction",
   "txListDirectionInbound": "Inbound",
   "txListDirectionOutbound": "Outbound",
   "txDateDropdownStartDate": "Start date",
@@ -438,6 +444,26 @@
   "validatorsTableUptime": "Uptime",
   "validatorsTableStreak": "Streak",
 
+  "transactionsPageTitle": "Transactions",
+  "transactionsPageHintSearch": "Search transactions",
+  "transactionDetailsDrawerTitle": "Transaction details",
+  "transactionDetailsDrawerMessages": "Messages",
+  "transactionDetailsDrawerWalletAddress": "Wallet address",
+  "transactionDetailsDrawerDelegatorWalletAddress": "Delegator's wallet address",
+  "transactionDetailsDrawerVerifierWalletAddress": "Verifier's wallet address",
+  "transactionDetailsDrawerSenderWalletAddress": "Sender's wallet address",
+  "transactionDetailsDrawerVerifyRequestId": "Verify request ID",
+  "transactionDetailsDrawerVerifyUndelegationId": "Undelegation ID",
+  "transactionDetailsDrawerTipAmount": "Tip amount",
+  "transactionDetailsDrawerAmounts": "Amounts",
+  "transactionDetailsDrawerKeys": "Keys",
+  "transactionDetailsDrawerKey": "Key",
+  "transactionDetailsDrawerValue": "Value",
+  "transactionDetailsDrawerValidatorKey": "Validator key",
+  "transactionDetailsDrawerApprovalStatusYes": "Approved",
+  "transactionDetailsDrawerApprovalStatusNo": "Declined",
+  "transactionDetailsDrawerRecordIds": "Record IDs",
+
   "buttonReportIssues": "Report issues",
   "error": "Error",
   "errorUndefined": "Undefined error",
@@ -471,6 +497,7 @@
       }
     }
   },
+  "more": "More",
   "seeMore": "See more",
   "seeAll": "See all",
   "showDetails": "Show Details",

@@ -80,5 +80,11 @@ class MsgSendModel extends ATxMsgModel {
   }
 
   @override
+  WalletAddress get fromAddress => fromWalletAddress;
+
+  @override
+  WalletAddress get toAddress => toWalletAddress;
+
+  @override
   List<Object?> get props => <Object>[fromWalletAddress, toWalletAddress, tokenAmountModel];
 }

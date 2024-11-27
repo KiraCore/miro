@@ -68,5 +68,8 @@ class StakingMsgUndelegateModel extends ATxMsgModel {
   }
 
   @override
+  WalletAddress get fromAddress => delegatorWalletAddress;
+
+  @override
   List<Object?> get props => <Object>[delegatorWalletAddress, valkey, tokenAmountModels];
 }

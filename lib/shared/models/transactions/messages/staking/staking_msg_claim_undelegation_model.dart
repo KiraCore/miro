@@ -43,6 +43,9 @@ class StakingMsgClaimUndelegationModel extends ATxMsgModel {
   }
 
   @override
+  WalletAddress get fromAddress => senderWalletAddress;
+
+  @override
   String getTitle(BuildContext context, TxDirectionType txDirectionType) {
     return S.of(context).txMsgClaimUndelegation;
   }

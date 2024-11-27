@@ -188,12 +188,18 @@ class ThemeConfig {
         fontSize: 22,
         letterSpacing: 0.5,
       ),
+      titleLarge: textTheme.titleLarge!.copyWith(
+        fontWeight: FontWeight.w500,
+        fontSize: 18,
+        letterSpacing: 0.5,
+      ),
       titleMedium: textTheme.titleMedium!.copyWith(
         fontWeight: FontWeight.w500,
         fontSize: 16,
         letterSpacing: 0.5,
       ),
       titleSmall: textTheme.titleSmall!.copyWith(
+        // TODO(Mykyta): w500 ??
         fontWeight: FontWeight.w600,
         fontSize: 14,
         letterSpacing: 0.5,

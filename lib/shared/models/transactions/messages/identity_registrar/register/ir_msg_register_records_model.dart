@@ -47,5 +47,8 @@ class IRMsgRegisterRecordsModel extends ATxMsgModel {
   String getTitle(BuildContext context, TxDirectionType txDirectionType) => S.of(context).txMsgRegisterIdentityRecords;
 
   @override
+  WalletAddress get fromAddress => walletAddress;
+
+  @override
   List<Object?> get props => <Object>[irEntryModels, walletAddress];
 }
