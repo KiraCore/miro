@@ -62,15 +62,9 @@ class TransactionListTitleDesktop extends StatelessWidget {
                     children: <Widget>[
                       SizedBox(
                         width: 340,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: <Widget>[
-                            TransactionsFilterDropdown(
-                              activeFilters: activeFilters,
-                              onFiltersChanged: updateFilters,
-                            ),
-                          ],
+                        child: TransactionsFilterDropdown(
+                          activeFilters: activeFilters,
+                          onFiltersChanged: updateFilters,
                         ),
                       ),
                       const SizedBox(width: 24),

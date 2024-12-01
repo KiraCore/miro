@@ -39,13 +39,7 @@ class ValidatorListTitleDesktop extends StatelessWidget {
                   children: <Widget>[
                     const SizedBox(
                       width: 340,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.end,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          ValidatorsFilterDropdown(),
-                        ],
-                      ),
+                      child: ValidatorsFilterDropdown(),
                     ),
                     const SizedBox(width: 24),
                     Expanded(
