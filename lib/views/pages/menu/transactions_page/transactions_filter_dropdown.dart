@@ -27,7 +27,7 @@ class TransactionsFilterDropdown extends StatelessWidget {
         case TxMsgType.msgCancelIdentityRecordsVerifyRequest:
           filterOptionModels.add(FilterOptionModel<TxListItemModel>(
             title: S.of(context).txMsgCancelIdentityRecordsVerifyRequest,
-            filterOption: TransactionsFilterOptions.filterByRegisterIdentityMethod,
+            filterOption: TransactionsFilterOptions.filterByCancelIdentityMethod,
           ));
         case TxMsgType.msgClaimRewards:
           filterOptionModels.add(FilterOptionModel<TxListItemModel>(
@@ -52,7 +52,7 @@ class TransactionsFilterDropdown extends StatelessWidget {
         case TxMsgType.msgHandleIdentityRecordsVerifyRequest:
           filterOptionModels.add(FilterOptionModel<TxListItemModel>(
             title: S.of(context).txMsgHandleIdentityRecordsVerifyRequest,
-            filterOption: TransactionsFilterOptions.filterByRegisterIdentityMethod,
+            filterOption: TransactionsFilterOptions.filterByHandleIdentityRecordsVerifyRequestMethod,
           ));
         case TxMsgType.msgRegisterIdentityRecords:
           filterOptionModels.add(FilterOptionModel<TxListItemModel>(
@@ -62,7 +62,7 @@ class TransactionsFilterDropdown extends StatelessWidget {
         case TxMsgType.msgRequestIdentityRecordsVerify:
           filterOptionModels.add(FilterOptionModel<TxListItemModel>(
             title: S.of(context).txMsgRequestIdentityRecordsVerify,
-            filterOption: TransactionsFilterOptions.filterByRegisterIdentityMethod,
+            filterOption: TransactionsFilterOptions.filterByRequestIdentityRecordsVerifyMethod,
           ));
         case TxMsgType.msgSend:
           filterOptionModels.add(FilterOptionModel<TxListItemModel>(
