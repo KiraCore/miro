@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
+import 'package:miro/shared/models/transactions/list/tx_direction_type.dart';
 import 'package:miro/shared/models/transactions/list/tx_list_item_model.dart';
 import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
 import 'package:miro/shared/utils/crypto_address_parser.dart';
@@ -25,6 +26,13 @@ class TransactionListItemMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
     TokenAmountModel? totalAmount = txListItemModel.txMsgModels.totalAmount;
+    Set<String> fromAddresses =
+        txListItemModel.txMsgModels.where((ATxMsgModel e) => e.fromAddress != null).map((ATxMsgModel e) => e.fromAddress!.bech32Address).toSet();
+    Set<String> toAddresses =
+        txListItemModel.txMsgModels.where((ATxMsgModel e) => e.toAddress != null).map((ATxMsgModel e) => e.toAddress!.bech32Address).toSet();
+    // TODO(Mykyta): avoid direction type after INTERX updated to getAllTransactions
+    List<String> methods = txListItemModel.txMsgModels.map((ATxMsgModel e) => e.getTitle(context, TxDirectionType.outbound)).toList();
+
     List<Widget> children = <Widget>[
       PrefixedWidget(
         prefix: S.of(context).txnListHash,
@@ -57,48 +65,62 @@ class TransactionListItemMobile extends StatelessWidget {
           style: textTheme.bodyMedium!.copyWith(color: DesignColors.white2),
         ),
       ),
-      if (txListItemModel.txMsgModels.isNotEmpty && txListItemModel.txMsgModels.first.fromAddress != null)
+      if (fromAddresses.isNotEmpty)
         PrefixedWidget(
           prefix: S.of(context).txListFrom,
           child: Row(
             children: <Widget>[
               CopyButton(
-                value: txListItemModel.txMsgModels.first.fromAddress!.bech32Address,
+                value: fromAddresses.first,
                 notificationText: S.of(context).toastSuccessfullyCopied,
               ),
               const SizedBox(width: 4),
               Expanded(
                 child: KiraToolTip(
                   childMargin: EdgeInsets.zero,
-                  message: txListItemModel.txMsgModels.first.fromAddress!.bech32Address,
-                  child: Text(
-                    txListItemModel.txMsgModels.first.fromAddress!.bech32Address,
-                    overflow: TextOverflow.ellipsis,
-                    style: textTheme.bodyLarge!.copyWith(color: DesignColors.white2),
+                  message: fromAddresses.join('\n\n'),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Text(
+                          fromAddresses.first,
+                          overflow: TextOverflow.ellipsis,
+                          style: textTheme.bodyMedium!.copyWith(color: DesignColors.white2),
+                        ),
+                      ),
+                      if (fromAddresses.length > 1) _RoundedCount(count: fromAddresses.length - 1),
+                    ],
                   ),
                 ),
               ),
             ],
           ),
         ),
-      if (txListItemModel.txMsgModels.isNotEmpty && txListItemModel.txMsgModels.first.toAddress != null)
+      if (toAddresses.isNotEmpty)
         PrefixedWidget(
           prefix: S.of(context).txListTo,
           child: Row(
             children: <Widget>[
               CopyButton(
-                value: txListItemModel.txMsgModels.first.toAddress!.bech32Address,
+                value: toAddresses.first,
                 notificationText: S.of(context).toastSuccessfullyCopied,
               ),
               const SizedBox(width: 4),
               Expanded(
                 child: KiraToolTip(
                   childMargin: EdgeInsets.zero,
-                  message: txListItemModel.txMsgModels.first.toAddress!.bech32Address,
-                  child: Text(
-                    txListItemModel.txMsgModels.first.toAddress!.bech32Address,
-                    overflow: TextOverflow.ellipsis,
-                    style: textTheme.bodyLarge!.copyWith(color: DesignColors.white2),
+                  message: toAddresses.join('\n\n'),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Text(
+                          toAddresses.first,
+                          overflow: TextOverflow.ellipsis,
+                          style: textTheme.bodyMedium!.copyWith(color: DesignColors.white2),
+                        ),
+                      ),
+                      if (toAddresses.length > 1) _RoundedCount(count: toAddresses.length - 1),
+                    ],
                   ),
                 ),
               ),
@@ -136,10 +158,20 @@ class TransactionListItemMobile extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Text(
-              txListItemModel.getTitle(context),
-              overflow: TextOverflow.ellipsis,
-              style: textTheme.bodyMedium!.copyWith(color: DesignColors.white2),
+            KiraToolTip(
+              childMargin: EdgeInsets.zero,
+              message: methods.join('\n\n'),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  Text(
+                    methods.first,
+                    overflow: TextOverflow.ellipsis,
+                    style: textTheme.bodyMedium!.copyWith(color: DesignColors.white2),
+                  ),
+                  if (methods.length > 1) _RoundedCount(count: methods.length - 1),
+                ],
+              ),
             ),
             const SizedBox(height: 4),
             const Divider(color: DesignColors.grey2),
@@ -157,6 +189,30 @@ class TransactionListItemMobile extends StatelessWidget {
             ],
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _RoundedCount extends StatelessWidget {
+  const _RoundedCount({required this.count, super.key});
+
+  final int count;
+
+  @override
+  Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+    return Container(
+      // decoration: BoxDecoration(
+      //   shape: BoxShape.circle,
+      //   border: Border.all(color: DesignColors.white2, width: 1),
+      // ),
+      padding: const EdgeInsets.only(left: 4),
+      // padding: const EdgeInsets.only(left: 2, right: 3, top: 2, bottom: 2),
+      child: Text(
+        '+$count',
+        overflow: TextOverflow.ellipsis,
+        style: textTheme.bodySmall!.copyWith(color: DesignColors.white2),
       ),
     );
   }

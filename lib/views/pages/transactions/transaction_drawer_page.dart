@@ -267,7 +267,7 @@ class _Details extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
-          // TODO(Mykyta): avoid direction type
+          // TODO(Mykyta): avoid direction type after INTERX updated to getAllTransactions
           txMsgModel.getTitle(context, TxDirectionType.outbound),
           maxLines: 3,
           style: textTheme.titleMedium!.copyWith(color: DesignColors.white2),
