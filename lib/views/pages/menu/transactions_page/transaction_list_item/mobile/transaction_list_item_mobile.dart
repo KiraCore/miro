@@ -16,9 +16,11 @@ import 'package:miro/views/widgets/kira/kira_tooltip.dart';
 
 class TransactionListItemMobile extends StatelessWidget {
   final TxListItemModel txListItemModel;
+  final bool isAgeFormatBool;
 
   const TransactionListItemMobile({
     required this.txListItemModel,
+    required this.isAgeFormatBool,
     Key? key,
   }) : super(key: key);
 
@@ -32,6 +34,15 @@ class TransactionListItemMobile extends StatelessWidget {
         txListItemModel.txMsgModels.where((ATxMsgModel e) => e.toAddress != null).map((ATxMsgModel e) => e.toAddress!.bech32Address).toSet();
     // TODO(Mykyta): avoid direction type after INTERX updated to getAllTransactions
     List<String> methods = txListItemModel.txMsgModels.map((ATxMsgModel e) => e.getTitle(context, TxDirectionType.outbound)).toList();
+    if (methods.length > methods.toSet().length) {
+      for (final String method in methods.toSet()) {
+        int count = methods.where((String element) => element == method).length;
+        if (count > 1) {
+          methods[methods.indexOf(method)] = '$method x$count';
+          methods.removeWhere((String element) => element == method);
+        }
+      }
+    }
 
     List<Widget> children = <Widget>[
       PrefixedWidget(
@@ -60,7 +71,7 @@ class TransactionListItemMobile extends StatelessWidget {
       PrefixedWidget(
         prefix: S.of(context).txListDate,
         child: Text(
-          DateFormat('d MMM y, HH:mm').format(txListItemModel.time.toLocal()),
+          DateFormat('d MMM y, HH:mm:ss').format(txListItemModel.time.toLocal()),
           overflow: TextOverflow.ellipsis,
           style: textTheme.bodyMedium!.copyWith(color: DesignColors.white2),
         ),
@@ -88,7 +99,7 @@ class TransactionListItemMobile extends StatelessWidget {
                           style: textTheme.bodyMedium!.copyWith(color: DesignColors.white2),
                         ),
                       ),
-                      if (fromAddresses.length > 1) _RoundedCount(count: fromAddresses.length - 1),
+                      if (fromAddresses.length > 1) _Count(count: fromAddresses.length - 1),
                     ],
                   ),
                 ),
@@ -119,7 +130,7 @@ class TransactionListItemMobile extends StatelessWidget {
                           style: textTheme.bodyMedium!.copyWith(color: DesignColors.white2),
                         ),
                       ),
-                      if (toAddresses.length > 1) _RoundedCount(count: toAddresses.length - 1),
+                      if (toAddresses.length > 1) _Count(count: toAddresses.length - 1),
                     ],
                   ),
                 ),
@@ -161,16 +172,10 @@ class TransactionListItemMobile extends StatelessWidget {
             KiraToolTip(
               childMargin: EdgeInsets.zero,
               message: methods.join('\n\n'),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: <Widget>[
-                  Text(
-                    methods.first,
-                    overflow: TextOverflow.ellipsis,
-                    style: textTheme.bodyMedium!.copyWith(color: DesignColors.white2),
-                  ),
-                  if (methods.length > 1) _RoundedCount(count: methods.length - 1),
-                ],
+              child: Text(
+                methods.join(', '),
+                overflow: TextOverflow.ellipsis,
+                style: textTheme.bodyMedium!.copyWith(color: DesignColors.white2),
               ),
             ),
             const SizedBox(height: 4),
@@ -194,21 +199,16 @@ class TransactionListItemMobile extends StatelessWidget {
   }
 }
 
-class _RoundedCount extends StatelessWidget {
-  const _RoundedCount({required this.count, super.key});
+class _Count extends StatelessWidget {
+  const _Count({required this.count});
 
   final int count;
 
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
-    return Container(
-      // decoration: BoxDecoration(
-      //   shape: BoxShape.circle,
-      //   border: Border.all(color: DesignColors.white2, width: 1),
-      // ),
+    return Padding(
       padding: const EdgeInsets.only(left: 4),
-      // padding: const EdgeInsets.only(left: 2, right: 3, top: 2, bottom: 2),
       child: Text(
         '+$count',
         overflow: TextOverflow.ellipsis,

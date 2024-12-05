@@ -5,6 +5,7 @@ class TransactionListItemDesktopLayout extends StatelessWidget {
   final Widget hashWidget;
   final Widget methodWidget;
   final Widget dateWidget;
+  final bool isDateInAgeFormatBool;
   final Widget fromWidget;
   final Widget toWidget;
   final Widget amountWidget;
@@ -19,6 +20,7 @@ class TransactionListItemDesktopLayout extends StatelessWidget {
     required this.toWidget,
     required this.amountWidget,
     required this.feeWidget,
+    this.isDateInAgeFormatBool = false,
     Key? key,
   }) : super(key: key);
 
@@ -44,7 +46,7 @@ class TransactionListItemDesktopLayout extends StatelessWidget {
           ),
           SizedBox(width: gapSize),
           SizedBox(
-            width: 140,
+            width: isDateInAgeFormatBool ? 55 : 120,
             child: dateWidget,
           ),
           SizedBox(width: gapSize),

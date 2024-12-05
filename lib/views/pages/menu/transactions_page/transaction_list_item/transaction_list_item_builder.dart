@@ -8,10 +8,12 @@ import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 class TransactionListItemBuilder extends StatefulWidget {
   final TxListItemModel txListItemModel;
   final ScrollController scrollController;
+  final bool isAgeFormatBool;
 
   const TransactionListItemBuilder({
     required this.txListItemModel,
     required this.scrollController,
+    required this.isAgeFormatBool,
     Key? key,
   }) : super(key: key);
 
@@ -32,8 +34,8 @@ class _TransactionListItemBuilder extends State<TransactionListItemBuilder> {
 
   @override
   Widget build(BuildContext context) {
-    Widget desktopListItem = TransactionListItemDesktop(txListItemModel: widget.txListItemModel);
-    Widget mobileListItem = TransactionListItemMobile(txListItemModel: widget.txListItemModel);
+    Widget desktopListItem = TransactionListItemDesktop(txListItemModel: widget.txListItemModel, isAgeFormatBool: widget.isAgeFormatBool);
+    Widget mobileListItem = TransactionListItemMobile(txListItemModel: widget.txListItemModel, isAgeFormatBool: widget.isAgeFormatBool);
 
     return ResponsiveWidget(
       largeScreen: desktopListItem,

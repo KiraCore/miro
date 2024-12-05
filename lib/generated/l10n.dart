@@ -2752,6 +2752,96 @@ class S {
     );
   }
 
+  /// `Age`
+  String get txListAge {
+    return Intl.message(
+      'Age',
+      name: 'txListAge',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `1 sec`
+  String get ageShortSecond {
+    return Intl.message(
+      '1 sec',
+      name: 'ageShortSecond',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{seconds} secs`
+  String ageShortSeconds(Object seconds) {
+    return Intl.message(
+      '$seconds secs',
+      name: 'ageShortSeconds',
+      desc: '',
+      args: [seconds],
+    );
+  }
+
+  /// `1 min`
+  String get ageShortMinute {
+    return Intl.message(
+      '1 min',
+      name: 'ageShortMinute',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{minutes} mins`
+  String ageShortMinutes(Object minutes) {
+    return Intl.message(
+      '$minutes mins',
+      name: 'ageShortMinutes',
+      desc: '',
+      args: [minutes],
+    );
+  }
+
+  /// `1 hour`
+  String get ageShortHour {
+    return Intl.message(
+      '1 hour',
+      name: 'ageShortHour',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{hours} hrs`
+  String ageShortHours(Object hours) {
+    return Intl.message(
+      '$hours hrs',
+      name: 'ageShortHours',
+      desc: '',
+      args: [hours],
+    );
+  }
+
+  /// `1 day`
+  String get ageShortDay {
+    return Intl.message(
+      '1 day',
+      name: 'ageShortDay',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `{days} days`
+  String ageShortDays(Object days) {
+    return Intl.message(
+      '$days days',
+      name: 'ageShortDays',
+      desc: '',
+      args: [days],
+    );
+  }
+
   /// `Amount`
   String get txListAmount {
     return Intl.message(

@@ -387,6 +387,16 @@
   "txnListFee": "Txn fee",
   "txnListHash": "Txn hash",
 
+  "txListAge": "Age",
+  "ageShortSecond": "1 sec",
+  "ageShortSeconds": "{seconds} secs",
+  "ageShortMinute": "1 min",
+  "ageShortMinutes": "{minutes} mins",
+  "ageShortHour": "1 hour",
+  "ageShortHours": "{hours} hrs",
+  "ageShortDay": "1 day",
+  "ageShortDays": "{days} days",
+
   "txListAmount": "Amount",
   "txListAmountPlusMore": "+ {amount} more",
   "txListAmountPlusFees": "+ fees",
