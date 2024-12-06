@@ -1,21 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/views/widgets/generic/mouse_state_listener.dart';
-import 'package:miro/views/widgets/generic/pop_wrapper/pop_wrapper.dart';
 import 'package:miro/views/widgets/generic/pop_wrapper/pop_wrapper_controller.dart';
 
 class PopWrapperMobile extends StatefulWidget {
   final bool disabled;
   final Color backgroundColor;
-  final PopWrapperBuilder buttonBuilder;
-  final PopWrapperBuilder popupBuilder;
+  final Widget button;
+  final Widget popup;
   final PopWrapperController popWrapperController;
 
   const PopWrapperMobile({
     required this.disabled,
     required this.backgroundColor,
-    required this.buttonBuilder,
-    required this.popupBuilder,
+    required this.button,
+    required this.popup,
     required this.popWrapperController,
     Key? key,
   }) : super(key: key);
@@ -43,7 +42,7 @@ class _PopWrapperMobile extends State<PopWrapperMobile> {
   Widget build(BuildContext context) {
     return MouseStateListener(
       onTap: widget.popWrapperController.showTooltip,
-      childBuilder: (_) => widget.buttonBuilder(),
+      childBuilder: (_) => widget.button,
     );
   }
 
@@ -87,7 +86,7 @@ class _PopWrapperMobile extends State<PopWrapperMobile> {
               ],
             ),
             width: double.infinity,
-            child: widget.popupBuilder(),
+            child: widget.popup,
           ),
         );
       },

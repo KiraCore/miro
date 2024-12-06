@@ -6,17 +6,15 @@ import 'package:miro/views/widgets/generic/pop_wrapper/pop_wrapper_desktop.dart'
 import 'package:miro/views/widgets/generic/pop_wrapper/pop_wrapper_mobile.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 
-typedef PopWrapperBuilder = Widget Function();
-
 class PopWrapper extends StatefulWidget {
-  final PopWrapperBuilder buttonBuilder;
-  final PopWrapperBuilder popupBuilder;
+  final Widget button;
+  final Widget popup;
   final PopWrapperController popWrapperController;
   final bool disabled;
 
   const PopWrapper({
-    required this.buttonBuilder,
-    required this.popupBuilder,
+    required this.button,
+    required this.popup,
     required this.popWrapperController,
     this.disabled = false,
     Key? key,
@@ -28,6 +26,28 @@ class PopWrapper extends StatefulWidget {
 
 class _PopWrapperState extends State<PopWrapper> {
   final JustTheController justTheController = JustTheController();
+  late Widget desktopWidget;
+  late Widget mobileWidget;
+
+  @override
+  void initState() {
+    super.initState();
+    desktopWidget = PopWrapperDesktop(
+      justTheController: justTheController,
+      button: widget.button,
+      popup: widget.popup,
+      popWrapperController: widget.popWrapperController,
+      disabled: widget.disabled,
+      backgroundColor: DesignColors.black,
+    );
+    mobileWidget = PopWrapperMobile(
+      button: widget.button,
+      popup: widget.popup,
+      popWrapperController: widget.popWrapperController,
+      disabled: widget.disabled,
+      backgroundColor: DesignColors.black,
+    );
+  }
 
   @override
   void dispose() {
@@ -37,21 +57,11 @@ class _PopWrapperState extends State<PopWrapper> {
 
   @override
   Widget build(BuildContext context) {
-    Widget desktopWidget = PopWrapperDesktop(
-      justTheController: justTheController,
-      buttonBuilder: widget.buttonBuilder,
-      popupBuilder: widget.popupBuilder,
-      popWrapperController: widget.popWrapperController,
-      disabled: widget.disabled,
-      backgroundColor: DesignColors.black,
-    );
-    Widget mobileWidget = PopWrapperMobile(
-      buttonBuilder: widget.buttonBuilder,
-      popupBuilder: widget.popupBuilder,
-      popWrapperController: widget.popWrapperController,
-      disabled: widget.disabled,
-      backgroundColor: DesignColors.black,
-    );
+    // Future.delayed(Duration(seconds: 10), () {
+    //   desktopWidget = mobileWidget;
+    //   setState(() {
+    //   });
+    // });
 
     return ResponsiveWidget(
       largeScreen: desktopWidget,

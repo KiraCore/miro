@@ -39,8 +39,8 @@ class _TokenDropdown extends State<TokenDropdown> {
         return PopWrapper(
           disabled: widget.disabledBool,
           popWrapperController: popWrapperController,
-          buttonBuilder: () => _buildSelectedTokenButton(boxConstraints),
-          popupBuilder: () => _buildPopupTokensList(boxConstraints),
+          button: _buildSelectedTokenButton(boxConstraints),
+          popup: _buildPopupTokensList(boxConstraints),
         );
       },
     );

@@ -59,18 +59,16 @@ class _FilterDropdown<T extends AListItem> extends State<FilterDropdown<T>> {
             const SizedBox(width: 8),
             PopWrapper(
               popWrapperController: filterOptionsController,
-              buttonBuilder: () => FilterDropdownButton(selectedOptionsLength: selectedFilterOptions.length),
-              popupBuilder: () {
-                return ListPopMenu<FilterOptionModel<T>>(
-                  isMultiSelect: true,
-                  itemToString: (FilterOptionModel<T> item) => item.title,
-                  listItems: widget.filterOptionModels,
-                  onItemSelected: _addFilterOption,
-                  onItemRemoved: _removeFilterOption,
-                  selectedListItems: selectedFilterOptions.toSet(),
-                  title: widget.title,
-                );
-              },
+              button: FilterDropdownButton(selectedOptionsLength: selectedFilterOptions.length),
+              popup: ListPopMenu<FilterOptionModel<T>>(
+                isMultiSelect: true,
+                itemToString: (FilterOptionModel<T> item) => item.title,
+                listItems: widget.filterOptionModels,
+                onItemSelected: _addFilterOption,
+                onItemRemoved: _removeFilterOption,
+                selectedListItems: selectedFilterOptions.toSet(),
+                title: widget.title,
+              ),
             ),
           ],
         );

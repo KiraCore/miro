@@ -21,6 +21,8 @@ dependencies:
   # This is a simple Service Locator for Dart and Flutter projects
   # https://pub.dev/packages/get_it
   get_it: 7.6.7
+  el_tooltip: 2.2.1
+  super_tooltip: 2.0.9
 
   # A powerful Http client for Dart, which supports Interceptors, Global configuration, FormData,
   # Request Cancellation, File downloading, Timeout etc.

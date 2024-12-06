@@ -28,20 +28,18 @@ class _PageSizeDropdown extends State<PageSizeDropdown> {
   Widget build(BuildContext context) {
     return PopWrapper(
       popWrapperController: popWrapperController,
-      buttonBuilder: () => PageSizeDropdownButton(
+      button: PageSizeDropdownButton(
         selectedPageSize: widget.selectedPageSize,
         onTap: popWrapperController.showTooltip,
       ),
-      popupBuilder: () {
-        return ListPopMenu<int>(
-          isMultiSelect: false,
-          itemToString: (int item) => item.toString(),
-          listItems: widget.availablePageSizes,
-          onItemSelected: _handlePageSizeSelected,
-          selectedListItems: <int>{widget.selectedPageSize},
-          title: S.of(context).paginatedListPageSize,
-        );
-      },
+      popup: ListPopMenu<int>(
+        isMultiSelect: false,
+        itemToString: (int item) => item.toString(),
+        listItems: widget.availablePageSizes,
+        onItemSelected: _handlePageSizeSelected,
+        selectedListItems: <int>{widget.selectedPageSize},
+        title: S.of(context).paginatedListPageSize,
+      ),
     );
   }
 

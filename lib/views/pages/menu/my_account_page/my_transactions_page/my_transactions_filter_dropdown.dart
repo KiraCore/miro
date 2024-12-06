@@ -74,32 +74,30 @@ class _MyTransactionsFilterDropdown extends State<MyTransactionsFilterDropdown> 
             const SizedBox(width: 8),
             PopWrapper(
               popWrapperController: popWrapperController,
-              buttonBuilder: () => FilterDropdownButton(selectedOptionsLength: activeFilters.length),
-              popupBuilder: () {
-                return ListPopMenu<dynamic>(
-                  isMultiSelect: true,
-                  itemToString: _getFilterTitle,
-                  listItems: <dynamic>[
-                    Text(
-                      S.of(context).txListDirection,
-                      style: textTheme.bodySmall!.copyWith(color: DesignColors.greenStatus1),
-                    ),
-                    TxDirectionType.inbound,
-                    TxDirectionType.outbound,
-                    Text(
-                      S.of(context).txListStatus,
-                      style: textTheme.bodySmall!.copyWith(color: DesignColors.greenStatus1),
-                    ),
-                    TxStatusType.confirmed,
-                    TxStatusType.pending,
-                    TxStatusType.failed,
-                  ],
-                  onItemSelected: _addFilterOption,
-                  onItemRemoved: _removeFilterOption,
-                  selectedListItems: activeFilters,
-                  title: '${S.of(context).txListFiltersTitle}:',
-                );
-              },
+              button: FilterDropdownButton(selectedOptionsLength: activeFilters.length),
+              popup: ListPopMenu<dynamic>(
+                isMultiSelect: true,
+                itemToString: _getFilterTitle,
+                listItems: <dynamic>[
+                  Text(
+                    S.of(context).txListDirection,
+                    style: textTheme.bodySmall!.copyWith(color: DesignColors.greenStatus1),
+                  ),
+                  TxDirectionType.inbound,
+                  TxDirectionType.outbound,
+                  Text(
+                    S.of(context).txListStatus,
+                    style: textTheme.bodySmall!.copyWith(color: DesignColors.greenStatus1),
+                  ),
+                  TxStatusType.confirmed,
+                  TxStatusType.pending,
+                  TxStatusType.failed,
+                ],
+                onItemSelected: _addFilterOption,
+                onItemRemoved: _removeFilterOption,
+                selectedListItems: activeFilters,
+                title: '${S.of(context).txListFiltersTitle}:',
+              ),
             ),
           ],
         ),

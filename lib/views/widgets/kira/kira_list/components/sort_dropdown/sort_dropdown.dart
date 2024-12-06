@@ -62,17 +62,15 @@ class _SortDropdown<T extends AListItem> extends State<SortDropdown<T>> {
             ),
             PopWrapper(
               popWrapperController: sortOptionsController,
-              buttonBuilder: () => SortDropdownButton<T>(sortOptionModel: selectedSortOptionModel),
-              popupBuilder: () {
-                return ListPopMenu<SortOptionModel<T>>(
-                  isMultiSelect: false,
-                  itemToString: (SortOptionModel<T> item) => item.title,
-                  listItems: widget.sortOptionModels,
-                  onItemSelected: _changeCurrentSortOption,
-                  selectedListItems: <SortOptionModel<T>>{selectedSortOptionModel},
-                  title: S.of(context).sortBy,
-                );
-              },
+              button: SortDropdownButton<T>(sortOptionModel: selectedSortOptionModel),
+              popup: ListPopMenu<SortOptionModel<T>>(
+                isMultiSelect: false,
+                itemToString: (SortOptionModel<T> item) => item.title,
+                listItems: widget.sortOptionModels,
+                onItemSelected: _changeCurrentSortOption,
+                selectedListItems: <SortOptionModel<T>>{selectedSortOptionModel},
+                title: S.of(context).sortBy,
+              ),
             ),
             const ResponsiveWidget(
               largeScreen: SizedBox(width: 10),

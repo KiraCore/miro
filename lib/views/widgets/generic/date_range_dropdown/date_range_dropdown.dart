@@ -34,21 +34,17 @@ class _DateRangeDropdown extends State<DateRangeDropdown> {
   Widget build(BuildContext context) {
     return PopWrapper(
       popWrapperController: popWrapperController,
-      buttonBuilder: () {
-        return DateRangeDropdownButton(
+      button:  DateRangeDropdownButton(
           startDateTime: startDateTime,
           endDateTime: endDateTime,
           onTap: popWrapperController.showTooltip,
-        );
-      },
-      popupBuilder: () {
-        return DateRangeDropdownPopMenu(
+        ),
+      popup: DateRangeDropdownPopMenu(
           onDateTimeChanged: _handleDateChanged,
           popWrapperController: popWrapperController,
           initialStartDateTime: startDateTime,
           initialEndDateTime: endDateTime,
-        );
-      },
+        ),
     );
   }
 

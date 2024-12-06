@@ -38,42 +38,38 @@ class _MyAccountButtonDesktop extends State<MyAccountButtonDesktop> {
       height: widget.size.height,
       child: PopWrapper(
         popWrapperController: popWrapperController,
-        popupBuilder: () {
-          return AccountPopMenu(
-            popWrapperController: popWrapperController,
-            width: widget.size.width - widget.size.width * 0.25,
-          );
-        },
-        buttonBuilder: () {
-          return BlocBuilder<IdentityRegistrarCubit, AIdentityRegistrarState>(
-            bloc: globalLocator<IdentityRegistrarCubit>(),
-            builder: (BuildContext context, AIdentityRegistrarState identityRegistrarState) {
-              IRModel? irModel = identityRegistrarState.irModel;
-              return SizedBox(
-                width: widget.size.width,
-                child: Row(
-                  children: <Widget>[
-                    Expanded(
-                      child: AccountTile(
-                        size: widget.size.height,
-                        walletAddress: widget.wallet.address,
-                        username: irModel?.usernameIRRecordModel.value,
-                        avatarUrl: irModel?.avatarIRRecordModel.value,
-                        loadingBool: identityRegistrarState is IdentityRegistrarLoadingState,
-                        usernameTextStyle: textTheme.bodyLarge!.copyWith(color: DesignColors.white1),
-                        addressTextStyle: textTheme.bodyMedium!.copyWith(color: DesignColors.grey1),
-                      ),
+        popup: AccountPopMenu(
+          popWrapperController: popWrapperController,
+          width: widget.size.width - widget.size.width * 0.25,
+        ),
+        button: BlocBuilder<IdentityRegistrarCubit, AIdentityRegistrarState>(
+          bloc: globalLocator<IdentityRegistrarCubit>(),
+          builder: (BuildContext context, AIdentityRegistrarState identityRegistrarState) {
+            IRModel? irModel = identityRegistrarState.irModel;
+            return SizedBox(
+              width: widget.size.width,
+              child: Row(
+                children: <Widget>[
+                  Expanded(
+                    child: AccountTile(
+                      size: widget.size.height,
+                      walletAddress: widget.wallet.address,
+                      username: irModel?.usernameIRRecordModel.value,
+                      avatarUrl: irModel?.avatarIRRecordModel.value,
+                      loadingBool: identityRegistrarState is IdentityRegistrarLoadingState,
+                      usernameTextStyle: textTheme.bodyLarge!.copyWith(color: DesignColors.white1),
+                      addressTextStyle: textTheme.bodyMedium!.copyWith(color: DesignColors.grey1),
                     ),
-                    const Icon(
-                      Icons.arrow_drop_down,
-                      color: DesignColors.white1,
-                    ),
-                  ],
-                ),
-              );
-            },
-          );
-        },
+                  ),
+                  const Icon(
+                    Icons.arrow_drop_down,
+                    color: DesignColors.white1,
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }
