@@ -91,11 +91,6 @@ class EthereumProvider {
 
   Future<int?> getChainId() async => ethereum?.getChainId();
 
-  Future<String?> getPublicKey(EthereumWalletAddress address) async => ethereum?.request(
-    'eth_getEncryptionPublicKey',
-    <String>[address.address],
-  );
-
   Future<String?> signMessage(EthereumWalletAddress address, String message) async => ethereum?.request(
     'personal_sign',
     <String>[message, address.address],

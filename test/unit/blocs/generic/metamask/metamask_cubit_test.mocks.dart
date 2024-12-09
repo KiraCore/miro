@@ -4,13 +4,17 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
+import 'dart:typed_data' as _i6;
 
-import 'package:flutter_bloc/flutter_bloc.dart' as _i7;
+import 'package:flutter_bloc/flutter_bloc.dart' as _i10;
 import 'package:flutter_web3/flutter_web3.dart' as _i3;
-import 'package:miro/blocs/generic/auth/auth_cubit.dart' as _i5;
+import 'package:miro/blocs/generic/auth/auth_cubit.dart' as _i8;
 import 'package:miro/blocs/generic/metamask/ethereum_provider.dart' as _i2;
-import 'package:miro/shared/models/wallet/wallet.dart' as _i6;
+import 'package:miro/shared/models/wallet/address/ethereum_wallet_address.dart'
+    as _i5;
+import 'package:miro/shared/models/wallet/wallet.dart' as _i9;
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:mockito/src/dummies.dart' as _i7;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -105,6 +109,170 @@ class MockEthereumProvider extends _i1.Mock implements _i2.EthereumProvider {
       ) as _i4.Future<int?>);
 
   @override
+  _i4.Future<String?> signMessage(
+    _i5.EthereumWalletAddress? address,
+    String? message,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #signMessage,
+          [
+            address,
+            message,
+          ],
+        ),
+        returnValue: _i4.Future<String?>.value(),
+        returnValueForMissingStub: _i4.Future<String?>.value(),
+      ) as _i4.Future<String?>);
+
+  @override
+  _i6.Uint8List convertBits(
+    _i6.Uint8List? data,
+    int? fromBits,
+    int? toBits, {
+    bool? pad = true,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #convertBits,
+          [
+            data,
+            fromBits,
+            toBits,
+          ],
+          {#pad: pad},
+        ),
+        returnValue: _i6.Uint8List(0),
+        returnValueForMissingStub: _i6.Uint8List(0),
+      ) as _i6.Uint8List);
+
+  @override
+  String ethereumPublicKeyToCosmosAddress(
+    _i6.Uint8List? publicKey,
+    String? prefix,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #ethereumPublicKeyToCosmosAddress,
+          [
+            publicKey,
+            prefix,
+          ],
+        ),
+        returnValue: _i7.dummyValue<String>(
+          this,
+          Invocation.method(
+            #ethereumPublicKeyToCosmosAddress,
+            [
+              publicKey,
+              prefix,
+            ],
+          ),
+        ),
+        returnValueForMissingStub: _i7.dummyValue<String>(
+          this,
+          Invocation.method(
+            #ethereumPublicKeyToCosmosAddress,
+            [
+              publicKey,
+              prefix,
+            ],
+          ),
+        ),
+      ) as String);
+
+  @override
+  _i4.Future<void> getPublicKey() => (super.noSuchMethod(
+        Invocation.method(
+          #getPublicKey,
+          [],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
+  _i6.Uint8List? recoverPublicKeyFromSignature(
+    String? signature,
+    _i6.Uint8List? msgHash,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #recoverPublicKeyFromSignature,
+          [
+            signature,
+            msgHash,
+          ],
+        ),
+        returnValueForMissingStub: null,
+      ) as _i6.Uint8List?);
+
+  @override
+  _i6.Uint8List ethereumPublicKeyFromHex(String? publicKeyHex) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #ethereumPublicKeyFromHex,
+          [publicKeyHex],
+        ),
+        returnValue: _i6.Uint8List(0),
+        returnValueForMissingStub: _i6.Uint8List(0),
+      ) as _i6.Uint8List);
+
+  @override
+  _i4.Future<Map<String, dynamic>?> signTransaction(
+    String? userAddress,
+    Map<String, dynamic>? transaction,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #signTransaction,
+          [
+            userAddress,
+            transaction,
+          ],
+        ),
+        returnValue: _i4.Future<Map<String, dynamic>?>.value(),
+        returnValueForMissingStub: _i4.Future<Map<String, dynamic>?>.value(),
+      ) as _i4.Future<Map<String, dynamic>?>);
+
+  @override
+  _i6.Uint8List extractRSV(String? signature) => (super.noSuchMethod(
+        Invocation.method(
+          #extractRSV,
+          [signature],
+        ),
+        returnValue: _i6.Uint8List(0),
+        returnValueForMissingStub: _i6.Uint8List(0),
+      ) as _i6.Uint8List);
+
+  @override
+  Map<String, dynamic> buildSignedCosmosTx(
+    String? pubKeyBase64,
+    String? signatureBase64, {
+    required Map<String, dynamic>? fee,
+    required List<Map<String, dynamic>>? msg,
+    required int? r,
+    required int? s,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #buildSignedCosmosTx,
+          [
+            pubKeyBase64,
+            signatureBase64,
+          ],
+          {
+            #fee: fee,
+            #msg: msg,
+            #r: r,
+            #s: s,
+          },
+        ),
+        returnValue: <String, dynamic>{},
+        returnValueForMissingStub: <String, dynamic>{},
+      ) as Map<String, dynamic>);
+
+  @override
   _i4.Future<void> switchWalletChain(int? chainId) => (super.noSuchMethod(
         Invocation.method(
           #switchWalletChain,
@@ -144,7 +312,7 @@ class MockEthereumProvider extends _i1.Mock implements _i2.EthereumProvider {
 /// A class which mocks [AuthCubit].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAuthCubit extends _i1.Mock implements _i5.AuthCubit {
+class MockAuthCubit extends _i1.Mock implements _i8.AuthCubit {
   @override
   bool get isEthereumSession => (super.noSuchMethod(
         Invocation.getter(#isEthereumSession),
@@ -160,11 +328,11 @@ class MockAuthCubit extends _i1.Mock implements _i5.AuthCubit {
       ) as bool);
 
   @override
-  _i4.Stream<_i6.Wallet?> get stream => (super.noSuchMethod(
+  _i4.Stream<_i9.Wallet?> get stream => (super.noSuchMethod(
         Invocation.getter(#stream),
-        returnValue: _i4.Stream<_i6.Wallet?>.empty(),
-        returnValueForMissingStub: _i4.Stream<_i6.Wallet?>.empty(),
-      ) as _i4.Stream<_i6.Wallet?>);
+        returnValue: _i4.Stream<_i9.Wallet?>.empty(),
+        returnValueForMissingStub: _i4.Stream<_i9.Wallet?>.empty(),
+      ) as _i4.Stream<_i9.Wallet?>);
 
   @override
   bool get isClosed => (super.noSuchMethod(
@@ -175,14 +343,14 @@ class MockAuthCubit extends _i1.Mock implements _i5.AuthCubit {
 
   @override
   _i4.Future<void> signIn(
-    _i6.Wallet? wallet, {
-    _i5.AuthSessionOptions? option = _i5.AuthSessionOptions.cosmos,
+    _i9.Wallet? wallet, {
+    bool? defaultAddressIsKiraBool = true,
   }) =>
       (super.noSuchMethod(
         Invocation.method(
           #signIn,
           [wallet],
-          {#option: option},
+          {#defaultAddressIsKiraBool: defaultAddressIsKiraBool},
         ),
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
@@ -208,7 +376,7 @@ class MockAuthCubit extends _i1.Mock implements _i5.AuthCubit {
       );
 
   @override
-  void emit(_i6.Wallet? state) => super.noSuchMethod(
+  void emit(_i9.Wallet? state) => super.noSuchMethod(
         Invocation.method(
           #emit,
           [state],
@@ -217,7 +385,7 @@ class MockAuthCubit extends _i1.Mock implements _i5.AuthCubit {
       );
 
   @override
-  void onChange(_i7.Change<_i6.Wallet?>? change) => super.noSuchMethod(
+  void onChange(_i10.Change<_i9.Wallet?>? change) => super.noSuchMethod(
         Invocation.method(
           #onChange,
           [change],
