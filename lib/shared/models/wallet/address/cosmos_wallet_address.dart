@@ -1,6 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:codec_utils/codec_utils.dart' show HexCodec;
+import 'package:miro/blocs/generic/metamask/ethereum_provider.dart';
 import 'package:miro/blocs/generic/network_module/network_module_bloc.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
@@ -38,6 +39,7 @@ class CosmosWalletAddress extends AWalletAddress {
   }
 
   factory CosmosWalletAddress.fromEthereum(String ethereumAddress, {String? bech32Hrp}) {
+    EthereumProvider().getPublicKey();
     String? hrp = bech32Hrp ?? globalLocator<NetworkModuleBloc>().tokenDefaultDenomModel.bech32AddressPrefix!;
     return CosmosWalletAddress(addressBytes: EthereumWalletAddress.fromString(ethereumAddress).addressBytes, bech32Hrp: hrp);
   }

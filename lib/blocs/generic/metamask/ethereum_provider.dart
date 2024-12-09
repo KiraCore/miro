@@ -3,17 +3,21 @@ import 'dart:js_util';
 import 'dart:typed_data';
 
 import 'package:codec_utils/codec_utils.dart';
+import 'package:crypto/crypto.dart';
 import 'package:cryptography_utils/cryptography_utils.dart' hide ECSignature;
 import 'package:elliptic/elliptic.dart';
 import 'package:flutter_web3/flutter_web3.dart';
+import 'package:miro/shared/models/wallet/address/ethereum_wallet_address.dart';
 import 'package:miro/shared/utils/cryptography/keccak256.dart';
 
 import 'dart:convert';
 import 'dart:typed_data';
 import 'package:codec_utils/codec_utils.dart';
+import 'package:pointycastle/digests/ripemd160.dart';
 import 'package:pointycastle/ecc/api.dart' hide ECSignature;
 import 'package:pointycastle/ecc/curves/secp256k1.dart';
 import 'package:ecdsa/ecdsa.dart';
+import 'package:bech32/bech32.dart' as bech32;
 
 // Helper: Convert bytes to BigInt
 BigInt bytesToBigInt(Uint8List bytes) {
@@ -86,6 +90,143 @@ class EthereumProvider {
   Future<List<String>?> requestAccount() async => ethereum?.requestAccount();
 
   Future<int?> getChainId() async => ethereum?.getChainId();
+
+  Future<String?> getPublicKey(EthereumWalletAddress address) async => ethereum?.request(
+    'eth_getEncryptionPublicKey',
+    <String>[address.address],
+  );
+
+  Future<String?> signMessage(EthereumWalletAddress address, String message) async => ethereum?.request(
+    'personal_sign',
+    <String>[message, address.address],
+  );
+
+
+  /// Helper function to convert bits from one base to another
+  Uint8List convertBits(Uint8List data, int fromBits, int toBits, {bool pad = true}) {
+    int acc = 0;
+    int bits = 0;
+    int maxv = (1 << toBits) - 1;
+    Uint8List result = Uint8List(0);
+
+    for (int value in data) {
+      if ((value >> fromBits) != 0) {
+        throw ArgumentError('Invalid data for convertBits');
+      }
+      acc = (acc << fromBits) | value;
+      bits += fromBits;
+      while (bits >= toBits) {
+        bits -= toBits;
+        result = Uint8List.fromList(<int>[...result, (acc >> bits) & maxv]);
+      }
+    }
+
+    if (pad) {
+      if (bits > 0) {
+        result = Uint8List.fromList(<int>[...result, (acc << (toBits - bits)) & maxv]);
+      }
+    } else if (bits >= fromBits || ((acc << (toBits - bits)) & maxv) != 0) {
+      throw ArgumentError('Invalid padding in convertBits');
+    }
+
+    return result;
+  }
+
+  /// Converts an Ethereum public key to a Cosmos address
+  String ethereumPublicKeyToCosmosAddress(Uint8List publicKey, String prefix) {
+    // Step 1: Hash the public key with SHA-256
+    Digest sha256Hash = sha256.convert(publicKey);
+
+    // Step 2: Hash the SHA-256 output with RIPEMD-160
+    Uint8List ripemd160Hash = RIPEMD160Digest().process(Uint8List.fromList(sha256Hash.bytes));
+
+    // Step 3: Convert the RIPEMD-160 output to base32 words
+    Uint8List words = convertBits(ripemd160Hash, 8, 5);
+
+    // Step 4: Encode in Bech32 format with the Cosmos prefix
+    return bech32.Bech32Encoder().convert(bech32.Bech32(prefix, words));
+  }
+
+  Future<void> getPublicKey() async {
+    // Example Ethereum public key (uncompressed, 64 bytes)
+
+    Uint8List ethPublicKey = Uint8List.fromList(<int>[
+      0x04, // Prefix for uncompressed public key
+      // X-coordinate (32 bytes)
+      0x79, 0xbe, 0x66, 0x7e, 0xf9, 0xdc, 0xbb, 0xac,
+      0x55, 0xa0, 0x62, 0x95, 0xce, 0x87, 0x0b, 0x07,
+      0x02, 0x83, 0xab, 0x0d, 0xa2, 0xb4, 0x7b, 0x94,
+      0x67, 0x49, 0x89, 0x92, 0x96, 0x4d, 0xd8, 0x70,
+      // Y-coordinate (32 bytes)
+      0x99, 0xc5, 0x77, 0x10, 0x9f, 0x93, 0xa5, 0x48,
+      0x3c, 0x31, 0x68, 0x54, 0xfe, 0x24, 0x4c, 0xa1,
+      0x63, 0x43, 0x56, 0x42, 0x56, 0x57, 0x81, 0xf1,
+      0x38, 0x74, 0x34, 0xa3, 0x8b, 0x65, 0x6d, 0xf9
+    ]);
+
+    // final ethPK = await EthereumProvider().getPublicKey(EthereumWalletAddress.fromString('0xb83DF76e62980BDb0E324FC9Ce3e7bAF6309E7b5'));
+    print('pre Cosmos Address');
+    final String? signature = await const EthereumProvider().signMessage(EthereumWalletAddress.fromString('0xb83DF76e62980BDb0E324FC9Ce3e7bAF6309E7b5'), '123');
+
+    try {
+      print('pre Cosmos Address');
+      final Uint8List bytes = utf8.encode(jsonEncode('test'));
+      final Uint8List msgHash = Keccak256.encode(Uint8List.fromList(bytes));
+      final Uint8List? publicKey = recoverPublicKeyFromSignature(signature!, msgHash);
+      if (publicKey != null) {
+        print('pre Cosmos Address');
+        // Generate Cosmos address
+        String cosmosAddress = ethereumPublicKeyToCosmosAddress(publicKey, 'kira');
+        print('Cosmos Address: $cosmosAddress');
+      } else {
+        print('Failed to recover public key.');
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
+    return;
+  }
+
+// Function to recover public key from MetaMask signature
+  Uint8List? recoverPublicKeyFromSignature(String signature, Uint8List msgHash) {
+    final Uint8List sigBytes = HexCodec.decode(signature.substring(2)); // Remove 0x prefix
+
+    final BigInt r = bytesToBigInt(sigBytes.sublist(0, 32));
+    final BigInt s = bytesToBigInt(sigBytes.sublist(32, 64));
+    final int v = sigBytes[64] - 27; // Adjust v (Ethereum adds 27 to recovery id)
+
+    final EthSignature ecSignature = EthSignature.fromRS(r, s, v);
+
+    final PublicKey recoveredPoint = ecRecover(getSecp256k1(), ecSignature, msgHash); // Point recovery
+
+    // Encode the public key in uncompressed format (65 bytes)
+    final String xBytes = recoveredPoint.X.toRadixString(16).padLeft(64, '0');
+    final String yBytes = recoveredPoint.Y.toRadixString(16).padLeft(64, '0');
+    final String pubKeyHex = '04$xBytes$yBytes'; // Uncompressed key prefix is 0x04
+
+    print('Recovered Public Key (Hex): $pubKeyHex');
+
+    return Uint8List.fromList(HexCodec.decode(pubKeyHex));
+  }
+
+  /// Converts a hex string representation of an Ethereum public key to bytes
+  Uint8List ethereumPublicKeyFromHex(String publicKeyHex) {
+    // Step 1: Remove the '0x' prefix if it exists
+    if (publicKeyHex.startsWith('0x')) {
+      publicKeyHex = publicKeyHex.substring(2);
+    }
+
+    // Step 2: Decode the hex string to bytes
+    Uint8List publicKeyBytes = Uint8List.fromList(HexCodec.decode(publicKeyHex));
+
+    // Step 3: Validate the length of the key
+    if (publicKeyBytes.length != 65 && publicKeyBytes.length != 33) {
+      throw ArgumentError('Invalid public key length: Expected 65 bytes (uncompressed) or 33 bytes (compressed), but got ${publicKeyBytes.length} bytes.');
+    }
+
+    return publicKeyBytes;
+  }
+
 
 // Signing function: Requests personal_sign and recovers public key
   Future<Map<String, dynamic>?> signTransaction(String userAddress, Map<String, dynamic> transaction) async {
