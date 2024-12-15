@@ -114,7 +114,7 @@ class _SignInMnemonicDrawerPage extends State<SignInMnemonicDrawerPage> {
     }
   }
 
-  // WARNING: This method is very heavy and can freeze the UI
+  // WARNING: This method is very heavy and will freeze the UI
   // TODO(dominik): Move to web workers / separate thread when available
   Future<Wallet?> _generateWallet() async {
     Mnemonic? mnemonic = mnemonicGridCubit.buildMnemonicObject();

@@ -1,10 +1,12 @@
 import 'dart:typed_data';
 
+import 'package:codec_utils/codec_utils.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/blocs/generic/network_module/network_module_bloc.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/shared/models/tokens/token_default_denom_model.dart';
 import 'package:miro/shared/models/wallet/address/cosmos_wallet_address.dart';
+import 'package:miro/test/utils/test_utils.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 
@@ -59,31 +61,16 @@ Future<void> main() async {
   });
 
   group('Tests of WalletAddress.fromEthereum() constructor', () {
-    test('Should return correct WalletAddress from given ethereum address', () {
-      // Arrange
-      Uint8List actualAddressBytes = Uint8List.fromList(<int>[184, 61, 247, 110, 98, 152, 11, 219, 14, 50, 79, 201, 206, 62, 123, 175, 99, 9, 231, 181]);
-      const String actualEthereumAddress = '0xb83DF76e62980BDb0E324FC9Ce3e7bAF6309E7b5';
-
+    test('Should return correct WalletAddress from given ethereum bytes', () {
       // Act
-      CosmosWalletAddress actualWalletAddress = CosmosWalletAddress.fromEthereum(actualEthereumAddress);
+      CosmosWalletAddress actualWalletAddress = CosmosWalletAddress.fromEthereum(
+        HexCodec.decode(TestUtils.ethereumSignatureDecodeResult.compressedPublicKey),
+      );
 
       // Assert
-      CosmosWalletAddress expectedWalletAddress = CosmosWalletAddress(addressBytes: actualAddressBytes, bech32Hrp: 'kira');
+      CosmosWalletAddress expectedWalletAddress =
+          CosmosWalletAddress.fromBech32(TestUtils.ethereumSignatureDecodeResult.cosmosAddress);
       expect(actualWalletAddress, expectedWalletAddress);
-    });
-  });
-
-  group('Tests of toEthereumAddress() function', () {
-    test('Should return correct WalletAddress from given ethereum address', () {
-      // Arrange
-      const String actualBech32Address = 'kira1gdury9ednrjj8fluwj9ea5e6cu5jr9jvekl7u3';
-
-      // Act
-      String actualEthereumAddress = CosmosWalletAddress.fromBech32(actualBech32Address).toEthereumAddress();
-
-      // Assert
-      const String expectedEthereumAddress = '0x437832172d98e523a7fc748b9ed33ac72921964c';
-      expect(actualEthereumAddress, expectedEthereumAddress);
     });
   });
 

@@ -110,7 +110,7 @@ Future<void> main() async {
       // ************************************************************************************************
 
       // Act
-      await actualAuthCubit.signIn(TestUtils.wallet);
+      await actualAuthCubit.signIn(TestUtils.kiraWallet);
       await actualTxProcessCubit.init();
 
       // Assert
@@ -160,7 +160,7 @@ Future<void> main() async {
       // ************************************************************************************************
 
       // Act
-      await actualAuthCubit.signIn(TestUtils.wallet);
+      await actualAuthCubit.signIn(TestUtils.kiraWallet);
       await TestUtils.setupNetworkModel(networkUri: Uri.parse('https://healthy.kira.network/'));
       await actualTxProcessCubit.init(formEnabledBool: false);
 
@@ -220,7 +220,7 @@ Future<void> main() async {
       // ************************************************************************************************
 
       // Act
-      await actualAuthCubit.signIn(TestUtils.wallet);
+      await actualAuthCubit.signIn(TestUtils.kiraWallet);
       await actualTxProcessCubit.init();
 
       // Assert

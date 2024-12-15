@@ -23,14 +23,12 @@ import 'package:miro/shared/models/identity_registrar/ir_user_profile_model.dart
 import 'package:miro/shared/models/identity_registrar/ir_verification_request_status.dart';
 import 'package:miro/shared/models/network/block_time_wrapper_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
-import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/shared/models/wallet/address/cosmos_wallet_address.dart';
-import 'package:miro/shared/models/wallet/address/ethereum_wallet_address.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';
 import 'package:miro/shared/utils/logger/log_level.dart';
 
 abstract class _IIdentityRecordsService {
-  Future<BlockTimeWrapperModel<IRModel>> getIdentityRecordsByAddress(AWalletAddress walletAddress);
+  Future<BlockTimeWrapperModel<IRModel>> getIdentityRecordsByAddress(CosmosWalletAddress walletAddress);
 
   Future<PageData<IRInboundVerificationRequestModel>> getInboundVerificationRequests(
       QueryIdentityRecordVerifyRequestsByApproverReq queryIdentityRecordVerifyRequestsByApproverReq);
@@ -43,26 +41,21 @@ class IdentityRecordsService implements _IIdentityRecordsService {
   final IApiKiraRepository _apiKiraRepository = globalLocator<IApiKiraRepository>();
 
   @override
-  Future<BlockTimeWrapperModel<IRModel>> getIdentityRecordsByAddress(AWalletAddress walletAddress, {bool forceRequestBool = false}) async {
+  Future<BlockTimeWrapperModel<IRModel>> getIdentityRecordsByAddress(CosmosWalletAddress walletAddress, {bool forceRequestBool = false}) async {
     Uri networkUri = globalLocator<NetworkModuleBloc>().state.networkUri;
 
-    AWalletAddress address = walletAddress is EthereumWalletAddress
-        ? CosmosWalletAddress.fromBech32(
-            walletAddress.toKiraAddress(),
-          )
-        : walletAddress;
     Response<dynamic> response = await _apiKiraRepository.fetchQueryIdentityRecordsByAddress<dynamic>(ApiRequestModel<String>(
       networkUri: networkUri,
-      requestData: address.address,
+      requestData: walletAddress.address,
       forceRequestBool: forceRequestBool,
     ));
-    List<PendingVerification> pendingVerifications = await _getAllPendingVerificationsByRequester(address, forceRequestBool: forceRequestBool);
+    List<PendingVerification> pendingVerifications = await _getAllPendingVerificationsByRequester(walletAddress, forceRequestBool: forceRequestBool);
 
     try {
       QueryIdentityRecordsByAddressResp queryIdentityRecordsByAddressResp = QueryIdentityRecordsByAddressResp.fromJson(response.data as Map<String, dynamic>);
       InterxHeaders interxHeaders = InterxHeaders.fromHeaders(response.headers);
       IRModel irModel = IRModel.fromDto(
-        walletAddress: address,
+        walletAddress: walletAddress,
         records: queryIdentityRecordsByAddressResp.records,
         pendingVerifications: pendingVerifications,
       );
@@ -98,17 +91,17 @@ class IdentityRecordsService implements _IIdentityRecordsService {
     }
 
     List<IRInboundVerificationRequestModel> irInboundVerificationRequestModels = List<IRInboundVerificationRequestModel>.empty(growable: true);
-    List<AWalletAddress> requesterAddressList = queryIdentityRecordVerifyRequestsByApproverResp.verifyRecords
+    List<CosmosWalletAddress> requesterAddressList = queryIdentityRecordVerifyRequestsByApproverResp.verifyRecords
         .map((VerifyRecord verifyRecord) => verifyRecord.address)
         .toSet()
-        .map(AWalletAddress.fromAddress)
+        .map(CosmosWalletAddress.fromBech32)
         .toList();
 
-    Map<AWalletAddress, IRUserProfileModel> irUserProfileModelsMap = await _getUserProfilesByAddresses(requesterAddressList);
+    Map<CosmosWalletAddress, IRUserProfileModel> irUserProfileModelsMap = await _getUserProfilesByAddresses(requesterAddressList);
 
     for (VerifyRecord verifyRecord in queryIdentityRecordVerifyRequestsByApproverResp.verifyRecords) {
       Map<String, String> records = await _getRecordKeyValuePairsById(verifyRecord.recordIds);
-      AWalletAddress requesterWalletAddress = AWalletAddress.fromAddress(verifyRecord.address);
+      CosmosWalletAddress requesterWalletAddress = CosmosWalletAddress.fromBech32(verifyRecord.address);
 
       IRInboundVerificationRequestModel irInboundVerificationRequestModel = IRInboundVerificationRequestModel(
         id: verifyRecord.id,
@@ -132,18 +125,18 @@ class IdentityRecordsService implements _IIdentityRecordsService {
 
   @override
   Future<List<IRRecordVerificationRequestModel>> getOutboundRecordVerificationRequests(IRRecordModel irRecordModel) async {
-    List<AWalletAddress> allWalletAddresses = <AWalletAddress>{
+    List<CosmosWalletAddress> allWalletAddresses = <CosmosWalletAddress>{
       ...irRecordModel.verifiersAddresses,
       ...irRecordModel.pendingVerifiersAddresses,
     }.toList();
-    Map<AWalletAddress, IRUserProfileModel> irUserProfileModelsMap = await _getUserProfilesByAddresses(allWalletAddresses);
+    Map<CosmosWalletAddress, IRUserProfileModel> irUserProfileModelsMap = await _getUserProfilesByAddresses(allWalletAddresses);
 
     List<IRRecordVerificationRequestModel> irRecordVerificationRequestModels = <IRRecordVerificationRequestModel>[
-      ...irRecordModel.verifiersAddresses.map((AWalletAddress walletAddress) => IRRecordVerificationRequestModel(
+      ...irRecordModel.verifiersAddresses.map((CosmosWalletAddress walletAddress) => IRRecordVerificationRequestModel(
             verifierIrUserProfileModel: irUserProfileModelsMap[walletAddress]!,
             irVerificationRequestStatus: IRVerificationRequestStatus.confirmed,
           )),
-      ...irRecordModel.pendingVerifiersAddresses.map((AWalletAddress walletAddress) => IRRecordVerificationRequestModel(
+      ...irRecordModel.pendingVerifiersAddresses.map((CosmosWalletAddress walletAddress) => IRRecordVerificationRequestModel(
             verifierIrUserProfileModel: irUserProfileModelsMap[walletAddress]!,
             irVerificationRequestStatus: IRVerificationRequestStatus.pending,
           )),
@@ -152,7 +145,7 @@ class IdentityRecordsService implements _IIdentityRecordsService {
     return irRecordVerificationRequestModels;
   }
 
-  Future<List<PendingVerification>> _getAllPendingVerificationsByRequester(AWalletAddress requesterWalletAddress, {bool forceRequestBool = false}) async {
+  Future<List<PendingVerification>> _getAllPendingVerificationsByRequester(CosmosWalletAddress requesterWalletAddress, {bool forceRequestBool = false}) async {
     Uri networkUri = globalLocator<NetworkModuleBloc>().state.networkUri;
     List<PendingVerification> allPendingVerifications = List<PendingVerification>.empty(growable: true);
 
@@ -194,13 +187,13 @@ class IdentityRecordsService implements _IIdentityRecordsService {
     return allPendingVerifications;
   }
 
-  Future<Map<AWalletAddress, IRUserProfileModel>> _getUserProfilesByAddresses(List<AWalletAddress> walletAddressList) async {
-    Map<AWalletAddress, IRUserProfileModel> irUserProfileModelsMap = Map<AWalletAddress, IRUserProfileModel>.fromEntries(
+  Future<Map<CosmosWalletAddress, IRUserProfileModel>> _getUserProfilesByAddresses(List<CosmosWalletAddress> walletAddressList) async {
+    Map<CosmosWalletAddress, IRUserProfileModel> irUserProfileModelsMap = Map<CosmosWalletAddress, IRUserProfileModel>.fromEntries(
       await Future.wait(
-        walletAddressList.map((AWalletAddress walletAddress) async {
+        walletAddressList.map((CosmosWalletAddress walletAddress) async {
           BlockTimeWrapperModel<IRModel> wrappedIrModel = await getIdentityRecordsByAddress(walletAddress);
           IRUserProfileModel irUserProfileModel = IRUserProfileModel.fromIrModel(wrappedIrModel.model);
-          return MapEntry<AWalletAddress, IRUserProfileModel>(wrappedIrModel.model.walletAddress, irUserProfileModel);
+          return MapEntry<CosmosWalletAddress, IRUserProfileModel>(wrappedIrModel.model.walletAddress, irUserProfileModel);
         }),
       ),
     );

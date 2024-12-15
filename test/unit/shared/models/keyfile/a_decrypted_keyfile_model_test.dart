@@ -23,7 +23,7 @@ Future<void> main() async {
       // Arrange
       CosmosDecryptedKeyfileModel actualDecryptedKeyfileModel = CosmosDecryptedKeyfileModel(
         version: '2.0.0',
-        keyfileSecretDataModel: KeyfileSecretDataModel(wallet: TestUtils.wallet),
+        keyfileSecretDataModel: KeyfileSecretDataModel(wallet: TestUtils.kiraWallet),
       );
       String actualPassword = '123';
 
@@ -38,7 +38,7 @@ Future<void> main() async {
       // Assert
       CosmosDecryptedKeyfileModel expectedDecryptedKeyfileModel = CosmosDecryptedKeyfileModel(
         version: '2.0.0',
-        keyfileSecretDataModel: KeyfileSecretDataModel(wallet: TestUtils.wallet),
+        keyfileSecretDataModel: KeyfileSecretDataModel(wallet: TestUtils.kiraWallet),
       );
 
       expect(actualDecryptedKeyfileModel, expectedDecryptedKeyfileModel);
@@ -71,7 +71,7 @@ Future<void> main() async {
       // Arrange
       CosmosDecryptedKeyfileModel decryptedKeyfileModel = CosmosDecryptedKeyfileModel(
         version: '2.0.0',
-        keyfileSecretDataModel: KeyfileSecretDataModel(wallet: TestUtils.wallet),
+        keyfileSecretDataModel: KeyfileSecretDataModel(wallet: TestUtils.kiraWallet),
       );
 
       // Act

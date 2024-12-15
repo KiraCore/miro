@@ -127,7 +127,7 @@ Future<void> main() async {
       // Assert
       CosmosDecryptedKeyfileModel expectedDecryptedKeyfileModel = CosmosDecryptedKeyfileModel(
         version: '2.0.0',
-        keyfileSecretDataModel: KeyfileSecretDataModel(wallet: TestUtils.wallet),
+        keyfileSecretDataModel: KeyfileSecretDataModel(wallet: TestUtils.kiraWallet),
       );
 
       expect(actualDecryptedKeyfileModel, expectedDecryptedKeyfileModel);

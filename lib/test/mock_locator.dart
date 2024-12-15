@@ -1,5 +1,6 @@
 import 'package:miro/blocs/generic/auth/auth_cubit.dart';
 import 'package:miro/blocs/generic/identity_registrar/identity_registrar_cubit.dart';
+import 'package:miro/blocs/generic/metamask/ethereum_provider.dart';
 import 'package:miro/blocs/generic/network_module/network_module_bloc.dart';
 import 'package:miro/blocs/layout/drawer/drawer_cubit.dart';
 import 'package:miro/blocs/layout/nav_menu/nav_menu_cubit.dart';
@@ -30,6 +31,7 @@ import 'package:miro/infra/services/api_kira/query_staking_pool_service.dart';
 import 'package:miro/infra/services/api_kira/query_undelegations_service.dart';
 import 'package:miro/infra/services/network_module_service.dart';
 import 'package:miro/shared/controllers/global_nav/global_nav_controller.dart';
+import 'package:miro/shared/router/router.dart';
 import 'package:miro/test/mock_api_kira_repository.dart';
 import 'package:miro/test/mock_api_repository.dart';
 import 'package:miro/test/mock_app_config.dart';
@@ -85,5 +87,7 @@ void _initControllers() {
     ..registerLazySingleton<NavMenuCubit>(NavMenuCubit.new)
     ..registerLazySingleton<NetworkCustomSectionCubit>(NetworkCustomSectionCubit.new)
     ..registerLazySingleton<NetworkListCubit>(NetworkListCubit.new)
-    ..registerLazySingleton<NetworkModuleBloc>(NetworkModuleBloc.new);
+    ..registerLazySingleton<NetworkModuleBloc>(NetworkModuleBloc.new)
+    ..registerLazySingleton<EthereumProvider>(EthereumProvider.new);
+  globalLocator<GlobalNavController>().setRouter(AppRouter());
 }

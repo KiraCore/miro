@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/views/widgets/generic/animated/animated_loading_border.dart';
 import 'package:miro/views/widgets/generic/mouse_state_listener.dart';
 
 class KiraElevatedButton extends StatefulWidget {
@@ -9,6 +10,7 @@ class KiraElevatedButton extends StatefulWidget {
   final double? width;
   final double height;
   final bool disabled;
+  final bool loadingBool;
   final Color? foregroundColor;
 
   const KiraElevatedButton({
@@ -18,6 +20,7 @@ class KiraElevatedButton extends StatefulWidget {
     this.icon,
     this.foregroundColor,
     this.disabled = false,
+    this.loadingBool = false,
     this.height = 51,
     Key? key,
   }) : super(key: key);
@@ -31,13 +34,13 @@ class _KiraElevatedButton extends State<KiraElevatedButton> {
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
 
-    return Opacity(
-      opacity: widget.disabled ? 0.3 : 1,
-      child: MouseStateListener(
-        disabled: widget.disabled,
-        onTap: widget.disabled ? null : widget.onPressed,
-        childBuilder: (Set<MaterialState> states) {
-          return Container(
+    return MouseStateListener(
+      disabled: widget.disabled || widget.loadingBool,
+      onTap: widget.disabled ? null : widget.onPressed,
+      childBuilder: (Set<MaterialState> states) {
+        Widget button = Opacity(
+          opacity: widget.disabled || widget.loadingBool ? 0.3 : 1,
+          child: Container(
             decoration: BoxDecoration(
               gradient: widget.foregroundColor != null ? null : _getButtonGradient(states),
               color: widget.foregroundColor?.withOpacity(0.1),
@@ -64,14 +67,26 @@ class _KiraElevatedButton extends State<KiraElevatedButton> {
                 ],
               ],
             ),
+          ),
+        );
+        if (widget.loadingBool) {
+          return AnimatedLoadingBorder(
+            // NOTE: borderRadius of child Container + padding of AnimatedLoadingBorder
+            cornerRadius: 10.0,
+            borderColor: DesignColors.greenStatus1,
+            borderWidth: 4.0,
+            padding: const EdgeInsets.all(2), // padding
+            duration: const Duration(seconds: 2),
+            child: button,
           );
-        },
-      ),
+        }
+        return button;
+      },
     );
   }
 
   Gradient _getButtonGradient(Set<MaterialState> states) {
-    if (!widget.disabled && states.contains(MaterialState.hovered)) {
+    if (((widget.disabled || widget.loadingBool) == false) && states.contains(MaterialState.hovered)) {
       return DesignColors.primaryButtonGradientHover;
     }
     return DesignColors.primaryButtonGradient;

@@ -1,55 +1,203 @@
+import 'dart:convert';
+
+import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/blocs/generic/auth/auth_cubit.dart';
+import 'package:miro/blocs/generic/identity_registrar/identity_registrar_cubit.dart';
+import 'package:miro/blocs/generic/metamask/ethereum_provider.dart';
 import 'package:miro/config/locator.dart';
-import 'package:miro/shared/controllers/global_nav/global_nav_controller.dart';
+import 'package:miro/infra/managers/cache/i_cache_manager.dart';
+import 'package:miro/infra/managers/cache/impl/hive_cache_manager.dart';
 import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/cosmos_wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/ethereum_wallet_address.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
-import 'package:miro/shared/router/router.dart';
 import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
+import 'package:mockito/annotations.dart';
+import 'package:mockito/mockito.dart';
+
+@GenerateNiceMocks(<MockSpec<dynamic>>[
+  MockSpec<IdentityRegistrarCubit>(),
+  MockSpec<EthereumProvider>(),
+  MockSpec<HiveCacheManager>(as: #MockICacheManager),
+])
+import 'auth_cubit_test.mocks.dart';
 
 // To run this test type in console:
 // fvm flutter test test/unit/blocs/generic/auth_cubit_test.dart --platform chrome --null-assertions
-Future<void> main() async {
-  await initMockLocator();
-  await TestUtils.setupNetworkModel(networkUri: Uri.parse('https://healthy.kira.network/'));
+void main() async {
+  // await TestUtils.setupNetworkModel(networkUri: Uri.parse('https://healthy.kira.network/'));
 
-  group('Tests of [AuthCubit] process', () {
-    test('Should return states assigned to specific actions', () async {
-      // Arrange
-      final AuthCubit actualAuthCubit = AuthCubit();
-      final AppRouter appRouter = AppRouter();
-      globalLocator<GlobalNavController>().setRouter(appRouter);
+  group('Tests of [AuthCubit]', () {
+    late MockIdentityRegistrarCubit mockIdentityRegistrarCubit;
+    late MockEthereumProvider mockEthereumProvider;
+    late MockICacheManager mockCacheManager;
 
-      // Assert
-      Wallet? expectedWallet;
+    setUp(() async {
+      await initMockLocator();
 
-      TestUtils.printInfo('Should return [null] as initial state of [AuthCubit]');
-      expect(actualAuthCubit.state, expectedWallet);
+      mockIdentityRegistrarCubit = MockIdentityRegistrarCubit();
+      mockEthereumProvider = MockEthereumProvider();
+      mockCacheManager = MockICacheManager();
 
-      // ************************************************************************************************
-
-      // Act
-      await actualAuthCubit.signIn(TestUtils.wallet);
-
-      // Assert
-      expectedWallet = TestUtils.wallet;
-
-      TestUtils.printInfo('Should return [Wallet] after sign in');
-      expect(actualAuthCubit.state, expectedWallet);
-      TestUtils.printInfo('Should have cosmos session');
-      expect(actualAuthCubit.loggedInWithAddressType, WalletAddressType.cosmos);
-
-      // ************************************************************************************************
-
-      // Act
-      await actualAuthCubit.signOut();
-
-      // Assert
-      expectedWallet = null;
-
-      TestUtils.printInfo('Should return [null] after sign out');
-      expect(actualAuthCubit.state, expectedWallet);
+      globalLocator
+        ..unregister(instance: globalLocator<IdentityRegistrarCubit>())
+        ..registerSingleton<IdentityRegistrarCubit>(mockIdentityRegistrarCubit)
+        ..unregister(instance: globalLocator<EthereumProvider>())
+        ..registerSingleton<EthereumProvider>(mockEthereumProvider)
+        ..unregister(instance: globalLocator<ICacheManager>())
+        ..registerSingleton<ICacheManager>(mockCacheManager);
     });
+
+    tearDown(() async {
+      await globalLocator.reset();
+    });
+
+    AuthCubit createCubit() => AuthCubit();
+
+    blocTest<AuthCubit, Wallet?>(
+      'Initial state should be null',
+      build: createCubit,
+      verify: (AuthCubit cubit) {
+        expect(cubit.state, isNull);
+        expect(cubit.loggedInWithAddressType, isNull);
+      },
+    );
+
+    blocTest<AuthCubit, Wallet?>(
+      'Sign in with Cosmos wallet',
+      build: createCubit,
+      act: (AuthCubit cubit) async {
+        final Wallet cosmosWallet =
+            Wallet(address: CosmosWalletAddress.fromBech32(TestUtils.ethereumSignatureDecodeResult.cosmosAddress));
+        await cubit.signIn(cosmosWallet);
+      },
+      expect: () => <TypeMatcher<Wallet>>[
+        isA<Wallet>().having(
+            (Wallet wallet) => wallet.address,
+            'address',
+            isA<CosmosWalletAddress>().having(
+              (CosmosWalletAddress addr) => addr.address,
+              'address',
+              TestUtils.ethereumSignatureDecodeResult.cosmosAddress,
+            ))
+      ],
+      verify: (AuthCubit cubit) {
+        expect(cubit.loggedInWithAddressType, equals(WalletAddressType.cosmos));
+        verify(mockIdentityRegistrarCubit.setWalletAddress(any)).called(1);
+      },
+    );
+
+    blocTest<AuthCubit, Wallet?>(
+      'Sign in with Ethereum wallet and cache address',
+      build: createCubit,
+      setUp: () {
+        final String mockData = jsonEncode(TestUtils.ethereumSignatureDecodeResult.toDataJson());
+        when(mockCacheManager.get<String>(
+          boxName: EthereumProvider.hiveBoxName,
+          key: anyNamed('key'),
+          defaultValue: anyNamed('defaultValue'),
+        )).thenReturn(mockData);
+      },
+      act: (AuthCubit cubit) async {
+        final Wallet ethWallet = Wallet(
+          address: EthereumWalletAddress.fromString(TestUtils.ethereumSignatureDecodeResult.ethAddress),
+        );
+        await cubit.signIn(ethWallet);
+      },
+      expect: () => <TypeMatcher<Wallet>>[
+        isA<Wallet>().having(
+            (Wallet wallet) => wallet.address,
+            'address',
+            isA<CosmosWalletAddress>().having((CosmosWalletAddress addr) => addr.address, 'address',
+                TestUtils.ethereumSignatureDecodeResult.cosmosAddress))
+      ],
+      verify: (AuthCubit cubit) {
+        expect(cubit.loggedInWithAddressType, equals(WalletAddressType.ethereum));
+        verify(mockIdentityRegistrarCubit.setWalletAddress(any)).called(1);
+      },
+    );
+
+    blocTest<AuthCubit, Wallet?>(
+      'Sign out resets state',
+      build: createCubit,
+      act: (AuthCubit cubit) async {
+        final Wallet cosmosWallet =
+            Wallet(address: CosmosWalletAddress.fromBech32(TestUtils.ethereumSignatureDecodeResult.cosmosAddress));
+        await cubit.signIn(cosmosWallet);
+        await cubit.signOut();
+      },
+      expect: () => <TypeMatcher<Wallet>?>[
+        isA<Wallet>(),
+        null,
+      ],
+      verify: (AuthCubit cubit) {
+        expect(cubit.state, isNull);
+        expect(cubit.loggedInWithAddressType, isNull);
+        verify(mockIdentityRegistrarCubit.setWalletAddress(null)).called(1);
+      },
+    );
+
+    blocTest<AuthCubit, Wallet?>(
+      'Toggle wallet address between Ethereum and Cosmos',
+      build: createCubit,
+      setUp: () {
+        final String mockData = jsonEncode(TestUtils.ethereumSignatureDecodeResult.toDataJson());
+        when(mockCacheManager.get<String>(
+          boxName: EthereumProvider.hiveBoxName,
+          key: anyNamed('key'),
+          defaultValue: anyNamed('defaultValue'),
+        )).thenReturn(mockData);
+      },
+      act: (AuthCubit cubit) async {
+        final Wallet ethWallet = Wallet(
+          address: EthereumWalletAddress.fromString(TestUtils.ethereumSignatureDecodeResult.ethAddress),
+        );
+        await cubit.signIn(ethWallet);
+        cubit.toggleWalletAddress();
+      },
+      expect: () => <TypeMatcher<Wallet>>[
+        isA<Wallet>().having(
+            (Wallet wallet) => wallet.address,
+            'cosmos address',
+            isA<CosmosWalletAddress>().having((CosmosWalletAddress addr) => addr.address, 'address',
+                TestUtils.ethereumSignatureDecodeResult.cosmosAddress)),
+        isA<Wallet>().having(
+            (Wallet wallet) => wallet.address,
+            'eth address',
+            isA<EthereumWalletAddress>().having((EthereumWalletAddress addr) => addr.address, 'address',
+                TestUtils.ethereumSignatureDecodeResult.ethAddress)),
+      ],
+    );
+
+    blocTest<AuthCubit, Wallet?>(
+      'Replace address type in a string',
+      build: createCubit,
+      setUp: () {
+        final String mockData = jsonEncode(TestUtils.ethereumSignatureDecodeResult.toDataJson());
+        when(mockCacheManager.get<String>(
+          boxName: EthereumProvider.hiveBoxName,
+          key: anyNamed('key'),
+          defaultValue: anyNamed('defaultValue'),
+        )).thenReturn(mockData);
+      },
+      act: (AuthCubit cubit) async {
+        final Wallet ethWallet = Wallet(
+          address: EthereumWalletAddress.fromString(TestUtils.ethereumSignatureDecodeResult.ethAddress),
+        );
+        await cubit.signIn(ethWallet);
+        final String result =
+            cubit.replaceAddressTypeIfExists('This is ${TestUtils.ethereumSignatureDecodeResult.ethAddress}');
+        expect(result, contains(TestUtils.ethereumSignatureDecodeResult.cosmosAddress));
+      },
+      expect: () => <TypeMatcher<Wallet>>[
+        isA<Wallet>().having(
+            (Wallet wallet) => wallet.address,
+            'address',
+            isA<CosmosWalletAddress>().having((CosmosWalletAddress addr) => addr.address, 'address',
+                TestUtils.ethereumSignatureDecodeResult.cosmosAddress))
+      ],
+    );
   });
 }

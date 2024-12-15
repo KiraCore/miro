@@ -6,11 +6,11 @@ import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/transactions/form_models/ir_msg_request_verification_form_model.dart';
 import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
 import 'package:miro/shared/models/transactions/messages/identity_registrar/ir_msg_request_verification_model.dart';
-import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/cosmos_wallet_address.dart';
 
 void main() {
-  AWalletAddress actualRequesterWalletAddress = AWalletAddress.fromAddress('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx');
-  AWalletAddress actualVerifierWalletAddress = AWalletAddress.fromAddress('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl');
+  CosmosWalletAddress actualRequesterWalletAddress = CosmosWalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx');
+  CosmosWalletAddress actualVerifierWalletAddress = CosmosWalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl');
   TokenAmountModel actualTipTokenAmountModel = TokenAmountModel(
     defaultDenominationAmount: Decimal.fromInt(100),
     tokenAliasModel: TokenAliasModel.local('ukex'),
@@ -20,9 +20,9 @@ void main() {
     id: '3',
     key: 'username',
     value: 'somnitear',
-    verifiersAddresses: const <AWalletAddress>[],
-    pendingVerifiersAddresses: <AWalletAddress>[
-      AWalletAddress.fromAddress('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
+    verifiersAddresses: const <CosmosWalletAddress>[],
+    pendingVerifiersAddresses: <CosmosWalletAddress>[
+      CosmosWalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
     ],
   );
 

@@ -9,6 +9,7 @@ import 'package:miro/shared/models/identity_registrar/ir_record_verification_req
 import 'package:miro/shared/models/identity_registrar/ir_user_profile_model.dart';
 import 'package:miro/shared/models/identity_registrar/ir_verification_request_status.dart';
 import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/cosmos_wallet_address.dart';
 import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
@@ -30,9 +31,9 @@ Future<void> main() async {
         id: '3',
         key: 'username',
         value: 'somnitear',
-        verifiersAddresses: const <AWalletAddress>[],
-        pendingVerifiersAddresses: <AWalletAddress>[
-          AWalletAddress.fromAddress('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
+        verifiersAddresses: const <CosmosWalletAddress>[],
+        pendingVerifiersAddresses: <CosmosWalletAddress>[
+          CosmosWalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
         ],
       );
       IRRecordDrawerPageCubit actualIrRecordDrawerPageCubit = IRRecordDrawerPageCubit(irRecordModel: actualIrRecordModel);

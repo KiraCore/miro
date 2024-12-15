@@ -161,6 +161,10 @@
   },
 
   "metamask": "MetaMask",
+  "metamaskSignatureExplanationDialogTitle": "Signature Purpose Explanation",
+  "metamaskSignatureExplanationDialogMessage": "Dear user,\n\nWe need you to sign a dump message using your Metamask account so we can access the public key.\n\nThe public key is required to calculate the corresponding Kira address of your Metamask address.",
+  "metamaskSignatureExplanationDialogButtonProceed": "Proceed",
+  "metamaskSignatureExplanationDialogButtonCancel": "Cancel",
 
   "mnemonic": "Mnemonic",
   "mnemonicErrorUnexpected": "Something unexpected happened",

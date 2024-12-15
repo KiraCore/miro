@@ -5,7 +5,7 @@ import 'package:miro/blocs/generic/identity_registrar/states/identity_registrar_
 import 'package:miro/blocs/generic/identity_registrar/states/identity_registrar_loading_state.dart';
 import 'package:miro/shared/models/identity_registrar/ir_model.dart';
 import 'package:miro/shared/models/identity_registrar/ir_record_model.dart';
-import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/cosmos_wallet_address.dart';
 import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
@@ -54,21 +54,21 @@ void main() {
       // ************************************************************************************************
 
       // Act
-      await actualIdentityRegistrarCubit.setWalletAddress(TestUtils.wallet.address);
+      await actualIdentityRegistrarCubit.setWalletAddress(TestUtils.kiraWallet.address as CosmosWalletAddress);
       await Future<void>.delayed(const Duration(milliseconds: 100));
       actualIdentityRegistrarState = actualIdentityRegistrarCubit.state;
 
       // Assert
       expectedIdentityRegistrarState = IdentityRegistrarLoadedState(
         irModel: IRModel(
-          walletAddress: AWalletAddress.fromAddress('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
+          walletAddress: CosmosWalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
           usernameIRRecordModel: IRRecordModel(
             id: '3',
             key: 'username',
             value: 'somnitear',
-            verifiersAddresses: const <AWalletAddress>[],
-            pendingVerifiersAddresses: <AWalletAddress>[
-              AWalletAddress.fromAddress('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
+            verifiersAddresses: const <CosmosWalletAddress>[],
+            pendingVerifiersAddresses: <CosmosWalletAddress>[
+              CosmosWalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
             ],
           ),
           descriptionIRRecordModel: const IRRecordModel.empty(key: 'description'),
@@ -77,18 +77,18 @@ void main() {
             id: '2',
             key: 'avatar',
             value: 'https://avatars.githubusercontent.com/u/114292385',
-            verifiersAddresses: <AWalletAddress>[],
-            pendingVerifiersAddresses: <AWalletAddress>[],
+            verifiersAddresses: <CosmosWalletAddress>[],
+            pendingVerifiersAddresses: <CosmosWalletAddress>[],
           ),
           otherIRRecordModelList: <IRRecordModel>[
             IRRecordModel(
               id: '4',
               key: 'github',
               value: 'https://github.com/kiracore',
-              verifiersAddresses: <AWalletAddress>[
-                AWalletAddress.fromAddress('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
+              verifiersAddresses: <CosmosWalletAddress>[
+                CosmosWalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
               ],
-              pendingVerifiersAddresses: const <AWalletAddress>[],
+              pendingVerifiersAddresses: const <CosmosWalletAddress>[],
             ),
           ],
         ),
@@ -127,12 +127,12 @@ void main() {
       // ************************************************************************************************
 
       // Act
-      await actualIdentityRegistrarCubit.setWalletAddress(TestUtils.wallet.address);
+      await actualIdentityRegistrarCubit.setWalletAddress(TestUtils.kiraWallet.address as CosmosWalletAddress);
       actualIdentityRegistrarState = actualIdentityRegistrarCubit.state;
 
       // Assert
       expectedIdentityRegistrarState = IdentityRegistrarLoadedState(
-        irModel: IRModel.empty(walletAddress: TestUtils.wallet.address),
+        irModel: IRModel.empty(walletAddress: TestUtils.kiraWallet.address as CosmosWalletAddress),
       );
 
       TestUtils.printInfo('Should return [IdentityRegistrarLoadedState] with [EMPTY IRModel] if [WalletAddress exists] but [network DISCONNECTED]');

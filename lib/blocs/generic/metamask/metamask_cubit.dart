@@ -1,9 +1,12 @@
+import 'dart:convert';
+
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_web3/flutter_web3.dart' hide Wallet;
 import 'package:miro/blocs/generic/auth/auth_cubit.dart';
 import 'package:miro/blocs/generic/metamask/ethereum_provider.dart';
 import 'package:miro/config/locator.dart';
+import 'package:miro/infra/managers/cache/i_cache_manager.dart';
 import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
 import 'package:miro/shared/models/wallet/address/cosmos_wallet_address.dart';
 import 'package:miro/shared/models/wallet/address/ethereum_wallet_address.dart';
@@ -62,6 +65,7 @@ class MetamaskCubit extends Cubit<MetamaskState> {
     if (isSupported == false) {
       return;
     }
+    emit(state.copyWithBool(isLoadingBool: true));
     List<String>? accounts;
     int? chainId;
     try {
@@ -77,7 +81,38 @@ class MetamaskCubit extends Cubit<MetamaskState> {
     }
     await _switchNetworkToKira();
 
-    await _signIn(address: accounts!.first, chainId: chainId);
+    if (_checkIfMetamaskPublicKeyCached(accounts!.first)) {
+      await _signIn(address: accounts.first, chainId: chainId);
+    } else {
+      emit(MetamaskState(
+        address: accounts.first,
+        chainId: chainId,
+        needRequestForSignaturePermissionBool: true,
+        isLoadingBool: true,
+      ));
+    }
+  }
+
+  Future<void> resolveUserSignatureApproval({required bool isApproved}) async {
+    if (state.hasData == false || state.needRequestForSignaturePermissionBool == false) {
+      return;
+    }
+    if (isApproved) {
+      emit(state.copyWithBool(isLoadingBool: true, needRequestForSignaturePermissionBool: false));
+      await _signIn(address: state.address!, chainId: state.chainId!);
+      emit(state.copyWithBool(isLoadingBool: false));
+    } else {
+      emit(state.copyWithBool(isLoadingBool: false, needRequestForSignaturePermissionBool: false));
+    }
+  }
+
+  Future<void> connectAfterUserSignatureApproval() async {
+    if (state.hasData == false || state.needRequestForSignaturePermissionBool == false) {
+      return;
+    }
+    emit(state.copyWithBool(isLoadingBool: true));
+    await _signIn(address: state.address!, chainId: state.chainId!);
+    emit(state.copyWithBool(isLoadingBool: false));
   }
 
   void resetState() {
@@ -87,11 +122,20 @@ class MetamaskCubit extends Cubit<MetamaskState> {
 
   // TODO(Mykyta): to be implemented in future task for MetaMask Pay feature with Cosmos signing
   Future<void> pay({required AWalletAddress to, required int amount}) async {
-    if (isSupported == false || state.isConnected == false) {
+    if (isSupported == false || state.hasData == false) {
       return;
     }
     await _switchNetworkToKira();
-    String address = to is CosmosWalletAddress ? to.toEthereumAddress() : to.address;
+    String address;
+    switch (to.runtimeType) {
+      case EthereumWalletAddress:
+        address = to.address;
+      case CosmosWalletAddress:
+        // address = to.toEthereumAddress();
+        throw UnimplementedError();
+      default:
+        throw UnimplementedError();
+    }
     try {
       // TODO(Mykyta): remove signer and direct usage of ethereum (`send-via-metamask` task)
       await Web3Provider.fromEthereum(ethereum!).getSigner().sendTransaction(
@@ -103,6 +147,22 @@ class MetamaskCubit extends Cubit<MetamaskState> {
           );
     } catch (e) {
       AppLogger().log(message: 'Error on metamask pay: $e', logLevel: LogLevel.error);
+    }
+  }
+
+  bool _checkIfMetamaskPublicKeyCached(String ethereumAddress) {
+    try {
+      EthereumSignatureDecodeResult.fromDataJson(
+        json.decode(globalLocator<ICacheManager>().get<String>(
+          boxName: EthereumProvider.hiveBoxName,
+          key: ethereumAddress.toLowerCase(),
+          defaultValue: '{}',
+        )) as Map<String, dynamic>,
+        ethAddress: ethereumAddress,
+      );
+      return true;
+    } catch (e) {
+      return false;
     }
   }
 
@@ -151,7 +211,9 @@ class MetamaskCubit extends Cubit<MetamaskState> {
       return;
     }
     if (state.chainId != null) {
+      emit(state.copyWithBool(isLoadingBool: true));
       await _signIn(address: accounts.first, chainId: state.chainId!);
+      emit(state.copyWithBool(isLoadingBool: false));
     }
   }
 

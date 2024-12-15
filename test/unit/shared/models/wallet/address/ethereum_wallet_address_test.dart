@@ -49,35 +49,6 @@ Future<void> main() async {
     });
   });
 
-  group('Tests of fromBech32() constructor', () {
-    test('Should return correct WalletAddress from given bech32 address', () {
-      // Arrange
-      const String actualBech32Address = 'kira1hq7lwmnznq9akr3jflyuu0nm4a3snea4za0fra';
-      const String actualEthereumAddress = '0xb83DF76e62980BDb0E324FC9Ce3e7bAF6309E7b5';
-
-      // Act
-      EthereumWalletAddress actualWalletAddress = EthereumWalletAddress.fromBech32(actualBech32Address);
-
-      // Assert
-      EthereumWalletAddress expectedWalletAddress = EthereumWalletAddress.fromString(actualEthereumAddress);
-      expect(actualWalletAddress, expectedWalletAddress);
-    });
-  });
-
-  group('Tests of toKiraAddress() function', () {
-    test('Should return correct WalletAddress from given address', () {
-      // Arrange
-      const String actualEthereumAddress = '0xb83DF76e62980BDb0E324FC9Ce3e7bAF6309E7b5';
-
-      // Act
-      String actualBech32Address = EthereumWalletAddress.fromString(actualEthereumAddress).toKiraAddress();
-
-      // Assert
-      const String expectedBech32Address = 'kira1hq7lwmnznq9akr3jflyuu0nm4a3snea4za0fra';
-      expect(actualBech32Address, expectedBech32Address);
-    });
-  });
-
   group('Tests of address getter', () {
     test('Should return correct bech32 address', () {
       // Arrange

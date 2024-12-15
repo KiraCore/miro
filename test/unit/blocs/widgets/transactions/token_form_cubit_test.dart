@@ -6,6 +6,7 @@ import 'package:miro/blocs/widgets/transactions/token_form/token_form_state.dart
 import 'package:miro/shared/controllers/menu/my_account_page/balances_page/balances_filter_options.dart';
 import 'package:miro/shared/models/balances/balance_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
+import 'package:miro/shared/models/wallet/address/cosmos_wallet_address.dart';
 import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
@@ -42,7 +43,7 @@ Future<void> main() async {
       TokenFormCubit actualTokenFormCubit = TokenFormCubit.fromBalance(
         feeTokenAmountModel: feeTokenAmountModel,
         balanceModel: kexBalanceModel,
-        walletAddress: TestUtils.wallet.address,
+        walletAddress: TestUtils.kiraWallet.address as CosmosWalletAddress,
       );
 
       // Assert
@@ -51,7 +52,7 @@ Future<void> main() async {
         balanceModel: kexBalanceModel,
         tokenDenominationModel: kexBalanceModel.tokenAmountModel.tokenAliasModel.defaultTokenDenominationModel,
         tokenAmountModel: TokenAmountModel.zero(tokenAliasModel: kexBalanceModel.tokenAmountModel.tokenAliasModel),
-        walletAddress: TestUtils.wallet.address,
+        walletAddress: TestUtils.kiraWallet.address as CosmosWalletAddress,
       );
 
       expect(actualTokenFormCubit.state, expectedTokenFormState);
@@ -62,7 +63,7 @@ Future<void> main() async {
       // Arrange
       TokenFormCubit actualTokenFormCubit = TokenFormCubit.fromFirstBalance(
         feeTokenAmountModel: feeTokenAmountModel,
-        walletAddress: TestUtils.wallet.address,
+        walletAddress: TestUtils.kiraWallet.address as CosmosWalletAddress,
         initialFilterOption: BalancesFilterOptions.filterByDefaultToken,
       );
 
@@ -75,7 +76,7 @@ Future<void> main() async {
         balanceModel: kexBalanceModel,
         tokenDenominationModel: kexBalanceModel.tokenAmountModel.tokenAliasModel.defaultTokenDenominationModel,
         tokenAmountModel: TokenAmountModel.zero(tokenAliasModel: kexBalanceModel.tokenAmountModel.tokenAliasModel),
-        walletAddress: TestUtils.wallet.address,
+        walletAddress: TestUtils.kiraWallet.address as CosmosWalletAddress,
       );
 
       expect(actualTokenFormCubit.state, expectedTokenFormState);
@@ -88,14 +89,14 @@ Future<void> main() async {
       // Arrange
       TokenFormCubit actualTokenFormCubit = TokenFormCubit.fromBalance(
         feeTokenAmountModel: feeTokenAmountModel,
-        walletAddress: TestUtils.wallet.address,
+        walletAddress: TestUtils.kiraWallet.address as CosmosWalletAddress,
         balanceModel: ethBalanceModel,
       );
 
       // Assert
       TokenFormState expectedTokenFormState = TokenFormState.fromBalance(
         feeTokenAmountModel: feeTokenAmountModel,
-        walletAddress: TestUtils.wallet.address,
+        walletAddress: TestUtils.kiraWallet.address as CosmosWalletAddress,
         balanceModel: ethBalanceModel,
       );
 
@@ -114,7 +115,7 @@ Future<void> main() async {
         balanceModel: kexBalanceModel,
         tokenAmountModel: TokenAmountModel.zero(tokenAliasModel: TestUtils.kexTokenAliasModel),
         tokenDenominationModel: TestUtils.kexTokenAliasModel.defaultTokenDenominationModel,
-        walletAddress: TestUtils.wallet.address,
+        walletAddress: TestUtils.kiraWallet.address as CosmosWalletAddress,
       );
 
       TestUtils.printInfo('Should [return TokenFormState] with updated BalanceModel');
@@ -136,7 +137,7 @@ Future<void> main() async {
           tokenAliasModel: TestUtils.kexTokenAliasModel,
         ),
         tokenDenominationModel: TestUtils.kexTokenAliasModel.defaultTokenDenominationModel,
-        walletAddress: TestUtils.wallet.address,
+        walletAddress: TestUtils.kiraWallet.address as CosmosWalletAddress,
       );
 
       TestUtils.printInfo('Should [return TokenFormState] with updated token amount');
@@ -157,7 +158,7 @@ Future<void> main() async {
           tokenAliasModel: TestUtils.kexTokenAliasModel,
         ),
         tokenDenominationModel: TestUtils.kexTokenAliasModel.networkTokenDenominationModel,
-        walletAddress: TestUtils.wallet.address,
+        walletAddress: TestUtils.kiraWallet.address as CosmosWalletAddress,
       );
 
       TestUtils.printInfo('Should [return TokenFormState] with updated TokenDenominationModel');
@@ -178,7 +179,7 @@ Future<void> main() async {
           tokenAliasModel: TestUtils.kexTokenAliasModel,
         ),
         tokenDenominationModel: TestUtils.kexTokenAliasModel.defaultTokenDenominationModel,
-        walletAddress: TestUtils.wallet.address,
+        walletAddress: TestUtils.kiraWallet.address as CosmosWalletAddress,
       );
 
       TestUtils.printInfo('Should [return TokenFormState] with updated TokenDenominationModel');
@@ -199,7 +200,7 @@ Future<void> main() async {
           tokenAliasModel: TestUtils.kexTokenAliasModel,
         ),
         tokenDenominationModel: TestUtils.kexTokenAliasModel.defaultTokenDenominationModel,
-        walletAddress: TestUtils.wallet.address,
+        walletAddress: TestUtils.kiraWallet.address as CosmosWalletAddress,
       );
 
       TestUtils.printInfo('Should [return TokenFormState] with all available amount');
@@ -217,7 +218,7 @@ Future<void> main() async {
         balanceModel: kexBalanceModel,
         tokenDenominationModel: TestUtils.kexTokenAliasModel.defaultTokenDenominationModel,
         tokenAmountModel: TokenAmountModel.zero(tokenAliasModel: TestUtils.kexTokenAliasModel),
-        walletAddress: TestUtils.wallet.address,
+        walletAddress: TestUtils.kiraWallet.address as CosmosWalletAddress,
       );
 
       TestUtils.printInfo('Should [return TokenFormState] with cleared token amount');
@@ -239,7 +240,7 @@ Future<void> main() async {
           tokenAliasModel: TestUtils.kexTokenAliasModel,
         ),
         tokenDenominationModel: TestUtils.kexTokenAliasModel.defaultTokenDenominationModel,
-        walletAddress: TestUtils.wallet.address,
+        walletAddress: TestUtils.kiraWallet.address as CosmosWalletAddress,
       );
 
       TestUtils.printInfo('Should [return TokenFormState] with updated token amount');

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:miro/blocs/generic/auth/auth_cubit.dart';
+import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/transactions/list/tx_list_item_model.dart';
@@ -22,6 +24,7 @@ class TransactionListItemDesktop extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AuthCubit authCubit = globalLocator<AuthCubit>();
     TextTheme textTheme = Theme.of(context).textTheme;
 
     return TransactionListItemDesktopLayout(
@@ -48,7 +51,7 @@ class TransactionListItemDesktop extends StatelessWidget {
               prefix: txListItemModel.getTitle(context),
               child: txListItemModel.getSubtitle(context) != null
                   ? Text(
-                      txListItemModel.getSubtitle(context)!.replaceAddressTypeIfExists(toType: walletAddressType),
+                      authCubit.replaceAddressTypeIfExists(txListItemModel.getSubtitle(context)!),
                       overflow: TextOverflow.ellipsis,
                       style: textTheme.bodyMedium!.copyWith(
                         color: DesignColors.white2,

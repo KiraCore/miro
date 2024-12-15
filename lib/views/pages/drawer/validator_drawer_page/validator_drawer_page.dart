@@ -49,7 +49,7 @@ class ValidatorDrawerPage extends StatelessWidget {
           builder: (BuildContext context, Wallet? state) {
             AWalletAddress walletAddress = validatorModel.walletAddress;
             if ((state?.isEthereum == true && walletAddress is CosmosWalletAddress) || (state?.isEthereum != true && walletAddress is EthereumWalletAddress)) {
-              walletAddress = walletAddress.toOppositeAddressType();
+              walletAddress = authCubit.tryFindOppositeAddress(walletAddress) ?? walletAddress;
             }
 
             return Row(

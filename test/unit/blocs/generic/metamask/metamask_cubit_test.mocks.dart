@@ -4,13 +4,17 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'dart:async' as _i4;
+import 'dart:typed_data' as _i5;
 
-import 'package:flutter_bloc/flutter_bloc.dart' as _i7;
+import 'package:flutter_bloc/flutter_bloc.dart' as _i10;
 import 'package:flutter_web3/flutter_web3.dart' as _i3;
-import 'package:miro/blocs/generic/auth/auth_cubit.dart' as _i5;
+import 'package:miro/blocs/generic/auth/auth_cubit.dart' as _i7;
 import 'package:miro/blocs/generic/metamask/ethereum_provider.dart' as _i2;
-import 'package:miro/shared/models/wallet/wallet.dart' as _i6;
+import 'package:miro/infra/managers/cache/impl/hive_cache_manager.dart' as _i11;
+import 'package:miro/shared/models/wallet/address/a_wallet_address.dart' as _i9;
+import 'package:miro/shared/models/wallet/wallet.dart' as _i8;
 import 'package:mockito/mockito.dart' as _i1;
+import 'package:mockito/src/dummies.dart' as _i6;
 
 // ignore_for_file: type=lint
 // ignore_for_file: avoid_redundant_argument_values
@@ -105,6 +109,102 @@ class MockEthereumProvider extends _i1.Mock implements _i2.EthereumProvider {
       ) as _i4.Future<int?>);
 
   @override
+  _i4.Future<String?> getPublicKey(String? address) => (super.noSuchMethod(
+        Invocation.method(
+          #getPublicKey,
+          [address],
+        ),
+        returnValue: _i4.Future<String?>.value(),
+        returnValueForMissingStub: _i4.Future<String?>.value(),
+      ) as _i4.Future<String?>);
+
+  @override
+  _i4.Future<String?> signMessage(
+    String? address,
+    String? message,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #signMessage,
+          [
+            address,
+            message,
+          ],
+        ),
+        returnValue: _i4.Future<String?>.value(),
+        returnValueForMissingStub: _i4.Future<String?>.value(),
+      ) as _i4.Future<String?>);
+
+  @override
+  _i4.Future<_i2.EthereumSignatureDecodeResult?> decodeEthereumSignature({
+    required String? message,
+    required String? signatureHex,
+    required String? ethereumAddress,
+    required String? bech32Hrp,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #decodeEthereumSignature,
+          [],
+          {
+            #message: message,
+            #signatureHex: signatureHex,
+            #ethereumAddress: ethereumAddress,
+            #bech32Hrp: bech32Hrp,
+          },
+        ),
+        returnValue: _i4.Future<_i2.EthereumSignatureDecodeResult?>.value(),
+        returnValueForMissingStub:
+            _i4.Future<_i2.EthereumSignatureDecodeResult?>.value(),
+      ) as _i4.Future<_i2.EthereumSignatureDecodeResult?>);
+
+  @override
+  _i5.Uint8List compressPublicKey(_i5.Uint8List? uncompressedPublicKey) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #compressPublicKey,
+          [uncompressedPublicKey],
+        ),
+        returnValue: _i5.Uint8List(0),
+        returnValueForMissingStub: _i5.Uint8List(0),
+      ) as _i5.Uint8List);
+
+  @override
+  String convertPublicKeyToCosmosAddress(
+    _i5.Uint8List? publicKey,
+    String? humanReadablePart,
+  ) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #convertPublicKeyToCosmosAddress,
+          [
+            publicKey,
+            humanReadablePart,
+          ],
+        ),
+        returnValue: _i6.dummyValue<String>(
+          this,
+          Invocation.method(
+            #convertPublicKeyToCosmosAddress,
+            [
+              publicKey,
+              humanReadablePart,
+            ],
+          ),
+        ),
+        returnValueForMissingStub: _i6.dummyValue<String>(
+          this,
+          Invocation.method(
+            #convertPublicKeyToCosmosAddress,
+            [
+              publicKey,
+              humanReadablePart,
+            ],
+          ),
+        ),
+      ) as String);
+
+  @override
   _i4.Future<void> switchWalletChain(int? chainId) => (super.noSuchMethod(
         Invocation.method(
           #switchWalletChain,
@@ -144,7 +244,7 @@ class MockEthereumProvider extends _i1.Mock implements _i2.EthereumProvider {
 /// A class which mocks [AuthCubit].
 ///
 /// See the documentation for Mockito's code generation for more information.
-class MockAuthCubit extends _i1.Mock implements _i5.AuthCubit {
+class MockAuthCubit extends _i1.Mock implements _i7.AuthCubit {
   @override
   bool get isEthereumSession => (super.noSuchMethod(
         Invocation.getter(#isEthereumSession),
@@ -160,11 +260,11 @@ class MockAuthCubit extends _i1.Mock implements _i5.AuthCubit {
       ) as bool);
 
   @override
-  _i4.Stream<_i6.Wallet?> get stream => (super.noSuchMethod(
+  _i4.Stream<_i8.Wallet?> get stream => (super.noSuchMethod(
         Invocation.getter(#stream),
-        returnValue: _i4.Stream<_i6.Wallet?>.empty(),
-        returnValueForMissingStub: _i4.Stream<_i6.Wallet?>.empty(),
-      ) as _i4.Stream<_i6.Wallet?>);
+        returnValue: _i4.Stream<_i8.Wallet?>.empty(),
+        returnValueForMissingStub: _i4.Stream<_i8.Wallet?>.empty(),
+      ) as _i4.Stream<_i8.Wallet?>);
 
   @override
   bool get isClosed => (super.noSuchMethod(
@@ -175,7 +275,7 @@ class MockAuthCubit extends _i1.Mock implements _i5.AuthCubit {
 
   @override
   _i4.Future<void> signIn(
-    _i6.Wallet? wallet, {
+    _i8.Wallet? wallet, {
     bool? defaultAddressIsKiraBool = true,
   }) =>
       (super.noSuchMethod(
@@ -199,6 +299,45 @@ class MockAuthCubit extends _i1.Mock implements _i5.AuthCubit {
       ) as _i4.Future<void>);
 
   @override
+  _i9.AWalletAddress? tryFindOppositeAddress(_i9.AWalletAddress? address) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #tryFindOppositeAddress,
+          [address],
+        ),
+        returnValueForMissingStub: null,
+      ) as _i9.AWalletAddress?);
+
+  @override
+  String replaceAddressTypeIfExists(
+    String? address, {
+    String? delimiter = r' ',
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #replaceAddressTypeIfExists,
+          [address],
+          {#delimiter: delimiter},
+        ),
+        returnValue: _i6.dummyValue<String>(
+          this,
+          Invocation.method(
+            #replaceAddressTypeIfExists,
+            [address],
+            {#delimiter: delimiter},
+          ),
+        ),
+        returnValueForMissingStub: _i6.dummyValue<String>(
+          this,
+          Invocation.method(
+            #replaceAddressTypeIfExists,
+            [address],
+            {#delimiter: delimiter},
+          ),
+        ),
+      ) as String);
+
+  @override
   void toggleWalletAddress() => super.noSuchMethod(
         Invocation.method(
           #toggleWalletAddress,
@@ -208,7 +347,7 @@ class MockAuthCubit extends _i1.Mock implements _i5.AuthCubit {
       );
 
   @override
-  void emit(_i6.Wallet? state) => super.noSuchMethod(
+  void emit(_i8.Wallet? state) => super.noSuchMethod(
         Invocation.method(
           #emit,
           [state],
@@ -217,7 +356,7 @@ class MockAuthCubit extends _i1.Mock implements _i5.AuthCubit {
       );
 
   @override
-  void onChange(_i7.Change<_i6.Wallet?>? change) => super.noSuchMethod(
+  void onChange(_i10.Change<_i8.Wallet?>? change) => super.noSuchMethod(
         Invocation.method(
           #onChange,
           [change],
@@ -266,4 +405,122 @@ class MockAuthCubit extends _i1.Mock implements _i5.AuthCubit {
         returnValue: _i4.Future<void>.value(),
         returnValueForMissingStub: _i4.Future<void>.value(),
       ) as _i4.Future<void>);
+}
+
+/// A class which mocks [HiveCacheManager].
+///
+/// See the documentation for Mockito's code generation for more information.
+class MockICacheManager extends _i1.Mock implements _i11.HiveCacheManager {
+  @override
+  _i4.Future<void> init() => (super.noSuchMethod(
+        Invocation.method(
+          #init,
+          [],
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
+  _i4.Future<void> add<T>({
+    required String? boxName,
+    required String? key,
+    required T? value,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #add,
+          [],
+          {
+            #boxName: boxName,
+            #key: key,
+            #value: value,
+          },
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
+  _i4.Future<void> delete<T>({
+    required String? boxName,
+    required String? key,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #delete,
+          [],
+          {
+            #boxName: boxName,
+            #key: key,
+          },
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
+  _i4.Future<void> deleteAll<T>({required String? boxName}) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #deleteAll,
+          [],
+          {#boxName: boxName},
+        ),
+        returnValue: _i4.Future<void>.value(),
+        returnValueForMissingStub: _i4.Future<void>.value(),
+      ) as _i4.Future<void>);
+
+  @override
+  T get<T>({
+    required String? boxName,
+    required String? key,
+    required T? defaultValue,
+  }) =>
+      (super.noSuchMethod(
+        Invocation.method(
+          #get,
+          [],
+          {
+            #boxName: boxName,
+            #key: key,
+            #defaultValue: defaultValue,
+          },
+        ),
+        returnValue: _i6.dummyValue<T>(
+          this,
+          Invocation.method(
+            #get,
+            [],
+            {
+              #boxName: boxName,
+              #key: key,
+              #defaultValue: defaultValue,
+            },
+          ),
+        ),
+        returnValueForMissingStub: _i6.dummyValue<T>(
+          this,
+          Invocation.method(
+            #get,
+            [],
+            {
+              #boxName: boxName,
+              #key: key,
+              #defaultValue: defaultValue,
+            },
+          ),
+        ),
+      ) as T);
+
+  @override
+  Map<String, T> getAll<T>({required String? boxName}) => (super.noSuchMethod(
+        Invocation.method(
+          #getAll,
+          [],
+          {#boxName: boxName},
+        ),
+        returnValue: <String, T>{},
+        returnValueForMissingStub: <String, T>{},
+      ) as Map<String, T>);
 }

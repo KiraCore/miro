@@ -23,7 +23,7 @@ Future<void> main() async {
 
   AuthCubit authCubit = globalLocator<AuthCubit>();
 
-  await authCubit.signIn(TestUtils.wallet);
+  await authCubit.signIn(TestUtils.kiraWallet);
 
   TokenAmountModel feeTokenAmountModel = TokenAmountModel(
     defaultDenominationAmount: Decimal.parse('100'),

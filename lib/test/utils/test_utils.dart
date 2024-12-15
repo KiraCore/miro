@@ -1,4 +1,5 @@
 import 'package:cryptography_utils/cryptography_utils.dart';
+import 'package:miro/blocs/generic/metamask/ethereum_provider.dart';
 import 'package:miro/blocs/generic/network_module/events/network_module_connect_event.dart';
 import 'package:miro/blocs/generic/network_module/network_module_bloc.dart';
 import 'package:miro/config/app_config.dart';
@@ -20,12 +21,18 @@ import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/test/mocks/mock_network_list_config_json.dart';
 
 class TestUtils {
-  static Wallet wallet = Wallet(
+  static Wallet kiraWallet = Wallet(
     address: AWalletAddress.fromAddress('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
     ecPrivateKey: ECPrivateKey(
       CurvePoints.generatorSecp256k1,
       BigInt.parse('25933686250415448129536663355227060923413846494721047098076326567395973050293'),
     ),
+  );
+
+  static const EthereumSignatureDecodeResult ethereumSignatureDecodeResult = EthereumSignatureDecodeResult(
+    compressedPublicKey: '03F0C58E810C333343E823BF87B2A9BCAE5D99546B3FB362945EAC26FFA89FA582',
+    ethAddress: '0xCa27b75E10154814663b7Eb254317FA16c5F940A',
+    cosmosAddress: 'kira1dqz6umlqmclvwwhu7dfd47a3fw484v8u35g4xz',
   );
 
   static DateTime defaultLastRefreshDateTime = DateTime(2024, 3, 14, 14, 17);

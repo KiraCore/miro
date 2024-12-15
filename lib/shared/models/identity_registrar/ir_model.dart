@@ -2,14 +2,14 @@ import 'package:equatable/equatable.dart';
 import 'package:miro/infra/dto/api_kira/query_identity_record_verify_requests/response/pending_verification.dart';
 import 'package:miro/infra/dto/api_kira/query_identity_records/response/record.dart';
 import 'package:miro/shared/models/identity_registrar/ir_record_model.dart';
-import 'package:miro/shared/models/wallet/address/a_wallet_address.dart';
+import 'package:miro/shared/models/wallet/address/cosmos_wallet_address.dart';
 
 class IRModel extends Equatable {
   final IRRecordModel usernameIRRecordModel;
   final IRRecordModel descriptionIRRecordModel;
   final IRRecordModel socialMediaIRRecordModel;
   final IRRecordModel avatarIRRecordModel;
-  final AWalletAddress walletAddress;
+  final CosmosWalletAddress walletAddress;
   final List<IRRecordModel> otherIRRecordModelList;
 
   const IRModel({
@@ -29,7 +29,7 @@ class IRModel extends Equatable {
         otherIRRecordModelList = <IRRecordModel>[];
 
   factory IRModel.fromDto({
-    required AWalletAddress walletAddress,
+    required CosmosWalletAddress walletAddress,
     required List<Record> records,
     required List<PendingVerification> pendingVerifications,
   }) {
@@ -40,9 +40,9 @@ class IRModel extends Equatable {
     List<IRRecordModel> otherIRRecordModelList = <IRRecordModel>[];
 
     for (Record record in records) {
-      List<AWalletAddress> pendingVerifiersAddresses = pendingVerifications
+      List<CosmosWalletAddress> pendingVerifiersAddresses = pendingVerifications
           .where((PendingVerification pendingVerification) => pendingVerification.recordIds.contains(record.id))
-          .map((PendingVerification pendingVerification) => AWalletAddress.fromAddress(pendingVerification.verifierAddress))
+          .map((PendingVerification pendingVerification) => CosmosWalletAddress.fromBech32(pendingVerification.verifierAddress))
           .toSet()
           .toList();
 
