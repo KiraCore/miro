@@ -28,6 +28,7 @@ class _BlocksPageState extends State<BlocksPage> {
   int pageSize = 10;
   final ScrollController scrollController = ScrollController();
   final TextEditingController searchBarTextEditingController = TextEditingController();
+  final BlocksListController listController = BlocksListController();
 
   void changePageSize(int newSize) {
     setState(() {
@@ -64,7 +65,7 @@ class _BlocksPageState extends State<BlocksPage> {
             scrollController: scrollController,
           ),
           desktopItemHeight: BlockListTitleDesktop.height.toInt(),
-          listController: BlocksListController(),
+          listController: listController,
           scrollController: scrollController,
           singlePageSize: pageSize,
           hasBackgroundBool: ResponsiveWidget.isLargeScreen(context),

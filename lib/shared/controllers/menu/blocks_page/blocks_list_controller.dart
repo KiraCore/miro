@@ -1,8 +1,10 @@
 import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/controllers/i_list_controller.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/models/page_data.dart';
 import 'package:miro/infra/services/cache/favourites_cache_service.dart';
 import 'package:miro/shared/models/blocks/block_id.dart';
 import 'package:miro/shared/models/blocks/block_model.dart';
 import 'package:miro/shared/models/blocks/header.dart';
+import 'package:miro/shared/models/list/pagination_details_model.dart';
 import 'package:miro/shared/utils/list_utils.dart';
 
 class BlocksListController implements IListController<BlockModel> {
@@ -14,12 +16,15 @@ class BlocksListController implements IListController<BlockModel> {
   }
 
   @override
-  Future<List<BlockModel>> getFavouritesData() async {
+  Future<List<BlockModel>> getFavouritesData({bool? forceRequestBool}) async {
     return <BlockModel>[];
   }
 
   @override
-  Future<List<BlockModel>> getPageData(int pageIndex, int offset, int limit) async {
+  Future<PageData<BlockModel>> getPageData(
+    PaginationDetailsModel paginationDetailsModel, {
+    bool forceRequestBool = false,
+  }) async {
     List<BlockModel> blocksModelList = <BlockModel>[
       BlockModel(
           blockId: BlockId(hash: '5DA5429BE2DFABC2B808942E710C51067CB594928AEBE92B1B575616C0FD7D67'),
@@ -259,6 +264,13 @@ class BlocksListController implements IListController<BlockModel> {
           numTxs: '0'),
     ];
 
-    return ListUtils.getSafeSublist(list: blocksModelList, start: offset, end: limit);
+    List<BlockModel> list = ListUtils.getSafeSublist(
+        list: blocksModelList, start: paginationDetailsModel.offset, end: paginationDetailsModel.limit);
+    return PageData<BlockModel>(
+      listItems: list,
+      lastPageBool: list.length < paginationDetailsModel.limit,
+      blockDateTime: DateTime.now(),
+      cacheExpirationDateTime: DateTime.now(),
+    );
   }
 }
