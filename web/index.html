@@ -49,6 +49,11 @@
   <img alt="loading..." class="indicator" src="./assets/assets/logo_loading.gif">
 </div>
 
+<!-- TODO(Mykyta): TEMP FIX of Firebase initialization error if launching with `-d chrome`. Checkout once again the issue after Flutter upgrade -->
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.7.0/firebase-remote-config.js"></script>
+<!-- END of TEMP FIX of Firebase initialization -->
+
 <!-- Flutter initialization -->
 <script>
     window.addEventListener('load', function (ev) {

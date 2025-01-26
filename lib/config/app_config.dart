@@ -4,6 +4,7 @@ import 'package:miro/shared/models/network/status/network_unknown_model.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';
 import 'package:miro/shared/utils/logger/log_level.dart';
 import 'package:miro/shared/utils/network_utils.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class AppConfig {
   final int bulkSinglePageSize;
@@ -12,6 +13,7 @@ class AppConfig {
   final Duration loadingPageTimerDuration;
   final List<String> supportedInterxVersions;
   final RpcBrowserUrlController rpcBrowserUrlController;
+  final PackageInfo packageInfo;
 
   final int _defaultRefreshIntervalSeconds;
 
@@ -27,9 +29,10 @@ class AppConfig {
     required this.supportedInterxVersions,
     required this.rpcBrowserUrlController,
     required int defaultRefreshIntervalSeconds,
+    required this.packageInfo,
   }) : _defaultRefreshIntervalSeconds = defaultRefreshIntervalSeconds;
 
-  factory AppConfig.buildDefaultConfig() {
+  factory AppConfig.buildDefaultConfig({required PackageInfo packageInfo}) {
     return AppConfig(
       bulkSinglePageSize: 500,
       defaultApiCacheMaxAge: const Duration(seconds: 60),
@@ -38,6 +41,7 @@ class AppConfig {
       supportedInterxVersions: <String>['v0.4.46', 'v0.4.48'],
       rpcBrowserUrlController: RpcBrowserUrlController(),
       defaultRefreshIntervalSeconds: 60,
+      packageInfo: packageInfo,
     );
   }
 
@@ -54,8 +58,9 @@ class AppConfig {
   }
 
   NetworkUnknownModel findNetworkModelInConfig(NetworkUnknownModel networkUnknownModel) {
-    List<NetworkUnknownModel> matchingNetworkUnknownModels =
-        networkList.where((NetworkUnknownModel e) => NetworkUtils.compareUrisByUrn(e.uri, networkUnknownModel.uri)).toList();
+    List<NetworkUnknownModel> matchingNetworkUnknownModels = networkList
+        .where((NetworkUnknownModel e) => NetworkUtils.compareUrisByUrn(e.uri, networkUnknownModel.uri))
+        .toList();
 
     if (matchingNetworkUnknownModels.isEmpty) {
       return networkUnknownModel;
@@ -105,7 +110,8 @@ class AppConfig {
         try {
           _networkList.add(NetworkUnknownModel.fromJson(networkListItem as Map<String, dynamic>));
         } catch (_) {
-          AppLogger().log(message: 'CONFIG: Cannot parse network list item from network_list_config.json: $networkListItem');
+          AppLogger()
+              .log(message: 'CONFIG: Cannot parse network list item from network_list_config.json: $networkListItem');
         }
       }
     }
@@ -127,8 +133,8 @@ class AppConfig {
       return null;
     }
     Uri uri = NetworkUtils.parseUrlToInterxUri(networkAddress);
-    NetworkUnknownModel urlNetworkUnknownModel =
-        NetworkUnknownModel(uri: uri, connectionStatusType: ConnectionStatusType.disconnected, lastRefreshDateTime: DateTime.now());
+    NetworkUnknownModel urlNetworkUnknownModel = NetworkUnknownModel(
+        uri: uri, connectionStatusType: ConnectionStatusType.disconnected, lastRefreshDateTime: DateTime.now());
     urlNetworkUnknownModel = findNetworkModelInConfig(urlNetworkUnknownModel);
     return urlNetworkUnknownModel;
   }

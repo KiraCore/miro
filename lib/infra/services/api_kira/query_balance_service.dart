@@ -70,7 +70,7 @@ class QueryBalanceService implements _IQueryBalanceService {
 
   Future<List<BalanceModel>> _buildBalanceModels(QueryBalanceResp queryBalanceResp) async {
     QueryKiraTokensAliasesService queryKiraTokensAliasesService = globalLocator<QueryKiraTokensAliasesService>();
-    List<TokenAliasModel> tokenAliasModels = await queryKiraTokensAliasesService.getTokenAliasModels();
+    List<TokenAliasModel> tokenAliasModels = queryKiraTokensAliasesService.getTokenAliasModels();
 
     List<BalanceModel> balanceModelList = List<BalanceModel>.empty(growable: true);
     for (Balance balance in queryBalanceResp.balances) {

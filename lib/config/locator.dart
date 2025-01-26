@@ -7,6 +7,7 @@ import 'package:miro/blocs/layout/nav_menu/nav_menu_cubit.dart';
 import 'package:miro/blocs/widgets/network_list/network_custom_section/network_custom_section_cubit.dart';
 import 'package:miro/blocs/widgets/network_list/network_list/network_list_cubit.dart';
 import 'package:miro/config/app_config.dart';
+import 'package:miro/config/remote_config.dart';
 import 'package:miro/infra/managers/cache/api_cache_manager.dart';
 import 'package:miro/infra/managers/cache/i_cache_manager.dart';
 import 'package:miro/infra/managers/cache/impl/auto_cache_manager.dart';
@@ -30,13 +31,24 @@ import 'package:miro/infra/services/api_kira/query_staking_pool_service.dart';
 import 'package:miro/infra/services/api_kira/query_undelegations_service.dart';
 import 'package:miro/infra/services/network_module_service.dart';
 import 'package:miro/shared/controllers/global_nav/global_nav_controller.dart';
+import 'package:miro/test/mock_remote_config.dart';
+import 'package:miro/test/utils/test_utils.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 final GetIt globalLocator = GetIt.I;
 
-void initLocator() {
-  globalLocator
-    ..registerLazySingleton<AppConfig>(AppConfig.buildDefaultConfig)
-    ..registerLazySingleton<ICacheManager>(AutoCacheManager.new);
+Future<void> initLocator({bool isForIntegrationTestBool = false}) async {
+  if (isForIntegrationTestBool) {
+    globalLocator
+      ..registerLazySingleton<AppConfig>(() => AppConfig.buildDefaultConfig(packageInfo: TestUtils.packageInfo))
+      ..registerLazySingleton<RemoteConfig>(MockRemoteConfig.new);
+  } else {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    globalLocator
+      ..registerLazySingleton<AppConfig>(() => AppConfig.buildDefaultConfig(packageInfo: packageInfo))
+      ..registerLazySingleton<RemoteConfig>(RemoteConfig.new);
+  }
+  globalLocator.registerLazySingleton<ICacheManager>(AutoCacheManager.new);
 
   _initRepositories();
   _initServices();

@@ -7,6 +7,7 @@ import 'package:miro/blocs/widgets/network_list/network_custom_section/network_c
 import 'package:miro/blocs/widgets/network_list/network_list/network_list_cubit.dart';
 import 'package:miro/config/app_config.dart';
 import 'package:miro/config/locator.dart';
+import 'package:miro/config/remote_config.dart';
 import 'package:miro/infra/managers/cache/api_cache_manager.dart';
 import 'package:miro/infra/managers/cache/i_cache_manager.dart';
 import 'package:miro/infra/managers/cache/impl/memory_cache_manager.dart';
@@ -33,12 +34,20 @@ import 'package:miro/shared/controllers/global_nav/global_nav_controller.dart';
 import 'package:miro/test/mock_api_kira_repository.dart';
 import 'package:miro/test/mock_api_repository.dart';
 import 'package:miro/test/mock_app_config.dart';
+import 'package:miro/test/mock_remote_config.dart';
 import 'package:miro/test/mocks/mock_network_list_config_json.dart';
 
 Future<void> initMockLocator() async {
   globalLocator
     ..registerLazySingleton<AppConfig>(MockAppConfig.buildDefaultConfig)
     ..registerLazySingleton<ICacheManager>(MemoryCacheManager.new);
+
+  // TODO(Mykyta): this is a temporary solution to handle different mocked behavior for the same methods. Problem is that we cannot @GenerateNiceMocks while this file is under /lib dir
+  try {
+    globalLocator.registerSingleton<RemoteConfig>(MockRemoteConfig());
+  } catch (e) {
+    // ignore if config is already initialized via NiceMock in /tests
+  }
 
   _initRepositories();
   _initServices();

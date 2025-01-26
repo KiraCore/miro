@@ -49,21 +49,20 @@ class NetworkModuleBloc extends Bloc<ANetworkModuleEvent, NetworkModuleState> {
     await super.close();
   }
 
-  Future<void> _mapInitEventToState(NetworkModuleInitEvent networkModuleInitEvent, Emitter<NetworkModuleState> emit) async {
+  Future<void> _mapInitEventToState(
+      NetworkModuleInitEvent networkModuleInitEvent, Emitter<NetworkModuleState> emit) async {
     NetworkUnknownModel defaultNetworkUnknownModel = await _appConfig.getDefaultNetworkUnknownModel();
 
     add(NetworkModuleAutoConnectEvent(defaultNetworkUnknownModel));
     _updateNetworkStatusModelList(ignoreNetworkUnknownModel: defaultNetworkUnknownModel);
 
     _timer = Timer.periodic(_appConfig.refreshInterval, (Timer timer) {
-      // TODO(dominik): Debug info. Should be removed before release
-      // ignore: avoid_print
-      print('Refreshing Network: ${timer.tick}');
       add(NetworkModuleRefreshEvent());
     });
   }
 
-  Future<void> _mapRefreshEventToState(NetworkModuleRefreshEvent networkModuleRefreshEvent, Emitter<NetworkModuleState> emit) async {
+  Future<void> _mapRefreshEventToState(
+      NetworkModuleRefreshEvent networkModuleRefreshEvent, Emitter<NetworkModuleState> emit) async {
     if (state.networkStatusModel is NetworkEmptyModel || state.isRefreshing) {
       _updateNetworkStatusModelList();
     } else {
@@ -86,7 +85,8 @@ class NetworkModuleBloc extends Bloc<ANetworkModuleEvent, NetworkModuleState> {
     await _networkCustomSectionCubit.refreshNetworks();
   }
 
-  Future<void> _mapAutoConnectEventToState(NetworkModuleAutoConnectEvent networkModuleAutoConnectEvent, Emitter<NetworkModuleState> emit) async {
+  Future<void> _mapAutoConnectEventToState(
+      NetworkModuleAutoConnectEvent networkModuleAutoConnectEvent, Emitter<NetworkModuleState> emit) async {
     NetworkUnknownModel networkUnknownModel = networkModuleAutoConnectEvent.networkUnknownModel;
     emit(NetworkModuleState.connecting(networkUnknownModel));
 
@@ -108,7 +108,8 @@ class NetworkModuleBloc extends Bloc<ANetworkModuleEvent, NetworkModuleState> {
     }
   }
 
-  Future<void> _mapConnectEventToState(NetworkModuleConnectEvent networkModuleConnectEvent, Emitter<NetworkModuleState> emit) async {
+  Future<void> _mapConnectEventToState(
+      NetworkModuleConnectEvent networkModuleConnectEvent, Emitter<NetworkModuleState> emit) async {
     ANetworkOnlineModel networkOnlineModel = networkModuleConnectEvent.networkOnlineModel;
     _rpcBrowserUrlController.setRpcAddress(networkOnlineModel);
     await _networkCustomSectionCubit.updateNetworks(networkOnlineModel);

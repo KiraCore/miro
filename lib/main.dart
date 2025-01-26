@@ -1,5 +1,6 @@
 import 'dart:html';
 
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:miro/blocs/generic/identity_registrar/identity_registrar_cubit.dart';
@@ -8,7 +9,9 @@ import 'package:miro/blocs/generic/network_module/network_module_bloc.dart';
 import 'package:miro/blocs/widgets/network_list/network_list/network_list_cubit.dart';
 import 'package:miro/config/app_config.dart';
 import 'package:miro/config/locator.dart';
+import 'package:miro/config/remote_config.dart';
 import 'package:miro/config/theme/theme_config.dart';
+import 'package:miro/firebase_options.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/infra/managers/cache/i_cache_manager.dart';
 import 'package:miro/shared/controllers/global_nav/global_nav_controller.dart';
@@ -19,18 +22,20 @@ Future<void> main() async {
   // disable default context menu
   window.document.onContextMenu.listen((MouseEvent mouseEvent) => mouseEvent.preventDefault());
 
-  initLocator();
+  await initLocator();
   await globalLocator<ICacheManager>().init();
 
   Map<String, dynamic> configJson = await AssetsManager().getAsMap('assets/network_list_config.json');
   globalLocator<AppConfig>().init(configJson);
+
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await globalLocator<RemoteConfig>().init();
 
   globalLocator<NetworkModuleBloc>().add(NetworkModuleInitEvent());
   globalLocator<NetworkListCubit>().initNetworkStatusModelList();
 
   // TODO(Marcin): remove unnecessary IdentityRegistrarCubit initialization
   await globalLocator<IdentityRegistrarCubit>().refresh();
-
   runApp(const CoreApp());
 }
 

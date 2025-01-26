@@ -13,6 +13,8 @@ import 'package:miro/test/utils/test_utils.dart';
 // fvm flutter test test/integration/infra/services/api_kira/query_delegations_service_test.dart --platform chrome --null-assertions
 // ignore_for_file: avoid_print
 Future<void> main() async {
+  TestWidgetsFlutterBinding.ensureInitialized();
+
   await TestUtils.initIntegrationTest();
 
   final Uri networkUri = NetworkUtils.parseUrlToInterxUri('http://173.212.254.147:11000');

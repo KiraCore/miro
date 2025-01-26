@@ -27,15 +27,18 @@ Future<void> main() async {
 
       TestUtils.printInfo('Data request');
       try {
-        PageData<BalanceModel> actualBalancesPageData = await actualQueryBalanceService.getBalanceModelList(actualQueryBalanceReq);
+        PageData<BalanceModel> actualBalancesPageData =
+            await actualQueryBalanceService.getBalanceModelList(actualQueryBalanceReq);
 
         TestUtils.printInfo('Data return');
         print(actualBalancesPageData);
         print('');
       } on DioConnectException catch (e) {
-        TestUtils.printError('query_balance_service_test.dart: Cannot fetch [PageData<BalanceModel>] for URI $networkUri: ${e.dioException.message}');
+        TestUtils.printError(
+            'query_balance_service_test.dart: Cannot fetch [PageData<BalanceModel>] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
-        TestUtils.printError('query_balance_service_test.dart: Cannot parse [PageData<BalanceModel>] for URI $networkUri: ${e}');
+        TestUtils.printError(
+            'query_balance_service_test.dart: Cannot parse [PageData<BalanceModel>] for URI $networkUri: ${e}');
       } catch (e) {
         TestUtils.printError('query_balance_service_test.dart: Unknown error for URI $networkUri: ${e}');
       }

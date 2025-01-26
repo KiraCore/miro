@@ -3,6 +3,8 @@ import 'package:miro/blocs/generic/network_module/events/network_module_connect_
 import 'package:miro/blocs/generic/network_module/network_module_bloc.dart';
 import 'package:miro/config/app_config.dart';
 import 'package:miro/config/locator.dart';
+import 'package:miro/infra/dto/api_kira/query_kira_tokens_aliases/response/query_kira_tokens_aliases_resp.dart';
+import 'package:miro/infra/dto/api_kira/query_kira_tokens_aliases/response/token_alias.dart';
 import 'package:miro/infra/managers/cache/i_cache_manager.dart';
 import 'package:miro/shared/models/network/data/connection_status_type.dart';
 import 'package:miro/shared/models/network/data/interx_warning_model.dart';
@@ -18,6 +20,7 @@ import 'package:miro/shared/models/tokens/token_denomination_model.dart';
 import 'package:miro/shared/models/wallet/wallet.dart';
 import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/test/mocks/mock_network_list_config_json.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 class TestUtils {
   static Wallet wallet = Wallet(
@@ -74,6 +77,13 @@ class TestUtils {
     lastRefreshDateTime: defaultLastRefreshDateTime,
   );
 
+  static final PackageInfo packageInfo = PackageInfo(
+    appName: 'Miro',
+    packageName: 'miro',
+    version: '0.0.0',
+    buildNumber: '0',
+  );
+
   static final NetworkHealthyModel networkHealthyModel = NetworkHealthyModel(
     connectionStatusType: ConnectionStatusType.disconnected,
     uri: Uri.parse('https://healthy.kira.network'),
@@ -92,6 +102,23 @@ class TestUtils {
       defaultTokenAliasModel: TokenAliasModel.local('ukex'),
     ),
     lastRefreshDateTime: defaultLastRefreshDateTime,
+  );
+
+  static const QueryKiraTokensAliasesResp queryKiraTokensAliasesResp = QueryKiraTokensAliasesResp(
+    tokenAliases: <TokenAlias>[
+      TokenAlias(
+        decimals: 6,
+        denoms: <String>['ukex'],
+        name: 'ukex',
+        symbol: 'ukex',
+        // TODO(Mykyta): make nullable
+        icon: '',
+        // TODO(Mykyta): make int, and get from api
+        amount: '0',
+      ),
+    ],
+    defaultDenom: 'ukex',
+    bech32Prefix: 'kira',
   );
 
   static final NetworkUnhealthyModel networkUnhealthyModel = NetworkUnhealthyModel(
@@ -182,9 +209,10 @@ class TestUtils {
   }
 
   static Future<void> initIntegrationTest() async {
-    initLocator();
+    await initLocator(isForIntegrationTestBool: true);
     await globalLocator<ICacheManager>().init();
     globalLocator<AppConfig>().init(MockNetworkListConfigJson.defaultNetworkListConfig);
+    // TODO(Mykyta): add here RemoteConfig init once integration tests will be fully integrational, and not unit
   }
 
   static void printInfo(String message) {

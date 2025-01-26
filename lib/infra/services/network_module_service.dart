@@ -23,12 +23,12 @@ class NetworkModuleService implements _INetworkModuleService {
   final QueryValidatorsService _queryValidatorsService = globalLocator<QueryValidatorsService>();
 
   @override
-  Future<ANetworkStatusModel> getNetworkStatusModel(NetworkUnknownModel networkUnknownModel, {NetworkUnknownModel? previousNetworkUnknownModel}) async {
+  Future<ANetworkStatusModel> getNetworkStatusModel(NetworkUnknownModel networkUnknownModel,
+      {NetworkUnknownModel? previousNetworkUnknownModel}) async {
     DateTime lastRefreshDateTime = networkUnknownModel.lastRefreshDateTime ?? DateTime.now();
     try {
       NetworkInfoModel networkInfoModel = await _getNetworkInfoModel(networkUnknownModel);
-      TokenDefaultDenomModel tokenDefaultDenomModel =
-          await _queryKiraTokensAliasesService.getTokenDefaultDenomModel(networkUnknownModel.uri, forceRequestBool: true);
+      TokenDefaultDenomModel tokenDefaultDenomModel = _queryKiraTokensAliasesService.getTokenDefaultDenomModel();
       return ANetworkOnlineModel.build(
         lastRefreshDateTime: lastRefreshDateTime,
         networkInfoModel: networkInfoModel,
@@ -38,7 +38,8 @@ class NetworkModuleService implements _INetworkModuleService {
         name: networkUnknownModel.name,
       );
     } catch (e) {
-      AppLogger().log(message: 'NetworkModuleService: Cannot fetch getNetworkStatusModel() for URI ${networkUnknownModel.uri} $e');
+      AppLogger().log(
+          message: 'NetworkModuleService: Cannot fetch getNetworkStatusModel() for URI ${networkUnknownModel.uri} $e');
       if (networkUnknownModel.isHttps()) {
         return getNetworkStatusModel(
           networkUnknownModel.copyWithHttp(),
@@ -63,7 +64,8 @@ class NetworkModuleService implements _INetworkModuleService {
       AppLogger().log(message: 'NetworkModuleService: Cannot fetch getStatus() for URI ${networkUnknownModel.uri} $e');
     }
 
-    QueryInterxStatusResp queryInterxStatusResp = await _queryInterxStatusService.getQueryInterxStatusResp(networkUnknownModel.uri, forceRequestBool: true);
+    QueryInterxStatusResp queryInterxStatusResp =
+        await _queryInterxStatusService.getQueryInterxStatusResp(networkUnknownModel.uri, forceRequestBool: true);
     return NetworkInfoModel.fromDto(queryInterxStatusResp, status);
   }
 }
