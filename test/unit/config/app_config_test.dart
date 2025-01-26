@@ -298,12 +298,12 @@ Future<void> main() async {
   });
 
   group('Tests of AppConfig.getDefaultNetworkUnknownModel()', () {
-    test('Should return [NetworkUnknownModel] as a first element of config network list', () async {
+    test('Should return [NetworkUnknownModel] as a first element of config network list', () {
       // Arrange
       AppConfig appConfig = globalLocator<AppConfig>();
 
       // Act
-      NetworkUnknownModel actualNetworkUnknownModel = await appConfig.getDefaultNetworkUnknownModel();
+      NetworkUnknownModel actualNetworkUnknownModel = appConfig.getDefaultNetworkUnknownModel();
 
       // Assert
       NetworkUnknownModel expectedNetworkUnknownModel = appConfig.networkList.first;
@@ -317,7 +317,7 @@ Future<void> main() async {
       RpcBrowserUrlController().setRpcAddress(TestUtils.unhealthyNetworkUnknownModel);
 
       // Act
-      NetworkUnknownModel actualNetworkUnknownModel = await appConfig.getDefaultNetworkUnknownModel();
+      NetworkUnknownModel actualNetworkUnknownModel = appConfig.getDefaultNetworkUnknownModel();
 
       // Assert
       NetworkUnknownModel expectedNetworkUnknownModel = TestUtils.unhealthyNetworkUnknownModel;

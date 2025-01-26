@@ -60,7 +60,7 @@ class NetworkCustomSectionCubit extends Cubit<NetworkCustomSectionState> {
     }
   }
 
-  Future<void> updateNetworks([ANetworkStatusModel? connectedNetworkStatusModel]) async {
+  void updateNetworks([ANetworkStatusModel? connectedNetworkStatusModel]) {
     bool customNetworkBool = _isNetworkCustom(connectedNetworkStatusModel);
     bool differentNetworkBool = NetworkUtils.compareUrisByUrn(connectedNetworkStatusModel?.uri, state.connectedNetworkStatusModel?.uri) == false;
     bool checkedNetworkBool = NetworkUtils.compareUrisByUrn(connectedNetworkStatusModel?.uri, state.checkedNetworkStatusModel?.uri);
@@ -110,7 +110,7 @@ class NetworkCustomSectionCubit extends Cubit<NetworkCustomSectionState> {
         (networkStatusModel is NetworkUnknownModel) ? networkStatusModel : NetworkUnknownModel.fromNetworkStatusModel(networkStatusModel);
 
     ANetworkStatusModel refreshedNetworkStatusModel = await _networkModuleService.getNetworkStatusModel(
-        networkUnknownModel.copyWith(uri: networkUnknownModel.uri.replace(scheme: 'https')),
+        networkUnknownModel,
         previousNetworkUnknownModel: networkUnknownModel);
 
     return refreshedNetworkStatusModel;

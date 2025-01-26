@@ -63,8 +63,8 @@ class AppConfig {
     return matchingNetworkUnknownModels.first;
   }
 
-  Future<NetworkUnknownModel> getDefaultNetworkUnknownModel() async {
-    NetworkUnknownModel? urlNetworkUnknownModel = await _getNetworkUnknownModelFromUrl();
+  NetworkUnknownModel getDefaultNetworkUnknownModel() {
+    NetworkUnknownModel? urlNetworkUnknownModel = _getNetworkUnknownModelFromUrl();
     if (urlNetworkUnknownModel == null) {
       return networkList.first;
     }
@@ -121,7 +121,7 @@ class AppConfig {
     }
   }
 
-  Future<NetworkUnknownModel?> _getNetworkUnknownModelFromUrl() async {
+  NetworkUnknownModel? _getNetworkUnknownModelFromUrl() {
     String? networkAddress = rpcBrowserUrlController.getRpcAddress();
     if (networkAddress == null) {
       return null;
