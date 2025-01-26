@@ -21,7 +21,6 @@ import 'package:miro/test/mocks/api_kira/mock_api_kira_identity_records.dart';
 import 'package:miro/test/mocks/api_kira/mock_api_kira_identity_verify_requests_by_approver.dart';
 import 'package:miro/test/mocks/api_kira/mock_api_kira_identity_verify_requests_by_requester.dart';
 import 'package:miro/test/mocks/api_kira/mock_api_kira_staking_pool.dart';
-import 'package:miro/test/mocks/api_kira/mock_api_kira_tokens_aliases.dart';
 import 'package:miro/test/mocks/api_kira/mock_api_kira_tokens_rates.dart';
 import 'package:miro/test/mocks/api_kira/mock_api_kira_txs.dart';
 import 'package:miro/test/mocks/api_kira/mock_api_kira_undelegations.dart';
@@ -257,32 +256,6 @@ class MockApiKiraRepository implements IApiKiraRepository {
           break;
         default:
           response = MockApiKiraIdentityVerifyRequestsByRequester.defaultResponse as T;
-      }
-      return Response<T>(
-        statusCode: 200,
-        data: response,
-        headers: MockHeaders.defaultHeaders,
-        requestOptions: RequestOptions(path: ''),
-      );
-    } else {
-      throw DioConnectException(dioException: DioException(requestOptions: RequestOptions(path: networkUri.host)));
-    }
-  }
-
-  @override
-  Future<Response<T>> fetchQueryKiraTokensAliases<T>(ApiRequestModel<void> apiRequestModel) async {
-    Uri networkUri = apiRequestModel.networkUri;
-    // 'dynamic.kira.network' handling needs to be included to properly test NetworkModuleBloc
-    // NetworkModuleBloc uses 'dynamic.kira.network' in tests and implicitly depends on this method
-    bool responseExistsBool = workingEndpoints.contains(networkUri.host) || networkUri.host == 'dynamic.kira.network';
-    if (responseExistsBool) {
-      late T response;
-      switch (networkUri.host) {
-        case 'invalid.kira.network':
-          response = <String, dynamic>{'invalid': 'response'} as T;
-          break;
-        default:
-          response = MockApiKiraTokensAliases.defaultResponse as T;
       }
       return Response<T>(
         statusCode: 200,

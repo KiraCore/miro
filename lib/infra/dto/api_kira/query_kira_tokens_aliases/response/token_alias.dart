@@ -6,6 +6,8 @@ class TokenAlias extends Equatable {
   final String name;
   final String symbol;
   final String icon;
+  // TODO(Mykyta): remove amount from this static model
+  @Deprecated('This field is not representative here. TokenAlias is static. amount should be observed elsewhere')
   final String amount;
 
   const TokenAlias({
@@ -14,6 +16,7 @@ class TokenAlias extends Equatable {
     required this.name,
     required this.symbol,
     required this.icon,
+    @Deprecated('This field is not representative here. TokenAlias is static. amount should be observed elsewhere')
     required this.amount,
   });
 
@@ -27,6 +30,15 @@ class TokenAlias extends Equatable {
       amount: json['amount'] as String,
     );
   }
+
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'decimals': decimals,
+        'denoms': denoms,
+        'name': name,
+        'symbol': symbol,
+        'icon': icon,
+        'amount': amount,
+      };
 
   @override
   List<Object?> get props => <Object>[decimals, denoms, name, symbol, icon, amount];

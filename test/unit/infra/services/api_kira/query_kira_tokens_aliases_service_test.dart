@@ -1,11 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/config/locator.dart';
-import 'package:miro/infra/exceptions/dio_connect_exception.dart';
-import 'package:miro/infra/exceptions/dio_parse_exception.dart';
 import 'package:miro/infra/services/api_kira/query_kira_tokens_aliases_service.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_default_denom_model.dart';
-import 'package:miro/shared/utils/network_utils.dart';
 import 'package:miro/test/mock_locator.dart';
 import 'package:miro/test/utils/test_utils.dart';
 
@@ -18,14 +15,10 @@ Future<void> main() async {
   final QueryKiraTokensAliasesService queryKiraTokensAliasesService = globalLocator<QueryKiraTokensAliasesService>();
 
   group('Tests of QueryKiraTokensAliasesService.getTokenAliases() method', () {
-    test('Should return [List of TokenAliasModel] if [server HEALTHY] and [response data VALID]', () async {
-      // Arrange
-      Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://healthy.kira.network/');
-      await TestUtils.setupNetworkModel(networkUri: networkUri);
-
+    test('Should return [List of TokenAliasModel]', () async {
       // Act
-      List<TokenAliasModel> actualTokenAliasModelList = await queryKiraTokensAliasesService.getTokenAliasModels();
-      
+      List<TokenAliasModel> actualTokenAliasModelList = queryKiraTokensAliasesService.getTokenAliasModels();
+
       // Assert
       List<TokenAliasModel> expectedTokenAliasModelList = <TokenAliasModel>[
         TestUtils.kexTokenAliasModel,
@@ -33,74 +26,21 @@ Future<void> main() async {
 
       expect(actualTokenAliasModelList, expectedTokenAliasModelList);
     });
-
-    test('Should throw [DioParseException] if [server HEALTHY] and [response data INVALID]', () async {
-      // Arrange
-      Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://invalid.kira.network/');
-      await TestUtils.setupNetworkModel(networkUri: networkUri);
-
-      // Assert
-      expect(
-        queryKiraTokensAliasesService.getTokenAliasModels,
-        throwsA(isA<DioParseException>()),
-      );
-    });
-
-    test('Should throw [DioConnectException] if [server OFFLINE]', () async {
-      // Arrange
-      Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://offline.kira.network/');
-      await TestUtils.setupNetworkModel(networkUri: networkUri);
-
-      // Assert
-      expect(
-        queryKiraTokensAliasesService.getTokenAliasModels,
-        throwsA(isA<DioConnectException>()),
-      );
-    });
   });
 
   group('Tests of QueryKiraTokensAliasesService.getTokenDefaultDenomModel() method', () {
-    test('Should return [TokenDefaultDenomModel] if [server HEALTHY] and [response data VALID]', () async {
-      // Arrange
-      Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://healthy.kira.network/');
-      await TestUtils.setupNetworkModel(networkUri: networkUri);
-
+    test('Should return [TokenDefaultDenomModel]', () async {
       // Act
-      TokenDefaultDenomModel actualTokenDefaultDenomModel = await queryKiraTokensAliasesService.getTokenDefaultDenomModel(networkUri);
-
-      // Assert
-      TokenDefaultDenomModel expectedTokenDefaultDenom = TokenDefaultDenomModel(
-        valuesFromNetworkExistBool: true,
-        bech32AddressPrefix: 'kira',
-        defaultTokenAliasModel: TestUtils.kexTokenAliasModel,
-      );
-
-      expect(actualTokenDefaultDenomModel, expectedTokenDefaultDenom);
-    });
-
-    test('Should return [TokenDefaultDenomModel.empty()] if [server HEALTHY] and [response data INVALID]', () async {
-      // Arrange
-      Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://invalid.kira.network/');
-      await TestUtils.setupNetworkModel(networkUri: networkUri);
-
-      // Act
-      TokenDefaultDenomModel actualTokenDefaultDenomModel = await queryKiraTokensAliasesService.getTokenDefaultDenomModel(networkUri);
-
-      // Assert
-      TokenDefaultDenomModel expectedTokenDefaultDenom = TokenDefaultDenomModel.empty();
-
-      expect(actualTokenDefaultDenomModel, expectedTokenDefaultDenom);
-    });
-
-    test('Should throw [DioConnectException] if [server OFFLINE]', () async {
-      // Arrange
-      Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://offline.kira.network/');
-      await TestUtils.setupNetworkModel(networkUri: networkUri);
+      TokenDefaultDenomModel actualTokenDefaultDenomModel = queryKiraTokensAliasesService.getTokenDefaultDenomModel();
 
       // Assert
       expect(
-        queryKiraTokensAliasesService.getTokenDefaultDenomModel(networkUri),
-        throwsA(isA<DioConnectException>()),
+        actualTokenDefaultDenomModel,
+        TokenDefaultDenomModel(
+          valuesFromNetworkExistBool: true,
+          bech32AddressPrefix: TestUtils.queryKiraTokensAliasesResp.bech32Prefix,
+          defaultTokenAliasModel: TokenAliasModel.fromDto(TestUtils.queryKiraTokensAliasesResp.tokenAliases.first),
+        ),
       );
     });
   });

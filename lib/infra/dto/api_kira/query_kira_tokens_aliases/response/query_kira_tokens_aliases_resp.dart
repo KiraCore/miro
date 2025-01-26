@@ -21,6 +21,12 @@ class QueryKiraTokensAliasesResp extends Equatable {
     );
   }
 
+  Map<String, dynamic> toJson() => <String, dynamic>{
+        'token_aliases_data': tokenAliases.map((TokenAlias e) => e.toJson()).toList(),
+        'default_denom': defaultDenom,
+        'bech32_prefix': bech32Prefix,
+      };
+
   @override
   List<Object?> get props => <Object>[tokenAliases.hashCode, defaultDenom, bech32Prefix];
 }

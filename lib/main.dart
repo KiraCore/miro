@@ -16,6 +16,8 @@ import 'package:miro/shared/router/router.dart';
 import 'package:miro/shared/utils/assets_manager.dart';
 
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   // disable default context menu
   window.document.onContextMenu.listen((MouseEvent mouseEvent) => mouseEvent.preventDefault());
 
