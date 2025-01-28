@@ -77,7 +77,8 @@ class _IRMsgRegisterRecordForm extends State<IRMsgRegisterRecordForm> {
               minHeight: 60,
               maxHeight: const ResponsiveValue<double>(largeScreen: 120, smallScreen: 94).get(context),
             ),
-            child: TxTextField(
+            builderWithFocus: (FocusNode focusNode) => TxTextField(
+              focusNode: focusNode,
               label: S.of(context).irTxHintKey,
               disabled: widget.irKeyEditableBool == false,
               textEditingController: identityKeyTextEditingController,
@@ -91,19 +92,20 @@ class _IRMsgRegisterRecordForm extends State<IRMsgRegisterRecordForm> {
           const SizedBox(height: 14),
           TxInputWrapper(
             boxConstraints: BoxConstraints(
-                minHeight: 60,
-                maxHeight: const ResponsiveValue<double>(largeScreen: 200, smallScreen: 125).get(context),
-              ),
-              child: TxTextField(
-                label: S.of(context).irTxHintValue,
-                maxLength: widget.irValueMaxLength,
-                textEditingController: identityValueTextEditingController,
-                inputFormatters: <TextInputFormatter>[
-                  FilteringTextInputFormatter.allow(StringUtils.irValueRegExp),
-                ],
-                onChanged: _handleValueChanged,
-              ),
+              minHeight: 60,
+              maxHeight: const ResponsiveValue<double>(largeScreen: 200, smallScreen: 125).get(context),
             ),
+            builderWithFocus: (FocusNode focusNode) => TxTextField(
+              focusNode: focusNode,
+              label: S.of(context).irTxHintValue,
+              maxLength: widget.irValueMaxLength,
+              textEditingController: identityValueTextEditingController,
+              inputFormatters: <TextInputFormatter>[
+                FilteringTextInputFormatter.allow(StringUtils.irValueRegExp),
+              ],
+              onChanged: _handleValueChanged,
+            ),
+          ),
         ],
       ),
     );

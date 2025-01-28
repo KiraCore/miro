@@ -25,51 +25,41 @@ class _KiraDrawer extends State<KiraDrawer> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => _handleDrawerShadowTap(context),
-      child: PopScope(
-        onPopInvoked: (_) => _handlePopInvoked(),
-        child: SizedBox(
-          width: widget.width,
-          height: MediaQuery.of(context).size.height,
-          child: Drawer(
-            backgroundColor: DesignColors.background,
-            child: Container(
-              width: double.infinity,
-              height: double.infinity,
-              decoration: const BoxDecoration(
-                color: DesignColors.background,
-              ),
-              child: SingleChildScrollView(
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    DrawerAppBar(
-                      onClose: _handleDrawerClose,
-                      onPop: _handleDrawerPop,
-                    ),
-                    Padding(
-                      padding:
-                          ResponsiveWidget.isSmallScreen(context) ? const EdgeInsets.symmetric(horizontal: 20) : const EdgeInsets.symmetric(horizontal: 32),
-                      child: widget.child,
-                    ),
-                  ],
-                ),
+    return PopScope(
+      onPopInvoked: (_) => _handlePopInvoked(),
+      child: SizedBox(
+        width: widget.width,
+        height: MediaQuery.of(context).size.height,
+        child: Drawer(
+          backgroundColor: DesignColors.background,
+          child: Container(
+            width: double.infinity,
+            height: double.infinity,
+            decoration: const BoxDecoration(
+              color: DesignColors.background,
+            ),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  DrawerAppBar(
+                    onClose: _handleDrawerClose,
+                    onPop: _handleDrawerPop,
+                  ),
+                  Padding(
+                    padding:
+                        ResponsiveWidget.isSmallScreen(context) ? const EdgeInsets.symmetric(horizontal: 20) : const EdgeInsets.symmetric(horizontal: 32),
+                    child: widget.child,
+                  ),
+                ],
               ),
             ),
           ),
         ),
       ),
     );
-  }
-
-  void _handleDrawerShadowTap(BuildContext context) {
-    FocusScopeNode isFocused = FocusScope.of(context);
-    if (!isFocused.hasPrimaryFocus) {
-      isFocused.unfocus();
-    }
   }
 
   Future<void> _handlePopInvoked() async {

@@ -56,7 +56,7 @@ class _WalletAddressTextField extends State<WalletAddressTextField> {
           children: <Widget>[
             TxInputWrapper(
               hasErrors: field.hasError,
-              child: Row(
+              builderWithFocus: (FocusNode focusNode) => Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
                   ValueListenableBuilder<WalletAddress?>(
@@ -73,6 +73,7 @@ class _WalletAddressTextField extends State<WalletAddressTextField> {
                     child: Align(
                       alignment: Alignment.centerLeft,
                       child: TxTextField(
+                        focusNode: focusNode,
                         disabled: widget.disabledBool,
                         maxLines: 1,
                         hasErrors: field.hasError,
