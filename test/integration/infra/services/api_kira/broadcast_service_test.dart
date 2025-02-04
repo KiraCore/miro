@@ -38,7 +38,7 @@ import 'package:miro/test/utils/test_utils.dart';
 Future<void> main() async {
   await TestUtils.initIntegrationTest();
 
-  final Uri networkUri = NetworkUtils.parseUrlToInterxUri('http://89.128.117.28:12000');
+  final Uri networkUri = NetworkUtils.parseUrlToInterxUri('http://173.212.254.147:11000');
   await TestUtils.setupNetworkModel(networkUri: networkUri);
 
   // Set up the constants to run the tests.
