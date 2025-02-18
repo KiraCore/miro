@@ -4,9 +4,9 @@ import 'package:miro/shared/models/blocks/header.dart';
 
 class BlockModel extends AListItem {
   final BlockId blockId;
-  final String blockSize;
+  final int blockSize;
   final Header header;
-  final String numTxs;
+  final int numTxs;
   bool _favourite = false;
 
   BlockModel({
@@ -18,9 +18,9 @@ class BlockModel extends AListItem {
 
   factory BlockModel.fromJson(Map<String, dynamic> json) => BlockModel(
         blockId: BlockId.fromJson(json['block_id'] as Map<String, dynamic>),
-        blockSize: json['block_size'] as String,
+        blockSize: int.tryParse(json['block_size'].toString()) ?? 0,
         header: Header.fromJson(json['header'] as Map<String, dynamic>),
-        numTxs: json['num_txs'] as String,
+        numTxs: int.tryParse(json['num_txs'].toString()) ?? 0,
       );
 
   @override

@@ -52,6 +52,7 @@ class TransactionListTitleDesktop extends StatelessWidget {
                 BlocProvider.of<PaginatedListBloc<TxListItemModel>>(context).add(const ListReloadEvent());
               },
             ),
+            const SizedBox(width: 24),
             Expanded(
               child: Align(
                 alignment: Alignment.centerRight,

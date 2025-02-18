@@ -6,7 +6,11 @@ import 'package:miro/shared/models/transactions/messages/interx_msg_types.dart';
 import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
 import 'package:miro/shared/utils/custom_date_utils.dart';
 
-class QueryTransactionsReq extends Equatable {
+// TODO(Mykyta): combine with QueryTransactionsReq ???
+class QueryBlockTransactionsReq extends Equatable {
+  /// This represents the blockId you may want to fetch the transactions from
+  final String blockId;
+
   /// This represents the kira account address
   final String? address;
 
@@ -34,7 +38,8 @@ class QueryTransactionsReq extends Equatable {
   /// This represents the transaction type
   final List<TxMsgType>? type;
 
-  const QueryTransactionsReq({
+  const QueryBlockTransactionsReq({
+    required this.blockId,
     this.address,
     this.dateEnd,
     this.dateStart,
@@ -48,6 +53,7 @@ class QueryTransactionsReq extends Equatable {
 
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
+      // 'blockId': blockId, // NOTE: already in the path
       'address': address,
       // TODO(dominik): Replace camelCase with snake_case
       'dateEnd': dateEnd != null ? CustomDateUtils.parseDateToSecondsSinceEpoch(dateEnd!) : null,
@@ -63,5 +69,6 @@ class QueryTransactionsReq extends Equatable {
   }
 
   @override
-  List<Object?> get props => <Object?>[address, dateEnd, dateStart, direction, limit, offset, sort, status, type];
+  List<Object?> get props =>
+      <Object?>[blockId, address, dateEnd, dateStart, direction, limit, offset, sort, status, type];
 }

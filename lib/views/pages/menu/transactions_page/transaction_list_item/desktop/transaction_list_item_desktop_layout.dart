@@ -28,13 +28,13 @@ class TransactionListItemDesktopLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     double gapSize = 30;
     return Container(
-      padding: const EdgeInsets.only(left: 30, right: 40),
       height: height,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
       ),
       child: Row(
         children: <Widget>[
+          SizedBox(width: gapSize),
           Expanded(
             flex: 3,
             child: hashWidget,
@@ -69,6 +69,7 @@ class TransactionListItemDesktopLayout extends StatelessWidget {
             width: 80,
             child: Align(alignment: Alignment.centerRight, child: feeWidget),
           ),
+          SizedBox(width: gapSize),
         ],
       ),
     );

@@ -6,6 +6,8 @@ import 'package:miro/views/layout/drawer/drawer_app_bar.dart';
 import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
 import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 
+ScrollController drawerScrollController = ScrollController();
+
 class KiraDrawer extends StatefulWidget {
   final Widget child;
   final double width;
@@ -39,6 +41,7 @@ class _KiraDrawer extends State<KiraDrawer> {
               color: DesignColors.background,
             ),
             child: SingleChildScrollView(
+              controller: drawerScrollController,
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.start,

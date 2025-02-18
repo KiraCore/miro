@@ -8,10 +8,12 @@ import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 class BlocksListItemBuilder extends StatefulWidget {
   final BlockModel blockModel;
   final ScrollController scrollController;
+  final bool isAgeFormatBool;
 
   const BlocksListItemBuilder({
     required this.blockModel,
     required this.scrollController,
+    required this.isAgeFormatBool,
     Key? key,
   }) : super(key: key);
 
@@ -27,10 +29,11 @@ class _BlocksListItemBuilder extends State<BlocksListItemBuilder> {
   Widget build(BuildContext context) {
     Widget desktopListItem = BlocksListItemDesktop(
       blockModel: widget.blockModel,
+      isAgeFormatBool: widget.isAgeFormatBool,
     );
-
     Widget mobileListItem = BlocksListItemMobile(
       blockModel: widget.blockModel,
+      isAgeFormatBool: widget.isAgeFormatBool,
     );
 
     return ResponsiveWidget(

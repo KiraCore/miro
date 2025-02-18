@@ -1,5 +1,7 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:miro/blocs/pages/blocks/blocks_page/blocks_page_cubit.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/filters/filters_bloc.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/sort/sort_bloc.dart';
 import 'package:miro/config/app_sizes.dart';
@@ -25,10 +27,25 @@ class BlocksPage extends StatefulWidget {
 }
 
 class _BlocksPageState extends State<BlocksPage> {
-  int pageSize = 10;
+  int pageSize = 15;
   final ScrollController scrollController = ScrollController();
   final TextEditingController searchBarTextEditingController = TextEditingController();
   final BlocksListController listController = BlocksListController();
+  final FiltersBloc<BlockModel> filtersBloc = FiltersBloc<BlockModel>(
+    searchComparator: BlocksFilterOptions.search,
+  );
+  final SortBloc<BlockModel> sortBloc = SortBloc<BlockModel>(
+    defaultSortOption: BlocksSortOptions.sortByHeight.reversed(),
+  );
+  final BlocksListController blocksListController = BlocksListController();
+
+  @override
+  void dispose() {
+    searchBarTextEditingController.dispose();
+    scrollController.dispose();
+    filtersBloc.close();
+    super.dispose();
+  }
 
   void changePageSize(int newSize) {
     setState(() {
@@ -36,49 +53,130 @@ class _BlocksPageState extends State<BlocksPage> {
     });
   }
 
-  final FiltersBloc<BlockModel> filtersBloc = FiltersBloc<BlockModel>(
-    searchComparator: BlocksFilterOptions.search,
-  );
+  // @override
+  // Widget build(BuildContext context) {
+  //   TextTheme textTheme = Theme.of(context).textTheme;
+  //   TextStyle headerStyle = textTheme.bodySmall!.copyWith(color: DesignColors.white1);
+  //
+  //   Widget listHeaderWidget = BlocksListItemDesktopLayout(
+  //     height: 64,
+  //     ageWidget: Text(S.of(context).blocksDateTime, style: headerStyle),
+  //     hashWidget: Text(S.of(context).blocksHash, style: headerStyle),
+  //     heightWidget: Text(S.of(context).blocksHeight, style: headerStyle),
+  //     kiraToolTipWidget: const SizedBox(width: 50),
+  //     proposerWidget: Text(S.of(context).blocksProposer, style: headerStyle),
+  //     txCountWidget: Text(S.of(context).blocksTxCount, style: headerStyle),
+  //   );
+  //   return CustomScrollView(controller: scrollController, slivers: <Widget>[
+  //     SliverPadding(
+  //       padding: AppSizes.getPagePadding(context),
+  //       sliver: SliverPaginatedList<BlockModel>(
+  //         itemBuilder: (BlockModel blockModel) => BlocksListItemBuilder(
+  //           blockModel: blockModel,
+  //           scrollController: scrollController,
+  //         ),
+  //         desktopItemHeight: BlockListTitleDesktop.height.toInt(),
+  //         listController: listController,
+  //         scrollController: scrollController,
+  //         singlePageSize: pageSize,
+  //         hasBackgroundBool: ResponsiveWidget.isLargeScreen(context),
+  //         listHeaderWidget: ResponsiveWidget.isLargeScreen(context) ? listHeaderWidget : null,
+  //         titleBuilder: (_) => BlockListTile(
+  //           pageSize: pageSize,
+  //           pageSizeValueChanged: changePageSize,
+  //           searchBarTextEditingController: searchBarTextEditingController,
+  //         ),
+  //         sortBloc: sortBloc,
+  //         filtersBloc: filtersBloc,
+  //       ),
+  //     ),
+  //   ]);
+  // }
 
-  final SortBloc<BlockModel> sortBloc = SortBloc<BlockModel>(
-    defaultSortOption: BlocksSortOptions.sortByHeight.reversed(),
-  );
   @override
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
+    TextStyle headerStyle = textTheme.bodySmall!.copyWith(color: DesignColors.white1);
 
-    Widget listHeaderWidget = BlocksListItemDesktopLayout(
-      height: 64,
-      ageWidget: Text(S.of(context).blocksDateTime, style: textTheme.caption!.copyWith(color: DesignColors.white1)),
-      hashWidget: Text(S.of(context).blocksHash, style: textTheme.caption!.copyWith(color: DesignColors.white1)),
-      heightWidget: Text(S.of(context).blocksHeight, style: textTheme.caption!.copyWith(color: DesignColors.white1)),
-      kiraToolTipWidget: const SizedBox(width: 50),
-      proposerWidget: Text(S.of(context).blocksProposer, style: textTheme.caption!.copyWith(color: DesignColors.white1)),
-      txCountWidget: Text(S.of(context).blocksTxCount, style: textTheme.caption!.copyWith(color: DesignColors.white1)),
-    );
-    return CustomScrollView(controller: scrollController, slivers: <Widget>[
-      SliverPadding(
-        padding: AppSizes.getPagePadding(context),
-        sliver: SliverPaginatedList<BlockModel>(
-          itemBuilder: (BlockModel blockModel) => BlocksListItemBuilder(
-            blockModel: blockModel,
-            scrollController: scrollController,
-          ),
-          desktopItemHeight: BlockListTitleDesktop.height.toInt(),
-          listController: listController,
-          scrollController: scrollController,
-          singlePageSize: pageSize,
-          hasBackgroundBool: ResponsiveWidget.isLargeScreen(context),
-          listHeaderWidget: ResponsiveWidget.isLargeScreen(context) ? listHeaderWidget : null,
-          titleBuilder: (_) => BlockListTile(
-            pageSize: pageSize,
-            pageSizeValueChanged: changePageSize,
-            searchBarTextEditingController: searchBarTextEditingController,
-          ),
-          sortBloc: sortBloc,
-          filtersBloc: filtersBloc,
-        ),
+    return BlocProvider<BlocksPageCubit>(
+      create: (BuildContext context) => BlocksPageCubit(),
+      child: BlocBuilder<BlocksPageCubit, BlocksPageState>(
+        builder: (BuildContext context, BlocksPageState state) {
+          Widget listHeaderWidget = BlocksListItemDesktopLayout(
+            height: 64,
+            hashWidget: Text(S.of(context).blocksHash, style: headerStyle),
+            ageWidget: InkWell(
+              onTap: () => context.read<BlocksPageCubit>().switchDateFormat(),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 2),
+                child: Text(
+                  state.isAgeFormatBool ? S.of(context).blocksAge : S.of(context).blocksDate,
+                  style: headerStyle.copyWith(color: DesignColors.hyperlink),
+                ),
+              ),
+            ),
+            isDateInAgeFormatBool: state.isAgeFormatBool,
+            heightWidget: Text(S.of(context).blocksHeight, style: headerStyle),
+            proposerWidget: Text(S.of(context).blocksProposer, style: headerStyle),
+            txCountWidget: Text(S.of(context).blocksTxCount, style: headerStyle),
+          );
+
+          return CustomScrollView(
+            controller: scrollController,
+            slivers: <Widget>[
+              SliverPadding(
+                padding: AppSizes.getPagePadding(context),
+                sliver: SliverPaginatedList<BlockModel>(
+                  itemBuilder: (BlockModel blockModel) => BlocksListItemBuilder(
+                    key: ValueKey<String>(blockModel.blockId.hash),
+                    blockModel: blockModel,
+                    scrollController: scrollController,
+                    isAgeFormatBool: state.isAgeFormatBool,
+                  ),
+                  desktopItemHeight: BlockListTitleDesktop.height.toInt(),
+                  listController: listController,
+                  scrollController: scrollController,
+                  singlePageSize: pageSize,
+                  hasBackgroundBool: ResponsiveWidget.isLargeScreen(context),
+                  listHeaderWidget: ResponsiveWidget.isLargeScreen(context) ? listHeaderWidget : null,
+                  titleBuilder: (_) => BlockListTile(
+                    pageSize: pageSize,
+                    pageSizeValueChanged: changePageSize,
+                    searchBarTextEditingController: searchBarTextEditingController,
+                    blocksListController: blocksListController,
+                  ),
+                  sortBloc: sortBloc,
+                  filtersBloc: filtersBloc,
+                ),
+              ),
+              // SliverPadding(
+              //   padding: AppSizes.getPagePadding(context),
+              //   sliver: SliverPaginatedList<TxListItemModel>(
+              //     desktopItemHeight: 80,
+              //     listController: ,
+              //     scrollController: scrollController,
+              //     singlePageSize: pageSize,
+              //     hasBackgroundBool: ResponsiveWidget.isLargeScreen(context),
+              //     listHeaderWidget: ResponsiveWidget.isLargeScreen(context) ? listHeaderWidget : null,
+              //     filtersBloc: filtersBloc,
+              //     titleBuilder: (BuildContext context) {
+              //       return BlockListTile(
+              //         searchBarTextEditingController: searchBarTextEditingController, pageSize: null,
+              //         // transactionsListController: transactionsListController,
+              //       );
+              //     },
+              //     itemBuilder: (TxListItemModel txListItemModel) => BlockListItemBuilder(
+              //       key: Key(txListItemModel.toString()),
+              //       txListItemModel: txListItemModel,
+              //       scrollController: scrollController,
+              //       isAgeFormatBool: state.isAgeFormatBool,
+              //     ),
+              //   ),
+              // ),
+            ],
+          );
+        },
       ),
-    ]);
+    );
   }
 }
