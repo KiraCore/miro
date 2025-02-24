@@ -4,7 +4,7 @@ import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/blocks/block_model.dart';
 import 'package:miro/shared/utils/crypto_address_parser.dart';
-import 'package:miro/views/pages/drawer/blocks_drawer_page/blocks_drawer_page.dart';
+import 'package:miro/views/pages/menu/blocks_page/block_details_page.dart';
 import 'package:miro/views/widgets/buttons/ink_wrapper.dart';
 import 'package:miro/views/widgets/generic/copy_wrapper/copy_button.dart';
 import 'package:miro/views/widgets/generic/prefixed_widget.dart';
@@ -32,7 +32,7 @@ class BlocksListItemMobile extends StatelessWidget {
         onTap: () => Navigator.push(
             context,
             MaterialPageRoute<void>(
-              builder: (BuildContext context) => BlocksDrawerPage(
+              builder: (BuildContext context) => BlockDetailsPage(
                 blockModel: blockModel,
               ),
             )),

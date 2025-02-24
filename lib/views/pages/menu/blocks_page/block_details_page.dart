@@ -1,16 +1,12 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:miro/shared/models/blocks/block_model.dart';
+import 'package:miro/views/pages/menu/blocks_page/widgets/block_details_widget.dart';
 import 'package:miro/views/pages/menu/transactions_page/transactions_page_sliver.dart';
 
-@RoutePage()
-class TransactionsPage extends StatelessWidget {
-  final BlockModel? blockModel;
+class BlockDetailsPage extends StatelessWidget {
+  final BlockModel blockModel;
 
-  const TransactionsPage({
-    Key? key,
-    this.blockModel,
-  }) : super(key: key);
+  const BlockDetailsPage({required this.blockModel, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +14,8 @@ class TransactionsPage extends StatelessWidget {
     return CustomScrollView(
       controller: scrollController,
       slivers: <Widget>[
+        const SliverToBoxAdapter(child: SizedBox(height: 24)),
+        SliverToBoxAdapter(child: BlockDetailsWidget(blockModel: blockModel)),
         TransactionsPageSliver(blockModel: blockModel, scrollController: scrollController),
       ],
     );

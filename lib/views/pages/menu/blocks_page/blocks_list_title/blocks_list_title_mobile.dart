@@ -33,7 +33,7 @@ class BlockListTitleMobile extends StatelessWidget {
       children: <Widget>[
         Text(
           S.of(context).blocksPageTitle,
-          style: textTheme.displayMedium!.copyWith(
+          style: textTheme.displaySmall!.copyWith(
             color: DesignColors.white1,
           ),
         ),

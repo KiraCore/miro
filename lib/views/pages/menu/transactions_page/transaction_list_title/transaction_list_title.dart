@@ -12,12 +12,10 @@ import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 class TransactionListTitle extends StatelessWidget {
   final TextEditingController searchBarTextEditingController;
   final TransactionsListController transactionsListController;
-  final bool hasTitle;
 
   const TransactionListTitle({
     required this.searchBarTextEditingController,
     required this.transactionsListController,
-    this.hasTitle = true,
     Key? key,
   }) : super(key: key);
 
@@ -33,14 +31,12 @@ class TransactionListTitle extends StatelessWidget {
         transactionsListController: transactionsListController,
         activeFilters: activeFilters,
         updateFilters: (List<dynamic> activeFilters) => _updateFilters(context, activeFilters),
-        hasTitle: hasTitle,
       ),
       mediumScreen: TransactionListTitleMobile(
         searchBarTextEditingController: searchBarTextEditingController,
         transactionsListController: transactionsListController,
         activeFilters: activeFilters,
         updateFilters: (List<dynamic> activeFilters) => _updateFilters(context, activeFilters),
-        hasTitle: hasTitle,
       ),
     );
   }

@@ -15,14 +15,12 @@ class TransactionListTitleMobile extends StatelessWidget {
   final TransactionsListController transactionsListController;
   final List<dynamic> activeFilters;
   final void Function(List<dynamic> activeFilters) updateFilters;
-  final bool hasTitle;
 
   const TransactionListTitleMobile({
     required this.searchBarTextEditingController,
     required this.transactionsListController,
     required this.activeFilters,
     required this.updateFilters,
-    required this.hasTitle,
     Key? key,
   }) : super(key: key);
 
@@ -33,15 +31,13 @@ class TransactionListTitleMobile extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: <Widget>[
-        if (hasTitle) ...<Widget>[
-          Text(
-            S.of(context).transactionsPageTitle,
-            style: textTheme.displaySmall!.copyWith(
-              color: DesignColors.white1,
-            ),
+        Text(
+          S.of(context).transactionsPageTitle,
+          style: textTheme.displaySmall!.copyWith(
+            color: DesignColors.white1,
           ),
-          const SizedBox(height: 16),
-        ],
+        ),
+        const SizedBox(height: 16),
         ListSearchWidget<TxListItemModel>(
           textEditingController: searchBarTextEditingController,
           hint: S.of(context).transactionsPageHintSearch,
