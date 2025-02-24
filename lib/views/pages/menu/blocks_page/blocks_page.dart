@@ -149,30 +149,6 @@ class _BlocksPageState extends State<BlocksPage> {
                   filtersBloc: filtersBloc,
                 ),
               ),
-              // SliverPadding(
-              //   padding: AppSizes.getPagePadding(context),
-              //   sliver: SliverPaginatedList<TxListItemModel>(
-              //     desktopItemHeight: 80,
-              //     listController: ,
-              //     scrollController: scrollController,
-              //     singlePageSize: pageSize,
-              //     hasBackgroundBool: ResponsiveWidget.isLargeScreen(context),
-              //     listHeaderWidget: ResponsiveWidget.isLargeScreen(context) ? listHeaderWidget : null,
-              //     filtersBloc: filtersBloc,
-              //     titleBuilder: (BuildContext context) {
-              //       return BlockListTile(
-              //         searchBarTextEditingController: searchBarTextEditingController, pageSize: null,
-              //         // transactionsListController: transactionsListController,
-              //       );
-              //     },
-              //     itemBuilder: (TxListItemModel txListItemModel) => BlockListItemBuilder(
-              //       key: Key(txListItemModel.toString()),
-              //       txListItemModel: txListItemModel,
-              //       scrollController: scrollController,
-              //       isAgeFormatBool: state.isAgeFormatBool,
-              //     ),
-              //   ),
-              // ),
             ],
           );
         },

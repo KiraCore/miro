@@ -1,27 +1,26 @@
-import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
-import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/models/page_data.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:miro/blocs/pages/transactions/transactions_page/transactions_page_cubit.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/filters/filters_bloc.dart';
 import 'package:miro/blocs/widgets/network_list/network_custom_section/network_custom_section_cubit.dart';
+import 'package:miro/config/app_sizes.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
+import 'package:miro/shared/controllers/menu/transactions_page/transactions_filter_options.dart';
 import 'package:miro/shared/controllers/menu/transactions_page/transactions_list_controller.dart';
 import 'package:miro/shared/models/blocks/block_model.dart';
-import 'package:miro/shared/models/list/pagination_details_model.dart';
-import 'package:miro/shared/models/tokens/prefixed_token_amount_model.dart';
-import 'package:miro/shared/models/tokens/token_amount_model.dart';
-import 'package:miro/shared/models/tokens/token_amount_status_type.dart';
-import 'package:miro/shared/models/transactions/list/tx_direction_type.dart';
 import 'package:miro/shared/models/transactions/list/tx_list_item_model.dart';
-import 'package:miro/shared/models/transactions/list/tx_status_type.dart';
-import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
 import 'package:miro/shared/utils/extensions/date_time_extension.dart';
-import 'package:miro/test/utils/test_utils.dart';
 import 'package:miro/views/layout/drawer/drawer_subtitle.dart';
-import 'package:miro/views/pages/menu/transactions_page/transaction_list_item/mobile/transaction_list_item_mobile.dart';
+import 'package:miro/views/pages/menu/transactions_page/transaction_list_item/desktop/transaction_list_item_desktop_layout.dart';
+import 'package:miro/views/pages/menu/transactions_page/transaction_list_item/transaction_list_item_builder.dart';
+import 'package:miro/views/pages/menu/transactions_page/transaction_list_title/transaction_list_title.dart';
+import 'package:miro/views/widgets/buttons/ink_wrapper.dart';
 import 'package:miro/views/widgets/generic/copy_wrapper/copy_button.dart';
+import 'package:miro/views/widgets/generic/responsive/responsive_widget.dart';
 import 'package:miro/views/widgets/kira/kira_identity_avatar.dart';
+import 'package:miro/views/widgets/kira/kira_list/sliver_paginated_list/sliver_paginated_list.dart';
 import 'package:miro/views/widgets/kira/kira_tooltip.dart';
 
 class BlocksDrawerPage extends StatefulWidget {
@@ -44,32 +43,66 @@ class _BlocksDrawerPage extends State<BlocksDrawerPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.start,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      mainAxisSize: MainAxisSize.max,
-      children: <Widget>[
-        DrawerTitle(
-          // todo
-          title: 'Block ${widget.blockModel.header.height}',
-        ),
-        Text(
-          // todo
-          '${widget.blockModel.header.time.toShortAgeAgo(context)} ago',
-          style: const TextStyle(
-            color: DesignColors.accent,
-          ),
-        ),
-        const SizedBox(height: 32),
-        _CommonDetails(blockModel: widget.blockModel),
-        const SizedBox(height: 24),
-        if (widget.blockModel.numTxs == 0) ...<Widget>[
-          const Divider(),
-          const SizedBox(height: 8),
-          _Details(blockModel: widget.blockModel),
-          const SizedBox(height: 48),
-        ],
+    return CustomScrollView(
+      slivers: <Widget>[
+        const SliverToBoxAdapter(child: SizedBox(height: 24)),
+        SliverToBoxAdapter(child: _MainContent(blockModel: widget.blockModel)),
+        _TransactionsPage(blockModel: widget.blockModel),
+        const SliverToBoxAdapter(child: SizedBox(height: 48)),
       ],
+    );
+  }
+}
+
+// todo
+class _MainContent extends StatelessWidget {
+  final BlockModel blockModel;
+
+  const _MainContent({required this.blockModel});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24),
+      child: Column(
+        children: <Widget>[
+          Row(
+            children: <Widget>[
+              InkWrapper(
+                onTap: () => Navigator.pop(context),
+                padding: const EdgeInsets.all(12),
+                borderRadius: BorderRadius.circular(150),
+                child: const Icon(
+                  Icons.arrow_back_sharp,
+                  color: DesignColors.white1,
+                  size: 50,
+                ),
+              ),
+              const SizedBox(width: 8),
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  const SizedBox(height: 14),
+                  DrawerTitle(
+                    title: '${S.of(context).block} ${blockModel.header.height}',
+                  ),
+                  Text(
+                    blockModel.header.time.toAgeAgo(context),
+                    style: const TextStyle(
+                      color: DesignColors.accent,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(height: 32),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: _CommonDetails(blockModel: blockModel),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -81,177 +114,116 @@ class _CommonDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget divider = const SizedBox(height: 16);
+    Widget divider = const SizedBox(height: 24);
+    Widget rowDivider = const SizedBox(width: 24);
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        Row(
           children: <Widget>[
-            _Title(S.of(context).blocksProposer),
-            const SizedBox(height: 4),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                CopyButton(
-                  value: blockModel.header.proposerAddress,
-                  notificationText: S.of(context).toastSuccessfullyCopied,
-                ),
-                const SizedBox(width: 4),
-                KiraIdentityAvatar(
-                  address: blockModel.header.proposerAddress,
-                  size: 24,
-                ),
-                const SizedBox(width: 6),
-                Expanded(
-                  child: KiraToolTip(
-                    childMargin: EdgeInsets.zero,
-                    message: blockModel.header.proposerAddress,
-                    child: _Value(blockModel.header.proposerAddress),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  _Title(S.of(context).blocksProposer),
+                  const SizedBox(height: 6),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: <Widget>[
+                      CopyButton(
+                        value: blockModel.header.proposerAddress,
+                        notificationText: S.of(context).toastSuccessfullyCopied,
+                      ),
+                      const SizedBox(width: 4),
+                      KiraIdentityAvatar(
+                        address: blockModel.header.proposerAddress,
+                        size: 24,
+                      ),
+                      const SizedBox(width: 6),
+                      Expanded(
+                        child: KiraToolTip(
+                          childMargin: EdgeInsets.zero,
+                          message: blockModel.header.proposerAddress,
+                          child: _Value(blockModel.header.proposerAddress),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ],
+                ],
+              ),
+            ),
+            rowDivider,
+            Expanded(
+              child: _CopyHoverTitleValue(title: S.of(context).blocksChainId, value: blockModel.header.chainId),
             ),
           ],
         ),
         divider,
-        _CopyHoverTitleValue(title: S.of(context).blocksChainId, value: blockModel.header.chainId),
-        divider,
-        _CopyHoverTitleValue(title: S.of(context).blocksHash, value: blockModel.blockId.hash),
-        divider,
-        _CopyHoverTitleValue(title: S.of(context).blocksValidatorHash, value: blockModel.header.validatorsHash),
-        divider,
-        _CopyHoverTitleValue(title: S.of(context).blocksAppHash, value: blockModel.header.appHash),
-        divider,
-        _CopyHoverTitleValue(title: S.of(context).blocksConsensusHash, value: blockModel.header.consensusHash),
-        divider,
-        _CopyHoverTitleValue(title: S.of(context).blocksEvidenceHash, value: blockModel.header.evidenceHash),
-        divider,
-        _CopyHoverTitleValue(title: S.of(context).blocksValidatorHash, value: blockModel.header.validatorsHash),
-        divider,
-        _Title(S.of(context).blocksBlockSize),
-        const SizedBox(height: 4),
-        _Value(blockModel.blockSize.toString()),
-        divider,
-        _Title(S.of(context).blocksTxCount),
-        const SizedBox(height: 4),
-        _Value(blockModel.numTxs.toString()),
-      ],
-    );
-  }
-}
-
-class _Details extends StatelessWidget {
-  const _Details({required this.blockModel});
-
-  final BlockModel blockModel;
-
-  @override
-  Widget build(BuildContext context) {
-    TextTheme textTheme = Theme.of(context).textTheme;
-    // Widget content;
-    // Widget divider = const SizedBox(height: 12);
-    TransactionsListController transactionsListController = TransactionsListController()
-      ..blockId = blockModel.blockId.hash; // todo does if fetches
-
-    // todo for test
-    TxListItemModel txListItemModel = TxListItemModel(
-      hash: '0x3BD165E428985C8FE60A93A9AF0B502F6735F54892FE27425465FAAA04B42BDA',
-      time: DateTime.parse('2023-01-30 16:48:28.000'),
-      txDirectionType: TxDirectionType.outbound,
-      txStatusType: TxStatusType.confirmed,
-      fees: <TokenAmountModel>[
-        TokenAmountModel(
-            defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel),
-      ],
-      prefixedTokenAmounts: <PrefixedTokenAmountModel>[
-        PrefixedTokenAmountModel(
-          tokenAmountPrefixType: TokenAmountPrefixType.subtract,
-          tokenAmountModel: TokenAmountModel(
-              defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel),
+        Row(
+          children: <Widget>[
+            Expanded(
+              child: _CopyHoverTitleValue(title: S.of(context).blocksHash, value: blockModel.blockId.hash),
+            ),
+            rowDivider,
+            Expanded(
+              child: _CopyHoverTitleValue(
+                  title: S.of(context).blocksValidatorHash, value: blockModel.header.validatorsHash),
+            ),
+          ],
         ),
-      ],
-      txMsgModels: <ATxMsgModel>[
-        MsgSendModel(
-            fromWalletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
-            toWalletAddress: WalletAddress.fromBech32('kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl'),
-            tokenAmountModel: TokenAmountModel(
-                defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TestUtils.kexTokenAliasModel)),
-      ],
-    );
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        Text(
-          // todo
-          'Transactions:',
-          style: textTheme.titleMedium!.copyWith(color: DesignColors.white2),
+        divider,
+        Row(
+          children: <Widget>[
+            Expanded(
+              child: _CopyHoverTitleValue(title: S.of(context).blocksAppHash, value: blockModel.header.appHash),
+            ),
+            rowDivider,
+            Expanded(
+              child: _CopyHoverTitleValue(
+                  title: S.of(context).blocksConsensusHash, value: blockModel.header.consensusHash),
+            ),
+          ],
         ),
-        const SizedBox(height: 12),
-        // todo test
-        // ListView.builder(
-        //   shrinkWrap: true,
-        //   physics: const NeverScrollableScrollPhysics(),
-        //   itemCount: [txListItemModel, txListItemModel, txListItemModel].length,
-        //   itemBuilder: (BuildContext context, int index) => TransactionListItemMobile(
-        //     key: Key([txListItemModel, txListItemModel, txListItemModel][index].toString()),
-        //     txListItemModel: [txListItemModel, txListItemModel, txListItemModel][index],
-        //     isAgeFormatBool: false,
-        //   ),
-        // ),
-
-        FutureBuilder<PageData<TxListItemModel>>(
-            future:
-                transactionsListController.getPageData(PaginationDetailsModel(offset: 0, limit: blockModel.blockSize)),
-            builder: (BuildContext context, AsyncSnapshot<PageData<TxListItemModel>> snapshot) {
-              if (snapshot.hasData) {
-                PageData<TxListItemModel> pageData = snapshot.data!;
-                return ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: pageData.listItems.length,
-                  itemBuilder: (BuildContext context, int index) => TransactionListItemMobile(
-                    key: Key(pageData.listItems[index].toString()),
-                    txListItemModel: pageData.listItems[index],
-                    isAgeFormatBool: false,
-                  ),
-                );
-              } else {
-                return const CircularProgressIndicator();
-              }
-            }),
-
-        // TODO: this doesn't work
-        // CustomScrollView(
-        //   physics: const NeverScrollableScrollPhysics(),
-        //   slivers: <Widget>[
-        //     SliverPadding(
-        //       padding: AppSizes.getPagePadding(context),
-        //       sliver: SliverPaginatedList<TxListItemModel>(
-        //         desktopItemHeight: 80,
-        //         listController: transactionsListController,
-        //         // scrollController: scrollController,
-        //         singlePageSize: 20,
-        //         hasBackgroundBool: false, // todo test
-        //         listHeaderWidget: null,
-        //         // titleBuilder: (BuildContext context) {
-        //         //   return const SizedBox.shrink();
-        //         // },
-        //         itemBuilder: (TxListItemModel txListItemModel) => SizedBox(
-        //           height: 100,
-        //           width: 200,
-        //           child: TransactionListItemBuilder(
-        //             key: Key(txListItemModel.toString()),
-        //             txListItemModel: txListItemModel,
-        //             scrollController: ScrollController(),
-        //             isAgeFormatBool: false,
-        //           ),
-        //         ),
-        //       ),
-        //     ),
-        //   ],
-        // ),
+        divider,
+        Row(
+          children: <Widget>[
+            Expanded(
+              child:
+                  _CopyHoverTitleValue(title: S.of(context).blocksEvidenceHash, value: blockModel.header.evidenceHash),
+            ),
+            rowDivider,
+            Expanded(
+              child: _CopyHoverTitleValue(
+                  title: S.of(context).blocksValidatorHash, value: blockModel.header.validatorsHash),
+            ),
+          ],
+        ),
+        divider,
+        Row(
+          children: <Widget>[
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  _Title(S.of(context).blocksBlockSize),
+                  const SizedBox(height: 4),
+                  _Value(blockModel.blockSize.toString()),
+                ],
+              ),
+            ),
+            rowDivider,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  _Title(S.of(context).blocksTxCount),
+                  const SizedBox(height: 4),
+                  _Value(blockModel.numTxs.toString()),
+                ],
+              ),
+            ),
+          ],
+        ),
       ],
     );
   }
@@ -327,6 +299,103 @@ class _CopyHoverValue extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+// todo reuse
+class _TransactionsPage extends StatefulWidget {
+  const _TransactionsPage({
+    required this.blockModel,
+    Key? key,
+  }) : super(key: key);
+
+  final BlockModel blockModel;
+
+  @override
+  State<StatefulWidget> createState() => __TransactionsPage();
+}
+
+class __TransactionsPage extends State<_TransactionsPage> {
+  final TextEditingController searchBarTextEditingController = TextEditingController();
+  final ScrollController scrollController = ScrollController();
+  late final TransactionsListController transactionsListController;
+  final FiltersBloc<TxListItemModel> filtersBloc = FiltersBloc<TxListItemModel>(
+    searchComparator: TransactionsFilterOptions.search,
+  );
+  int pageSize = 15;
+
+  @override
+  void initState() {
+    super.initState();
+    transactionsListController = TransactionsListController()..blockModel = widget.blockModel;
+  }
+
+  @override
+  void dispose() {
+    searchBarTextEditingController.dispose();
+    scrollController.dispose();
+    filtersBloc.close();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    TextTheme textTheme = Theme.of(context).textTheme;
+    TextStyle headerStyle = textTheme.bodySmall!.copyWith(color: DesignColors.white1);
+
+    return BlocProvider<TransactionsPageCubit>(
+      create: (BuildContext context) => TransactionsPageCubit(),
+      child: BlocBuilder<TransactionsPageCubit, TransactionsPageState>(
+        builder: (BuildContext context, TransactionsPageState state) {
+          Widget listHeaderWidget = TransactionListItemDesktopLayout(
+            height: 64,
+            hashWidget: Text(S.of(context).txnListHash, style: headerStyle),
+            methodWidget: Text(S.of(context).txListMethod, style: headerStyle),
+            dateWidget: InkWell(
+              onTap: () => context.read<TransactionsPageCubit>().switchDateFormat(),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(vertical: 2),
+                child: Text(
+                  state.isAgeFormatBool ? S.of(context).txListAge : S.of(context).txListDate,
+                  style: headerStyle.copyWith(color: DesignColors.hyperlink),
+                ),
+              ),
+            ),
+            isDateInAgeFormatBool: state.isAgeFormatBool,
+            fromWidget: Text(S.of(context).txListFrom, style: headerStyle),
+            toWidget: Text(S.of(context).txListTo, style: headerStyle),
+            amountWidget: Text(S.of(context).txListAmount, style: headerStyle),
+            feeWidget: Text(S.of(context).txnListFee, style: headerStyle),
+          );
+
+          return SliverPadding(
+            padding: AppSizes.getPagePadding(context),
+            sliver: SliverPaginatedList<TxListItemModel>(
+              desktopItemHeight: 80,
+              listController: transactionsListController,
+              scrollController: scrollController,
+              singlePageSize: pageSize,
+              hasBackgroundBool: ResponsiveWidget.isLargeScreen(context),
+              listHeaderWidget: ResponsiveWidget.isLargeScreen(context) ? listHeaderWidget : null,
+              filtersBloc: filtersBloc,
+              titleBuilder: (BuildContext context) {
+                return TransactionListTitle(
+                  searchBarTextEditingController: searchBarTextEditingController,
+                  transactionsListController: transactionsListController,
+                  // hasTitle: false,
+                );
+              },
+              itemBuilder: (TxListItemModel txListItemModel) => TransactionListItemBuilder(
+                key: Key(txListItemModel.toString()),
+                txListItemModel: txListItemModel,
+                scrollController: scrollController,
+                isAgeFormatBool: state.isAgeFormatBool,
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }

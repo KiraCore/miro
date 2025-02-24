@@ -155,6 +155,11 @@ class S {
     return Intl.message('Blocks', name: 'blocks', desc: '', args: []);
   }
 
+  /// `Block`
+  String get block {
+    return Intl.message('Block', name: 'block', desc: '', args: []);
+  }
+
   /// `Current height`
   String get blocksCurrentHeight {
     return Intl.message(
@@ -2537,16 +2542,36 @@ class S {
     );
   }
 
+  /// `{seconds} seconds ago`
+  String ageSecondsAgo(Object seconds) {
+    return Intl.message(
+      '$seconds seconds ago',
+      name: 'ageSecondsAgo',
+      desc: '',
+      args: [seconds],
+    );
+  }
+
   /// `1 min`
   String get ageShortMinute {
     return Intl.message('1 min', name: 'ageShortMinute', desc: '', args: []);
   }
 
-  /// `{minutes} mins`
+  /// `{minutes} minutes`
   String ageShortMinutes(Object minutes) {
     return Intl.message(
-      '$minutes mins',
+      '$minutes minutes',
       name: 'ageShortMinutes',
+      desc: '',
+      args: [minutes],
+    );
+  }
+
+  /// `{minutes} minutes ago`
+  String ageMinutesAgo(Object minutes) {
+    return Intl.message(
+      '$minutes minutes ago',
+      name: 'ageMinutesAgo',
       desc: '',
       args: [minutes],
     );
@@ -2567,6 +2592,16 @@ class S {
     );
   }
 
+  /// `{hours} hours ago`
+  String ageHoursAgo(Object hours) {
+    return Intl.message(
+      '$hours hours ago',
+      name: 'ageHoursAgo',
+      desc: '',
+      args: [hours],
+    );
+  }
+
   /// `1 day`
   String get ageShortDay {
     return Intl.message('1 day', name: 'ageShortDay', desc: '', args: []);
@@ -2577,6 +2612,16 @@ class S {
     return Intl.message(
       '$days days',
       name: 'ageShortDays',
+      desc: '',
+      args: [days],
+    );
+  }
+
+  /// `{days} days ago`
+  String ageDaysAgo(Object days) {
+    return Intl.message(
+      '$days days ago',
+      name: 'ageDaysAgo',
       desc: '',
       args: [days],
     );

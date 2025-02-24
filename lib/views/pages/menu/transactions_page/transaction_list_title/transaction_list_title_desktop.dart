@@ -16,12 +16,15 @@ class TransactionListTitleDesktop extends StatelessWidget {
   final TransactionsListController transactionsListController;
   final List<dynamic> activeFilters;
   final void Function(List<dynamic> activeFilters) updateFilters;
+  // todo remove
+  final bool hasTitle;
 
   const TransactionListTitleDesktop({
     required this.searchBarTextEditingController,
     required this.transactionsListController,
     required this.activeFilters,
     required this.updateFilters,
+    required this.hasTitle,
     Key? key,
   }) : super(key: key);
 
@@ -33,13 +36,15 @@ class TransactionListTitleDesktop extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
-        Text(
-          S.of(context).transactionsPageTitle,
-          style: textTheme.displayMedium!.copyWith(
-            color: DesignColors.white1,
+        if (hasTitle) ...<Widget>[
+          Text(
+            S.of(context).transactionsPageTitle,
+            style: textTheme.displayMedium!.copyWith(
+              color: DesignColors.white1,
+            ),
           ),
-        ),
-        const SizedBox(height: 16),
+          const SizedBox(height: 16),
+        ],
         Row(
           children: <Widget>[
             DateRangeDropdown(

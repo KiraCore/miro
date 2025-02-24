@@ -31,7 +31,7 @@ class BlockListTile extends StatelessWidget {
         pageSize: pageSize,
         pageSizeValueChanged: pageSizeValueChanged,
         searchBarTextEditingController: searchBarTextEditingController,
-        // blocksListController: blocksListController, //todo
+        blocksListController: blocksListController,
       ),
     );
   }

@@ -70,7 +70,7 @@ class TransactionListItemDesktop extends StatelessWidget {
           ),
         ),
         dateWidget: Text(
-          isAgeFormatBool ? txListItemModel.time.toShortAgeAgo(context) : DateFormat('d/M/y, HH:mm').format(txListItemModel.time.toLocal()),
+          isAgeFormatBool ? txListItemModel.time.toShortAge(context) : DateFormat('d/M/y, HH:mm').format(txListItemModel.time.toLocal()),
           overflow: TextOverflow.ellipsis,
           style: textTheme.bodyMedium!.copyWith(color: DesignColors.white2),
         ),

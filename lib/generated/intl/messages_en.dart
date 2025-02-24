@@ -20,60 +20,72 @@ typedef String MessageIfAbsent(String messageStr, List<dynamic> args);
 class MessageLookup extends MessageLookupByLibrary {
   String get localeName => 'en';
 
-  static String m0(days) => "${days} days";
+  static String m0(days) => "${days} days ago";
 
-  static String m1(hours) => "${hours} hrs";
+  static String m1(hours) => "${hours} hours ago";
 
-  static String m2(minutes) => "${minutes} mins";
+  static String m2(minutes) => "${minutes} minutes ago";
 
-  static String m3(seconds) => "${seconds} secs";
+  static String m3(seconds) => "${seconds} seconds ago";
 
-  static String m4(time) => " (${time} minutes ago)";
+  static String m4(days) => "${days} days";
 
-  static String m5(seconds) => "Next refresh in ${seconds} sec.";
+  static String m5(hours) => "${hours} hrs";
 
-  static String m6(verificationsCount) =>
+  static String m6(minutes) => "${minutes} minutes";
+
+  static String m7(seconds) => "${seconds} secs";
+
+  static String m8(time) => " (${time} minutes ago)";
+
+  static String m9(seconds) => "Next refresh in ${seconds} sec.";
+
+  static String m10(verificationsCount) =>
       "Verifications: ${verificationsCount}";
 
-  static String m7(amount) => "Tip must be greater or equal ${amount}";
+  static String m11(amount) => "Tip must be greater or equal ${amount}";
 
-  static String m8(version) => "Keyfile version ${version}";
+  static String m12(version) => "Keyfile version ${version}";
 
-  static String m9(separator, networkName, parsedRemainingTime) =>
+  static String m13(separator, networkName, parsedRemainingTime) =>
       "Connecting to <${networkName}>${separator} Please wait... ${parsedRemainingTime}";
 
-  static String m10(errorsCount) => "Found ${errorsCount} problems with server";
+  static String m14(errorsCount) => "Found ${errorsCount} problems with server";
 
-  static String m11(latestBlockTime) =>
+  static String m15(latestBlockTime) =>
       "The last available block on this interx was created long time ago ${latestBlockTime}. The displayed contents may be out of date.";
 
-  static String m12(seconds) => "Refresh in ${seconds} sec.";
+  static String m16(seconds) => "Refresh in ${seconds} sec.";
 
-  static String m13(availableAmountText, tokenDenominationModelName) =>
+  static String m17(availableAmountText, tokenDenominationModelName) =>
       "Available: ${availableAmountText} ${tokenDenominationModelName}";
 
-  static String m14(hash) => "Transaction hash: 0x${hash}";
+  static String m18(hash) => "Transaction hash: 0x${hash}";
 
-  static String m15(amount) => "+ ${amount} more";
+  static String m19(amount) => "+ ${amount} more";
 
-  static String m16(widgetFeeTokenAmountModel) =>
+  static String m20(widgetFeeTokenAmountModel) =>
       "Transaction fee ${widgetFeeTokenAmountModel}";
 
-  static String m17(txMsgType) => "Preview for ${txMsgType} unavailable";
+  static String m21(txMsgType) => "Preview for ${txMsgType} unavailable";
 
-  static String m18(selected) => "${selected} selected";
+  static String m22(selected) => "${selected} selected";
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
     "accounts": MessageLookupByLibrary.simpleMessage("Accounts"),
+    "ageDaysAgo": m0,
+    "ageHoursAgo": m1,
+    "ageMinutesAgo": m2,
+    "ageSecondsAgo": m3,
     "ageShortDay": MessageLookupByLibrary.simpleMessage("1 day"),
-    "ageShortDays": m0,
+    "ageShortDays": m4,
     "ageShortHour": MessageLookupByLibrary.simpleMessage("1 hour"),
-    "ageShortHours": m1,
+    "ageShortHours": m5,
     "ageShortMinute": MessageLookupByLibrary.simpleMessage("1 min"),
-    "ageShortMinutes": m2,
+    "ageShortMinutes": m6,
     "ageShortSecond": MessageLookupByLibrary.simpleMessage("1 sec"),
-    "ageShortSeconds": m3,
+    "ageShortSeconds": m7,
     "balances": MessageLookupByLibrary.simpleMessage("Balances"),
     "balancesAmount": MessageLookupByLibrary.simpleMessage("Amount"),
     "balancesButtonPay": MessageLookupByLibrary.simpleMessage("Pay"),
@@ -90,7 +102,8 @@ class MessageLookup extends MessageLookupByLibrary {
     "balancesName": MessageLookupByLibrary.simpleMessage("Name"),
     "balancesSearch": MessageLookupByLibrary.simpleMessage("Search balances"),
     "balancesSend": MessageLookupByLibrary.simpleMessage("Send"),
-    "balancesTimeSinceBlock": m4,
+    "balancesTimeSinceBlock": m8,
+    "block": MessageLookupByLibrary.simpleMessage("Block"),
     "blocks": MessageLookupByLibrary.simpleMessage("Blocks"),
     "blocksAge": MessageLookupByLibrary.simpleMessage("Age"),
     "blocksAppHash": MessageLookupByLibrary.simpleMessage("App Hash"),
@@ -140,7 +153,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "connectWalletOptions": MessageLookupByLibrary.simpleMessage(
       "Choose one of the following options:",
     ),
-    "connectWalletRefreshInfo": m5,
+    "connectWalletRefreshInfo": m9,
     "connectWalletRefreshed": MessageLookupByLibrary.simpleMessage("Refreshed"),
     "connectWalletRefreshing": MessageLookupByLibrary.simpleMessage(
       "Refreshing",
@@ -216,12 +229,12 @@ class MessageLookup extends MessageLookupByLibrary {
       "Not verified",
     ),
     "irRecordStatusPending": MessageLookupByLibrary.simpleMessage("Pending"),
-    "irRecordStatusVerificationsCount": m6,
+    "irRecordStatusVerificationsCount": m10,
     "irRecordVerifiersRequestVerification":
         MessageLookupByLibrary.simpleMessage("Request verification"),
     "irRecordVerify": MessageLookupByLibrary.simpleMessage("Verify"),
     "irSocialMedia": MessageLookupByLibrary.simpleMessage("Social media"),
-    "irTxErrorTipMustBeGreater": m7,
+    "irTxErrorTipMustBeGreater": m11,
     "irTxHintKey": MessageLookupByLibrary.simpleMessage("Key"),
     "irTxHintTip": MessageLookupByLibrary.simpleMessage("Tip"),
     "irTxHintValue": MessageLookupByLibrary.simpleMessage("Value"),
@@ -334,7 +347,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "keyfileToastDownloaded": MessageLookupByLibrary.simpleMessage(
       "Keyfile downloaded",
     ),
-    "keyfileVersion": m8,
+    "keyfileVersion": m12,
     "keyfileWarning": MessageLookupByLibrary.simpleMessage(
       "You won’t be able to download it again",
     ),
@@ -415,7 +428,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Checked connection",
     ),
     "networkChoose": MessageLookupByLibrary.simpleMessage("Choose network"),
-    "networkConnectingTo": m9,
+    "networkConnectingTo": m13,
     "networkConnectionCancelled": MessageLookupByLibrary.simpleMessage(
       "Connection cancelled",
     ),
@@ -437,7 +450,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "networkHintCustomAddress": MessageLookupByLibrary.simpleMessage(
       "Custom address",
     ),
-    "networkHowManyProblems": m10,
+    "networkHowManyProblems": m14,
     "networkList": MessageLookupByLibrary.simpleMessage("List of networks"),
     "networkNoAvailable": MessageLookupByLibrary.simpleMessage(
       "No available networks",
@@ -469,7 +482,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "networkWarningMissingInfo": MessageLookupByLibrary.simpleMessage(
       "Connecting a wallet unavailable due to missing essential data from network.",
     ),
-    "networkWarningWhenLastBlock": m11,
+    "networkWarningWhenLastBlock": m15,
     "or": MessageLookupByLibrary.simpleMessage("or "),
     "paginatedListPageSize": MessageLookupByLibrary.simpleMessage("Page size"),
     "paste": MessageLookupByLibrary.simpleMessage("Paste"),
@@ -481,7 +494,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "proposalsSuccessful": MessageLookupByLibrary.simpleMessage("Successful"),
     "proposalsVoters": MessageLookupByLibrary.simpleMessage("Voters"),
     "refresh": MessageLookupByLibrary.simpleMessage("Refresh"),
-    "refreshInSeconds": m12,
+    "refreshInSeconds": m16,
     "sec": MessageLookupByLibrary.simpleMessage("sec."),
     "seeAll": MessageLookupByLibrary.simpleMessage("See all"),
     "seeMore": MessageLookupByLibrary.simpleMessage("See more"),
@@ -603,7 +616,7 @@ class MessageLookup extends MessageLookupByLibrary {
       "Transactions",
     ),
     "tx": MessageLookupByLibrary.simpleMessage("Transactions"),
-    "txAvailableBalances": m13,
+    "txAvailableBalances": m17,
     "txButtonBackToAccount": MessageLookupByLibrary.simpleMessage(
       "Back to account",
     ),
@@ -668,7 +681,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "txFetchingRemoteData": MessageLookupByLibrary.simpleMessage(
       "Fetching remote data. Please wait...",
     ),
-    "txHash": m14,
+    "txHash": m18,
     "txHintAmountToClaim": MessageLookupByLibrary.simpleMessage(
       "Amount to claim",
     ),
@@ -690,7 +703,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "txListAmount": MessageLookupByLibrary.simpleMessage("Amount"),
     "txListAmountFeesOnly": MessageLookupByLibrary.simpleMessage("Fees only"),
     "txListAmountPlusFees": MessageLookupByLibrary.simpleMessage("+ fees"),
-    "txListAmountPlusMore": m15,
+    "txListAmountPlusMore": m19,
     "txListBlock": MessageLookupByLibrary.simpleMessage("Block"),
     "txListDate": MessageLookupByLibrary.simpleMessage("Date"),
     "txListDetails": MessageLookupByLibrary.simpleMessage("Details"),
@@ -733,11 +746,11 @@ class MessageLookup extends MessageLookupByLibrary {
       "Unknown transaction type",
     ),
     "txMsgUndelegate": MessageLookupByLibrary.simpleMessage("Unstake Tokens"),
-    "txNoticeFee": m16,
+    "txNoticeFee": m20,
     "txPleaseSelectToken": MessageLookupByLibrary.simpleMessage(
       "Please select a token",
     ),
-    "txPreviewUnavailable": m17,
+    "txPreviewUnavailable": m21,
     "txRecipientWillGet": MessageLookupByLibrary.simpleMessage(
       "Recipient will get",
     ),
@@ -774,7 +787,7 @@ class MessageLookup extends MessageLookupByLibrary {
     "validators": MessageLookupByLibrary.simpleMessage("Validators"),
     "validatorsAbout": MessageLookupByLibrary.simpleMessage("About Validator"),
     "validatorsActive": MessageLookupByLibrary.simpleMessage("Active"),
-    "validatorsButtonFilter": m18,
+    "validatorsButtonFilter": m22,
     "validatorsDropdownAll": MessageLookupByLibrary.simpleMessage("All"),
     "validatorsHintSearch": MessageLookupByLibrary.simpleMessage(
       "Search validators",
