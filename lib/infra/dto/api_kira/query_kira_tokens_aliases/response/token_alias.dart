@@ -20,11 +20,11 @@ class TokenAlias extends Equatable {
   factory TokenAlias.fromJson(Map<String, dynamic> json) {
     return TokenAlias(
       decimals: json['decimals'] as int,
-      denoms: (json['denoms'] as List<dynamic>).map((dynamic e) => e as String).toList(),
+      denoms: <String>[json['denom'] as String],
       name: json['name'] as String,
       symbol: json['symbol'] as String,
       icon: json['icon'] as String,
-      amount: json['amount'] as String,
+      amount: json['amount'] as String? ?? '0',
     );
   }
 

@@ -5,8 +5,8 @@ class Pagination extends Equatable {
 
   const Pagination({required this.total});
 
-  factory Pagination.fromJson(Map<String, dynamic> json) => Pagination(
-        total: json['total'] as String? ?? '0',
+  factory Pagination.fromJson(Map<String, dynamic>? json) => Pagination(
+        total: json?['total'] as String? ?? '0',
       );
 
   @override

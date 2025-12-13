@@ -17,17 +17,15 @@ class QueryAccountResp extends Equatable {
   });
 
   factory QueryAccountResp.fromJson(Map<String, dynamic> json) {
-    Map<String, dynamic> accountJson = json['account'] as Map<String, dynamic>;
-
-    dynamic pubKeyValue = accountJson['pub_key'];
+    dynamic pubKeyValue = json['pubKey'];
     Map<String, dynamic>? pubKeyJson = pubKeyValue is Map<String, dynamic> ? pubKeyValue : null;
 
     return QueryAccountResp(
-      type: accountJson['@type'] as String,
-      accountNumber: accountJson['account_number'] as String,
-      address: accountJson['address'] as String,
+      type: json['@type'] as String,
+      accountNumber: json['accountNumber'] as String,
+      address: json['address'] as String,
       pubKey: pubKeyJson != null ? PubKey.fromJson(pubKeyJson) : null,
-      sequence: accountJson['sequence'] as String?,
+      sequence: json['sequence'] as String?,
     );
   }
 

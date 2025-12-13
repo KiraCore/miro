@@ -13,7 +13,7 @@ class QueryKiraTokensAliasesResp extends Equatable {
   });
 
   factory QueryKiraTokensAliasesResp.fromJson(Map<String, dynamic> json) {
-    List<dynamic> jsonList = json['token_aliases_data'] as List<dynamic>;
+    List<dynamic> jsonList = json['data'] as List<dynamic>;
     return QueryKiraTokensAliasesResp(
       tokenAliases: jsonList.map((dynamic e) => TokenAlias.fromJson(e as Map<String, dynamic>)).toList(),
       defaultDenom: json['default_denom'] as String,
