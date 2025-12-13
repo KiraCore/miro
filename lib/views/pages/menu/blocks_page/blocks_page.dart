@@ -3,13 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:miro/blocs/pages/blocks/blocks_page/blocks_page_cubit.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/filters/filters_bloc.dart';
-import 'package:miro/blocs/widgets/kira/kira_list/sort/sort_bloc.dart';
 import 'package:miro/config/app_sizes.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/controllers/menu/blocks_page/blocks_filter_options.dart';
 import 'package:miro/shared/controllers/menu/blocks_page/blocks_list_controller.dart';
-import 'package:miro/shared/controllers/menu/blocks_page/blocks_sort_options.dart';
 import 'package:miro/shared/models/blocks/block_model.dart';
 import 'package:miro/views/pages/menu/blocks_page/blocks_list_item/blocks_list_item_builder.dart';
 import 'package:miro/views/pages/menu/blocks_page/blocks_list_item/desktop/blocks_list_item_desktop_layout.dart';
@@ -34,9 +32,6 @@ class _BlocksPageState extends State<BlocksPage> {
   final FiltersBloc<BlockModel> filtersBloc = FiltersBloc<BlockModel>(
     searchComparator: BlocksFilterOptions.search,
   );
-  final SortBloc<BlockModel> sortBloc = SortBloc<BlockModel>(
-    defaultSortOption: BlocksSortOptions.sortByHeight.reversed(),
-  );
   final BlocksListController blocksListController = BlocksListController();
 
   @override
@@ -52,46 +47,6 @@ class _BlocksPageState extends State<BlocksPage> {
       pageSize = newSize;
     });
   }
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   TextTheme textTheme = Theme.of(context).textTheme;
-  //   TextStyle headerStyle = textTheme.bodySmall!.copyWith(color: DesignColors.white1);
-  //
-  //   Widget listHeaderWidget = BlocksListItemDesktopLayout(
-  //     height: 64,
-  //     ageWidget: Text(S.of(context).blocksDateTime, style: headerStyle),
-  //     hashWidget: Text(S.of(context).blocksHash, style: headerStyle),
-  //     heightWidget: Text(S.of(context).blocksHeight, style: headerStyle),
-  //     kiraToolTipWidget: const SizedBox(width: 50),
-  //     proposerWidget: Text(S.of(context).blocksProposer, style: headerStyle),
-  //     txCountWidget: Text(S.of(context).blocksTxCount, style: headerStyle),
-  //   );
-  //   return CustomScrollView(controller: scrollController, slivers: <Widget>[
-  //     SliverPadding(
-  //       padding: AppSizes.getPagePadding(context),
-  //       sliver: SliverPaginatedList<BlockModel>(
-  //         itemBuilder: (BlockModel blockModel) => BlocksListItemBuilder(
-  //           blockModel: blockModel,
-  //           scrollController: scrollController,
-  //         ),
-  //         desktopItemHeight: BlockListTitleDesktop.height.toInt(),
-  //         listController: listController,
-  //         scrollController: scrollController,
-  //         singlePageSize: pageSize,
-  //         hasBackgroundBool: ResponsiveWidget.isLargeScreen(context),
-  //         listHeaderWidget: ResponsiveWidget.isLargeScreen(context) ? listHeaderWidget : null,
-  //         titleBuilder: (_) => BlockListTile(
-  //           pageSize: pageSize,
-  //           pageSizeValueChanged: changePageSize,
-  //           searchBarTextEditingController: searchBarTextEditingController,
-  //         ),
-  //         sortBloc: sortBloc,
-  //         filtersBloc: filtersBloc,
-  //       ),
-  //     ),
-  //   ]);
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -145,7 +100,6 @@ class _BlocksPageState extends State<BlocksPage> {
                     searchBarTextEditingController: searchBarTextEditingController,
                     blocksListController: blocksListController,
                   ),
-                  sortBloc: sortBloc,
                   filtersBloc: filtersBloc,
                 ),
               ),

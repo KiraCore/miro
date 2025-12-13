@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:miro/shared/utils/custom_date_utils.dart';
 
 class QueryBlocksReq extends Equatable {
   /// This represents the ending point
@@ -31,14 +30,13 @@ class QueryBlocksReq extends Equatable {
 
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
-      // TODO(dominik): Replace camelCase with snake_case
-      'dateEnd': dateEnd != null ? CustomDateUtils.parseDateToSecondsSinceEpoch(dateEnd!) : null,
-      // TODO(dominik): Replace camelCase with snake_case
-      'dateStart': dateStart != null ? CustomDateUtils.parseDateToSecondsSinceEpoch(dateStart!) : null,
+      'end_date': dateEnd?.toIso8601String(),
+      'start_date': dateStart?.toIso8601String(),
       'limit': limit,
       'offset': offset,
       'page': page,
       'page_size': pageSize,
+      'sort': 'desc',
     };
   }
 

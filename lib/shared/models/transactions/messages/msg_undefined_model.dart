@@ -1,11 +1,29 @@
 part of 'a_tx_msg_model.dart';
 
 class MsgUndefinedModel extends ATxMsgModel {
-  const MsgUndefinedModel() : super(txMsgType: TxMsgType.undefined);
+  @override
+  final WalletAddress? fromAddress;
+  @override
+  final WalletAddress? toAddress;
+
+  const MsgUndefinedModel({
+    required this.fromAddress,
+    required this.toAddress,
+  }) : super(txMsgType: TxMsgType.undefined);
+
+  factory MsgUndefinedModel.fromMsgDto(MsgUndefined msgDto) {
+    return MsgUndefinedModel(
+      fromAddress: msgDto.fromAddress != null ? WalletAddress.fromBech32(msgDto.fromAddress!) : null,
+      toAddress: msgDto.toAddress != null ? WalletAddress.fromBech32(msgDto.toAddress!) : null,
+    );
+  }
 
   @override
   MsgUndefined toMsgDto() {
-    return const MsgUndefined();
+    return MsgUndefined(
+      fromAddress: fromAddress?.bech32Address,
+      toAddress: toAddress?.bech32Address,
+    );
   }
 
   @override
