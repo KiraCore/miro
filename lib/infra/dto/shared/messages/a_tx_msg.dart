@@ -48,7 +48,7 @@ abstract class ATxMsg extends ProtobufAny {
       case TxMsgType.msgUndelegate:
         return MsgUndelegate.fromData(json);
       default:
-        return const MsgUndefined();
+        return MsgUndefined.fromData(json);
     }
   }
 }

@@ -3,8 +3,11 @@ import 'package:intl/intl.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/models/transactions/list/tx_list_item_model.dart';
+import 'package:miro/views/layout/scaffold/kira_scaffold.dart';
 import 'package:miro/views/pages/menu/my_account_page/my_transactions_page/my_transaction_list_item/desktop/my_transaction_list_item_desktop_layout.dart';
 import 'package:miro/views/pages/menu/my_account_page/my_transactions_page/my_transaction_list_item/tx_amount_text.dart';
+import 'package:miro/views/pages/transactions/transaction_details_drawer_page.dart';
+import 'package:miro/views/widgets/buttons/ink_wrapper.dart';
 import 'package:miro/views/widgets/generic/copy_wrapper/copy_button.dart';
 import 'package:miro/views/widgets/generic/prefixed_widget.dart';
 import 'package:miro/views/widgets/transactions/transaction_status_chip/transaction_status_chip.dart';
@@ -21,69 +24,74 @@ class MyTransactionListItemDesktop extends StatelessWidget {
   Widget build(BuildContext context) {
     TextTheme textTheme = Theme.of(context).textTheme;
 
-    return MyTransactionListItemDesktopLayout(
-      height: 80,
-      txWidget: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          SizedBox(
-            width: 30,
-            height: 30,
-            child: Center(
-              child: IconTheme(
-                data: const IconThemeData(
-                  size: 28,
-                  color: DesignColors.white1,
+    return InkWrapper(
+      onTap: () => KiraScaffold.of(context).navigateEndDrawerRoute(
+        TransactionDetailsDrawerPage(txListItemModel: txListItemModel),
+      ),
+      child: MyTransactionListItemDesktopLayout(
+        height: 80,
+        txWidget: Row(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            SizedBox(
+              width: 30,
+              height: 30,
+              child: Center(
+                child: IconTheme(
+                  data: const IconThemeData(
+                    size: 28,
+                    color: DesignColors.white1,
+                  ),
+                  child: txListItemModel.icon,
                 ),
-                child: txListItemModel.icon,
               ),
             ),
-          ),
-          const SizedBox(width: 15),
-          Expanded(
-            child: PrefixedWidget(
-              prefix: txListItemModel.getTitle(context),
-              child: txListItemModel.getSubtitle(context) != null
-                  ? Text(
-                      txListItemModel.getSubtitle(context)!,
-                      overflow: TextOverflow.ellipsis,
-                      style: textTheme.bodyMedium!.copyWith(
-                        color: DesignColors.white2,
-                      ),
-                    )
-                  : null,
-            ),
-          ),
-        ],
-      ),
-      hashWidget: Row(
-        children: <Widget>[
-          CopyButton(
-            value: txListItemModel.hash,
-            notificationText: S.of(context).toastHashCopied,
-          ),
-          const SizedBox(width: 4),
-          Expanded(
-            child: Text(
-              txListItemModel.hash,
-              overflow: TextOverflow.ellipsis,
-              style: textTheme.bodyMedium!.copyWith(
-                color: DesignColors.white2,
+            const SizedBox(width: 15),
+            Expanded(
+              child: PrefixedWidget(
+                prefix: txListItemModel.getTitle(context),
+                child: txListItemModel.getSubtitle(context) != null
+                    ? Text(
+                        txListItemModel.getSubtitle(context)!,
+                        overflow: TextOverflow.ellipsis,
+                        style: textTheme.bodyMedium!.copyWith(
+                          color: DesignColors.white2,
+                        ),
+                      )
+                    : null,
               ),
             ),
-          ),
-        ],
-      ),
-      statusWidget: TransactionStatusChip(txStatusType: txListItemModel.txStatusType),
-      dateWidget: Text(
-        DateFormat('d MMM y, HH:mm').format(txListItemModel.time.toLocal()),
-        style: textTheme.bodyMedium!.copyWith(
-          color: DesignColors.white2,
+          ],
         ),
-      ),
-      amountWidget: TxAmountText(
-        txListItemModel: txListItemModel,
-        crossAxisAlignment: CrossAxisAlignment.end,
+        hashWidget: Row(
+          children: <Widget>[
+            CopyButton(
+              value: txListItemModel.hash,
+              notificationText: S.of(context).toastHashCopied,
+            ),
+            const SizedBox(width: 4),
+            Expanded(
+              child: Text(
+                txListItemModel.hash,
+                overflow: TextOverflow.ellipsis,
+                style: textTheme.bodyMedium!.copyWith(
+                  color: DesignColors.white2,
+                ),
+              ),
+            ),
+          ],
+        ),
+        statusWidget: TransactionStatusChip(txStatusType: txListItemModel.txStatusType),
+        dateWidget: Text(
+          DateFormat('d MMM y, HH:mm').format(txListItemModel.time.toLocal()),
+          style: textTheme.bodyMedium!.copyWith(
+            color: DesignColors.white2,
+          ),
+        ),
+        amountWidget: TxAmountText(
+          txListItemModel: txListItemModel,
+          crossAxisAlignment: CrossAxisAlignment.end,
+        ),
       ),
     );
   }

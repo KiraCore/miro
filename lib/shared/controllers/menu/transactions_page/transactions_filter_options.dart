@@ -25,17 +25,17 @@ class TransactionsFilterOptions {
   );
 
   static FilterOption<TxListItemModel> filterByHandleIdentityRecordsVerifyRequestMethod = FilterOption<TxListItemModel>(
-    id: 'handle-identity-records-verify-request',
+    id: 'handle_identity_records_verify_request',
     filterComparator: (TxListItemModel a) => _hasMessageTypeInside(a, TxMsgType.msgHandleIdentityRecordsVerifyRequest),
   );
 
   static FilterOption<TxListItemModel> filterByRegisterIdentityMethod = FilterOption<TxListItemModel>(
-    id: 'register-identity-records',
+    id: 'register_identity_records',
     filterComparator: (TxListItemModel a) => _hasMessageTypeInside(a, TxMsgType.msgRegisterIdentityRecords),
   );
 
   static FilterOption<TxListItemModel> filterByCancelIdentityMethod = FilterOption<TxListItemModel>(
-    id: 'cancel-identity-records-verify-request',
+    id: 'cancel_identity_records_verify_request',
     filterComparator: (TxListItemModel a) => _hasMessageTypeInside(a, TxMsgType.msgCancelIdentityRecordsVerifyRequest),
   );
 
@@ -50,7 +50,7 @@ class TransactionsFilterOptions {
   );
 
   static FilterOption<TxListItemModel> filterByRequestIdentityRecordsVerifyMethod = FilterOption<TxListItemModel>(
-    id: 'request-identity-records-verify',
+    id: 'request_identity_records_verify',
     filterComparator: (TxListItemModel a) => _hasMessageTypeInside(a, TxMsgType.msgRequestIdentityRecordsVerify),
   );
 
@@ -71,8 +71,10 @@ class TransactionsFilterOptions {
 
     return (TxListItemModel item) {
       bool hashMatch = item.hash.toLowerCase().contains(pattern);
-      bool fromMatch = item.txMsgModels.isNotEmpty && (item.txMsgModels.first.fromAddress?.bech32Address.toLowerCase().contains(pattern) ?? false);
-      bool toMatch = item.txMsgModels.isNotEmpty && (item.txMsgModels.first.toAddress?.bech32Address.toLowerCase().contains(pattern) ?? false);
+      bool fromMatch = item.txMsgModels.isNotEmpty &&
+          (item.txMsgModels.first.fromAddress?.bech32Address.toLowerCase().contains(pattern) ?? false);
+      bool toMatch = item.txMsgModels.isNotEmpty &&
+          (item.txMsgModels.first.toAddress?.bech32Address.toLowerCase().contains(pattern) ?? false);
       return hashMatch || fromMatch || toMatch;
     };
   }

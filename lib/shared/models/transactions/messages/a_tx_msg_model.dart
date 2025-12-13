@@ -50,7 +50,9 @@ extension ATxMsgModelListExt on List<ATxMsgModel> {
           case StakingMsgDelegateModel():
             return txMsgModel.tokenAmountModels.reduce((TokenAmountModel count, TokenAmountModel m) => count + m);
           case StakingMsgUndelegateModel():
-            return (txMsgModel as StakingMsgDelegateModel).tokenAmountModels.reduce((TokenAmountModel count, TokenAmountModel m) => count + m);
+            return (txMsgModel as StakingMsgDelegateModel)
+                .tokenAmountModels
+                .reduce((TokenAmountModel count, TokenAmountModel m) => count + m);
           default:
             return null;
         }
@@ -87,7 +89,7 @@ sealed class ATxMsgModel extends Equatable {
       case MsgUndelegate:
         return StakingMsgUndelegateModel.fromMsgDto(msgDto as MsgUndelegate);
       default:
-        return const MsgUndefinedModel();
+        return MsgUndefinedModel.fromMsgDto(msgDto as MsgUndefined);
     }
   }
 
@@ -104,5 +106,9 @@ sealed class ATxMsgModel extends Equatable {
   WalletAddress? get fromAddress => null;
   WalletAddress? get toAddress => null;
 
-  bool get hasAmount => this is MsgSendModel || this is IRMsgRequestVerificationModel || this is StakingMsgDelegateModel || this is StakingMsgUndelegateModel;
+  bool get hasAmount =>
+      this is MsgSendModel ||
+      this is IRMsgRequestVerificationModel ||
+      this is StakingMsgDelegateModel ||
+      this is StakingMsgUndelegateModel;
 }

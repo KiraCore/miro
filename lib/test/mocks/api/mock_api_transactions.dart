@@ -59,7 +59,7 @@ class MockApiTransactions {
             "infos": [
               {"info": "https://paganresearch.io/images/kiracore.jpg", "key": "avatar"}
             ],
-            "type": "register-identity-records"
+            "type": "register_identity_records"
           }
         ]
       },
@@ -78,7 +78,7 @@ class MockApiTransactions {
             "address": "kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx",
             "record_ids": [2],
             "tip": {"amount": "200", "denom": "ukex"},
-            "type": "request-identity-records-verify",
+            "type": "request_identity_records_verify",
             "verifier": "kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl"
           }
         ]
@@ -94,7 +94,11 @@ class MockApiTransactions {
           {"denom": "ukex", "amount": "200"}
         ],
         "txs": [
-          {"executor": "kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx", "type": "cancel-identity-records-verify-request", "verify_request_id": 1}
+          {
+            "executor": "kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx",
+            "type": "cancel_identity_records_verify_request",
+            "verify_request_id": 1
+          }
         ]
       },
       // MsgDeleteIdentityRecords
@@ -111,7 +115,7 @@ class MockApiTransactions {
           {
             "address": "kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx",
             "keys": ["website"],
-            "type": "edit-identity-record"
+            "type": "edit_identity_record"
           }
         ]
       },
@@ -126,7 +130,12 @@ class MockApiTransactions {
           {"denom": "ukex", "amount": "200"}
         ],
         "txs": [
-          {"type": "handle-identity-records-verify-request", "verifier": "kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl", "verify_request_id": 4, "yes": true}
+          {
+            "type": "handle_identity_records_verify_request",
+            "verifier": "kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl",
+            "verify_request_id": 4,
+            "yes": true
+          }
         ]
       },
       // MsgDelegate

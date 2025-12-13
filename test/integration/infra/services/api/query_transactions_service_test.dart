@@ -143,7 +143,7 @@ Future<void> main() async {
       try {
         QueryTransactionsReq actualQueryTransactionsReq = const QueryTransactionsReq(
           address: actualWalletAddress,
-          sort: TxSortType.dateASC,
+          sort: TxSortType.desc,
           limit: 10,
           offset: 0,
         );

@@ -5,12 +5,13 @@ import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api/query_blocks/request/query_blocks_req.dart';
 import 'package:miro/infra/dto/api/query_blocks/response/query_blocks_resp.dart';
 import 'package:miro/infra/dto/api/query_blocks_transactions/request/query_block_transactions_req.dart';
+import 'package:miro/infra/dto/api/query_interx_status/query_interx_status_resp.dart';
 import 'package:miro/infra/dto/api/query_transactions/request/query_transactions_req.dart';
 import 'package:miro/infra/dto/api/query_transactions/response/query_transactions_resp.dart';
-import 'package:miro/infra/dto/interx_headers.dart';
 import 'package:miro/infra/exceptions/dio_parse_exception.dart';
 import 'package:miro/infra/models/api_request_model.dart';
 import 'package:miro/infra/repositories/api/api_repository.dart';
+import 'package:miro/infra/services/api/query_interx_status_service.dart';
 import 'package:miro/shared/models/blocks/block_model.dart';
 import 'package:miro/shared/models/transactions/list/tx_list_item_model.dart';
 import 'package:miro/shared/utils/logger/app_logger.dart';
@@ -45,13 +46,12 @@ class QueryTransactionsService implements _IQueryTransactionsService {
       List<TxListItemModel> txListItemModelList =
           queryTransactionsResp.transactions.map(TxListItemModel.fromDto).toList();
 
-      InterxHeaders interxHeaders = InterxHeaders.fromHeaders(response.headers);
+      QueryInterxStatusResp statusResp = await QueryInterxStatusService().getQueryInterxStatusResp(networkUri);
 
       return PageData<TxListItemModel>(
         listItems: txListItemModelList,
         lastPageBool: txListItemModelList.length < queryTransactionsReq.limit!,
-        blockDateTime: interxHeaders.blockDateTime,
-        cacheExpirationDateTime: interxHeaders.cacheExpirationDateTime,
+        blockDateTime: statusResp.syncInfo.latestBlockTime,
       );
     } catch (e) {
       AppLogger().log(
@@ -79,13 +79,12 @@ class QueryTransactionsService implements _IQueryTransactionsService {
       List<TxListItemModel> txListItemModelList =
           queryTransactionsResp.transactions.map(TxListItemModel.fromDto).toList();
 
-      InterxHeaders interxHeaders = InterxHeaders.fromHeaders(response.headers);
+      QueryInterxStatusResp statusResp = await QueryInterxStatusService().getQueryInterxStatusResp(networkUri);
 
       return PageData<TxListItemModel>(
         listItems: txListItemModelList,
         lastPageBool: txListItemModelList.length < queryBlockTransactionsReq.limit!,
-        blockDateTime: interxHeaders.blockDateTime,
-        cacheExpirationDateTime: interxHeaders.cacheExpirationDateTime,
+        blockDateTime: statusResp.syncInfo.latestBlockTime,
       );
     } catch (e) {
       AppLogger().log(
@@ -108,13 +107,12 @@ class QueryTransactionsService implements _IQueryTransactionsService {
     try {
       QueryBlocksResp queryBlocksResp = QueryBlocksResp.fromJson(response.data as Map<String, dynamic>);
 
-      InterxHeaders interxHeaders = InterxHeaders.fromHeaders(response.headers);
+      QueryInterxStatusResp statusResp = await QueryInterxStatusService().getQueryInterxStatusResp(networkUri);
 
       return PageData<BlockModel>(
         listItems: queryBlocksResp.blocks,
         lastPageBool: queryBlocksResp.blocks.length < queryBlocksReq.limit!,
-        blockDateTime: interxHeaders.blockDateTime,
-        cacheExpirationDateTime: interxHeaders.cacheExpirationDateTime,
+        blockDateTime: statusResp.syncInfo.latestBlockTime,
       );
     } catch (e) {
       AppLogger().log(

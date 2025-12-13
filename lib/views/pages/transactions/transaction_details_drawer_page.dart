@@ -114,16 +114,28 @@ class _Details extends StatelessWidget {
         );
         break;
       case MsgUndefinedModel():
-        content = const SizedBox.shrink();
+        MsgUndefinedModel model = txMsgModel as MsgUndefinedModel;
+        content = Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            if (model.fromAddress != null)
+              CopyHoverTitleValue(title: S.of(context).txListFrom, value: model.fromAddress!.bech32Address),
+            if (model.fromAddress != null && model.toAddress != null) divider,
+            if (model.toAddress != null)
+              CopyHoverTitleValue(title: S.of(context).txListTo, value: model.toAddress!.bech32Address),
+          ],
+        );
         break;
       case IRMsgCancelVerificationRequestModel():
         IRMsgCancelVerificationRequestModel model = txMsgModel as IRMsgCancelVerificationRequestModel;
         content = Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            CopyHoverTitleValue(title: S.of(context).transactionDetailsDrawerWalletAddress, value: model.walletAddress.bech32Address),
+            CopyHoverTitleValue(
+                title: S.of(context).transactionDetailsDrawerWalletAddress, value: model.walletAddress.bech32Address),
             divider,
-            CopyHoverTitleValue(title: S.of(context).transactionDetailsDrawerVerifyRequestId, value: model.verifyRequestId.toString()),
+            CopyHoverTitleValue(
+                title: S.of(context).transactionDetailsDrawerVerifyRequestId, value: model.verifyRequestId.toString()),
           ],
         );
         break;
@@ -132,7 +144,8 @@ class _Details extends StatelessWidget {
         content = Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            CopyHoverTitleValue(title: S.of(context).transactionDetailsDrawerWalletAddress, value: model.walletAddress.bech32Address),
+            CopyHoverTitleValue(
+                title: S.of(context).transactionDetailsDrawerWalletAddress, value: model.walletAddress.bech32Address),
             divider,
             DetailTitle(S.of(context).transactionDetailsDrawerKeys),
             for (final String key in model.keys) ...<Widget>[
@@ -148,13 +161,17 @@ class _Details extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             StatusChip(
-              text: model.approvalStatusBool ? S.of(context).transactionDetailsDrawerApprovalStatusYes : S.of(context).transactionDetailsDrawerApprovalStatusNo,
+              text: model.approvalStatusBool
+                  ? S.of(context).transactionDetailsDrawerApprovalStatusYes
+                  : S.of(context).transactionDetailsDrawerApprovalStatusNo,
               color: model.approvalStatusBool ? DesignColors.greenStatus1 : DesignColors.redStatus1,
             ),
             divider,
-            CopyHoverTitleValue(title: S.of(context).transactionDetailsDrawerWalletAddress, value: model.walletAddress.bech32Address),
+            CopyHoverTitleValue(
+                title: S.of(context).transactionDetailsDrawerWalletAddress, value: model.walletAddress.bech32Address),
             divider,
-            CopyHoverTitleValue(title: S.of(context).transactionDetailsDrawerVerifyRequestId, value: model.verifyRequestId.toString()),
+            CopyHoverTitleValue(
+                title: S.of(context).transactionDetailsDrawerVerifyRequestId, value: model.verifyRequestId.toString()),
           ],
         );
         break;
@@ -163,9 +180,12 @@ class _Details extends StatelessWidget {
         content = Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            CopyHoverTitleValue(title: S.of(context).transactionDetailsDrawerWalletAddress, value: model.walletAddress.bech32Address),
+            CopyHoverTitleValue(
+                title: S.of(context).transactionDetailsDrawerWalletAddress, value: model.walletAddress.bech32Address),
             divider,
-            CopyHoverTitleValue(title: S.of(context).transactionDetailsDrawerVerifierWalletAddress, value: model.verifierWalletAddress.bech32Address),
+            CopyHoverTitleValue(
+                title: S.of(context).transactionDetailsDrawerVerifierWalletAddress,
+                value: model.verifierWalletAddress.bech32Address),
             divider,
             DetailTitle(S.of(context).transactionDetailsDrawerTipAmount),
             const SizedBox(height: 4),
@@ -184,7 +204,8 @@ class _Details extends StatelessWidget {
         content = Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            CopyHoverTitleValue(title: S.of(context).transactionDetailsDrawerWalletAddress, value: model.walletAddress.bech32Address),
+            CopyHoverTitleValue(
+                title: S.of(context).transactionDetailsDrawerWalletAddress, value: model.walletAddress.bech32Address),
             divider,
             DetailTitle(S.of(context).transactionDetailsDrawerRecordIds),
             for (final IREntryModel entry in model.irEntryModels) ...<Widget>[
@@ -205,7 +226,9 @@ class _Details extends StatelessWidget {
         content = Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            CopyHoverTitleValue(title: S.of(context).transactionDetailsDrawerSenderWalletAddress, value: model.senderWalletAddress.bech32Address),
+            CopyHoverTitleValue(
+                title: S.of(context).transactionDetailsDrawerSenderWalletAddress,
+                value: model.senderWalletAddress.bech32Address),
           ],
         );
         break;
@@ -214,9 +237,12 @@ class _Details extends StatelessWidget {
         content = Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            CopyHoverTitleValue(title: S.of(context).transactionDetailsDrawerSenderWalletAddress, value: model.senderWalletAddress.bech32Address),
+            CopyHoverTitleValue(
+                title: S.of(context).transactionDetailsDrawerSenderWalletAddress,
+                value: model.senderWalletAddress.bech32Address),
             divider,
-            CopyHoverTitleValue(title: S.of(context).transactionDetailsDrawerVerifyUndelegationId, value: model.undelegationId),
+            CopyHoverTitleValue(
+                title: S.of(context).transactionDetailsDrawerVerifyUndelegationId, value: model.undelegationId),
           ],
         );
         break;
@@ -225,7 +251,9 @@ class _Details extends StatelessWidget {
         content = Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            CopyHoverTitleValue(title: S.of(context).transactionDetailsDrawerDelegatorWalletAddress, value: model.delegatorWalletAddress.bech32Address),
+            CopyHoverTitleValue(
+                title: S.of(context).transactionDetailsDrawerDelegatorWalletAddress,
+                value: model.delegatorWalletAddress.bech32Address),
             divider,
             CopyHoverTitleValue(title: S.of(context).transactionDetailsDrawerValidatorKey, value: model.valkey),
             divider,
@@ -242,7 +270,9 @@ class _Details extends StatelessWidget {
         content = Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            CopyHoverTitleValue(title: S.of(context).transactionDetailsDrawerDelegatorWalletAddress, value: model.delegatorWalletAddress.bech32Address),
+            CopyHoverTitleValue(
+                title: S.of(context).transactionDetailsDrawerDelegatorWalletAddress,
+                value: model.delegatorWalletAddress.bech32Address),
             divider,
             CopyHoverTitleValue(title: S.of(context).transactionDetailsDrawerValidatorKey, value: model.valkey),
             divider,

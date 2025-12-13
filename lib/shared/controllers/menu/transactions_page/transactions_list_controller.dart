@@ -8,6 +8,7 @@ import 'package:miro/infra/services/cache/favourites_cache_service.dart';
 import 'package:miro/shared/models/blocks/block_model.dart';
 import 'package:miro/shared/models/list/pagination_details_model.dart';
 import 'package:miro/shared/models/transactions/list/tx_list_item_model.dart';
+import 'package:miro/shared/models/transactions/list/tx_sort_type.dart';
 import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
 
 class TransactionsListController implements IListController<TxListItemModel> {
@@ -50,7 +51,6 @@ class TransactionsListController implements IListController<TxListItemModel> {
         QueryBlockTransactionsReq(
           address: kiraAddress,
           blockId: blockModel!.blockId.hash,
-          // todo: test limit after INTERX's refactor. It is not working now
           limit: paginationDetailsModel.limit,
           offset: paginationDetailsModel.offset,
           dateStart: startDateTime,
@@ -63,10 +63,10 @@ class TransactionsListController implements IListController<TxListItemModel> {
     } else {
       transactionsPageData = await queryTransactionsService.getTransactionList(
         QueryTransactionsReq(
-          // TODO: for all addresses
-          address: kiraAddress ?? 'kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx',
+          address: kiraAddress,
           limit: paginationDetailsModel.limit,
           offset: paginationDetailsModel.offset,
+          sort: TxSortType.desc,
           dateStart: startDateTime,
           dateEnd: endDateTime,
           type: typeFilters,
