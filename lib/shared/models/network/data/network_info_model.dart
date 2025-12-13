@@ -23,8 +23,8 @@ class NetworkInfoModel extends Equatable {
     return NetworkInfoModel(
       chainId: queryInterxStatusResp.interxInfo.chainId,
       interxVersion: queryInterxStatusResp.interxInfo.version,
-      latestBlockHeight: int.parse(queryInterxStatusResp.syncInfo.latestBlockHeight),
-      latestBlockTime: DateTime.parse(queryInterxStatusResp.syncInfo.latestBlockTime),
+      latestBlockHeight: queryInterxStatusResp.syncInfo.latestBlockHeight,
+      latestBlockTime: queryInterxStatusResp.syncInfo.latestBlockTime,
       activeValidators: status?.activeValidators,
       totalValidators: status?.totalValidators,
     );

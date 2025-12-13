@@ -30,9 +30,11 @@ abstract class IApiKiraRepository {
 
   Future<Response<T>> fetchQueryIdentityRecordById<T>(ApiRequestModel<String> apiRequestModel);
 
-  Future<Response<T>> fetchQueryIdentityRecordVerifyRequestsByApprover<T>(ApiRequestModel<QueryIdentityRecordVerifyRequestsByApproverReq> apiRequestModel);
+  Future<Response<T>> fetchQueryIdentityRecordVerifyRequestsByApprover<T>(
+      ApiRequestModel<QueryIdentityRecordVerifyRequestsByApproverReq> apiRequestModel);
 
-  Future<Response<T>> fetchQueryIdentityRecordVerifyRequestsByRequester<T>(ApiRequestModel<QueryIdentityRecordVerifyRequestsByRequesterReq> apiRequestModel);
+  Future<Response<T>> fetchQueryIdentityRecordVerifyRequestsByRequester<T>(
+      ApiRequestModel<QueryIdentityRecordVerifyRequestsByRequesterReq> apiRequestModel);
 
   Future<Response<T>> fetchQueryKiraTokensAliases<T>(ApiRequestModel<QueryKiraTokensAliasesReq> apiRequestModel);
 
@@ -43,6 +45,8 @@ abstract class IApiKiraRepository {
   Future<Response<T>> fetchQueryStakingPool<T>(ApiRequestModel<QueryStakingPoolReq> apiRequestModel);
 
   Future<Response<T>> fetchQueryUndelegations<T>(ApiRequestModel<QueryUndelegationsReq> apiRequestModel);
+
+  Future<Response<T>> fetchQueryProposals<T>(ApiRequestModel<void> apiRequestModel);
 }
 
 class RemoteApiKiraRepository implements IApiKiraRepository {
@@ -59,7 +63,8 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
       );
       return response;
     } on DioException catch (dioException) {
-      AppLogger().log(message: 'Cannot fetch broadcast() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
+      AppLogger()
+          .log(message: 'Cannot fetch broadcast() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
       throw DioConnectException(dioException: dioException);
     }
   }
@@ -74,7 +79,8 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
       );
       return response;
     } on DioException catch (dioException) {
-      AppLogger().log(message: 'Cannot fetch fetchQueryAccount() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
+      AppLogger().log(
+          message: 'Cannot fetch fetchQueryAccount() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
       throw DioConnectException(dioException: dioException);
     }
   }
@@ -90,7 +96,8 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
       );
       return response;
     } on DioException catch (dioException) {
-      AppLogger().log(message: 'Cannot fetch fetchQueryBalance() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
+      AppLogger().log(
+          message: 'Cannot fetch fetchQueryBalance() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
       throw DioConnectException(dioException: dioException);
     }
   }
@@ -106,7 +113,9 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
       );
       return response;
     } on DioException catch (dioException) {
-      AppLogger().log(message: 'Cannot fetch fetchQueryDelegations() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
+      AppLogger().log(
+          message:
+              'Cannot fetch fetchQueryDelegations() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
       throw DioConnectException(dioException: dioException);
     }
   }
@@ -122,7 +131,9 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
       );
       return response;
     } on DioException catch (dioException) {
-      AppLogger().log(message: 'Cannot fetch fetchQueryDelegations() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
+      AppLogger().log(
+          message:
+              'Cannot fetch fetchQueryDelegations() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
       throw DioConnectException(dioException: dioException);
     }
   }
@@ -137,7 +148,9 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
       );
       return response;
     } on DioException catch (dioException) {
-      AppLogger().log(message: 'Cannot fetch fetchQueryIdentityRecordsByAddress() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
+      AppLogger().log(
+          message:
+              'Cannot fetch fetchQueryIdentityRecordsByAddress() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
       throw DioConnectException(dioException: dioException);
     }
   }
@@ -152,7 +165,9 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
       );
       return response;
     } on DioException catch (dioException) {
-      AppLogger().log(message: 'Cannot fetch fetchQueryIdentityRecordById() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
+      AppLogger().log(
+          message:
+              'Cannot fetch fetchQueryIdentityRecordById() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
       throw DioConnectException(dioException: dioException);
     }
   }
@@ -170,7 +185,8 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
       return response;
     } on DioException catch (dioException) {
       AppLogger().log(
-        message: 'Cannot fetch fetchQueryIdentityRecordVerifyRequestsByApprover() for URI ${apiRequestModel.networkUri}: ${dioException.message}',
+        message:
+            'Cannot fetch fetchQueryIdentityRecordVerifyRequestsByApprover() for URI ${apiRequestModel.networkUri}: ${dioException.message}',
       );
       throw DioConnectException(dioException: dioException);
     }
@@ -189,8 +205,25 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
       return response;
     } on DioException catch (dioException) {
       AppLogger().log(
-        message: 'Cannot fetch fetchQueryIdentityRecordVerifyRequestsByRequester() for URI ${apiRequestModel.networkUri}: ${dioException.message}',
+        message:
+            'Cannot fetch fetchQueryIdentityRecordVerifyRequestsByRequester() for URI ${apiRequestModel.networkUri}: ${dioException.message}',
       );
+      throw DioConnectException(dioException: dioException);
+    }
+  }
+
+  @override
+  Future<Response<T>> fetchQueryProposals<T>(ApiRequestModel<void> apiRequestModel) async {
+    try {
+      final Response<T> response = await _httpClientManager.get<T>(
+        networkUri: apiRequestModel.networkUri,
+        path: '/api/kira/gov/proposals',
+        apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: apiRequestModel.forceRequestBool),
+      );
+      return response;
+    } on DioException catch (dioException) {
+      AppLogger().log(
+          message: 'Cannot fetch fetchQueryProposals() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
       throw DioConnectException(dioException: dioException);
     }
   }
@@ -206,7 +239,9 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
       );
       return response;
     } on DioException catch (dioException) {
-      AppLogger().log(message: 'Cannot fetch fetchQueryKiraTokensAliases() for URI ${apiRequestModel.networkUri} ${dioException.message}');
+      AppLogger().log(
+          message:
+              'Cannot fetch fetchQueryKiraTokensAliases() for URI ${apiRequestModel.networkUri} ${dioException.message}');
       throw DioConnectException(dioException: dioException);
     }
   }
@@ -221,7 +256,9 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
       );
       return response;
     } on DioException catch (dioException) {
-      AppLogger().log(message: 'Cannot fetch fetchQueryKiraTokensRates() for URI ${apiRequestModel.networkUri} ${dioException.message}');
+      AppLogger().log(
+          message:
+              'Cannot fetch fetchQueryKiraTokensRates() for URI ${apiRequestModel.networkUri} ${dioException.message}');
       throw DioConnectException(dioException: dioException);
     }
   }
@@ -236,7 +273,9 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
       );
       return response;
     } on DioException catch (dioException) {
-      AppLogger().log(message: 'Cannot fetch fetchQueryNetworkProperties() for URI ${apiRequestModel.networkUri} ${dioException.message}');
+      AppLogger().log(
+          message:
+              'Cannot fetch fetchQueryNetworkProperties() for URI ${apiRequestModel.networkUri} ${dioException.message}');
       throw DioConnectException(dioException: dioException);
     }
   }
@@ -252,7 +291,9 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
       );
       return response;
     } on DioException catch (dioException) {
-      AppLogger().log(message: 'Cannot fetch fetchQueryStakingPool() for URI ${apiRequestModel.networkUri} ${dioException.message}');
+      AppLogger().log(
+          message:
+              'Cannot fetch fetchQueryStakingPool() for URI ${apiRequestModel.networkUri} ${dioException.message}');
       throw DioConnectException(dioException: dioException);
     }
   }
@@ -268,7 +309,9 @@ class RemoteApiKiraRepository implements IApiKiraRepository {
       );
       return response;
     } on DioException catch (dioException) {
-      AppLogger().log(message: 'Cannot fetch fetchQueryUndelegations() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
+      AppLogger().log(
+          message:
+              'Cannot fetch fetchQueryUndelegations() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
       throw DioConnectException(dioException: dioException);
     }
   }

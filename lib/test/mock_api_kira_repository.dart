@@ -390,4 +390,10 @@ class MockApiKiraRepository implements IApiKiraRepository {
       throw DioConnectException(dioException: DioException(requestOptions: RequestOptions(path: networkUri.host)));
     }
   }
+
+  @override
+  Future<Response<T>> fetchQueryProposals<T>(ApiRequestModel<void> apiRequestModel) {
+    // TODO: implement fetchQueryProposals
+    throw UnimplementedError();
+  }
 }

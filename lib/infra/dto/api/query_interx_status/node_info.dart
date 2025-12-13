@@ -40,5 +40,6 @@ class NodeInfo extends Equatable {
   }
 
   @override
-  List<Object?> get props => <Object?>[channels, id, listenAddress, moniker, network, rpcAddress, txIndex, protocolVersion, version];
+  List<Object?> get props =>
+      <Object?>[channels, id, listenAddress, moniker, network, rpcAddress, txIndex, protocolVersion, version];
 }

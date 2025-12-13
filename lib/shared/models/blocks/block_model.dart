@@ -4,12 +4,14 @@ import 'package:miro/shared/models/blocks/header.dart';
 
 class BlockModel extends AListItem {
   final BlockId blockId;
+  final int blockSize;
   final Header header;
   final int numTxs;
   bool _favourite = false;
 
   BlockModel({
     required this.blockId,
+    required this.blockSize,
     required this.header,
     required this.numTxs,
   });
@@ -30,6 +32,8 @@ class BlockModel extends AListItem {
 
     return BlockModel(
       blockId: BlockId.fromJson(blockIdData),
+      // TODO: #32 blockSize not available in new API structure
+      blockSize: 0,
       header: Header.fromJson(headerData),
       numTxs: numTxs,
     );

@@ -140,8 +140,8 @@ class _CommonDetails extends StatelessWidget {
             ),
             rowDivider,
             Expanded(
-              child: CopyHoverTitleValue(
-                  title: S.of(context).blocksConsensusHash, value: blockModel.header.consensusHash),
+              child:
+                  CopyHoverTitleValue(title: S.of(context).blocksConsensusHash, value: blockModel.header.consensusHash),
             ),
           ],
         ),
