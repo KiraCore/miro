@@ -66,7 +66,7 @@ class InfinityListBloc<T extends AListItem> extends AListBloc<T> {
       listItems: visibleListItems,
       lastPage: currentPageData.lastPageBool,
       blockDateTime: currentPageData.blockDateTime!,
-      cacheExpirationDateTime: currentPageData.cacheExpirationDateTime!,
+      cacheExpirationDateTime: currentPageData.cacheExpirationDateTime,
     ));
     showLoadingOverlay.value = false;
   }

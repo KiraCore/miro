@@ -42,7 +42,8 @@ class PaginatedListBloc<T extends AListItem> extends AListBloc<T> {
     add(const ListNextPageEvent());
   }
 
-  void _mapPreviousPageEventToState(PaginatedListPreviousPageEvent paginatedListPreviousPageEvent, Emitter<AListState> emit) {
+  void _mapPreviousPageEventToState(
+      PaginatedListPreviousPageEvent paginatedListPreviousPageEvent, Emitter<AListState> emit) {
     if (showLoadingOverlay.value) {
       return;
     }
@@ -66,7 +67,6 @@ class PaginatedListBloc<T extends AListItem> extends AListBloc<T> {
       listItems: currentPageData.listItems,
       lastPageBool: currentPageData.lastPageBool,
       blockDateTime: currentPageData.blockDateTime!,
-      cacheExpirationDateTime: currentPageData.cacheExpirationDateTime!,
     ));
 
     showLoadingOverlay.value = false;
@@ -91,7 +91,7 @@ class PaginatedListBloc<T extends AListItem> extends AListBloc<T> {
       listItems: currentPageItems,
       lastPageBool: currentPageItems.length < singlePageSize,
       blockDateTime: downloadedPagesCache.values.first.blockDateTime,
-      cacheExpirationDateTime:  downloadedPagesCache.values.first.cacheExpirationDateTime,
+      cacheExpirationDateTime: downloadedPagesCache.values.first.cacheExpirationDateTime,
     );
   }
 }
