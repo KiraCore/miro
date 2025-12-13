@@ -34,10 +34,10 @@ class TxBroadcastCompleteBody extends StatelessWidget {
         ),
         const SizedBox(height: 12),
         CopyWrapper(
-          value: '0x${txBroadcastCompletedState.broadcastRespModel.hash}',
+          value: '0x${txBroadcastCompletedState.broadcastResp.hash}',
           notificationText: S.of(context).txToastHashCopied,
           child: Text(
-            S.of(context).txHash(txBroadcastCompletedState.broadcastRespModel.hash),
+            S.of(context).txHash(txBroadcastCompletedState.broadcastResp.hash),
             textAlign: TextAlign.center,
             style: textTheme.bodySmall!.copyWith(
               color: DesignColors.white1,

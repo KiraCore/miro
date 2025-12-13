@@ -1,28 +1,32 @@
 import 'package:equatable/equatable.dart';
-import 'package:miro/infra/dto/api_kira/broadcast/response/broadcast_tx.dart';
 
 class BroadcastResp extends Equatable {
-  final BroadcastTx checkTx;
-  final BroadcastTx deliverTx;
+  final int code;
+  final String codespace;
   final String hash;
-  final String height;
+  final dynamic data;
+  final String log;
 
   const BroadcastResp({
-    required this.checkTx,
-    required this.deliverTx,
     required this.hash,
-    required this.height,
+    required this.code,
+    required this.codespace,
+    required this.data,
+    required this.log,
   });
 
   factory BroadcastResp.fromJson(Map<String, dynamic> json) {
     return BroadcastResp(
-      checkTx: BroadcastTx.fromJson(json['check_tx'] as Map<String, dynamic>),
-      deliverTx: BroadcastTx.fromJson(json['deliver_tx'] as Map<String, dynamic>),
       hash: json['hash'] as String,
-      height: json['height'] as String,
+      code: json['code'] as int,
+      codespace: json['codespace'] as String,
+      data: json['data'] as dynamic,
+      log: json['log'] as String,
     );
   }
 
+  bool get isSuccess => code == 0;
+
   @override
-  List<Object?> get props => <Object?>[checkTx, deliverTx, hash, height];
+  List<Object?> get props => <Object?>[hash, code, codespace, data, log];
 }

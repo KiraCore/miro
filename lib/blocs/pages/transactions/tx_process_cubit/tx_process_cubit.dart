@@ -46,7 +46,8 @@ class TxProcessCubit<T extends AMsgFormModel> extends Cubit<ATxProcessState> {
     String msgTypeName = InterxMsgTypes.getName(txMsgType);
 
     try {
-      bool txRemoteInfoAvailableBool = await _queryAccountService.isAccountRegistered(authCubit.state!.address.bech32Address);
+      bool txRemoteInfoAvailableBool =
+          await _queryAccountService.isAccountRegistered(authCubit.state!.address.bech32Address);
       if (txRemoteInfoAvailableBool == false) {
         emit(const TxProcessErrorState(accountErrorBool: true));
         return;

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:cryptography_utils/cryptography_utils.dart';
 import 'package:equatable/equatable.dart';
 
@@ -7,12 +9,12 @@ class BroadcastReq extends Equatable {
 
   const BroadcastReq({
     required this.tx,
-    this.mode = 'block',
+    this.mode = 'sync',
   });
 
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
-      'tx': tx.toProtoJson(),
+      'tx': base64Encode(tx.toProtoBytes()),
       'mode': mode,
     };
   }
