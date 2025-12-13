@@ -3,6 +3,7 @@ import 'package:miro/blocs/generic/network_module/network_module_bloc.dart';
 import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/models/page_data.dart';
 import 'package:miro/config/app_config.dart';
 import 'package:miro/config/locator.dart';
+import 'package:miro/infra/dto/api/query_interx_status/query_interx_status_resp.dart';
 import 'package:miro/infra/dto/api_kira/query_identity_record_verify_requests/request/query_identity_record_verify_requests_by_approver_req.dart';
 import 'package:miro/infra/dto/api_kira/query_identity_record_verify_requests/request/query_identity_record_verify_requests_by_requester_req.dart';
 import 'package:miro/infra/dto/api_kira/query_identity_record_verify_requests/response/pending_verification.dart';
@@ -11,10 +12,10 @@ import 'package:miro/infra/dto/api_kira/query_identity_record_verify_requests/re
 import 'package:miro/infra/dto/api_kira/query_identity_record_verify_requests/response/verify_record.dart';
 import 'package:miro/infra/dto/api_kira/query_identity_records/response/query_identity_record_by_id_resp.dart';
 import 'package:miro/infra/dto/api_kira/query_identity_records/response/query_identity_records_by_address_resp.dart';
-import 'package:miro/infra/dto/interx_headers.dart';
 import 'package:miro/infra/exceptions/dio_parse_exception.dart';
 import 'package:miro/infra/models/api_request_model.dart';
 import 'package:miro/infra/repositories/api/api_kira_repository.dart';
+import 'package:miro/infra/services/api/query_interx_status_service.dart';
 import 'package:miro/shared/models/identity_registrar/ir_inbound_verification_request_model.dart';
 import 'package:miro/shared/models/identity_registrar/ir_model.dart';
 import 'package:miro/shared/models/identity_registrar/ir_record_model.dart';
@@ -41,27 +42,36 @@ class IdentityRecordsService implements _IIdentityRecordsService {
   final IApiKiraRepository _apiKiraRepository = globalLocator<IApiKiraRepository>();
 
   @override
-  Future<BlockTimeWrapperModel<IRModel>> getIdentityRecordsByAddress(WalletAddress walletAddress, {bool forceRequestBool = false}) async {
+  Future<BlockTimeWrapperModel<IRModel>> getIdentityRecordsByAddress(WalletAddress walletAddress,
+      {bool forceRequestBool = false}) async {
     Uri networkUri = globalLocator<NetworkModuleBloc>().state.networkUri;
 
-    Response<dynamic> response = await _apiKiraRepository.fetchQueryIdentityRecordsByAddress<dynamic>(ApiRequestModel<String>(
+    Response<dynamic> response =
+        await _apiKiraRepository.fetchQueryIdentityRecordsByAddress<dynamic>(ApiRequestModel<String>(
       networkUri: networkUri,
       requestData: walletAddress.bech32Address,
       forceRequestBool: forceRequestBool,
     ));
-    List<PendingVerification> pendingVerifications = await _getAllPendingVerificationsByRequester(walletAddress, forceRequestBool: forceRequestBool);
+    List<PendingVerification> pendingVerifications =
+        await _getAllPendingVerificationsByRequester(walletAddress, forceRequestBool: forceRequestBool);
 
     try {
-      QueryIdentityRecordsByAddressResp queryIdentityRecordsByAddressResp = QueryIdentityRecordsByAddressResp.fromJson(response.data as Map<String, dynamic>);
-      InterxHeaders interxHeaders = InterxHeaders.fromHeaders(response.headers);
+      QueryIdentityRecordsByAddressResp queryIdentityRecordsByAddressResp =
+          QueryIdentityRecordsByAddressResp.fromJson(response.data as Map<String, dynamic>);
+
+      QueryInterxStatusResp statusResp = await QueryInterxStatusService().getQueryInterxStatusResp(networkUri);
+
       IRModel irModel = IRModel.fromDto(
         walletAddress: walletAddress,
         records: queryIdentityRecordsByAddressResp.records,
         pendingVerifications: pendingVerifications,
       );
-      return BlockTimeWrapperModel<IRModel>(model: irModel, blockDateTime: interxHeaders.blockDateTime);
+      return BlockTimeWrapperModel<IRModel>(model: irModel, blockDateTime: statusResp.syncInfo.latestBlockTime);
     } catch (e) {
-      AppLogger().log(message: 'IdentityRecordsService: Cannot parse getIdentityRecordsByAddress() for URI $networkUri ${e}', logLevel: LogLevel.error);
+      AppLogger().log(
+        message: 'IdentityRecordsService: Cannot parse getIdentityRecordsByAddress() for URI $networkUri ${e}',
+        logLevel: LogLevel.error,
+      );
       throw DioParseException(response: response, error: e);
     }
   }
@@ -75,13 +85,19 @@ class IdentityRecordsService implements _IIdentityRecordsService {
 
     Response<dynamic> response = await _apiKiraRepository.fetchQueryIdentityRecordVerifyRequestsByApprover<dynamic>(
       ApiRequestModel<QueryIdentityRecordVerifyRequestsByApproverReq>(
-          networkUri: networkUri, requestData: queryIdentityRecordVerifyRequestsByApproverReq, forceRequestBool: forceRequestBool),
+          networkUri: networkUri,
+          requestData: queryIdentityRecordVerifyRequestsByApproverReq,
+          forceRequestBool: forceRequestBool),
     );
 
     late QueryIdentityRecordVerifyRequestsByApproverResp queryIdentityRecordVerifyRequestsByApproverResp;
+    late QueryInterxStatusResp statusResp;
     try {
       Map<String, dynamic> jsonData = response.data as Map<String, dynamic>;
-      queryIdentityRecordVerifyRequestsByApproverResp = QueryIdentityRecordVerifyRequestsByApproverResp.fromJson(jsonData);
+      queryIdentityRecordVerifyRequestsByApproverResp =
+          QueryIdentityRecordVerifyRequestsByApproverResp.fromJson(jsonData);
+
+      statusResp = await QueryInterxStatusService().getQueryInterxStatusResp(networkUri);
     } catch (e) {
       AppLogger().log(
         message: 'IdentityRecordsService: Cannot parse getInboundVerificationRequests() for URI $networkUri ${e}',
@@ -90,14 +106,16 @@ class IdentityRecordsService implements _IIdentityRecordsService {
       throw DioParseException(response: response, error: e);
     }
 
-    List<IRInboundVerificationRequestModel> irInboundVerificationRequestModels = List<IRInboundVerificationRequestModel>.empty(growable: true);
+    List<IRInboundVerificationRequestModel> irInboundVerificationRequestModels =
+        List<IRInboundVerificationRequestModel>.empty(growable: true);
     List<WalletAddress> requesterAddressList = queryIdentityRecordVerifyRequestsByApproverResp.verifyRecords
         .map((VerifyRecord verifyRecord) => verifyRecord.address)
         .toSet()
         .map(WalletAddress.fromBech32)
         .toList();
 
-    Map<WalletAddress, IRUserProfileModel> irUserProfileModelsMap = await _getUserProfilesByAddresses(requesterAddressList);
+    Map<WalletAddress, IRUserProfileModel> irUserProfileModelsMap =
+        await _getUserProfilesByAddresses(requesterAddressList);
 
     for (VerifyRecord verifyRecord in queryIdentityRecordVerifyRequestsByApproverResp.verifyRecords) {
       Map<String, String> records = await _getRecordKeyValuePairsById(verifyRecord.recordIds);
@@ -113,23 +131,24 @@ class IdentityRecordsService implements _IIdentityRecordsService {
       irInboundVerificationRequestModels.add(irInboundVerificationRequestModel);
     }
 
-    InterxHeaders interxHeaders = InterxHeaders.fromHeaders(response.headers);
-
     return PageData<IRInboundVerificationRequestModel>(
       listItems: irInboundVerificationRequestModels,
       lastPageBool: irInboundVerificationRequestModels.length < queryIdentityRecordVerifyRequestsByApproverReq.limit!,
-      blockDateTime: interxHeaders.blockDateTime,
-      cacheExpirationDateTime: interxHeaders.cacheExpirationDateTime,
+      blockDateTime: statusResp.syncInfo.latestBlockTime,
+      // TODO: remove probably
+      cacheExpirationDateTime: DateTime.now(),
     );
   }
 
   @override
-  Future<List<IRRecordVerificationRequestModel>> getOutboundRecordVerificationRequests(IRRecordModel irRecordModel) async {
+  Future<List<IRRecordVerificationRequestModel>> getOutboundRecordVerificationRequests(
+      IRRecordModel irRecordModel) async {
     List<WalletAddress> allWalletAddresses = <WalletAddress>{
       ...irRecordModel.verifiersAddresses,
       ...irRecordModel.pendingVerifiersAddresses,
     }.toList();
-    Map<WalletAddress, IRUserProfileModel> irUserProfileModelsMap = await _getUserProfilesByAddresses(allWalletAddresses);
+    Map<WalletAddress, IRUserProfileModel> irUserProfileModelsMap =
+        await _getUserProfilesByAddresses(allWalletAddresses);
 
     List<IRRecordVerificationRequestModel> irRecordVerificationRequestModels = <IRRecordVerificationRequestModel>[
       ...irRecordModel.verifiersAddresses.map((WalletAddress walletAddress) => IRRecordVerificationRequestModel(
@@ -145,7 +164,8 @@ class IdentityRecordsService implements _IIdentityRecordsService {
     return irRecordVerificationRequestModels;
   }
 
-  Future<List<PendingVerification>> _getAllPendingVerificationsByRequester(WalletAddress requesterWalletAddress, {bool forceRequestBool = false}) async {
+  Future<List<PendingVerification>> _getAllPendingVerificationsByRequester(WalletAddress requesterWalletAddress,
+      {bool forceRequestBool = false}) async {
     Uri networkUri = globalLocator<NetworkModuleBloc>().state.networkUri;
     List<PendingVerification> allPendingVerifications = List<PendingVerification>.empty(growable: true);
 
@@ -169,7 +189,8 @@ class IdentityRecordsService implements _IIdentityRecordsService {
         Map<String, dynamic> jsonData = response.data as Map<String, dynamic>;
         QueryIdentityRecordVerifyRequestsByRequesterResp queryIdentityRecordVerifyRequestsByRequesterResp =
             QueryIdentityRecordVerifyRequestsByRequesterResp.fromJson(jsonData);
-        List<PendingVerification> pendingVerifications = queryIdentityRecordVerifyRequestsByRequesterResp.verifyRecords.map((VerifyRecord e) {
+        List<PendingVerification> pendingVerifications =
+            queryIdentityRecordVerifyRequestsByRequesterResp.verifyRecords.map((VerifyRecord e) {
           return PendingVerification(verifierAddress: e.verifier, recordIds: e.recordIds);
         }).toList();
         allPendingVerifications.addAll(pendingVerifications);
@@ -178,7 +199,8 @@ class IdentityRecordsService implements _IIdentityRecordsService {
         }
       } catch (e) {
         AppLogger().log(
-          message: 'IdentityRecordsService: Cannot parse _getAllPendingVerificationsByRequester() for URI $networkUri ${e}',
+          message:
+              'IdentityRecordsService: Cannot parse _getAllPendingVerificationsByRequester() for URI $networkUri ${e}',
           logLevel: LogLevel.error,
         );
         throw DioParseException(response: response, error: e);
@@ -187,7 +209,8 @@ class IdentityRecordsService implements _IIdentityRecordsService {
     return allPendingVerifications;
   }
 
-  Future<Map<WalletAddress, IRUserProfileModel>> _getUserProfilesByAddresses(List<WalletAddress> walletAddressList) async {
+  Future<Map<WalletAddress, IRUserProfileModel>> _getUserProfilesByAddresses(
+      List<WalletAddress> walletAddressList) async {
     Map<WalletAddress, IRUserProfileModel> irUserProfileModelsMap = Map<WalletAddress, IRUserProfileModel>.fromEntries(
       await Future.wait(
         walletAddressList.map((WalletAddress walletAddress) async {
@@ -214,7 +237,8 @@ class IdentityRecordsService implements _IIdentityRecordsService {
         records[queryIdentityRecordByIdResp.record.key] = queryIdentityRecordByIdResp.record.value;
       } catch (e) {
         AppLogger().log(
-          message: 'IdentityRecordsService: Cannot get result for _getRecordKeyValuePairsById($id) for URI $networkUri ${e}',
+          message:
+              'IdentityRecordsService: Cannot get result for _getRecordKeyValuePairsById($id) for URI $networkUri ${e}',
           logLevel: LogLevel.error,
         );
       }

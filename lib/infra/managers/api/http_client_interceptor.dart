@@ -1,5 +1,4 @@
 import 'package:dio/dio.dart';
-import 'package:miro/infra/dto/interx_headers.dart';
 import 'package:miro/infra/managers/cache/api_cache_manager.dart';
 import 'package:miro/infra/models/api_cache_config_model.dart';
 import 'package:miro/infra/models/api_cache_response_model.dart';
@@ -39,7 +38,8 @@ class HttpClientInterceptor extends Interceptor {
 
     // Fetch from server when cached response exists but is expired
     if (apiCacheResponseModel.isExpired(currentTime)) {
-      AppLogger().logApiInterceptor(options, 'SERVER | Cached response exists, but expired $secondsToExpiry seconds ago. Fetch from server.');
+      AppLogger().logApiInterceptor(
+          options, 'SERVER | Cached response exists, but expired $secondsToExpiry seconds ago. Fetch from server.');
       await apiCacheManager.deleteResponse(options);
 
       // Fetch [Response] from server and call [onResponse] if server responds with a (2XX) status code or [onError] if not
@@ -55,10 +55,7 @@ class HttpClientInterceptor extends Interceptor {
 
   @override
   Future<void> onResponse(Response<dynamic> response, ResponseInterceptorHandler handler) async {
-    ApiCacheResponseModel apiCacheResponseModel = await apiCacheManager.saveResponse(response, apiCacheConfigModel);
-    response.headers
-      ..set(InterxHeaders.cacheExpirationTimeHeaderKey, apiCacheResponseModel.cacheExpirationDateTime.toString())
-      ..set(InterxHeaders.dataSourceHeaderKey, InterxHeaders.dataSourceApiHeaderValue);
+    await apiCacheManager.saveResponse(response, apiCacheConfigModel);
     return handler.next(response);
   }
 

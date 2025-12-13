@@ -2,7 +2,6 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:miro/config/locator.dart';
-import 'package:miro/infra/dto/interx_headers.dart';
 import 'package:miro/infra/entity/cache/api_cache_response_entity.dart';
 import 'package:miro/infra/models/api_cache_config_model.dart';
 import 'package:miro/infra/models/api_cache_response_model.dart';
@@ -12,9 +11,11 @@ import 'package:miro/shared/utils/cryptography/sha256.dart';
 class ApiCacheManager {
   final ApiCacheRepository _apiCacheRepository;
 
-  ApiCacheManager({ApiCacheRepository? apiCacheRepository}) : _apiCacheRepository = apiCacheRepository ?? globalLocator<ApiCacheRepository>();
+  ApiCacheManager({ApiCacheRepository? apiCacheRepository})
+      : _apiCacheRepository = apiCacheRepository ?? globalLocator<ApiCacheRepository>();
 
-  Future<ApiCacheResponseModel> saveResponse(Response<dynamic> response, ApiCacheConfigModel apiCacheConfigModel) async {
+  Future<ApiCacheResponseModel> saveResponse(
+      Response<dynamic> response, ApiCacheConfigModel apiCacheConfigModel) async {
     RequestOptions options = response.requestOptions;
     DateTime cacheStartTime = apiCacheConfigModel.cacheStartTime ?? DateTime.now();
     DateTime cacheExpirationDateTime = cacheStartTime.add(apiCacheConfigModel.apiCacheMaxAge);
@@ -41,9 +42,6 @@ class ApiCacheManager {
       return null;
     } else {
       ApiCacheResponseModel apiCacheResponseModel = ApiCacheResponseModel.fromEntity(apiCacheResponseEntity);
-      apiCacheResponseModel.headers
-        ..set(InterxHeaders.dataSourceHeaderKey, InterxHeaders.dataSourceCacheHeaderValue)
-        ..set(InterxHeaders.cacheExpirationTimeHeaderKey, apiCacheResponseModel.cacheExpirationDateTime.toString());
       return apiCacheResponseModel;
     }
   }

@@ -48,7 +48,10 @@ class RemoteApiRepository implements IApiRepository {
       final Response<T> response = await _httpClientManager.get<T>(
         networkUri: apiRequestModel.networkUri,
         path: '/api/status',
-        apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: apiRequestModel.forceRequestBool),
+        apiCacheConfigModel: ApiCacheConfigModel(
+          forceRequestBool: apiRequestModel.forceRequestBool,
+          apiCacheMaxAge: const Duration(seconds: 60),
+        ),
       );
       return response;
     } on DioException catch (dioException) {

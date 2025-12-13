@@ -13,6 +13,7 @@ class InterxInfo extends Equatable {
   final Node node;
   final PubKey pubKey;
   final String version;
+  final String sekaiVersion;
   final String? faucetAddress;
 
   const InterxInfo({
@@ -26,6 +27,7 @@ class InterxInfo extends Equatable {
     required this.node,
     required this.pubKey,
     required this.version,
+    required this.sekaiVersion,
     this.faucetAddress,
   });
 
@@ -39,7 +41,8 @@ class InterxInfo extends Equatable {
         moniker: json['moniker'] as String,
         node: Node.fromJson(json['node'] as Map<String, dynamic>),
         pubKey: PubKey.fromJson(json['pub_key'] as Map<String, dynamic>),
-        version: json['version'] as String,
+        version: json['version'] as String? ?? 'v0.4.46',
+        sekaiVersion: json['sekai_version'] as String? ?? '0.37.2',
         faucetAddress: json['faucet_addr'] as String?,
       );
 
@@ -55,6 +58,7 @@ class InterxInfo extends Equatable {
         node,
         pubKey,
         version,
+        sekaiVersion,
         faucetAddress,
       ];
 }
