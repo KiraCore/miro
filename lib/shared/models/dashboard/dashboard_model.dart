@@ -95,12 +95,10 @@ class DashboardModel extends Equatable {
         .where((ProposalModel p) => p.result == VoteResult.passed.value || p.result == VoteResult.enactment.value)
         .length;
 
-    // Get unique proposers and voters
-    Set<String> proposersSet = <String>{};
-    Set<String> votersSet = <String>{};
-    for (ProposalModel proposal in proposalsResp.proposals) {
-      proposersSet.add(proposal.proposalId);
-      votersSet.add(proposal.proposalId);
+    List<ProposalModel> proposals = proposalsResp.proposals;
+    int voters = 0;
+    for (ProposalModel proposal in proposals) {
+      voters += proposal.votersCount;
     }
 
     return ProposalsModel(
@@ -109,8 +107,8 @@ class DashboardModel extends Equatable {
       enacting: enacting,
       finished: finished,
       successful: successful,
-      proposers: proposersSet.length.toString(),
-      voters: votersSet.length.toString(),
+      proposers: proposals.length,
+      voters: voters,
     );
   }
 

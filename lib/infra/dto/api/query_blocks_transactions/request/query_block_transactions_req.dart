@@ -6,7 +6,6 @@ import 'package:miro/shared/models/transactions/messages/interx_msg_types.dart';
 import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
 import 'package:miro/shared/utils/custom_date_utils.dart';
 
-// TODO(Mykyta): combine with QueryTransactionsReq ???
 class QueryBlockTransactionsReq extends Equatable {
   /// This represents the blockId you may want to fetch the transactions from
   final String blockId;
@@ -55,10 +54,8 @@ class QueryBlockTransactionsReq extends Equatable {
     return <String, dynamic>{
       // 'blockId': blockId, // NOTE: already in the path
       'address': address,
-      // TODO(dominik): Replace camelCase with snake_case
-      'dateEnd': dateEnd != null ? CustomDateUtils.parseDateToSecondsSinceEpoch(dateEnd!) : null,
-      // TODO(dominik): Replace camelCase with snake_case
-      'dateStart': dateStart != null ? CustomDateUtils.parseDateToSecondsSinceEpoch(dateStart!) : null,
+      'end_date': dateEnd != null ? CustomDateUtils.parseDateToSecondsSinceEpoch(dateEnd!) : null,
+      'start_date': dateStart != null ? CustomDateUtils.parseDateToSecondsSinceEpoch(dateStart!) : null,
       'direction': direction?.map((TxDirectionType txDirectionType) => txDirectionType.name).join(','),
       'limit': limit,
       'offset': offset,

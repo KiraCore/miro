@@ -40,7 +40,7 @@ class BlockModel extends AListItem {
   }
 
   @override
-  String get cacheId => header.height;
+  String get cacheId => header.height.toString();
 
   @override
   bool get isFavourite => _favourite;

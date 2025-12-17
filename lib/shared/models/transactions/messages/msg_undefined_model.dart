@@ -47,5 +47,5 @@ class MsgUndefinedModel extends ATxMsgModel {
   }
 
   @override
-  List<Object?> get props => <Object>[];
+  List<Object?> get props => <Object?>[fromAddress, toAddress];
 }

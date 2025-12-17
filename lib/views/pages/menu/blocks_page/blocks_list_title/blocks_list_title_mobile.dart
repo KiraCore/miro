@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/events/list_reload_event.dart';
-import 'package:miro/blocs/widgets/kira/kira_list/paginated_list/paginated_list_bloc.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/controllers/menu/blocks_page/blocks_list_controller.dart';
 import 'package:miro/shared/models/blocks/block_model.dart';
-import 'package:miro/views/widgets/generic/date_range_dropdown/date_range_dropdown.dart';
 import 'package:miro/views/widgets/kira/kira_list/components/list_search_widget.dart';
 import 'package:miro/views/widgets/kira/kira_list/sliver_paginated_list/page_size_dropdown/page_size_dropdown.dart';
 
@@ -45,17 +41,18 @@ class BlockListTitleMobile extends StatelessWidget {
         const SizedBox(height: 12),
         Row(
           children: <Widget>[
-            DateRangeDropdown(
-              initialStartDateTime: blocksListController.startDateTime,
-              initialEndDateTime: blocksListController.endDateTime,
-              onDateTimeChanged: (DateTime? startDateTime, DateTime? endDateTime) {
-                blocksListController
-                  ..startDateTime = startDateTime
-                  ..endDateTime = endDateTime;
-                BlocProvider.of<PaginatedListBloc<BlockModel>>(context).add(const ListReloadEvent());
-              },
-            ),
-            const SizedBox(width: 24),
+            // TODO: #33 not supported by new Interx
+            // DateRangeDropdown(
+            //   initialStartDateTime: blocksListController.startDateTime,
+            //   initialEndDateTime: blocksListController.endDateTime,
+            //   onDateTimeChanged: (DateTime? startDateTime, DateTime? endDateTime) {
+            //     blocksListController
+            //       ..startDateTime = startDateTime
+            //       ..endDateTime = endDateTime;
+            //     BlocProvider.of<PaginatedListBloc<BlockModel>>(context).add(const ListReloadEvent());
+            //   },
+            // ),
+            // const SizedBox(width: 24),
             PageSizeDropdown(
               selectedPageSize: pageSize,
               availablePageSizes: const <int>[10, 25, 50, 100],

@@ -50,16 +50,16 @@ class BlocksListItemMobile extends StatelessWidget {
                     child: Row(
                       children: <Widget>[
                         CopyButton(
-                          value: blockModel.header.height,
+                          value: blockModel.header.height.toString(),
                           notificationText: S.of(context).toastSuccessfullyCopied,
                         ),
                         const SizedBox(width: 4),
                         Expanded(
                           child: KiraToolTip(
                             childMargin: EdgeInsets.zero,
-                            message: blockModel.header.height,
+                            message: blockModel.header.height.toString(),
                             child: Text(
-                              blockModel.header.height,
+                              blockModel.header.height.toString(),
                               overflow: TextOverflow.ellipsis,
                               style: textTheme.bodyLarge!.copyWith(color: DesignColors.white2),
                             ),

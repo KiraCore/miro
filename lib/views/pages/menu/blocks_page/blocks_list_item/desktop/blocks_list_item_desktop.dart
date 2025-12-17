@@ -35,7 +35,7 @@ class BlocksListItemDesktop extends StatelessWidget {
       child: BlocksListItemDesktopLayout(
         height: height,
         heightWidget: Text(
-          blockModel.header.height,
+          blockModel.header.height.toString(),
           overflow: TextOverflow.ellipsis,
           style: textTheme.bodyMedium!.copyWith(color: DesignColors.white2),
         ),

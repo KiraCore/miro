@@ -21,7 +21,8 @@ Future<void> main() async {
 
   DashboardModel expectedDashboardModel = const DashboardModel(
     consensusHealth: 1,
-    currentBlockValidatorModel: CurrentBlockValidatorModel(address: 'kira12p8c7ynv7uxzdd88dc9trd9e4qzsewjvqq8y2x', moniker: 'GENESIS VALIDATOR'),
+    currentBlockValidatorModel: CurrentBlockValidatorModel(
+        address: 'kira12p8c7ynv7uxzdd88dc9trd9e4qzsewjvqq8y2x', moniker: 'GENESIS VALIDATOR'),
     validatorsStatusModel: ValidatorsStatusModel(
       activeValidators: 1,
       inactiveValidators: 0,
@@ -38,7 +39,8 @@ Future<void> main() async {
       latestTime: 5.009137321,
       averageTime: 5.009582592,
     ),
-    proposalsModel: ProposalsModel(total: 0, active: 0, enacting: 0, finished: 0, successful: 0, proposers: '1', voters: '1'),
+    proposalsModel:
+        ProposalsModel(total: 0, active: 0, enacting: 0, finished: 0, successful: 0, proposers: 1, voters: 1),
   );
 
   group('Tests of DashboardService.getDashboardModel() method', () {

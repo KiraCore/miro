@@ -14,7 +14,7 @@ void main() {
         consensusHash: '048091BC7DDC283F77BFBF91D73C44DA58C3DF8A9CBC867405D8B7F3DAADA22F',
         dataHash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
         evidenceHash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
-        height: '460593',
+        height: 460593,
         proposerAddress: 'AAD2554628B4F2388756655CE26A7B33381BD9D3',
         time: DateTime.parse('2023-07-20T13:09:37.234572353Z'),
         validatorsHash: '78E7F265D3BA68B8B8522AD6A33448A2E52A1CA06F7E11A38D959EC2FB3F84C0',
@@ -30,7 +30,7 @@ void main() {
         consensusHash: '048091BC7DDC283F77BFBF91D73C44DA58C3DF8A9CBC867405D8B7F3DAADA22F',
         dataHash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
         evidenceHash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
-        height: '460592',
+        height: 460592,
         proposerAddress: 'CF992A9CB5366E78177DB878CE5C9670B0C4F4FB',
         time: DateTime.parse('2023-07-20T13:09:26.925665233Z'),
         validatorsHash: '78E7F265D3BA68B8B8522AD6A33448A2E52A1CA06F7E11A38D959EC2FB3F84C0',
@@ -46,7 +46,7 @@ void main() {
         consensusHash: '048091BC7DDC283F77BFBF91D73C44DA58C3DF8A9CBC867405D8B7F3DAADA22F',
         dataHash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
         evidenceHash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
-        height: '460591',
+        height: 460591,
         proposerAddress: 'CF992A9CB5366E78177DB878CE5C9670B0C4F4FB',
         time: DateTime.parse('2023-07-20T13:09:16.61665962Z'),
         validatorsHash: '78E7F265D3BA68B8B8522AD6A33448A2E52A1CA06F7E11A38D959EC2FB3F84C0',
@@ -62,7 +62,7 @@ void main() {
         consensusHash: '048091BC7DDC283F77BFBF91D73C44DA58C3DF8A9CBC867405D8B7F3DAADA22F',
         dataHash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
         evidenceHash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
-        height: '460589',
+        height: 460589,
         proposerAddress: 'AAD2554628B4F2388756655CE26A7B33381BD9D3',
         time: DateTime.parse('2023-07-20T13:08:55.992959405Z'),
         validatorsHash: '78E7F265D3BA68B8B8522AD6A33448A2E52A1CA06F7E11A38D959EC2FB3F84C0',
@@ -78,7 +78,7 @@ void main() {
         consensusHash: '048091BC7DDC283F77BFBF91D73C44DA58C3DF8A9CBC867405D8B7F3DAADA22F',
         dataHash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
         evidenceHash: 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
-        height: '460588',
+        height: 460588,
         proposerAddress: 'CF992A9CB5366E78177DB878CE5C9670B0C4F4FB',
         time: DateTime.parse('2023-07-20T13:08:45.679589326Z'),
         validatorsHash: '78E7F265D3BA68B8B8522AD6A33448A2E52A1CA06F7E11A38D959EC2FB3F84C0',
@@ -96,7 +96,8 @@ void main() {
   group('Tests of BlocksSortOptions.sortByTop', () {
     test('Should return blockList by "height" ascending', () {
       // Act
-      List<BlockModel> actualBlockModelList = BlocksSortOptions.sortByHeight.sort(List<BlockModel>.from(blockModelList));
+      List<BlockModel> actualBlockModelList =
+          BlocksSortOptions.sortByHeight.sort(List<BlockModel>.from(blockModelList));
 
       // Assert
       List<BlockModel> expectedBlockModelList = <BlockModel>[
@@ -111,7 +112,8 @@ void main() {
     });
     test('Should return BlocksSortOptions.blockList by "height" descending', () {
       // Act
-      List<BlockModel> actualBlockModelList = BlocksSortOptions.sortByHeight.reversed().sort(List<BlockModel>.from(blockModelList));
+      List<BlockModel> actualBlockModelList =
+          BlocksSortOptions.sortByHeight.reversed().sort(List<BlockModel>.from(blockModelList));
 
       // Assert
       List<BlockModel> expectedBlockModelList = <BlockModel>[

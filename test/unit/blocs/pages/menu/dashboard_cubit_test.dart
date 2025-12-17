@@ -45,8 +45,8 @@ Future<void> main() async {
       averageTime: 5.009582592,
     ),
     proposalsModel: ProposalsModel(
-      proposers: '1',
-      voters: '1',
+      proposers: 1,
+      voters: 1,
       total: 0,
       active: 0,
       successful: 0,
@@ -58,7 +58,8 @@ Future<void> main() async {
   group('Tests of [DashboardCubit] process', () {
     test('Should return ADashboardState consistent with network response', () async {
       // Arrange
-      NetworkModuleBloc actualNetworkModuleBloc = globalLocator<NetworkModuleBloc>()..add(NetworkModuleAutoConnectEvent(TestUtils.offlineNetworkUnknownModel));
+      NetworkModuleBloc actualNetworkModuleBloc = globalLocator<NetworkModuleBloc>()
+        ..add(NetworkModuleAutoConnectEvent(TestUtils.offlineNetworkUnknownModel));
       DashboardCubit actualDashboardCubit = DashboardCubit();
 
       // Assert

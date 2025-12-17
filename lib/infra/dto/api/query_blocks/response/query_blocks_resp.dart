@@ -28,8 +28,7 @@ class QueryBlocksResp extends Equatable {
 
     // If not found, try pagination.total
     if (lastHeight == 0 && json['pagination'] != null) {
-      final dynamic total =
-          (json['pagination'] as Map<String, dynamic>)['total'];
+      final dynamic total = (json['pagination'] as Map<String, dynamic>)['total'];
       if (total is int) {
         lastHeight = total;
       } else if (total is String) {
@@ -39,7 +38,7 @@ class QueryBlocksResp extends Equatable {
 
     // If still not found and we have blocks, use the first block's height
     if (lastHeight == 0 && blocks.isNotEmpty) {
-      lastHeight = int.tryParse(blocks.first.header.height) ?? 0;
+      lastHeight = blocks.first.header.height;
     }
 
     return QueryBlocksResp(

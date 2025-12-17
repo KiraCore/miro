@@ -5,7 +5,7 @@ class BlocksFilterOptions {
   static FilterComparator<BlockModel> search(String searchText) {
     return (BlockModel blockModel) {
       bool hashMatchBool = blockModel.blockId.hash.toLowerCase().contains(searchText.toLowerCase());
-      bool heightMatchBool = blockModel.header.height.toLowerCase().contains(searchText.toLowerCase());
+      bool heightMatchBool = blockModel.header.height.toString().contains(searchText);
       return hashMatchBool || heightMatchBool;
     };
   }

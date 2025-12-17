@@ -4,7 +4,7 @@ class Header {
   final String consensusHash;
   final String dataHash;
   final String evidenceHash;
-  final String height;
+  final int height;
   final String proposerAddress;
   final DateTime time;
   final String validatorsHash;
@@ -27,7 +27,7 @@ class Header {
         consensusHash: json['consensus_hash'] as String,
         dataHash: json['data_hash'] as String,
         evidenceHash: json['evidence_hash'] as String,
-        height: json['height'] as String,
+        height: int.parse(json['height'] as String),
         proposerAddress: json['proposer_address'] as String,
         time: DateTime.parse(json['time'] as String),
         validatorsHash: json['validators_hash'] as String,

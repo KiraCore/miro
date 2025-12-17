@@ -103,12 +103,14 @@ class RemoteApiRepository implements IApiRepository {
       final Response<T> response = await _httpClientManager.get<T>(
         networkUri: apiRequestModel.networkUri,
         path: '/api/blocks/${apiRequestModel.requestData.blockId}/transactions',
+        queryParameters: apiRequestModel.requestData.toJson(),
         apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: apiRequestModel.forceRequestBool),
       );
       return response;
     } on DioException catch (dioException) {
       AppLogger().log(
-          message: 'Cannot fetch fetchQueryBlocks() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
+          message:
+              'Cannot fetch fetchQueryBlockTransactions() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
       throw DioConnectException(dioException: dioException);
     }
   }

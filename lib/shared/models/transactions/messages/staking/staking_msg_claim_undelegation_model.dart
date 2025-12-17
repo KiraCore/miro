@@ -7,7 +7,7 @@ class StakingMsgClaimUndelegationModel extends ATxMsgModel {
   const StakingMsgClaimUndelegationModel({
     required this.senderWalletAddress,
     required this.undelegationId,
-  }) : super(txMsgType: TxMsgType.msgClaimRewards);
+  }) : super(txMsgType: TxMsgType.msgClaimUndelegation);
 
   factory StakingMsgClaimUndelegationModel.fromMsgDto(MsgClaimUndelegation msgClaimUndelegation) {
     return StakingMsgClaimUndelegationModel(
@@ -25,7 +25,7 @@ class StakingMsgClaimUndelegationModel extends ATxMsgModel {
   }
 
   @override
-  List<Object?> get props => <Object>[senderWalletAddress];
+  List<Object?> get props => <Object>[senderWalletAddress, undelegationId];
 
   @override
   Widget getIcon(TxDirectionType txDirectionType) {

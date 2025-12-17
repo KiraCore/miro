@@ -6,8 +6,8 @@ class ProposalsModel extends Equatable {
   final int enacting;
   final int finished;
   final int successful;
-  final String proposers;
-  final String voters;
+  final int proposers;
+  final int voters;
 
   const ProposalsModel({
     required this.total,
