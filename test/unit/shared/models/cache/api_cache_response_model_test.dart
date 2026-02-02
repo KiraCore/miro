@@ -14,10 +14,12 @@ void main() {
     'date': <String>['Wed 08 Mar 2023 09:18:48 GMT'],
     'interx_block': <String>['212202'],
     'interx_blocktime': <String>['2023-03-08T09:18:33.086598145Z'],
-    'interx_chain_id': <String>['localnet-1'],
+    'interx_chain_id': <String>['chaosnet-3'],
     'interx_hash': <String>['5ba8946a2a4ff3494ccc5e984f38a68c9ead746eec209deaa81270f92ca19d8b'],
     'interx_request_hash': <String>['e20a54dacfe40ba3897af3c3d93e845bce2048ad8e491a293f2bc22f7af55f8e'],
-    'interx_signature': <String>['XS4v2nYuYz+XT4YHqOsrwCwgwA253Ic7A/9oAllpK7d23pqgqVf3/hY4lq9jWmYsyJ694WQbjeWShmyaxiqSbA=='],
+    'interx_signature': <String>[
+      'XS4v2nYuYz+XT4YHqOsrwCwgwA253Ic7A/9oAllpK7d23pqgqVf3/hY4lq9jWmYsyJ694WQbjeWShmyaxiqSbA=='
+    ],
     'interx_timestamp': <String>['1678267128'],
     'vary': <String>['Origin']
   };

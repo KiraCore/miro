@@ -11,16 +11,15 @@ class MockApiKiraAccounts {
     'interx_timestamp': <String>['1661760414'],
   });
 
+  // Updated to match QueryAccountResp.fromJson expected structure (camelCase keys, no wrapper)
   static Map<String, dynamic> defaultResponse = <String, dynamic>{
-    'account': {
-      '@type': '/cosmos.auth.v1beta1.BaseAccount',
-      'account_number': '669',
-      'address': 'a2lyYTE0M3E4dnhwdnV5a3Q5cHE1MGU2aG5nOXMzOHZteTg0NG44azl3eA==',
-      'pub_key': {
-        '@type': '/cosmos.crypto.secp256k1.PubKey',
-        'value': 'CiECUtqzwInqWbnJknyHRTlC72fNW+C+ySAe5RE8HeO9THw=',
-      },
-      'sequence': '106'
-    }
+    '@type': '/cosmos.auth.v1beta1.BaseAccount',
+    'accountNumber': '669',
+    'address': 'kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx',
+    'pubKey': {
+      '@type': '/cosmos.crypto.secp256k1.PubKey',
+      'key': 'AlLas8CJ6lm5yZJ8h0U5Qu9nzVvgvskgHuURPB3jvUx8',
+    },
+    'sequence': '106'
   };
 }

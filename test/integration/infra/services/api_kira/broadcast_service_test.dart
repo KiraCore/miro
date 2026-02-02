@@ -4,6 +4,7 @@ import 'package:decimal/decimal.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api_kira/broadcast/request/broadcast_req.dart';
+import 'package:miro/infra/dto/api_kira/broadcast/response/broadcast_resp.dart';
 import 'package:miro/infra/exceptions/dio_connect_exception.dart';
 import 'package:miro/infra/exceptions/dio_parse_exception.dart';
 import 'package:miro/infra/exceptions/tx_broadcast_exception.dart';
@@ -28,7 +29,7 @@ import 'package:miro/test/utils/test_utils.dart';
 Future<void> main() async {
   await TestUtils.initIntegrationTest();
 
-  final Uri networkUri = NetworkUtils.parseUrlToInterxUri('http://173.212.254.147:11000');
+  final Uri networkUri = NetworkUtils.parseUrlToInterxUri('http://3.123.154.245:11000');
   await TestUtils.setupNetworkModel(networkUri: networkUri);
 
   // Set up the constants to run the tests.
@@ -80,7 +81,8 @@ Future<void> main() async {
   Future<void> broadcastTx(SignedTxModel signedTxModel) async {
     TestUtils.printInfo('Data request');
     try {
-      // TODO: implement broadcastTx
+      final BroadcastResp broadcastResp = await broadcastService.broadcastTx(signedTxModel);
+      print(broadcastResp);
     } on DioConnectException catch (e) {
       TestUtils.printError(
           'broadcast_service_test.dart: Cannot fetch [BroadcastResp] for URI $networkUri: ${e.dioException.message}\n${e.dioException.response}');
@@ -133,8 +135,6 @@ Future<void> main() async {
       BroadcastReq actualBroadcastReq = BroadcastReq(tx: actualSignedTxModel.signedCosmosTx);
       TestUtils.printInfo(
           'Signed [IRMsgRegisterRecordsModel] transaction: ${json.encode(actualBroadcastReq.toJson())}');
-
-      // await broadcastTx(actualSignedTxModel);
     });
 
     test('Should return signed transaction with [IRMsgRequestVerificationModel] message', () async {
@@ -157,8 +157,6 @@ Future<void> main() async {
       BroadcastReq actualBroadcastReq = BroadcastReq(tx: actualSignedTxModel.signedCosmosTx);
       TestUtils.printInfo(
           'Signed [IRMsgRequestVerificationModel] transaction: ${json.encode(actualBroadcastReq.toJson())}');
-
-      // await broadcastTx(actualSignedTxModel);
     });
 
     test('Should return signed transaction with [IRMsgCancelVerificationRequestModel] message', () async {
@@ -176,8 +174,6 @@ Future<void> main() async {
       BroadcastReq actualBroadcastReq = BroadcastReq(tx: actualSignedTxModel.signedCosmosTx);
       TestUtils.printInfo(
           'Signed [IRMsgCancelVerificationRequestModel] transaction: ${json.encode(actualBroadcastReq.toJson())}');
-
-      // await broadcastTx(actualSignedTxModel);
     });
 
     test('Should return signed transaction with [IRMsgDeleteRecordsModel] message', () async {
@@ -194,8 +190,6 @@ Future<void> main() async {
 
       BroadcastReq actualBroadcastReq = BroadcastReq(tx: actualSignedTxModel.signedCosmosTx);
       TestUtils.printInfo('Signed [IRMsgDeleteRecordsModel] transaction: ${json.encode(actualBroadcastReq.toJson())}');
-
-      // await broadcastTx(actualSignedTxModel);
     });
 
     test('Should return signed transaction with [IRMsgHandleVerificationRequestModel] message', () async {
@@ -214,8 +208,6 @@ Future<void> main() async {
       BroadcastReq actualBroadcastReq = BroadcastReq(tx: actualSignedTxModel.signedCosmosTx);
       TestUtils.printInfo(
           'Signed [IRMsgHandleVerificationRequestModel] transaction: ${json.encode(actualBroadcastReq.toJson())}');
-
-      // await broadcastTx(actualSignedTxModel);
     });
 
     test('Should return signed transaction with [MsgDelegate] message', () async {
@@ -236,8 +228,6 @@ Future<void> main() async {
 
       BroadcastReq actualBroadcastReq = BroadcastReq(tx: actualSignedTxModel.signedCosmosTx);
       TestUtils.printInfo('Signed [MsgDelegate] transaction: ${json.encode(actualBroadcastReq.toJson())}');
-
-      // await broadcastTx(actualSignedTxModel);
     });
 
     test('Should return a signed transaction with [MsgUndelegate] message', () async {
@@ -256,8 +246,6 @@ Future<void> main() async {
 
       BroadcastReq actualBroadcastReq = BroadcastReq(tx: actualSignedTxModel.signedCosmosTx);
       TestUtils.printInfo('Signed [MsgUndelegate] transaction: ${json.encode(actualBroadcastReq.toJson())}');
-
-      // await broadcastTx(actualSignedTxModel);
     });
 
     test('Should return a signed transaction with [MsgClaimRewards] message', () async {
@@ -273,8 +261,6 @@ Future<void> main() async {
 
       BroadcastReq actualBroadcastReq = BroadcastReq(tx: actualSignedTxModel.signedCosmosTx);
       TestUtils.printInfo('Signed [MsgClaimRewards] transaction: ${json.encode(actualBroadcastReq.toJson())}');
-
-      // await broadcastTx(actualSignedTxModel);
     });
 
     test('Should return a signed transaction with [MsgClaimUndelegation] message', () async {
@@ -291,8 +277,6 @@ Future<void> main() async {
 
       BroadcastReq actualBroadcastReq = BroadcastReq(tx: actualSignedTxModel.signedCosmosTx);
       TestUtils.printInfo('Signed [MsgClaimUndelegation] transaction: ${json.encode(actualBroadcastReq.toJson())}');
-
-      // await broadcastTx(actualSignedTxModel);
     });
   });
 }

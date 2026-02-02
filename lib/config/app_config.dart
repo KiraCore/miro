@@ -74,8 +74,6 @@ class AppConfig {
   }
 
   bool isInterxVersionOutdated(String version) {
-    // TODO: #22
-    return true;
     bool isVersionSupported = supportedInterxVersions.any(
       (Version e) => e.compareByMinor(Version.parse(version)) == 0,
     );

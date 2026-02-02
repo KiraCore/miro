@@ -13,10 +13,11 @@ import 'package:miro/test/utils/test_utils.dart';
 Future<void> main() async {
   await TestUtils.initIntegrationTest();
 
-  final Uri networkUri = NetworkUtils.parseUrlToInterxUri('http://173.212.254.147:11000');
+  final Uri networkUri = NetworkUtils.parseUrlToInterxUri('http://3.123.154.245:11000');
   await TestUtils.setupNetworkModel(networkUri: networkUri);
 
-  final QueryNetworkPropertiesService actualQueryNetworkPropertiesService = globalLocator<QueryNetworkPropertiesService>();
+  final QueryNetworkPropertiesService actualQueryNetworkPropertiesService =
+      globalLocator<QueryNetworkPropertiesService>();
 
   group('Tests of QueryNetworkPropertiesService.getMinTxFee() method', () {
     test('Should return [TokenAmountModel] with current transaction fee', () async {
@@ -28,9 +29,11 @@ Future<void> main() async {
         print(actualTokenAmountModel);
         print('');
       } on DioConnectException catch (e) {
-        TestUtils.printError('query_network_properties_service_test.dart: Cannot fetch [TokenAmountModel] for URI $networkUri: ${e.dioException.message}');
+        TestUtils.printError(
+            'query_network_properties_service_test.dart: Cannot fetch [TokenAmountModel] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
-        TestUtils.printError('query_network_properties_service_test.dart: Cannot parse [TokenAmountModel] for URI $networkUri: ${e}');
+        TestUtils.printError(
+            'query_network_properties_service_test.dart: Cannot parse [TokenAmountModel] for URI $networkUri: ${e}');
       } catch (e) {
         TestUtils.printError('query_network_properties_service_test.dart: Unknown error for URI $networkUri: ${e}');
       }

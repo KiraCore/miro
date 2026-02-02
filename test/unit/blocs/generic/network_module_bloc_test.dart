@@ -42,8 +42,8 @@ Future<void> main() async {
       await Future<void>.delayed(const Duration(milliseconds: 40));
 
       // Assert
-      expectedNetworkModuleState =
-          NetworkModuleState.connecting(TestUtils.healthyNetworkUnknownModel.copyWith(connectionStatusType: ConnectionStatusType.connecting));
+      expectedNetworkModuleState = NetworkModuleState.connecting(
+          TestUtils.healthyNetworkUnknownModel.copyWith(connectionStatusType: ConnectionStatusType.connecting));
 
       TestUtils.printInfo('Should return NetworkModuleState with NetworkUnknownModel (connecting state)');
       expect(actualNetworkBloc.state, expectedNetworkModuleState);
@@ -52,9 +52,11 @@ Future<void> main() async {
       await Future<void>.delayed(const Duration(milliseconds: 100));
 
       // Assert
-      expectedNetworkModuleState = NetworkModuleState.connected(TestUtils.networkHealthyModel.copyWith(connectionStatusType: ConnectionStatusType.connected));
+      expectedNetworkModuleState = NetworkModuleState.connected(
+          TestUtils.networkHealthyModel.copyWith(connectionStatusType: ConnectionStatusType.connected));
 
-      TestUtils.printInfo('Should return NetworkModuleState with NetworkHealthyModel (connected state) if default network is healthy');
+      TestUtils.printInfo(
+          'Should return NetworkModuleState with NetworkHealthyModel (connected state) if default network is healthy');
       expect(actualNetworkBloc.state, expectedNetworkModuleState);
 
       rpcBrowserUrlController.removeRpcAddress();
@@ -91,7 +93,8 @@ Future<void> main() async {
       // Assert
       expectedNetworkModuleState = NetworkModuleState.connected(TestUtils.networkUnhealthyModel);
 
-      TestUtils.printInfo('Should return NetworkModuleState with NetworkEmptyModel (disconnected state) if default network is unhealthy');
+      TestUtils.printInfo(
+          'Should return NetworkModuleState with NetworkEmptyModel (disconnected state) if default network is unhealthy');
       expect(actualNetworkBloc.state, expectedNetworkModuleState);
 
       // Act
@@ -101,7 +104,8 @@ Future<void> main() async {
       // Assert
       expectedNetworkModuleState = NetworkModuleState.connected(TestUtils.networkUnhealthyModel);
 
-      TestUtils.printInfo('Should return NetworkModuleState with NetworkUnhealthyModel (connected state) after select network');
+      TestUtils.printInfo(
+          'Should return NetworkModuleState with NetworkUnhealthyModel (connected state) after select network');
       expect(actualNetworkBloc.state, expectedNetworkModuleState);
     });
 
@@ -132,7 +136,8 @@ Future<void> main() async {
       // Assert
       expectedNetworkModuleState = NetworkModuleState.connected(TestUtils.networkHealthyModel);
 
-      TestUtils.printInfo('Should return NetworkModuleState with NetworkHealthyModel (connected state) if default network is healthy');
+      TestUtils.printInfo(
+          'Should return NetworkModuleState with NetworkHealthyModel (connected state) if default network is healthy');
       expect(actualNetworkBloc.state, expectedNetworkModuleState);
 
       // Act
@@ -142,7 +147,8 @@ Future<void> main() async {
       // Assert
       expectedNetworkModuleState = NetworkModuleState.connected(TestUtils.networkUnhealthyModel);
 
-      TestUtils.printInfo('Should return NetworkModuleState with NetworkUnhealthyModel (connected state) if network is unhealthy');
+      TestUtils.printInfo(
+          'Should return NetworkModuleState with NetworkUnhealthyModel (connected state) if network is unhealthy');
       expect(actualNetworkBloc.state, expectedNetworkModuleState);
 
       // Act
@@ -152,7 +158,8 @@ Future<void> main() async {
       // Assert
       expectedNetworkModuleState = NetworkModuleState.connected(TestUtils.networkHealthyModel);
 
-      TestUtils.printInfo('Should return NetworkModuleState with NetworkHealthyModel (connected state) if network is healthy');
+      TestUtils.printInfo(
+          'Should return NetworkModuleState with NetworkHealthyModel (connected state) if network is healthy');
       expect(actualNetworkBloc.state, expectedNetworkModuleState);
     });
 
@@ -192,7 +199,9 @@ Future<void> main() async {
   });
 
   group('Tests of [NetworkModuleBloc] process: Network refreshing', () {
-    test('Should refresh network list. First state should contain NetworkHealthyModel, next NetworkUnhealthyModel and last NetworkOfflineModel', () async {
+    test(
+        'Should refresh network list. First state should contain NetworkHealthyModel, next NetworkUnhealthyModel and last NetworkOfflineModel',
+        () async {
       // Arrange
       NetworkModuleBloc actualNetworkBloc = NetworkModuleBloc();
       NetworkUnknownModel dynamicNetworkUnknownModel = NetworkUnknownModel(
@@ -205,8 +214,8 @@ Future<void> main() async {
         connectionStatusType: ConnectionStatusType.disconnected,
         uri: Uri.parse('http://dynamic.kira.network'),
         networkInfoModel: NetworkInfoModel(
-          chainId: 'localnet-1',
-          interxVersion: 'v0.4.22',
+          chainId: 'chaosnet-3',
+          interxVersion: 'v0.23.0', // Version from backend - may change
           latestBlockHeight: 108843,
           latestBlockTime: DateTime.now(),
         ),
@@ -258,7 +267,8 @@ Future<void> main() async {
       await Future<void>.delayed(const Duration(milliseconds: 40));
 
       // Assert
-      expectedNetworkModuleState = NetworkModuleState.connecting(dynamicNetworkUnknownModel.copyWith(connectionStatusType: ConnectionStatusType.connecting));
+      expectedNetworkModuleState = NetworkModuleState.connecting(
+          dynamicNetworkUnknownModel.copyWith(connectionStatusType: ConnectionStatusType.connecting));
 
       TestUtils.printInfo('Should return NetworkModuleState with NetworkUnknownModel (connecting state)');
       expect(actualNetworkBloc.state, expectedNetworkModuleState);
@@ -267,9 +277,11 @@ Future<void> main() async {
       await Future<void>.delayed(const Duration(milliseconds: 100));
 
       // Assert
-      expectedNetworkModuleState = NetworkModuleState.connected(dynamicNetworkHealthyModel.copyWith(connectionStatusType: ConnectionStatusType.connected));
+      expectedNetworkModuleState = NetworkModuleState.connected(
+          dynamicNetworkHealthyModel.copyWith(connectionStatusType: ConnectionStatusType.connected));
 
-      TestUtils.printInfo('Should return NetworkModuleState with NetworkHealthyModel (connected state) if default network is healthy');
+      TestUtils.printInfo(
+          'Should return NetworkModuleState with NetworkHealthyModel (connected state) if default network is healthy');
       expect(actualNetworkBloc.state, expectedNetworkModuleState);
 
       // Act
@@ -277,9 +289,11 @@ Future<void> main() async {
       await Future<void>.delayed(const Duration(milliseconds: 100));
 
       // Assert
-      expectedNetworkModuleState = NetworkModuleState.connected(dynamicNetworkUnhealthyModel.copyWith(connectionStatusType: ConnectionStatusType.connected));
+      expectedNetworkModuleState = NetworkModuleState.connected(
+          dynamicNetworkUnhealthyModel.copyWith(connectionStatusType: ConnectionStatusType.connected));
 
-      TestUtils.printInfo('Should return NetworkModuleState with NetworkUnhealthyModel if current network changed status to unhealthy after refreshing');
+      TestUtils.printInfo(
+          'Should return NetworkModuleState with NetworkUnhealthyModel if current network changed status to unhealthy after refreshing');
       expect(actualNetworkBloc.state, expectedNetworkModuleState);
 
       // Act
@@ -289,7 +303,8 @@ Future<void> main() async {
       // Assert
       expectedNetworkModuleState = NetworkModuleState.connected(dynamicNetworkOfflineModel);
 
-      TestUtils.printInfo('Should return NetworkModuleState with NetworkUnknownModel if current network changed status to offline after refreshing');
+      TestUtils.printInfo(
+          'Should return NetworkModuleState with NetworkUnknownModel if current network changed status to offline after refreshing');
       expect(actualNetworkBloc.state, expectedNetworkModuleState);
     });
   });

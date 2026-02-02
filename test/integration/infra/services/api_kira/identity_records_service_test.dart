@@ -20,7 +20,7 @@ import 'package:miro/test/utils/test_utils.dart';
 Future<void> main() async {
   await TestUtils.initIntegrationTest();
 
-  final Uri networkUri = NetworkUtils.parseUrlToInterxUri('http://173.212.254.147:11000');
+  final Uri networkUri = NetworkUtils.parseUrlToInterxUri('http://3.123.154.245:11000');
   await TestUtils.setupNetworkModel(networkUri: networkUri);
 
   final IdentityRecordsService actualIdentityRecordsService = globalLocator<IdentityRecordsService>();
@@ -30,14 +30,16 @@ Future<void> main() async {
     test('Should return [IRModel] with all identity records assigned to selected address', () async {
       TestUtils.printInfo('Data request');
       try {
-        BlockTimeWrapperModel<IRModel> actualWrappedIRModel = await actualIdentityRecordsService.getIdentityRecordsByAddress(actualWalletAddress);
+        BlockTimeWrapperModel<IRModel> actualWrappedIRModel =
+            await actualIdentityRecordsService.getIdentityRecordsByAddress(actualWalletAddress);
         IRModel actualIRModel = actualWrappedIRModel.model;
 
         TestUtils.printInfo('Data return');
         print(actualIRModel);
         print('');
       } on DioConnectException catch (e) {
-        TestUtils.printError('identity_records_service_test.dart: Cannot fetch [IRModel] for URI $networkUri: ${e.dioException.message}');
+        TestUtils.printError(
+            'identity_records_service_test.dart: Cannot fetch [IRModel] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
         TestUtils.printError('identity_records_service_test.dart: Cannot parse [IRModel] for URI $networkUri: ${e}');
       } catch (e) {
@@ -47,10 +49,12 @@ Future<void> main() async {
   });
 
   group('Tests of IdentityRecordsService.getInboundVerificationRequests() method [GET in HTTP]', () {
-    test('Should return [PageData<IRInboundVerificationRequestModel>] with all verifications waiting for approval', () async {
+    test('Should return [PageData<IRInboundVerificationRequestModel>] with all verifications waiting for approval',
+        () async {
       TestUtils.printInfo('Data request');
       try {
-        PageData<IRInboundVerificationRequestModel> actualVerificationRequestsPageData = await actualIdentityRecordsService.getInboundVerificationRequests(
+        PageData<IRInboundVerificationRequestModel> actualVerificationRequestsPageData =
+            await actualIdentityRecordsService.getInboundVerificationRequests(
           QueryIdentityRecordVerifyRequestsByApproverReq(
             address: actualWalletAddress.bech32Address,
             offset: 0,
@@ -65,7 +69,8 @@ Future<void> main() async {
         TestUtils.printError(
             'identity_records_service_test.dart: Cannot fetch [PageData<IRInboundVerificationRequestModel>] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
-        TestUtils.printError('identity_records_service_test.dart: Cannot parse [PageData<IRInboundVerificationRequestModel>] for URI $networkUri: ${e}');
+        TestUtils.printError(
+            'identity_records_service_test.dart: Cannot parse [PageData<IRInboundVerificationRequestModel>] for URI $networkUri: ${e}');
       } catch (e) {
         TestUtils.printError('identity_records_service_test.dart: Unknown error for URI $networkUri: ${e}');
       }
@@ -87,7 +92,8 @@ Future<void> main() async {
         TestUtils.printError(
             'identity_records_service_test.dart: Cannot fetch [List of IRRecordVerificationRequestModel] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
-        TestUtils.printError('identity_records_service_test.dart: Cannot parse [List of IRRecordVerificationRequestModel] for URI $networkUri: ${e}');
+        TestUtils.printError(
+            'identity_records_service_test.dart: Cannot parse [List of IRRecordVerificationRequestModel] for URI $networkUri: ${e}');
       } catch (e) {
         TestUtils.printError('identity_records_service_test.dart: Unknown error for URI $networkUri: ${e}');
       }

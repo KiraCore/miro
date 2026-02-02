@@ -13,7 +13,7 @@ import 'package:miro/test/utils/test_utils.dart';
 Future<void> main() async {
   await TestUtils.initIntegrationTest();
 
-  final Uri networkUri = NetworkUtils.parseUrlToInterxUri('http://173.212.254.147:11000');
+  final Uri networkUri = NetworkUtils.parseUrlToInterxUri('http://3.123.154.245:11000');
   await TestUtils.setupNetworkModel(networkUri: networkUri);
 
   final QueryExecutionFeeService actualQueryExecutionFeeService = globalLocator<QueryExecutionFeeService>();
@@ -23,15 +23,18 @@ Future<void> main() async {
     test('Should return [TokenAmountModel] (fee) for provided message type', () async {
       TestUtils.printInfo('Data request');
       try {
-        TokenAmountModel actualTokenAmountModel = await actualQueryExecutionFeeService.getExecutionFeeForMessage(actualMessageType);
+        TokenAmountModel actualTokenAmountModel =
+            await actualQueryExecutionFeeService.getExecutionFeeForMessage(actualMessageType);
 
         TestUtils.printInfo('Data return');
         print(actualTokenAmountModel.toString());
         print('');
       } on DioConnectException catch (e) {
-        TestUtils.printError('query_execution_fee_service_test.dart: Cannot fetch [TokenAmountModel] for URI $networkUri: ${e.dioException.message}');
+        TestUtils.printError(
+            'query_execution_fee_service_test.dart: Cannot fetch [TokenAmountModel] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
-        TestUtils.printError('query_execution_fee_service_test.dart: Cannot parse [TokenAmountModel] for URI $networkUri: ${e}');
+        TestUtils.printError(
+            'query_execution_fee_service_test.dart: Cannot parse [TokenAmountModel] for URI $networkUri: ${e}');
       } catch (e) {
         TestUtils.printError('query_execution_fee_service_test.dart: Unknown error for URI $networkUri: ${e}');
       }

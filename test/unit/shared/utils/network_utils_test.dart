@@ -68,19 +68,22 @@ void main() {
 
       // query parameters
       test('Should return [domain name] [with HTTPS] and [query parameters]', () {
-        String actualDomainUrl = NetworkUtils.parseUrlToInterxUri('https://testnet-rpc.kira.network?test1=result1&test2=result2').toString();
+        String actualDomainUrl =
+            NetworkUtils.parseUrlToInterxUri('https://testnet-rpc.kira.network?test1=result1&test2=result2').toString();
 
         expect(actualDomainUrl, 'https://testnet-rpc.kira.network?test1=result1&test2=result2');
       });
 
       test('Should return [domain name] [with HTTP] and [query parameters]', () {
-        String actualDomainUrl = NetworkUtils.parseUrlToInterxUri('http://testnet-rpc.kira.network?test1=result1&test2=result2').toString();
+        String actualDomainUrl =
+            NetworkUtils.parseUrlToInterxUri('http://testnet-rpc.kira.network?test1=result1&test2=result2').toString();
 
         expect(actualDomainUrl, 'http://testnet-rpc.kira.network?test1=result1&test2=result2');
       });
 
       test('Should return [domain name] [with added HTTPS] and [query parameters]', () {
-        String actualDomainUrl = NetworkUtils.parseUrlToInterxUri('testnet-rpc.kira.network?test1=result1&test2=result2').toString();
+        String actualDomainUrl =
+            NetworkUtils.parseUrlToInterxUri('testnet-rpc.kira.network?test1=result1&test2=result2').toString();
 
         expect(actualDomainUrl, 'https://testnet-rpc.kira.network?test1=result1&test2=result2');
       });
@@ -127,19 +130,22 @@ void main() {
 
       // query parameters
       test('Should return [IP address] [with HTTPS], [custom port] and [query parameters]', () {
-        String actualDomainUrl = NetworkUtils.parseUrlToInterxUri('https://192.168.0.1:8001?test1=result1&test2=result2').toString();
+        String actualDomainUrl =
+            NetworkUtils.parseUrlToInterxUri('https://192.168.0.1:8001?test1=result1&test2=result2').toString();
 
         expect(actualDomainUrl, 'https://192.168.0.1:8001?test1=result1&test2=result2');
       });
 
       test('Should return [IP address] [with HTTP], [custom port] and [query parameters]', () {
-        String actualDomainUrl = NetworkUtils.parseUrlToInterxUri('http://192.168.0.1:8001?test1=result1&test2=result2').toString();
+        String actualDomainUrl =
+            NetworkUtils.parseUrlToInterxUri('http://192.168.0.1:8001?test1=result1&test2=result2').toString();
 
         expect(actualDomainUrl, 'http://192.168.0.1:8001?test1=result1&test2=result2');
       });
 
       test('Should return [IP address] [with added HTTPS], [custom port] and [query parameters]', () {
-        String actualDomainUrl = NetworkUtils.parseUrlToInterxUri('192.168.0.1:8001?test1=result1&test2=result2').toString();
+        String actualDomainUrl =
+            NetworkUtils.parseUrlToInterxUri('192.168.0.1:8001?test1=result1&test2=result2').toString();
 
         expect(actualDomainUrl, 'https://192.168.0.1:8001?test1=result1&test2=result2');
       });
@@ -166,7 +172,8 @@ void main() {
       });
 
       // custom port
-      test('Should return [localhost url] [with replaced HTTPS to HTTP], [custom port] and [without trailing slash]', () {
+      test('Should return [localhost url] [with replaced HTTPS to HTTP], [custom port] and [without trailing slash]',
+          () {
         String actualDomainUrl = NetworkUtils.parseUrlToInterxUri('https://localhost:8001/').toString();
 
         expect(actualDomainUrl, 'http://localhost:8001');
@@ -186,19 +193,22 @@ void main() {
 
       // query parameters
       test('Should return [localhost url] [with replaced HTTPS to HTTP], [custom port] and [query parameters]', () {
-        String actualDomainUrl = NetworkUtils.parseUrlToInterxUri('https://localhost:8001?test1=result1&test2=result2').toString();
+        String actualDomainUrl =
+            NetworkUtils.parseUrlToInterxUri('https://localhost:8001?test1=result1&test2=result2').toString();
 
         expect(actualDomainUrl, 'http://localhost:8001?test1=result1&test2=result2');
       });
 
       test('Should return [localhost url] [with HTTP], [custom port] and [query parameters]', () {
-        String actualDomainUrl = NetworkUtils.parseUrlToInterxUri('http://localhost:8001?test1=result1&test2=result2').toString();
+        String actualDomainUrl =
+            NetworkUtils.parseUrlToInterxUri('http://localhost:8001?test1=result1&test2=result2').toString();
 
         expect(actualDomainUrl, 'http://localhost:8001?test1=result1&test2=result2');
       });
 
       test('Should return [localhost url] [with added HTTP], [custom port] and [query parameters]', () {
-        String actualDomainUrl = NetworkUtils.parseUrlToInterxUri('localhost:8001?test1=result1&test2=result2').toString();
+        String actualDomainUrl =
+            NetworkUtils.parseUrlToInterxUri('localhost:8001?test1=result1&test2=result2').toString();
 
         expect(actualDomainUrl, 'http://localhost:8001?test1=result1&test2=result2');
       });
@@ -245,19 +255,22 @@ void main() {
 
       // query parameters
       test('Should return [IP address] [with replaced HTTPS to HTTP], [custom port] and [query parameters]', () {
-        String actualDomainUrl = NetworkUtils.parseUrlToInterxUri('https://127.0.0.1:8001?test1=result1&test2=result2').toString();
+        String actualDomainUrl =
+            NetworkUtils.parseUrlToInterxUri('https://127.0.0.1:8001?test1=result1&test2=result2').toString();
 
         expect(actualDomainUrl, 'http://127.0.0.1:8001?test1=result1&test2=result2');
       });
 
       test('Should return [IP address] [with HTTP], [custom port] and [query parameters]', () {
-        String actualDomainUrl = NetworkUtils.parseUrlToInterxUri('http://127.0.0.1:8001?test1=result1&test2=result2').toString();
+        String actualDomainUrl =
+            NetworkUtils.parseUrlToInterxUri('http://127.0.0.1:8001?test1=result1&test2=result2').toString();
 
         expect(actualDomainUrl, 'http://127.0.0.1:8001?test1=result1&test2=result2');
       });
 
       test('Should return [IP address] [with added HTTP], [custom port] and [query parameters]', () {
-        String actualDomainUrl = NetworkUtils.parseUrlToInterxUri('127.0.0.1:8001?test1=result1&test2=result2').toString();
+        String actualDomainUrl =
+            NetworkUtils.parseUrlToInterxUri('127.0.0.1:8001?test1=result1&test2=result2').toString();
 
         expect(actualDomainUrl, 'http://127.0.0.1:8001?test1=result1&test2=result2');
       });
@@ -304,19 +317,22 @@ void main() {
 
       // query parameters
       test('Should return [IP address] [with replaced HTTPS to HTTP], [custom port] and [query parameters]', () {
-        String actualDomainUrl = NetworkUtils.parseUrlToInterxUri('https://0.0.0.0:8001?test1=result1&test2=result2').toString();
+        String actualDomainUrl =
+            NetworkUtils.parseUrlToInterxUri('https://0.0.0.0:8001?test1=result1&test2=result2').toString();
 
         expect(actualDomainUrl, 'http://0.0.0.0:8001?test1=result1&test2=result2');
       });
 
       test('Should return [IP address] [with HTTP], [custom port] and [query parameters]', () {
-        String actualDomainUrl = NetworkUtils.parseUrlToInterxUri('http://0.0.0.0:8001?test1=result1&test2=result2').toString();
+        String actualDomainUrl =
+            NetworkUtils.parseUrlToInterxUri('http://0.0.0.0:8001?test1=result1&test2=result2').toString();
 
         expect(actualDomainUrl, 'http://0.0.0.0:8001?test1=result1&test2=result2');
       });
 
       test('Should return [IP address] [with added HTTP], [custom port] and [query parameters]', () {
-        String actualDomainUrl = NetworkUtils.parseUrlToInterxUri('0.0.0.0:8001?test1=result1&test2=result2').toString();
+        String actualDomainUrl =
+            NetworkUtils.parseUrlToInterxUri('0.0.0.0:8001?test1=result1&test2=result2').toString();
 
         expect(actualDomainUrl, 'http://0.0.0.0:8001?test1=result1&test2=result2');
       });
@@ -406,7 +422,8 @@ void main() {
       });
 
       // custom port
-      test('Should return [localhost url] [with replaced HTTPS to HTTP], [custom port] and [without trailing slash]', () {
+      test('Should return [localhost url] [with replaced HTTPS to HTTP], [custom port] and [without trailing slash]',
+          () {
         String actualDomainUrl = NetworkUtils.parseNoSchemeToHTTPS('https://localhost:8001/').toString();
 
         expect(actualDomainUrl, 'http://localhost:8001');
@@ -553,7 +570,7 @@ void main() {
 
     test('Should return [false] for [external IP address]', () {
       // Arrange
-      Uri actualUri = Uri.parse('http://173.212.254.147/');
+      Uri actualUri = Uri.parse('http://3.123.154.245/');
 
       // Act
       bool actualIsLocalhostBool = NetworkUtils.isLocalhost(actualUri);
@@ -566,8 +583,8 @@ void main() {
   group('Tests of NetworkUtils.compareUrisByUrn()', () {
     test('Should return [true] if URIs [equal]', () {
       // Arrange
-      Uri actualUri1 = Uri.parse('http://173.212.254.147:11000');
-      Uri actualUri2 = Uri.parse('http://173.212.254.147:11000');
+      Uri actualUri1 = Uri.parse('http://3.123.154.245:11000');
+      Uri actualUri2 = Uri.parse('http://3.123.154.245:11000');
 
       // Act
       bool actualUrnsEqualBool = NetworkUtils.compareUrisByUrn(actualUri1, actualUri2);
@@ -578,8 +595,8 @@ void main() {
 
     test('Should return [true] if HOST and PARAMS [equal], SCHEME [not equal]', () {
       // Arrange
-      Uri actualUri1 = Uri.parse('http://173.212.254.147:11000/path');
-      Uri actualUri2 = Uri.parse('https://173.212.254.147:11000/path');
+      Uri actualUri1 = Uri.parse('http://3.123.154.245:11000/path');
+      Uri actualUri2 = Uri.parse('https://3.123.154.245:11000/path');
 
       // Act
       bool actualUrnsEqualBool = NetworkUtils.compareUrisByUrn(actualUri1, actualUri2);
@@ -590,8 +607,8 @@ void main() {
 
     test('Should return [false] if SCHEME and HOST [equal], PARAMS [not equal]', () {
       // Arrange
-      Uri actualUri1 = Uri.parse('http://173.212.254.147:11000/path');
-      Uri actualUri2 = Uri.parse('http://173.212.254.147:11000/test');
+      Uri actualUri1 = Uri.parse('http://3.123.154.245:11000/path');
+      Uri actualUri2 = Uri.parse('http://3.123.154.245:11000/test');
 
       // Act
       bool actualUrnsEqualBool = NetworkUtils.compareUrisByUrn(actualUri1, actualUri2);
@@ -602,7 +619,7 @@ void main() {
 
     test('Should return [false] if SCHEME, HOST and PARAMS [not equal]', () {
       // Arrange
-      Uri actualUri1 = Uri.parse('http://173.212.254.147:11000/path');
+      Uri actualUri1 = Uri.parse('http://3.123.154.245:11000/path');
       Uri actualUri2 = Uri.parse('https://65.108.86.252:11000/test');
 
       // Act
@@ -614,8 +631,8 @@ void main() {
 
     test('Should return [true] if SCHEME, HOST and PARAMS [equal], PORTS [not equal]', () {
       // Arrange
-      Uri actualUri1 = Uri.parse('http://173.212.254.147:11000/path');
-      Uri actualUri2 = Uri.parse('http://173.212.254.147:40/path');
+      Uri actualUri1 = Uri.parse('http://3.123.154.245:11000/path');
+      Uri actualUri2 = Uri.parse('http://3.123.154.245:40/path');
 
       // Act
       bool actualUrnsEqualBool = NetworkUtils.compareUrisByUrn(actualUri1, actualUri2);
@@ -628,44 +645,47 @@ void main() {
   group('Tests of NetworkUtils.removeScheme()', () {
     test('Should remove [http] SCHEME', () {
       // Act
-      String actualUriWithRemovedScheme = NetworkUtils.removeScheme('http://173.212.254.147:11000/path');
+      String actualUriWithRemovedScheme = NetworkUtils.removeScheme('http://3.123.154.245:11000/path');
 
       // Assert
-      expect(actualUriWithRemovedScheme, '173.212.254.147:11000/path');
+      expect(actualUriWithRemovedScheme, '3.123.154.245:11000/path');
     });
 
     test('Should remove [https] SCHEME', () {
       // Act
-      String actualUriWithRemovedScheme = NetworkUtils.removeScheme('https://173.212.254.147:11000/path');
+      String actualUriWithRemovedScheme = NetworkUtils.removeScheme('https://3.123.154.245:11000/path');
 
       // Assert
-      expect(actualUriWithRemovedScheme, '173.212.254.147:11000/path');
+      expect(actualUriWithRemovedScheme, '3.123.154.245:11000/path');
     });
 
     test('Should remove [ftp] SCHEME', () {
       // Act
-      String actualUriWithRemovedScheme = NetworkUtils.removeScheme('ftp://173.212.254.147:11000/path');
+      String actualUriWithRemovedScheme = NetworkUtils.removeScheme('ftp://3.123.154.245:11000/path');
 
       // Assert
-      expect(actualUriWithRemovedScheme, '173.212.254.147:11000/path');
+      expect(actualUriWithRemovedScheme, '3.123.154.245:11000/path');
     });
 
     test('Should return same string on [empty] SCHEME', () {
       // Act
-      String actualUriWithRemovedScheme = NetworkUtils.removeScheme('173.212.254.147:11000/path');
+      String actualUriWithRemovedScheme = NetworkUtils.removeScheme('3.123.154.245:11000/path');
 
       // Assert
-      expect(actualUriWithRemovedScheme, '173.212.254.147:11000/path');
+      expect(actualUriWithRemovedScheme, '3.123.154.245:11000/path');
     });
   });
 
   group('Tests of NetworkUtils.shouldUseProxy()', () {
-    test('Should return [true] if [proxyServerUri] EXISTS, [serverUri] NOT LOCAL HOST, [serverUri scheme] HTTP, [appUri scheme] HTTPS', () {
+    test(
+        'Should return [true] if [proxyServerUri] EXISTS, [serverUri] NOT LOCAL HOST, [serverUri scheme] HTTP, [appUri scheme] HTTPS',
+        () {
       // Act
       bool actualProxyActiveBool = NetworkUtils.shouldUseProxy(
         serverUri: Uri.parse('http://65.108.86.252:11000'),
         proxyServerUri: Uri.parse('https://cors-anywhere.kira.network'),
-        appUri: Uri.parse('https://ipfs.kira.network/ipfs/bafybeievdr3yrwscdxxpcyl3f45rte3hhgd7cepqgcez4gmcey5mouxgka/'),
+        appUri:
+            Uri.parse('https://ipfs.kira.network/ipfs/bafybeievdr3yrwscdxxpcyl3f45rte3hhgd7cepqgcez4gmcey5mouxgka/'),
       );
 
       // Assert
@@ -677,7 +697,8 @@ void main() {
       bool actualProxyActiveBool = NetworkUtils.shouldUseProxy(
         serverUri: Uri.parse('https://127.0.0.1:11000'),
         proxyServerUri: Uri.parse('https://cors-anywhere.kira.network'),
-        appUri: Uri.parse('https://ipfs.kira.network/ipfs/bafybeievdr3yrwscdxxpcyl3f45rte3hhgd7cepqgcez4gmcey5mouxgka/'),
+        appUri:
+            Uri.parse('https://ipfs.kira.network/ipfs/bafybeievdr3yrwscdxxpcyl3f45rte3hhgd7cepqgcez4gmcey5mouxgka/'),
       );
 
       // Assert
@@ -689,7 +710,8 @@ void main() {
       bool actualProxyActiveBool = NetworkUtils.shouldUseProxy(
         serverUri: Uri.parse('https://65.108.86.252:11000'),
         proxyServerUri: Uri.parse('https://cors-anywhere.kira.network'),
-        appUri: Uri.parse('https://ipfs.kira.network/ipfs/bafybeievdr3yrwscdxxpcyl3f45rte3hhgd7cepqgcez4gmcey5mouxgka/'),
+        appUri:
+            Uri.parse('https://ipfs.kira.network/ipfs/bafybeievdr3yrwscdxxpcyl3f45rte3hhgd7cepqgcez4gmcey5mouxgka/'),
       );
 
       // Assert
@@ -713,19 +735,23 @@ void main() {
       bool actualProxyActiveBool = NetworkUtils.shouldUseProxy(
         serverUri: Uri.parse('https://65.108.86.252:11000'),
         proxyServerUri: null,
-        appUri: Uri.parse('https://ipfs.kira.network/ipfs/bafybeievdr3yrwscdxxpcyl3f45rte3hhgd7cepqgcez4gmcey5mouxgka/'),
+        appUri:
+            Uri.parse('https://ipfs.kira.network/ipfs/bafybeievdr3yrwscdxxpcyl3f45rte3hhgd7cepqgcez4gmcey5mouxgka/'),
       );
 
       // Assert
       expect(actualProxyActiveBool, false);
     });
 
-    test('Should return [false] if [proxyServerUri] NULL, [serverUri] IS LOCAL HOST, [serverUri scheme] HTTPS, [appUri scheme] HTTP', () {
+    test(
+        'Should return [false] if [proxyServerUri] NULL, [serverUri] IS LOCAL HOST, [serverUri scheme] HTTPS, [appUri scheme] HTTP',
+        () {
       // Act
       bool actualProxyActiveBool = NetworkUtils.shouldUseProxy(
         serverUri: Uri.parse('https://127.0.0.1:11000'),
         proxyServerUri: null,
-        appUri: Uri.parse('https://ipfs.kira.network/ipfs/bafybeievdr3yrwscdxxpcyl3f45rte3hhgd7cepqgcez4gmcey5mouxgka/'),
+        appUri:
+            Uri.parse('https://ipfs.kira.network/ipfs/bafybeievdr3yrwscdxxpcyl3f45rte3hhgd7cepqgcez4gmcey5mouxgka/'),
       );
 
       // Assert
