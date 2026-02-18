@@ -46,9 +46,9 @@ Future<void> main() async {
   group('Tests of DashboardService.getDashboardModel() method', () {
     // Note: Dashboard service now calls fetchQueryProposals which is not implemented in mock.
     // The mock infrastructure needs to be updated to support the new combined API.
-    test('Should return [DashboardModel] if [server HEALTHY] and [response data VALID]', skip: 'Mock fetchQueryProposals not implemented for new dashboard API', () async {
+    test('Should return [DashboardModel] if [server HEALTHY] and [response data VALID]', () async {
       // Arrange
-      Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://healthy.kira.network/');
+      Uri networkUri = NetworkUtils.parseUrlToInterxUri('http://3.123.154.245:11000');
       await TestUtils.setupNetworkModel(networkUri: networkUri);
 
       // Act

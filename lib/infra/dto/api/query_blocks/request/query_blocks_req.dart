@@ -19,6 +19,9 @@ class QueryBlocksReq extends Equatable {
   /// This represents the pageSize number of results
   final int? pageSize;
 
+  /// When true, only blocks containing transactions are returned
+  final bool? hasTxs;
+
   const QueryBlocksReq({
     this.dateEnd,
     this.dateStart,
@@ -26,6 +29,7 @@ class QueryBlocksReq extends Equatable {
     this.offset,
     this.page,
     this.pageSize,
+    this.hasTxs,
   });
 
   Map<String, dynamic> toJson() {
@@ -36,10 +40,11 @@ class QueryBlocksReq extends Equatable {
       'offset': offset,
       'page': page,
       'page_size': pageSize,
+      'has_txs': hasTxs != null ? (hasTxs! ? 1 : 0) : null,
       'sort': 'desc',
     };
   }
 
   @override
-  List<Object?> get props => <Object?>[dateEnd, dateStart, limit, offset, page, pageSize];
+  List<Object?> get props => <Object?>[dateEnd, dateStart, limit, offset, page, pageSize, hasTxs];
 }

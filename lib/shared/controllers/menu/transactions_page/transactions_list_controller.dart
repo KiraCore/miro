@@ -50,7 +50,7 @@ class TransactionsListController implements IListController<TxListItemModel> {
       transactionsPageData = await queryTransactionsService.getBlockTransactions(
         QueryBlockTransactionsReq(
           address: kiraAddress,
-          blockId: blockModel!.blockId.hash,
+          blockHeight: blockModel!.header.height,
           limit: paginationDetailsModel.limit,
           offset: paginationDetailsModel.offset,
           dateStart: startDateTime,

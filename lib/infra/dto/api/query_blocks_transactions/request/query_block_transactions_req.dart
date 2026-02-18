@@ -7,8 +7,8 @@ import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
 import 'package:miro/shared/utils/custom_date_utils.dart';
 
 class QueryBlockTransactionsReq extends Equatable {
-  /// This represents the blockId you may want to fetch the transactions from
-  final String blockId;
+  /// This represents the blockHeight you may want to fetch the transactions from
+  final int blockHeight;
 
   /// This represents the kira account address
   final String? address;
@@ -38,7 +38,7 @@ class QueryBlockTransactionsReq extends Equatable {
   final List<TxMsgType>? type;
 
   const QueryBlockTransactionsReq({
-    required this.blockId,
+    required this.blockHeight,
     this.address,
     this.dateEnd,
     this.dateStart,
@@ -52,7 +52,7 @@ class QueryBlockTransactionsReq extends Equatable {
 
   Map<String, dynamic> toJson() {
     return <String, dynamic>{
-      // 'blockId': blockId, // NOTE: already in the path
+      // 'blockHeight': blockHeight, // NOTE: already in the path
       'address': address,
       'end_date': dateEnd != null ? CustomDateUtils.parseDateToSecondsSinceEpoch(dateEnd!) : null,
       'start_date': dateStart != null ? CustomDateUtils.parseDateToSecondsSinceEpoch(dateStart!) : null,
@@ -67,5 +67,5 @@ class QueryBlockTransactionsReq extends Equatable {
 
   @override
   List<Object?> get props =>
-      <Object?>[blockId, address, dateEnd, dateStart, direction, limit, offset, sort, status, type];
+      <Object?>[blockHeight, address, dateEnd, dateStart, direction, limit, offset, sort, status, type];
 }

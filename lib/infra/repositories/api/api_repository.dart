@@ -102,7 +102,7 @@ class RemoteApiRepository implements IApiRepository {
     try {
       final Response<T> response = await _httpClientManager.get<T>(
         networkUri: apiRequestModel.networkUri,
-        path: '/api/blocks/${apiRequestModel.requestData.blockId}/transactions',
+        path: '/api/blocks/${apiRequestModel.requestData.blockHeight}/transactions',
         queryParameters: apiRequestModel.requestData.toJson(),
         apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: apiRequestModel.forceRequestBool),
       );

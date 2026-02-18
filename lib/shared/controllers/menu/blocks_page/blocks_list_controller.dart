@@ -13,6 +13,7 @@ class BlocksListController implements IListController<BlockModel> {
 
   DateTime? startDateTime;
   DateTime? endDateTime;
+  bool? hasTxsBool;
 
   @override
   FavouritesCacheService getFavouritesCacheService() {
@@ -35,6 +36,7 @@ class BlocksListController implements IListController<BlockModel> {
         offset: paginationDetailsModel.offset,
         dateStart: startDateTime,
         dateEnd: endDateTime,
+        hasTxs: hasTxsBool,
       ),
       forceRequestBool: forceRequestBool,
     );

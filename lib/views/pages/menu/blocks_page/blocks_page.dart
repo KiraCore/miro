@@ -32,7 +32,6 @@ class _BlocksPageState extends State<BlocksPage> {
   final FiltersBloc<BlockModel> filtersBloc = FiltersBloc<BlockModel>(
     searchComparator: BlocksFilterOptions.search,
   );
-  final BlocksListController blocksListController = BlocksListController();
 
   @override
   void dispose() {
@@ -98,7 +97,7 @@ class _BlocksPageState extends State<BlocksPage> {
                     pageSize: pageSize,
                     pageSizeValueChanged: changePageSize,
                     searchBarTextEditingController: searchBarTextEditingController,
-                    blocksListController: blocksListController,
+                    blocksListController: listController,
                   ),
                   filtersBloc: filtersBloc,
                 ),

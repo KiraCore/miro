@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/events/list_reload_event.dart';
+import 'package:miro/blocs/widgets/kira/kira_list/paginated_list/paginated_list_bloc.dart';
 import 'package:miro/config/theme/design_colors.dart';
 import 'package:miro/generated/l10n.dart';
 import 'package:miro/shared/controllers/menu/blocks_page/blocks_list_controller.dart';
@@ -6,7 +9,7 @@ import 'package:miro/shared/models/blocks/block_model.dart';
 import 'package:miro/views/widgets/kira/kira_list/components/list_search_widget.dart';
 import 'package:miro/views/widgets/kira/kira_list/sliver_paginated_list/page_size_dropdown/page_size_dropdown.dart';
 
-class BlockListTitleDesktop extends StatelessWidget {
+class BlockListTitleDesktop extends StatefulWidget {
   static double height = 54;
 
   final int pageSize;
@@ -21,6 +24,13 @@ class BlockListTitleDesktop extends StatelessWidget {
     required this.blocksListController,
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<BlockListTitleDesktop> createState() => _BlockListTitleDesktopState();
+}
+
+class _BlockListTitleDesktopState extends State<BlockListTitleDesktop> {
+  bool _hasTxsEnabled = false;
 
   @override
   Widget build(BuildContext context) {
@@ -50,6 +60,28 @@ class BlockListTitleDesktop extends StatelessWidget {
             //   },
             // ),
             // const SizedBox(width: 24),
+            Row(
+              children: <Widget>[
+                Text(
+                  'Only with txs',
+                  style: textTheme.bodySmall!.copyWith(
+                    color: DesignColors.white1,
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Switch(
+                  value: _hasTxsEnabled,
+                  onChanged: (bool value) {
+                    setState(() {
+                      _hasTxsEnabled = value;
+                    });
+                    widget.blocksListController.hasTxsBool = value ? true : null;
+                    BlocProvider.of<PaginatedListBloc<BlockModel>>(context).add(const ListReloadEvent());
+                  },
+                ),
+              ],
+            ),
+            const SizedBox(width: 24),
             Expanded(
               child: Align(
                 alignment: Alignment.centerLeft,
@@ -59,14 +91,14 @@ class BlockListTitleDesktop extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: <Widget>[
                       PageSizeDropdown(
-                        selectedPageSize: pageSize,
+                        selectedPageSize: widget.pageSize,
                         availablePageSizes: const <int>[10, 25, 50, 100],
-                        onPageSizeChanged: pageSizeValueChanged,
+                        onPageSizeChanged: widget.pageSizeValueChanged,
                       ),
                       const SizedBox(width: 24),
                       Expanded(
                         child: ListSearchWidget<BlockModel>(
-                          textEditingController: searchBarTextEditingController,
+                          textEditingController: widget.searchBarTextEditingController,
                           hint: S.of(context).blocksHintSearch,
                         ),
                       ),
