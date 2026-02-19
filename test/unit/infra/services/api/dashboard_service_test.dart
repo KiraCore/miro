@@ -32,23 +32,22 @@ Future<void> main() async {
       waitingValidators: 0,
     ),
     blocksModel: BlocksModel(
-      currentHeight: 89629,
-      sinceGenesis: 89628,
+      currentHeight: 108843,
+      sinceGenesis: 106343,
       pendingTransactions: 0,
       currentTransactions: 0,
-      latestTime: 5.009137321,
-      averageTime: 5.009582592,
+      latestTime: 5.0,
+      averageTime: 5.0,
     ),
     proposalsModel:
-        ProposalsModel(total: 0, active: 0, enacting: 0, finished: 0, successful: 0, proposers: 1, voters: 1),
+        ProposalsModel(total: 0, active: 0, enacting: 0, finished: 0, successful: 0, proposers: 0, voters: 0),
   );
 
   group('Tests of DashboardService.getDashboardModel() method', () {
-    // Note: Dashboard service now calls fetchQueryProposals which is not implemented in mock.
-    // The mock infrastructure needs to be updated to support the new combined API.
+    // Mock infrastructure supports fetchQueryProposals, fetchQueryBlocks, and fetchDashboard.
     test('Should return [DashboardModel] if [server HEALTHY] and [response data VALID]', () async {
       // Arrange
-      Uri networkUri = NetworkUtils.parseUrlToInterxUri('http://3.123.154.245:11000');
+      Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://healthy.kira.network/');
       await TestUtils.setupNetworkModel(networkUri: networkUri);
 
       // Act
@@ -71,7 +70,7 @@ Future<void> main() async {
         dashboardService.getDashboardModel,
         throwsA(isA<DioParseException>()),
       );
-    }, skip: 'Mock response structure needs update for new Interx API');
+    });
 
     test('Should throw [DioConnectException] if [server OFFLINE]', () async {
       // Arrange

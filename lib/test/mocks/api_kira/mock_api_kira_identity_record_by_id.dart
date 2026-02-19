@@ -1,12 +1,12 @@
 class MockApiKiraIdentityRecordById {
   static Map<String, dynamic> defaultResponse = <String, dynamic>{
-    "record": {
-      "address": "kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl",
-      "date": "2023-08-23T08:17:53.568336051Z",
-      "id": "60",
-      "key": "username",
-      "value": "somnitear_alt",
-      "verifiers": ["kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl"]
+    'record': {
+      'address': 'kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx',
+      'date': '2023-05-10T04:41:16.610866796Z',
+      'id': '3',
+      'key': 'username',
+      'value': 'somnitear',
+      'verifiers': ['kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl']
     }
   };
 }

@@ -52,7 +52,7 @@ Future<void> main() async {
     ),
     txRemoteInfoModel: const TxRemoteInfoModel(
       accountNumber: '669',
-      chainId: 'testnet-9',
+      chainId: 'chaosnet-3',
       sequence: '106',
     ),
     signedCosmosTx: CosmosTx.signed(
@@ -85,17 +85,14 @@ Future<void> main() async {
       ),
       signatures: <CosmosSignature>[
         CosmosSignature(
-          s: BigInt.parse('24287701672903098479060975435523176452832563163469844088898365033446585323416'),
-          r: BigInt.parse('86600458310408845869391821482706114144477392767993083402724902623300408071608'),
+          s: BigInt.parse('22609565407648667191116536976478746506426902840543376539124826178809318924804'),
+          r: BigInt.parse('31278064458781515471392821344208916501232412088833595220078584763599236910380'),
         ),
       ],
     ),
   );
 
-  // Note: These tests require multiple mock services (QueryAccountService, QueryExecutionFeeService,
-  // QueryNetworkPropertiesService) to work together correctly. After API changes, the mock chain
-  // needs updates to properly return expected values. Skipped pending mock infrastructure review.
-  group('Tests of [TxProcessCubit] initialization', skip: 'Mock service chain needs update after API changes', () {
+  group('Tests of [TxProcessCubit] initialization', () {
     test('Should return [TxProcessLoadedState] if [formEnabledBool] param is equal [true] (default value)', () async {
       // Arrange
       MsgSendFormModel actualMsgSendFormModel = MsgSendFormModel();
@@ -194,9 +191,7 @@ Future<void> main() async {
   });
 
   group('Tests of [TxProcessCubit] process', () {
-    // Note: This test requires mock services chain to work correctly. After API changes,
-    // the mock infrastructure needs updates. Skipped pending mock update.
-    test('Should emit certain states when network is online', skip: 'Mock service chain needs update after API changes', () async {
+    test('Should emit certain states when network is online', () async {
       // Arrange
       await TestUtils.setupNetworkModel(networkUri: Uri.parse('https://unhealthy.kira.network/'));
       MsgSendFormModel actualMsgSendFormModel = MsgSendFormModel();

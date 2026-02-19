@@ -24,10 +24,8 @@ Future<void> main() async {
     networkTokenDenominationModel: TokenDenominationModel(name: 'KEX', decimals: 6),
   );
 
-  // Note: Mock response for network properties doesn't include all required fields.
-  // The service expects fields that the mock doesn't provide after API changes.
   group('Tests of QueryNetworkPropertiesService.getTxFee() method', () {
-    test('Should return [TokenAmountModel] if [server HEALTHY] and [response data VALID]', skip: 'Mock network properties response needs update for new API', () async {
+    test('Should return [TokenAmountModel] if [server HEALTHY] and [response data VALID]', () async {
       // Arrange
       Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://healthy.kira.network');
       await TestUtils.setupNetworkModel(networkUri: networkUri);

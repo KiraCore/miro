@@ -84,7 +84,7 @@ class MockApiStatus {
       'latest_block_hash': '510D40E89873857031B9726C75204F089D8DFB893D233E5476AC529188F6CEC8',
       'latest_app_hash': '8D32891A487D8E9B6583A1896AB108B823F2D8A6E1EC2E5FA0CC5935A319A878',
       'latest_block_height': '108843',
-      'latest_block_time': DateFormat('yyyy-MM-ddTHH:mm:ss.SSS').format(DateTime.now()) + 'Z',
+      'latest_block_time': '${DateFormat('yyyy-MM-ddTHH:mm:ss.SSS').format(DateTime.now())}Z',
       'earliest_block_hash': '781FACB1C0D4FE8C150986FBCAC732BDF0573ECFD5920788BBDE96EA4013D740',
       'earliest_app_hash': 'E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855',
       'earliest_block_height': '2500',

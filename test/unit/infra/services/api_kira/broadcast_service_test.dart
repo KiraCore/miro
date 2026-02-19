@@ -86,7 +86,7 @@ Future<void> main() async {
 
   const TxRemoteInfoModel expectedTxRemoteInfoModel = TxRemoteInfoModel(
     accountNumber: '669',
-    chainId: 'testnet-9',
+    chainId: 'chaosnet-3',
     sequence: '106',
   );
 
@@ -106,12 +106,7 @@ Future<void> main() async {
     return actualUnsignedTxModel;
   }
 
-  // Note: Transaction preparation tests are skipped because they rely on hardcoded cryptographic
-  // signatures that were calculated with specific parameters (chainId: 'testnet-9', etc.).
-  // The mock status now returns 'chaosnet-3' for healthy networks, which would invalidate all signatures.
-  // These tests verify deterministic signing which is better tested via integration tests.
-  group('Tests of transaction preparation for broadcast',
-      skip: 'Skipped: healthy.kira.network is not available, invalidating hardcoded signatures', () {
+  group('Tests of transaction preparation for broadcast', () {
     test('Should [return signed transaction] with MsgSend message', () async {
       // Arrange
       TxLocalInfoModel actualTxLocalInfoModel = TxLocalInfoModel(
@@ -147,8 +142,8 @@ Future<void> main() async {
           ),
           signatures: <CosmosSignature>[
             CosmosSignature(
-              r: BigInt.parse('89599907753324820443247350118296506262203633866927351078550723837179327736941'),
-              s: BigInt.parse('21866124806975663122088505116775312757127188676174337977018459598244507878684'),
+              r: BigInt.parse('87210495893218317095255233268404102142751695108290619698850115003174215234681'),
+              s: BigInt.parse('45411297726047489424127761369438972633246783922086216053171352377478916185669'),
             ),
           ],
         ),
@@ -164,48 +159,8 @@ Future<void> main() async {
 
       // Assert
       Map<String, dynamic> expectedBroadcastReqJson = <String, dynamic>{
-        'tx': {
-          'body': {
-            'messages': [
-              {
-                '@type': '/cosmos.bank.v1beta1.MsgSend',
-                'from_address': 'kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx',
-                'to_address': 'kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl',
-                'amount': [
-                  {'denom': 'ukex', 'amount': '200'}
-                ]
-              }
-            ],
-            'memo': 'Test of MsgSend message',
-            'timeout_height': '0',
-            'extension_options': [],
-            'non_critical_extension_options': []
-          },
-          'auth_info': {
-            'signer_infos': [
-              {
-                'public_key': {
-                  '@type': '/cosmos.crypto.secp256k1.PubKey',
-                  'key': 'AlLas8CJ6lm5yZJ8h0U5Qu9nzVvgvskgHuURPB3jvUx8'
-                },
-                'mode_info': {
-                  'single': {'mode': 'SIGN_MODE_DIRECT'}
-                },
-                'sequence': '106'
-              }
-            ],
-            'fee': {
-              'gas_limit': '20000',
-              'amount': [
-                {'denom': 'ukex', 'amount': '200'}
-              ],
-              'payer': null,
-              'granter': null
-            }
-          },
-          'signatures': ['xhfAKWWGRES3j0Aolo9bsWPXxS+fCqIBUMKjiimk7G0wV8m+QeBV+2oH0HikRO2lM2duXVLlvHIHPNSDHfEFHA==']
-        },
-        'mode': 'block'
+        'tx': base64Encode(expectedSignedTxModel.signedCosmosTx.toProtoBytes()),
+        'mode': 'sync'
       };
 
       TestUtils.printInfo('Should [return BroadcastReq] as json with MsgSend message');
@@ -248,8 +203,8 @@ Future<void> main() async {
           ),
           signatures: <CosmosSignature>[
             CosmosSignature(
-              r: BigInt.parse('21028702019761272517685992784987639565827921194316081946315444932502726756360'),
-              s: BigInt.parse('26233124607299580314002343060441837683740545835168470193313814846944351386003'),
+              r: BigInt.parse('81462215629719951979634509938955619315107482090980120075887583641124397032729'),
+              s: BigInt.parse('12602475644664476140615683987215242708651334418181655983183239645001338385008'),
             ),
           ],
         ),
@@ -265,47 +220,8 @@ Future<void> main() async {
 
       // Assert
       Map<String, dynamic> expectedBroadcastReqJson = <String, dynamic>{
-        'tx': {
-          'body': {
-            'messages': [
-              {
-                '@type': '/kira.gov.MsgRegisterIdentityRecords',
-                'address': 'kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx',
-                'infos': [
-                  {'key': 'avatar', 'info': 'https://paganresearch.io/images/kiracore.jpg'}
-                ]
-              }
-            ],
-            'memo': 'Test of MsgRegisterIdentityRecords message',
-            'timeout_height': '0',
-            'extension_options': [],
-            'non_critical_extension_options': []
-          },
-          'auth_info': {
-            'signer_infos': [
-              {
-                'public_key': {
-                  '@type': '/cosmos.crypto.secp256k1.PubKey',
-                  'key': 'AlLas8CJ6lm5yZJ8h0U5Qu9nzVvgvskgHuURPB3jvUx8'
-                },
-                'mode_info': {
-                  'single': {'mode': 'SIGN_MODE_DIRECT'}
-                },
-                'sequence': '106'
-              }
-            ],
-            'fee': {
-              'gas_limit': '20000',
-              'amount': [
-                {'denom': 'ukex', 'amount': '200'}
-              ],
-              'payer': null,
-              'granter': null
-            }
-          },
-          'signatures': ['Ln3S1LoKALZyd3snOU5M+nL3D57KQ1jAD51eDXJZyAg5/2wfc5JTK/mhLSqfbTrS75pmSRuIAsqnNywlnkR5kw==']
-        },
-        'mode': 'block'
+        'tx': base64Encode(expectedSignedTxModel.signedCosmosTx.toProtoBytes()),
+        'mode': 'sync'
       };
 
       TestUtils.printInfo('Should [return BroadcastReq] as json with MsgRegisterIdentityRecords message');
@@ -350,8 +266,8 @@ Future<void> main() async {
           ),
           signatures: <CosmosSignature>[
             CosmosSignature(
-              r: BigInt.parse('87859255067317020921640288784812661833164655904358063561080693251729950488999'),
-              s: BigInt.parse('39595110096392771142131991733046522340996157809851989421741243827765031450878'),
+              r: BigInt.parse('28622637028936030332117260227994882072988874700543359100240119344669394624032'),
+              s: BigInt.parse('19207168361135260140021182333673872674666487811671149620084823021487723864310'),
             ),
           ],
         ),
@@ -367,47 +283,8 @@ Future<void> main() async {
 
       // Assert
       Map<String, dynamic> expectedBroadcastReqJson = <String, dynamic>{
-        'tx': {
-          'body': {
-            'messages': [
-              {
-                '@type': '/kira.gov.MsgRequestIdentityRecordsVerify',
-                'address': 'kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx',
-                'verifier': 'kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl',
-                'record_ids': [964],
-                'tip': {'denom': 'ukex', 'amount': '200'}
-              }
-            ],
-            'memo': 'Test of MsgRequestIdentityRecordsVerify message',
-            'timeout_height': '0',
-            'extension_options': [],
-            'non_critical_extension_options': []
-          },
-          'auth_info': {
-            'signer_infos': [
-              {
-                'public_key': {
-                  '@type': '/cosmos.crypto.secp256k1.PubKey',
-                  'key': 'AlLas8CJ6lm5yZJ8h0U5Qu9nzVvgvskgHuURPB3jvUx8'
-                },
-                'mode_info': {
-                  'single': {'mode': 'SIGN_MODE_DIRECT'}
-                },
-                'sequence': '106'
-              }
-            ],
-            'fee': {
-              'gas_limit': '20000',
-              'amount': [
-                {'denom': 'ukex', 'amount': '200'}
-              ],
-              'payer': null,
-              'granter': null
-            }
-          },
-          'signatures': ['wj6TfOey21l2Bba4/zBgMhYn36CC4pvyNpM5trp/uadXignDER2Hz7AoQFxWvN/pmll/Wu/KyyNl5Ouej6e4/g==']
-        },
-        'mode': 'block'
+        'tx': base64Encode(expectedSignedTxModel.signedCosmosTx.toProtoBytes()),
+        'mode': 'sync'
       };
 
       TestUtils.printInfo('Should [return BroadcastReq] as json with IRMsgRequestVerificationModel message');
@@ -445,8 +322,8 @@ Future<void> main() async {
           ),
           signatures: <CosmosSignature>[
             CosmosSignature(
-              r: BigInt.parse('9222004436251072072237146921185648206129469369723953401938276983576476066620'),
-              s: BigInt.parse('23127075334067262420724200782451981690599091574700651770491012559622830886350'),
+              r: BigInt.parse('31232248174095207544342671878213935777020994089313743004864283199747032263997'),
+              s: BigInt.parse('51404598275262285256961862479059959812080851722907748991544697286113012489958'),
             ),
           ],
         ),
@@ -462,45 +339,8 @@ Future<void> main() async {
 
       // Assert
       Map<String, dynamic> expectedBroadcastReqJson = <String, dynamic>{
-        'tx': {
-          'body': {
-            'messages': [
-              {
-                '@type': '/kira.gov.MsgCancelIdentityRecordsVerifyRequest',
-                'executor': 'kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx',
-                'verify_request_id': '3'
-              }
-            ],
-            'memo': 'Test of MsgCancelIdentityRecordsVerifyRequest message',
-            'timeout_height': '0',
-            'extension_options': [],
-            'non_critical_extension_options': []
-          },
-          'auth_info': {
-            'signer_infos': [
-              {
-                'public_key': {
-                  '@type': '/cosmos.crypto.secp256k1.PubKey',
-                  'key': 'AlLas8CJ6lm5yZJ8h0U5Qu9nzVvgvskgHuURPB3jvUx8'
-                },
-                'mode_info': {
-                  'single': {'mode': 'SIGN_MODE_DIRECT'}
-                },
-                'sequence': '106'
-              }
-            ],
-            'fee': {
-              'gas_limit': '20000',
-              'amount': [
-                {'denom': 'ukex', 'amount': '200'}
-              ],
-              'payer': null,
-              'granter': null
-            }
-          },
-          'signatures': ['FGN4M8QelKz4mVZfmlRimHZ0lRdYyZEp8jby9UKBIzwzIXX0w+0WLCN5GwYL2BRpMhrXxy1UbEkiizSvBmUNzg==']
-        },
-        'mode': 'block'
+        'tx': base64Encode(expectedSignedTxModel.signedCosmosTx.toProtoBytes()),
+        'mode': 'sync'
       };
 
       TestUtils.printInfo('Should [return BroadcastReq] as json with IRMsgCancelVerificationRequestModel message');
@@ -538,8 +378,8 @@ Future<void> main() async {
           ),
           signatures: <CosmosSignature>[
             CosmosSignature(
-              r: BigInt.parse('79026266621337154156741060753401210162338558944713775541782575273128987403966'),
-              s: BigInt.parse('5687955546390794418908963039509925541165916791887615280573209458228550913771'),
+              r: BigInt.parse('2827251627967082034480454865517039787635816062510971591133421535027256536753'),
+              s: BigInt.parse('40580133900051328725926516202096020513226356576835140069895802405218567055279'),
             ),
           ],
         ),
@@ -555,45 +395,8 @@ Future<void> main() async {
 
       // Assert
       Map<String, dynamic> expectedBroadcastReqJson = <String, dynamic>{
-        'tx': {
-          'body': {
-            'messages': [
-              {
-                '@type': '/kira.gov.MsgDeleteIdentityRecords',
-                'address': 'kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx',
-                'keys': ['avatar']
-              }
-            ],
-            'memo': 'Test of MsgDeleteIdentityRecords message',
-            'timeout_height': '0',
-            'extension_options': [],
-            'non_critical_extension_options': []
-          },
-          'auth_info': {
-            'signer_infos': [
-              {
-                'public_key': {
-                  '@type': '/cosmos.crypto.secp256k1.PubKey',
-                  'key': 'AlLas8CJ6lm5yZJ8h0U5Qu9nzVvgvskgHuURPB3jvUx8'
-                },
-                'mode_info': {
-                  'single': {'mode': 'SIGN_MODE_DIRECT'}
-                },
-                'sequence': '106'
-              }
-            ],
-            'fee': {
-              'gas_limit': '20000',
-              'amount': [
-                {'denom': 'ukex', 'amount': '200'}
-              ],
-              'payer': null,
-              'granter': null
-            }
-          },
-          'signatures': ['rrdIJi1iHdz+w5xskAqC5gnw8u9pmmqL1MbQikC3Jr4Mk0TM+Z+9Kb0XBI1qcOLhWDg9M/yKo5eIf+v4tONO6w==']
-        },
-        'mode': 'block'
+        'tx': base64Encode(expectedSignedTxModel.signedCosmosTx.toProtoBytes()),
+        'mode': 'sync'
       };
 
       TestUtils.printInfo('Should [return BroadcastReq] as json with IRMsgDeleteRecordsModel message');
@@ -633,8 +436,8 @@ Future<void> main() async {
           ),
           signatures: <CosmosSignature>[
             CosmosSignature(
-              r: BigInt.parse('72933007490609640501865487430495147621153330076791856292083884954279647403436'),
-              s: BigInt.parse('18666428172386819201137480101541341517569119196844379112158234304637595425789'),
+              r: BigInt.parse('4679026604295451811574538368257951426203884790055712357698997033359161597053'),
+              s: BigInt.parse('2862432958834089068891556309498036265460345512697083089866257605118932235792'),
             ),
           ],
         ),
@@ -650,46 +453,8 @@ Future<void> main() async {
 
       // Assert
       Map<String, dynamic> expectedBroadcastReqJson = <String, dynamic>{
-        'tx': {
-          'body': {
-            'messages': [
-              {
-                '@type': '/kira.gov.MsgHandleIdentityRecordsVerifyRequest',
-                'verifier': 'kira177lwmjyjds3cy7trers83r4pjn3dhv8zrqk9dl',
-                'verify_request_id': '2',
-                'yes': true
-              }
-            ],
-            'memo': 'Test of MsgHandleIdentityRecordsVerifyRequest message',
-            'timeout_height': '0',
-            'extension_options': [],
-            'non_critical_extension_options': []
-          },
-          'auth_info': {
-            'signer_infos': [
-              {
-                'public_key': {
-                  '@type': '/cosmos.crypto.secp256k1.PubKey',
-                  'key': 'AlLas8CJ6lm5yZJ8h0U5Qu9nzVvgvskgHuURPB3jvUx8'
-                },
-                'mode_info': {
-                  'single': {'mode': 'SIGN_MODE_DIRECT'}
-                },
-                'sequence': '106'
-              }
-            ],
-            'fee': {
-              'gas_limit': '20000',
-              'amount': [
-                {'denom': 'ukex', 'amount': '200'}
-              ],
-              'payer': null,
-              'granter': null
-            }
-          },
-          'signatures': ['oT6ej7kXOCV7yhnsK1N/VFl+4VhM/rvx2bkTbezEXawpRNLt4kIghscs1LOYdhVjJ7Om/dPV9Y9ILujvhdIb/Q==']
-        },
-        'mode': 'block'
+        'tx': base64Encode(expectedSignedTxModel.signedCosmosTx.toProtoBytes()),
+        'mode': 'sync'
       };
 
       TestUtils.printInfo('Should [return BroadcastReq] as json with IRMsgHandleVerificationRequestModel message');
@@ -732,8 +497,8 @@ Future<void> main() async {
           ),
           signatures: <CosmosSignature>[
             CosmosSignature(
-              r: BigInt.parse('55717454601243069088841521135755802532418319520050179086645302401638805298598'),
-              s: BigInt.parse('23913435960359395132492905352374853547098518607227882426156179958185778028864'),
+              r: BigInt.parse('36963537132482751407040770060826202806349712073634475375590692173675695186314'),
+              s: BigInt.parse('35988462218872473104654069127988726802924495389527066577425455965744470548083'),
             ),
           ],
         ),
@@ -749,48 +514,8 @@ Future<void> main() async {
 
       // Assert
       Map<String, dynamic> expectedBroadcastReqJson = <String, dynamic>{
-        'tx': {
-          'body': {
-            'messages': [
-              {
-                '@type': '/kira.multistaking.MsgDelegate',
-                'delegator_address': 'kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx',
-                'validator_address': 'kiravaloper1c6slygj2tx7hzm0mn4qeflqpvngj73c2cw7fh7',
-                'amounts': [
-                  {'denom': 'ukex', 'amount': '100'}
-                ]
-              }
-            ],
-            'memo': 'Test of MsgDelegate message',
-            'timeout_height': '0',
-            'extension_options': [],
-            'non_critical_extension_options': []
-          },
-          'auth_info': {
-            'signer_infos': [
-              {
-                'public_key': {
-                  '@type': '/cosmos.crypto.secp256k1.PubKey',
-                  'key': 'AlLas8CJ6lm5yZJ8h0U5Qu9nzVvgvskgHuURPB3jvUx8'
-                },
-                'mode_info': {
-                  'single': {'mode': 'SIGN_MODE_DIRECT'}
-                },
-                'sequence': '106'
-              }
-            ],
-            'fee': {
-              'gas_limit': '20000',
-              'amount': [
-                {'denom': 'ukex', 'amount': '200'}
-              ],
-              'payer': null,
-              'granter': null
-            }
-          },
-          'signatures': ['ey72NRNmSpw+WSvcQQlszNrYe7MV3PNhGF+5QqAwXaY03oZte3st8EvOFmKKt+3GVJvO1yPBPNnrhRjC2ukhQA==']
-        },
-        'mode': 'block'
+        'tx': base64Encode(expectedSignedTxModel.signedCosmosTx.toProtoBytes()),
+        'mode': 'sync'
       };
 
       TestUtils.printInfo('Should [return BroadcastReq] as json with MsgDelegate message');
@@ -833,8 +558,8 @@ Future<void> main() async {
           ),
           signatures: <CosmosSignature>[
             CosmosSignature(
-              r: BigInt.parse('72662442560263102468806670475645295622932430335239902677926380471518172892103'),
-              s: BigInt.parse('27868048802058524184290366108124533155351530920507136071634942531294406595168'),
+              r: BigInt.parse('2362943053475727851284523008578566586497485545324303876980711984001631218711'),
+              s: BigInt.parse('48671315251095642604608705321631282645377068104920044361416096941264163970061'),
             ),
           ],
         ),
@@ -850,48 +575,8 @@ Future<void> main() async {
 
       // Assert
       Map<String, dynamic> expectedBroadcastReqJson = <String, dynamic>{
-        'tx': {
-          'body': {
-            'messages': [
-              {
-                '@type': '/kira.multistaking.MsgUndelegate',
-                'delegator_address': 'kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx',
-                'validator_address': 'kiravaloper1c6slygj2tx7hzm0mn4qeflqpvngj73c2cw7fh7',
-                'amounts': [
-                  {'denom': 'ukex', 'amount': '100'}
-                ]
-              }
-            ],
-            'memo': 'Test of MsgUndelegate message',
-            'timeout_height': '0',
-            'extension_options': [],
-            'non_critical_extension_options': []
-          },
-          'auth_info': {
-            'signer_infos': [
-              {
-                'public_key': {
-                  '@type': '/cosmos.crypto.secp256k1.PubKey',
-                  'key': 'AlLas8CJ6lm5yZJ8h0U5Qu9nzVvgvskgHuURPB3jvUx8'
-                },
-                'mode_info': {
-                  'single': {'mode': 'SIGN_MODE_DIRECT'}
-                },
-                'sequence': '106'
-              }
-            ],
-            'fee': {
-              'gas_limit': '20000',
-              'amount': [
-                {'denom': 'ukex', 'amount': '200'}
-              ],
-              'payer': null,
-              'granter': null
-            }
-          },
-          'signatures': ['oKV8LK9bvfakBapLQ1gczT9w6AKIa+Z0orJCqU6xS8c9nMG0PhZAaq1zt9Gczwnr+CpKxqOjAMoQ7DPcPNNSYA==']
-        },
-        'mode': 'block'
+        'tx': base64Encode(expectedSignedTxModel.signedCosmosTx.toProtoBytes()),
+        'mode': 'sync'
       };
 
       TestUtils.printInfo('Should [return BroadcastReq] as json with MsgUndelegate message');
@@ -925,8 +610,8 @@ Future<void> main() async {
           ),
           signatures: <CosmosSignature>[
             CosmosSignature(
-              r: BigInt.parse('86425581516026662676457875278640935065194214567737986990204734494410721421215'),
-              s: BigInt.parse('32517379701721149843822157155487302717605475570919901277046173146033855619460'),
+              r: BigInt.parse('38798294442548980397203758645648800064841785374950106927163026336447713518063'),
+              s: BigInt.parse('40511601450211613571736454485376726505782836193351265601527838863761521981703'),
             ),
           ],
         ),
@@ -942,41 +627,8 @@ Future<void> main() async {
 
       // Assert
       Map<String, dynamic> expectedBroadcastReqJson = <String, dynamic>{
-        'tx': {
-          'body': {
-            'messages': [
-              {'@type': '/kira.multistaking.MsgClaimRewards', 'sender': 'kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'}
-            ],
-            'memo': 'Test of MsgClaimRewards message',
-            'timeout_height': '0',
-            'extension_options': [],
-            'non_critical_extension_options': []
-          },
-          'auth_info': {
-            'signer_infos': [
-              {
-                'public_key': {
-                  '@type': '/cosmos.crypto.secp256k1.PubKey',
-                  'key': 'AlLas8CJ6lm5yZJ8h0U5Qu9nzVvgvskgHuURPB3jvUx8'
-                },
-                'mode_info': {
-                  'single': {'mode': 'SIGN_MODE_DIRECT'}
-                },
-                'sequence': '106'
-              }
-            ],
-            'fee': {
-              'gas_limit': '20000',
-              'amount': [
-                {'denom': 'ukex', 'amount': '200'}
-              ],
-              'payer': null,
-              'granter': null
-            }
-          },
-          'signatures': ['vxMlSVwd9X+NqFhDRhA1UYJ+qCGWuDMsF8fQiHz/Z59H5C9H8EmpDdTuk4waYvNeOkVsLTFJ2n9tCMY1dlNhhA==']
-        },
-        'mode': 'block'
+        'tx': base64Encode(expectedSignedTxModel.signedCosmosTx.toProtoBytes()),
+        'mode': 'sync'
       };
 
       TestUtils.printInfo('Should [return BroadcastReq] as json with MsgClaimRewards message');
@@ -1014,8 +666,8 @@ Future<void> main() async {
           ),
           signatures: <CosmosSignature>[
             CosmosSignature(
-              r: BigInt.parse('28706132851713258574618795789951122613176729275793441545562718387318134318988'),
-              s: BigInt.parse('18127497915722753838224045169955328765611750941145002583780850480177807109555'),
+              r: BigInt.parse('53931784389281119594632275428448450459414293822686472631969037035733632417282'),
+              s: BigInt.parse('3869579630251616776362004995596474187923215105870002098602300766616730535382'),
             ),
           ],
         ),
@@ -1031,45 +683,8 @@ Future<void> main() async {
 
       // Assert
       Map<String, dynamic> expectedBroadcastReqJson = <String, dynamic>{
-        'tx': {
-          'body': {
-            'messages': [
-              {
-                '@type': '/kira.multistaking.MsgClaimUndelegation',
-                'sender': 'kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx',
-                'undelegation_id': '1'
-              }
-            ],
-            'memo': 'Test of MsgClaimUndelegation message',
-            'timeout_height': '0',
-            'extension_options': [],
-            'non_critical_extension_options': []
-          },
-          'auth_info': {
-            'signer_infos': [
-              {
-                'public_key': {
-                  '@type': '/cosmos.crypto.secp256k1.PubKey',
-                  'key': 'AlLas8CJ6lm5yZJ8h0U5Qu9nzVvgvskgHuURPB3jvUx8'
-                },
-                'mode_info': {
-                  'single': {'mode': 'SIGN_MODE_DIRECT'}
-                },
-                'sequence': '106'
-              }
-            ],
-            'fee': {
-              'gas_limit': '20000',
-              'amount': [
-                {'denom': 'ukex', 'amount': '200'}
-              ],
-              'payer': null,
-              'granter': null
-            }
-          },
-          'signatures': ['P3cYbVw5YzLCCWuq7ck7neCYRhEVrHZBQGHZu9myp4woE8zbp91uA2jF3F2385ZzhREGTwpYcGFqGoWbI8Qtsw==']
-        },
-        'mode': 'block'
+        'tx': base64Encode(expectedSignedTxModel.signedCosmosTx.toProtoBytes()),
+        'mode': 'sync'
       };
 
       TestUtils.printInfo('Should [return BroadcastReq] as json with MsgClaimUndelegation message');
@@ -1112,8 +727,8 @@ Future<void> main() async {
           ),
           signatures: <CosmosSignature>[
             CosmosSignature(
-              r: BigInt.parse('21028702019761272517685992784987639565827921194316081946315444932502726756360'),
-              s: BigInt.parse('26233124607299580314002343060441837683740545835168470193313814846944351386003'),
+              r: BigInt.parse('81462215629719951979634509938955619315107482090980120075887583641124397032729'),
+              s: BigInt.parse('12602475644664476140615683987215242708651334418181655983183239645001338385008'),
             ),
           ],
         ),

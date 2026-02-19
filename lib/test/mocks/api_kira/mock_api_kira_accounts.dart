@@ -17,8 +17,8 @@ class MockApiKiraAccounts {
     'accountNumber': '669',
     'address': 'kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx',
     'pubKey': {
-      '@type': '/cosmos.crypto.secp256k1.PubKey',
-      'key': 'AlLas8CJ6lm5yZJ8h0U5Qu9nzVvgvskgHuURPB3jvUx8',
+      'typeUrl': '/cosmos.crypto.secp256k1.PubKey',
+      'value': 'AlLas8CJ6lm5yZJ8h0U5Qu9nzVvgvskgHuURPB3jvUx8',
     },
     'sequence': '106'
   };

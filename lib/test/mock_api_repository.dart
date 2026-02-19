@@ -6,6 +6,7 @@ import 'package:miro/infra/dto/api/query_validators/request/query_validators_req
 import 'package:miro/infra/exceptions/dio_connect_exception.dart';
 import 'package:miro/infra/models/api_request_model.dart';
 import 'package:miro/infra/repositories/api/api_repository.dart';
+import 'package:miro/test/mocks/api/mock_api_blocks.dart';
 import 'package:miro/test/mocks/api/mock_api_dashboard.dart';
 import 'package:miro/test/mocks/api/mock_api_status.dart';
 import 'package:miro/test/mocks/api/mock_api_transactions.dart';
@@ -166,7 +167,7 @@ class MockApiRepository implements IApiRepository {
           response = <String, dynamic>{'invalid': 'response'} as T;
           break;
         default:
-          response = MockApiTransactions.defaultResponse as T;
+          response = MockApiBlocks.defaultResponse as T;
           break;
       }
       return Response<T>(

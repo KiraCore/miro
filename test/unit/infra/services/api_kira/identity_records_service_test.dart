@@ -118,11 +118,8 @@ Future<void> main() async {
   });
 
   group('Tests of IdentityRecordsService.getInboundVerificationRequests() method [GET in HTTP]', () {
-    // Note: Mock response structure may not match expected format after API changes.
-    // The service returns empty list when response can't be parsed.
     test(
         'Should return [PageData<IRInboundVerificationRequestModel>] if [server HEALTHY] and response [CAN be parsed to QueryIdentityRecordVerifyRequestsByRequesterResp]',
-        skip: 'Mock response structure needs update for new identity verification API',
         () async {
       // Arrange
       Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://healthy.kira.network/');
@@ -141,11 +138,15 @@ Future<void> main() async {
         listItems: <IRInboundVerificationRequestModel>[
           IRInboundVerificationRequestModel(
             id: '1',
-            requesterIrUserProfileModel: expectedIrUserProfileModel,
+            requesterIrUserProfileModel: IRUserProfileModel(
+              walletAddress: WalletAddress.fromBech32('kira143q8vxpvuykt9pq50e6hng9s38vmy844n8k9wx'),
+              username: 'somnitear',
+              avatarUrl: 'https://avatars.githubusercontent.com/u/114292385',
+            ),
             tipTokenAmountModel: TokenAmountModel.fromString('200ukex'),
             dateTime: DateTime.parse('2021-09-30T12:00:00.000Z'),
             records: <String, String>{
-              '3': 'somnitear',
+              'username': 'somnitear',
             },
           ),
         ],
@@ -157,33 +158,20 @@ Future<void> main() async {
       expect(actualVerificationRequestsPageData.blockDateTime, isNotNull); // Dynamic, just check it exists
     });
 
-    // Note: The mock for invalid.kira.network returns data that causes parsing errors.
-    // The service needs consistent behavior for unparseable responses.
     test(
-      'Should return [EMPTY PageData<IRInboundVerificationRequestModel>] if [server HEALTHY] and response [CANNOT be parsed to QueryIdentityRecordVerifyRequestsByRequesterResp] (e.g. response structure changed)',
-      skip: 'Mock response for invalid endpoint causes parsing error in service',
+      'Should throw [DioParseException] if [server HEALTHY] and response [CANNOT be parsed to QueryIdentityRecordVerifyRequestsByRequesterResp] (e.g. response structure changed)',
       () async {
         // Arrange
         Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://invalid.kira.network/');
         await TestUtils.setupNetworkModel(networkUri: networkUri);
 
-        // Act
-        PageData<IRInboundVerificationRequestModel> actualVerificationRequestsPageData = await actualIdentityRecordsService.getInboundVerificationRequests(
-          QueryIdentityRecordVerifyRequestsByApproverReq(address: actualWalletAddress.bech32Address, offset: 0, limit: 10),
-        );
-
         // Assert
-        PageData<IRInboundVerificationRequestModel> expectedVerificationRequestsPageData = PageData<IRInboundVerificationRequestModel>(
-          lastPageBool: true,
-          blockDateTime: DateTime.parse('2022-08-26 22:08:27.607Z'),
-          cacheExpirationDateTime: DateTime.parse('2022-08-26 22:08:27.607Z'),
-          listItems: const <IRInboundVerificationRequestModel>[],
+        expect(
+          () => actualIdentityRecordsService.getInboundVerificationRequests(
+            QueryIdentityRecordVerifyRequestsByApproverReq(address: actualWalletAddress.bech32Address, offset: 0, limit: 10),
+          ),
+          throwsA(isA<DioParseException>()),
         );
-
-        // Note: Timestamps are dynamic, compare essential fields only
-        expect(actualVerificationRequestsPageData.lastPageBool, expectedVerificationRequestsPageData.lastPageBool);
-        expect(actualVerificationRequestsPageData.listItems, expectedVerificationRequestsPageData.listItems);
-        expect(actualVerificationRequestsPageData.blockDateTime, isNotNull); // Dynamic, just check it exists
       },
     );
 

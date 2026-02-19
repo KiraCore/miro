@@ -41,7 +41,7 @@ Future<void> main() async {
 
   TxRemoteInfoModel txRemoteInfoModel = const TxRemoteInfoModel(
     accountNumber: '669',
-    chainId: 'testnet-9',
+    chainId: 'chaosnet-3',
     sequence: '106',
   );
 
@@ -50,10 +50,8 @@ Future<void> main() async {
     txRemoteInfoModel: txRemoteInfoModel,
   );
 
-  // Note: This test relies on QueryAccountService which has mock parsing issues after API changes.
-  // The mock account response doesn't match the parser's expected structure.
   group('Tests of [TxFormBuilderCubit] process', () {
-    test('Should emit certain states when [network ONLINE] while building UnsignedTxModel', skip: 'Mock account service response needs update for new API', () async {
+    test('Should emit certain states when [network ONLINE] while building UnsignedTxModel', () async {
       // Arrange
       await TestUtils.setupNetworkModel(networkUri: Uri.parse('https://healthy.kira.network/'));
       MockMsgFormModel actualMockMsgFormModel = MockMsgFormModel();
