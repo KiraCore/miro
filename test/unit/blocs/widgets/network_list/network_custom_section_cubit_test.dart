@@ -73,7 +73,7 @@ Future<void> main() async {
       // ****************************************************************************************
 
       // Act
-      await networkCustomSectionCubit.updateNetworks(
+      networkCustomSectionCubit.updateNetworks(
         TestUtils.customNetworkHealthyModel.copyWith(connectionStatusType: ConnectionStatusType.connected),
       );
       actualNetworkCustomSectionState = networkCustomSectionCubit.state;
@@ -126,7 +126,7 @@ Future<void> main() async {
       // ****************************************************************************************
 
       // Act
-      await networkCustomSectionCubit.updateNetworks(
+      networkCustomSectionCubit.updateNetworks(
         TestUtils.customNetworkHealthyModel.copyWith(connectionStatusType: ConnectionStatusType.connected),
       );
       actualNetworkCustomSectionState = networkCustomSectionCubit.state;
@@ -153,7 +153,7 @@ Future<void> main() async {
       // ****************************************************************************************
 
       // Act
-      await networkCustomSectionCubit.updateNetworks(
+      networkCustomSectionCubit.updateNetworks(
         TestUtils.customNetworkUnhealthyModel.copyWith(connectionStatusType: ConnectionStatusType.connected),
       );
       actualNetworkCustomSectionState = networkCustomSectionCubit.state;
