@@ -36,8 +36,8 @@ void main() {
     enacting: 0,
     finished: 0,
     successful: 0,
-    proposers: '1',
-    voters: '1',
+    proposers: 1,
+    voters: 1,
   );
 
   group('Tests of DashboardModel.consensusHealthPercentage getter', () {

@@ -1,19 +1,4 @@
-import 'dart:math';
-
-import 'package:cryptography_utils/cryptography_utils.dart';
-import 'package:decimal/decimal.dart';
-import 'package:flutter/material.dart';
-import 'package:miro/config/app_icons.dart';
-import 'package:miro/generated/l10n.dart';
-import 'package:miro/infra/dto/shared/messages/msg_send.dart';
-import 'package:miro/shared/models/tokens/prefixed_token_amount_model.dart';
-import 'package:miro/shared/models/tokens/token_alias_model.dart';
-import 'package:miro/shared/models/tokens/token_amount_model.dart';
-import 'package:miro/shared/models/tokens/token_amount_status_type.dart';
-import 'package:miro/shared/models/transactions/list/tx_direction_type.dart';
-import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
-import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+part of 'a_tx_msg_model.dart';
 
 class MsgSendModel extends ATxMsgModel {
   final WalletAddress fromWalletAddress;
@@ -93,6 +78,12 @@ class MsgSendModel extends ATxMsgModel {
       return S.of(context).txMsgSendReceiveTokens;
     }
   }
+
+  @override
+  WalletAddress get fromAddress => fromWalletAddress;
+
+  @override
+  WalletAddress get toAddress => toWalletAddress;
 
   @override
   List<Object?> get props => <Object>[fromWalletAddress, toWalletAddress, tokenAmountModel];

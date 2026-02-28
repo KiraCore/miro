@@ -1,17 +1,29 @@
-import 'package:flutter/material.dart';
-import 'package:miro/generated/l10n.dart';
-import 'package:miro/infra/dto/shared/messages/msg_undefined.dart';
-import 'package:miro/shared/models/tokens/prefixed_token_amount_model.dart';
-import 'package:miro/shared/models/transactions/list/tx_direction_type.dart';
-import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
-import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
+part of 'a_tx_msg_model.dart';
 
 class MsgUndefinedModel extends ATxMsgModel {
-  const MsgUndefinedModel() : super(txMsgType: TxMsgType.undefined);
+  @override
+  final WalletAddress? fromAddress;
+  @override
+  final WalletAddress? toAddress;
+
+  const MsgUndefinedModel({
+    required this.fromAddress,
+    required this.toAddress,
+  }) : super(txMsgType: TxMsgType.undefined);
+
+  factory MsgUndefinedModel.fromMsgDto(MsgUndefined msgDto) {
+    return MsgUndefinedModel(
+      fromAddress: msgDto.fromAddress != null ? WalletAddress.fromBech32(msgDto.fromAddress!) : null,
+      toAddress: msgDto.toAddress != null ? WalletAddress.fromBech32(msgDto.toAddress!) : null,
+    );
+  }
 
   @override
   MsgUndefined toMsgDto() {
-    return const MsgUndefined();
+    return MsgUndefined(
+      fromAddress: fromAddress?.bech32Address,
+      toAddress: toAddress?.bech32Address,
+    );
   }
 
   @override
@@ -35,5 +47,5 @@ class MsgUndefinedModel extends ATxMsgModel {
   }
 
   @override
-  List<Object?> get props => <Object>[];
+  List<Object?> get props => <Object?>[fromAddress, toAddress];
 }

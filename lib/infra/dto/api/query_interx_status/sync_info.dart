@@ -3,12 +3,12 @@ import 'package:equatable/equatable.dart';
 class SyncInfo extends Equatable {
   final String earliestAppHash;
   final String earliestBlockHash;
-  final String earliestBlockHeight;
-  final String earliestBlockTime;
+  final int earliestBlockHeight;
+  final DateTime earliestBlockTime;
   final String latestAppHash;
   final String latestBlockHash;
-  final String latestBlockHeight;
-  final String latestBlockTime;
+  final int latestBlockHeight;
+  final DateTime latestBlockTime;
 
   const SyncInfo({
     required this.earliestAppHash,
@@ -25,12 +25,12 @@ class SyncInfo extends Equatable {
     return SyncInfo(
       earliestAppHash: json['earliest_app_hash'] as String,
       earliestBlockHash: json['earliest_block_hash'] as String,
-      earliestBlockHeight: json['earliest_block_height'] as String,
-      earliestBlockTime: json['earliest_block_time'] as String,
+      earliestBlockHeight: int.tryParse(json['earliest_block_height'] as String) ?? 1,
+      earliestBlockTime: DateTime.parse(json['earliest_block_time'] as String),
       latestAppHash: json['latest_app_hash'] as String,
       latestBlockHash: json['latest_block_hash'] as String,
-      latestBlockHeight: json['latest_block_height'] as String,
-      latestBlockTime: json['latest_block_time'] as String,
+      latestBlockHeight: int.tryParse(json['latest_block_height'] as String) ?? 1,
+      latestBlockTime: DateTime.parse(json['latest_block_time'] as String),
     );
   }
 
@@ -43,5 +43,6 @@ class SyncInfo extends Equatable {
         latestAppHash,
         latestBlockHash,
         latestBlockHeight,
+        latestBlockTime,
       ];
 }

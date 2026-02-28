@@ -390,4 +390,31 @@ class MockApiKiraRepository implements IApiKiraRepository {
       throw DioConnectException(dioException: DioException(requestOptions: RequestOptions(path: networkUri.host)));
     }
   }
+
+  @override
+  Future<Response<T>> fetchQueryProposals<T>(ApiRequestModel<void> apiRequestModel) async {
+    Uri networkUri = apiRequestModel.networkUri;
+    bool responseExistsBool = workingEndpoints.contains(networkUri.host);
+    if (responseExistsBool) {
+      late T response;
+      switch (networkUri.host) {
+        case 'invalid.kira.network':
+          response = <String, dynamic>{'invalid': 'response'} as T;
+          break;
+        default:
+          response = <String, dynamic>{
+            'proposals': <dynamic>[],
+          } as T;
+          break;
+      }
+      return Response<T>(
+        statusCode: 200,
+        data: response,
+        headers: MockHeaders.defaultHeaders,
+        requestOptions: RequestOptions(path: ''),
+      );
+    } else {
+      throw DioConnectException(dioException: DioException(requestOptions: RequestOptions(path: networkUri.host)));
+    }
+  }
 }

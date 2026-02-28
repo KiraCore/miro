@@ -12,7 +12,7 @@ class QueryKiraTokensAliasesReq extends Equatable {
   });
 
   Map<String, dynamic> get queryParameters => <String, dynamic>{
-        'tokens': tokens?.join(','),
+        'tokens[]': tokens?.join(','),
         'limit': limit,
         'offset': offset,
       };

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:miro/config/app_sizes.dart';
 import 'package:miro/config/theme/design_colors.dart';
+import 'package:miro/shared/router/kira_router.dart';
+import 'package:miro/shared/router/router.gr.dart';
 import 'package:miro/views/layout/nav_menu/model/nav_item_model.dart';
 import 'package:miro/views/layout/nav_menu/nav_menu.dart';
 import 'package:miro/views/layout/report_issues_button.dart';
@@ -23,9 +25,15 @@ class SidebarDesktop extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          const Padding(
-            padding: EdgeInsets.only(left: 40, bottom: 64, top: 26),
-            child: KiraLogo(height: 30),
+          Padding(
+            padding: const EdgeInsets.only(left: 40, bottom: 64, top: 26),
+            child: GestureDetector(
+              onTap: () => KiraRouter.of(context).navigate(const DashboardRoute()),
+              child: const MouseRegion(
+                cursor: SystemMouseCursors.click,
+                child: KiraLogo(height: 30),
+              ),
+            ),
           ),
           Expanded(
             child: SingleChildScrollView(

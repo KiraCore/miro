@@ -1,12 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:miro/generated/l10n.dart';
-import 'package:miro/infra/dto/shared/messages/a_tx_msg.dart';
-import 'package:miro/infra/dto/shared/messages/staking/msg_claim_rewards.dart';
-import 'package:miro/shared/models/tokens/prefixed_token_amount_model.dart';
-import 'package:miro/shared/models/transactions/list/tx_direction_type.dart';
-import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
-import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
-import 'package:miro/shared/models/wallet/wallet_address.dart';
+part of '../a_tx_msg_model.dart';
 
 class StakingMsgClaimRewardsModel extends ATxMsgModel {
   final WalletAddress senderWalletAddress;
@@ -47,6 +39,9 @@ class StakingMsgClaimRewardsModel extends ATxMsgModel {
   String getTitle(BuildContext context, TxDirectionType txDirectionType) {
     return S.of(context).txMsgClaimRewards;
   }
+
+  @override
+  WalletAddress get fromAddress => senderWalletAddress;
 
   @override
   List<Object?> get props => <Object>[senderWalletAddress];

@@ -3,12 +3,12 @@ import 'package:miro/blocs/widgets/kira/kira_list/abstract_list/states/list_load
 class PaginatedListLoadedState<T> extends ListLoadedState<T> {
   final int pageIndex;
 
-  const PaginatedListLoadedState({
+  PaginatedListLoadedState({
     required this.pageIndex,
     required bool lastPageBool,
     required List<T> listItems,
     required DateTime blockDateTime,
-    required DateTime cacheExpirationDateTime,
+    DateTime? cacheExpirationDateTime,
   }) : super(
           lastPage: lastPageBool,
           listItems: listItems,

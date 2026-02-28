@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:miro/shared/router/kira_router.dart';
+import 'package:miro/shared/router/router.gr.dart';
 import 'package:miro/views/layout/app_bar/account_button/account_button.dart';
 import 'package:miro/views/layout/scaffold/backdrop/backdrop_menu_button.dart';
 import 'package:miro/views/widgets/kira/kira_logo.dart';
@@ -19,7 +21,13 @@ class KiraAppBarMobileHeader extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           const BackdropMenuButton(),
-          const KiraLogo(height: 30),
+          GestureDetector(
+            onTap: () => KiraRouter.of(context).navigate(const DashboardRoute()),
+            child: const MouseRegion(
+              cursor: SystemMouseCursors.click,
+              child: KiraLogo(height: 30),
+            ),
+          ),
           AccountButton(),
         ],
       ),

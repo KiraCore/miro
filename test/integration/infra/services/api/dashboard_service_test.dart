@@ -13,7 +13,7 @@ import 'package:miro/test/utils/test_utils.dart';
 Future<void> main() async {
   await TestUtils.initIntegrationTest();
 
-  final Uri networkUri = NetworkUtils.parseUrlToInterxUri('http://173.212.254.147:11000');
+  final Uri networkUri = NetworkUtils.parseUrlToInterxUri('http://3.123.154.245:11000');
   await TestUtils.setupNetworkModel(networkUri: networkUri);
 
   final DashboardService actualDashboardService = globalLocator<DashboardService>();
@@ -28,7 +28,8 @@ Future<void> main() async {
         print(actualDashboardModel);
         print('');
       } on DioConnectException catch (e) {
-        TestUtils.printError('dashboard_service_test.dart: Cannot fetch [DashboardModel] for URI $networkUri: ${e.dioException.message}');
+        TestUtils.printError(
+            'dashboard_service_test.dart: Cannot fetch [DashboardModel] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
         TestUtils.printError('dashboard_service_test.dart: Cannot parse [DashboardModel] for URI $networkUri: ${e}');
       } catch (e) {

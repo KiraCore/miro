@@ -17,11 +17,11 @@ class Fee extends Equatable {
 
   factory Fee.fromJson(Map<String, dynamic> json) {
     return Fee(
-      defaultParameters: json['default_parameters'] as String,
-      executionFee: json['execution_fee'] as String,
-      failureFee: json['failure_fee'] as String,
+      defaultParameters: json['defaultParameters'] as String,
+      executionFee: json['executionFee'] as String,
+      failureFee: json['failureFee'] as String,
       timeout: json['timeout'] as String,
-      transactionType: json['transaction_type'] as String,
+      transactionType: json['transactionType'] as String,
     );
   }
 

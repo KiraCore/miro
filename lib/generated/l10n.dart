@@ -1,7 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
 import 'intl/messages_all.dart';
 
 // **************************************************************************
@@ -19,14 +18,20 @@ class S {
   static S? _current;
 
   static S get current {
-    assert(_current != null, 'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.');
+    assert(
+      _current != null,
+      'No instance of S was loaded. Try to initialize the S delegate before accessing S.current.',
+    );
     return _current!;
   }
 
   static const AppLocalizationDelegate delegate = AppLocalizationDelegate();
 
   static Future<S> load(Locale locale) {
-    final name = (locale.countryCode?.isEmpty ?? false) ? locale.languageCode : locale.toString();
+    final name =
+        (locale.countryCode?.isEmpty ?? false)
+            ? locale.languageCode
+            : locale.toString();
     final localeName = Intl.canonicalizedLocale(name);
     return initializeMessages(localeName).then((_) {
       Intl.defaultLocale = localeName;
@@ -39,7 +44,10 @@ class S {
 
   static S of(BuildContext context) {
     final instance = S.maybeOf(context);
-    assert(instance != null, 'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?');
+    assert(
+      instance != null,
+      'No instance of S present in the widget tree. Did you add S.delegate in localizationsDelegates?',
+    );
     return instance!;
   }
 
@@ -59,22 +67,12 @@ class S {
 
   /// `Balances`
   String get balances {
-    return Intl.message(
-      'Balances',
-      name: 'balances',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Balances', name: 'balances', desc: '', args: []);
   }
 
   /// `Pay`
   String get balancesButtonPay {
-    return Intl.message(
-      'Pay',
-      name: 'balancesButtonPay',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Pay', name: 'balancesButtonPay', desc: '', args: []);
   }
 
   /// `Request`
@@ -89,22 +87,12 @@ class S {
 
   /// `Name`
   String get balancesName {
-    return Intl.message(
-      'Name',
-      name: 'balancesName',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Name', name: 'balancesName', desc: '', args: []);
   }
 
   /// `Amount`
   String get balancesAmount {
-    return Intl.message(
-      'Amount',
-      name: 'balancesAmount',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Amount', name: 'balancesAmount', desc: '', args: []);
   }
 
   /// `Denomination`
@@ -119,12 +107,7 @@ class S {
 
   /// `Send`
   String get balancesSend {
-    return Intl.message(
-      'Send',
-      name: 'balancesSend',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Send', name: 'balancesSend', desc: '', args: []);
   }
 
   /// `Hide small balances`
@@ -169,12 +152,12 @@ class S {
 
   /// `Blocks`
   String get blocks {
-    return Intl.message(
-      'Blocks',
-      name: 'blocks',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Blocks', name: 'blocks', desc: '', args: []);
+  }
+
+  /// `Block`
+  String get block {
+    return Intl.message('Block', name: 'block', desc: '', args: []);
   }
 
   /// `Current height`
@@ -239,12 +222,7 @@ class S {
 
   /// `Consensus`
   String get consensus {
-    return Intl.message(
-      'Consensus',
-      name: 'consensus',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Consensus', name: 'consensus', desc: '', args: []);
   }
 
   /// `Healthy`
@@ -459,12 +437,7 @@ class S {
 
   /// `Identity Registrar`
   String get ir {
-    return Intl.message(
-      'Identity Registrar',
-      name: 'ir',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Identity Registrar', name: 'ir', desc: '', args: []);
   }
 
   /// `Identity record details`
@@ -479,42 +452,22 @@ class S {
 
   /// `Entries`
   String get irEntries {
-    return Intl.message(
-      'Entries',
-      name: 'irEntries',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Entries', name: 'irEntries', desc: '', args: []);
   }
 
   /// `Avatar`
   String get irAvatar {
-    return Intl.message(
-      'Avatar',
-      name: 'irAvatar',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Avatar', name: 'irAvatar', desc: '', args: []);
   }
 
   /// `Username`
   String get irUsername {
-    return Intl.message(
-      'Username',
-      name: 'irUsername',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Username', name: 'irUsername', desc: '', args: []);
   }
 
   /// `Contact`
   String get irContact {
-    return Intl.message(
-      'Contact',
-      name: 'irContact',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Contact', name: 'irContact', desc: '', args: []);
   }
 
   /// `Description`
@@ -539,12 +492,7 @@ class S {
 
   /// `Website`
   String get irWebsite {
-    return Intl.message(
-      'Website',
-      name: 'irWebsite',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Website', name: 'irWebsite', desc: '', args: []);
   }
 
   /// `Add custom record`
@@ -559,42 +507,22 @@ class S {
 
   /// `Add`
   String get irRecordAdd {
-    return Intl.message(
-      'Add',
-      name: 'irRecordAdd',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Add', name: 'irRecordAdd', desc: '', args: []);
   }
 
   /// `Delete`
   String get irRecordDelete {
-    return Intl.message(
-      'Delete',
-      name: 'irRecordDelete',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Delete', name: 'irRecordDelete', desc: '', args: []);
   }
 
   /// `Edit`
   String get irRecordEdit {
-    return Intl.message(
-      'Edit',
-      name: 'irRecordEdit',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Edit', name: 'irRecordEdit', desc: '', args: []);
   }
 
   /// `Verify`
   String get irRecordVerify {
-    return Intl.message(
-      'Verify',
-      name: 'irRecordVerify',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Verify', name: 'irRecordVerify', desc: '', args: []);
   }
 
   /// `Confirmed verification requests`
@@ -629,12 +557,7 @@ class S {
 
   /// `Status`
   String get irRecordStatus {
-    return Intl.message(
-      'Status',
-      name: 'irRecordStatus',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Status', name: 'irRecordStatus', desc: '', args: []);
   }
 
   /// `Verifications: {verificationsCount}`
@@ -909,32 +832,17 @@ class S {
 
   /// `Key`
   String get irTxHintKey {
-    return Intl.message(
-      'Key',
-      name: 'irTxHintKey',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Key', name: 'irTxHintKey', desc: '', args: []);
   }
 
   /// `Tip`
   String get irTxHintTip {
-    return Intl.message(
-      'Tip',
-      name: 'irTxHintTip',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Tip', name: 'irTxHintTip', desc: '', args: []);
   }
 
   /// `Value`
   String get irTxHintValue {
-    return Intl.message(
-      'Value',
-      name: 'irTxHintValue',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Value', name: 'irTxHintValue', desc: '', args: []);
   }
 
   /// `Verifier will get`
@@ -949,12 +857,7 @@ class S {
 
   /// `Keyfile`
   String get keyfile {
-    return Intl.message(
-      'Keyfile',
-      name: 'keyfile',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Keyfile', name: 'keyfile', desc: '', args: []);
   }
 
   /// `Download`
@@ -1159,12 +1062,7 @@ class S {
 
   /// `Mnemonic`
   String get mnemonic {
-    return Intl.message(
-      'Mnemonic',
-      name: 'mnemonic',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Mnemonic', name: 'mnemonic', desc: '', args: []);
   }
 
   /// `Something unexpected happened`
@@ -1339,12 +1237,7 @@ class S {
 
   /// `My account`
   String get myAccount {
-    return Intl.message(
-      'My account',
-      name: 'myAccount',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('My account', name: 'myAccount', desc: '', args: []);
   }
 
   /// `Settings`
@@ -1668,7 +1561,11 @@ class S {
   }
 
   /// `Connecting to <{networkName}>{separator} Please wait... {parsedRemainingTime}`
-  String networkConnectingTo(String separator, String networkName, String parsedRemainingTime) {
+  String networkConnectingTo(
+    String separator,
+    String networkName,
+    String parsedRemainingTime,
+  ) {
     return Intl.message(
       'Connecting to <$networkName>$separator Please wait... $parsedRemainingTime',
       name: 'networkConnectingTo',
@@ -1689,22 +1586,12 @@ class S {
 
   /// `Proposals`
   String get proposals {
-    return Intl.message(
-      'Proposals',
-      name: 'proposals',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Proposals', name: 'proposals', desc: '', args: []);
   }
 
   /// `Active`
   String get proposalsActive {
-    return Intl.message(
-      'Active',
-      name: 'proposalsActive',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Active', name: 'proposalsActive', desc: '', args: []);
   }
 
   /// `Enacting`
@@ -1749,22 +1636,12 @@ class S {
 
   /// `Voters`
   String get proposalsVoters {
-    return Intl.message(
-      'Voters',
-      name: 'proposalsVoters',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Voters', name: 'proposalsVoters', desc: '', args: []);
   }
 
   /// `Staking`
   String get staking {
-    return Intl.message(
-      'Staking',
-      name: 'staking',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Staking', name: 'staking', desc: '', args: []);
   }
 
   /// `Staking Pool`
@@ -1999,12 +1876,7 @@ class S {
 
   /// `Transactions`
   String get tx {
-    return Intl.message(
-      'Transactions',
-      name: 'tx',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Transactions', name: 'tx', desc: '', args: []);
   }
 
   /// `Send all`
@@ -2019,32 +1891,17 @@ class S {
 
   /// `Clear`
   String get txButtonClear {
-    return Intl.message(
-      'Clear',
-      name: 'txButtonClear',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Clear', name: 'txButtonClear', desc: '', args: []);
   }
 
   /// `Next`
   String get txButtonNext {
-    return Intl.message(
-      'Next',
-      name: 'txButtonNext',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Next', name: 'txButtonNext', desc: '', args: []);
   }
 
   /// `Edit`
   String get txButtonEdit {
-    return Intl.message(
-      'Edit',
-      name: 'txButtonEdit',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Edit', name: 'txButtonEdit', desc: '', args: []);
   }
 
   /// `Claim All Rewards`
@@ -2199,52 +2056,27 @@ class S {
 
   /// `Claim`
   String get txHintClaim {
-    return Intl.message(
-      'Claim',
-      name: 'txHintClaim',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Claim', name: 'txHintClaim', desc: '', args: []);
   }
 
   /// `Claim by`
   String get txHintClaimBy {
-    return Intl.message(
-      'Claim by',
-      name: 'txHintClaimBy',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Claim by', name: 'txHintClaimBy', desc: '', args: []);
   }
 
   /// `Stake by`
   String get txHintStakeBy {
-    return Intl.message(
-      'Stake by',
-      name: 'txHintStakeBy',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Stake by', name: 'txHintStakeBy', desc: '', args: []);
   }
 
   /// `Stake on`
   String get txHintStakeOn {
-    return Intl.message(
-      'Stake on',
-      name: 'txHintStakeOn',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Stake on', name: 'txHintStakeOn', desc: '', args: []);
   }
 
   /// `Claim to`
   String get txHintClaimTo {
-    return Intl.message(
-      'Claim to',
-      name: 'txHintClaimTo',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Claim to', name: 'txHintClaimTo', desc: '', args: []);
   }
 
   /// `Send from`
@@ -2259,22 +2091,12 @@ class S {
 
   /// `Send to`
   String get txHintSendTo {
-    return Intl.message(
-      'Send to',
-      name: 'txHintSendTo',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Send to', name: 'txHintSendTo', desc: '', args: []);
   }
 
   /// `Memo`
   String get txHintMemo {
-    return Intl.message(
-      'Memo',
-      name: 'txHintMemo',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Memo', name: 'txHintMemo', desc: '', args: []);
   }
 
   /// `Unstake from`
@@ -2329,12 +2151,7 @@ class S {
 
   /// `Try again`
   String get txTryAgain {
-    return Intl.message(
-      'Try again',
-      name: 'txTryAgain',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Try again', name: 'txTryAgain', desc: '', args: []);
   }
 
   /// `Fetching remote data. Please wait...`
@@ -2479,12 +2296,7 @@ class S {
 
   /// `Token`
   String get txToken {
-    return Intl.message(
-      'Token',
-      name: 'txToken',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Token', name: 'txToken', desc: '', args: []);
   }
 
   /// `Please select a token`
@@ -2508,7 +2320,10 @@ class S {
   }
 
   /// `Available: {availableAmountText} {tokenDenominationModelName}`
-  String txAvailableBalances(String availableAmountText, String tokenDenominationModelName) {
+  String txAvailableBalances(
+    String availableAmountText,
+    String tokenDenominationModelName,
+  ) {
     return Intl.message(
       'Available: $availableAmountText $tokenDenominationModelName',
       name: 'txAvailableBalances',
@@ -2659,12 +2474,12 @@ class S {
 
   /// `Details`
   String get txListDetails {
-    return Intl.message(
-      'Details',
-      name: 'txListDetails',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Details', name: 'txListDetails', desc: '', args: []);
+  }
+
+  /// `Method`
+  String get txListMethod {
+    return Intl.message('Method', name: 'txListMethod', desc: '', args: []);
   }
 
   /// `Transaction hash`
@@ -2677,44 +2492,144 @@ class S {
     );
   }
 
-  /// `Status`
-  String get txListStatus {
-    return Intl.message(
-      'Status',
-      name: 'txListStatus',
-      desc: '',
-      args: [],
-    );
-  }
-
-  /// `Direction`
-  String get txListDirection {
-    return Intl.message(
-      'Direction',
-      name: 'txListDirection',
-      desc: '',
-      args: [],
-    );
+  /// `Block`
+  String get txListBlock {
+    return Intl.message('Block', name: 'txListBlock', desc: '', args: []);
   }
 
   /// `Date`
   String get txListDate {
+    return Intl.message('Date', name: 'txListDate', desc: '', args: []);
+  }
+
+  /// `From`
+  String get txListFrom {
+    return Intl.message('From', name: 'txListFrom', desc: '', args: []);
+  }
+
+  /// `To`
+  String get txListTo {
+    return Intl.message('To', name: 'txListTo', desc: '', args: []);
+  }
+
+  /// `Txn fee`
+  String get txnListFee {
+    return Intl.message('Txn fee', name: 'txnListFee', desc: '', args: []);
+  }
+
+  /// `Txn hash`
+  String get txnListHash {
+    return Intl.message('Txn hash', name: 'txnListHash', desc: '', args: []);
+  }
+
+  /// `Age`
+  String get txListAge {
+    return Intl.message('Age', name: 'txListAge', desc: '', args: []);
+  }
+
+  /// `1 sec`
+  String get ageShortSecond {
+    return Intl.message('1 sec', name: 'ageShortSecond', desc: '', args: []);
+  }
+
+  /// `{seconds} secs`
+  String ageShortSeconds(Object seconds) {
     return Intl.message(
-      'Date',
-      name: 'txListDate',
+      '$seconds secs',
+      name: 'ageShortSeconds',
       desc: '',
-      args: [],
+      args: [seconds],
+    );
+  }
+
+  /// `{seconds} seconds ago`
+  String ageSecondsAgo(Object seconds) {
+    return Intl.message(
+      '$seconds seconds ago',
+      name: 'ageSecondsAgo',
+      desc: '',
+      args: [seconds],
+    );
+  }
+
+  /// `1 min`
+  String get ageShortMinute {
+    return Intl.message('1 min', name: 'ageShortMinute', desc: '', args: []);
+  }
+
+  /// `{minutes} minutes`
+  String ageShortMinutes(Object minutes) {
+    return Intl.message(
+      '$minutes minutes',
+      name: 'ageShortMinutes',
+      desc: '',
+      args: [minutes],
+    );
+  }
+
+  /// `{minutes} minutes ago`
+  String ageMinutesAgo(Object minutes) {
+    return Intl.message(
+      '$minutes minutes ago',
+      name: 'ageMinutesAgo',
+      desc: '',
+      args: [minutes],
+    );
+  }
+
+  /// `1 hour`
+  String get ageShortHour {
+    return Intl.message('1 hour', name: 'ageShortHour', desc: '', args: []);
+  }
+
+  /// `{hours} hrs`
+  String ageShortHours(Object hours) {
+    return Intl.message(
+      '$hours hrs',
+      name: 'ageShortHours',
+      desc: '',
+      args: [hours],
+    );
+  }
+
+  /// `{hours} hours ago`
+  String ageHoursAgo(Object hours) {
+    return Intl.message(
+      '$hours hours ago',
+      name: 'ageHoursAgo',
+      desc: '',
+      args: [hours],
+    );
+  }
+
+  /// `1 day`
+  String get ageShortDay {
+    return Intl.message('1 day', name: 'ageShortDay', desc: '', args: []);
+  }
+
+  /// `{days} days`
+  String ageShortDays(Object days) {
+    return Intl.message(
+      '$days days',
+      name: 'ageShortDays',
+      desc: '',
+      args: [days],
+    );
+  }
+
+  /// `{days} days ago`
+  String ageDaysAgo(Object days) {
+    return Intl.message(
+      '$days days ago',
+      name: 'ageDaysAgo',
+      desc: '',
+      args: [days],
     );
   }
 
   /// `Amount`
   String get txListAmount {
-    return Intl.message(
-      'Amount',
-      name: 'txListAmount',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Amount', name: 'txListAmount', desc: '', args: []);
   }
 
   /// `+ {amount} more`
@@ -2757,6 +2672,11 @@ class S {
     );
   }
 
+  /// `Status`
+  String get txListStatus {
+    return Intl.message('Status', name: 'txListStatus', desc: '', args: []);
+  }
+
   /// `Confirmed`
   String get txListStatusConfirmed {
     return Intl.message(
@@ -2782,6 +2702,16 @@ class S {
     return Intl.message(
       'Failed',
       name: 'txListStatusFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Direction`
+  String get txListDirection {
+    return Intl.message(
+      'Direction',
+      name: 'txListDirection',
       desc: '',
       args: [],
     );
@@ -2829,12 +2759,7 @@ class S {
 
   /// `All`
   String get txDateDropdownAll {
-    return Intl.message(
-      'All',
-      name: 'txDateDropdownAll',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('All', name: 'txDateDropdownAll', desc: '', args: []);
   }
 
   /// `Today`
@@ -2899,22 +2824,12 @@ class S {
 
   /// `Save`
   String get txDateDropdownSave {
-    return Intl.message(
-      'Save',
-      name: 'txDateDropdownSave',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Save', name: 'txDateDropdownSave', desc: '', args: []);
   }
 
   /// `Unstaked`
   String get unstaked {
-    return Intl.message(
-      'Unstaked',
-      name: 'unstaked',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Unstaked', name: 'unstaked', desc: '', args: []);
   }
 
   /// `Search list of unstaked`
@@ -2949,22 +2864,12 @@ class S {
 
   /// `Validator`
   String get validator {
-    return Intl.message(
-      'Validator',
-      name: 'validator',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Validator', name: 'validator', desc: '', args: []);
   }
 
   /// `Validators`
   String get validators {
-    return Intl.message(
-      'Validators',
-      name: 'validators',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Validators', name: 'validators', desc: '', args: []);
   }
 
   /// `About Validator`
@@ -2999,22 +2904,12 @@ class S {
 
   /// `Total`
   String get validatorsTotal {
-    return Intl.message(
-      'Total',
-      name: 'validatorsTotal',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Total', name: 'validatorsTotal', desc: '', args: []);
   }
 
   /// `Active`
   String get validatorsActive {
-    return Intl.message(
-      'Active',
-      name: 'validatorsActive',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Active', name: 'validatorsActive', desc: '', args: []);
   }
 
   /// `Inactive`
@@ -3029,22 +2924,12 @@ class S {
 
   /// `Jailed`
   String get validatorsJailed {
-    return Intl.message(
-      'Jailed',
-      name: 'validatorsJailed',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Jailed', name: 'validatorsJailed', desc: '', args: []);
   }
 
   /// `Paused`
   String get validatorsPaused {
-    return Intl.message(
-      'Paused',
-      name: 'validatorsPaused',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Paused', name: 'validatorsPaused', desc: '', args: []);
   }
 
   /// `Waiting`
@@ -3079,12 +2964,7 @@ class S {
 
   /// `Top`
   String get validatorsTableTop {
-    return Intl.message(
-      'Top',
-      name: 'validatorsTableTop',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Top', name: 'validatorsTableTop', desc: '', args: []);
   }
 
   /// `Moniker`
@@ -3127,6 +3007,291 @@ class S {
     );
   }
 
+  /// `Transactions`
+  String get transactionsPageTitle {
+    return Intl.message(
+      'Transactions',
+      name: 'transactionsPageTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search transactions`
+  String get transactionsPageHintSearch {
+    return Intl.message(
+      'Search transactions',
+      name: 'transactionsPageHintSearch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Transaction details`
+  String get transactionDetailsDrawerTitle {
+    return Intl.message(
+      'Transaction details',
+      name: 'transactionDetailsDrawerTitle',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Messages`
+  String get transactionDetailsDrawerMessages {
+    return Intl.message(
+      'Messages',
+      name: 'transactionDetailsDrawerMessages',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Wallet address`
+  String get transactionDetailsDrawerWalletAddress {
+    return Intl.message(
+      'Wallet address',
+      name: 'transactionDetailsDrawerWalletAddress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delegator's wallet address`
+  String get transactionDetailsDrawerDelegatorWalletAddress {
+    return Intl.message(
+      'Delegator\'s wallet address',
+      name: 'transactionDetailsDrawerDelegatorWalletAddress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Verifier's wallet address`
+  String get transactionDetailsDrawerVerifierWalletAddress {
+    return Intl.message(
+      'Verifier\'s wallet address',
+      name: 'transactionDetailsDrawerVerifierWalletAddress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sender's wallet address`
+  String get transactionDetailsDrawerSenderWalletAddress {
+    return Intl.message(
+      'Sender\'s wallet address',
+      name: 'transactionDetailsDrawerSenderWalletAddress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Verify request ID`
+  String get transactionDetailsDrawerVerifyRequestId {
+    return Intl.message(
+      'Verify request ID',
+      name: 'transactionDetailsDrawerVerifyRequestId',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Undelegation ID`
+  String get transactionDetailsDrawerVerifyUndelegationId {
+    return Intl.message(
+      'Undelegation ID',
+      name: 'transactionDetailsDrawerVerifyUndelegationId',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tip amount`
+  String get transactionDetailsDrawerTipAmount {
+    return Intl.message(
+      'Tip amount',
+      name: 'transactionDetailsDrawerTipAmount',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Amounts`
+  String get transactionDetailsDrawerAmounts {
+    return Intl.message(
+      'Amounts',
+      name: 'transactionDetailsDrawerAmounts',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Keys`
+  String get transactionDetailsDrawerKeys {
+    return Intl.message(
+      'Keys',
+      name: 'transactionDetailsDrawerKeys',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Key`
+  String get transactionDetailsDrawerKey {
+    return Intl.message(
+      'Key',
+      name: 'transactionDetailsDrawerKey',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Value`
+  String get transactionDetailsDrawerValue {
+    return Intl.message(
+      'Value',
+      name: 'transactionDetailsDrawerValue',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Validator key`
+  String get transactionDetailsDrawerValidatorKey {
+    return Intl.message(
+      'Validator key',
+      name: 'transactionDetailsDrawerValidatorKey',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Approved`
+  String get transactionDetailsDrawerApprovalStatusYes {
+    return Intl.message(
+      'Approved',
+      name: 'transactionDetailsDrawerApprovalStatusYes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Declined`
+  String get transactionDetailsDrawerApprovalStatusNo {
+    return Intl.message(
+      'Declined',
+      name: 'transactionDetailsDrawerApprovalStatusNo',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Record IDs`
+  String get transactionDetailsDrawerRecordIds {
+    return Intl.message(
+      'Record IDs',
+      name: 'transactionDetailsDrawerRecordIds',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Blocks`
+  String get blocksPageTitle {
+    return Intl.message('Blocks', name: 'blocksPageTitle', desc: '', args: []);
+  }
+
+  /// `Search blocks`
+  String get blocksHintSearch {
+    return Intl.message(
+      'Search blocks',
+      name: 'blocksHintSearch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Height`
+  String get blocksHeight {
+    return Intl.message('Height', name: 'blocksHeight', desc: '', args: []);
+  }
+
+  /// `Proposer`
+  String get blocksProposer {
+    return Intl.message('Proposer', name: 'blocksProposer', desc: '', args: []);
+  }
+
+  /// `Hash`
+  String get blocksHash {
+    return Intl.message('Hash', name: 'blocksHash', desc: '', args: []);
+  }
+
+  /// `Tx Count`
+  String get blocksTxCount {
+    return Intl.message('Tx Count', name: 'blocksTxCount', desc: '', args: []);
+  }
+
+  /// `Date`
+  String get blocksDate {
+    return Intl.message('Date', name: 'blocksDate', desc: '', args: []);
+  }
+
+  /// `Age`
+  String get blocksAge {
+    return Intl.message('Age', name: 'blocksAge', desc: '', args: []);
+  }
+
+  /// `Chain Id`
+  String get blocksChainId {
+    return Intl.message('Chain Id', name: 'blocksChainId', desc: '', args: []);
+  }
+
+  /// `Validator Hash`
+  String get blocksValidatorHash {
+    return Intl.message(
+      'Validator Hash',
+      name: 'blocksValidatorHash',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `App Hash`
+  String get blocksAppHash {
+    return Intl.message('App Hash', name: 'blocksAppHash', desc: '', args: []);
+  }
+
+  /// `Consensus Hash`
+  String get blocksConsensusHash {
+    return Intl.message(
+      'Consensus Hash',
+      name: 'blocksConsensusHash',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Evidence Hash`
+  String get blocksEvidenceHash {
+    return Intl.message(
+      'Evidence Hash',
+      name: 'blocksEvidenceHash',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Block Size`
+  String get blocksBlockSize {
+    return Intl.message(
+      'Block Size',
+      name: 'blocksBlockSize',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Report issues`
   String get buttonReportIssues {
     return Intl.message(
@@ -3139,12 +3304,7 @@ class S {
 
   /// `Error`
   String get error {
-    return Intl.message(
-      'Error',
-      name: 'error',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Error', name: 'error', desc: '', args: []);
   }
 
   /// `Undefined error`
@@ -3249,92 +3409,47 @@ class S {
 
   /// `Dashboard`
   String get dashboard {
-    return Intl.message(
-      'Dashboard',
-      name: 'dashboard',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Dashboard', name: 'dashboard', desc: '', args: []);
   }
 
   /// `Governance`
   String get governance {
-    return Intl.message(
-      'Governance',
-      name: 'governance',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Governance', name: 'governance', desc: '', args: []);
   }
 
   /// `Accounts`
   String get accounts {
-    return Intl.message(
-      'Accounts',
-      name: 'accounts',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Accounts', name: 'accounts', desc: '', args: []);
   }
 
   /// `Sort by`
   String get sortBy {
-    return Intl.message(
-      'Sort by',
-      name: 'sortBy',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Sort by', name: 'sortBy', desc: '', args: []);
   }
 
   /// `sec.`
   String get sec {
-    return Intl.message(
-      'sec.',
-      name: 'sec',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('sec.', name: 'sec', desc: '', args: []);
   }
 
   /// `Copy`
   String get copy {
-    return Intl.message(
-      'Copy',
-      name: 'copy',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Copy', name: 'copy', desc: '', args: []);
   }
 
   /// `Paste`
   String get paste {
-    return Intl.message(
-      'Paste',
-      name: 'paste',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Paste', name: 'paste', desc: '', args: []);
   }
 
   /// `or `
   String get or {
-    return Intl.message(
-      'or ',
-      name: 'or',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('or ', name: 'or', desc: '', args: []);
   }
 
   /// `browse`
   String get browse {
-    return Intl.message(
-      'browse',
-      name: 'browse',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('browse', name: 'browse', desc: '', args: []);
   }
 
   /// `Creation date`
@@ -3349,12 +3464,7 @@ class S {
 
   /// `Refresh`
   String get refresh {
-    return Intl.message(
-      'Refresh',
-      name: 'refresh',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('Refresh', name: 'refresh', desc: '', args: []);
   }
 
   /// `Refresh in {seconds} sec.`
@@ -3367,24 +3477,19 @@ class S {
     );
   }
 
+  /// `More`
+  String get more {
+    return Intl.message('More', name: 'more', desc: '', args: []);
+  }
+
   /// `See more`
   String get seeMore {
-    return Intl.message(
-      'See more',
-      name: 'seeMore',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('See more', name: 'seeMore', desc: '', args: []);
   }
 
   /// `See all`
   String get seeAll {
-    return Intl.message(
-      'See all',
-      name: 'seeAll',
-      desc: '',
-      args: [],
-    );
+    return Intl.message('See all', name: 'seeAll', desc: '', args: []);
   }
 
   /// `Show Details`
@@ -3412,9 +3517,7 @@ class AppLocalizationDelegate extends LocalizationsDelegate<S> {
   const AppLocalizationDelegate();
 
   List<Locale> get supportedLocales {
-    return const <Locale>[
-      Locale.fromSubtags(languageCode: 'en'),
-    ];
+    return const <Locale>[Locale.fromSubtags(languageCode: 'en')];
   }
 
   @override

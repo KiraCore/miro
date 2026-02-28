@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:miro/infra/dto/api/dashboard/validators.dart';
 import 'package:miro/shared/models/dashboard/consensus_state_type.dart';
 
 class ValidatorsStatusModel extends Equatable {
@@ -19,17 +18,6 @@ class ValidatorsStatusModel extends Equatable {
     required this.waitingValidators,
   });
 
-  factory ValidatorsStatusModel.fromDto(Validators validators) {
-    return ValidatorsStatusModel(
-      activeValidators: validators.activeValidators,
-      pausedValidators: validators.pausedValidators,
-      inactiveValidators: validators.inactiveValidators,
-      jailedValidators: validators.jailedValidators,
-      totalValidators: validators.totalValidators,
-      waitingValidators: validators.waitingValidators,
-    );
-  }
-
   ConsensusStateType get consensusStateType {
     int totalWhitelistedValidators = activeValidators + inactiveValidators + pausedValidators;
     double minActiveValidators = totalWhitelistedValidators * 0.67;
@@ -42,5 +30,12 @@ class ValidatorsStatusModel extends Equatable {
   }
 
   @override
-  List<Object?> get props => <Object>[activeValidators, pausedValidators, inactiveValidators, jailedValidators, totalValidators, waitingValidators];
+  List<Object?> get props => <Object>[
+        activeValidators,
+        pausedValidators,
+        inactiveValidators,
+        jailedValidators,
+        totalValidators,
+        waitingValidators
+      ];
 }

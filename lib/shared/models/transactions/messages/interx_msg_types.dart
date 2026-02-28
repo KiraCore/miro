@@ -2,14 +2,14 @@ import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
 
 class InterxMsgTypes {
   static final Map<TxMsgType, String> _types = <TxMsgType, String>{
-    TxMsgType.msgCancelIdentityRecordsVerifyRequest: 'cancel-identity-records-verify-request',
+    TxMsgType.msgCancelIdentityRecordsVerifyRequest: 'cancel_identity_records_verify_request',
     TxMsgType.msgClaimRewards: 'claim_rewards',
     TxMsgType.msgClaimUndelegation: 'claim_undelegation',
     TxMsgType.msgDelegate: 'delegate',
-    TxMsgType.msgDeleteIdentityRecords: 'edit-identity-record',
-    TxMsgType.msgHandleIdentityRecordsVerifyRequest: 'handle-identity-records-verify-request',
-    TxMsgType.msgRegisterIdentityRecords: 'register-identity-records',
-    TxMsgType.msgRequestIdentityRecordsVerify: 'request-identity-records-verify',
+    TxMsgType.msgDeleteIdentityRecords: 'edit_identity_record',
+    TxMsgType.msgHandleIdentityRecordsVerifyRequest: 'handle_identity_records_verify_request',
+    TxMsgType.msgRegisterIdentityRecords: 'register_identity_records',
+    TxMsgType.msgRequestIdentityRecordsVerify: 'request_identity_records_verify',
     TxMsgType.msgSend: 'send',
     TxMsgType.msgUndelegate: 'undelegate',
   };

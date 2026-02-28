@@ -5,12 +5,12 @@ import 'package:miro/blocs/pages/transactions/tx_broadcast/states/tx_broadcast_c
 import 'package:miro/blocs/pages/transactions/tx_broadcast/states/tx_broadcast_error_state.dart';
 import 'package:miro/blocs/pages/transactions/tx_broadcast/states/tx_broadcast_loading_state.dart';
 import 'package:miro/config/locator.dart';
+import 'package:miro/infra/dto/api_kira/broadcast/response/broadcast_resp.dart';
 import 'package:miro/infra/exceptions/dio_connect_exception.dart';
 import 'package:miro/infra/exceptions/dio_parse_exception.dart';
 import 'package:miro/infra/exceptions/tx_broadcast_exception.dart';
 import 'package:miro/infra/services/api_kira/broadcast_service.dart';
 import 'package:miro/shared/models/network/error_explorer_model.dart';
-import 'package:miro/shared/models/transactions/broadcast_resp_model.dart';
 import 'package:miro/shared/models/transactions/signed_transaction_model.dart';
 
 class TxBroadcastCubit extends Cubit<ATxBroadcastState> {
@@ -21,8 +21,8 @@ class TxBroadcastCubit extends Cubit<ATxBroadcastState> {
   Future<void> broadcast(SignedTxModel signedTxModel) async {
     emit(TxBroadcastLoadingState());
     try {
-      BroadcastRespModel broadcastRespModel = await broadcastService.broadcastTx(signedTxModel);
-      emit(TxBroadcastCompletedState(broadcastRespModel: broadcastRespModel));
+      BroadcastResp broadcastRespModel = await broadcastService.broadcastTx(signedTxModel);
+      emit(TxBroadcastCompletedState(broadcastResp: broadcastRespModel));
     } on DioConnectException catch (dioConnectException) {
       ErrorExplorerModel errorExplorerModel = ErrorExplorerModel.fromDioConnectException(dioConnectException);
       emit(TxBroadcastErrorState(errorExplorerModel: errorExplorerModel));
@@ -33,8 +33,8 @@ class TxBroadcastCubit extends Cubit<ATxBroadcastState> {
       RequestOptions requestOptions = txBroadcastException.response.requestOptions;
 
       ErrorExplorerModel errorExplorerModel = ErrorExplorerModel(
-        code: txBroadcastException.broadcastErrorLogModel.code,
-        message: txBroadcastException.broadcastErrorLogModel.message,
+        code: txBroadcastException.broadcastResp?.code.toString() ?? 'Unknown',
+        message: txBroadcastException.broadcastResp?.log ?? 'Transaction broadcast failed',
         uri: requestOptions.uri,
         method: requestOptions.method,
         request: requestOptions.data,

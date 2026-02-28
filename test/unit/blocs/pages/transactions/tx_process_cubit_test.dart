@@ -18,7 +18,7 @@ import 'package:miro/shared/models/network/network_properties_model.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
 import 'package:miro/shared/models/transactions/form_models/msg_send_form_model.dart';
-import 'package:miro/shared/models/transactions/messages/msg_send_model.dart';
+import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
 import 'package:miro/shared/models/transactions/messages/tx_msg_type.dart';
 import 'package:miro/shared/models/transactions/signed_transaction_model.dart';
 import 'package:miro/shared/models/transactions/tx_local_info_model.dart';
@@ -52,7 +52,7 @@ Future<void> main() async {
     ),
     txRemoteInfoModel: const TxRemoteInfoModel(
       accountNumber: '669',
-      chainId: 'testnet-9',
+      chainId: 'chaosnet-3',
       sequence: '106',
     ),
     signedCosmosTx: CosmosTx.signed(
@@ -85,8 +85,8 @@ Future<void> main() async {
       ),
       signatures: <CosmosSignature>[
         CosmosSignature(
-          s: BigInt.parse('24287701672903098479060975435523176452832563163469844088898365033446585323416'),
-          r: BigInt.parse('86600458310408845869391821482706114144477392767993083402724902623300408071608'),
+          s: BigInt.parse('22609565407648667191116536976478746506426902840543376539124826178809318924804'),
+          r: BigInt.parse('31278064458781515471392821344208916501232412088833595220078584763599236910380'),
         ),
       ],
     ),

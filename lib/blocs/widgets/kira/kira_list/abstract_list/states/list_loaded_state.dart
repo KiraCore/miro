@@ -6,12 +6,13 @@ class ListLoadedState<T> extends AListState {
   final DateTime blockDateTime;
   final DateTime cacheExpirationDateTime;
 
-  const ListLoadedState({
+  ListLoadedState({
     required this.listItems,
     required this.lastPage,
     required this.blockDateTime,
-    required this.cacheExpirationDateTime,
-  });
+    DateTime? cacheExpirationDateTime,
+  }) : // TODO: #29
+        cacheExpirationDateTime = cacheExpirationDateTime ?? DateTime.now().add(const Duration(seconds: 30));
 
   @override
   List<Object?> get props => <Object?>[listItems, lastPage, blockDateTime, cacheExpirationDateTime];

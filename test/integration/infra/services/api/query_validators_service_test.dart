@@ -17,7 +17,7 @@ import 'package:miro/test/utils/test_utils.dart';
 Future<void> main() async {
   await TestUtils.initIntegrationTest();
 
-  final Uri networkUri = NetworkUtils.parseUrlToInterxUri('http://173.212.254.147:11000');
+  final Uri networkUri = NetworkUtils.parseUrlToInterxUri('http://3.123.154.245:11000');
   await TestUtils.setupNetworkModel(networkUri: networkUri);
 
   final QueryValidatorsService actualQueryValidatorsService = globalLocator<QueryValidatorsService>();
@@ -28,15 +28,18 @@ Future<void> main() async {
 
       TestUtils.printInfo('Data request');
       try {
-        PageData<ValidatorModel> actualValidatorsPageData = await actualQueryValidatorsService.getValidatorsList(actualQueryValidatorsReq);
+        PageData<ValidatorModel> actualValidatorsPageData =
+            await actualQueryValidatorsService.getValidatorsList(actualQueryValidatorsReq);
 
         TestUtils.printInfo('Data return');
         print(actualValidatorsPageData);
         print('');
       } on DioConnectException catch (e) {
-        TestUtils.printError('query_validators_service_test.dart: Cannot fetch [PageData<ValidatorModel>] for URI $networkUri: ${e.dioException.message}');
+        TestUtils.printError(
+            'query_validators_service_test.dart: Cannot fetch [PageData<ValidatorModel>] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
-        TestUtils.printError('query_validators_service_test.dart: Cannot parse [PageData<ValidatorModel>] for URI $networkUri: ${e}');
+        TestUtils.printError(
+            'query_validators_service_test.dart: Cannot parse [PageData<ValidatorModel>] for URI $networkUri: ${e}');
       } catch (e) {
         TestUtils.printError('query_validators_service_test.dart: Unknown error for URI $networkUri: ${e}');
       }
@@ -53,15 +56,18 @@ Future<void> main() async {
 
       TestUtils.printInfo('Data request');
       try {
-        List<ValidatorModel> actualValidatorModelList = await actualQueryValidatorsService.getValidatorsByAddresses(validatorAddressList);
+        List<ValidatorModel> actualValidatorModelList =
+            await actualQueryValidatorsService.getValidatorsByAddresses(validatorAddressList);
 
         TestUtils.printInfo('Data return');
         print(actualValidatorModelList);
         print('');
       } on DioConnectException catch (e) {
-        TestUtils.printError('query_validators_service_test.dart: Cannot fetch [List<ValidatorModel>] for URI $networkUri: ${e.dioException.message}');
+        TestUtils.printError(
+            'query_validators_service_test.dart: Cannot fetch [List<ValidatorModel>] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
-        TestUtils.printError('query_validators_service_test.dart: Cannot parse [List<ValidatorModel>] for URI $networkUri: ${e}');
+        TestUtils.printError(
+            'query_validators_service_test.dart: Cannot parse [List<ValidatorModel>] for URI $networkUri: ${e}');
       } catch (e) {
         TestUtils.printError('query_validators_service_test.dart: Unknown error for URI $networkUri: ${e}');
       }
@@ -74,7 +80,8 @@ Future<void> main() async {
 
       TestUtils.printInfo('Data request');
       try {
-        QueryValidatorsResp? actualQueryValidatorsResp = await actualQueryValidatorsService.getQueryValidatorsResp(actualQueryValidatorsReq);
+        QueryValidatorsResp? actualQueryValidatorsResp =
+            await actualQueryValidatorsService.getQueryValidatorsResp(actualQueryValidatorsReq);
 
         TestUtils.printInfo('Data return');
 
@@ -84,9 +91,11 @@ Future<void> main() async {
         print('${responseString.substring(0, 1000 < responseLength ? 1000 : responseLength)} ....');
         print('');
       } on DioConnectException catch (e) {
-        TestUtils.printError('query_validators_service_test.dart: Cannot fetch [List<ValidatorModel>] for URI $networkUri: ${e.dioException.message}');
+        TestUtils.printError(
+            'query_validators_service_test.dart: Cannot fetch [List<ValidatorModel>] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
-        TestUtils.printError('query_validators_service_test.dart: Cannot parse [List<ValidatorModel>] for URI $networkUri: ${e}');
+        TestUtils.printError(
+            'query_validators_service_test.dart: Cannot parse [List<ValidatorModel>] for URI $networkUri: ${e}');
       } catch (e) {
         TestUtils.printError('query_validators_service_test.dart: Unknown error for URI $networkUri: ${e}');
       }
@@ -103,7 +112,8 @@ Future<void> main() async {
         print(actualStatus);
         print('');
       } on DioConnectException catch (e) {
-        TestUtils.printError('query_validators_service_test.dart: Cannot fetch [Status] for URI $networkUri: ${e.dioException.message}');
+        TestUtils.printError(
+            'query_validators_service_test.dart: Cannot fetch [Status] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
         TestUtils.printError('query_validators_service_test.dart: Cannot parse [Status] for URI $networkUri: ${e}');
       } catch (e) {

@@ -4,6 +4,7 @@ import 'package:decimal/decimal.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:miro/config/locator.dart';
 import 'package:miro/infra/dto/api_kira/broadcast/request/broadcast_req.dart';
+import 'package:miro/infra/dto/api_kira/broadcast/response/broadcast_resp.dart';
 import 'package:miro/infra/exceptions/dio_connect_exception.dart';
 import 'package:miro/infra/exceptions/dio_parse_exception.dart';
 import 'package:miro/infra/exceptions/tx_broadcast_exception.dart';
@@ -11,18 +12,8 @@ import 'package:miro/infra/services/api_kira/broadcast_service.dart';
 import 'package:miro/infra/services/api_kira/query_account_service.dart';
 import 'package:miro/shared/models/tokens/token_alias_model.dart';
 import 'package:miro/shared/models/tokens/token_amount_model.dart';
-import 'package:miro/shared/models/transactions/broadcast_resp_model.dart';
-import 'package:miro/shared/models/transactions/messages/identity_registrar/ir_msg_cancel_verification_request_model.dart';
-import 'package:miro/shared/models/transactions/messages/identity_registrar/ir_msg_delete_records_model.dart';
-import 'package:miro/shared/models/transactions/messages/identity_registrar/ir_msg_handle_verification_request_model.dart';
-import 'package:miro/shared/models/transactions/messages/identity_registrar/ir_msg_request_verification_model.dart';
+import 'package:miro/shared/models/transactions/messages/a_tx_msg_model.dart';
 import 'package:miro/shared/models/transactions/messages/identity_registrar/register/ir_entry_model.dart';
-import 'package:miro/shared/models/transactions/messages/identity_registrar/register/ir_msg_register_records_model.dart';
-import 'package:miro/shared/models/transactions/messages/msg_send_model.dart';
-import 'package:miro/shared/models/transactions/messages/staking/staking_msg_claim_rewards_model.dart';
-import 'package:miro/shared/models/transactions/messages/staking/staking_msg_claim_undelegation_model.dart';
-import 'package:miro/shared/models/transactions/messages/staking/staking_msg_delegate_model.dart';
-import 'package:miro/shared/models/transactions/messages/staking/staking_msg_undelegate_model.dart';
 import 'package:miro/shared/models/transactions/signed_transaction_model.dart';
 import 'package:miro/shared/models/transactions/tx_local_info_model.dart';
 import 'package:miro/shared/models/transactions/tx_remote_info_model.dart';
@@ -38,15 +29,19 @@ import 'package:miro/test/utils/test_utils.dart';
 Future<void> main() async {
   await TestUtils.initIntegrationTest();
 
-  final Uri networkUri = NetworkUtils.parseUrlToInterxUri('http://173.212.254.147:11000');
+  final Uri networkUri = NetworkUtils.parseUrlToInterxUri('http://3.123.154.245:11000');
   await TestUtils.setupNetworkModel(networkUri: networkUri);
 
   // Set up the constants to run the tests.
   // @formatter:off
-  final miro.Mnemonic senderMnemonic = miro.Mnemonic(value: 'require point property company tongue busy bench burden caution gadget knee glance thought bulk assist month cereal report quarter tool section often require shield');
+  final miro.Mnemonic senderMnemonic = miro.Mnemonic(
+      value:
+          'require point property company tongue busy bench burden caution gadget knee glance thought bulk assist month cereal report quarter tool section often require shield');
   final Wallet senderWallet = await Wallet.derive(mnemonic: senderMnemonic);
 
-  final miro.Mnemonic recipientMnemonic = miro.Mnemonic(value: 'nature light entire memory garden ostrich bottom ensure brand fantasy curtain coast also solve cannon wealth hole quantum fantasy purchase check drift cloth ecology');
+  final miro.Mnemonic recipientMnemonic = miro.Mnemonic(
+      value:
+          'nature light entire memory garden ostrich bottom ensure brand fantasy curtain coast also solve cannon wealth hole quantum fantasy purchase check drift cloth ecology');
   final Wallet recipientWallet = await Wallet.derive(mnemonic: recipientMnemonic);
   // @formatter:on
 
@@ -60,7 +55,8 @@ Future<void> main() async {
 
   Future<SignedTxModel> signTx(TxLocalInfoModel actualTxLocalInfoModel, Wallet wallet) async {
     try {
-      final TxRemoteInfoModel txRemoteInfoModel = await queryAccountService.getTxRemoteInfo(wallet.address.bech32Address);
+      final TxRemoteInfoModel txRemoteInfoModel =
+          await queryAccountService.getTxRemoteInfo(wallet.address.bech32Address);
       final UnsignedTxModel actualUnsignedTxModel = UnsignedTxModel(
         txLocalInfoModel: actualTxLocalInfoModel,
         txRemoteInfoModel: txRemoteInfoModel,
@@ -70,7 +66,8 @@ Future<void> main() async {
 
       return actualSignedTxModel;
     } on DioConnectException catch (e) {
-      TestUtils.printError('broadcast_service_test.dart: Cannot fetch [TxRemoteInfoModel] for URI $networkUri: ${e.dioException.message}');
+      TestUtils.printError(
+          'broadcast_service_test.dart: Cannot fetch [TxRemoteInfoModel] for URI $networkUri: ${e.dioException.message}');
       rethrow;
     } on DioParseException catch (e) {
       TestUtils.printError('broadcast_service_test.dart: Cannot parse [TxRemoteInfoModel] for URI $networkUri: ${e}');
@@ -84,18 +81,16 @@ Future<void> main() async {
   Future<void> broadcastTx(SignedTxModel signedTxModel) async {
     TestUtils.printInfo('Data request');
     try {
-      BroadcastRespModel broadcastRespModel = await broadcastService.broadcastTx(signedTxModel);
-
-      TestUtils.printInfo('Data return');
-      print(broadcastRespModel);
-      print('');
+      final BroadcastResp broadcastResp = await broadcastService.broadcastTx(signedTxModel);
+      print(broadcastResp);
     } on DioConnectException catch (e) {
       TestUtils.printError(
           'broadcast_service_test.dart: Cannot fetch [BroadcastResp] for URI $networkUri: ${e.dioException.message}\n${e.dioException.response}');
     } on DioParseException catch (e) {
       TestUtils.printError('broadcast_service_test.dart: Cannot parse [BroadcastResp] for URI $networkUri: ${e}');
     } on TxBroadcastException catch (e) {
-      TestUtils.printError('broadcast_service_test.dart: [TxBroadcastException] for URI $networkUri: ${e.response.data}');
+      TestUtils.printError(
+          'broadcast_service_test.dart: [TxBroadcastException] for URI $networkUri: ${e.response.data}');
     } catch (e) {
       TestUtils.printError('broadcast_service_test.dart: Unknown error for URI $networkUri: ${e}');
     }
@@ -109,7 +104,8 @@ Future<void> main() async {
         txMsgModel: MsgSendModel(
           toWalletAddress: recipientWallet.address,
           fromWalletAddress: senderWallet.address,
-          tokenAmountModel: TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(200), tokenAliasModel: TokenAliasModel.local('ukex')),
+          tokenAmountModel: TokenAmountModel(
+              defaultDenominationAmount: Decimal.fromInt(200), tokenAliasModel: TokenAliasModel.local('ukex')),
         ),
       );
 
@@ -137,9 +133,8 @@ Future<void> main() async {
       SignedTxModel actualSignedTxModel = await signTx(actualTxLocalInfoModel, senderWallet);
 
       BroadcastReq actualBroadcastReq = BroadcastReq(tx: actualSignedTxModel.signedCosmosTx);
-      TestUtils.printInfo('Signed [IRMsgRegisterRecordsModel] transaction: ${json.encode(actualBroadcastReq.toJson())}');
-
-      // await broadcastTx(actualSignedTxModel);
+      TestUtils.printInfo(
+          'Signed [IRMsgRegisterRecordsModel] transaction: ${json.encode(actualBroadcastReq.toJson())}');
     });
 
     test('Should return signed transaction with [IRMsgRequestVerificationModel] message', () async {
@@ -160,9 +155,8 @@ Future<void> main() async {
       SignedTxModel actualSignedTxModel = await signTx(actualTxLocalInfoModel, senderWallet);
 
       BroadcastReq actualBroadcastReq = BroadcastReq(tx: actualSignedTxModel.signedCosmosTx);
-      TestUtils.printInfo('Signed [IRMsgRequestVerificationModel] transaction: ${json.encode(actualBroadcastReq.toJson())}');
-
-      // await broadcastTx(actualSignedTxModel);
+      TestUtils.printInfo(
+          'Signed [IRMsgRequestVerificationModel] transaction: ${json.encode(actualBroadcastReq.toJson())}');
     });
 
     test('Should return signed transaction with [IRMsgCancelVerificationRequestModel] message', () async {
@@ -178,9 +172,8 @@ Future<void> main() async {
       SignedTxModel actualSignedTxModel = await signTx(actualTxLocalInfoModel, senderWallet);
 
       BroadcastReq actualBroadcastReq = BroadcastReq(tx: actualSignedTxModel.signedCosmosTx);
-      TestUtils.printInfo('Signed [IRMsgCancelVerificationRequestModel] transaction: ${json.encode(actualBroadcastReq.toJson())}');
-
-      // await broadcastTx(actualSignedTxModel);
+      TestUtils.printInfo(
+          'Signed [IRMsgCancelVerificationRequestModel] transaction: ${json.encode(actualBroadcastReq.toJson())}');
     });
 
     test('Should return signed transaction with [IRMsgDeleteRecordsModel] message', () async {
@@ -197,8 +190,6 @@ Future<void> main() async {
 
       BroadcastReq actualBroadcastReq = BroadcastReq(tx: actualSignedTxModel.signedCosmosTx);
       TestUtils.printInfo('Signed [IRMsgDeleteRecordsModel] transaction: ${json.encode(actualBroadcastReq.toJson())}');
-
-      // await broadcastTx(actualSignedTxModel);
     });
 
     test('Should return signed transaction with [IRMsgHandleVerificationRequestModel] message', () async {
@@ -215,9 +206,8 @@ Future<void> main() async {
       SignedTxModel actualSignedTxModel = await signTx(actualTxLocalInfoModel, recipientWallet);
 
       BroadcastReq actualBroadcastReq = BroadcastReq(tx: actualSignedTxModel.signedCosmosTx);
-      TestUtils.printInfo('Signed [IRMsgHandleVerificationRequestModel] transaction: ${json.encode(actualBroadcastReq.toJson())}');
-
-      // await broadcastTx(actualSignedTxModel);
+      TestUtils.printInfo(
+          'Signed [IRMsgHandleVerificationRequestModel] transaction: ${json.encode(actualBroadcastReq.toJson())}');
     });
 
     test('Should return signed transaction with [MsgDelegate] message', () async {
@@ -238,8 +228,6 @@ Future<void> main() async {
 
       BroadcastReq actualBroadcastReq = BroadcastReq(tx: actualSignedTxModel.signedCosmosTx);
       TestUtils.printInfo('Signed [MsgDelegate] transaction: ${json.encode(actualBroadcastReq.toJson())}');
-
-      // await broadcastTx(actualSignedTxModel);
     });
 
     test('Should return a signed transaction with [MsgUndelegate] message', () async {
@@ -249,7 +237,8 @@ Future<void> main() async {
         txMsgModel: StakingMsgUndelegateModel.single(
           delegatorWalletAddress: senderWallet.address,
           valkey: 'kiravaloper1c6slygj2tx7hzm0mn4qeflqpvngj73c2cw7fh7',
-          tokenAmountModel: TokenAmountModel(defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TokenAliasModel.local('ukex')),
+          tokenAmountModel: TokenAmountModel(
+              defaultDenominationAmount: Decimal.fromInt(100), tokenAliasModel: TokenAliasModel.local('ukex')),
         ),
       );
 
@@ -257,8 +246,6 @@ Future<void> main() async {
 
       BroadcastReq actualBroadcastReq = BroadcastReq(tx: actualSignedTxModel.signedCosmosTx);
       TestUtils.printInfo('Signed [MsgUndelegate] transaction: ${json.encode(actualBroadcastReq.toJson())}');
-
-      // await broadcastTx(actualSignedTxModel);
     });
 
     test('Should return a signed transaction with [MsgClaimRewards] message', () async {
@@ -274,8 +261,6 @@ Future<void> main() async {
 
       BroadcastReq actualBroadcastReq = BroadcastReq(tx: actualSignedTxModel.signedCosmosTx);
       TestUtils.printInfo('Signed [MsgClaimRewards] transaction: ${json.encode(actualBroadcastReq.toJson())}');
-
-      // await broadcastTx(actualSignedTxModel);
     });
 
     test('Should return a signed transaction with [MsgClaimUndelegation] message', () async {
@@ -292,8 +277,6 @@ Future<void> main() async {
 
       BroadcastReq actualBroadcastReq = BroadcastReq(tx: actualSignedTxModel.signedCosmosTx);
       TestUtils.printInfo('Signed [MsgClaimUndelegation] transaction: ${json.encode(actualBroadcastReq.toJson())}');
-
-      // await broadcastTx(actualSignedTxModel);
     });
   });
 }

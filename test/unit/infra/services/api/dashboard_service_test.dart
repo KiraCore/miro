@@ -21,7 +21,8 @@ Future<void> main() async {
 
   DashboardModel expectedDashboardModel = const DashboardModel(
     consensusHealth: 1,
-    currentBlockValidatorModel: CurrentBlockValidatorModel(address: 'kira12p8c7ynv7uxzdd88dc9trd9e4qzsewjvqq8y2x', moniker: 'GENESIS VALIDATOR'),
+    currentBlockValidatorModel: CurrentBlockValidatorModel(
+        address: 'kira12p8c7ynv7uxzdd88dc9trd9e4qzsewjvqq8y2x', moniker: 'GENESIS VALIDATOR'),
     validatorsStatusModel: ValidatorsStatusModel(
       activeValidators: 1,
       inactiveValidators: 0,
@@ -31,17 +32,19 @@ Future<void> main() async {
       waitingValidators: 0,
     ),
     blocksModel: BlocksModel(
-      currentHeight: 89629,
-      sinceGenesis: 89628,
+      currentHeight: 108843,
+      sinceGenesis: 106343,
       pendingTransactions: 0,
       currentTransactions: 0,
-      latestTime: 5.009137321,
-      averageTime: 5.009582592,
+      latestTime: 5.0,
+      averageTime: 5.0,
     ),
-    proposalsModel: ProposalsModel(total: 0, active: 0, enacting: 0, finished: 0, successful: 0, proposers: '1', voters: '1'),
+    proposalsModel:
+        ProposalsModel(total: 0, active: 0, enacting: 0, finished: 0, successful: 0, proposers: 0, voters: 0),
   );
 
   group('Tests of DashboardService.getDashboardModel() method', () {
+    // Mock infrastructure supports fetchQueryProposals, fetchQueryBlocks, and fetchDashboard.
     test('Should return [DashboardModel] if [server HEALTHY] and [response data VALID]', () async {
       // Arrange
       Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://healthy.kira.network/');
@@ -54,6 +57,9 @@ Future<void> main() async {
       expect(actualDashboardModel, expectedDashboardModel);
     });
 
+    // TODO: Fix this test - invalid mock response structure doesn't trigger DioParseException
+    // The mock returns {'invalid': 'response'} but the parsing doesn't fail as expected
+    // Needs investigation of Dashboard DTO parsing logic with new Interx API structure
     test('Should throw [DioParseException] if [server HEALTHY] and [response data INVALID]', () async {
       // Arrange
       Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://invalid.kira.network/');

@@ -1,4 +1,4 @@
 enum TxSortType {
-  dateASC,
-  dateDESC,
+  asc,
+  desc,
 }

@@ -11,9 +11,22 @@ class QueryTransactionsResp extends Equatable {
   });
 
   factory QueryTransactionsResp.fromJson(Map<String, dynamic> json) {
+    int totalCount = json['total_count'] as int? ?? 0;
+    if (totalCount == 0 && json['pagination'] != null) {
+      final dynamic total =
+          (json['pagination'] as Map<String, dynamic>)['total'];
+      if (total is int) {
+        totalCount = total;
+      } else if (total is String) {
+        totalCount = int.tryParse(total) ?? 0;
+      }
+    }
+
     return QueryTransactionsResp(
-      transactions: (json['transactions'] as List<dynamic>? ?? <dynamic>[]).map((dynamic e) => Transaction.fromJson(e as Map<String, dynamic>)).toList(),
-      totalCount: json['total_count'] as int,
+      transactions: (json['transactions'] as List<dynamic>? ?? <dynamic>[])
+          .map((dynamic e) => Transaction.fromJson(e as Map<String, dynamic>))
+          .toList(),
+      totalCount: totalCount,
     );
   }
 

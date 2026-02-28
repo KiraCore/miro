@@ -20,7 +20,7 @@ import 'package:miro/test/utils/test_utils.dart';
 Future<void> main() async {
   await TestUtils.initIntegrationTest();
 
-  final Uri networkUri = NetworkUtils.parseUrlToInterxUri('http://173.212.254.147:11000');
+  final Uri networkUri = NetworkUtils.parseUrlToInterxUri('http://3.123.154.245:11000');
   await TestUtils.setupNetworkModel(networkUri: networkUri);
 
   final QueryTransactionsService actualQueryTransactionsService = globalLocator<QueryTransactionsService>();
@@ -30,16 +30,20 @@ Future<void> main() async {
     test('Should return [PageData<TxListItemModel>] after query [without optional query parameters]', () async {
       TestUtils.printInfo('Data request');
       try {
-        QueryTransactionsReq actualQueryTransactionsReq = const QueryTransactionsReq(address: actualWalletAddress, limit: 10, offset: 0);
-        PageData<TxListItemModel> actualTransactionsPageData = await actualQueryTransactionsService.getTransactionList(actualQueryTransactionsReq);
+        QueryTransactionsReq actualQueryTransactionsReq =
+            const QueryTransactionsReq(address: actualWalletAddress, limit: 10, offset: 0);
+        PageData<TxListItemModel> actualTransactionsPageData =
+            await actualQueryTransactionsService.getTransactionList(actualQueryTransactionsReq);
 
         TestUtils.printInfo('Data return');
         print(actualTransactionsPageData);
         print('');
       } on DioConnectException catch (e) {
-        TestUtils.printError('query_transactions_service_test.dart: Cannot fetch [PageData<TxListItemModel>] for URI $networkUri: ${e.dioException.message}');
+        TestUtils.printError(
+            'query_transactions_service_test.dart: Cannot fetch [PageData<TxListItemModel>] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
-        TestUtils.printError('query_transactions_service_test.dart: Cannot parse [PageData<TxListItemModel>] for URI $networkUri: ${e}');
+        TestUtils.printError(
+            'query_transactions_service_test.dart: Cannot parse [PageData<TxListItemModel>] for URI $networkUri: ${e}');
       } catch (e) {
         TestUtils.printError('query_transactions_service_test.dart: Unknown error for URI $networkUri: ${e}');
       }
@@ -55,15 +59,18 @@ Future<void> main() async {
           limit: 10,
           offset: 0,
         );
-        PageData<TxListItemModel> actualTransactionsPageData = await actualQueryTransactionsService.getTransactionList(actualQueryTransactionsReq);
+        PageData<TxListItemModel> actualTransactionsPageData =
+            await actualQueryTransactionsService.getTransactionList(actualQueryTransactionsReq);
 
         TestUtils.printInfo('Data return');
         print(actualTransactionsPageData);
         print('');
       } on DioConnectException catch (e) {
-        TestUtils.printError('query_transactions_service_test.dart: Cannot fetch [PageData<TxListItemModel>] for URI $networkUri: ${e.dioException.message}');
+        TestUtils.printError(
+            'query_transactions_service_test.dart: Cannot fetch [PageData<TxListItemModel>] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
-        TestUtils.printError('query_transactions_service_test.dart: Cannot parse [PageData<TxListItemModel>] for URI $networkUri: ${e}');
+        TestUtils.printError(
+            'query_transactions_service_test.dart: Cannot parse [PageData<TxListItemModel>] for URI $networkUri: ${e}');
       } catch (e) {
         TestUtils.printError('query_transactions_service_test.dart: Unknown error for URI $networkUri: ${e}');
       }
@@ -78,15 +85,18 @@ Future<void> main() async {
           limit: 10,
           offset: 0,
         );
-        PageData<TxListItemModel> actualTransactionsPageData = await actualQueryTransactionsService.getTransactionList(actualQueryTransactionsReq);
+        PageData<TxListItemModel> actualTransactionsPageData =
+            await actualQueryTransactionsService.getTransactionList(actualQueryTransactionsReq);
 
         TestUtils.printInfo('Data return');
         print(actualTransactionsPageData);
         print('');
       } on DioConnectException catch (e) {
-        TestUtils.printError('query_transactions_service_test.dart: Cannot fetch [PageData<TxListItemModel>] for URI $networkUri: ${e.dioException.message}');
+        TestUtils.printError(
+            'query_transactions_service_test.dart: Cannot fetch [PageData<TxListItemModel>] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
-        TestUtils.printError('query_transactions_service_test.dart: Cannot parse [PageData<TxListItemModel>] for URI $networkUri: ${e}');
+        TestUtils.printError(
+            'query_transactions_service_test.dart: Cannot parse [PageData<TxListItemModel>] for URI $networkUri: ${e}');
       } catch (e) {
         TestUtils.printError('query_transactions_service_test.dart: Unknown error for URI $networkUri: ${e}');
       }
@@ -101,15 +111,18 @@ Future<void> main() async {
           limit: 10,
           offset: 0,
         );
-        PageData<TxListItemModel> actualTransactionsPageData = await actualQueryTransactionsService.getTransactionList(actualQueryTransactionsReq);
+        PageData<TxListItemModel> actualTransactionsPageData =
+            await actualQueryTransactionsService.getTransactionList(actualQueryTransactionsReq);
 
         TestUtils.printInfo('Data return');
         print(actualTransactionsPageData);
         print('');
       } on DioConnectException catch (e) {
-        TestUtils.printError('query_transactions_service_test.dart: Cannot fetch [PageData<TxListItemModel>] for URI $networkUri: ${e.dioException.message}');
+        TestUtils.printError(
+            'query_transactions_service_test.dart: Cannot fetch [PageData<TxListItemModel>] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
-        TestUtils.printError('query_transactions_service_test.dart: Cannot parse [PageData<TxListItemModel>] for URI $networkUri: ${e}');
+        TestUtils.printError(
+            'query_transactions_service_test.dart: Cannot parse [PageData<TxListItemModel>] for URI $networkUri: ${e}');
       } catch (e) {
         TestUtils.printError('query_transactions_service_test.dart: Unknown error for URI $networkUri: ${e}');
       }
@@ -124,15 +137,18 @@ Future<void> main() async {
           limit: 10,
           offset: 0,
         );
-        PageData<TxListItemModel> actualTransactionsPageData = await actualQueryTransactionsService.getTransactionList(actualQueryTransactionsReq);
+        PageData<TxListItemModel> actualTransactionsPageData =
+            await actualQueryTransactionsService.getTransactionList(actualQueryTransactionsReq);
 
         TestUtils.printInfo('Data return');
         print(actualTransactionsPageData);
         print('');
       } on DioConnectException catch (e) {
-        TestUtils.printError('query_transactions_service_test.dart: Cannot fetch [PageData<TxListItemModel>] for URI $networkUri: ${e.dioException.message}');
+        TestUtils.printError(
+            'query_transactions_service_test.dart: Cannot fetch [PageData<TxListItemModel>] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
-        TestUtils.printError('query_transactions_service_test.dart: Cannot parse [PageData<TxListItemModel>] for URI $networkUri: ${e}');
+        TestUtils.printError(
+            'query_transactions_service_test.dart: Cannot parse [PageData<TxListItemModel>] for URI $networkUri: ${e}');
       } catch (e) {
         TestUtils.printError('query_transactions_service_test.dart: Unknown error for URI $networkUri: ${e}');
       }
@@ -143,19 +159,22 @@ Future<void> main() async {
       try {
         QueryTransactionsReq actualQueryTransactionsReq = const QueryTransactionsReq(
           address: actualWalletAddress,
-          sort: TxSortType.dateASC,
+          sort: TxSortType.desc,
           limit: 10,
           offset: 0,
         );
-        PageData<TxListItemModel> actualTransactionsPageData = await actualQueryTransactionsService.getTransactionList(actualQueryTransactionsReq);
+        PageData<TxListItemModel> actualTransactionsPageData =
+            await actualQueryTransactionsService.getTransactionList(actualQueryTransactionsReq);
 
         TestUtils.printInfo('Data return');
         print(actualTransactionsPageData);
         print('');
       } on DioConnectException catch (e) {
-        TestUtils.printError('query_transactions_service_test.dart: Cannot fetch [PageData<TxListItemModel>] for URI $networkUri: ${e.dioException.message}');
+        TestUtils.printError(
+            'query_transactions_service_test.dart: Cannot fetch [PageData<TxListItemModel>] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
-        TestUtils.printError('query_transactions_service_test.dart: Cannot parse [PageData<TxListItemModel>] for URI $networkUri: ${e}');
+        TestUtils.printError(
+            'query_transactions_service_test.dart: Cannot parse [PageData<TxListItemModel>] for URI $networkUri: ${e}');
       } catch (e) {
         TestUtils.printError('query_transactions_service_test.dart: Unknown error for URI $networkUri: ${e}');
       }
@@ -164,16 +183,20 @@ Future<void> main() async {
     test('Should return [PageData<TxListItemModel>] after query with [limit, offset] query parameters', () async {
       TestUtils.printInfo('Data request');
       try {
-        QueryTransactionsReq actualQueryTransactionsReq = const QueryTransactionsReq(address: actualWalletAddress, limit: 10, offset: 0);
-        PageData<TxListItemModel> actualTransactionsPageData = await actualQueryTransactionsService.getTransactionList(actualQueryTransactionsReq);
+        QueryTransactionsReq actualQueryTransactionsReq =
+            const QueryTransactionsReq(address: actualWalletAddress, limit: 10, offset: 0);
+        PageData<TxListItemModel> actualTransactionsPageData =
+            await actualQueryTransactionsService.getTransactionList(actualQueryTransactionsReq);
 
         TestUtils.printInfo('Data return');
         print(actualTransactionsPageData);
         print('');
       } on DioConnectException catch (e) {
-        TestUtils.printError('query_transactions_service_test.dart: Cannot fetch [PageData<TxListItemModel>] for URI $networkUri: ${e.dioException.message}');
+        TestUtils.printError(
+            'query_transactions_service_test.dart: Cannot fetch [PageData<TxListItemModel>] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
-        TestUtils.printError('query_transactions_service_test.dart: Cannot parse [PageData<TxListItemModel>] for URI $networkUri: ${e}');
+        TestUtils.printError(
+            'query_transactions_service_test.dart: Cannot parse [PageData<TxListItemModel>] for URI $networkUri: ${e}');
       } catch (e) {
         TestUtils.printError('query_transactions_service_test.dart: Unknown error for URI $networkUri: ${e}');
       }

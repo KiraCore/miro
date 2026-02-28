@@ -14,26 +14,30 @@ import 'package:miro/test/utils/test_utils.dart';
 Future<void> main() async {
   await TestUtils.initIntegrationTest();
 
-  final Uri networkUri = NetworkUtils.parseUrlToInterxUri('http://173.212.254.147:11000');
+  final Uri networkUri = NetworkUtils.parseUrlToInterxUri('http://3.123.154.245:11000');
   await TestUtils.setupNetworkModel(networkUri: networkUri);
 
   final QueryStakingPoolService actualQueryStakingPoolService = globalLocator<QueryStakingPoolService>();
 
   group('Tests of QueryStakingPoolService.getStakingPoolModel() method', () {
     test('Should return [StakingPoolModel]', () async {
-      WalletAddress actualValidatorWalletAddress = WalletAddress.fromBech32('kira1c6slygj2tx7hzm0mn4qeflqpvngj73c2tgz20j');
+      WalletAddress actualValidatorWalletAddress =
+          WalletAddress.fromBech32('kira1c6slygj2tx7hzm0mn4qeflqpvngj73c2tgz20j');
 
       TestUtils.printInfo('Data request');
       try {
-        StakingPoolModel actualStakingPoolModel = await actualQueryStakingPoolService.getStakingPoolModel(actualValidatorWalletAddress);
+        StakingPoolModel actualStakingPoolModel =
+            await actualQueryStakingPoolService.getStakingPoolModel(actualValidatorWalletAddress);
 
         TestUtils.printInfo('Data return');
         print(actualStakingPoolModel);
         print('');
       } on DioConnectException catch (e) {
-        TestUtils.printError('query_staking_pool_service_test.dart: Cannot fetch [StakingPoolModel] for URI $networkUri: ${e.dioException.message}');
+        TestUtils.printError(
+            'query_staking_pool_service_test.dart: Cannot fetch [StakingPoolModel] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
-        TestUtils.printError('query_staking_pool_service_test.dart: Cannot parse [StakingPoolModel] for URI $networkUri: ${e}');
+        TestUtils.printError(
+            'query_staking_pool_service_test.dart: Cannot parse [StakingPoolModel] for URI $networkUri: ${e}');
       } catch (e) {
         TestUtils.printError('query_staking_pool_service_test.dart: Unknown error for URI $networkUri: ${e}');
       }

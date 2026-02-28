@@ -15,7 +15,7 @@ import 'package:miro/test/utils/test_utils.dart';
 Future<void> main() async {
   await TestUtils.initIntegrationTest();
 
-  final Uri networkUri = NetworkUtils.parseUrlToInterxUri('http://173.212.254.147:11000');
+  final Uri networkUri = NetworkUtils.parseUrlToInterxUri('http://3.123.154.245:11000');
   await TestUtils.setupNetworkModel(networkUri: networkUri);
 
   final QueryUndelegationsService actualQueryUndelegationsService = globalLocator<QueryUndelegationsService>();
@@ -30,7 +30,8 @@ Future<void> main() async {
 
       TestUtils.printInfo('Data request');
       try {
-        PageData<UndelegationModel> actualUndelegationPageData = await actualQueryUndelegationsService.getUndelegationModelList(actualQueryUndelegationsReq);
+        PageData<UndelegationModel> actualUndelegationPageData =
+            await actualQueryUndelegationsService.getUndelegationModelList(actualQueryUndelegationsReq);
 
         TestUtils.printInfo('Data return');
         print(actualUndelegationPageData);
@@ -39,7 +40,8 @@ Future<void> main() async {
         TestUtils.printError(
             'query_undelegations_service_test.dart: Cannot fetch [PageData<ValidatorStakingModel>] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
-        TestUtils.printError('query_undelegations_service_test.dart: Cannot parse [PageData<ValidatorStakingModel>] for URI $networkUri: ${e}');
+        TestUtils.printError(
+            'query_undelegations_service_test.dart: Cannot parse [PageData<ValidatorStakingModel>] for URI $networkUri: ${e}');
       } catch (e) {
         TestUtils.printError('query_undelegations_service_test.dart: Unknown error for URI $networkUri: ${e}');
       }

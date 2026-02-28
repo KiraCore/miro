@@ -79,8 +79,8 @@ class TestUtils {
     uri: Uri.parse('https://healthy.kira.network'),
     name: 'healthy-mainnet',
     networkInfoModel: NetworkInfoModel(
-      chainId: 'localnet-1',
-      interxVersion: 'v0.4.22',
+      chainId: 'chaosnet-3',
+      interxVersion: 'v0.23.0',
       latestBlockHeight: 108843,
       latestBlockTime: DateTime.now(),
       activeValidators: 319,
@@ -134,8 +134,8 @@ class TestUtils {
     connectionStatusType: ConnectionStatusType.disconnected,
     uri: Uri.parse('https://custom-healthy.kira.network'),
     networkInfoModel: NetworkInfoModel(
-      chainId: 'localnet-1',
-      interxVersion: 'v0.4.22',
+      chainId: 'chaosnet-3',
+      interxVersion: 'v0.23.0', // Updated to match current backend version
       latestBlockHeight: 108843,
       latestBlockTime: DateTime.now(),
       activeValidators: 319,

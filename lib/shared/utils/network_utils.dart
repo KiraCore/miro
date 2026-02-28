@@ -1,5 +1,6 @@
 class NetworkUtils {
-  static RegExp ipAddressRegExp = RegExp(r'^(?!0)(?!.*\.$)((1?\d?\d|25[0-5]|2[0-4]\d)(\.|$)){4}$', caseSensitive: false, multiLine: false);
+  static RegExp ipAddressRegExp =
+      RegExp(r'^(?!0)(?!.*\.$)((1?\d?\d|25[0-5]|2[0-4]\d)(\.|$)){4}$', caseSensitive: false, multiLine: false);
 
   static Uri parseUrlToInterxUri(String urlToParse) {
     Uri uri = parseNoSchemeToHTTPS(urlToParse);

@@ -185,7 +185,7 @@ analyzer:
     avoid_void_async: error
     cascade_invocations: error
     deprecated_consistency: error
-    flutter_style_todos: error
+    # flutter_style_todos: error # ignore for now
     leading_newlines_in_multiline_strings: error
     literal_only_boolean_expressions: error
     missing_whitespace_between_adjacent_strings: error

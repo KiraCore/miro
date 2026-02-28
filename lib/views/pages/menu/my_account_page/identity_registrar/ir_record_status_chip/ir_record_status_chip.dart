@@ -6,6 +6,7 @@ import 'package:miro/shared/models/identity_registrar/ir_record_model.dart';
 import 'package:miro/shared/models/identity_registrar/ir_record_status.dart';
 import 'package:miro/views/pages/menu/my_account_page/identity_registrar/ir_record_status_chip/ir_record_status_chip_model.dart';
 import 'package:miro/views/widgets/generic/loading_container.dart';
+import 'package:miro/views/widgets/generic/status_chip.dart';
 
 class IRRecordStatusChip extends StatelessWidget {
   final bool loadingBool;
@@ -19,8 +20,6 @@ class IRRecordStatusChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    TextTheme textTheme = Theme.of(context).textTheme;
-
     if (loadingBool) {
       return const LoadingContainer(
         height: 20,
@@ -30,30 +29,10 @@ class IRRecordStatusChip extends StatelessWidget {
     }
 
     IRRecordStatusChipModel irRecordStatusChipModel = _assignStatusChipModel(context);
-
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      decoration: BoxDecoration(
-        color: irRecordStatusChipModel.color.withAlpha(20),
-        borderRadius: BorderRadius.circular(4),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: <Widget>[
-          if (irRecordStatusChipModel.icon != null) ...<Widget>[
-            irRecordStatusChipModel.icon!,
-            const SizedBox(width: 6),
-          ],
-          Text(
-            irRecordStatusChipModel.title,
-            style: textTheme.bodySmall!.copyWith(
-              color: irRecordStatusChipModel.color,
-            ),
-          ),
-        ],
-      ),
+    return StatusChip(
+      text: irRecordStatusChipModel.title,
+      color: irRecordStatusChipModel.color,
+      icon: irRecordStatusChipModel.icon,
     );
   }
 

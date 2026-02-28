@@ -1,4 +1,6 @@
 import 'package:dio/dio.dart';
+import 'package:miro/infra/dto/api/query_blocks/request/query_blocks_req.dart';
+import 'package:miro/infra/dto/api/query_blocks_transactions/request/query_block_transactions_req.dart';
 import 'package:miro/infra/dto/api/query_transactions/request/query_transactions_req.dart';
 import 'package:miro/infra/dto/api/query_validators/request/query_validators_req.dart';
 import 'package:miro/infra/exceptions/dio_connect_exception.dart';
@@ -13,6 +15,10 @@ abstract class IApiRepository {
   Future<Response<T>> fetchQueryInterxStatus<T>(ApiRequestModel<void> apiRequestModel);
 
   Future<Response<T>> fetchQueryTransactions<T>(ApiRequestModel<QueryTransactionsReq> apiRequestModel);
+
+  Future<Response<T>> fetchQueryBlocks<T>(ApiRequestModel<QueryBlocksReq> apiRequestModel);
+
+  Future<Response<T>> fetchQueryBlockTransactions<T>(ApiRequestModel<QueryBlockTransactionsReq> apiRequestModel);
 
   Future<Response<T>> fetchQueryValidators<T>(ApiRequestModel<QueryValidatorsReq> apiRequestModel);
 }
@@ -30,7 +36,8 @@ class RemoteApiRepository implements IApiRepository {
       );
       return response;
     } on DioException catch (dioException) {
-      AppLogger().log(message: 'Cannot fetch fetchDashboard() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
+      AppLogger()
+          .log(message: 'Cannot fetch fetchDashboard() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
       throw DioConnectException(dioException: dioException);
     }
   }
@@ -41,11 +48,16 @@ class RemoteApiRepository implements IApiRepository {
       final Response<T> response = await _httpClientManager.get<T>(
         networkUri: apiRequestModel.networkUri,
         path: '/api/status',
-        apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: apiRequestModel.forceRequestBool),
+        apiCacheConfigModel: ApiCacheConfigModel(
+          forceRequestBool: apiRequestModel.forceRequestBool,
+          apiCacheMaxAge: const Duration(seconds: 60),
+        ),
       );
       return response;
     } on DioException catch (dioException) {
-      AppLogger().log(message: 'Cannot fetch fetchQueryInterxStatus() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
+      AppLogger().log(
+          message:
+              'Cannot fetch fetchQueryInterxStatus() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
       throw DioConnectException(dioException: dioException);
     }
   }
@@ -61,7 +73,44 @@ class RemoteApiRepository implements IApiRepository {
       );
       return response;
     } on DioException catch (dioException) {
-      AppLogger().log(message: 'Cannot fetch fetchQueryTransactions() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
+      AppLogger().log(
+          message:
+              'Cannot fetch fetchQueryTransactions() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
+      throw DioConnectException(dioException: dioException);
+    }
+  }
+
+  @override
+  Future<Response<T>> fetchQueryBlocks<T>(ApiRequestModel<QueryBlocksReq> apiRequestModel) async {
+    try {
+      final Response<T> response = await _httpClientManager.get<T>(
+        networkUri: apiRequestModel.networkUri,
+        path: '/api/blocks',
+        queryParameters: apiRequestModel.requestData.toJson(),
+        apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: apiRequestModel.forceRequestBool),
+      );
+      return response;
+    } on DioException catch (dioException) {
+      AppLogger().log(
+          message: 'Cannot fetch fetchQueryBlocks() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
+      throw DioConnectException(dioException: dioException);
+    }
+  }
+
+  @override
+  Future<Response<T>> fetchQueryBlockTransactions<T>(ApiRequestModel<QueryBlockTransactionsReq> apiRequestModel) async {
+    try {
+      final Response<T> response = await _httpClientManager.get<T>(
+        networkUri: apiRequestModel.networkUri,
+        path: '/api/blocks/${apiRequestModel.requestData.blockHeight}/transactions',
+        queryParameters: apiRequestModel.requestData.toJson(),
+        apiCacheConfigModel: ApiCacheConfigModel(forceRequestBool: apiRequestModel.forceRequestBool),
+      );
+      return response;
+    } on DioException catch (dioException) {
+      AppLogger().log(
+          message:
+              'Cannot fetch fetchQueryBlockTransactions() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
       throw DioConnectException(dioException: dioException);
     }
   }
@@ -77,7 +126,9 @@ class RemoteApiRepository implements IApiRepository {
       );
       return response;
     } on DioException catch (dioException) {
-      AppLogger().log(message: 'Cannot fetch fetchQueryValidators() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
+      AppLogger().log(
+          message:
+              'Cannot fetch fetchQueryValidators() for URI ${apiRequestModel.networkUri}: ${dioException.message}');
       throw DioConnectException(dioException: dioException);
     }
   }

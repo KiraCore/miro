@@ -4,11 +4,7 @@
   "network_list": [
     {
       "name": "Public Node 1",
-      "address": "http://148.251.69.56:11000"
-    },
-    {
-      "name": "Public Node 2",
-      "address": "http://128.140.42.2:11000"
+      "address": "http://3.123.154.245:11000"
     }
   ]
 }

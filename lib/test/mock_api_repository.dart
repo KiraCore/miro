@@ -1,9 +1,12 @@
 import 'package:dio/dio.dart';
+import 'package:miro/infra/dto/api/query_blocks/request/query_blocks_req.dart';
+import 'package:miro/infra/dto/api/query_blocks_transactions/request/query_block_transactions_req.dart';
 import 'package:miro/infra/dto/api/query_transactions/request/query_transactions_req.dart';
 import 'package:miro/infra/dto/api/query_validators/request/query_validators_req.dart';
 import 'package:miro/infra/exceptions/dio_connect_exception.dart';
 import 'package:miro/infra/models/api_request_model.dart';
 import 'package:miro/infra/repositories/api/api_repository.dart';
+import 'package:miro/test/mocks/api/mock_api_blocks.dart';
 import 'package:miro/test/mocks/api/mock_api_dashboard.dart';
 import 'package:miro/test/mocks/api/mock_api_status.dart';
 import 'package:miro/test/mocks/api/mock_api_transactions.dart';
@@ -115,6 +118,56 @@ class MockApiRepository implements IApiRepository {
           break;
         default:
           response = MockApiTransactions.defaultResponse as T;
+          break;
+      }
+      return Response<T>(
+        statusCode: 200,
+        data: response,
+        headers: MockHeaders.defaultHeaders,
+        requestOptions: RequestOptions(path: ''),
+      );
+    } else {
+      throw DioConnectException(dioException: DioException(requestOptions: RequestOptions(path: networkUri.host)));
+    }
+  }
+
+  @override
+  Future<Response<T>> fetchQueryBlockTransactions<T>(ApiRequestModel<QueryBlockTransactionsReq> apiRequestModel) async {
+    Uri networkUri = apiRequestModel.networkUri;
+    bool responseExistsBool = workingEndpoints.contains(networkUri.host);
+    if (responseExistsBool) {
+      late T response;
+      switch (networkUri.host) {
+        case 'invalid.kira.network':
+          response = <String, dynamic>{'invalid': 'response'} as T;
+          break;
+        default:
+          response = MockApiTransactions.defaultResponse as T;
+          break;
+      }
+      return Response<T>(
+        statusCode: 200,
+        data: response,
+        headers: MockHeaders.defaultHeaders,
+        requestOptions: RequestOptions(path: ''),
+      );
+    } else {
+      throw DioConnectException(dioException: DioException(requestOptions: RequestOptions(path: networkUri.host)));
+    }
+  }
+
+  @override
+  Future<Response<T>> fetchQueryBlocks<T>(ApiRequestModel<QueryBlocksReq> apiRequestModel) async {
+    Uri networkUri = apiRequestModel.networkUri;
+    bool responseExistsBool = workingEndpoints.contains(networkUri.host);
+    if (responseExistsBool) {
+      late T response;
+      switch (networkUri.host) {
+        case 'invalid.kira.network':
+          response = <String, dynamic>{'invalid': 'response'} as T;
+          break;
+        default:
+          response = MockApiBlocks.defaultResponse as T;
           break;
       }
       return Response<T>(

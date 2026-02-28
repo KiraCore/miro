@@ -14,7 +14,7 @@ class QueryBalanceReq extends Equatable {
   });
 
   Map<String, dynamic> toJson() => <String, dynamic>{
-        'count_total': countTotal,
+        'count_total': countTotal ? 1 : 0,
         'limit': limit,
         'offset': offset,
       };

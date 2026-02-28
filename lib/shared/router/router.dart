@@ -47,8 +47,16 @@ class AppRouter extends $AppRouter {
             path: 'dashboard',
           ),
           AutoRoute(
+            page: BlocksRoute.page,
+            path: 'blocks',
+          ),
+          AutoRoute(
             page: ValidatorsRoute.page,
             path: 'validators',
+          ),
+          AutoRoute(
+            page: TransactionsRoute.page,
+            path: 'transactions',
           ),
           AutoRoute(
             page: MyAccountRoute.page,

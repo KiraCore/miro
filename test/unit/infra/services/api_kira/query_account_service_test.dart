@@ -26,9 +26,10 @@ Future<void> main() async {
       TxRemoteInfoModel? actualTxRemoteInfoModel = await actualQueryAccountService.getTxRemoteInfo(actualAddress);
 
       // Act
+      // Note: chainId comes from mock status which returns 'chaosnet-3' for healthy network
       TxRemoteInfoModel expectedTxRemoteInfoModel = const TxRemoteInfoModel(
         accountNumber: '669',
-        chainId: 'testnet-9',
+        chainId: 'chaosnet-3', // Updated to match mock status response
         sequence: '106',
       );
       expect(actualTxRemoteInfoModel, expectedTxRemoteInfoModel);

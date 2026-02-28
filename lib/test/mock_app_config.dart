@@ -1,4 +1,5 @@
 import 'package:miro/config/app_config.dart';
+import 'package:miro/config/version.dart';
 import 'package:miro/shared/controllers/browser/rpc_browser_url_controller.dart';
 
 class MockAppConfig extends AppConfig {
@@ -7,7 +8,7 @@ class MockAppConfig extends AppConfig {
     required Duration outdatedBlockDuration,
     required Duration defaultApiCacheMaxAge,
     required Duration loadingPageTimerDuration,
-    required List<String> supportedInterxVersions,
+    required List<Version> supportedInterxVersions,
     required RpcBrowserUrlController rpcBrowserUrlController,
     required int defaultRefreshIntervalSeconds,
   }) : super(
@@ -26,7 +27,7 @@ class MockAppConfig extends AppConfig {
       defaultApiCacheMaxAge: const Duration(seconds: 60),
       outdatedBlockDuration: const Duration(minutes: 5),
       loadingPageTimerDuration: const Duration(seconds: 4),
-      supportedInterxVersions: <String>['v0.4.22'],
+      supportedInterxVersions: const <Version>[Version(major: 0, minor: 23)],
       rpcBrowserUrlController: RpcBrowserUrlController(),
       defaultRefreshIntervalSeconds: 60,
     );

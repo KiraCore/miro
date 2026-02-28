@@ -41,7 +41,7 @@ Future<void> main() async {
 
   TxRemoteInfoModel txRemoteInfoModel = const TxRemoteInfoModel(
     accountNumber: '669',
-    chainId: 'testnet-9',
+    chainId: 'chaosnet-3',
     sequence: '106',
   );
 

@@ -17,19 +17,22 @@ Future<void> main() async {
 
   group('Tests of QueryInterxStatusService.getQueryInterxStatusResp() method', () {
     test('Should return [QueryInterxStatusResp] if given [url represents interx server] and [interx ONLINE]', () async {
-      final Uri networkUri = NetworkUtils.parseUrlToInterxUri('http://173.212.254.147:11000');
+      final Uri networkUri = NetworkUtils.parseUrlToInterxUri('http://3.123.154.245:11000');
 
       TestUtils.printInfo('Data request');
       try {
-        QueryInterxStatusResp actualQueryInterxStatusResp = await actualQueryInterxStatusService.getQueryInterxStatusResp(networkUri);
+        QueryInterxStatusResp actualQueryInterxStatusResp =
+            await actualQueryInterxStatusService.getQueryInterxStatusResp(networkUri);
 
         TestUtils.printInfo('Data return');
         print(actualQueryInterxStatusResp);
         print('');
       } on DioConnectException catch (e) {
-        TestUtils.printError('query_interx_status_service_test.dart: Cannot fetch [QueryInterxStatusResp] for URI $networkUri: ${e.dioException.message}');
+        TestUtils.printError(
+            'query_interx_status_service_test.dart: Cannot fetch [QueryInterxStatusResp] for URI $networkUri: ${e.dioException.message}');
       } on DioParseException catch (e) {
-        TestUtils.printError('query_interx_status_service_test.dart: Cannot parse [QueryInterxStatusResp] for URI $networkUri: ${e}');
+        TestUtils.printError(
+            'query_interx_status_service_test.dart: Cannot parse [QueryInterxStatusResp] for URI $networkUri: ${e}');
       } catch (e) {
         TestUtils.printError('query_interx_status_service_test.dart: Unknown error for URI $networkUri: ${e}');
       }
@@ -39,8 +42,10 @@ Future<void> main() async {
       final Uri networkUri = NetworkUtils.parseUrlToInterxUri('https://ThisNetworkDoesNotExist.kira.network/');
 
       try {
-        QueryInterxStatusResp actualQueryInterxStatusResp = await actualQueryInterxStatusService.getQueryInterxStatusResp(networkUri);
-        TestUtils.printError('query_interx_status_service_test.dart: Got unexpected response for $networkUri: ${actualQueryInterxStatusResp}');
+        QueryInterxStatusResp actualQueryInterxStatusResp =
+            await actualQueryInterxStatusService.getQueryInterxStatusResp(networkUri);
+        TestUtils.printError(
+            'query_interx_status_service_test.dart: Got unexpected response for $networkUri: ${actualQueryInterxStatusResp}');
       } on DioConnectException catch (_) {
         print('Test passed. Got [DioConnectException] as expected');
       } catch (e) {
